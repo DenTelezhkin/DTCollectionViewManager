@@ -1,0 +1,8 @@
+language: objective-c
+
+before_install:
+    - gem install ios_ci
+    - brew install ios-sim
+    - cd Example
+
+script: ios_ci cedar --source-root $TRAVIS_BUILD_DIR/Example --workspace DTCollectionViewManagerExample.xcworkspace --scheme CedarUnitTests --build-path Build/Products
