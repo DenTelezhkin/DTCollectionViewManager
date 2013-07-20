@@ -1,3 +1,5 @@
+![Build Status](https://travis-ci.org/DenHeadless/DTCollectionViewManager.png?branch=master,development)
+
 DTCollectionViewManager
 =======================
 
