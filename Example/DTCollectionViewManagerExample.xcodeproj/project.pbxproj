@@ -29,7 +29,14 @@
 		95AE8979179AD03F00F834DB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 95AE8978179AD03F00F834DB /* Default.png */; };
 		95AE897B179AD03F00F834DB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95AE897A179AD03F00F834DB /* Default@2x.png */; };
 		95AE897D179AD03F00F834DB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95AE897C179AD03F00F834DB /* Default-568h@2x.png */; };
-		95AE8983179AD08100F834DB /* NSObjectSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8982179AD08100F834DB /* NSObjectSpec.mm */; };
+		95AE8983179AD08100F834DB /* Datasource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8982179AD08100F834DB /* Datasource.mm */; };
+		95AE898A179BF1B600F834DB /* Mapping.mm in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8989179BF1B600F834DB /* Mapping.mm */; };
+		95AE898D179BF33000F834DB /* DTCollectionViewController+VerifyItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE898C179BF33000F834DB /* DTCollectionViewController+VerifyItem.m */; };
+		95AE8991179BF44700F834DB /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8990179BF44700F834DB /* Model.m */; };
+		95AE8995179BF52B00F834DB /* ModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8994179BF52B00F834DB /* ModelCell.m */; };
+		95AE8998179BF59500F834DB /* ModelCellWithNib.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8997179BF59500F834DB /* ModelCellWithNib.m */; };
+		95AE899A179BF5B200F834DB /* ModelCellWithNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95AE8999179BF5B200F834DB /* ModelCellWithNib.xib */; };
+		95AE899B179BF9DA00F834DB /* DTCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */; };
 		FF89B56B3FC940359B01B116 /* libPods-CedarUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */; };
 /* End PBXBuildFile section */
 
@@ -66,7 +73,18 @@
 		95AE8978179AD03F00F834DB /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		95AE897A179AD03F00F834DB /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		95AE897C179AD03F00F834DB /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		95AE8982179AD08100F834DB /* NSObjectSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = NSObjectSpec.mm; path = Specs/NSObjectSpec.mm; sourceTree = "<group>"; };
+		95AE8982179AD08100F834DB /* Datasource.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Datasource.mm; path = Specs/Datasource.mm; sourceTree = "<group>"; };
+		95AE8986179BEDDC00F834DB /* DTCollectionViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewManager.h; path = ../DTCollectionViewManager/DTCollectionViewManager.h; sourceTree = "<group>"; };
+		95AE8989179BF1B600F834DB /* Mapping.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = Mapping.mm; path = Specs/Mapping.mm; sourceTree = "<group>"; };
+		95AE898B179BF33000F834DB /* DTCollectionViewController+VerifyItem.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTCollectionViewController+VerifyItem.h"; path = "Specs/DTCollectionViewController+VerifyItem.h"; sourceTree = "<group>"; };
+		95AE898C179BF33000F834DB /* DTCollectionViewController+VerifyItem.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTCollectionViewController+VerifyItem.m"; path = "Specs/DTCollectionViewController+VerifyItem.m"; sourceTree = "<group>"; };
+		95AE898F179BF44700F834DB /* Model.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = Model.h; path = Models/Model.h; sourceTree = "<group>"; };
+		95AE8990179BF44700F834DB /* Model.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = Model.m; path = Models/Model.m; sourceTree = "<group>"; };
+		95AE8993179BF52B00F834DB /* ModelCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelCell.h; path = Cells/ModelCell.h; sourceTree = "<group>"; };
+		95AE8994179BF52B00F834DB /* ModelCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModelCell.m; path = Cells/ModelCell.m; sourceTree = "<group>"; };
+		95AE8996179BF59500F834DB /* ModelCellWithNib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelCellWithNib.h; path = Cells/ModelCellWithNib.h; sourceTree = "<group>"; };
+		95AE8997179BF59500F834DB /* ModelCellWithNib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModelCellWithNib.m; path = Cells/ModelCellWithNib.m; sourceTree = "<group>"; };
+		95AE8999179BF5B200F834DB /* ModelCellWithNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ModelCellWithNib.xib; path = Cells/ModelCellWithNib.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -163,6 +181,7 @@
 				955F85AF179ACB8F00A38EAD /* DTCollectionViewController.h */,
 				955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */,
 				955F85B1179ACB8F00A38EAD /* DTCollectionViewModelTransfer.h */,
+				95AE8986179BEDDC00F834DB /* DTCollectionViewManager.h */,
 			);
 			name = DTCollectionViewManager;
 			sourceTree = "<group>";
@@ -170,6 +189,8 @@
 		95AE896C179AD03E00F834DB /* CedarUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				95AE8992179BF51400F834DB /* Cells */,
+				95AE898E179BF42900F834DB /* Models */,
 				95AE8981179AD06C00F834DB /* Specs */,
 				95AE896D179AD03E00F834DB /* Supporting Files */,
 			);
@@ -193,9 +214,33 @@
 		95AE8981179AD06C00F834DB /* Specs */ = {
 			isa = PBXGroup;
 			children = (
-				95AE8982179AD08100F834DB /* NSObjectSpec.mm */,
+				95AE8982179AD08100F834DB /* Datasource.mm */,
+				95AE8989179BF1B600F834DB /* Mapping.mm */,
+				95AE898B179BF33000F834DB /* DTCollectionViewController+VerifyItem.h */,
+				95AE898C179BF33000F834DB /* DTCollectionViewController+VerifyItem.m */,
 			);
 			name = Specs;
+			sourceTree = "<group>";
+		};
+		95AE898E179BF42900F834DB /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				95AE898F179BF44700F834DB /* Model.h */,
+				95AE8990179BF44700F834DB /* Model.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		95AE8992179BF51400F834DB /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				95AE8993179BF52B00F834DB /* ModelCell.h */,
+				95AE8994179BF52B00F834DB /* ModelCell.m */,
+				95AE8996179BF59500F834DB /* ModelCellWithNib.h */,
+				95AE8997179BF59500F834DB /* ModelCellWithNib.m */,
+				95AE8999179BF5B200F834DB /* ModelCellWithNib.xib */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -286,6 +331,7 @@
 				95AE8979179AD03F00F834DB /* Default.png in Resources */,
 				95AE897B179AD03F00F834DB /* Default@2x.png in Resources */,
 				95AE897D179AD03F00F834DB /* Default-568h@2x.png in Resources */,
+				95AE899A179BF5B200F834DB /* ModelCellWithNib.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -342,7 +388,13 @@
 			buildActionMask = 2147483647;
 			files = (
 				95AE8973179AD03E00F834DB /* main.m in Sources */,
-				95AE8983179AD08100F834DB /* NSObjectSpec.mm in Sources */,
+				95AE8983179AD08100F834DB /* Datasource.mm in Sources */,
+				95AE898A179BF1B600F834DB /* Mapping.mm in Sources */,
+				95AE898D179BF33000F834DB /* DTCollectionViewController+VerifyItem.m in Sources */,
+				95AE8991179BF44700F834DB /* Model.m in Sources */,
+				95AE8995179BF52B00F834DB /* ModelCell.m in Sources */,
+				95AE8998179BF59500F834DB /* ModelCellWithNib.m in Sources */,
+				95AE899B179BF9DA00F834DB /* DTCollectionViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

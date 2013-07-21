@@ -13,10 +13,14 @@
 
 @property (nonatomic,retain) IBOutlet UICollectionView * collectionView;
 
--(NSMutableArray *)itemsArrayForSection:(int)index;
 
+// Search
+-(NSMutableArray *)itemsArrayForSection:(int)index;
+-(id)collectionItemAtIndexPath:(NSIndexPath *)indexPath;
 -(NSMutableArray *)sectionsArray;
 
+
+// Mapping
 - (void)registerClass:(Class)reusableViewClass forSupplementaryViewOfKind:(NSString *)kind
                                                       withReuseIdentifier:(NSString *)identifier;
 
@@ -36,4 +40,12 @@
 @property (nonatomic,retain) NSMutableArray * headerModels;
 @property (nonatomic,retain) NSMutableArray * footerModels;
 
+
+// Models manipulation
+
+-(void)addCollectionItem:(id)item;
+-(void)addCollectionItems:(NSArray *)items;
+
+-(void)addCollectionItem:(id)item toSection:(int)section;
+-(void)addCollectionItems:(NSArray *)items toSection:(int)section;
 @end

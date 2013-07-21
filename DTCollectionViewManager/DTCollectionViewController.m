@@ -22,7 +22,7 @@
 {
     if (!_reuseIdentifiersForSupplementaryViews)
     {
-            _reuseIdentifiersForSupplementaryViews = [[NSMutableDictionary alloc] initWithCapacity:2];
+        _reuseIdentifiersForSupplementaryViews = [NSMutableDictionary new];
     }
     return _reuseIdentifiersForSupplementaryViews;
 }
@@ -31,7 +31,7 @@
 {
     if (!_reuseIdentifiersForCellModels)
     {
-            _reuseIdentifiersForCellModels = [[NSMutableDictionary alloc] init];
+        _reuseIdentifiersForCellModels = [NSMutableDictionary new];
     }
     return _reuseIdentifiersForCellModels;
 }
@@ -40,7 +40,7 @@
 {
     if (!_sections)
     {
-            _sections = [[NSMutableArray alloc] init];
+        _sections = [NSMutableArray new];
     }
     return _sections;
 }
@@ -49,7 +49,7 @@
 {
     if (!_headerModels)
     {
-            _headerModels = [[NSMutableArray alloc] init];
+        _headerModels = [NSMutableArray new];
     }
     return _headerModels;
 }
@@ -58,7 +58,7 @@
 {
     if (!_footerModels)
     {
-            _footerModels = [[NSMutableArray alloc] init];
+        _footerModels = [NSMutableArray new];
     }
     return _footerModels;
 }
@@ -80,10 +80,23 @@
     }
 }
 
+-(id)collectionItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    NSArray * itemsInSection = [self itemsArrayForSection:indexPath.section];
+    
+    if ([itemsInSection count]>indexPath.row)
+    {
+        return itemsInSection[indexPath.row];
+    }
+    return nil;
+}
+
 - (NSMutableArray *)sectionsArray
 {
     return self.sections;
 }
+
+#pragma mark - mapping
 
 - (void)registerClass:(Class)reusableCellClass forCellReuseIdentifier:(NSString *)identifier
         forModelClass:(Class)modelClass
@@ -114,6 +127,42 @@ withReuseIdentifier:(NSString *)identifier
                  withReuseIdentifier:identifier];
     self.reuseIdentifiersForSupplementaryViews[kind] = identifier;
 }
+
+#pragma mark - models manipulation
+
+-(void)addCollectionItem:(id)item
+{
+    [self addCollectionItem:item toSection:0];
+}
+
+-(void)addCollectionItems:(NSArray *)items
+{
+    [self addCollectionItems:items toSection:0];
+}
+
+-(void)addCollectionItem:(id)item toSection:(int)section
+{
+    NSMutableArray *array = [self validCollectionSection:section];
+    
+    int itemsCountInSection = [array count];
+    [array addObject:item];
+
+    NSIndexPath * modelItemPath = [NSIndexPath indexPathForItem:itemsCountInSection
+                                                      inSection:section];
+    [self.collectionView insertItemsAtIndexPaths:@[modelItemPath]];
+}
+
+-(void)addCollectionItems:(NSArray *)items toSection:(int)section
+{
+    [self.collectionView performBatchUpdates:^{
+        for (id item in items)
+        {
+            [self addCollectionItem:item toSection:section];
+        }
+    } completion:nil];
+}
+
+#pragma mark - UICollectionView datasource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
@@ -205,5 +254,28 @@ withReuseIdentifier:(NSString *)identifier
     return classString;
 }
 
+-(NSMutableArray *)validCollectionSection:(int)sectionIndex
+{
+    if (sectionIndex < self.sections.count)
+    {
+        return (NSMutableArray *)self.sections[sectionIndex];
+    }
+    else
+    {
+        for (int i = self.sections.count; i <= sectionIndex ; i++)
+        {
+            //Update datasource
+            NSMutableArray *newSection = [NSMutableArray array];
+            [self.sections addObject:newSection];
+            
+            if ([self.collectionView numberOfSections] <= i)
+            {
+                //Update UI
+                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:i]];
+            }
+        }
+        return [self.sections lastObject];
+    }
+}
 
 @end
