@@ -7,7 +7,6 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DTCollectionViewModelTransfer.h"
 
 @interface DTCollectionViewController : UIViewController <UICollectionViewDataSource>
 
@@ -19,6 +18,10 @@
 -(id)collectionItemAtIndexPath:(NSIndexPath *)indexPath;
 -(NSMutableArray *)sectionsArray;
 
+-(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass;
+-(void)registerSupplementaryClass:(Class)supplementaryClass
+                          forKind:(NSString *)kind
+                    forModelClass:(Class)modelClass;
 
 // Mapping
 - (void)registerClass:(Class)reusableViewClass forSupplementaryViewOfKind:(NSString *)kind
@@ -40,6 +43,7 @@
 @property (nonatomic,retain) NSMutableArray * headerModels;
 @property (nonatomic,retain) NSMutableArray * footerModels;
 
+-(NSMutableArray *)supplementaryModelsOfKind:(NSString *)kind;
 
 // Models manipulation
 
@@ -48,4 +52,5 @@
 
 -(void)addCollectionItem:(id)item toSection:(int)section;
 -(void)addCollectionItems:(NSArray *)items toSection:(int)section;
+
 @end

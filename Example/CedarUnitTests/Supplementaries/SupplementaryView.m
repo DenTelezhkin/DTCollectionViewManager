@@ -1,18 +1,17 @@
 //
-//  ModelCell.m
+//  SupplementaryView.m
 //  DTCollectionViewManagerExample
 //
 //  Created by Denys Telezhkin on 21.07.13.
 //  Copyright (c) 2013 Denys Telezhkin. All rights reserved.
 //
 
-#import "ModelCell.h"
-
-@interface ModelCell()
+#import "SupplementaryView.h"
+@interface SupplementaryView()
 @property (nonatomic, retain) id dataModel;
 @end
 
-@implementation ModelCell
+@implementation SupplementaryView
 
 - (id)initWithFrame:(CGRect)frame
 {

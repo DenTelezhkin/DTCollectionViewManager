@@ -7,13 +7,18 @@
 //
 
 #import "DTCollectionViewController.h"
+#import "DTCollectionViewModelTransfer.h"
+#import "DTCollectionFactory.h"
 
 @interface DTCollectionViewController ()
+                <DTCollectionFactoryDelegate>
 
 @property (nonatomic, retain) NSMutableArray *sections;
 
 @property (nonatomic, retain) NSMutableDictionary *reuseIdentifiersForSupplementaryViews;
 @property (nonatomic, retain) NSMutableDictionary *reuseIdentifiersForCellModels;
+@property (nonatomic, retain) NSMutableDictionary * supplementaryModels;
+@property (nonatomic, retain) DTCollectionFactory * factory;
 @end
 
 @implementation DTCollectionViewController
@@ -63,6 +68,25 @@
     return _footerModels;
 }
 
+-(NSMutableDictionary *)supplementaryModels
+{
+    if (!_supplementaryModels)
+    {
+        _supplementaryModels = [NSMutableDictionary new];
+    }
+    return _supplementaryModels;
+}
+
+-(DTCollectionFactory *)factory
+{
+    if (!_factory)
+    {
+        _factory = [DTCollectionFactory new];
+        _factory.delegate = self;
+    }
+    return _factory;
+}
+
 - (NSMutableArray *)itemsArrayForSection:(int)index
 {
     if ([self.sections count] > index)
@@ -91,12 +115,34 @@
     return nil;
 }
 
+-(NSMutableArray *)supplementaryModelsOfKind:(NSString *)kind
+{
+    if (!self.supplementaryModels[kind])
+    {
+        [self.supplementaryModels setObject:[NSMutableArray array]
+                                     forKey:kind];
+    }
+    return [self.supplementaryModels objectForKey:kind];
+}
+
 - (NSMutableArray *)sectionsArray
 {
     return self.sections;
 }
 
 #pragma mark - mapping
+
+-(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass
+{
+    [self.factory registerCellClass:cellClass forModelClass:modelClass];
+}
+
+-(void)registerSupplementaryClass:(Class)supplementaryClass forKind:(NSString *)kind forModelClass:(Class)modelClass
+{
+    [self.factory registerSupplementaryClass:supplementaryClass
+                                     forKind:kind
+                               forModelClass:modelClass];
+}
 
 - (void)registerClass:(Class)reusableCellClass forCellReuseIdentifier:(NSString *)identifier
         forModelClass:(Class)modelClass
@@ -201,26 +247,13 @@ withReuseIdentifier:(NSString *)identifier
     view = [collectionView dequeueReusableSupplementaryViewOfKind:kind
                                               withReuseIdentifier:self.reuseIdentifiersForSupplementaryViews[kind]
                                                      forIndexPath:indexPath];
-    id model = nil;
-    if ([kind isEqualToString:UICollectionElementKindSectionHeader])
+    NSMutableArray * supplementaries = [self supplementaryModelsOfKind:kind];
+    if ([supplementaries count]>indexPath.section)
     {
-        if ([self.headerModels count] > indexPath.section)
-        {
-            model = [self.headerModels objectAtIndex:indexPath.section];
-        }
-    }
-    if ([kind isEqualToString:UICollectionElementKindSectionFooter])
-    {
-        if ([self.footerModels count] > indexPath.section)
-        {
-            model = [self.footerModels objectAtIndex:indexPath.section];
-        }
-    }
-    if (model)
-    {
+        id model = supplementaries[indexPath.section];
         [view updateWithModel:model];
     }
-
+    
     return view;
 }
 

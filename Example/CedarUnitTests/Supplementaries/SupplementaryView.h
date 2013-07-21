@@ -1,5 +1,5 @@
 //
-//  ModelCell.h
+//  SupplementaryView.h
 //  DTCollectionViewManagerExample
 //
 //  Created by Denys Telezhkin on 21.07.13.
@@ -9,8 +9,9 @@
 #import <UIKit/UIKit.h>
 #import "DTCollectionViewManager.h"
 
-@interface ModelCell : UICollectionViewCell <DTCollectionViewModelTransfer>
+@interface SupplementaryView : UICollectionReusableView <DTCollectionViewModelTransfer>
 
 @property (nonatomic, assign) BOOL inittedWithFrame;
 @property (nonatomic, assign) BOOL awakenFromNib;
+
 @end

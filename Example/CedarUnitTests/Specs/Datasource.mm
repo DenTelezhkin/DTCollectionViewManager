@@ -106,6 +106,31 @@ describe(@"Datasource specs", ^{
             [collection.collectionView numberOfSections] should equal(4);
         });
     });
+    
+    describe(@"supplementary models", ^{
+       
+        it(@"should have empty headers", ^{
+            NSMutableArray * headers = [collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter];
+            headers should_not be_nil;
+            
+            headers should be_empty;
+        });
+        
+        it(@"should have empty footers", ^{
+            NSMutableArray * footers = [collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter];
+            
+            footers should_not be_nil;
+            footers should be_empty;
+        });
+        
+        it(@"should be empty for another kind of supplementaries", ^{
+            NSMutableArray * aliens = [collection supplementaryModelsOfKind:@"Alien"];
+            
+            aliens should_not be_nil;
+            aliens should be_empty;
+        });
+    });
+
 });
 
 SPEC_END

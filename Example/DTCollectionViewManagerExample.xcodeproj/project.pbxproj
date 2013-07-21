@@ -29,14 +29,19 @@
 		95AE8979179AD03F00F834DB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 95AE8978179AD03F00F834DB /* Default.png */; };
 		95AE897B179AD03F00F834DB /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95AE897A179AD03F00F834DB /* Default@2x.png */; };
 		95AE897D179AD03F00F834DB /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 95AE897C179AD03F00F834DB /* Default-568h@2x.png */; };
-		95AE8983179AD08100F834DB /* Datasource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8982179AD08100F834DB /* Datasource.mm */; };
-		95AE898A179BF1B600F834DB /* Mapping.mm in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8989179BF1B600F834DB /* Mapping.mm */; };
+		95AE8983179AD08100F834DB /* Datasource.mm in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8982179AD08100F834DB /* Datasource.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
+		95AE898A179BF1B600F834DB /* Mapping.mm in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8989179BF1B600F834DB /* Mapping.mm */; settings = {COMPILER_FLAGS = "-fno-objc-arc"; }; };
 		95AE898D179BF33000F834DB /* DTCollectionViewController+VerifyItem.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE898C179BF33000F834DB /* DTCollectionViewController+VerifyItem.m */; };
 		95AE8991179BF44700F834DB /* Model.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8990179BF44700F834DB /* Model.m */; };
 		95AE8995179BF52B00F834DB /* ModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8994179BF52B00F834DB /* ModelCell.m */; };
 		95AE8998179BF59500F834DB /* ModelCellWithNib.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8997179BF59500F834DB /* ModelCellWithNib.m */; };
 		95AE899A179BF5B200F834DB /* ModelCellWithNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95AE8999179BF5B200F834DB /* ModelCellWithNib.xib */; };
 		95AE899B179BF9DA00F834DB /* DTCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */; };
+		95AE899E179C05BE00F834DB /* DTCollectionFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE899D179C05BE00F834DB /* DTCollectionFactory.m */; };
+		95AE899F179C05BE00F834DB /* DTCollectionFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE899D179C05BE00F834DB /* DTCollectionFactory.m */; };
+		95AE89A7179C1A1600F834DB /* SupplementaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE89A6179C1A1600F834DB /* SupplementaryView.m */; };
+		95AE89AA179C1A7600F834DB /* SupplementaryViewWithNib.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE89A9179C1A7600F834DB /* SupplementaryViewWithNib.m */; };
+		95AE89AC179C1A9300F834DB /* SupplementaryViewWithNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95AE89AB179C1A9300F834DB /* SupplementaryViewWithNib.xib */; };
 		FF89B56B3FC940359B01B116 /* libPods-CedarUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */; };
 /* End PBXBuildFile section */
 
@@ -85,6 +90,13 @@
 		95AE8996179BF59500F834DB /* ModelCellWithNib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelCellWithNib.h; path = Cells/ModelCellWithNib.h; sourceTree = "<group>"; };
 		95AE8997179BF59500F834DB /* ModelCellWithNib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModelCellWithNib.m; path = Cells/ModelCellWithNib.m; sourceTree = "<group>"; };
 		95AE8999179BF5B200F834DB /* ModelCellWithNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ModelCellWithNib.xib; path = Cells/ModelCellWithNib.xib; sourceTree = "<group>"; };
+		95AE899C179C05BE00F834DB /* DTCollectionFactory.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionFactory.h; path = ../DTCollectionViewManager/DTCollectionFactory.h; sourceTree = "<group>"; };
+		95AE899D179C05BE00F834DB /* DTCollectionFactory.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionFactory.m; path = ../DTCollectionViewManager/DTCollectionFactory.m; sourceTree = "<group>"; };
+		95AE89A5179C1A1600F834DB /* SupplementaryView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SupplementaryView.h; path = Supplementaries/SupplementaryView.h; sourceTree = "<group>"; };
+		95AE89A6179C1A1600F834DB /* SupplementaryView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SupplementaryView.m; path = Supplementaries/SupplementaryView.m; sourceTree = "<group>"; };
+		95AE89A8179C1A7600F834DB /* SupplementaryViewWithNib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SupplementaryViewWithNib.h; path = Supplementaries/SupplementaryViewWithNib.h; sourceTree = "<group>"; };
+		95AE89A9179C1A7600F834DB /* SupplementaryViewWithNib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SupplementaryViewWithNib.m; path = Supplementaries/SupplementaryViewWithNib.m; sourceTree = "<group>"; };
+		95AE89AB179C1A9300F834DB /* SupplementaryViewWithNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SupplementaryViewWithNib.xib; path = Supplementaries/SupplementaryViewWithNib.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -182,6 +194,8 @@
 				955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */,
 				955F85B1179ACB8F00A38EAD /* DTCollectionViewModelTransfer.h */,
 				95AE8986179BEDDC00F834DB /* DTCollectionViewManager.h */,
+				95AE899C179C05BE00F834DB /* DTCollectionFactory.h */,
+				95AE899D179C05BE00F834DB /* DTCollectionFactory.m */,
 			);
 			name = DTCollectionViewManager;
 			sourceTree = "<group>";
@@ -190,6 +204,7 @@
 			isa = PBXGroup;
 			children = (
 				95AE8992179BF51400F834DB /* Cells */,
+				95AE89A4179C194E00F834DB /* Supplementaries */,
 				95AE898E179BF42900F834DB /* Models */,
 				95AE8981179AD06C00F834DB /* Specs */,
 				95AE896D179AD03E00F834DB /* Supporting Files */,
@@ -241,6 +256,18 @@
 				95AE8999179BF5B200F834DB /* ModelCellWithNib.xib */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		95AE89A4179C194E00F834DB /* Supplementaries */ = {
+			isa = PBXGroup;
+			children = (
+				95AE89A5179C1A1600F834DB /* SupplementaryView.h */,
+				95AE89A6179C1A1600F834DB /* SupplementaryView.m */,
+				95AE89A8179C1A7600F834DB /* SupplementaryViewWithNib.h */,
+				95AE89A9179C1A7600F834DB /* SupplementaryViewWithNib.m */,
+				95AE89AB179C1A9300F834DB /* SupplementaryViewWithNib.xib */,
+			);
+			name = Supplementaries;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -332,6 +359,7 @@
 				95AE897B179AD03F00F834DB /* Default@2x.png in Resources */,
 				95AE897D179AD03F00F834DB /* Default-568h@2x.png in Resources */,
 				95AE899A179BF5B200F834DB /* ModelCellWithNib.xib in Resources */,
+				95AE89AC179C1A9300F834DB /* SupplementaryViewWithNib.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +408,7 @@
 				955F859F179ACAF000A38EAD /* MasterViewController.m in Sources */,
 				955F85A2179ACAF000A38EAD /* DetailViewController.m in Sources */,
 				955F85B2179ACB8F00A38EAD /* DTCollectionViewController.m in Sources */,
+				95AE899E179C05BE00F834DB /* DTCollectionFactory.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -395,6 +424,9 @@
 				95AE8995179BF52B00F834DB /* ModelCell.m in Sources */,
 				95AE8998179BF59500F834DB /* ModelCellWithNib.m in Sources */,
 				95AE899B179BF9DA00F834DB /* DTCollectionViewController.m in Sources */,
+				95AE899F179C05BE00F834DB /* DTCollectionFactory.m in Sources */,
+				95AE89A7179C1A1600F834DB /* SupplementaryView.m in Sources */,
+				95AE89AA179C1A7600F834DB /* SupplementaryViewWithNib.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -520,6 +552,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CedarUnitTests/CedarUnitTests-Prefix.pch";
@@ -533,6 +566,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CedarUnitTests/CedarUnitTests-Prefix.pch";
