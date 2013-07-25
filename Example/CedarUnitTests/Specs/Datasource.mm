@@ -45,9 +45,8 @@ describe(@"Datasource specs", ^{
     describe(@"adding items", ^{
        
         beforeEach(^{
-           [collection registerClass:[ModelCell class]
-              forCellReuseIdentifier:@"ModelCell"
-                       forModelClass:[Model class]];
+            [collection registerCellClass:[ModelCell class]
+                            forModelClass:[Model class]];
         });
         
         it(@"should correctly add item", ^{

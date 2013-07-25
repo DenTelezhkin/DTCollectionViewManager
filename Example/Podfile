@@ -3,4 +3,5 @@ platform :ios, 6.0
 
 target :CedarUnitTests do
   pod 'Cedar'
+  pod 'AutoDescribe'
 end

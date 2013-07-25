@@ -17,7 +17,9 @@ describe(@"Mapping tests", ^{
         [UIView setAnimationsEnabled:NO];
         
         collection = [DTCollectionViewController new];
-        UICollectionViewLayout * layout = [[UICollectionViewFlowLayout alloc] init];
+        UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
+        layout.headerReferenceSize = CGSizeMake(200, 300);
+        layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         collection.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)
                                                        collectionViewLayout:layout];
         collection.collectionView.dataSource = collection;
@@ -39,7 +41,7 @@ describe(@"Mapping tests", ^{
             [cell class] should equal([ModelCell class]);
             
             cell.inittedWithFrame should BeTruthy();
-            cell.awakenFromNib should BeTruthy();
+            cell.awakenFromNib should_not BeTruthy();
         });
         
         it(@"should be able to register cell nib", ^{
@@ -81,7 +83,7 @@ describe(@"Mapping tests", ^{
             id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
             UIView * view = [datasource collectionView:collection.collectionView
                      viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
-                                           atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];;
+                                           atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
             SupplementaryView * header = (SupplementaryView *) view;
             [header class] should equal([SupplementaryView class]);
             header.inittedWithFrame should BeTruthy();
@@ -570,7 +572,8 @@ describe(@"Mapping tests", ^{
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
                                    atIndexPath:[NSIndexPath indexPathForItem:0
-                                                                   inSection:0]];                } should_not raise_exception;
+                                                                   inSection:0]];
+                } should_not raise_exception;
             });
             
             it(@"should accept NSMutableArray for footer", ^{

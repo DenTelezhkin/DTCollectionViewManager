@@ -50,24 +50,6 @@
     return _sections;
 }
 
-- (NSMutableArray *)headerModels
-{
-    if (!_headerModels)
-    {
-        _headerModels = [NSMutableArray new];
-    }
-    return _headerModels;
-}
-
-- (NSMutableArray *)footerModels
-{
-    if (!_footerModels)
-    {
-        _footerModels = [NSMutableArray new];
-    }
-    return _footerModels;
-}
-
 -(NSMutableDictionary *)supplementaryModels
 {
     if (!_supplementaryModels)
@@ -143,7 +125,7 @@
                                      forKind:kind
                                forModelClass:modelClass];
 }
-
+/*
 - (void)registerClass:(Class)reusableCellClass forCellReuseIdentifier:(NSString *)identifier
         forModelClass:(Class)modelClass
 {
@@ -172,7 +154,7 @@ withReuseIdentifier:(NSString *)identifier
     [self.collectionView registerNib:nib forSupplementaryViewOfKind:kind
                  withReuseIdentifier:identifier];
     self.reuseIdentifiersForSupplementaryViews[kind] = identifier;
-}
+}*/
 
 #pragma mark - models manipulation
 
@@ -229,13 +211,11 @@ withReuseIdentifier:(NSString *)identifier
     UICollectionViewCell <DTCollectionViewModelTransfer> *cell;
 
     NSArray *itemsInSection = self.sections[indexPath.section];
-
     id model = itemsInSection[indexPath.row];
-    NSString *reuseIdentifier = self.reuseIdentifiersForCellModels[[self reuseIdentifierForClass:[model class]]];
-    cell = [collectionView dequeueReusableCellWithReuseIdentifier:reuseIdentifier
-                                                     forIndexPath:indexPath];
+    
+    cell = [self.factory cellForItem:model atIndexPath:indexPath];
     [cell updateWithModel:model];
-
+    
     return cell;
 }
 
@@ -244,47 +224,19 @@ withReuseIdentifier:(NSString *)identifier
                                  atIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionReusableView <DTCollectionViewModelTransfer> *view;
-    view = [collectionView dequeueReusableSupplementaryViewOfKind:kind
-                                              withReuseIdentifier:self.reuseIdentifiersForSupplementaryViews[kind]
-                                                     forIndexPath:indexPath];
     NSMutableArray * supplementaries = [self supplementaryModelsOfKind:kind];
+    
     if ([supplementaries count]>indexPath.section)
     {
         id model = supplementaries[indexPath.section];
+        
+        view = [self.factory supplementaryViewOfKind:kind
+                                             forItem:model
+                                         atIndexPath:indexPath];
         [view updateWithModel:model];
     }
     
     return view;
-}
-
-- (NSString *)reuseIdentifierForClass:(Class)class
-{
-    NSString * classString = NSStringFromClass(class);
-    
-    if ([classString isEqualToString:@"__NSCFConstantString"] ||
-        [classString isEqualToString:@"__NSCFString"] ||
-        class == [NSMutableString class])
-    {
-        return @"NSString";
-    }
-    if ([classString isEqualToString:@"__NSCFNumber"] ||
-        [classString isEqualToString:@"__NSCFBoolean"])
-    {
-        return @"NSNumber";
-    }
-    if ([classString isEqualToString:@"__NSDictionaryI"] ||
-        [classString isEqualToString:@"__NSDictionaryM"] ||
-        class == [NSMutableDictionary class])
-    {
-        return @"NSDictionary";
-    }
-    if ([classString isEqualToString:@"__NSArrayI"] ||
-        [classString isEqualToString:@"__NSArrayM"] ||
-        class == [NSMutableArray class])
-    {
-        return @"NSArray";
-    }
-    return classString;
 }
 
 -(NSMutableArray *)validCollectionSection:(int)sectionIndex

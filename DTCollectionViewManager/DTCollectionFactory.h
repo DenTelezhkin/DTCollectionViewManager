@@ -21,8 +21,11 @@
                           forKind:(NSString *)kind
                     forModelClass:(Class)modelClass;
 
--(UICollectionViewCell *)cellForItem:(id)modelItem;
--(UICollectionReusableView *)supplementaryViewForItem:(id)modelItem;
+-(UICollectionViewCell <DTCollectionViewModelTransfer> *)cellForItem:(id)modelItem
+                                                         atIndexPath:(NSIndexPath *)indexPath;
+-(UICollectionReusableView <DTCollectionViewModelTransfer> *)supplementaryViewOfKind:(NSString *)kind
+                                             forItem:(id)modelItem
+                                         atIndexPath:(NSIndexPath *)indexPath;
 
 @property (nonatomic, weak) id <DTCollectionFactoryDelegate> delegate;
 @end
