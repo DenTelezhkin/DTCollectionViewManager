@@ -23,6 +23,7 @@ describe(@"Mapping tests", ^{
         collection.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)
                                                        collectionViewLayout:layout];
         collection.collectionView.dataSource = collection;
+        collection.collectionView.delegate = collection;
         [collection.collectionView reloadData];
     });
     
@@ -73,6 +74,11 @@ describe(@"Mapping tests", ^{
     
     describe(@"supplementary mapping", ^{
        
+        beforeEach(^{
+            [collection registerCellClass:[ModelCell class] forModelClass:[Model class]];
+            [collection addCollectionItem:[[Model new] autorelease]];
+        });
+        
         it(@"should be able to register supplementary header class", ^{
            [collection registerSupplementaryClass:[SupplementaryView class]
                                           forKind:UICollectionElementKindSectionHeader
@@ -101,7 +107,7 @@ describe(@"Mapping tests", ^{
                      viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
                                            atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
             SupplementaryView * header = (SupplementaryView *) view;
-            [header class] should equal([SupplementaryView class]);
+            [header class] should equal([SupplementaryViewWithNib class]);
             header.inittedWithFrame should_not BeTruthy();
             header.awakenFromNib should BeTruthy();
         });
@@ -124,7 +130,12 @@ describe(@"Mapping tests", ^{
     });
     
     describe(@"Foundation class clusters", ^{
-       
+     
+        beforeEach(^{
+            [collection registerCellClass:[ModelCell class] forModelClass:[Model class]];
+            [collection addCollectionItem:[[Model new] autorelease]];
+        });
+        
         describe(@"NSString", ^{
             
             beforeEach(^{

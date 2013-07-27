@@ -8,7 +8,6 @@
 
 #import "DTCollectionFactory.h"
 
-
 @implementation DTCollectionFactory
 
 -(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass

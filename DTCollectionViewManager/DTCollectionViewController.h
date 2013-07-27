@@ -8,7 +8,7 @@
 
 #import <UIKit/UIKit.h>
 
-@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource>
+@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate>
 
 @property (nonatomic,retain) IBOutlet UICollectionView * collectionView;
 

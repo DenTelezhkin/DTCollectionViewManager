@@ -14,32 +14,11 @@
                 <DTCollectionFactoryDelegate>
 
 @property (nonatomic, retain) NSMutableArray *sections;
-
-@property (nonatomic, retain) NSMutableDictionary *reuseIdentifiersForSupplementaryViews;
-@property (nonatomic, retain) NSMutableDictionary *reuseIdentifiersForCellModels;
 @property (nonatomic, retain) NSMutableDictionary * supplementaryModels;
 @property (nonatomic, retain) DTCollectionFactory * factory;
 @end
 
 @implementation DTCollectionViewController
-
-- (NSMutableDictionary *)reuseIdentifiersForSupplementaryViews
-{
-    if (!_reuseIdentifiersForSupplementaryViews)
-    {
-        _reuseIdentifiersForSupplementaryViews = [NSMutableDictionary new];
-    }
-    return _reuseIdentifiersForSupplementaryViews;
-}
-
-- (NSMutableDictionary *)reuseIdentifiersForCellModels
-{
-    if (!_reuseIdentifiersForCellModels)
-    {
-        _reuseIdentifiersForCellModels = [NSMutableDictionary new];
-    }
-    return _reuseIdentifiersForCellModels;
-}
 
 - (NSMutableArray *)sections
 {
@@ -125,36 +104,6 @@
                                      forKind:kind
                                forModelClass:modelClass];
 }
-/*
-- (void)registerClass:(Class)reusableCellClass forCellReuseIdentifier:(NSString *)identifier
-        forModelClass:(Class)modelClass
-{
-    [self.collectionView registerClass:reusableCellClass forCellWithReuseIdentifier:identifier];
-    self.reuseIdentifiersForCellModels[[self reuseIdentifierForClass:modelClass]] = identifier;
-}
-
-- (void)registerNib:(UINib *)nib forCellReuseIdentifier:(NSString *)identifier
-      forModelClass:(Class)modelClass
-{
-    [self.collectionView registerNib:nib forCellWithReuseIdentifier:identifier];
-    self.reuseIdentifiersForCellModels[[self reuseIdentifierForClass:modelClass]] = identifier;
-}
-
-- (void)registerClass:(Class)reusableViewClass forSupplementaryViewOfKind:(NSString *)kind
-  withReuseIdentifier:(NSString *)identifier
-{
-    [self.collectionView registerClass:reusableViewClass forSupplementaryViewOfKind:kind
-                   withReuseIdentifier:identifier];
-    self.reuseIdentifiersForSupplementaryViews[kind] = identifier;
-}
-
-- (void)registerNib:(UINib *)nib forSupplementaryViewOfKind:(NSString *)kind
-withReuseIdentifier:(NSString *)identifier
-{
-    [self.collectionView registerNib:nib forSupplementaryViewOfKind:kind
-                 withReuseIdentifier:identifier];
-    self.reuseIdentifiersForSupplementaryViews[kind] = identifier;
-}*/
 
 #pragma mark - models manipulation
 
@@ -223,7 +172,7 @@ withReuseIdentifier:(NSString *)identifier
            viewForSupplementaryElementOfKind:(NSString *)kind
                                  atIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionReusableView <DTCollectionViewModelTransfer> *view;
+    UICollectionReusableView <DTCollectionViewModelTransfer> *view = nil;
     NSMutableArray * supplementaries = [self supplementaryModelsOfKind:kind];
     
     if ([supplementaries count]>indexPath.section)
@@ -235,7 +184,13 @@ withReuseIdentifier:(NSString *)identifier
                                          atIndexPath:indexPath];
         [view updateWithModel:model];
     }
-    
+    else {
+        // Fallback scenario. There's no header model, where it was supposed to be.
+        // Returning empty, non-initialized view is bad, but it is better than crash
+        view = (UICollectionReusableView <DTCollectionViewModelTransfer> *)[UICollectionReusableView new];
+//        NSLog(@"DTCollectionViewManager: supplementary of kind %@ not found for indexPath: %@",kind,indexPath);
+    }
+    // Returning nil from this method will cause crash on runtime.
     return view;
 }
 

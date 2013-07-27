@@ -7,6 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
+#import "DTCollectionViewModelTransfer.h"
 
 @protocol DTCollectionFactoryDelegate
 -(UICollectionView *)collectionView;
