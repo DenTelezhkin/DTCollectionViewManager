@@ -48,7 +48,12 @@
     return _factory;
 }
 
-- (NSMutableArray *)itemsArrayForSection:(int)index
+-(int)numberOfSections
+{
+    return [self.sections count];
+}
+
+- (NSArray *)itemsArrayForSection:(int)index
 {
     if ([self.sections count] > index)
     {
@@ -76,6 +81,54 @@
     return nil;
 }
 
+-(NSIndexPath *)indexPathOfItem:(NSObject *)item inArray:(NSArray *)array
+{
+    for (NSInteger section=0; section<array.count; section++)
+    {
+        NSArray *rows = array[section];
+        NSInteger index = [rows indexOfObject:item];
+        
+        if (index != NSNotFound)
+        {
+            return [NSIndexPath indexPathForRow:index inSection:section];
+        }
+    }
+    return nil;
+}
+
+- (NSIndexPath *)indexPathOfCollectionItem:(NSObject *)tableItem
+{
+    NSIndexPath * indexPath = [self indexPathOfItem:tableItem inArray:self.sections];
+    if (!indexPath)
+    {
+        NSLog(@"DTCollectionViewManager: collection item not found, cannot return it's indexPath");
+        return nil;
+    }
+    else {
+        return indexPath;
+    }
+}
+
+//This implementation is not optimized, and may behave poorly over tables with lot of sections
+-(NSArray *)indexPathArrayForCollectionItems:(NSArray *)items
+{
+    NSMutableArray * indexPaths = [[NSMutableArray alloc] initWithCapacity:[items count]];
+    
+    for (NSInteger i=0; i<[items count]; i++)
+    {
+        NSIndexPath * foundIndexPath = [self indexPathOfCollectionItem:[items objectAtIndex:i]];
+        if (!foundIndexPath)
+        {
+            NSLog(@"DTCollectionViewManager: object %@ not found",
+                  [items objectAtIndex:i]);
+        }
+        else {
+            [indexPaths addObject:foundIndexPath];
+        }
+    }
+    return indexPaths;
+}
+
 -(NSMutableArray *)supplementaryModelsOfKind:(NSString *)kind
 {
     if (!self.supplementaryModels[kind])
@@ -86,9 +139,9 @@
     return [self.supplementaryModels objectForKey:kind];
 }
 
-- (NSMutableArray *)sectionsArray
+- (NSArray *)sectionsArray
 {
-    return self.sections;
+    return [self.sections copy];
 }
 
 #pragma mark - mapping
@@ -137,6 +190,72 @@
             [self addCollectionItem:item toSection:section];
         }
     } completion:nil];
+}
+
+-(void)removeCollectionItem:(id)item
+{
+    NSIndexPath * indexPath = [self indexPathOfCollectionItem:item];
+
+    if (indexPath)
+    {
+        NSMutableArray * section = (NSMutableArray *)[self itemsArrayForSection:indexPath.section];
+        [section removeObjectAtIndex:indexPath.row];
+    }
+    else {
+        NSLog(@"DTCollectionViewManager: item to delete: %@ was not found in collection view",item);
+        return;
+    }
+    [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+}
+
+-(void)removeCollectionItems:(NSArray *)items
+{
+    NSArray * indexPaths = [self indexPathArrayForCollectionItems:items];
+    
+    for (NSObject * item in items)
+    {
+        NSIndexPath *indexPath = [self indexPathOfCollectionItem:item];
+        
+        if (indexPath)
+        {
+            //update datasource
+            NSArray *section = [self itemsArrayForSection:indexPath.section];
+            NSMutableArray *castedSection = (NSMutableArray *)section;
+            [castedSection removeObjectAtIndex:indexPath.row];
+        }
+    }
+    [self.collectionView deleteItemsAtIndexPaths:indexPaths];
+}
+
+-(void)removeAllCollectionItems
+{
+    [self.sections removeAllObjects];
+    
+    [self.collectionView reloadData];
+}
+
+-(void)insertItem:(id)item atIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+-(void)moveItem:(id)item toIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+-(void)replaceItem:(id)oldItem withItem:(id)newItem
+{
+    
+}
+
+-(void)moveSection:(int)fromSection toSection:(int)toSection
+{
+    
+}
+
+-(void)deleteSections:(NSIndexSet *)indexSet
+{
+    
 }
 
 #pragma mark - UICollectionView datasource

@@ -8,9 +8,9 @@
 
 #import "DTCollectionViewController.h"
 
-@interface DTCollectionViewController (VerifyItem)
+@interface DTCollectionViewController (Verify)
 
 -(BOOL)verifyCollectionItem:(id)item atIndexPath:(NSIndexPath *)path;
 
--(BOOL)verifySection:(NSArray *)section withSectionNumber:(int)sectionNumber;
+-(void)verifySection:(NSArray *)section withSectionNumber:(int)sectionNumber;
 @end

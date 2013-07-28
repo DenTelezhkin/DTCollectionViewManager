@@ -8,7 +8,7 @@
 
 #import "DTCollectionViewController+VerifyItem.h"
 
-@implementation DTCollectionViewController (VerifyItem)
+@implementation DTCollectionViewController (Verify)
 
 -(BOOL)verifyCollectionItem:(id)item atIndexPath:(NSIndexPath *)path
 {
@@ -25,7 +25,15 @@
     return YES;
 }
 
--(BOOL)verifySection:(NSArray *)section withSectionNumber:(int)sectionNumber
+-(void)raiseInvalidSectionException
+{
+    NSException * exception = [NSException exceptionWithName:@""
+                                                      reason:@"wrong section items"
+                                                    userInfo:nil];
+    [exception raise];
+}
+
+-(void)verifySection:(NSArray *)section withSectionNumber:(int)sectionNumber
 {
     for (int itemNumber = 0; itemNumber < [section count]; itemNumber++)
     {
@@ -33,15 +41,14 @@
                             atIndexPath:[NSIndexPath indexPathForItem:itemNumber
                                                             inSection:sectionNumber]])
         {
-            return NO;
+            [self raiseInvalidSectionException];
         }
     }
     int itemsInSection = [self.collectionView numberOfItemsInSection:sectionNumber];
     if (itemsInSection!=[section count])
     {
-        return NO;
+        [self raiseInvalidSectionException];
     }
-    return YES;
 }
 
 @end

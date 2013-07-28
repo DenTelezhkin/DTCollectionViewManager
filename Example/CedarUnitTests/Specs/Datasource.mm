@@ -57,12 +57,7 @@ describe(@"Datasource specs", ^{
             [collection addCollectionItem:model2];
             [collection addCollectionItem:model3];
             
-            [collection verifyCollectionItem:model2
-                                 atIndexPath:[NSIndexPath indexPathForItem:1
-                                                                 inSection:0]];
-            [collection verifyCollectionItem:model3
-                                 atIndexPath:[NSIndexPath indexPathForItem:2
-                                                                 inSection:0]];
+            [collection verifySection:@[model1,model2,model3] withSectionNumber:0];
         });
         
         it(@"should correctly add items to different section", ^{
@@ -86,6 +81,12 @@ describe(@"Datasource specs", ^{
             [collection verifySection:models withSectionNumber:0];
             
             [collection.collectionView numberOfSections] should equal(1);
+        });
+        
+        it(@"should add similar items", ^{
+            [collection addCollectionItems:@[model1,model1,model1]];
+            
+            [collection verifySection:@[model1,model1,model1] withSectionNumber:0];
         });
         
         it(@"should correctly add items to sections", ^{
@@ -128,6 +129,72 @@ describe(@"Datasource specs", ^{
             aliens should_not be_nil;
             aliens should be_empty;
         });
+    });
+    
+    describe(@"removing items", ^{
+        beforeEach(^{
+            [collection registerCellClass:[ModelCell class]
+                            forModelClass:[Model class]];
+        });
+        
+        it(@"should remove item", ^{
+            [collection addCollectionItems:@[model1,model2,model3,model4,model5]];
+            
+            [collection removeCollectionItem:model2];
+            [collection removeCollectionItem:model5];
+            
+            [collection verifySection:@[model1,model3,model4] withSectionNumber:0];
+        });
+        
+        it(@"should remove last item in section", ^{
+            [collection addCollectionItem:model1 toSection:1];
+            [collection addCollectionItem:model2 toSection:0];
+            [collection addCollectionItem:model3 toSection:2];
+            
+            [collection removeCollectionItem:model2];
+            [collection removeCollectionItem:model3];
+            
+            [collection verifySection:@[] withSectionNumber:0];
+            [collection verifySection:@[model1] withSectionNumber:1];
+            [collection verifySection:@[] withSectionNumber:2];
+        });
+        
+        it(@"should not crash when removing absent item", ^{
+            ^{
+                [collection removeCollectionItem:model1];
+            } should_not raise_exception;
+        });
+        
+        it(@"should not crash when removing absent items", ^{
+            ^{
+                [collection addCollectionItems:@[model2,model3]];
+                [collection removeCollectionItems:@[model3, model4]];
+                [collection verifySection:@[model2] withSectionNumber:0];
+            } should_not raise_exception;
+        });
+        
+        it(@"should remove collection items", ^{
+            [collection addCollectionItems:@[model1,model2]];
+            [collection addCollectionItems:@[model3,model4] toSection:1];
+            [collection addCollectionItems:@[model5,model6] toSection:2];
+            
+            [collection removeCollectionItems:@[model1,model4,model5]];
+            
+            [collection verifySection:@[model2] withSectionNumber:0];
+            [collection verifySection:@[model3] withSectionNumber:1];
+            [collection verifySection:@[model6] withSectionNumber:2];
+        });
+        
+        it(@"should remove all collection items", ^{
+            [collection addCollectionItems:@[model1,model2]];
+            [collection addCollectionItems:@[model3,model4] toSection:1];
+            [collection addCollectionItems:@[model5,model6] toSection:2];
+            
+            [collection removeAllCollectionItems];
+            
+            [collection numberOfSections] should equal(0);
+        });
+        
     });
 
 });

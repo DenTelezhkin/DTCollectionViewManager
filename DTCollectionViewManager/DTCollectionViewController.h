@@ -14,9 +14,10 @@
 
 
 // Search
--(NSMutableArray *)itemsArrayForSection:(int)index;
+-(int)numberOfSections;
+-(NSArray *)itemsArrayForSection:(int)index;
 -(id)collectionItemAtIndexPath:(NSIndexPath *)indexPath;
--(NSMutableArray *)sectionsArray;
+-(NSArray *)sectionsArray;
 
 -(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass;
 -(void)registerSupplementaryClass:(Class)supplementaryClass
@@ -28,10 +29,25 @@
 
 // Models manipulation
 
+// implemented
+
 -(void)addCollectionItem:(id)item;
 -(void)addCollectionItems:(NSArray *)items;
 
 -(void)addCollectionItem:(id)item toSection:(int)section;
 -(void)addCollectionItems:(NSArray *)items toSection:(int)section;
+
+-(void)removeCollectionItem:(id)item;
+-(void)removeCollectionItems:(NSArray *)items;
+-(void)removeAllCollectionItems;
+
+// not implemented
+
+-(void)insertItem:(id)item atIndexPath:(NSIndexPath *)indexPath;
+-(void)moveItem:(id)item toIndexPath:(NSIndexPath *)indexPath;
+-(void)replaceItem:(id)oldItem withItem:(id)newItem;
+
+-(void)moveSection:(int)fromSection toSection:(int)toSection;
+-(void)deleteSections:(NSIndexSet *)indexSet;
 
 @end
