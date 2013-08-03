@@ -42,10 +42,9 @@
 -(void)removeAllCollectionItems;
 
 -(void)insertItem:(id)item atIndexPath:(NSIndexPath *)indexPath;
+-(void)moveItem:(id)item toIndexPath:(NSIndexPath *)indexPath;
 
 // not implemented
-
--(void)moveItem:(id)item toIndexPath:(NSIndexPath *)indexPath;
 -(void)replaceItem:(id)oldItem withItem:(id)newItem;
 
 -(void)moveSection:(int)fromSection toSection:(int)toSection;

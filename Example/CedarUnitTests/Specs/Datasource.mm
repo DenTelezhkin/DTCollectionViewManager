@@ -277,6 +277,57 @@ describe(@"Datasource specs", ^{
             [collection verifySection:@[model3] withSectionNumber:1];
         });
     });
+    
+    describe(@"moving items", ^{
+        
+        beforeEach(^{
+            [collection registerCellClass:[ModelCell class]
+                            forModelClass:[Model class]];
+        });
+        
+        it(@"should move item to another row", ^{
+            [collection addCollectionItems:@[model1,model2,model3]];
+            
+            [collection moveItem:model1 toIndexPath:[NSIndexPath indexPathForItem:2
+                                                                        inSection:0]];
+            [collection verifySection:@[model2,model3,model1] withSectionNumber:0];
+        });
+        
+        it(@"should move item to another empty section", ^{
+            [collection addCollectionItems:@[model1,model2,model3]];
+            
+            [collection moveItem:model3 toIndexPath:[NSIndexPath indexPathForItem:0
+                                                                        inSection:1]];
+            [collection verifySection:@[model1,model2] withSectionNumber:0];
+            [collection verifySection:@[model3] withSectionNumber:1];
+        });
+        
+        it(@"should move item to another section", ^{
+            [collection addCollectionItems:@[model1,model2,model3]];
+            [collection addCollectionItems:@[model4] toSection:1];
+            
+            [collection moveItem:model3 toIndexPath:[NSIndexPath indexPathForItem:0
+                                                                        inSection:1]];
+            [collection verifySection:@[model1,model2] withSectionNumber:0];
+            [collection verifySection:@[model3,model4] withSectionNumber:1];
+        });
+        
+        it(@"should not crash when moving to wrong indexPath", ^{
+            [collection addCollectionItems:@[model1,model2]];
+            
+            ^{
+                [collection moveItem:model2
+                         toIndexPath:[NSIndexPath indexPathForItem:4 inSection:3]];
+            } should_not raise_exception;
+        });
+        
+        it(@"should not crash when moving non existing item", ^{
+            ^{
+                [collection moveItem:model1
+                         toIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+            } should_not raise_exception;
+        });
+    });
 
 });
 

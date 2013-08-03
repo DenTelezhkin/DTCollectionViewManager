@@ -253,7 +253,28 @@
 
 -(void)moveItem:(id)item toIndexPath:(NSIndexPath *)indexPath
 {
+    NSIndexPath * sourceIndexPath = [self indexPathOfCollectionItem:item];
     
+    if (!sourceIndexPath)
+    {
+        NSLog(@"DTCollectionViewManager: item %@ not found in collectionView",item);
+        return;
+    }
+    
+    NSMutableArray * sourceSection = [self validCollectionSection:sourceIndexPath.section];
+    NSMutableArray * destinationSection = [self validCollectionSection:indexPath.section];
+
+    if ([destinationSection count] < indexPath.row)
+    {
+         NSLog(@"DTCollectionViewManager: failed moving item to indexPath: %@, only %d items in section",indexPath,[destinationSection count]);
+        return;
+    }
+    
+    [sourceSection removeObjectAtIndex:sourceIndexPath.row];
+    [destinationSection insertObject:item atIndex:indexPath.row];
+    
+    [self.collectionView moveItemAtIndexPath:sourceIndexPath
+                                 toIndexPath:indexPath];
 }
 
 -(void)replaceItem:(id)oldItem withItem:(id)newItem
