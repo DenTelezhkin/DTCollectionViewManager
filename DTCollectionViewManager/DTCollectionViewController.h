@@ -27,10 +27,6 @@
 
 -(NSMutableArray *)supplementaryModelsOfKind:(NSString *)kind;
 
-// Models manipulation
-
-// implemented
-
 -(void)addCollectionItem:(id)item;
 -(void)addCollectionItems:(NSArray *)items;
 
@@ -43,8 +39,6 @@
 
 -(void)insertItem:(id)item atIndexPath:(NSIndexPath *)indexPath;
 -(void)moveItem:(id)item toIndexPath:(NSIndexPath *)indexPath;
-
-// not implemented
 -(void)replaceItem:(id)oldItem withItem:(id)newItem;
 
 -(void)moveSection:(int)fromSection toSection:(int)toSection;

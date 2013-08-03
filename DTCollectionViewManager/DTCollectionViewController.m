@@ -295,12 +295,27 @@
 
 -(void)moveSection:(int)fromSection toSection:(int)toSection
 {
+    NSMutableArray * validSectionFrom = [self validCollectionSection:fromSection];
+    [self validCollectionSection:toSection];
     
+    [self.sections removeObject:validSectionFrom];
+    [self.sections insertObject:validSectionFrom atIndex:toSection];
+    
+    if (self.sections.count > self.collectionView.numberOfSections)
+    {
+        //Row does not exist, moving section causes many sections to change, so we just reload
+        [self.collectionView reloadData];
+    }
+    else {
+        [self.collectionView moveSection:fromSection toSection:toSection];
+    }
 }
 
 -(void)deleteSections:(NSIndexSet *)indexSet
 {
+    [self.sections removeObjectsAtIndexes:indexSet];
     
+    [self.collectionView deleteSections:indexSet];
 }
 
 #pragma mark - UICollectionView datasource

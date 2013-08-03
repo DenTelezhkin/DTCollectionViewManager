@@ -360,6 +360,63 @@ describe(@"Datasource specs", ^{
             } should_not raise_exception;
         });
     });
+    
+    describe(@"moving sections", ^{
+        
+        beforeEach(^{
+            [collection registerCellClass:[ModelCell class]
+                            forModelClass:[Model class]];
+        });
+        
+        it(@"should move section to empty section", ^{
+            [collection addCollectionItems:@[model1,model2]];
+            
+            [collection moveSection:0 toSection:1];
+            
+            [collection verifySection:@[model1,model2] withSectionNumber:1];
+            [collection verifySection:@[] withSectionNumber:0];
+        });
+        
+        it(@"should switch sections", ^{
+            [collection addCollectionItems:@[model1,model2]];
+            [collection addCollectionItems:@[model3,model4] toSection:1];
+            
+            [collection moveSection:0 toSection:1];
+            
+            [collection verifySection:@[model3,model4] withSectionNumber:0];
+            [collection verifySection:@[model1,model2] withSectionNumber:1];
+        });
+    });
+    
+    describe(@"deleting sections", ^{
+        
+        beforeEach(^{
+            [collection registerCellClass:[ModelCell class]
+                            forModelClass:[Model class]];
+        });
+        
+        it(@"should delete first section", ^{
+            [collection addCollectionItems:@[model1,model2]];
+            
+            [collection deleteSections:[NSIndexSet indexSetWithIndex:0]];
+            
+            [collection numberOfSections] should equal(0);
+        });
+        
+        it(@"should delete any section", ^{
+            [collection addCollectionItems:@[model1,model2] toSection:0];
+            [collection addCollectionItems:@[model3,model4] toSection:1];
+            [collection addCollectionItems:@[model5,model6] toSection:2];
+            NSMutableIndexSet * indexSet = [NSMutableIndexSet indexSetWithIndex:0];
+            [indexSet addIndex:2];
+            
+            [collection deleteSections:indexSet];
+            
+            [collection numberOfSections] should equal(1);
+            
+            [collection verifySection:@[model3,model4] withSectionNumber:0];
+        });
+    });
 
 });
 
