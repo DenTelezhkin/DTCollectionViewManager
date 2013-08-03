@@ -319,7 +319,9 @@
     else {
         // Fallback scenario. There's no header model, where it was supposed to be.
         // Returning empty, non-initialized view is bad, but it is better than crash
-        view = (UICollectionReusableView <DTCollectionViewModelTransfer> *)[UICollectionReusableView new];
+        view = (id)[self.factory emptySupplementaryViewOfKind:kind
+                                             forIndexPath:indexPath];
+        
 //        NSLog(@"DTCollectionViewManager: supplementary of kind %@ not found for indexPath: %@",kind,indexPath);
     }
     // Returning nil from this method will cause crash on runtime.

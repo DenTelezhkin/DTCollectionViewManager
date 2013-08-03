@@ -28,5 +28,8 @@
                                              forItem:(id)modelItem
                                          atIndexPath:(NSIndexPath *)indexPath;
 
+-(UICollectionReusableView *)emptySupplementaryViewOfKind:(NSString *)kind
+                                             forIndexPath:(NSIndexPath *)indexPath;
+
 @property (nonatomic, weak) id <DTCollectionFactoryDelegate> delegate;
 @end

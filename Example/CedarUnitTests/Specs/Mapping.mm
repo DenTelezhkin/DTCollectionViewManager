@@ -19,6 +19,7 @@ describe(@"Mapping tests", ^{
         collection = [DTCollectionViewController new];
         UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
         layout.headerReferenceSize = CGSizeMake(200, 300);
+        layout.footerReferenceSize = CGSizeMake(200, 300);
         layout.scrollDirection = UICollectionViewScrollDirectionHorizontal;
         collection.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)
                                                        collectionViewLayout:layout];

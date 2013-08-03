@@ -8,6 +8,8 @@
 
 #import "DTCollectionFactory.h"
 
+static NSString *const DTSupplementaryFallbackReuseIdentifier = @"FallbackSupplementaryReuseIdentifier";
+
 @implementation DTCollectionFactory
 
 -(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass
@@ -81,6 +83,19 @@
                 withReuseIdentifier:reuseIdentifier
                 forIndexPath:indexPath];
     }
+}
+
+-(UICollectionReusableView *)emptySupplementaryViewOfKind:(NSString *)kind
+                                             forIndexPath:(NSIndexPath *)indexPath
+{
+    NSString * reuseIdentifier = DTSupplementaryFallbackReuseIdentifier;
+    [[self.delegate collectionView] registerClass:[UICollectionReusableView class]
+                       forSupplementaryViewOfKind:kind
+                              withReuseIdentifier:reuseIdentifier];
+    
+    return [[self.delegate collectionView] dequeueReusableSupplementaryViewOfKind:kind
+                                                              withReuseIdentifier:reuseIdentifier
+                                                                     forIndexPath:indexPath];
 }
 
 - (NSString *)reuseIdentifierForClass:(Class)class
