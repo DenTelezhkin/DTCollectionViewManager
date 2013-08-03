@@ -11,7 +11,7 @@
 #import "DTCollectionFactory.h"
 
 @interface DTCollectionViewController ()
-                <DTCollectionFactoryDelegate>
+<DTCollectionFactoryDelegate>
 
 @property (nonatomic, retain) NSMutableArray *sections;
 @property (nonatomic, retain) NSMutableDictionary * supplementaryModels;
@@ -176,26 +176,38 @@
     
     int itemsCountInSection = [array count];
     [array addObject:item];
-
+    
     NSIndexPath * modelItemPath = [NSIndexPath indexPathForItem:itemsCountInSection
                                                       inSection:section];
-    [self.collectionView insertItemsAtIndexPaths:@[modelItemPath]];
+    if ([self.collectionView numberOfItemsInSection:section]==modelItemPath.item)
+    {
+        [self.collectionView insertItemsAtIndexPaths:@[modelItemPath]];
+    }
 }
 
 -(void)addCollectionItems:(NSArray *)items toSection:(int)section
 {
-    [self.collectionView performBatchUpdates:^{
-        for (id item in items)
-        {
-            [self addCollectionItem:item toSection:section];
-        }
-    } completion:nil];
+    NSMutableArray * sectionItems = [self validCollectionSection:section];
+    
+    NSMutableArray * indexes = [NSMutableArray arrayWithCapacity:[items count]];
+    
+    int startingIndex = [sectionItems count];
+    
+    for (id item in items)
+    {
+        [indexes addObject:[NSIndexPath indexPathForItem:startingIndex
+                                               inSection:section]];
+        startingIndex++;
+    }
+    
+    [sectionItems addObjectsFromArray:items];
+    [self.collectionView insertItemsAtIndexPaths:indexes];
 }
 
 -(void)removeCollectionItem:(id)item
 {
     NSIndexPath * indexPath = [self indexPathOfCollectionItem:item];
-
+    
     if (indexPath)
     {
         NSMutableArray * section = (NSMutableArray *)[self itemsArrayForSection:indexPath.section];
@@ -263,10 +275,10 @@
     
     NSMutableArray * sourceSection = [self validCollectionSection:sourceIndexPath.section];
     NSMutableArray * destinationSection = [self validCollectionSection:indexPath.section];
-
+    
     if ([destinationSection count] < indexPath.row)
     {
-         NSLog(@"DTCollectionViewManager: failed moving item to indexPath: %@, only %d items in section",indexPath,[destinationSection count]);
+        NSLog(@"DTCollectionViewManager: failed moving item to indexPath: %@, only %d items in section",indexPath,[destinationSection count]);
         return;
     }
     
@@ -329,7 +341,7 @@
      numberOfItemsInSection:(NSInteger)section
 {
     NSArray *itemsInSection = self.sections[section];
-
+    
     return [itemsInSection count];
 }
 
@@ -337,7 +349,7 @@
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell <DTCollectionViewModelTransfer> *cell;
-
+    
     NSArray *itemsInSection = self.sections[indexPath.section];
     id model = itemsInSection[indexPath.row];
     
@@ -367,9 +379,9 @@
         // Fallback scenario. There's no header model, where it was supposed to be.
         // Returning empty, non-initialized view is bad, but it is better than crash
         view = (id)[self.factory emptySupplementaryViewOfKind:kind
-                                             forIndexPath:indexPath];
+                                                 forIndexPath:indexPath];
         
-//        NSLog(@"DTCollectionViewManager: supplementary of kind %@ not found for indexPath: %@",kind,indexPath);
+        //        NSLog(@"DTCollectionViewManager: supplementary of kind %@ not found for indexPath: %@",kind,indexPath);
     }
     // Returning nil from this method will cause crash on runtime.
     return view;
