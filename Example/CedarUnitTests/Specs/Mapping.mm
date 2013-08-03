@@ -96,7 +96,7 @@ describe(@"Mapping tests", ^{
             header.awakenFromNib should_not BeTruthy();
         });
         
-        it(@"should be able to register supplementary header class", ^{
+        it(@"should be able to register supplementary header nib class", ^{
             [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                            forKind:UICollectionElementKindSectionHeader
                                      forModelClass:[Model class]];
@@ -105,6 +105,39 @@ describe(@"Mapping tests", ^{
             id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
             UIView * view = [datasource collectionView:collection.collectionView
                      viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
+                                           atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+            SupplementaryView * header = (SupplementaryView *) view;
+            [header class] should equal([SupplementaryViewWithNib class]);
+            header.inittedWithFrame should_not BeTruthy();
+            header.awakenFromNib should BeTruthy();
+        });
+        
+        it(@"should be able to register supplementary footer class", ^{
+            [collection registerSupplementaryClass:[SupplementaryView class]
+                                           forKind:UICollectionElementKindSectionFooter
+                                     forModelClass:[Model class]];
+            [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter]
+             addObject:[[Model new] autorelease]];
+            
+            id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
+            UIView * view = [datasource collectionView:collection.collectionView
+                     viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
+                                           atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+            SupplementaryView * header = (SupplementaryView *) view;
+            [header class] should equal([SupplementaryView class]);
+            header.inittedWithFrame should BeTruthy();
+            header.awakenFromNib should_not BeTruthy();
+        });
+        
+        it(@"should be able to register supplementary footer nib class", ^{
+            [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
+                                           forKind:UICollectionElementKindSectionFooter
+                                     forModelClass:[Model class]];
+            [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter]
+             addObject:[[Model new] autorelease]];
+            id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
+            UIView * view = [datasource collectionView:collection.collectionView
+                     viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
                                            atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
             SupplementaryView * header = (SupplementaryView *) view;
             [header class] should equal([SupplementaryViewWithNib class]);

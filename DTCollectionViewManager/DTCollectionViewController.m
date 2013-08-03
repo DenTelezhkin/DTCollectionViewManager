@@ -236,8 +236,21 @@
 
 -(void)insertItem:(id)item atIndexPath:(NSIndexPath *)indexPath
 {
+    NSMutableArray * array = [self validCollectionSection:indexPath.section];
     
+    if ([array count] < indexPath.row)
+    {
+        NSLog(@"DTCollectionViewManager: failed to insert item for indexPath section: %d, row: %d, only %d items in section",
+              indexPath.section,
+              indexPath.row,
+              [array count]);
+        return;
+    }
+    [array insertObject:item atIndex:indexPath.row];
+    
+    [self.collectionView insertItemsAtIndexPaths:@[indexPath]];
 }
+
 -(void)moveItem:(id)item toIndexPath:(NSIndexPath *)indexPath
 {
     

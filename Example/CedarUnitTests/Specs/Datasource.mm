@@ -196,6 +196,87 @@ describe(@"Datasource specs", ^{
         });
         
     });
+    
+    describe(@"inserting items", ^{
+        
+        beforeEach(^{
+            [collection registerCellClass:[ModelCell class]
+                            forModelClass:[Model class]];
+        });
+        
+        it(@"should raise when inserting to wrong indexPath", ^{
+            ^{
+                [collection insertItem:model1
+                           atIndexPath:[NSIndexPath indexPathForItem:2 inSection:3]];
+            } should_not raise_exception;
+        });
+        
+        it(@"should be able to insert first item", ^{
+            [collection insertItem:model1
+                       atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+            
+            [collection verifySection:@[model1] withSectionNumber:0];
+        });
+        
+        it(@"should be able to insert last item", ^{
+            [collection addCollectionItems:@[model1,model2]];
+            
+            [collection insertItem:model3
+                       atIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+            
+            [collection verifySection:@[model1,model2,model3] withSectionNumber:0];
+        });
+        
+        it(@"should be able to insert into non existing section", ^{
+            [collection addCollectionItems:@[model1,model2]];
+            [collection addCollectionItems:@[model3,model4] toSection:1];
+            
+            [collection insertItem:model5
+                       atIndexPath:[NSIndexPath indexPathForItem:0 inSection:2]];
+            
+            [collection verifySection:@[model1,model2]
+                    withSectionNumber:0];
+            [collection verifySection:@[model3,model4]
+                    withSectionNumber:1];
+            [collection verifySection:@[model5]
+                    withSectionNumber:2];
+        });
+        
+        it(@"should be able to insert item in different section", ^{
+            [collection addCollectionItems:@[model1,model2]];
+            [collection addCollectionItems:@[model3,model4] toSection:1];
+            
+            [collection insertItem:model5
+                       atIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+            
+            [collection verifySection:@[model1,model2,model5]
+                    withSectionNumber:0];
+            [collection verifySection:@[model3,model4]
+                    withSectionNumber:1];
+        });
+        
+        it(@"should be able to insert last item", ^{
+            [collection addCollectionItems:@[model1,model2]];
+            [collection addCollectionItems:@[model3,model4] toSection:1];
+            
+            [collection insertItem:model5
+                       atIndexPath:[NSIndexPath indexPathForItem:2 inSection:1]];
+            
+            [collection verifySection:@[model1,model2]
+                    withSectionNumber:0];
+            [collection verifySection:@[model3,model4,model5]
+                    withSectionNumber:1];
+        });
+        
+        it(@"should be able to insert into 2 section", ^{
+            [collection addCollectionItems:@[model1,model2]];
+            
+            [collection insertItem:model3 atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+            
+            [collection verifySection:@[model1,model2] withSectionNumber:0];
+            [collection verifySection:@[model3] withSectionNumber:1];
+        });
+    });
 
 });
 
