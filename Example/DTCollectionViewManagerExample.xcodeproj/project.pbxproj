@@ -21,6 +21,10 @@
 		955F85A5179ACAF000A38EAD /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 955F85A3179ACAF000A38EAD /* MasterViewController.xib */; };
 		955F85A8179ACAF000A38EAD /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 955F85A6179ACAF000A38EAD /* DetailViewController.xib */; };
 		955F85B2179ACB8F00A38EAD /* DTCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */; };
+		95ADB22517AD5527004BBA29 /* DTCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB22417AD5527004BBA29 /* DTCollectionReusableView.m */; };
+		95ADB22617AD5527004BBA29 /* DTCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB22417AD5527004BBA29 /* DTCollectionReusableView.m */; };
+		95ADB22917AD5586004BBA29 /* DTCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB22817AD5586004BBA29 /* DTCollectionViewCell.m */; };
+		95ADB22A17AD5586004BBA29 /* DTCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB22817AD5586004BBA29 /* DTCollectionViewCell.m */; };
 		95AE8969179AD03E00F834DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8585179ACAF000A38EAD /* UIKit.framework */; };
 		95AE896A179AD03E00F834DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8587179ACAF000A38EAD /* Foundation.framework */; };
 		95AE896B179AD03E00F834DB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8589179ACAF000A38EAD /* CoreGraphics.framework */; };
@@ -70,6 +74,10 @@
 		955F85AF179ACB8F00A38EAD /* DTCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewController.h; path = ../DTCollectionViewManager/DTCollectionViewController.h; sourceTree = "<group>"; };
 		955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionViewController.m; path = ../DTCollectionViewManager/DTCollectionViewController.m; sourceTree = "<group>"; };
 		955F85B1179ACB8F00A38EAD /* DTCollectionViewModelTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewModelTransfer.h; path = ../DTCollectionViewManager/DTCollectionViewModelTransfer.h; sourceTree = "<group>"; };
+		95ADB22317AD5527004BBA29 /* DTCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionReusableView.h; path = ../DTCollectionViewManager/Convenience/DTCollectionReusableView.h; sourceTree = "<group>"; };
+		95ADB22417AD5527004BBA29 /* DTCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionReusableView.m; path = ../DTCollectionViewManager/Convenience/DTCollectionReusableView.m; sourceTree = "<group>"; };
+		95ADB22717AD5586004BBA29 /* DTCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewCell.h; path = ../DTCollectionViewManager/Convenience/DTCollectionViewCell.h; sourceTree = "<group>"; };
+		95ADB22817AD5586004BBA29 /* DTCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionViewCell.m; path = ../DTCollectionViewManager/Convenience/DTCollectionViewCell.m; sourceTree = "<group>"; };
 		95AE8968179AD03E00F834DB /* CedarUnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CedarUnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95AE896E179AD03E00F834DB /* CedarUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CedarUnitTests-Info.plist"; sourceTree = "<group>"; };
 		95AE8970179AD03E00F834DB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -190,6 +198,7 @@
 		955F85AE179ACB7300A38EAD /* DTCollectionViewManager */ = {
 			isa = PBXGroup;
 			children = (
+				95ADB22217AD54EC004BBA29 /* Convenience */,
 				955F85AF179ACB8F00A38EAD /* DTCollectionViewController.h */,
 				955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */,
 				955F85B1179ACB8F00A38EAD /* DTCollectionViewModelTransfer.h */,
@@ -198,6 +207,17 @@
 				95AE899D179C05BE00F834DB /* DTCollectionFactory.m */,
 			);
 			name = DTCollectionViewManager;
+			sourceTree = "<group>";
+		};
+		95ADB22217AD54EC004BBA29 /* Convenience */ = {
+			isa = PBXGroup;
+			children = (
+				95ADB22317AD5527004BBA29 /* DTCollectionReusableView.h */,
+				95ADB22417AD5527004BBA29 /* DTCollectionReusableView.m */,
+				95ADB22717AD5586004BBA29 /* DTCollectionViewCell.h */,
+				95ADB22817AD5586004BBA29 /* DTCollectionViewCell.m */,
+			);
+			name = Convenience;
 			sourceTree = "<group>";
 		};
 		95AE896C179AD03E00F834DB /* CedarUnitTests */ = {
@@ -409,6 +429,8 @@
 				955F85A2179ACAF000A38EAD /* DetailViewController.m in Sources */,
 				955F85B2179ACB8F00A38EAD /* DTCollectionViewController.m in Sources */,
 				95AE899E179C05BE00F834DB /* DTCollectionFactory.m in Sources */,
+				95ADB22517AD5527004BBA29 /* DTCollectionReusableView.m in Sources */,
+				95ADB22917AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -427,6 +449,8 @@
 				95AE899F179C05BE00F834DB /* DTCollectionFactory.m in Sources */,
 				95AE89A7179C1A1600F834DB /* SupplementaryView.m in Sources */,
 				95AE89AA179C1A7600F834DB /* SupplementaryViewWithNib.m in Sources */,
+				95ADB22617AD5527004BBA29 /* DTCollectionReusableView.m in Sources */,
+				95ADB22A17AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
