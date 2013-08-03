@@ -328,6 +328,38 @@ describe(@"Datasource specs", ^{
             } should_not raise_exception;
         });
     });
+    
+    describe(@"replacing items", ^{
+        
+        beforeEach(^{
+            [collection registerCellClass:[ModelCell class]
+                            forModelClass:[Model class]];
+        });
+        
+        it(@"should replace item", ^{
+            [collection addCollectionItems:@[model1,model2,model3]];
+            
+            [collection replaceItem:model2 withItem:model4];
+            
+            [collection verifySection:@[model1,model4,model3] withSectionNumber:0];
+        });
+        
+        it(@"should replace item at another section", ^{
+            [collection addCollectionItems:@[model1,model2]];
+            [collection addCollectionItems:@[model3,model4] toSection:1];
+            
+            [collection replaceItem:model3 withItem:model5];
+            
+            [collection verifySection:@[model1,model2] withSectionNumber:0];
+            [collection verifySection:@[model5,model4] withSectionNumber:1];
+        });
+        
+        it(@"should not crash if source item not found", ^{
+            ^{
+                [collection replaceItem:model1 withItem:model2];
+            } should_not raise_exception;
+        });
+    });
 
 });
 

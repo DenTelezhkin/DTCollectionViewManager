@@ -279,7 +279,18 @@
 
 -(void)replaceItem:(id)oldItem withItem:(id)newItem
 {
+    NSIndexPath * oldIndexPath = [self indexPathOfCollectionItem:oldItem];
     
+    if (!oldIndexPath || !newItem)
+    {
+        NSLog(@"DTCollectionViewManager: failed to replace item %@ at indexPath: %@",newItem,oldIndexPath);
+        return;
+    }
+    NSMutableArray * section = [self validCollectionSection:oldIndexPath.section];
+    
+    [section replaceObjectAtIndex:oldIndexPath.row withObject:newItem];
+    
+    [self.collectionView reloadItemsAtIndexPaths:@[oldIndexPath]];
 }
 
 -(void)moveSection:(int)fromSection toSection:(int)toSection
