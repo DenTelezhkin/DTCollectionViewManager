@@ -16,15 +16,21 @@
 		955F8598179ACAF000A38EAD /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 955F8597179ACAF000A38EAD /* Default.png */; };
 		955F859A179ACAF000A38EAD /* Default@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 955F8599179ACAF000A38EAD /* Default@2x.png */; };
 		955F859C179ACAF000A38EAD /* Default-568h@2x.png in Resources */ = {isa = PBXBuildFile; fileRef = 955F859B179ACAF000A38EAD /* Default-568h@2x.png */; };
-		955F859F179ACAF000A38EAD /* MasterViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955F859E179ACAF000A38EAD /* MasterViewController.m */; };
-		955F85A2179ACAF000A38EAD /* DetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955F85A1179ACAF000A38EAD /* DetailViewController.m */; };
-		955F85A5179ACAF000A38EAD /* MasterViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 955F85A3179ACAF000A38EAD /* MasterViewController.xib */; };
-		955F85A8179ACAF000A38EAD /* DetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 955F85A6179ACAF000A38EAD /* DetailViewController.xib */; };
+		955F859F179ACAF000A38EAD /* ExamplesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955F859E179ACAF000A38EAD /* ExamplesViewController.m */; };
+		955F85A2179ACAF000A38EAD /* EmptyDetailViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955F85A1179ACAF000A38EAD /* EmptyDetailViewController.m */; };
+		955F85A5179ACAF000A38EAD /* ExamplesViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 955F85A3179ACAF000A38EAD /* ExamplesViewController.xib */; };
+		955F85A8179ACAF000A38EAD /* EmptyDetailViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 955F85A6179ACAF000A38EAD /* EmptyDetailViewController.xib */; };
 		955F85B2179ACB8F00A38EAD /* DTCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */; };
 		95ADB22517AD5527004BBA29 /* DTCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB22417AD5527004BBA29 /* DTCollectionReusableView.m */; };
 		95ADB22617AD5527004BBA29 /* DTCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB22417AD5527004BBA29 /* DTCollectionReusableView.m */; };
 		95ADB22917AD5586004BBA29 /* DTCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB22817AD5586004BBA29 /* DTCollectionViewCell.m */; };
 		95ADB22A17AD5586004BBA29 /* DTCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB22817AD5586004BBA29 /* DTCollectionViewCell.m */; };
+		95ADB23317AE4D7E004BBA29 /* ControllerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB23217AE4D7E004BBA29 /* ControllerModel.m */; };
+		95ADB23417AE4D7E004BBA29 /* ControllerModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB23217AE4D7E004BBA29 /* ControllerModel.m */; };
+		95ADB23817AE53C7004BBA29 /* AddRemoveCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB23617AE53C7004BBA29 /* AddRemoveCollectionController.m */; };
+		95ADB23917AE53C7004BBA29 /* AddRemoveCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB23617AE53C7004BBA29 /* AddRemoveCollectionController.m */; };
+		95ADB23A17AE53C7004BBA29 /* AddRemoveCollectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95ADB23717AE53C7004BBA29 /* AddRemoveCollectionController.xib */; };
+		95ADB23B17AE53C7004BBA29 /* AddRemoveCollectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95ADB23717AE53C7004BBA29 /* AddRemoveCollectionController.xib */; };
 		95AE8969179AD03E00F834DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8585179ACAF000A38EAD /* UIKit.framework */; };
 		95AE896A179AD03E00F834DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8587179ACAF000A38EAD /* Foundation.framework */; };
 		95AE896B179AD03E00F834DB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8589179ACAF000A38EAD /* CoreGraphics.framework */; };
@@ -65,12 +71,12 @@
 		955F8597179ACAF000A38EAD /* Default.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = Default.png; sourceTree = "<group>"; };
 		955F8599179ACAF000A38EAD /* Default@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default@2x.png"; sourceTree = "<group>"; };
 		955F859B179ACAF000A38EAD /* Default-568h@2x.png */ = {isa = PBXFileReference; lastKnownFileType = image.png; path = "Default-568h@2x.png"; sourceTree = "<group>"; };
-		955F859D179ACAF000A38EAD /* MasterViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = MasterViewController.h; sourceTree = "<group>"; };
-		955F859E179ACAF000A38EAD /* MasterViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = MasterViewController.m; sourceTree = "<group>"; };
-		955F85A0179ACAF000A38EAD /* DetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = DetailViewController.h; sourceTree = "<group>"; };
-		955F85A1179ACAF000A38EAD /* DetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = DetailViewController.m; sourceTree = "<group>"; };
-		955F85A4179ACAF000A38EAD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/MasterViewController.xib; sourceTree = "<group>"; };
-		955F85A7179ACAF000A38EAD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/DetailViewController.xib; sourceTree = "<group>"; };
+		955F859D179ACAF000A38EAD /* ExamplesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ExamplesViewController.h; sourceTree = "<group>"; };
+		955F859E179ACAF000A38EAD /* ExamplesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ExamplesViewController.m; sourceTree = "<group>"; };
+		955F85A0179ACAF000A38EAD /* EmptyDetailViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = EmptyDetailViewController.h; sourceTree = "<group>"; };
+		955F85A1179ACAF000A38EAD /* EmptyDetailViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = EmptyDetailViewController.m; sourceTree = "<group>"; };
+		955F85A4179ACAF000A38EAD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/ExamplesViewController.xib; sourceTree = "<group>"; };
+		955F85A7179ACAF000A38EAD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/EmptyDetailViewController.xib; sourceTree = "<group>"; };
 		955F85AF179ACB8F00A38EAD /* DTCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewController.h; path = ../DTCollectionViewManager/DTCollectionViewController.h; sourceTree = "<group>"; };
 		955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionViewController.m; path = ../DTCollectionViewManager/DTCollectionViewController.m; sourceTree = "<group>"; };
 		955F85B1179ACB8F00A38EAD /* DTCollectionViewModelTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewModelTransfer.h; path = ../DTCollectionViewManager/DTCollectionViewModelTransfer.h; sourceTree = "<group>"; };
@@ -78,6 +84,11 @@
 		95ADB22417AD5527004BBA29 /* DTCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionReusableView.m; path = ../DTCollectionViewManager/Convenience/DTCollectionReusableView.m; sourceTree = "<group>"; };
 		95ADB22717AD5586004BBA29 /* DTCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewCell.h; path = ../DTCollectionViewManager/Convenience/DTCollectionViewCell.h; sourceTree = "<group>"; };
 		95ADB22817AD5586004BBA29 /* DTCollectionViewCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionViewCell.m; path = ../DTCollectionViewManager/Convenience/DTCollectionViewCell.m; sourceTree = "<group>"; };
+		95ADB23117AE4D7E004BBA29 /* ControllerModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ControllerModel.h; path = Models/ControllerModel.h; sourceTree = "<group>"; };
+		95ADB23217AE4D7E004BBA29 /* ControllerModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ControllerModel.m; path = Models/ControllerModel.m; sourceTree = "<group>"; };
+		95ADB23517AE53C7004BBA29 /* AddRemoveCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddRemoveCollectionController.h; path = Controllers/AddRemove/AddRemoveCollectionController.h; sourceTree = "<group>"; };
+		95ADB23617AE53C7004BBA29 /* AddRemoveCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddRemoveCollectionController.m; path = Controllers/AddRemove/AddRemoveCollectionController.m; sourceTree = "<group>"; };
+		95ADB23717AE53C7004BBA29 /* AddRemoveCollectionController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddRemoveCollectionController.xib; path = Controllers/AddRemove/AddRemoveCollectionController.xib; sourceTree = "<group>"; };
 		95AE8968179AD03E00F834DB /* CedarUnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CedarUnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95AE896E179AD03E00F834DB /* CedarUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CedarUnitTests-Info.plist"; sourceTree = "<group>"; };
 		95AE8970179AD03E00F834DB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
@@ -167,14 +178,13 @@
 		955F858B179ACAF000A38EAD /* Example */ = {
 			isa = PBXGroup;
 			children = (
+				95ADB23017AE4D48004BBA29 /* Controllers */,
+				95ADB22F17AE4D3F004BBA29 /* Models */,
 				955F8594179ACAF000A38EAD /* AppDelegate.h */,
 				955F8595179ACAF000A38EAD /* AppDelegate.m */,
-				955F859D179ACAF000A38EAD /* MasterViewController.h */,
-				955F859E179ACAF000A38EAD /* MasterViewController.m */,
-				955F85A0179ACAF000A38EAD /* DetailViewController.h */,
-				955F85A1179ACAF000A38EAD /* DetailViewController.m */,
-				955F85A3179ACAF000A38EAD /* MasterViewController.xib */,
-				955F85A6179ACAF000A38EAD /* DetailViewController.xib */,
+				955F859D179ACAF000A38EAD /* ExamplesViewController.h */,
+				955F859E179ACAF000A38EAD /* ExamplesViewController.m */,
+				955F85A3179ACAF000A38EAD /* ExamplesViewController.xib */,
 				955F858C179ACAF000A38EAD /* Supporting Files */,
 			);
 			name = Example;
@@ -218,6 +228,44 @@
 				95ADB22817AD5586004BBA29 /* DTCollectionViewCell.m */,
 			);
 			name = Convenience;
+			sourceTree = "<group>";
+		};
+		95ADB22F17AE4D3F004BBA29 /* Models */ = {
+			isa = PBXGroup;
+			children = (
+				95ADB23117AE4D7E004BBA29 /* ControllerModel.h */,
+				95ADB23217AE4D7E004BBA29 /* ControllerModel.m */,
+			);
+			name = Models;
+			sourceTree = "<group>";
+		};
+		95ADB23017AE4D48004BBA29 /* Controllers */ = {
+			isa = PBXGroup;
+			children = (
+				95ADB23D17AE5AC8004BBA29 /* Empty */,
+				95ADB23C17AE5ABA004BBA29 /* AddRemove */,
+			);
+			name = Controllers;
+			sourceTree = "<group>";
+		};
+		95ADB23C17AE5ABA004BBA29 /* AddRemove */ = {
+			isa = PBXGroup;
+			children = (
+				95ADB23517AE53C7004BBA29 /* AddRemoveCollectionController.h */,
+				95ADB23617AE53C7004BBA29 /* AddRemoveCollectionController.m */,
+				95ADB23717AE53C7004BBA29 /* AddRemoveCollectionController.xib */,
+			);
+			name = AddRemove;
+			sourceTree = "<group>";
+		};
+		95ADB23D17AE5AC8004BBA29 /* Empty */ = {
+			isa = PBXGroup;
+			children = (
+				955F85A0179ACAF000A38EAD /* EmptyDetailViewController.h */,
+				955F85A1179ACAF000A38EAD /* EmptyDetailViewController.m */,
+				955F85A6179ACAF000A38EAD /* EmptyDetailViewController.xib */,
+			);
+			name = Empty;
 			sourceTree = "<group>";
 		};
 		95AE896C179AD03E00F834DB /* CedarUnitTests */ = {
@@ -365,8 +413,9 @@
 				955F8598179ACAF000A38EAD /* Default.png in Resources */,
 				955F859A179ACAF000A38EAD /* Default@2x.png in Resources */,
 				955F859C179ACAF000A38EAD /* Default-568h@2x.png in Resources */,
-				955F85A5179ACAF000A38EAD /* MasterViewController.xib in Resources */,
-				955F85A8179ACAF000A38EAD /* DetailViewController.xib in Resources */,
+				955F85A5179ACAF000A38EAD /* ExamplesViewController.xib in Resources */,
+				955F85A8179ACAF000A38EAD /* EmptyDetailViewController.xib in Resources */,
+				95ADB23A17AE53C7004BBA29 /* AddRemoveCollectionController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -380,6 +429,7 @@
 				95AE897D179AD03F00F834DB /* Default-568h@2x.png in Resources */,
 				95AE899A179BF5B200F834DB /* ModelCellWithNib.xib in Resources */,
 				95AE89AC179C1A9300F834DB /* SupplementaryViewWithNib.xib in Resources */,
+				95ADB23B17AE53C7004BBA29 /* AddRemoveCollectionController.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -425,12 +475,14 @@
 			files = (
 				955F8592179ACAF000A38EAD /* main.m in Sources */,
 				955F8596179ACAF000A38EAD /* AppDelegate.m in Sources */,
-				955F859F179ACAF000A38EAD /* MasterViewController.m in Sources */,
-				955F85A2179ACAF000A38EAD /* DetailViewController.m in Sources */,
+				955F859F179ACAF000A38EAD /* ExamplesViewController.m in Sources */,
+				955F85A2179ACAF000A38EAD /* EmptyDetailViewController.m in Sources */,
 				955F85B2179ACB8F00A38EAD /* DTCollectionViewController.m in Sources */,
 				95AE899E179C05BE00F834DB /* DTCollectionFactory.m in Sources */,
 				95ADB22517AD5527004BBA29 /* DTCollectionReusableView.m in Sources */,
 				95ADB22917AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,
+				95ADB23317AE4D7E004BBA29 /* ControllerModel.m in Sources */,
+				95ADB23817AE53C7004BBA29 /* AddRemoveCollectionController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -451,6 +503,8 @@
 				95AE89AA179C1A7600F834DB /* SupplementaryViewWithNib.m in Sources */,
 				95ADB22617AD5527004BBA29 /* DTCollectionReusableView.m in Sources */,
 				95ADB22A17AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,
+				95ADB23417AE4D7E004BBA29 /* ControllerModel.m in Sources */,
+				95ADB23917AE53C7004BBA29 /* AddRemoveCollectionController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -465,20 +519,20 @@
 			name = InfoPlist.strings;
 			sourceTree = "<group>";
 		};
-		955F85A3179ACAF000A38EAD /* MasterViewController.xib */ = {
+		955F85A3179ACAF000A38EAD /* ExamplesViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				955F85A4179ACAF000A38EAD /* en */,
 			);
-			name = MasterViewController.xib;
+			name = ExamplesViewController.xib;
 			sourceTree = "<group>";
 		};
-		955F85A6179ACAF000A38EAD /* DetailViewController.xib */ = {
+		955F85A6179ACAF000A38EAD /* EmptyDetailViewController.xib */ = {
 			isa = PBXVariantGroup;
 			children = (
 				955F85A7179ACAF000A38EAD /* en */,
 			);
-			name = DetailViewController.xib;
+			name = EmptyDetailViewController.xib;
 			sourceTree = "<group>";
 		};
 		95AE896F179AD03E00F834DB /* InfoPlist.strings */ = {

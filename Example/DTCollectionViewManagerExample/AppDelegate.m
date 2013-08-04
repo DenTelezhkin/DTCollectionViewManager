@@ -8,9 +8,9 @@
 
 #import "AppDelegate.h"
 
-#import "MasterViewController.h"
+#import "ExamplesViewController.h"
 
-#import "DetailViewController.h"
+#import "EmptyDetailViewController.h"
 
 @implementation AppDelegate
 
@@ -19,18 +19,14 @@
     self.window = [[UIWindow alloc] initWithFrame:[[UIScreen mainScreen] bounds]];
     // Override point for customization after application launch.
 
-    MasterViewController *masterViewController = [MasterViewController new];
-    UINavigationController *masterNavigationController = [[UINavigationController alloc] initWithRootViewController:masterViewController];
-
-    DetailViewController *detailViewController = [DetailViewController new];
-    UINavigationController *detailNavigationController = [[UINavigationController alloc] initWithRootViewController:detailViewController];
-
-    masterViewController.detailViewController = detailViewController;
+    ExamplesViewController *masterViewController = [ExamplesViewController new];
+    EmptyDetailViewController *detailViewController = [EmptyDetailViewController new];
 
     self.splitViewController = [UISplitViewController new];
-    self.splitViewController.delegate = detailViewController;
-    self.splitViewController.viewControllers = @[masterNavigationController, detailNavigationController];
+    self.splitViewController.delegate = masterViewController;
+    self.splitViewController.viewControllers = @[masterViewController, detailViewController];
     self.window.rootViewController = self.splitViewController;
+    masterViewController.splitViewController = self.splitViewController;
     [self.window makeKeyAndVisible];
     return YES;
 }
