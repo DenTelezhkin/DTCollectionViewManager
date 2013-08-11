@@ -18,6 +18,8 @@
 @property (nonatomic, retain) DTCollectionFactory * factory;
 @end
 
+static BOOL isLoggingEnabled = YES;
+
 @implementation DTCollectionViewController
 
 - (NSMutableArray *)sections
@@ -101,7 +103,10 @@
     NSIndexPath * indexPath = [self indexPathOfItem:tableItem inArray:self.sections];
     if (!indexPath)
     {
-        NSLog(@"DTCollectionViewManager: collection item not found, cannot return it's indexPath");
+        if ([self isLoggingEnabled])
+        {
+            NSLog(@"DTCollectionViewManager: collection item not found, cannot return it's indexPath");
+        }
         return nil;
     }
     else {
@@ -119,8 +124,11 @@
         NSIndexPath * foundIndexPath = [self indexPathOfCollectionItem:[items objectAtIndex:i]];
         if (!foundIndexPath)
         {
-            NSLog(@"DTCollectionViewManager: object %@ not found",
+            if ([self isLoggingEnabled])
+            {
+                NSLog(@"DTCollectionViewManager: object %@ not found",
                   [items objectAtIndex:i]);
+            }
         }
         else {
             [indexPaths addObject:foundIndexPath];
@@ -214,7 +222,10 @@
         [section removeObjectAtIndex:indexPath.row];
     }
     else {
-        NSLog(@"DTCollectionViewManager: item to delete: %@ was not found in collection view",item);
+        if ([self isLoggingEnabled])
+        {
+            NSLog(@"DTCollectionViewManager: item to delete: %@ was not found in collection view",item);
+        }
         return;
     }
     [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
@@ -229,7 +240,10 @@
         [section removeObjectAtIndex:indexPath.row];
     }
     else {
-        NSLog(@"DTCollectionViewManager: indexPath to delete: %@ was not found in collection view",indexPath);
+        if ([self isLoggingEnabled])
+        {
+            NSLog(@"DTCollectionViewManager: indexPath to delete: %@ was not found in collection view",indexPath);
+        }
         return;
     }
     [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
@@ -297,10 +311,13 @@
     
     if ([array count] < indexPath.row)
     {
-        NSLog(@"DTCollectionViewManager: failed to insert item for indexPath section: %d, row: %d, only %d items in section",
+        if ([self isLoggingEnabled])
+        {
+            NSLog(@"DTCollectionViewManager: failed to insert item for indexPath section: %d, row: %d, only %d items in section",
               indexPath.section,
               indexPath.row,
               [array count]);
+        }
         return;
     }
     [array insertObject:item atIndex:indexPath.row];
@@ -314,7 +331,10 @@
     
     if (!sourceIndexPath)
     {
-        NSLog(@"DTCollectionViewManager: item %@ not found in collectionView",item);
+        if ([self isLoggingEnabled])
+        {
+            NSLog(@"DTCollectionViewManager: item %@ not found in collectionView",item);
+        }
         return;
     }
     
@@ -323,7 +343,10 @@
     
     if ([destinationSection count] < indexPath.row)
     {
-        NSLog(@"DTCollectionViewManager: failed moving item to indexPath: %@, only %d items in section",indexPath,[destinationSection count]);
+        if ([self isLoggingEnabled])
+        {
+            NSLog(@"DTCollectionViewManager: failed moving item to indexPath: %@, only %d items in section",indexPath,[destinationSection count]);
+        }
         return;
     }
     
@@ -340,7 +363,10 @@
     
     if (!oldIndexPath || !newItem)
     {
-        NSLog(@"DTCollectionViewManager: failed to replace item %@ at indexPath: %@",newItem,oldIndexPath);
+        if ([self isLoggingEnabled])
+        {
+            NSLog(@"DTCollectionViewManager: failed to replace item %@ at indexPath: %@",newItem,oldIndexPath);
+        }
         return;
     }
     NSMutableArray * section = [self validCollectionSection:oldIndexPath.section];
@@ -454,6 +480,16 @@
         }
         return [self.sections lastObject];
     }
+}
+
++(void)setLoggingEnabled:(BOOL)isEnabled
+{
+    isLoggingEnabled = isEnabled;
+}
+
+-(BOOL)isLoggingEnabled
+{
+    return isLoggingEnabled;
 }
 
 @end

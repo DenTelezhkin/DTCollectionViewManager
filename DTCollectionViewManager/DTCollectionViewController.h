@@ -48,4 +48,6 @@
 -(void)moveSection:(int)fromSection toSection:(int)toSection;
 -(void)deleteSections:(NSIndexSet *)indexSet;
 
++(void)setLoggingEnabled:(BOOL)isEnabled;
+
 @end
