@@ -165,6 +165,27 @@ describe(@"Datasource specs", ^{
             } should_not raise_exception;
         });
         
+        it(@"should remove item at indexPath", ^{
+            [collection addCollectionItems:@[model1,model2,model3]];
+            [collection addCollectionItems:@[model4,model5] toSection:1];
+            
+            [collection removeCollectionItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+            [collection removeCollectionItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+            
+            [collection verifySection:@[model1,model2] withSectionNumber:0];
+            [collection verifySection:@[model5] withSectionNumber:1];
+        });
+        
+        it(@"should not crash when removing absent indexPath", ^{
+            ^{
+                [collection addCollectionItems:@[model2,model3]];
+                [collection removeCollectionItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+                [collection verifySection:@[model2,model3] withSectionNumber:0];
+                [collection removeCollectionItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+                [collection verifySection:@[model2,model3] withSectionNumber:0];
+            } should_not raise_exception;
+        });
+        
         it(@"should not crash when removing absent items", ^{
             ^{
                 [collection addCollectionItems:@[model2,model3]];
@@ -183,6 +204,31 @@ describe(@"Datasource specs", ^{
             [collection verifySection:@[model2] withSectionNumber:0];
             [collection verifySection:@[model3] withSectionNumber:1];
             [collection verifySection:@[model6] withSectionNumber:2];
+        });
+        
+        it(@"should remove collection items at index paths", ^{
+            [collection addCollectionItems:@[model1,model2,model3]];
+            [collection addCollectionItems:@[model4,model5,model6] toSection:1];
+            
+            NSArray * indexPaths = @[[NSIndexPath indexPathForItem:1 inSection:0],
+                                     [NSIndexPath indexPathForItem:2 inSection:1],
+                                     [NSIndexPath indexPathForItem:0 inSection:1]];
+            [collection removeCollectionItemsAtIndexPaths:indexPaths];
+            
+            [collection verifySection:@[model1,model3] withSectionNumber:0];
+            [collection verifySection:@[model5] withSectionNumber:1];
+        });
+        
+        it(@"should not crash when removing absent indexPath", ^{
+            ^{
+                [collection addCollectionItems:@[model2,model3]];
+                
+                NSArray * indexPaths = @[[NSIndexPath indexPathForItem:2 inSection:0],
+                                         [NSIndexPath indexPathForItem:0 inSection:1]];
+                
+                [collection removeCollectionItemsAtIndexPaths:indexPaths];
+                [collection verifySection:@[model2,model3] withSectionNumber:0];
+            } should_not raise_exception;
         });
         
         it(@"should remove all collection items", ^{

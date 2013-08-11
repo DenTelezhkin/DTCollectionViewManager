@@ -7,34 +7,76 @@
 //
 
 #import "AddRemoveCollectionController.h"
+#import "ExampleCell.h"
 
-@interface AddRemoveCollectionController ()
-
+@interface AddRemoveCollectionController()
+@property (strong, nonatomic) IBOutlet UINavigationItem *addRemoveNavigationItem;
 @end
 
 @implementation AddRemoveCollectionController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
+-(NSArray *)editBarButtonItems
 {
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        // Custom initialization
-    }
-    return self;
+    UIBarButtonItem * deleteButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemTrash
+                                                                                   target:self
+                                                                                   action:@selector(deleteSelectedItems)];
+    UIBarButtonItem * doneButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemDone
+                                                                                 target:self
+                                                                                 action:@selector(doneEditing)];
+    return @[doneButton,deleteButton];
+}
+
+-(NSArray *)defaultBarButtonItems
+{
+    UIBarButtonItem * plusButton = [[UIBarButtonItem alloc] initWithTitle:@"+3"
+                                                                    style:UIBarButtonItemStyleBordered
+                                                                   target:self
+                                                                   action:@selector(addItem:)];
+    UIBarButtonItem * editButton = [[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemEdit
+                                                                                 target:self
+                                                                                 action:@selector(editTapped:)];
+    return @[editButton,plusButton];
 }
 
 - (void)viewDidLoad
 {
     [super viewDidLoad];
     
-    [self.navigationItem setRightBarButtonItem:[[UIBarButtonItem alloc] initWithBarButtonSystemItem:UIBarButtonSystemItemAdd
-                                                                                             target:self
-                                                                                             action:@selector(addItem)]];
+    self.collectionView.allowsSelection = NO;
+    self.collectionView.allowsMultipleSelection = YES;
+    
+    [self registerCellClass:[ExampleCell class] forModelClass:[NSString class]];
+    [self registerCellClass:[ExampleCell class] forModelClass:[NSNumber class]];
+    [self registerCellClass:[ExampleCell class] forModelClass:[NSDictionary class]];
+    
+    [self.addRemoveNavigationItem setRightBarButtonItems:[self defaultBarButtonItems]];
 }
 
--(void)addItem
+#pragma mark - actions
+
+-(void)addItem:(id)sender
 {
-    
+    [self addCollectionItems:@[@"",@0,@{}] toSection:0];
+    [self addCollectionItems:@[@"",@0,@{}] toSection:1];
 }
+
+- (void)editTapped:(UIBarButtonItem *)sender
+{
+    [self.addRemoveNavigationItem setRightBarButtonItems:[self editBarButtonItems] animated:YES];
+    self.collectionView.allowsSelection = YES;
+}
+
+-(void)deleteSelectedItems
+{
+    NSArray * selectedItems = [self.collectionView indexPathsForSelectedItems];
+    [self removeCollectionItemsAtIndexPaths:selectedItems];
+}
+
+-(void)doneEditing
+{
+    [self.addRemoveNavigationItem setRightBarButtonItems:[self defaultBarButtonItems] animated:YES];
+    self.collectionView.allowsSelection = NO;
+}
+
 
 @end

@@ -34,7 +34,11 @@
 -(void)addCollectionItems:(NSArray *)items toSection:(int)section;
 
 -(void)removeCollectionItem:(id)item;
+-(void)removeCollectionItemAtIndexPath:(NSIndexPath *)indexPath;
+
 -(void)removeCollectionItems:(NSArray *)items;
+-(void)removeCollectionItemsAtIndexPaths:(NSArray *)indexPaths;
+
 -(void)removeAllCollectionItems;
 
 -(void)insertItem:(id)item atIndexPath:(NSIndexPath *)indexPath;

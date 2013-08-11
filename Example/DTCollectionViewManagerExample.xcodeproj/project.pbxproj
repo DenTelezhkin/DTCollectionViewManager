@@ -52,6 +52,10 @@
 		95AE89A7179C1A1600F834DB /* SupplementaryView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE89A6179C1A1600F834DB /* SupplementaryView.m */; };
 		95AE89AA179C1A7600F834DB /* SupplementaryViewWithNib.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE89A9179C1A7600F834DB /* SupplementaryViewWithNib.m */; };
 		95AE89AC179C1A9300F834DB /* SupplementaryViewWithNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95AE89AB179C1A9300F834DB /* SupplementaryViewWithNib.xib */; };
+		95C89A1417B78F95009FA3F2 /* ExampleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C89A1317B78F95009FA3F2 /* ExampleCell.m */; };
+		95C89A1517B78F95009FA3F2 /* ExampleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C89A1317B78F95009FA3F2 /* ExampleCell.m */; };
+		95C89A1717B78FAA009FA3F2 /* ExampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */; };
+		95C89A1817B78FAA009FA3F2 /* ExampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */; };
 		FF89B56B3FC940359B01B116 /* libPods-CedarUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */; };
 /* End PBXBuildFile section */
 
@@ -116,6 +120,9 @@
 		95AE89A8179C1A7600F834DB /* SupplementaryViewWithNib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SupplementaryViewWithNib.h; path = Supplementaries/SupplementaryViewWithNib.h; sourceTree = "<group>"; };
 		95AE89A9179C1A7600F834DB /* SupplementaryViewWithNib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SupplementaryViewWithNib.m; path = Supplementaries/SupplementaryViewWithNib.m; sourceTree = "<group>"; };
 		95AE89AB179C1A9300F834DB /* SupplementaryViewWithNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SupplementaryViewWithNib.xib; path = Supplementaries/SupplementaryViewWithNib.xib; sourceTree = "<group>"; };
+		95C89A1217B78F95009FA3F2 /* ExampleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleCell.h; path = Cells/ExampleCell.h; sourceTree = "<group>"; };
+		95C89A1317B78F95009FA3F2 /* ExampleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleCell.m; path = Cells/ExampleCell.m; sourceTree = "<group>"; };
+		95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExampleCell.xib; path = Cells/ExampleCell.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -242,6 +249,7 @@
 		95ADB23017AE4D48004BBA29 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				95C89A0C17B78F38009FA3F2 /* Views */,
 				95ADB23D17AE5AC8004BBA29 /* Empty */,
 				95ADB23C17AE5ABA004BBA29 /* AddRemove */,
 			);
@@ -338,6 +346,24 @@
 			name = Supplementaries;
 			sourceTree = "<group>";
 		};
+		95C89A0C17B78F38009FA3F2 /* Views */ = {
+			isa = PBXGroup;
+			children = (
+				95C89A0D17B78F3E009FA3F2 /* Cells */,
+			);
+			name = Views;
+			sourceTree = "<group>";
+		};
+		95C89A0D17B78F3E009FA3F2 /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				95C89A1217B78F95009FA3F2 /* ExampleCell.h */,
+				95C89A1317B78F95009FA3F2 /* ExampleCell.m */,
+				95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */,
+			);
+			name = Cells;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -416,6 +442,7 @@
 				955F85A5179ACAF000A38EAD /* ExamplesViewController.xib in Resources */,
 				955F85A8179ACAF000A38EAD /* EmptyDetailViewController.xib in Resources */,
 				95ADB23A17AE53C7004BBA29 /* AddRemoveCollectionController.xib in Resources */,
+				95C89A1717B78FAA009FA3F2 /* ExampleCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -430,6 +457,7 @@
 				95AE899A179BF5B200F834DB /* ModelCellWithNib.xib in Resources */,
 				95AE89AC179C1A9300F834DB /* SupplementaryViewWithNib.xib in Resources */,
 				95ADB23B17AE53C7004BBA29 /* AddRemoveCollectionController.xib in Resources */,
+				95C89A1817B78FAA009FA3F2 /* ExampleCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -483,6 +511,7 @@
 				95ADB22917AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,
 				95ADB23317AE4D7E004BBA29 /* ControllerModel.m in Sources */,
 				95ADB23817AE53C7004BBA29 /* AddRemoveCollectionController.m in Sources */,
+				95C89A1417B78F95009FA3F2 /* ExampleCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -505,6 +534,7 @@
 				95ADB22A17AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,
 				95ADB23417AE4D7E004BBA29 /* ControllerModel.m in Sources */,
 				95ADB23917AE53C7004BBA29 /* AddRemoveCollectionController.m in Sources */,
+				95C89A1517B78F95009FA3F2 /* ExampleCell.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -636,6 +666,7 @@
 				GCC_PREFIX_HEADER = "CedarUnitTests/CedarUnitTests-Prefix.pch";
 				INFOPLIST_FILE = "CedarUnitTests/CedarUnitTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -650,6 +681,7 @@
 				GCC_PREFIX_HEADER = "CedarUnitTests/CedarUnitTests-Prefix.pch";
 				INFOPLIST_FILE = "CedarUnitTests/CedarUnitTests-Info.plist";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

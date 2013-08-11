@@ -220,6 +220,21 @@
     [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
 }
 
+-(void)removeCollectionItemAtIndexPath:(NSIndexPath *)indexPath
+{
+    if (indexPath && indexPath.section<[self numberOfSections] &&
+        indexPath.item < [self.sections[indexPath.section] count])
+    {
+        NSMutableArray * section = (NSMutableArray *)[self itemsArrayForSection:indexPath.section];
+        [section removeObjectAtIndex:indexPath.row];
+    }
+    else {
+        NSLog(@"DTCollectionViewManager: indexPath to delete: %@ was not found in collection view",indexPath);
+        return;
+    }
+    [self.collectionView deleteItemsAtIndexPaths:@[indexPath]];
+}
+
 -(void)removeCollectionItems:(NSArray *)items
 {
     NSArray * indexPaths = [self indexPathArrayForCollectionItems:items];
@@ -237,6 +252,36 @@
         }
     }
     [self.collectionView deleteItemsAtIndexPaths:indexPaths];
+}
+
+-(void)removeCollectionItemsAtIndexPaths:(NSArray *)indexPaths
+{
+    NSMutableArray * validIndexPaths = [NSMutableArray arrayWithCapacity:[indexPaths count]];
+    NSMutableSet * validSectionsToRemoveFrom = [NSMutableSet set];
+    for (NSIndexPath * indexPath in indexPaths)
+    {
+        if (indexPath.section < [self numberOfSections] &&
+            indexPath.item < [self.sections[indexPath.section] count])
+        {
+            [validIndexPaths addObject:indexPath];
+            [validSectionsToRemoveFrom addObject:@(indexPath.section)];
+        }
+    }
+
+    for (NSNumber * section in validSectionsToRemoveFrom)
+    {
+        NSMutableIndexSet * setToRemove = [NSMutableIndexSet indexSet];
+        for (NSIndexPath * indexPath in validIndexPaths)
+        {
+            if (indexPath.section == [section intValue])
+            {
+                [setToRemove addIndex:indexPath.item];
+            }
+        }
+        NSMutableArray * validSection = [self validCollectionSection:[section intValue]];
+        [validSection removeObjectsAtIndexes:setToRemove];
+    }
+    [self.collectionView deleteItemsAtIndexPaths:validIndexPaths];
 }
 
 -(void)removeAllCollectionItems
