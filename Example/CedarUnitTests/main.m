@@ -13,6 +13,7 @@
 int main(int argc, char *argv[])
 {
     @autoreleasepool {
+        [DTCollectionViewController setLoggingEnabled:NO];
         return UIApplicationMain(argc, argv, nil, @"CedarApplicationDelegate");
     }
 }

@@ -192,7 +192,7 @@ static BOOL isLoggingEnabled = YES;
     // http://openradar.appspot.com/12954582
     if ([self iOS6] && modelItemPath.row == 0)
     {
-        [self.collectionView reloadData];
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:section]];
     }
     else {
         if ([self.collectionView numberOfItemsInSection:modelItemPath.section] == modelItemPath.row)
@@ -219,13 +219,13 @@ static BOOL isLoggingEnabled = YES;
     
     [sectionItems addObjectsFromArray:items];
     
-    NSIndexPath * firstItem = [NSIndexPath indexPathForItem:0 inSection:section];
     
     // iOS 6 crashes on insertion of first element in section
     // http://openradar.appspot.com/12954582
+    NSIndexPath * firstItem = [NSIndexPath indexPathForItem:0 inSection:section];
     if ([self iOS6] && [indexes containsObject:firstItem])
     {
-        [self.collectionView reloadData];
+        [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:section]];
     }
     else {
         [self.collectionView insertItemsAtIndexPaths:indexes];
