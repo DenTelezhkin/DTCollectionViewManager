@@ -187,9 +187,18 @@ static BOOL isLoggingEnabled = YES;
     
     NSIndexPath * modelItemPath = [NSIndexPath indexPathForItem:itemsCountInSection
                                                       inSection:section];
-    if ([self.collectionView numberOfItemsInSection:section]==modelItemPath.item)
+
+    // iOS 6 crashes on insertion of first element in section
+    // http://openradar.appspot.com/12954582
+    if ([self iOS6] && modelItemPath.row == 0)
     {
-        [self.collectionView insertItemsAtIndexPaths:@[modelItemPath]];
+        [self.collectionView reloadData];
+    }
+    else {
+        if ([self.collectionView numberOfItemsInSection:modelItemPath.section] == modelItemPath.row)
+        {
+            [self.collectionView insertItemsAtIndexPaths:@[modelItemPath]];
+        }
     }
 }
 
@@ -209,7 +218,18 @@ static BOOL isLoggingEnabled = YES;
     }
     
     [sectionItems addObjectsFromArray:items];
-    [self.collectionView insertItemsAtIndexPaths:indexes];
+    
+    NSIndexPath * firstItem = [NSIndexPath indexPathForItem:0 inSection:section];
+    
+    // iOS 6 crashes on insertion of first element in section
+    // http://openradar.appspot.com/12954582
+    if ([self iOS6] && [indexes containsObject:firstItem])
+    {
+        [self.collectionView reloadData];
+    }
+    else {
+        [self.collectionView insertItemsAtIndexPaths:indexes];
+    }
 }
 
 -(void)removeCollectionItem:(id)item
@@ -381,7 +401,7 @@ static BOOL isLoggingEnabled = YES;
     NSMutableArray * validSectionFrom = [self validCollectionSection:fromSection];
     [self validCollectionSection:toSection];
     
-    [self.sections removeObject:validSectionFrom];
+    [self.sections removeObjectAtIndex:fromSection];
     [self.sections insertObject:validSectionFrom atIndex:toSection];
     
     if (self.sections.count > self.collectionView.numberOfSections)
@@ -490,6 +510,12 @@ static BOOL isLoggingEnabled = YES;
 -(BOOL)isLoggingEnabled
 {
     return isLoggingEnabled;
+}
+
+-(BOOL)iOS6
+{
+    NSString *version = [[UIDevice currentDevice] systemVersion];
+    return [version hasPrefix:@"6."];
 }
 
 @end

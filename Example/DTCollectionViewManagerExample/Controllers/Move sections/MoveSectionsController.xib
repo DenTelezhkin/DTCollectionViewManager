@@ -12,6 +12,7 @@
 		</object>
 		<array key="IBDocument.IntegratedClassDependencies">
 			<string>IBProxyObject</string>
+			<string>IBUIBarButtonItem</string>
 			<string>IBUICollectionView</string>
 			<string>IBUICollectionViewFlowLayout</string>
 			<string>IBUINavigationBar</string>
@@ -38,7 +39,7 @@
 				<reference key="NSNextResponder"/>
 				<int key="NSvFlags">292</int>
 				<array class="NSMutableArray" key="NSSubviews">
-					<object class="IBUICollectionView" id="36495862">
+					<object class="IBUICollectionView" id="314107360">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">1298</int>
 						<array class="NSMutableArray" key="NSSubviews"/>
@@ -58,9 +59,11 @@
 						<bool key="IBUIAlwaysBounceVertical">YES</bool>
 						<float key="IBUIMinimumZoomScale">0.0</float>
 						<float key="IBUIMaximumZoomScale">0.0</float>
-						<object class="IBUICollectionViewFlowLayout" key="IBUICollectionViewLayout" id="920108640">
-							<reference key="IBUICollectionView" ref="36495862"/>
+						<object class="IBUICollectionViewFlowLayout" key="IBUICollectionViewLayout" id="983272322">
+							<reference key="IBUICollectionView" ref="314107360"/>
 							<string key="IBUIItemSize">{80, 80}</string>
+							<string key="IBUIHeaderReferenceSize">{50, 50}</string>
+							<string key="IBUIFooterReferenceSize">{50, 50}</string>
 							<float key="IBUIMinimumLineSpacing">20</float>
 							<float key="IBUIMinimumInteritemSpacing">20</float>
 							<double key="IBUISectionInset.top">20</double>
@@ -70,19 +73,25 @@
 						</object>
 						<array key="IBUICells" id="0"/>
 					</object>
-					<object class="IBUINavigationBar" id="457087711">
+					<object class="IBUINavigationBar" id="198322852">
 						<reference key="NSNextResponder" ref="766721923"/>
 						<int key="NSvFlags">290</int>
 						<string key="NSFrameSize">{1024, 44}</string>
 						<reference key="NSSuperview" ref="766721923"/>
 						<reference key="NSWindow"/>
-						<reference key="NSNextKeyView" ref="36495862"/>
+						<reference key="NSNextKeyView" ref="314107360"/>
 						<string key="NSReuseIdentifierKey">_NS:9</string>
 						<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 						<array key="IBUIItems">
-							<object class="IBUINavigationItem" id="509353029">
-								<reference key="IBUINavigationBar" ref="457087711"/>
-								<string key="IBUITitle">Add/Remove</string>
+							<object class="IBUINavigationItem" id="472268845">
+								<reference key="IBUINavigationBar" ref="198322852"/>
+								<string key="IBUITitle">Move sections</string>
+								<object class="IBUIBarButtonItem" key="IBUIRightBarButtonItem" id="252325239">
+									<string key="IBUITitle">Move!</string>
+									<string key="targetRuntimeIdentifier">IBIPadFramework</string>
+									<int key="IBUIStyle">1</int>
+									<reference key="IBUINavigationItem" ref="472268845"/>
+								</object>
 								<string key="targetRuntimeIdentifier">IBIPadFramework</string>
 							</object>
 						</array>
@@ -91,7 +100,7 @@
 				<string key="NSFrameSize">{1024, 748}</string>
 				<reference key="NSSuperview"/>
 				<reference key="NSWindow"/>
-				<reference key="NSNextKeyView" ref="457087711"/>
+				<reference key="NSNextKeyView" ref="198322852"/>
 				<object class="NSColor" key="IBUIBackgroundColor">
 					<int key="NSColorSpace">3</int>
 					<bytes key="NSWhite">MQA</bytes>
@@ -121,33 +130,33 @@
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">collectionView</string>
 						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="36495862"/>
+						<reference key="destination" ref="314107360"/>
 					</object>
-					<int key="connectionID">12</int>
-				</object>
-				<object class="IBConnectionRecord">
-					<object class="IBCocoaTouchOutletConnection" key="connection">
-						<string key="label">addRemoveNavigationItem</string>
-						<reference key="source" ref="841351856"/>
-						<reference key="destination" ref="509353029"/>
-					</object>
-					<int key="connectionID">18</int>
+					<int key="connectionID">23</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">dataSource</string>
-						<reference key="source" ref="36495862"/>
+						<reference key="source" ref="314107360"/>
 						<reference key="destination" ref="841351856"/>
 					</object>
-					<int key="connectionID">10</int>
+					<int key="connectionID">21</int>
 				</object>
 				<object class="IBConnectionRecord">
 					<object class="IBCocoaTouchOutletConnection" key="connection">
 						<string key="label">delegate</string>
-						<reference key="source" ref="36495862"/>
+						<reference key="source" ref="314107360"/>
 						<reference key="destination" ref="841351856"/>
 					</object>
-					<int key="connectionID">11</int>
+					<int key="connectionID">22</int>
+				</object>
+				<object class="IBConnectionRecord">
+					<object class="IBCocoaTouchEventConnection" key="connection">
+						<string key="label">moveSections:</string>
+						<reference key="source" ref="252325239"/>
+						<reference key="destination" ref="841351856"/>
+					</object>
+					<int key="connectionID">20</int>
 				</object>
 			</array>
 			<object class="IBMutableOrderedSet" key="objectRecords">
@@ -173,48 +182,56 @@
 						<int key="objectID">2</int>
 						<reference key="object" ref="766721923"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="36495862"/>
-							<reference ref="457087711"/>
+							<reference ref="314107360"/>
+							<reference ref="198322852"/>
 						</array>
 						<reference key="parent" ref="0"/>
 					</object>
 					<object class="IBObjectRecord">
-						<int key="objectID">4</int>
-						<reference key="object" ref="457087711"/>
-						<array class="NSMutableArray" key="children">
-							<reference ref="509353029"/>
-						</array>
-						<reference key="parent" ref="766721923"/>
-					</object>
-					<object class="IBObjectRecord">
-						<int key="objectID">5</int>
-						<reference key="object" ref="509353029"/>
-						<array class="NSMutableArray" key="children"/>
-						<reference key="parent" ref="457087711"/>
-					</object>
-					<object class="IBObjectRecord">
 						<int key="objectID">8</int>
-						<reference key="object" ref="36495862"/>
+						<reference key="object" ref="314107360"/>
 						<array class="NSMutableArray" key="children">
-							<reference ref="920108640"/>
+							<reference ref="983272322"/>
 						</array>
 						<reference key="parent" ref="766721923"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">11</int>
+						<reference key="object" ref="983272322"/>
+						<reference key="parent" ref="314107360"/>
 					</object>
 					<object class="IBObjectRecord">
 						<int key="objectID">9</int>
-						<reference key="object" ref="920108640"/>
-						<reference key="parent" ref="36495862"/>
+						<reference key="object" ref="198322852"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="472268845"/>
+						</array>
+						<reference key="parent" ref="766721923"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">10</int>
+						<reference key="object" ref="472268845"/>
+						<array class="NSMutableArray" key="children">
+							<reference ref="252325239"/>
+						</array>
+						<reference key="parent" ref="198322852"/>
+					</object>
+					<object class="IBObjectRecord">
+						<int key="objectID">19</int>
+						<reference key="object" ref="252325239"/>
+						<reference key="parent" ref="472268845"/>
 					</object>
 				</array>
 			</object>
 			<dictionary class="NSMutableDictionary" key="flattenedProperties">
-				<string key="-1.CustomClassName">AddRemoveCollectionController</string>
+				<string key="-1.CustomClassName">MoveSectionsController</string>
 				<string key="-1.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="-2.CustomClassName">UIResponder</string>
 				<string key="-2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="10.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="11.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
+				<string key="19.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="2.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="4.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
-				<string key="5.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="8.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 				<string key="9.IBPluginDependency">com.apple.InterfaceBuilder.IBCocoaTouchPlugin</string>
 			</dictionary>
@@ -222,29 +239,10 @@
 			<nil key="activeLocalization"/>
 			<dictionary class="NSMutableDictionary" key="localizations"/>
 			<nil key="sourceID"/>
-			<int key="maxID">18</int>
+			<int key="maxID">23</int>
 		</object>
 		<object class="IBClassDescriber" key="IBDocument.Classes">
 			<array class="NSMutableArray" key="referencedPartialClassDescriptions">
-				<object class="IBPartialClassDescription">
-					<string key="className">AddRemoveCollectionController</string>
-					<string key="superclassName">DTCollectionViewController</string>
-					<object class="NSMutableDictionary" key="outlets">
-						<string key="NS.key.0">addRemoveNavigationItem</string>
-						<string key="NS.object.0">UINavigationItem</string>
-					</object>
-					<object class="NSMutableDictionary" key="toOneOutletInfosByName">
-						<string key="NS.key.0">addRemoveNavigationItem</string>
-						<object class="IBToOneOutletInfo" key="NS.object.0">
-							<string key="name">addRemoveNavigationItem</string>
-							<string key="candidateClassName">UINavigationItem</string>
-						</object>
-					</object>
-					<object class="IBClassDescriptionSource" key="sourceIdentifier">
-						<string key="majorKey">IBProjectSource</string>
-						<string key="minorKey">./Classes/AddRemoveCollectionController.h</string>
-					</object>
-				</object>
 				<object class="IBPartialClassDescription">
 					<string key="className">DTCollectionViewController</string>
 					<string key="superclassName">UIViewController</string>
@@ -262,6 +260,14 @@
 					<object class="IBClassDescriptionSource" key="sourceIdentifier">
 						<string key="majorKey">IBProjectSource</string>
 						<string key="minorKey">./Classes/DTCollectionViewController.h</string>
+					</object>
+				</object>
+				<object class="IBPartialClassDescription">
+					<string key="className">MoveSectionsController</string>
+					<string key="superclassName">DTCollectionViewController</string>
+					<object class="IBClassDescriptionSource" key="sourceIdentifier">
+						<string key="majorKey">IBProjectSource</string>
+						<string key="minorKey">./Classes/MoveSectionsController.h</string>
 					</object>
 				</object>
 				<object class="IBPartialClassDescription">

@@ -7,6 +7,12 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9512F08317BFA71C008FF3A1 /* MoveSectionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9512F08117BFA71C008FF3A1 /* MoveSectionsController.m */; };
+		9512F08417BFA71C008FF3A1 /* MoveSectionsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9512F08217BFA71C008FF3A1 /* MoveSectionsController.xib */; };
+		9512F08817BFA9A3008FF3A1 /* ExampleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9512F08717BFA9A3008FF3A1 /* ExampleHeaderView.m */; };
+		9512F08B17BFA9C1008FF3A1 /* ExampleFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9512F08A17BFA9C1008FF3A1 /* ExampleFooterView.m */; };
+		9512F08D17BFAA0C008FF3A1 /* ExampleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9512F08C17BFAA0C008FF3A1 /* ExampleHeaderView.xib */; };
+		9512F08F17BFAA34008FF3A1 /* ExampleFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9512F08E17BFAA34008FF3A1 /* ExampleFooterView.xib */; };
 		955F8586179ACAF000A38EAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8585179ACAF000A38EAD /* UIKit.framework */; };
 		955F8588179ACAF000A38EAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8587179ACAF000A38EAD /* Foundation.framework */; };
 		955F858A179ACAF000A38EAD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8589179ACAF000A38EAD /* CoreGraphics.framework */; };
@@ -62,6 +68,15 @@
 /* Begin PBXFileReference section */
 		530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CedarUnitTests.xcconfig"; path = "Pods/Pods-CedarUnitTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 		9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CedarUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9512F08017BFA71C008FF3A1 /* MoveSectionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoveSectionsController.h; path = "Controllers/Move sections/MoveSectionsController.h"; sourceTree = "<group>"; };
+		9512F08117BFA71C008FF3A1 /* MoveSectionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoveSectionsController.m; path = "Controllers/Move sections/MoveSectionsController.m"; sourceTree = "<group>"; };
+		9512F08217BFA71C008FF3A1 /* MoveSectionsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MoveSectionsController.xib; path = "Controllers/Move sections/MoveSectionsController.xib"; sourceTree = "<group>"; };
+		9512F08617BFA9A3008FF3A1 /* ExampleHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleHeaderView.h; path = Supplementaries/ExampleHeaderView.h; sourceTree = "<group>"; };
+		9512F08717BFA9A3008FF3A1 /* ExampleHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleHeaderView.m; path = Supplementaries/ExampleHeaderView.m; sourceTree = "<group>"; };
+		9512F08917BFA9C1008FF3A1 /* ExampleFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleFooterView.h; path = Supplementaries/ExampleFooterView.h; sourceTree = "<group>"; };
+		9512F08A17BFA9C1008FF3A1 /* ExampleFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleFooterView.m; path = Supplementaries/ExampleFooterView.m; sourceTree = "<group>"; };
+		9512F08C17BFAA0C008FF3A1 /* ExampleHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExampleHeaderView.xib; path = Supplementaries/ExampleHeaderView.xib; sourceTree = "<group>"; };
+		9512F08E17BFAA34008FF3A1 /* ExampleFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExampleFooterView.xib; path = Supplementaries/ExampleFooterView.xib; sourceTree = "<group>"; };
 		955F8582179ACAF000A38EAD /* DTCollectionViewManagerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DTCollectionViewManagerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		955F8585179ACAF000A38EAD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
 		955F8587179ACAF000A38EAD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
@@ -150,6 +165,29 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
+		9512F07F17BFA6B2008FF3A1 /* Move sections */ = {
+			isa = PBXGroup;
+			children = (
+				9512F08017BFA71C008FF3A1 /* MoveSectionsController.h */,
+				9512F08117BFA71C008FF3A1 /* MoveSectionsController.m */,
+				9512F08217BFA71C008FF3A1 /* MoveSectionsController.xib */,
+			);
+			name = "Move sections";
+			sourceTree = "<group>";
+		};
+		9512F08517BFA937008FF3A1 /* Supplementaries */ = {
+			isa = PBXGroup;
+			children = (
+				9512F08617BFA9A3008FF3A1 /* ExampleHeaderView.h */,
+				9512F08717BFA9A3008FF3A1 /* ExampleHeaderView.m */,
+				9512F08C17BFAA0C008FF3A1 /* ExampleHeaderView.xib */,
+				9512F08917BFA9C1008FF3A1 /* ExampleFooterView.h */,
+				9512F08A17BFA9C1008FF3A1 /* ExampleFooterView.m */,
+				9512F08E17BFAA34008FF3A1 /* ExampleFooterView.xib */,
+			);
+			name = Supplementaries;
+			sourceTree = "<group>";
+		};
 		955F8579179ACAF000A38EAD = {
 			isa = PBXGroup;
 			children = (
@@ -249,6 +287,7 @@
 		95ADB23017AE4D48004BBA29 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9512F07F17BFA6B2008FF3A1 /* Move sections */,
 				95C89A0C17B78F38009FA3F2 /* Views */,
 				95ADB23D17AE5AC8004BBA29 /* Empty */,
 				95ADB23C17AE5ABA004BBA29 /* AddRemove */,
@@ -349,6 +388,7 @@
 		95C89A0C17B78F38009FA3F2 /* Views */ = {
 			isa = PBXGroup;
 			children = (
+				9512F08517BFA937008FF3A1 /* Supplementaries */,
 				95C89A0D17B78F3E009FA3F2 /* Cells */,
 			);
 			name = Views;
@@ -443,6 +483,9 @@
 				955F85A8179ACAF000A38EAD /* EmptyDetailViewController.xib in Resources */,
 				95ADB23A17AE53C7004BBA29 /* AddRemoveCollectionController.xib in Resources */,
 				95C89A1717B78FAA009FA3F2 /* ExampleCell.xib in Resources */,
+				9512F08417BFA71C008FF3A1 /* MoveSectionsController.xib in Resources */,
+				9512F08D17BFAA0C008FF3A1 /* ExampleHeaderView.xib in Resources */,
+				9512F08F17BFAA34008FF3A1 /* ExampleFooterView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,6 +555,9 @@
 				95ADB23317AE4D7E004BBA29 /* ControllerModel.m in Sources */,
 				95ADB23817AE53C7004BBA29 /* AddRemoveCollectionController.m in Sources */,
 				95C89A1417B78F95009FA3F2 /* ExampleCell.m in Sources */,
+				9512F08317BFA71C008FF3A1 /* MoveSectionsController.m in Sources */,
+				9512F08817BFA9A3008FF3A1 /* ExampleHeaderView.m in Sources */,
+				9512F08B17BFA9C1008FF3A1 /* ExampleFooterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
