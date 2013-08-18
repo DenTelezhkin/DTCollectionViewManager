@@ -16,6 +16,7 @@
 // Search
 -(int)numberOfSections;
 -(NSArray *)itemsArrayForSection:(int)index;
+-(int)numberOfCollectionItemsInSection:(int)index;
 -(id)collectionItemAtIndexPath:(NSIndexPath *)indexPath;
 -(NSArray *)sectionsArray;
 

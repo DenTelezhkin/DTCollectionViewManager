@@ -72,6 +72,17 @@ static BOOL isLoggingEnabled = YES;
     }
 }
 
+-(int)numberOfCollectionItemsInSection:(int)index
+{
+    if (index<[self.sections count])
+    {
+       return [self.sections[index] count]; 
+    }
+    else {
+        return 0;
+    }
+}
+
 -(id)collectionItemAtIndexPath:(NSIndexPath *)indexPath
 {
     NSArray * itemsInSection = [self itemsArrayForSection:indexPath.section];
@@ -401,6 +412,23 @@ static BOOL isLoggingEnabled = YES;
     NSMutableArray * validSectionFrom = [self validCollectionSection:fromSection];
     [self validCollectionSection:toSection];
     
+    NSArray * supplementaryKinds = [self.supplementaryModels allKeys];
+    for (NSString * kind in supplementaryKinds)
+    {
+        NSMutableArray * supp = [self.supplementaryModels[kind] objectAtIndex:fromSection];
+        if ([self.supplementaryModels[kind] count] == [self.sections count])
+        {
+            [self.supplementaryModels[kind] removeObjectAtIndex:fromSection];
+            [self.supplementaryModels[kind] insertObject:supp atIndex:toSection];
+        }
+        else {
+            if ([self isLoggingEnabled])
+            {
+                NSLog(@"DTCollectionViewManager: number of supplementary models for kind: %@ differs from section number. Moving section, leaving supplementary models untouched.",kind);
+            }
+        }
+    }
+    
     [self.sections removeObjectAtIndex:fromSection];
     [self.sections insertObject:validSectionFrom atIndex:toSection];
     
@@ -417,6 +445,12 @@ static BOOL isLoggingEnabled = YES;
 -(void)deleteSections:(NSIndexSet *)indexSet
 {
     [self.sections removeObjectsAtIndexes:indexSet];
+    
+    NSArray * supplementaryKinds = [self.supplementaryModels allKeys];
+    for (NSString * kind in supplementaryKinds)
+    {
+        [self.supplementaryModels[kind] removeObjectsAtIndexes:indexSet];
+    }
     
     [self.collectionView deleteSections:indexSet];
 }

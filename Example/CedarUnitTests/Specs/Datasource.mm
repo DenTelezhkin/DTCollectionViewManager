@@ -2,6 +2,7 @@
 #import "Model.h"
 #import "ModelCell.h"
 #import "ModelCellWithNib.h"
+#import "SupplementaryViewWithNib.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -432,6 +433,93 @@ describe(@"Datasource specs", ^{
             [collection verifySection:@[model3,model4] withSectionNumber:0];
             [collection verifySection:@[model1,model2] withSectionNumber:1];
         });
+        
+        describe(@"supplementaries tests", ^{
+            NSString * testKind = @"testSupplementaryKind";
+
+            __block NSArray * section0;
+            __block NSArray * section1;
+            __block NSArray * section2;
+            beforeEach(^{
+                
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
+                                               forKind:UICollectionElementKindSectionHeader
+                                         forModelClass:[NSNumber class]];
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
+                                               forKind:UICollectionElementKindSectionFooter
+                                         forModelClass:[NSNumber class]];
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
+                                               forKind:testKind
+                                         forModelClass:[NSNumber class]];
+                section0 = @[model1,model2];
+                section1 = @[model3,model4];
+                section2 = @[model5,model6];
+            });
+            
+            it(@"should move section headers", ^{
+                NSString * header = UICollectionElementKindSectionHeader;
+                [[collection supplementaryModelsOfKind:header] addObjectsFromArray:@[@1,@2,@3]];
+                
+                [collection addCollectionItems:section0];
+                [collection addCollectionItems:section1 toSection:1];
+                [collection addCollectionItems:section2 toSection:2];
+                
+                [collection moveSection:0 toSection:2];
+                
+                NSArray * headers = [collection supplementaryModelsOfKind:header];
+                
+                expect(headers[0]).to(equal(@2));
+                expect(headers[1]).to(equal(@3));
+                expect(headers[2]).to(equal(@1));
+            });
+            
+            it(@"should move section footers", ^{
+                NSString * footer = UICollectionElementKindSectionFooter;
+                [[collection supplementaryModelsOfKind:footer] addObjectsFromArray:@[@1,@2,@3]];
+                
+                [collection addCollectionItems:section0];
+                [collection addCollectionItems:section1 toSection:1];
+                [collection addCollectionItems:section2 toSection:2];
+                
+                [collection moveSection:0 toSection:2];
+                
+                NSArray * headers = [collection supplementaryModelsOfKind:footer];
+                
+                expect(headers[0]).to(equal(@2));
+                expect(headers[1]).to(equal(@3));
+                expect(headers[2]).to(equal(@1));
+            });
+            
+            it(@"should move supplementaries of other kind", ^{
+                NSString * customKind = testKind;
+                [[collection supplementaryModelsOfKind:customKind] addObjectsFromArray:@[@1,@2,@3]];
+                
+                [collection addCollectionItems:section0];
+                [collection addCollectionItems:section1 toSection:1];
+                [collection addCollectionItems:section2 toSection:2];
+                
+                [collection moveSection:0 toSection:2];
+                
+                NSArray * headers = [collection supplementaryModelsOfKind:customKind];
+                
+                expect(headers[0]).to(equal(@2));
+                expect(headers[1]).to(equal(@3));
+                expect(headers[2]).to(equal(@1));
+            });
+            
+            it(@"should not crash if moving inconsistent sections", ^{
+                NSString * kind = UICollectionElementKindSectionHeader;
+                [[collection supplementaryModelsOfKind:kind] addObjectsFromArray:@[@1]];
+                
+                [collection addCollectionItems:section1];
+                [collection addCollectionItems:section2];
+                
+                ^{
+                    [collection moveSection:0 toSection:1];
+                } should_not raise_exception();
+            });
+        });
+        
     });
     
     describe(@"deleting sections", ^{
@@ -462,6 +550,72 @@ describe(@"Datasource specs", ^{
             
             [collection verifySection:@[model3,model4] withSectionNumber:0];
         });
+        
+        describe(@"supplementaries tests", ^{
+            NSString * testKind = @"testSupplementaryKind";
+            
+            __block NSArray * section0;
+            __block NSArray * section1;
+            __block NSArray * section2;
+            beforeEach(^{
+                
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
+                                               forKind:UICollectionElementKindSectionHeader
+                                         forModelClass:[NSNumber class]];
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
+                                               forKind:UICollectionElementKindSectionFooter
+                                         forModelClass:[NSNumber class]];
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
+                                               forKind:testKind
+                                         forModelClass:[NSNumber class]];
+                section0 = @[model1,model2];
+                section1 = @[model3,model4];
+                section2 = @[model5,model6];
+            });
+            
+            it(@"should delete section headers", ^{
+                NSString * header = UICollectionElementKindSectionHeader;
+                [[collection supplementaryModelsOfKind:header] addObjectsFromArray:@[@1,@2]];
+                
+                [collection addCollectionItems:section0];
+                [collection addCollectionItems:section1 toSection:1];
+                
+                [collection deleteSections:[NSIndexSet indexSetWithIndex:0]];
+                
+                NSArray * headers = [collection supplementaryModelsOfKind:header];
+                
+                expect(headers[0]).to(equal(@2));
+            });
+            
+            it(@"should delete section footers", ^{
+                NSString * footer = UICollectionElementKindSectionFooter;
+                [[collection supplementaryModelsOfKind:footer] addObjectsFromArray:@[@1,@2]];
+                
+                [collection addCollectionItems:section0];
+                [collection addCollectionItems:section1 toSection:1];
+                
+                [collection deleteSections:[NSIndexSet indexSetWithIndex:0]];
+                
+                NSArray * headers = [collection supplementaryModelsOfKind:footer];
+                
+                expect(headers[0]).to(equal(@2));
+            });
+            
+            it(@"should delete supplementaries of other kind", ^{
+                NSString * customKind = testKind;
+                [[collection supplementaryModelsOfKind:customKind] addObjectsFromArray:@[@1,@2]];
+                
+                [collection addCollectionItems:section0];
+                [collection addCollectionItems:section1 toSection:1];
+                
+                [collection deleteSections:[NSIndexSet indexSetWithIndex:0]];
+                
+                NSArray * headers = [collection supplementaryModelsOfKind:customKind];
+                
+                expect(headers[0]).to(equal(@2));
+            });
+        });
+
     });
 
 });
