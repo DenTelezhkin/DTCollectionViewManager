@@ -520,6 +520,7 @@ static BOOL isLoggingEnabled = YES;
     }
     else
     {
+        NSMutableIndexSet * sectionsToInsert = [NSMutableIndexSet indexSet];
         for (int i = self.sections.count; i <= sectionIndex ; i++)
         {
             //Update datasource
@@ -528,8 +529,17 @@ static BOOL isLoggingEnabled = YES;
             
             if ([self.collectionView numberOfSections] <= i)
             {
-                //Update UI
-                [self.collectionView insertSections:[NSIndexSet indexSetWithIndex:i]];
+                [sectionsToInsert addIndex:i];
+            }
+        }
+        if ([sectionsToInsert count])
+        {
+            if ([self iOS6])
+            {
+                [self.collectionView reloadData];
+            }
+            else {
+                [self.collectionView insertSections:sectionsToInsert];
             }
         }
         return [self.sections lastObject];

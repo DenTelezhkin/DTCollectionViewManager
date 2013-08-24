@@ -3,6 +3,7 @@
 #import "ModelCell.h"
 #import "ModelCellWithNib.h"
 #import "SupplementaryViewWithNib.h"
+#import "DTCollectionViewController+iOS6.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -278,6 +279,11 @@ describe(@"Datasource specs", ^{
             [collection addCollectionItems:@[model1,model2]];
             [collection addCollectionItems:@[model3,model4] toSection:1];
             
+            
+            if ([collection iOS6]) {
+                [collection.collectionView reloadData];
+            }
+            
             [collection insertItem:model5
                        atIndexPath:[NSIndexPath indexPathForItem:0 inSection:2]];
             
@@ -318,6 +324,10 @@ describe(@"Datasource specs", ^{
         it(@"should be able to insert into 2 section", ^{
             [collection addCollectionItems:@[model1,model2]];
             
+            if ([collection iOS6]) {
+                [collection.collectionView reloadData];
+            }
+            
             [collection insertItem:model3 atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
             
             [collection verifySection:@[model1,model2] withSectionNumber:0];
@@ -343,6 +353,9 @@ describe(@"Datasource specs", ^{
         it(@"should move item to another empty section", ^{
             [collection addCollectionItems:@[model1,model2,model3]];
             
+            if ([collection iOS6]) {
+                [collection.collectionView reloadData];
+            }
             [collection moveItem:model3 toIndexPath:[NSIndexPath indexPathForItem:0
                                                                         inSection:1]];
             [collection verifySection:@[model1,model2] withSectionNumber:0];
@@ -418,6 +431,9 @@ describe(@"Datasource specs", ^{
         it(@"should move section to empty section", ^{
             [collection addCollectionItems:@[model1,model2]];
             
+            if ([collection iOS6]) {
+                [collection.collectionView reloadData];
+            }
             [collection moveSection:0 toSection:1];
             
             [collection verifySection:@[model1,model2] withSectionNumber:1];
@@ -514,6 +530,9 @@ describe(@"Datasource specs", ^{
                 [collection addCollectionItems:section1];
                 [collection addCollectionItems:section2];
                 
+                if ([collection iOS6]) {
+                    [collection.collectionView reloadData];
+                }
                 ^{
                     [collection moveSection:0 toSection:1];
                 } should_not raise_exception();

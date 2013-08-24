@@ -7,8 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		9512F08317BFA71C008FF3A1 /* MoveSectionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9512F08117BFA71C008FF3A1 /* MoveSectionsController.m */; };
-		9512F08417BFA71C008FF3A1 /* MoveSectionsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9512F08217BFA71C008FF3A1 /* MoveSectionsController.xib */; };
+		9512F08317BFA71C008FF3A1 /* SectionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9512F08117BFA71C008FF3A1 /* SectionsController.m */; };
+		9512F08417BFA71C008FF3A1 /* SectionsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9512F08217BFA71C008FF3A1 /* SectionsController.xib */; };
 		9512F08817BFA9A3008FF3A1 /* ExampleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9512F08717BFA9A3008FF3A1 /* ExampleHeaderView.m */; };
 		9512F08B17BFA9C1008FF3A1 /* ExampleFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9512F08A17BFA9C1008FF3A1 /* ExampleFooterView.m */; };
 		9512F08D17BFAA0C008FF3A1 /* ExampleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9512F08C17BFAA0C008FF3A1 /* ExampleHeaderView.xib */; };
@@ -68,9 +68,9 @@
 /* Begin PBXFileReference section */
 		530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CedarUnitTests.xcconfig"; path = "Pods/Pods-CedarUnitTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 		9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CedarUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		9512F08017BFA71C008FF3A1 /* MoveSectionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = MoveSectionsController.h; path = "Controllers/Move sections/MoveSectionsController.h"; sourceTree = "<group>"; };
-		9512F08117BFA71C008FF3A1 /* MoveSectionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = MoveSectionsController.m; path = "Controllers/Move sections/MoveSectionsController.m"; sourceTree = "<group>"; };
-		9512F08217BFA71C008FF3A1 /* MoveSectionsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = MoveSectionsController.xib; path = "Controllers/Move sections/MoveSectionsController.xib"; sourceTree = "<group>"; };
+		9512F08017BFA71C008FF3A1 /* SectionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SectionsController.h; path = "Controllers/Move sections/SectionsController.h"; sourceTree = "<group>"; };
+		9512F08117BFA71C008FF3A1 /* SectionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SectionsController.m; path = "Controllers/Move sections/SectionsController.m"; sourceTree = "<group>"; };
+		9512F08217BFA71C008FF3A1 /* SectionsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SectionsController.xib; path = "Controllers/Move sections/SectionsController.xib"; sourceTree = "<group>"; };
 		9512F08617BFA9A3008FF3A1 /* ExampleHeaderView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleHeaderView.h; path = Supplementaries/ExampleHeaderView.h; sourceTree = "<group>"; };
 		9512F08717BFA9A3008FF3A1 /* ExampleHeaderView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleHeaderView.m; path = Supplementaries/ExampleHeaderView.m; sourceTree = "<group>"; };
 		9512F08917BFA9C1008FF3A1 /* ExampleFooterView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleFooterView.h; path = Supplementaries/ExampleFooterView.h; sourceTree = "<group>"; };
@@ -135,6 +135,7 @@
 		95AE89A8179C1A7600F834DB /* SupplementaryViewWithNib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SupplementaryViewWithNib.h; path = Supplementaries/SupplementaryViewWithNib.h; sourceTree = "<group>"; };
 		95AE89A9179C1A7600F834DB /* SupplementaryViewWithNib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SupplementaryViewWithNib.m; path = Supplementaries/SupplementaryViewWithNib.m; sourceTree = "<group>"; };
 		95AE89AB179C1A9300F834DB /* SupplementaryViewWithNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SupplementaryViewWithNib.xib; path = Supplementaries/SupplementaryViewWithNib.xib; sourceTree = "<group>"; };
+		95C4ECE717C91B19009D65BD /* DTCollectionViewController+iOS6.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTCollectionViewController+iOS6.h"; path = "Specs/DTCollectionViewController+iOS6.h"; sourceTree = "<group>"; };
 		95C89A1217B78F95009FA3F2 /* ExampleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleCell.h; path = Cells/ExampleCell.h; sourceTree = "<group>"; };
 		95C89A1317B78F95009FA3F2 /* ExampleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleCell.m; path = Cells/ExampleCell.m; sourceTree = "<group>"; };
 		95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExampleCell.xib; path = Cells/ExampleCell.xib; sourceTree = "<group>"; };
@@ -168,9 +169,9 @@
 		9512F07F17BFA6B2008FF3A1 /* Move sections */ = {
 			isa = PBXGroup;
 			children = (
-				9512F08017BFA71C008FF3A1 /* MoveSectionsController.h */,
-				9512F08117BFA71C008FF3A1 /* MoveSectionsController.m */,
-				9512F08217BFA71C008FF3A1 /* MoveSectionsController.xib */,
+				9512F08017BFA71C008FF3A1 /* SectionsController.h */,
+				9512F08117BFA71C008FF3A1 /* SectionsController.m */,
+				9512F08217BFA71C008FF3A1 /* SectionsController.xib */,
 			);
 			name = "Move sections";
 			sourceTree = "<group>";
@@ -347,6 +348,7 @@
 				95AE8982179AD08100F834DB /* Datasource.mm */,
 				95AE8989179BF1B600F834DB /* Mapping.mm */,
 				95AE898B179BF33000F834DB /* DTCollectionViewController+VerifyItem.h */,
+				95C4ECE717C91B19009D65BD /* DTCollectionViewController+iOS6.h */,
 				95AE898C179BF33000F834DB /* DTCollectionViewController+VerifyItem.m */,
 			);
 			name = Specs;
@@ -483,7 +485,7 @@
 				955F85A8179ACAF000A38EAD /* EmptyDetailViewController.xib in Resources */,
 				95ADB23A17AE53C7004BBA29 /* AddRemoveCollectionController.xib in Resources */,
 				95C89A1717B78FAA009FA3F2 /* ExampleCell.xib in Resources */,
-				9512F08417BFA71C008FF3A1 /* MoveSectionsController.xib in Resources */,
+				9512F08417BFA71C008FF3A1 /* SectionsController.xib in Resources */,
 				9512F08D17BFAA0C008FF3A1 /* ExampleHeaderView.xib in Resources */,
 				9512F08F17BFAA34008FF3A1 /* ExampleFooterView.xib in Resources */,
 			);
@@ -555,7 +557,7 @@
 				95ADB23317AE4D7E004BBA29 /* ControllerModel.m in Sources */,
 				95ADB23817AE53C7004BBA29 /* AddRemoveCollectionController.m in Sources */,
 				95C89A1417B78F95009FA3F2 /* ExampleCell.m in Sources */,
-				9512F08317BFA71C008FF3A1 /* MoveSectionsController.m in Sources */,
+				9512F08317BFA71C008FF3A1 /* SectionsController.m in Sources */,
 				9512F08817BFA9A3008FF3A1 /* ExampleHeaderView.m in Sources */,
 				9512F08B17BFA9C1008FF3A1 /* ExampleFooterView.m in Sources */,
 			);

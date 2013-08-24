@@ -10,7 +10,7 @@
 #import "ControllerModel.h"
 #import "EmptyDetailViewController.h"
 #import "AddRemoveCollectionController.h"
-#import "MoveSectionsController.h"
+#import "SectionsController.h"
 
 @interface ExamplesViewController()
 @property (nonatomic, strong) NSMutableArray * examples;
@@ -37,7 +37,7 @@ static NSString * exampleCellReuseIdentifier = @"ExampleCellReuseId";
     
     [self.examples addObject:[ControllerModel modelWithClass:[AddRemoveCollectionController class]
                                                     andTitle:@"Add/Remove"]];
-    [self.examples addObject:[ControllerModel modelWithClass:[MoveSectionsController class]
+    [self.examples addObject:[ControllerModel modelWithClass:[SectionsController class]
                                                     andTitle:@"Move sections"]];
     [self.tableView reloadData];
 }

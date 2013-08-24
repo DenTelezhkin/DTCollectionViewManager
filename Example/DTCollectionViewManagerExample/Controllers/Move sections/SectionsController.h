@@ -8,6 +8,6 @@
 
 #import "DTCollectionViewController.h"
 
-@interface MoveSectionsController : DTCollectionViewController
+@interface SectionsController : DTCollectionViewController
 
 @end
