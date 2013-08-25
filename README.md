@@ -111,6 +111,17 @@ UICollectionView has some severe bugs in iOS 6. The most annoying of them is NSI
 
 iOS 7 fixes all of this mess, and everything should work perfectly there. 
 
+## Foundation class clusters mapping
+
+Most of the time you will have your own data models for cells. However, sometimes it's more convenient to use Foundation types, such as NSString, NSNumber, etc. For example, if you have supplementary view - header, that does not have any information except for it's title - you'll probably want to use NSString as its model. Mutable versions are also supported. 
+ 
+ DTCollectionViewController supports mapping of following Foundation types:
+ 
+ * NSString
+ * NSNumber
+ * NSDictionary
+ * NSArray
+
 ## Roadmap
 
 - Search in UICollectionView
