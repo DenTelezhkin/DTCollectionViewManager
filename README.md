@@ -1,5 +1,9 @@
 ![Build Status](https://travis-ci.org/DenHeadless/DTCollectionViewManager.png?branch=master,development)
 
+![CocoaPod platform](http://cocoapod-badges.herokuapp.com/p/DTCollectionViewManager/badge.png)
+
+![CocoaPod version](http://cocoapod-badges.herokuapp.com/v/DTCollectionViewManager/badge.png)
+
 DTCollectionViewManager
 =======================
 
@@ -38,8 +42,9 @@ Mapping cells:
 
 Mapping supplementary views:
 ```objective-c
-[self registerSupplementaryClass:[SupplementaryClass class] forKind:UICollectionElementKindSectionHeader
-                   forModelClass:[Model class]]
+[self registerSupplementaryClass:[SupplementaryClass class] 
+						  forKind:UICollectionElementKindSectionHeader
+                   forModelClass:[Model class]];
 ```
 
 ## Managing collection items
@@ -102,7 +107,7 @@ Take a look at Example folder in repo.
 
 ## iOS 6 Notes
 
-UICollectionView has some severe bugs in iOS 6. The most annoying of them is assert for global index path, which happens, when you insert first item in a section, or section without items, etc. It is tracked on [OpenRadar](http://openradar.appspot.com/12954582), however it doesn't seem it will get fixed on iOS 6. So DTCollectionViewManager has some iOS 6-specific workarounds to prevent crashes. However, to implement them, i had to tweak collection view behaviour, and change some animations. And workarounds are not bullet-proof.
+UICollectionView has some severe bugs in iOS 6. The most annoying of them is NSInternalInconsistencyException for global index path, which happens, when you insert first item in a section, or section without items, etc. It is tracked on [OpenRadar](http://openradar.appspot.com/12954582), however it doesn't seem it will get fixed on iOS 6. So DTCollectionViewManager has some iOS 6-specific workarounds to prevent crashes. However, to implement them, i had to tweak collection view behaviour, and change some animations. These workarounds are not bullet-proof, but should work for the most part. 
 
 iOS 7 fixes all of this mess, and everything should work perfectly there. 
 
