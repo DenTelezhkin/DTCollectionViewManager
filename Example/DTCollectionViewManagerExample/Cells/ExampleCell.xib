@@ -41,11 +41,10 @@
 						<array class="NSMutableArray" key="NSSubviews">
 							<object class="IBUIView" id="1031592244">
 								<reference key="NSNextResponder" ref="824844998"/>
-								<int key="NSvFlags">1298</int>
+								<int key="NSvFlags">1280</int>
 								<string key="NSFrame">{{5, 5}, {70, 70}}</string>
 								<reference key="NSSuperview" ref="824844998"/>
 								<reference key="NSWindow"/>
-								<reference key="NSNextKeyView"/>
 								<string key="NSReuseIdentifierKey">_NS:9</string>
 								<object class="NSColor" key="IBUIBackgroundColor" id="550751636">
 									<int key="NSColorSpace">3</int>

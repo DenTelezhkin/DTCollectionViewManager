@@ -166,14 +166,14 @@
 /* End PBXFrameworksBuildPhase section */
 
 /* Begin PBXGroup section */
-		9512F07F17BFA6B2008FF3A1 /* Move sections */ = {
+		9512F07F17BFA6B2008FF3A1 /* Sections */ = {
 			isa = PBXGroup;
 			children = (
 				9512F08017BFA71C008FF3A1 /* SectionsController.h */,
 				9512F08117BFA71C008FF3A1 /* SectionsController.m */,
 				9512F08217BFA71C008FF3A1 /* SectionsController.xib */,
 			);
-			name = "Move sections";
+			name = Sections;
 			sourceTree = "<group>";
 		};
 		9512F08517BFA937008FF3A1 /* Supplementaries */ = {
@@ -288,7 +288,7 @@
 		95ADB23017AE4D48004BBA29 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
-				9512F07F17BFA6B2008FF3A1 /* Move sections */,
+				9512F07F17BFA6B2008FF3A1 /* Sections */,
 				95C89A0C17B78F38009FA3F2 /* Views */,
 				95ADB23D17AE5AC8004BBA29 /* Empty */,
 				95ADB23C17AE5ABA004BBA29 /* AddRemove */,
