@@ -1,6 +1,7 @@
 ![Build Status](https://travis-ci.org/DenHeadless/DTCollectionViewManager.png?branch=master,development)
 
 ![CocoaPod platform](http://cocoapod-badges.herokuapp.com/p/DTCollectionViewManager/badge.svg)
+
 ![CocoaPod version](http://cocoapod-badges.herokuapp.com/v/DTCollectionViewManager/badge.svg)
 
 DTCollectionViewManager
