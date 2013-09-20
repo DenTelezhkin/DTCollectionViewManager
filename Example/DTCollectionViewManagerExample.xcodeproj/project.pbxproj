@@ -685,9 +685,11 @@
 		955F85AC179ACAF000A38EAD /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DTCollectionViewManagerExample/DTCollectionViewManagerExample-Prefix.pch";
 				INFOPLIST_FILE = "DTCollectionViewManagerExample/DTCollectionViewManagerExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
@@ -696,9 +698,11 @@
 		955F85AD179ACAF000A38EAD /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
+				ARCHS = "$(ARCHS_STANDARD)";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DTCollectionViewManagerExample/DTCollectionViewManagerExample-Prefix.pch";
 				INFOPLIST_FILE = "DTCollectionViewManagerExample/DTCollectionViewManagerExample-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 6.1;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				WRAPPER_EXTENSION = app;
 			};
