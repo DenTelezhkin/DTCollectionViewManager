@@ -100,11 +100,20 @@ Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 
 Take a look at Example folder in repo.
 
-## iOS 6 Notes
+### Assertion in -[UICollectionViewData indexPathForItemAtGlobalIndex:]
 
-UICollectionView has some severe bugs in iOS 6. The most annoying of them is NSInternalInconsistencyException for global index path, which happens, when you insert first item in a section, or section without items, etc. It is tracked on [OpenRadar](http://openradar.appspot.com/12954582), however it doesn't seem it will get fixed on iOS 6. So DTCollectionViewManager has some iOS 6-specific workarounds to prevent crashes. However, to implement them, i had to tweak collection view behaviour, and change some animations. These workarounds are not bullet-proof, but should work for the most part. 
+There is a bug in UICollectionView, that prevents insertItemsAtIndexPaths: to work correctly. DTCollectionViewManager tries to handle this gracefully, and at least not crash an application. However, collection view cells may be displayed incorrectly. 
 
-iOS 7 fixes all of this mess, and everything should work perfectly there. 
+Workaround: instead of using addCollectionItems methods, add them manually and call reloadData. 
+This will save you 99% of the time. 
+Example:
+
+```objective-c
+    NSMutableArray * section = (NSMutableArray *)[self itemsArrayForSection:0];
+    [section removeAllObjects];
+    [section addObjectsFromArray:@[<items>]];
+    [self.collectionView reloadData];
+```
 
 ## Foundation class clusters mapping
 
