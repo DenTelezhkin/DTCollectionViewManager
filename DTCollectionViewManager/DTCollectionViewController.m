@@ -28,7 +28,7 @@
 #import "DTCollectionFactory.h"
 
 @interface DTCollectionViewController ()
-<DTCollectionFactoryDelegate>
+<DTCollectionFactoryDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, retain) NSMutableArray *sections;
 @property (nonatomic, retain) NSMutableDictionary * supplementaryModels;
@@ -93,7 +93,7 @@ static BOOL isLoggingEnabled = YES;
 {
     if (section<[self.sections count])
     {
-       return [self.sections[section] count]; 
+        return [self.sections[section] count];
     }
     else {
         return 0;
@@ -155,7 +155,7 @@ static BOOL isLoggingEnabled = YES;
             if ([self isLoggingEnabled])
             {
                 NSLog(@"DTCollectionViewManager: object %@ not found",
-                  [items objectAtIndex:i]);
+                      [items objectAtIndex:i]);
             }
         }
         else {
@@ -215,7 +215,7 @@ static BOOL isLoggingEnabled = YES;
     
     NSIndexPath * modelItemPath = [NSIndexPath indexPathForItem:itemsCountInSection
                                                       inSection:section];
-
+    
     // iOS 6 crashes on insertion of first element in section
     // http://openradar.appspot.com/12954582
     if ([self iOS6] && modelItemPath.row == 0)
@@ -246,7 +246,6 @@ static BOOL isLoggingEnabled = YES;
     }
     
     [sectionItems addObjectsFromArray:items];
-    
     
     // iOS 6 crashes on insertion of first element in section
     // http://openradar.appspot.com/12954582
@@ -329,7 +328,7 @@ static BOOL isLoggingEnabled = YES;
             [validSectionsToRemoveFrom addObject:@(indexPath.section)];
         }
     }
-
+    
     for (NSNumber * section in validSectionsToRemoveFrom)
     {
         NSMutableIndexSet * setToRemove = [NSMutableIndexSet indexSet];
@@ -362,9 +361,9 @@ static BOOL isLoggingEnabled = YES;
         if ([self isLoggingEnabled])
         {
             NSLog(@"DTCollectionViewManager: failed to insert item for indexPath section: %d, row: %d, only %d items in section",
-              indexPath.section,
-              indexPath.row,
-              [array count]);
+                  indexPath.section,
+                  indexPath.row,
+                  [array count]);
         }
         return;
     }
@@ -527,6 +526,18 @@ static BOOL isLoggingEnabled = YES;
     }
     // Returning nil from this method will cause crash on runtime.
     return view;
+}
+
+-(CGSize)collectionView:(UICollectionView *)collectionView
+                 layout:(UICollectionViewFlowLayout *)collectionViewLayout
+referenceSizeForHeaderInSection:(NSInteger)section
+{
+    /*
+     Workaround for UICollectionView bug with insertItems.
+     OpenRadar: http://openradar.appspot.com/12954582
+     Stack0verflow solution: http://stackoverflow.com/questions/13904049/assertion-failure-in-uicollectionviewdata-indexpathforitematglobalindex
+     */
+    return [self numberOfCollectionItemsInSection:section] ? collectionViewLayout.headerReferenceSize : CGSizeZero;
 }
 
 -(NSMutableArray *)validCollectionSection:(int)sectionIndex
