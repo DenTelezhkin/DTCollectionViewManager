@@ -225,7 +225,18 @@ static BOOL isLoggingEnabled = YES;
     else {
         if ([self.collectionView numberOfItemsInSection:modelItemPath.section] == modelItemPath.row)
         {
-            [self.collectionView insertItemsAtIndexPaths:@[modelItemPath]];
+            /*
+             iOS 7 workaround.
+             Prevent application crash from Assertion in -[UICollectionViewData indexPathForItemAtGlobalIndex:]
+             Also, collection view items will display incorrectly.
+             Head on to DTCollectionViewManager Readme for a workaround if you encounter this in your application.
+             */
+            @try {
+                [self.collectionView insertItemsAtIndexPaths:@[modelItemPath]];
+            }
+            @catch (NSException *exception) {
+                NSLog(@"DTCollectionViewManager: insert items exception: %@",exception);
+            }
         }
     }
 }
@@ -255,7 +266,18 @@ static BOOL isLoggingEnabled = YES;
         [self.collectionView reloadSections:[NSIndexSet indexSetWithIndex:section]];
     }
     else {
-        [self.collectionView insertItemsAtIndexPaths:indexes];
+        /*
+         iOS 7 workaround.
+         Prevent application crash from Assertion in -[UICollectionViewData indexPathForItemAtGlobalIndex:]
+         Also, collection view items will display incorrectly.
+         Head on to DTCollectionViewManager Readme for a workaround if you encounter this in your application.
+         */
+        @try {
+            [self.collectionView insertItemsAtIndexPaths:indexes];
+        }
+        @catch (NSException *exception) {
+            NSLog(@"DTCollectionViewManager: insert items exception: %@",exception);
+        }
     }
 }
 
