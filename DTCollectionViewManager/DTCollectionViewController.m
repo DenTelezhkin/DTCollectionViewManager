@@ -39,6 +39,12 @@ static BOOL isLoggingEnabled = YES;
 
 @implementation DTCollectionViewController
 
+-(void)dealloc
+{
+    self.collectionView.delegate = nil;
+    self.collectionView.dataSource = nil;
+}
+
 - (NSMutableArray *)sections
 {
     if (!_sections)
