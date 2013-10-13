@@ -13,9 +13,6 @@
 		9512F08B17BFA9C1008FF3A1 /* ExampleFooterView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9512F08A17BFA9C1008FF3A1 /* ExampleFooterView.m */; };
 		9512F08D17BFAA0C008FF3A1 /* ExampleHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9512F08C17BFAA0C008FF3A1 /* ExampleHeaderView.xib */; };
 		9512F08F17BFAA34008FF3A1 /* ExampleFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9512F08E17BFAA34008FF3A1 /* ExampleFooterView.xib */; };
-		955F8586179ACAF000A38EAD /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8585179ACAF000A38EAD /* UIKit.framework */; };
-		955F8588179ACAF000A38EAD /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8587179ACAF000A38EAD /* Foundation.framework */; };
-		955F858A179ACAF000A38EAD /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8589179ACAF000A38EAD /* CoreGraphics.framework */; };
 		955F8590179ACAF000A38EAD /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 955F858E179ACAF000A38EAD /* InfoPlist.strings */; };
 		955F8592179ACAF000A38EAD /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 955F8591179ACAF000A38EAD /* main.m */; };
 		955F8596179ACAF000A38EAD /* AppDelegate.m in Sources */ = {isa = PBXBuildFile; fileRef = 955F8595179ACAF000A38EAD /* AppDelegate.m */; };
@@ -37,9 +34,6 @@
 		95ADB23917AE53C7004BBA29 /* AddRemoveCollectionController.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB23617AE53C7004BBA29 /* AddRemoveCollectionController.m */; };
 		95ADB23A17AE53C7004BBA29 /* AddRemoveCollectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95ADB23717AE53C7004BBA29 /* AddRemoveCollectionController.xib */; };
 		95ADB23B17AE53C7004BBA29 /* AddRemoveCollectionController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95ADB23717AE53C7004BBA29 /* AddRemoveCollectionController.xib */; };
-		95AE8969179AD03E00F834DB /* UIKit.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8585179ACAF000A38EAD /* UIKit.framework */; };
-		95AE896A179AD03E00F834DB /* Foundation.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8587179ACAF000A38EAD /* Foundation.framework */; };
-		95AE896B179AD03E00F834DB /* CoreGraphics.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 955F8589179ACAF000A38EAD /* CoreGraphics.framework */; };
 		95AE8971179AD03E00F834DB /* InfoPlist.strings in Resources */ = {isa = PBXBuildFile; fileRef = 95AE896F179AD03E00F834DB /* InfoPlist.strings */; };
 		95AE8973179AD03E00F834DB /* main.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8972179AD03E00F834DB /* main.m */; };
 		95AE8979179AD03F00F834DB /* Default.png in Resources */ = {isa = PBXBuildFile; fileRef = 95AE8978179AD03F00F834DB /* Default.png */; };
@@ -78,9 +72,6 @@
 		9512F08C17BFAA0C008FF3A1 /* ExampleHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExampleHeaderView.xib; path = Supplementaries/ExampleHeaderView.xib; sourceTree = "<group>"; };
 		9512F08E17BFAA34008FF3A1 /* ExampleFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExampleFooterView.xib; path = Supplementaries/ExampleFooterView.xib; sourceTree = "<group>"; };
 		955F8582179ACAF000A38EAD /* DTCollectionViewManagerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DTCollectionViewManagerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
-		955F8585179ACAF000A38EAD /* UIKit.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = UIKit.framework; path = System/Library/Frameworks/UIKit.framework; sourceTree = SDKROOT; };
-		955F8587179ACAF000A38EAD /* Foundation.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Foundation.framework; path = System/Library/Frameworks/Foundation.framework; sourceTree = SDKROOT; };
-		955F8589179ACAF000A38EAD /* CoreGraphics.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = CoreGraphics.framework; path = System/Library/Frameworks/CoreGraphics.framework; sourceTree = SDKROOT; };
 		955F858D179ACAF000A38EAD /* DTCollectionViewManagerExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DTCollectionViewManagerExample-Info.plist"; sourceTree = "<group>"; };
 		955F858F179ACAF000A38EAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		955F8591179ACAF000A38EAD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -146,9 +137,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				955F8586179ACAF000A38EAD /* UIKit.framework in Frameworks */,
-				955F8588179ACAF000A38EAD /* Foundation.framework in Frameworks */,
-				955F858A179ACAF000A38EAD /* CoreGraphics.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -156,9 +144,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				95AE8969179AD03E00F834DB /* UIKit.framework in Frameworks */,
-				95AE896A179AD03E00F834DB /* Foundation.framework in Frameworks */,
-				95AE896B179AD03E00F834DB /* CoreGraphics.framework in Frameworks */,
 				FF89B56B3FC940359B01B116 /* libPods-CedarUnitTests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -213,9 +198,6 @@
 		955F8584179ACAF000A38EAD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				955F8585179ACAF000A38EAD /* UIKit.framework */,
-				955F8587179ACAF000A38EAD /* Foundation.framework */,
-				955F8589179ACAF000A38EAD /* CoreGraphics.framework */,
 				9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */,
 			);
 			name = Frameworks;
@@ -686,6 +668,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DTCollectionViewManagerExample/DTCollectionViewManagerExample-Prefix.pch";
 				INFOPLIST_FILE = "DTCollectionViewManagerExample/DTCollectionViewManagerExample-Info.plist";
@@ -699,6 +682,7 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ARCHS = "$(ARCHS_STANDARD)";
+				CLANG_ENABLE_MODULES = YES;
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "DTCollectionViewManagerExample/DTCollectionViewManagerExample-Prefix.pch";
 				INFOPLIST_FILE = "DTCollectionViewManagerExample/DTCollectionViewManagerExample-Info.plist";
@@ -712,6 +696,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
@@ -727,6 +712,7 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */;
 			buildSettings = {
+				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
