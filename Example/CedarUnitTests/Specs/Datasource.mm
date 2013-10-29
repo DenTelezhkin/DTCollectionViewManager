@@ -47,7 +47,7 @@ describe(@"Datasource specs", ^{
     describe(@"adding items", ^{
        
         beforeEach(^{
-            [collection registerCellClass:[ModelCell class]
+            [collection registerCellClass:[ModelCellWithNib class]
                             forModelClass:[Model class]];
         });
         
@@ -135,7 +135,7 @@ describe(@"Datasource specs", ^{
     
     describe(@"removing items", ^{
         beforeEach(^{
-            [collection registerCellClass:[ModelCell class]
+            [collection registerCellClass:[ModelCellWithNib class]
                             forModelClass:[Model class]];
         });
         
@@ -248,7 +248,7 @@ describe(@"Datasource specs", ^{
     describe(@"inserting items", ^{
         
         beforeEach(^{
-            [collection registerCellClass:[ModelCell class]
+            [collection registerCellClass:[ModelCellWithNib class]
                             forModelClass:[Model class]];
         });
         
@@ -338,7 +338,7 @@ describe(@"Datasource specs", ^{
     describe(@"moving items", ^{
         
         beforeEach(^{
-            [collection registerCellClass:[ModelCell class]
+            [collection registerCellClass:[ModelCellWithNib class]
                             forModelClass:[Model class]];
         });
         
@@ -392,7 +392,7 @@ describe(@"Datasource specs", ^{
     describe(@"replacing items", ^{
         
         beforeEach(^{
-            [collection registerCellClass:[ModelCell class]
+            [collection registerCellClass:[ModelCellWithNib class]
                             forModelClass:[Model class]];
         });
         
@@ -424,7 +424,7 @@ describe(@"Datasource specs", ^{
     describe(@"moving sections", ^{
         
         beforeEach(^{
-            [collection registerCellClass:[ModelCell class]
+            [collection registerCellClass:[ModelCellWithNib class]
                             forModelClass:[Model class]];
         });
         
@@ -544,7 +544,7 @@ describe(@"Datasource specs", ^{
     describe(@"deleting sections", ^{
         
         beforeEach(^{
-            [collection registerCellClass:[ModelCell class]
+            [collection registerCellClass:[ModelCellWithNib class]
                             forModelClass:[Model class]];
         });
         

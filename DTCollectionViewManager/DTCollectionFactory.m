@@ -35,16 +35,12 @@ static NSString *const DTSupplementaryFallbackReuseIdentifier = @"FallbackSupple
     
     NSString * reuseIdentifier = [self reuseIdentifierForClass:modelClass];
     NSString * cellClassString = NSStringFromClass(cellClass);
-   
+    
     if ([self nibExistsWithNibName:cellClassString])
     {
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:cellClassString
                                                                    bundle:nil]
                          forCellWithReuseIdentifier:reuseIdentifier];
-    }
-    else {
-        [[self.delegate collectionView] registerClass:cellClass
-                           forCellWithReuseIdentifier:reuseIdentifier];
     }
 }
 
@@ -56,10 +52,6 @@ static NSString *const DTSupplementaryFallbackReuseIdentifier = @"FallbackSupple
     
     NSString * reuseIdentifier = [self reuseIdentifierForClass:modelClass];
     NSString * supplementaryClassString = NSStringFromClass(supplementaryClass);
-    
-    [[self.delegate collectionView] registerClass:supplementaryClass
-                       forSupplementaryViewOfKind:kind
-                              withReuseIdentifier:reuseIdentifier];
     
     if ([self nibExistsWithNibName:supplementaryClassString])
     {

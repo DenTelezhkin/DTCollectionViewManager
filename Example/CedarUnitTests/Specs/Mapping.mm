@@ -34,18 +34,6 @@ describe(@"Mapping tests", ^{
     
     describe(@"cell mapping", ^{
         
-        it(@"should be able to register cell class", ^{
-            [collection registerCellClass:[ModelCell class] forModelClass:[Model class]];
-            [collection addCollectionItem:[[Model new] autorelease]];
-            
-            ModelCell * cell = (ModelCell *)[collection.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0
-                                                                                                                inSection:0]];
-            [cell class] should equal([ModelCell class]);
-            
-            cell.inittedWithFrame should BeTruthy();
-            cell.awakenFromNib should_not BeTruthy();
-        });
-        
         it(@"should be able to register cell nib", ^{
             [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
             [collection addCollectionItem:[[Model new] autorelease]];
@@ -76,25 +64,8 @@ describe(@"Mapping tests", ^{
     describe(@"supplementary mapping", ^{
        
         beforeEach(^{
-            [collection registerCellClass:[ModelCell class] forModelClass:[Model class]];
+            [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
             [collection addCollectionItem:[[Model new] autorelease]];
-        });
-        
-        it(@"should be able to register supplementary header class", ^{
-           [collection registerSupplementaryClass:[SupplementaryView class]
-                                          forKind:UICollectionElementKindSectionHeader
-                                    forModelClass:[Model class]];
-            [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader]
-                         addObject:[[Model new] autorelease]];
-            
-            id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
-            UIView * view = [datasource collectionView:collection.collectionView
-                     viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
-                                           atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-            SupplementaryView * header = (SupplementaryView *) view;
-            [header class] should equal([SupplementaryView class]);
-            header.inittedWithFrame should BeTruthy();
-            header.awakenFromNib should_not BeTruthy();
         });
         
         it(@"should be able to register supplementary header nib class", ^{
@@ -111,23 +82,6 @@ describe(@"Mapping tests", ^{
             [header class] should equal([SupplementaryViewWithNib class]);
             header.inittedWithFrame should_not BeTruthy();
             header.awakenFromNib should BeTruthy();
-        });
-        
-        it(@"should be able to register supplementary footer class", ^{
-            [collection registerSupplementaryClass:[SupplementaryView class]
-                                           forKind:UICollectionElementKindSectionFooter
-                                     forModelClass:[Model class]];
-            [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter]
-             addObject:[[Model new] autorelease]];
-            
-            id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
-            UIView * view = [datasource collectionView:collection.collectionView
-                     viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
-                                           atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-            SupplementaryView * header = (SupplementaryView *) view;
-            [header class] should equal([SupplementaryView class]);
-            header.inittedWithFrame should BeTruthy();
-            header.awakenFromNib should_not BeTruthy();
         });
         
         it(@"should be able to register supplementary footer nib class", ^{
@@ -166,19 +120,19 @@ describe(@"Mapping tests", ^{
     describe(@"Foundation class clusters", ^{
      
         beforeEach(^{
-            [collection registerCellClass:[ModelCell class] forModelClass:[Model class]];
+            [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
             [collection addCollectionItem:[[Model new] autorelease]];
         });
         
         describe(@"NSString", ^{
             
             beforeEach(^{
-                [collection registerCellClass:[ModelCell class]
+                [collection registerCellClass:[ModelCellWithNib class]
                                forModelClass:[NSString class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionHeader
                                          forModelClass:[NSString class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionFooter
                                          forModelClass:[NSString class]];
             });
@@ -229,12 +183,12 @@ describe(@"Mapping tests", ^{
         describe(@"NSMutableString", ^{
             
             beforeEach(^{
-                [collection registerCellClass:[ModelCell class]
+                [collection registerCellClass:[ModelCellWithNib class]
                                 forModelClass:[NSMutableString class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionHeader
                                          forModelClass:[NSMutableString class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionFooter
                                          forModelClass:[NSMutableString class]];
             });
@@ -285,12 +239,12 @@ describe(@"Mapping tests", ^{
         describe(@"NSNumber", ^{
             
             beforeEach(^{
-                [collection registerCellClass:[ModelCell class]
+                [collection registerCellClass:[ModelCellWithNib class]
                                 forModelClass:[NSNumber class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionHeader
                                          forModelClass:[NSNumber class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionFooter
                                          forModelClass:[NSNumber class]];
             });
@@ -355,12 +309,12 @@ describe(@"Mapping tests", ^{
         describe(@"NSDictionary", ^{
             
             beforeEach(^{
-                [collection registerCellClass:[ModelCell class]
+                [collection registerCellClass:[ModelCellWithNib class]
                                 forModelClass:[NSDictionary class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionHeader
                                          forModelClass:[NSDictionary class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionFooter
                                          forModelClass:[NSDictionary class]];
             });
@@ -425,12 +379,12 @@ describe(@"Mapping tests", ^{
         describe(@"NSMutableDictionary", ^{
             
             beforeEach(^{
-                [collection registerCellClass:[ModelCell class]
+                [collection registerCellClass:[ModelCellWithNib class]
                                 forModelClass:[NSMutableDictionary class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionHeader
                                          forModelClass:[NSMutableDictionary class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionFooter
                                          forModelClass:[NSMutableDictionary class]];
             });
@@ -496,12 +450,12 @@ describe(@"Mapping tests", ^{
         describe(@"NSArray", ^{
             
             beforeEach(^{
-                [collection registerCellClass:[ModelCell class]
+                [collection registerCellClass:[ModelCellWithNib class]
                                 forModelClass:[NSArray class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionHeader
                                          forModelClass:[NSArray class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionFooter
                                          forModelClass:[NSArray class]];
             });
@@ -566,12 +520,12 @@ describe(@"Mapping tests", ^{
         describe(@"NSMutableArray", ^{
             
             beforeEach(^{
-                [collection registerCellClass:[ModelCell class]
+                [collection registerCellClass:[ModelCellWithNib class]
                                 forModelClass:[NSMutableArray class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionHeader
                                          forModelClass:[NSMutableArray class]];
-                [collection registerSupplementaryClass:[SupplementaryView class]
+                [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionFooter
                                          forModelClass:[NSMutableArray class]];
             });

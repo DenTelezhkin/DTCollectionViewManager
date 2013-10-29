@@ -11,6 +11,7 @@
 #import "EmptyDetailViewController.h"
 #import "AddRemoveCollectionController.h"
 #import "SectionsController.h"
+#import "StoryboardViewController.h"
 
 @interface ExamplesViewController()
 @property (nonatomic, strong) NSMutableArray * examples;
@@ -39,6 +40,8 @@ static NSString * exampleCellReuseIdentifier = @"ExampleCellReuseId";
                                                     andTitle:@"Add/Remove"]];
     [self.examples addObject:[ControllerModel modelWithClass:[SectionsController class]
                                                     andTitle:@"Move sections"]];
+    [self.examples addObject:[ControllerModel modelWithClass:[StoryboardViewController class]
+                                                    andTitle:@"Storyboard"]];
     [self.tableView reloadData];
 }
 
@@ -64,7 +67,16 @@ static NSString * exampleCellReuseIdentifier = @"ExampleCellReuseId";
 -(void)tableView:(UITableView *)tableView didSelectRowAtIndexPath:(NSIndexPath *)indexPath
 {
     ControllerModel * model = self.examples[indexPath.row];
-    UIViewController * controller = [model.controllerClass new];
+    UIViewController * controller;
+    if (model.controllerClass == [StoryboardViewController class])
+    {
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"Storyboard" bundle:nil];
+        controller = [storyboard instantiateInitialViewController];
+    }
+    else {
+        controller = [model.controllerClass new];
+    }
+    
     [self.splitViewController setViewControllers:@[self,controller]];
 }
 
