@@ -7,6 +7,7 @@ DTCollectionViewManager
 ## Features
 
 * Powerful and clean mapping system between data models and UICollectionView cells, supplementary views 
+* Support for creating interface from XIBs and storyboards
 * Automatic datasource and interface synchronization
 * Dramatic decrease of code amount needed for UICollectionView implementation
 * Good unit test coverage
@@ -27,7 +28,7 @@ Here are 4 simple steps you need to use DTCollectionViewManager:
 
 ## Mapping
 
-Every mapping method will automatically check for existance of xib with the same name. If it does exist - nib will be registered for creating cells. If not - class will be registered. When collection view will need to present content, cells will be created using dequeueReusableCellWithReuseIdentifier:forIndexPath: method. Then every cell will get called with updateWithModel: method, passing data model to cell, so it could present it's data.
+Every mapping method will automatically check for existance of xib with the same name. If it does exist - nib will be registered for creating cells. If not - it will be assumed, that storyboard registers cell for us. When collection view will need to present content, cells will be created using dequeueReusableCellWithReuseIdentifier:forIndexPath: method. Then every cell will get called with updateWithModel: method, passing data model to cell, so it could present it's data.
 
 Mapping cells:
 
@@ -85,12 +86,18 @@ Mapping supplementary views:
 [self numberOfCollectionItemsInSection:2];
 [self collectionItemAtIndexPath:indexPath];
 ```	
+## Using storyboards
+
+To use storyboard collection view, set reuseIdentifier for collection cell or reusable header/footer with the name of your model class. Call registerCellClass:forModelClass: just as for xib registration.
+
+You can also take a look at example, which contains storyboard colllection view with prototyped cell, header, and footer.
+
 
 ## Installation
 
 Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 
-	pod 'DTCollectionViewManager', '~> 1.0.0'
+	pod 'DTCollectionViewManager', '~> 1.1.0'
 	
 ## Documentation
 
@@ -125,8 +132,4 @@ Most of the time you will have your own data models for cells. However, sometime
  * NSNumber
  * NSDictionary
  * NSArray
-
-## Roadmap
-
-- Search in UICollectionView
-
+ * NSDate
