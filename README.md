@@ -132,4 +132,3 @@ Most of the time you will have your own data models for cells. However, sometime
  * NSNumber
  * NSDictionary
  * NSArray
- * NSDate
