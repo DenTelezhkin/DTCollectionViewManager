@@ -2,7 +2,7 @@ language: objective-c
 
 before_install:
     - gem install ios_ci
-    - gem update cocoapods
+    - gem install cocoapods
     - brew install ios-sim
     - cd Example
 
