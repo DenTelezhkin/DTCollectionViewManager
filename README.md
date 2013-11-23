@@ -1,4 +1,7 @@
-![Build Status](https://travis-ci.org/DenHeadless/DTCollectionViewManager.png?branch=master,development) &nbsp; ![CocoaPod platform](https://cocoapod-badges.herokuapp.com/p/DTCollectionViewManager/badge.svg) &nbsp; ![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTCollectionViewManager/badge.svg)
+![Build Status](https://travis-ci.org/DenHeadless/DTCollectionViewManager.png?branch=master,development) &nbsp;
+![CocoaPod platform](https://cocoapod-badges.herokuapp.com/p/DTCollectionViewManager/badge.svg) &nbsp;
+![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTCollectionViewManager/badge.svg) &nbsp;
+![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
 DTCollectionViewManager
 =======================
 
