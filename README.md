@@ -135,3 +135,7 @@ Most of the time you will have your own data models for cells. However, sometime
  * NSNumber
  * NSDictionary
  * NSArray
+
+
+[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/DenHeadless/dtcollectionviewmanager/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
+
