@@ -298,4 +298,7 @@
  */
 +(void)setLoggingEnabled:(BOOL)isEnabled;
 
++(BOOL)isLoggingEnabled;
+
+
 @end

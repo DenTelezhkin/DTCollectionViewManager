@@ -7,8 +7,9 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DTCollectionViewSection.h"
-@interface DTCollectionViewSectionModel : NSObject <DTCollectionViewSection>
+#import "DTSection.h"
+
+@interface DTSectionModel : NSObject <DTSection>
 
 /**
  Table items for current section

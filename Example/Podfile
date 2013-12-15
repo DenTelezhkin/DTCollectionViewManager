@@ -1,7 +1,9 @@
 xcodeproj 'DTCollectionViewManagerExample.xcodeproj'
+inhibit_all_warnings!
 platform :ios, 6.0
 
 target :CedarUnitTests do
-  pod 'Cedar', :inhibit_warnings => true
+  pod 'Cedar'
   pod 'AutoDescribe'
+  pod 'OCMock', '~> 2.2.1'
 end

@@ -27,7 +27,7 @@
  `DTCollectionViewModelTransfer` protocol is used to pass `model` data to your cell or supplementary view. Every UICollectionViewCell or UICollectionReusableView subclass you have should implement this protocol.
  */
 
-@protocol DTCollectionViewModelTransfer
+@protocol DTModelTransfer
 
 /**
  This method will be called, when controller needs to display model on current cell or supplementary view.

@@ -28,6 +28,6 @@
 /**
  `DTCollectionViewCell` is a convinience UICollectionViewCell subclass, conforming to `DTCollectionViewModelTransfer` protocol.
  */
-@interface DTCollectionViewCell : UICollectionViewCell <DTCollectionViewModelTransfer>
+@interface DTCollectionViewCell : UICollectionViewCell <DTModelTransfer>
 
 @end

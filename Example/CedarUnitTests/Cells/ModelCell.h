@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DTCollectionViewManager.h"
 
-@interface ModelCell : UICollectionViewCell <DTCollectionViewModelTransfer>
+@interface ModelCell : UICollectionViewCell <DTModelTransfer>
 
 @property (nonatomic, assign) BOOL inittedWithFrame;
 @property (nonatomic, assign) BOOL awakenFromNib;

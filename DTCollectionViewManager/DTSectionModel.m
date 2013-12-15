@@ -6,9 +6,9 @@
 //  Copyright (c) 2013 Denys Telezhkin. All rights reserved.
 //
 
-#import "DTCollectionViewSectionModel.h"
+#import "DTSectionModel.h"
 
-@implementation DTCollectionViewSectionModel
+@implementation DTSectionModel
 
 -(NSMutableArray *)objects
 {

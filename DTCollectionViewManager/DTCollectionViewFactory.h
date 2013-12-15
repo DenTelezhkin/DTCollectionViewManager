@@ -38,7 +38,7 @@
  This class is intended to be used internally by DTCollectionViewController.
  */
 
-@interface DTCollectionFactory : NSObject
+@interface DTCollectionViewFactory : NSObject
 
 -(void)registerCellClass:(Class)cellClass
            forModelClass:(Class)modelClass;
@@ -47,9 +47,9 @@
                           forKind:(NSString *)kind
                     forModelClass:(Class)modelClass;
 
--(UICollectionViewCell <DTCollectionViewModelTransfer> *)cellForItem:(id)modelItem
+-(UICollectionViewCell <DTModelTransfer> *)cellForItem:(id)modelItem
                                                          atIndexPath:(NSIndexPath *)indexPath;
--(UICollectionReusableView <DTCollectionViewModelTransfer> *)supplementaryViewOfKind:(NSString *)kind
+-(UICollectionReusableView <DTModelTransfer> *)supplementaryViewOfKind:(NSString *)kind
                                              forItem:(id)modelItem
                                          atIndexPath:(NSIndexPath *)indexPath;
 

@@ -37,7 +37,7 @@
 - (NSArray*)sections;
 
 /**
- Returns table item at concrete indexPath. This method is used for perfomance reasons. For example, when DTTableViewCoreDataStorage is used, calling objects method will fetch all the objects from fetchRequest, bu we want to fetch only one.
+ Returns collection item at concrete indexPath. This method is used for perfomance reasons. For example, when DTTableViewCoreDataStorage is used, calling objects method will fetch all the objects from fetchRequest, bu we want to fetch only one.
  
  @param indexPath indexPath of desired tableItem
  

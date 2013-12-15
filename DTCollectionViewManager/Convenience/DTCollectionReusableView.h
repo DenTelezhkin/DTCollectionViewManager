@@ -29,6 +29,6 @@
  `DTCollectionReusableView` is a convinience UICollectionReusableView subclass, conforming to `DTCollectionViewModelTransfer` protocol.
  */
 
-@interface DTCollectionReusableView : UICollectionReusableView <DTCollectionViewModelTransfer>
+@interface DTCollectionReusableView : UICollectionReusableView <DTModelTransfer>
 
 @end

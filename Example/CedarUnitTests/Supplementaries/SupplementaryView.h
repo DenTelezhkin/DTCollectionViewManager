@@ -9,7 +9,7 @@
 #import <UIKit/UIKit.h>
 #import "DTCollectionViewManager.h"
 
-@interface SupplementaryView : UICollectionReusableView <DTCollectionViewModelTransfer>
+@interface SupplementaryView : UICollectionReusableView <DTModelTransfer>
 
 @property (nonatomic, assign) BOOL inittedWithFrame;
 @property (nonatomic, assign) BOOL awakenFromNib;

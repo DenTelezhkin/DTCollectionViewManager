@@ -23,11 +23,11 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "DTCollectionFactory.h"
+#import "DTCollectionViewFactory.h"
 
 static NSString *const DTSupplementaryFallbackReuseIdentifier = @"FallbackSupplementaryReuseIdentifier";
 
-@implementation DTCollectionFactory
+@implementation DTCollectionViewFactory
 
 -(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass
 {
@@ -62,7 +62,7 @@ static NSString *const DTSupplementaryFallbackReuseIdentifier = @"FallbackSupple
     }
 }
 
--(UICollectionViewCell <DTCollectionViewModelTransfer> *)cellForItem:(id)modelItem
+-(UICollectionViewCell <DTModelTransfer> *)cellForItem:(id)modelItem
                                                          atIndexPath:(NSIndexPath *)indexPath
 {
     NSString * reuseIdentifier = [self reuseIdentifierForClass:[modelItem class]];
@@ -77,7 +77,7 @@ static NSString *const DTSupplementaryFallbackReuseIdentifier = @"FallbackSupple
     }
 }
 
--(UICollectionReusableView <DTCollectionViewModelTransfer> *)supplementaryViewOfKind:(NSString *)kind
+-(UICollectionReusableView <DTModelTransfer> *)supplementaryViewOfKind:(NSString *)kind
                                              forItem:(id)modelItem
                                          atIndexPath:(NSIndexPath *)indexPath
 {
@@ -150,7 +150,7 @@ static NSString *const DTSupplementaryFallbackReuseIdentifier = @"FallbackSupple
 
 -(void)checkClassForModelTransferProtocolSupport:(Class)class
 {
-    if (![class conformsToProtocol:@protocol(DTCollectionViewModelTransfer)])
+    if (![class conformsToProtocol:@protocol(DTModelTransfer)])
     {
         NSString * reason = [NSString stringWithFormat:@"class %@ should conform\n"
                              "to DTCollectionViewModelTransfer protocol",

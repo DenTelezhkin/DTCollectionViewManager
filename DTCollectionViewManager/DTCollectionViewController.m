@@ -25,15 +25,15 @@
 
 #import "DTCollectionViewController.h"
 #import "DTCollectionViewModelTransfer.h"
-#import "DTCollectionFactory.h"
-#import "DTCollectionViewSection.h"
+#import "DTCollectionViewFactory.h"
+#import "DTSection.h"
 
 @interface DTCollectionViewController ()
 <DTCollectionFactoryDelegate,UICollectionViewDelegateFlowLayout>
 
 @property (nonatomic, retain) NSMutableArray *sections;
 @property (nonatomic, retain) NSMutableDictionary * supplementaryModels;
-@property (nonatomic, retain) DTCollectionFactory * factory;
+@property (nonatomic, retain) DTCollectionViewFactory * factory;
 @end
 
 static BOOL isLoggingEnabled = YES;
@@ -64,11 +64,11 @@ static BOOL isLoggingEnabled = YES;
     return _supplementaryModels;
 }
 
--(DTCollectionFactory *)factory
+-(DTCollectionViewFactory *)factory
 {
     if (!_factory)
     {
-        _factory = [DTCollectionFactory new];
+        _factory = [DTCollectionViewFactory new];
         _factory.delegate = self;
     }
     return _factory;
@@ -138,7 +138,7 @@ static BOOL isLoggingEnabled = YES;
     NSIndexPath * indexPath = [self indexPathOfItem:tableItem inArray:self.sections];
     if (!indexPath)
     {
-        if ([self isLoggingEnabled])
+        if ([[self class] isLoggingEnabled])
         {
             NSLog(@"DTCollectionViewManager: collection item not found, cannot return it's indexPath");
         }
@@ -159,7 +159,7 @@ static BOOL isLoggingEnabled = YES;
         NSIndexPath * foundIndexPath = [self indexPathOfCollectionItem:[items objectAtIndex:i]];
         if (!foundIndexPath)
         {
-            if ([self isLoggingEnabled])
+            if ([[self class] isLoggingEnabled])
             {
                 NSLog(@"DTCollectionViewManager: object %@ not found",
                       [items objectAtIndex:i]);
@@ -298,7 +298,7 @@ static BOOL isLoggingEnabled = YES;
         [section removeObjectAtIndex:indexPath.row];
     }
     else {
-        if ([self isLoggingEnabled])
+        if ([[self class] isLoggingEnabled])
         {
             NSLog(@"DTCollectionViewManager: item to delete: %@ was not found in collection view",item);
         }
@@ -316,7 +316,7 @@ static BOOL isLoggingEnabled = YES;
         [section removeObjectAtIndex:indexPath.row];
     }
     else {
-        if ([self isLoggingEnabled])
+        if ([[self class] isLoggingEnabled])
         {
             NSLog(@"DTCollectionViewManager: indexPath to delete: %@ was not found in collection view",indexPath);
         }
@@ -387,7 +387,7 @@ static BOOL isLoggingEnabled = YES;
     
     if ([array count] < indexPath.row)
     {
-        if ([self isLoggingEnabled])
+        if ([[self class] isLoggingEnabled])
         {
             NSLog(@"DTCollectionViewManager: failed to insert item for indexPath section: %d, row: %d, only %d items in section",
                   indexPath.section,
@@ -407,7 +407,7 @@ static BOOL isLoggingEnabled = YES;
     
     if (!sourceIndexPath)
     {
-        if ([self isLoggingEnabled])
+        if ([[self class] isLoggingEnabled])
         {
             NSLog(@"DTCollectionViewManager: item %@ not found in collectionView",item);
         }
@@ -419,7 +419,7 @@ static BOOL isLoggingEnabled = YES;
     
     if ([destinationSection count] < indexPath.row)
     {
-        if ([self isLoggingEnabled])
+        if ([[self class] isLoggingEnabled])
         {
             NSLog(@"DTCollectionViewManager: failed moving item to indexPath: %@, only %d items in section",indexPath,[destinationSection count]);
         }
@@ -439,7 +439,7 @@ static BOOL isLoggingEnabled = YES;
     
     if (!oldIndexPath || !newItem)
     {
-        if ([self isLoggingEnabled])
+        if ([[self class] isLoggingEnabled])
         {
             NSLog(@"DTCollectionViewManager: failed to replace item %@ at indexPath: %@",newItem,oldIndexPath);
         }
@@ -467,7 +467,7 @@ static BOOL isLoggingEnabled = YES;
             [self.supplementaryModels[kind] insertObject:supp atIndex:toSection];
         }
         else {
-            if ([self isLoggingEnabled])
+            if ([[self class] isLoggingEnabled])
             {
                 NSLog(@"DTCollectionViewManager: number of supplementary models for kind: %@ differs from section number. Moving section, leaving supplementary models untouched.",kind);
             }
@@ -517,7 +517,7 @@ static BOOL isLoggingEnabled = YES;
 {
     if (self.dataStorage)
     {
-        id <DTCollectionViewSection> section = [self.dataStorage sections][sectionNumber];
+        id <DTSection> section = [self.dataStorage sections][sectionNumber];
         return [section numberOfObjects];
     }
     
@@ -529,7 +529,7 @@ static BOOL isLoggingEnabled = YES;
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionViewCell <DTCollectionViewModelTransfer> *cell;
+    UICollectionViewCell <DTModelTransfer> *cell;
     id model = nil;
     
     if (self.dataStorage)
@@ -550,7 +550,7 @@ static BOOL isLoggingEnabled = YES;
            viewForSupplementaryElementOfKind:(NSString *)kind
                                  atIndexPath:(NSIndexPath *)indexPath
 {
-    UICollectionReusableView <DTCollectionViewModelTransfer> *view = nil;
+    UICollectionReusableView <DTModelTransfer> *view = nil;
     NSMutableArray * supplementaries = [self supplementaryModelsOfKind:kind];
     
     if ([supplementaries count]>indexPath.section)
@@ -638,7 +638,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
     isLoggingEnabled = isEnabled;
 }
 
--(BOOL)isLoggingEnabled
++(BOOL)isLoggingEnabled
 {
     return isLoggingEnabled;
 }

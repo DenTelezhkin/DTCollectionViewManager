@@ -12,7 +12,7 @@
  `DTTableViewSection` protocol defines an interface for sections returned by DTTableViewDataStorage object. For `DTTableViewMemoryStorage`, `DTTableViewSectionModel` is the object, conforming to current protocol. For `DTTableViewCoreDataStorage` NSFetchedResultsController returns  `NSFetchedResultsSectionInfo` objects, that also conform to current protocol.
  */
 
-@protocol DTCollectionViewSection <NSObject>
+@protocol DTSection <NSObject>
 
 /**
  Array of objects in section.

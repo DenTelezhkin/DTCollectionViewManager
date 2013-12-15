@@ -8,6 +8,7 @@
 
 #import "AddRemoveCollectionController.h"
 #import "ExampleCell.h"
+#import "DTMemoryStorage.h"
 
 @interface AddRemoveCollectionController()
 @property (strong, nonatomic) IBOutlet UINavigationItem *addRemoveNavigationItem;
@@ -42,6 +43,9 @@
 {
     [super viewDidLoad];
     
+    self.dataStorage = [DTMemoryStorage storage];
+    self.dataStorage.delegate = self;
+    
     self.collectionView.allowsSelection = NO;
     self.collectionView.allowsMultipleSelection = YES;
     
@@ -56,8 +60,10 @@
 
 -(void)addItem:(id)sender
 {
-    [self addCollectionItems:@[@"",@0,@{}] toSection:0];
-    [self addCollectionItems:@[@"",@0,@{}] toSection:1];
+    DTMemoryStorage * storage = self.dataStorage;
+
+    [storage addItems:@[@"",@0,@{}] toSection:0];
+    [storage addItems:@[@"",@0,@{}] toSection:1];
 }
 
 - (void)editTapped:(UIBarButtonItem *)sender
