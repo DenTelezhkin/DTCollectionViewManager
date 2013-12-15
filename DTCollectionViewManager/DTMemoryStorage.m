@@ -53,13 +53,13 @@
     [self addItem:item toSection:0];
 }
 
--(void)addItem:(NSObject *)tableItem toSection:(NSInteger)sectionNumber
+-(void)addItem:(NSObject *)item toSection:(NSInteger)sectionNumber
 {
     [self startUpdate];
     
     DTSectionModel * section = [self getValidSection:sectionNumber];
     NSUInteger numberOfItems = [section numberOfObjects];
-    [section.objects addObject:tableItem];
+    [section.objects addObject:item];
     [self.currentUpdate.insertedRowIndexPaths addObject:[NSIndexPath indexPathForRow:numberOfItems
                                                                            inSection:sectionNumber]];
     
@@ -71,16 +71,16 @@
     [self addItems:items toSection:0];
 }
 
--(void)addItems:(NSArray *)tableItems toSection:(NSInteger)sectionNumber
+-(void)addItems:(NSArray *)items toSection:(NSInteger)sectionNumber
 {
     [self startUpdate];
     
     DTSectionModel * section = [self getValidSection:sectionNumber];
     
-    for (id tableItem in tableItems)
+    for (id item in items)
     {
         NSUInteger numberOfItems = [section numberOfObjects];
-        [section.objects addObject:tableItem];
+        [section.objects addObject:item];
         [self.currentUpdate.insertedRowIndexPaths addObject:[NSIndexPath indexPathForRow:numberOfItems
                                                                                inSection:sectionNumber]];
     }

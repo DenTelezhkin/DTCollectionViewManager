@@ -24,4 +24,4 @@
 // THE SOFTWARE.
 
 #import "DTCollectionViewController.h"
-#import "DTCollectionViewModelTransfer.h"
+#import "DTModelTransfer.h"

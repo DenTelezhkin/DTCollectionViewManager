@@ -24,7 +24,7 @@
 // THE SOFTWARE.
 
 #import "DTCollectionViewController.h"
-#import "DTCollectionViewModelTransfer.h"
+#import "DTModelTransfer.h"
 #import "DTCollectionViewFactory.h"
 #import "DTSection.h"
 
@@ -133,9 +133,9 @@ static BOOL isLoggingEnabled = YES;
     return nil;
 }
 
-- (NSIndexPath *)indexPathOfCollectionItem:(NSObject *)tableItem
+- (NSIndexPath *)indexPathOfCollectionItem:(NSObject *)item
 {
-    NSIndexPath * indexPath = [self indexPathOfItem:tableItem inArray:self.sections];
+    NSIndexPath * indexPath = [self indexPathOfItem:item inArray:self.sections];
     if (!indexPath)
     {
         if ([[self class] isLoggingEnabled])

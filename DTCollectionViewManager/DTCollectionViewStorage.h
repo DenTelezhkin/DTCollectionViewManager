@@ -39,9 +39,9 @@
 /**
  Returns collection item at concrete indexPath. This method is used for perfomance reasons. For example, when DTTableViewCoreDataStorage is used, calling objects method will fetch all the objects from fetchRequest, bu we want to fetch only one.
  
- @param indexPath indexPath of desired tableItem
+ @param indexPath indexPath of desired item
  
- @return table item at desired indexPath
+ @return item at desired indexPath
  */
 - (id)objectAtIndexPath:(NSIndexPath *)indexPath;
 

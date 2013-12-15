@@ -1,4 +1,4 @@
-#import "DTCollectionViewMemoryStorage.h"
+#import "DTMemoryStorage.h"
 #import "OCMock.h"
 #import "Model.h"
 
@@ -8,10 +8,10 @@ using namespace Cedar::Doubles;
 SPEC_BEGIN(MemoryStorageSpec)
 
 describe(@"Storage search specs", ^{
-    __block DTCollectionViewMemoryStorage *storage;
+    __block DTMemoryStorage *storage;
     
     beforeEach(^{
-        storage = [DTCollectionViewMemoryStorage storage];
+        storage = [DTMemoryStorage storage];
         storage.delegate = [OCMockObject niceMockForClass:[DTCollectionViewController class]];
     });
     
@@ -29,7 +29,7 @@ describe(@"Storage search specs", ^{
         model should equal(@"1");
     });
     
-    it(@"should return indexPath of tableItem", ^{
+    it(@"should return indexPath of item", ^{
         [storage addItems:@[@"1",@"2"] toSection:0];
         [storage addItems:@[@"3",@"4"] toSection:1];
         
@@ -52,12 +52,12 @@ describe(@"Storage search specs", ^{
 });
 
 describe(@"Storage Add specs", ^{
-    __block DTCollectionViewMemoryStorage *storage;
+    __block DTMemoryStorage *storage;
     __block OCMockObject * delegate;
     
     beforeEach(^{
         delegate = [OCMockObject mockForClass:[DTCollectionViewController class]];
-        storage = [DTCollectionViewMemoryStorage storage];
+        storage = [DTMemoryStorage storage];
         storage.delegate = (id <DTCollectionViewDataStorageUpdating>)delegate;
     });
     
@@ -97,7 +97,7 @@ describe(@"Storage Add specs", ^{
 });
 
 describe(@"Storage edit specs", ^{
-    __block DTCollectionViewMemoryStorage *storage;
+    __block DTMemoryStorage *storage;
     __block OCMockObject * delegate;
     __block Model * acc1;
     __block Model * acc2;
@@ -108,7 +108,7 @@ describe(@"Storage edit specs", ^{
     
     beforeEach(^{
         delegate = [OCMockObject niceMockForClass:[DTCollectionViewController class]];
-        storage = [DTCollectionViewMemoryStorage storage];
+        storage = [DTMemoryStorage storage];
         storage.delegate = (id <DTCollectionViewDataStorageUpdating>)delegate;
         
         acc1 = [Model new];

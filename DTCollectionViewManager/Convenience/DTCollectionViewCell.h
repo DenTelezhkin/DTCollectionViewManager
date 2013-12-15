@@ -23,7 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "DTCollectionViewModelTransfer.h"
+#import "DTModelTransfer.h"
 
 /**
  `DTCollectionViewCell` is a convinience UICollectionViewCell subclass, conforming to `DTCollectionViewModelTransfer` protocol.
