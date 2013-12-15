@@ -26,6 +26,7 @@
 #import "DTCollectionViewController.h"
 #import "DTCollectionViewModelTransfer.h"
 #import "DTCollectionFactory.h"
+#import "DTCollectionViewSection.h"
 
 @interface DTCollectionViewController ()
 <DTCollectionFactoryDelegate,UICollectionViewDelegateFlowLayout>
@@ -503,13 +504,24 @@ static BOOL isLoggingEnabled = YES;
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
+    if (self.dataStorage)
+    {
+        return [[self.dataStorage sections] count];
+    }
+    
     return [self.sections count];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
-     numberOfItemsInSection:(NSInteger)section
+     numberOfItemsInSection:(NSInteger)sectionNumber
 {
-    NSArray *itemsInSection = self.sections[section];
+    if (self.dataStorage)
+    {
+        id <DTCollectionViewSection> section = [self.dataStorage sections][sectionNumber];
+        return [section numberOfObjects];
+    }
+    
+    NSArray *itemsInSection = self.sections[sectionNumber];
     
     return [itemsInSection count];
 }
@@ -518,10 +530,16 @@ static BOOL isLoggingEnabled = YES;
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell <DTCollectionViewModelTransfer> *cell;
+    id model = nil;
     
-    NSArray *itemsInSection = self.sections[indexPath.section];
-    id model = itemsInSection[indexPath.row];
-    
+    if (self.dataStorage)
+    {
+        model = [self.dataStorage objectAtIndexPath:indexPath];
+    }
+    else {
+        NSArray *itemsInSection = self.sections[indexPath.section];
+        model = itemsInSection[indexPath.row];
+    }    
     cell = [self.factory cellForItem:model atIndexPath:indexPath];
     [cell updateWithModel:model];
     
@@ -600,6 +618,19 @@ referenceSizeForHeaderInSection:(NSInteger)section
         }
         return [self.sections lastObject];
     }
+}
+
+-(void)performUpdate:(DTCollectionViewUpdate *)update
+{
+    [self.collectionView performBatchUpdates:^{
+        [self.collectionView deleteSections:update.deletedSectionIndexes];
+        [self.collectionView insertSections:update.insertedSectionIndexes];
+        [self.collectionView reloadSections:update.updatedSectionIndexes];
+        
+        [self.collectionView deleteItemsAtIndexPaths:update.deletedRowIndexPaths];
+        [self.collectionView insertItemsAtIndexPaths:update.insertedRowIndexPaths];
+        [self.collectionView reloadItemsAtIndexPaths:update.updatedRowIndexPaths];
+    } completion:nil];
 }
 
 +(void)setLoggingEnabled:(BOOL)isEnabled

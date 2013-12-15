@@ -34,6 +34,12 @@
 		9586983C1819BC7500F2695A /* PrototypedCollectionViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9586983A1819BC7500F2695A /* PrototypedCollectionViewHeader.m */; };
 		9586983F1819BC9600F2695A /* PrototypedCollectionViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9586983E1819BC9600F2695A /* PrototypedCollectionViewFooter.m */; };
 		958698401819BC9600F2695A /* PrototypedCollectionViewFooter.m in Sources */ = {isa = PBXBuildFile; fileRef = 9586983E1819BC9600F2695A /* PrototypedCollectionViewFooter.m */; };
+		958C9350185DFB2E0050282A /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 958C934F185DFB2E0050282A /* DTCollectionViewMemoryStorage.m */; };
+		958C9351185DFB2E0050282A /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = 958C934F185DFB2E0050282A /* DTCollectionViewMemoryStorage.m */; };
+		958C9357185DFD140050282A /* DTCollectionViewUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 958C9356185DFD140050282A /* DTCollectionViewUpdate.m */; };
+		958C9358185DFD140050282A /* DTCollectionViewUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = 958C9356185DFD140050282A /* DTCollectionViewUpdate.m */; };
+		958C935E185E000C0050282A /* DTCollectionViewSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 958C935D185E000C0050282A /* DTCollectionViewSectionModel.m */; };
+		958C935F185E000C0050282A /* DTCollectionViewSectionModel.m in Sources */ = {isa = PBXBuildFile; fileRef = 958C935D185E000C0050282A /* DTCollectionViewSectionModel.m */; };
 		95ADB22517AD5527004BBA29 /* DTCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB22417AD5527004BBA29 /* DTCollectionReusableView.m */; };
 		95ADB22617AD5527004BBA29 /* DTCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB22417AD5527004BBA29 /* DTCollectionReusableView.m */; };
 		95ADB22917AD5586004BBA29 /* DTCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB22817AD5586004BBA29 /* DTCollectionViewCell.m */; };
@@ -109,6 +115,14 @@
 		9586983A1819BC7500F2695A /* PrototypedCollectionViewHeader.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrototypedCollectionViewHeader.m; path = Supplementaries/PrototypedCollectionViewHeader.m; sourceTree = "<group>"; };
 		9586983D1819BC9600F2695A /* PrototypedCollectionViewFooter.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = PrototypedCollectionViewFooter.h; path = Supplementaries/PrototypedCollectionViewFooter.h; sourceTree = "<group>"; };
 		9586983E1819BC9600F2695A /* PrototypedCollectionViewFooter.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = PrototypedCollectionViewFooter.m; path = Supplementaries/PrototypedCollectionViewFooter.m; sourceTree = "<group>"; };
+		958C934E185DFB2E0050282A /* DTCollectionViewMemoryStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewMemoryStorage.h; path = ../DTCollectionViewManager/DTCollectionViewMemoryStorage.h; sourceTree = "<group>"; };
+		958C934F185DFB2E0050282A /* DTCollectionViewMemoryStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionViewMemoryStorage.m; path = ../DTCollectionViewManager/DTCollectionViewMemoryStorage.m; sourceTree = "<group>"; };
+		958C9352185DFBDE0050282A /* DTCollectionViewStorage.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewStorage.h; path = ../DTCollectionViewManager/DTCollectionViewStorage.h; sourceTree = "<group>"; };
+		958C9355185DFD140050282A /* DTCollectionViewUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewUpdate.h; path = ../DTCollectionViewManager/DTCollectionViewUpdate.h; sourceTree = "<group>"; };
+		958C9356185DFD140050282A /* DTCollectionViewUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionViewUpdate.m; path = ../DTCollectionViewManager/DTCollectionViewUpdate.m; sourceTree = "<group>"; };
+		958C9359185DFFB10050282A /* DTCollectionViewSection.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewSection.h; path = ../DTCollectionViewManager/DTCollectionViewSection.h; sourceTree = "<group>"; };
+		958C935C185E000C0050282A /* DTCollectionViewSectionModel.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewSectionModel.h; path = ../DTCollectionViewManager/DTCollectionViewSectionModel.h; sourceTree = "<group>"; };
+		958C935D185E000C0050282A /* DTCollectionViewSectionModel.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionViewSectionModel.m; path = ../DTCollectionViewManager/DTCollectionViewSectionModel.m; sourceTree = "<group>"; };
 		95ADB22317AD5527004BBA29 /* DTCollectionReusableView.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionReusableView.h; path = ../DTCollectionViewManager/Convenience/DTCollectionReusableView.h; sourceTree = "<group>"; };
 		95ADB22417AD5527004BBA29 /* DTCollectionReusableView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionReusableView.m; path = ../DTCollectionViewManager/Convenience/DTCollectionReusableView.m; sourceTree = "<group>"; };
 		95ADB22717AD5586004BBA29 /* DTCollectionViewCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewCell.h; path = ../DTCollectionViewManager/Convenience/DTCollectionViewCell.h; sourceTree = "<group>"; };
@@ -259,13 +273,12 @@
 		955F85AE179ACB7300A38EAD /* DTCollectionViewManager */ = {
 			isa = PBXGroup;
 			children = (
+				958C9354185DFC610050282A /* Cell factory */,
+				958C9353185DFBEC0050282A /* Storage */,
 				95ADB22217AD54EC004BBA29 /* Convenience */,
 				955F85AF179ACB8F00A38EAD /* DTCollectionViewController.h */,
 				955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */,
-				955F85B1179ACB8F00A38EAD /* DTCollectionViewModelTransfer.h */,
 				95AE8986179BEDDC00F834DB /* DTCollectionViewManager.h */,
-				95AE899C179C05BE00F834DB /* DTCollectionFactory.h */,
-				95AE899D179C05BE00F834DB /* DTCollectionFactory.m */,
 			);
 			name = DTCollectionViewManager;
 			sourceTree = "<group>";
@@ -278,6 +291,47 @@
 				958698321819BA6600F2695A /* Storyboard.storyboard */,
 			);
 			name = Storyboard;
+			sourceTree = "<group>";
+		};
+		958C9353185DFBEC0050282A /* Storage */ = {
+			isa = PBXGroup;
+			children = (
+				958C935B185DFFE20050282A /* CoreData */,
+				958C935A185DFFD90050282A /* Memory */,
+				958C9352185DFBDE0050282A /* DTCollectionViewStorage.h */,
+				958C934E185DFB2E0050282A /* DTCollectionViewMemoryStorage.h */,
+				958C934F185DFB2E0050282A /* DTCollectionViewMemoryStorage.m */,
+				958C9355185DFD140050282A /* DTCollectionViewUpdate.h */,
+				958C9356185DFD140050282A /* DTCollectionViewUpdate.m */,
+				958C9359185DFFB10050282A /* DTCollectionViewSection.h */,
+			);
+			name = Storage;
+			sourceTree = "<group>";
+		};
+		958C9354185DFC610050282A /* Cell factory */ = {
+			isa = PBXGroup;
+			children = (
+				955F85B1179ACB8F00A38EAD /* DTCollectionViewModelTransfer.h */,
+				95AE899C179C05BE00F834DB /* DTCollectionFactory.h */,
+				95AE899D179C05BE00F834DB /* DTCollectionFactory.m */,
+			);
+			name = "Cell factory";
+			sourceTree = "<group>";
+		};
+		958C935A185DFFD90050282A /* Memory */ = {
+			isa = PBXGroup;
+			children = (
+				958C935C185E000C0050282A /* DTCollectionViewSectionModel.h */,
+				958C935D185E000C0050282A /* DTCollectionViewSectionModel.m */,
+			);
+			name = Memory;
+			sourceTree = "<group>";
+		};
+		958C935B185DFFE20050282A /* CoreData */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			name = CoreData;
 			sourceTree = "<group>";
 		};
 		95ADB22217AD54EC004BBA29 /* Convenience */ = {
@@ -567,6 +621,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				955F8592179ACAF000A38EAD /* main.m in Sources */,
+				958C9350185DFB2E0050282A /* DTCollectionViewMemoryStorage.m in Sources */,
 				955F8596179ACAF000A38EAD /* AppDelegate.m in Sources */,
 				955F859F179ACAF000A38EAD /* ExamplesViewController.m in Sources */,
 				955F85A2179ACAF000A38EAD /* EmptyDetailViewController.m in Sources */,
@@ -574,6 +629,7 @@
 				958698371819BBE400F2695A /* PrototypedCell.m in Sources */,
 				95AE899E179C05BE00F834DB /* DTCollectionFactory.m in Sources */,
 				95ADB22517AD5527004BBA29 /* DTCollectionReusableView.m in Sources */,
+				958C9357185DFD140050282A /* DTCollectionViewUpdate.m in Sources */,
 				95ADB22917AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,
 				95ADB23317AE4D7E004BBA29 /* ControllerModel.m in Sources */,
 				95ADB23817AE53C7004BBA29 /* AddRemoveCollectionController.m in Sources */,
@@ -582,6 +638,7 @@
 				958698301819BA2D00F2695A /* StoryboardViewController.m in Sources */,
 				9586983B1819BC7500F2695A /* PrototypedCollectionViewHeader.m in Sources */,
 				9512F08817BFA9A3008FF3A1 /* ExampleHeaderView.m in Sources */,
+				958C935E185E000C0050282A /* DTCollectionViewSectionModel.m in Sources */,
 				9586983F1819BC9600F2695A /* PrototypedCollectionViewFooter.m in Sources */,
 				9512F08B17BFA9C1008FF3A1 /* ExampleFooterView.m in Sources */,
 			);
@@ -601,8 +658,11 @@
 				95AE8998179BF59500F834DB /* ModelCellWithNib.m in Sources */,
 				95AE899B179BF9DA00F834DB /* DTCollectionViewController.m in Sources */,
 				95AE899F179C05BE00F834DB /* DTCollectionFactory.m in Sources */,
+				958C9351185DFB2E0050282A /* DTCollectionViewMemoryStorage.m in Sources */,
 				95AE89A7179C1A1600F834DB /* SupplementaryView.m in Sources */,
 				95AE89AA179C1A7600F834DB /* SupplementaryViewWithNib.m in Sources */,
+				958C9358185DFD140050282A /* DTCollectionViewUpdate.m in Sources */,
+				958C935F185E000C0050282A /* DTCollectionViewSectionModel.m in Sources */,
 				95ADB22617AD5527004BBA29 /* DTCollectionReusableView.m in Sources */,
 				958698381819BBE400F2695A /* PrototypedCell.m in Sources */,
 				95ADB22A17AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,

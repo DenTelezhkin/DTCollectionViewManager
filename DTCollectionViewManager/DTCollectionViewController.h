@@ -57,7 +57,9 @@
 
  */
 
-@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate>
+#import "DTCollectionViewStorage.h"
+
+@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate,DTCollectionViewDataStorageUpdating>
 
 ///---------------------------------------
 /// @name Properties
@@ -68,6 +70,8 @@
  Collection view that will present your data models.
  */
 @property (nonatomic,retain) IBOutlet UICollectionView * collectionView;
+
+@property (nonatomic, strong) id <DTCollectionViewStorage> dataStorage;
 
 ///---------------------------------------
 /// @name Mapping
