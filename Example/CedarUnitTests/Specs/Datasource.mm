@@ -52,20 +52,20 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should correctly add item", ^{
-            [collection addCollectionItem:model1];
+            [collection.memoryStorage addItem:model1];
             [collection verifyCollectionItem:model1
                                  atIndexPath:[NSIndexPath indexPathForItem:0
                                                                  inSection:0]];
-            [collection addCollectionItem:model2];
-            [collection addCollectionItem:model3];
+            [collection.memoryStorage addItem:model2];
+            [collection.memoryStorage addItem:model3];
             
             [collection verifySection:@[model1,model2,model3] withSectionNumber:0];
         });
         
         it(@"should correctly add items to different section", ^{
-            [collection addCollectionItem:model1 toSection:1];
-            [collection addCollectionItem:model2 toSection:3];
-            [collection addCollectionItem:model3 toSection:0];
+            [collection.memoryStorage addItem:model1 toSection:1];
+            [collection.memoryStorage addItem:model2 toSection:3];
+            [collection.memoryStorage addItem:model3 toSection:0];
             
             [collection numberOfSectionsInCollectionView:collection.collectionView] should equal(4);
             
@@ -78,7 +78,7 @@ describe(@"Datasource specs", ^{
         
         it(@"should correctly add items to section", ^{
             NSArray * models = @[model1,model2,model3];
-            [collection addCollectionItems:models];
+            [collection.memoryStorage addItems:models];
             
             [collection verifySection:models withSectionNumber:0];
             
@@ -86,7 +86,7 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should add similar items", ^{
-            [collection addCollectionItems:@[model1,model1,model1]];
+            [collection.memoryStorage addItems:@[model1,model1,model1]];
             
             [collection verifySection:@[model1,model1,model1] withSectionNumber:0];
         });
@@ -96,9 +96,9 @@ describe(@"Datasource specs", ^{
             NSArray * models1 = @[model3,model4];
             NSArray * models3 = @[model5,model6];
             
-            [collection addCollectionItems:models0 toSection:0];
-            [collection addCollectionItems:models1 toSection:1];
-            [collection addCollectionItems:models3 toSection:3];
+            [collection.memoryStorage addItems:models0 toSection:0];
+            [collection.memoryStorage addItems:models1 toSection:1];
+            [collection.memoryStorage addItems:models3 toSection:3];
             
             [collection verifySection:models0 withSectionNumber:0];
             [collection verifySection:models1 withSectionNumber:1];
@@ -109,30 +109,6 @@ describe(@"Datasource specs", ^{
         });
     });
     
-    describe(@"supplementary models", ^{
-       
-        it(@"should have empty headers", ^{
-            NSMutableArray * headers = [collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter];
-            headers should_not be_nil;
-            
-            headers should be_empty;
-        });
-        
-        it(@"should have empty footers", ^{
-            NSMutableArray * footers = [collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter];
-            
-            footers should_not be_nil;
-            footers should be_empty;
-        });
-        
-        it(@"should be empty for another kind of supplementaries", ^{
-            NSMutableArray * aliens = [collection supplementaryModelsOfKind:@"Alien"];
-            
-            aliens should_not be_nil;
-            aliens should be_empty;
-        });
-    });
-    
     describe(@"removing items", ^{
         beforeEach(^{
             [collection registerCellClass:[ModelCellWithNib class]
@@ -140,21 +116,21 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should remove item", ^{
-            [collection addCollectionItems:@[model1,model2,model3,model4,model5]];
+            [collection.memoryStorage addItems:@[model1,model2,model3,model4,model5]];
             
-            [collection removeCollectionItem:model2];
-            [collection removeCollectionItem:model5];
+            [collection.memoryStorage removeItem:model2];
+            [collection.memoryStorage removeItem:model5];
             
             [collection verifySection:@[model1,model3,model4] withSectionNumber:0];
         });
         
         it(@"should remove last item in section", ^{
-            [collection addCollectionItem:model1 toSection:1];
-            [collection addCollectionItem:model2 toSection:0];
-            [collection addCollectionItem:model3 toSection:2];
+            [collection.memoryStorage addItem:model1 toSection:1];
+            [collection.memoryStorage addItem:model2 toSection:0];
+            [collection.memoryStorage addItem:model3 toSection:2];
             
-            [collection removeCollectionItem:model2];
-            [collection removeCollectionItem:model3];
+            [collection.memoryStorage removeItem:model2];
+            [collection.memoryStorage removeItem:model3];
             
             [collection verifySection:@[] withSectionNumber:0];
             [collection verifySection:@[model1] withSectionNumber:1];
@@ -163,16 +139,16 @@ describe(@"Datasource specs", ^{
         
         it(@"should not crash when removing absent item", ^{
             ^{
-                [collection removeCollectionItem:model1];
+                [collection.memoryStorage removeItem:model1];
             } should_not raise_exception;
         });
         
         it(@"should remove item at indexPath", ^{
-            [collection addCollectionItems:@[model1,model2,model3]];
-            [collection addCollectionItems:@[model4,model5] toSection:1];
+            [collection.memoryStorage addItems:@[model1,model2,model3]];
+            [collection.memoryStorage addItems:@[model4,model5] toSection:1];
             
-            [collection removeCollectionItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
-            [collection removeCollectionItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+            [collection.memoryStorage removeItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+            [collection.memoryStorage removeItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
             
             [collection verifySection:@[model1,model2] withSectionNumber:0];
             [collection verifySection:@[model5] withSectionNumber:1];
@@ -180,68 +156,54 @@ describe(@"Datasource specs", ^{
         
         it(@"should not crash when removing absent indexPath", ^{
             ^{
-                [collection addCollectionItems:@[model2,model3]];
-                [collection removeCollectionItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+                [collection.memoryStorage addItems:@[model2,model3]];
+                [collection.memoryStorage removeItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
                 [collection verifySection:@[model2,model3] withSectionNumber:0];
-                [collection removeCollectionItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+                [collection.memoryStorage removeItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
                 [collection verifySection:@[model2,model3] withSectionNumber:0];
             } should_not raise_exception;
         });
         
         it(@"should not crash when removing absent items", ^{
             ^{
-                [collection addCollectionItems:@[model2,model3]];
-                [collection removeCollectionItems:@[model3, model4]];
+                [collection.memoryStorage addItems:@[model2,model3]];
+                [collection.memoryStorage removeItems:@[model3, model4]];
                 [collection verifySection:@[model2] withSectionNumber:0];
             } should_not raise_exception;
         });
         
         it(@"should remove collection items", ^{
-            [collection addCollectionItems:@[model1,model2]];
-            [collection addCollectionItems:@[model3,model4] toSection:1];
-            [collection addCollectionItems:@[model5,model6] toSection:2];
+            [collection.memoryStorage addItems:@[model1,model2]];
+            [collection.memoryStorage addItems:@[model3,model4] toSection:1];
+            [collection.memoryStorage addItems:@[model5,model6] toSection:2];
             
-            [collection removeCollectionItems:@[model1,model4,model5]];
+            [collection.memoryStorage removeItems:@[model1,model4,model5]];
             
             [collection verifySection:@[model2] withSectionNumber:0];
             [collection verifySection:@[model3] withSectionNumber:1];
             [collection verifySection:@[model6] withSectionNumber:2];
         });
         
-        it(@"should remove collection items at index paths", ^{
-            [collection addCollectionItems:@[model1,model2,model3]];
-            [collection addCollectionItems:@[model4,model5,model6] toSection:1];
-            
-            NSArray * indexPaths = @[[NSIndexPath indexPathForItem:1 inSection:0],
-                                     [NSIndexPath indexPathForItem:2 inSection:1],
-                                     [NSIndexPath indexPathForItem:0 inSection:1]];
-            [collection removeCollectionItemsAtIndexPaths:indexPaths];
-            
-            [collection verifySection:@[model1,model3] withSectionNumber:0];
-            [collection verifySection:@[model5] withSectionNumber:1];
-        });
-        
         it(@"should not crash when removing absent indexPath", ^{
             ^{
-                [collection addCollectionItems:@[model2,model3]];
+                [collection.memoryStorage addItems:@[model2,model3]];
                 
-                NSArray * indexPaths = @[[NSIndexPath indexPathForItem:2 inSection:0],
-                                         [NSIndexPath indexPathForItem:0 inSection:1]];
-                
-                [collection removeCollectionItemsAtIndexPaths:indexPaths];
+                [collection.memoryStorage removeItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
                 [collection verifySection:@[model2,model3] withSectionNumber:0];
             } should_not raise_exception;
         });
         
+#warning removeAllItems
+        /*
         it(@"should remove all collection items", ^{
-            [collection addCollectionItems:@[model1,model2]];
-            [collection addCollectionItems:@[model3,model4] toSection:1];
-            [collection addCollectionItems:@[model5,model6] toSection:2];
+            [collection.memoryStorage addItems:@[model1,model2]];
+            [collection.memoryStorage addItems:@[model3,model4] toSection:1];
+            [collection.memoryStorage addItems:@[model5,model6] toSection:2];
             
             [collection removeAllCollectionItems];
             
             [collection numberOfSections] should equal(0);
-        });
+        });*/
         
     });
     
@@ -254,38 +216,42 @@ describe(@"Datasource specs", ^{
         
         it(@"should raise when inserting to wrong indexPath", ^{
             ^{
-                [collection insertItem:model1
-                           atIndexPath:[NSIndexPath indexPathForItem:2 inSection:3]];
+                [collection.memoryStorage insertItem:model1
+                                         toIndexPath:[NSIndexPath indexPathForItem:2
+                                                                         inSection:3]];
             } should_not raise_exception;
         });
         
         it(@"should be able to insert first item", ^{
-            [collection insertItem:model1
-                       atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+            [collection.memoryStorage insertItem:model1
+                                     toIndexPath:[NSIndexPath indexPathForItem:0
+                                                                     inSection:0]];
             
             [collection verifySection:@[model1] withSectionNumber:0];
         });
         
         it(@"should be able to insert last item", ^{
-            [collection addCollectionItems:@[model1,model2]];
+            [collection.memoryStorage addItems:@[model1,model2]];
             
-            [collection insertItem:model3
-                       atIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+            [collection.memoryStorage insertItem:model3
+                                     toIndexPath:[NSIndexPath indexPathForItem:2
+                                                                     inSection:0]];
             
             [collection verifySection:@[model1,model2,model3] withSectionNumber:0];
         });
         
         it(@"should be able to insert into non existing section", ^{
-            [collection addCollectionItems:@[model1,model2]];
-            [collection addCollectionItems:@[model3,model4] toSection:1];
+            [collection.memoryStorage addItems:@[model1,model2]];
+            [collection.memoryStorage addItems:@[model3,model4] toSection:1];
             
             
             if ([collection iOS6]) {
                 [collection.collectionView reloadData];
             }
             
-            [collection insertItem:model5
-                       atIndexPath:[NSIndexPath indexPathForItem:0 inSection:2]];
+            [collection.memoryStorage insertItem:model5
+                                     toIndexPath:[NSIndexPath indexPathForItem:0
+                                                                     inSection:2]];
             
             [collection verifySection:@[model1,model2]
                     withSectionNumber:0];
@@ -296,11 +262,12 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should be able to insert item in different section", ^{
-            [collection addCollectionItems:@[model1,model2]];
-            [collection addCollectionItems:@[model3,model4] toSection:1];
+            [collection.memoryStorage addItems:@[model1,model2]];
+            [collection.memoryStorage addItems:@[model3,model4] toSection:1];
             
-            [collection insertItem:model5
-                       atIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+            [collection.memoryStorage insertItem:model5
+                                     toIndexPath:[NSIndexPath indexPathForItem:2
+                                                                     inSection:0]];
             
             [collection verifySection:@[model1,model2,model5]
                     withSectionNumber:0];
@@ -309,11 +276,12 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should be able to insert last item", ^{
-            [collection addCollectionItems:@[model1,model2]];
-            [collection addCollectionItems:@[model3,model4] toSection:1];
+            [collection.memoryStorage addItems:@[model1,model2]];
+            [collection.memoryStorage addItems:@[model3,model4] toSection:1];
             
-            [collection insertItem:model5
-                       atIndexPath:[NSIndexPath indexPathForItem:2 inSection:1]];
+            [collection.memoryStorage insertItem:model5
+                                     toIndexPath:[NSIndexPath indexPathForItem:2
+                                                                     inSection:1]];
             
             [collection verifySection:@[model1,model2]
                     withSectionNumber:0];
@@ -322,19 +290,22 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should be able to insert into 2 section", ^{
-            [collection addCollectionItems:@[model1,model2]];
+            [collection.memoryStorage addItems:@[model1,model2]];
             
             if ([collection iOS6]) {
                 [collection.collectionView reloadData];
             }
             
-            [collection insertItem:model3 atIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+            [collection.memoryStorage insertItem:model3
+                                     toIndexPath:[NSIndexPath indexPathForItem:0
+                                                                     inSection:1]];
             
             [collection verifySection:@[model1,model2] withSectionNumber:0];
             [collection verifySection:@[model3] withSectionNumber:1];
         });
     });
-    
+#warning move
+    /*
     describe(@"moving items", ^{
         
         beforeEach(^{
@@ -342,8 +313,9 @@ describe(@"Datasource specs", ^{
                             forModelClass:[Model class]];
         });
         
+
         it(@"should move item to another row", ^{
-            [collection addCollectionItems:@[model1,model2,model3]];
+            [collection addItems:@[model1,model2,model3]];
             
             [collection moveItem:model1 toIndexPath:[NSIndexPath indexPathForItem:2
                                                                         inSection:0]];
@@ -351,7 +323,7 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should move item to another empty section", ^{
-            [collection addCollectionItems:@[model1,model2,model3]];
+            [collection.memoryStorage addItems:@[model1,model2,model3]];
             
             if ([collection iOS6]) {
                 [collection.collectionView reloadData];
@@ -363,8 +335,8 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should move item to another section", ^{
-            [collection addCollectionItems:@[model1,model2,model3]];
-            [collection addCollectionItems:@[model4] toSection:1];
+            [collection.memoryStorage addItems:@[model1,model2,model3]];
+            [collection.memoryStorage addItems:@[model4] toSection:1];
             
             [collection moveItem:model3 toIndexPath:[NSIndexPath indexPathForItem:0
                                                                         inSection:1]];
@@ -373,7 +345,7 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should not crash when moving to wrong indexPath", ^{
-            [collection addCollectionItems:@[model1,model2]];
+            [collection addItems:@[model1,model2]];
             
             ^{
                 [collection moveItem:model2
@@ -387,7 +359,7 @@ describe(@"Datasource specs", ^{
                          toIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
             } should_not raise_exception;
         });
-    });
+    });*/
     
     describe(@"replacing items", ^{
         
@@ -397,18 +369,18 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should replace item", ^{
-            [collection addCollectionItems:@[model1,model2,model3]];
+            [collection.memoryStorage addItems:@[model1,model2,model3]];
             
-            [collection replaceItem:model2 withItem:model4];
+            [collection.memoryStorage replaceItem:model2 withItem:model4];
             
             [collection verifySection:@[model1,model4,model3] withSectionNumber:0];
         });
         
         it(@"should replace item at another section", ^{
-            [collection addCollectionItems:@[model1,model2]];
-            [collection addCollectionItems:@[model3,model4] toSection:1];
+            [collection.memoryStorage addItems:@[model1,model2]];
+            [collection.memoryStorage addItems:@[model3,model4] toSection:1];
             
-            [collection replaceItem:model3 withItem:model5];
+            [collection.memoryStorage replaceItem:model3 withItem:model5];
             
             [collection verifySection:@[model1,model2] withSectionNumber:0];
             [collection verifySection:@[model5,model4] withSectionNumber:1];
@@ -416,7 +388,7 @@ describe(@"Datasource specs", ^{
         
         it(@"should not crash if source item not found", ^{
             ^{
-                [collection replaceItem:model1 withItem:model2];
+                [collection.memoryStorage replaceItem:model1 withItem:model2];
             } should_not raise_exception;
         });
     });
@@ -429,7 +401,7 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should move section to empty section", ^{
-            [collection addCollectionItems:@[model1,model2]];
+            [collection.memoryStorage addItems:@[model1,model2]];
             
             if ([collection iOS6]) {
                 [collection.collectionView reloadData];
@@ -440,15 +412,17 @@ describe(@"Datasource specs", ^{
             [collection verifySection:@[] withSectionNumber:0];
         });
         
+#warning move section
+        /*
         it(@"should switch sections", ^{
-            [collection addCollectionItems:@[model1,model2]];
-            [collection addCollectionItems:@[model3,model4] toSection:1];
+            [collection.memoryStorage addItems:@[model1,model2]];
+            [collection.memoryStorage addItems:@[model3,model4] toSection:1];
             
             [collection moveSection:0 toSection:1];
             
             [collection verifySection:@[model3,model4] withSectionNumber:0];
             [collection verifySection:@[model1,model2] withSectionNumber:1];
-        });
+        });*/
         
         describe(@"supplementaries tests", ^{
             NSString * testKind = @"testSupplementaryKind";
@@ -474,11 +448,13 @@ describe(@"Datasource specs", ^{
             
             it(@"should move section headers", ^{
                 NSString * header = UICollectionElementKindSectionHeader;
-                [[collection supplementaryModelsOfKind:header] addObjectsFromArray:@[@1,@2,@3]];
                 
-                [collection addCollectionItems:section0];
-                [collection addCollectionItems:section1 toSection:1];
-                [collection addCollectionItems:section2 toSection:2];
+                [[collection.memoryStorage sectionAtIndex:0] sets]
+                [[collection.memoryStorage supplementaryModelsOfKind:header] addObjectsFromArray:@[@1,@2,@3]];
+                
+                [collection addItems:section0];
+                [collection addItems:section1 toSection:1];
+                [collection addItems:section2 toSection:2];
                 
                 [collection moveSection:0 toSection:2];
                 
@@ -493,9 +469,9 @@ describe(@"Datasource specs", ^{
                 NSString * footer = UICollectionElementKindSectionFooter;
                 [[collection supplementaryModelsOfKind:footer] addObjectsFromArray:@[@1,@2,@3]];
                 
-                [collection addCollectionItems:section0];
-                [collection addCollectionItems:section1 toSection:1];
-                [collection addCollectionItems:section2 toSection:2];
+                [collection addItems:section0];
+                [collection addItems:section1 toSection:1];
+                [collection addItems:section2 toSection:2];
                 
                 [collection moveSection:0 toSection:2];
                 
@@ -510,9 +486,9 @@ describe(@"Datasource specs", ^{
                 NSString * customKind = testKind;
                 [[collection supplementaryModelsOfKind:customKind] addObjectsFromArray:@[@1,@2,@3]];
                 
-                [collection addCollectionItems:section0];
-                [collection addCollectionItems:section1 toSection:1];
-                [collection addCollectionItems:section2 toSection:2];
+                [collection addItems:section0];
+                [collection addItems:section1 toSection:1];
+                [collection addItems:section2 toSection:2];
                 
                 [collection moveSection:0 toSection:2];
                 
@@ -527,8 +503,8 @@ describe(@"Datasource specs", ^{
                 NSString * kind = UICollectionElementKindSectionHeader;
                 [[collection supplementaryModelsOfKind:kind] addObjectsFromArray:@[@1]];
                 
-                [collection addCollectionItems:section1];
-                [collection addCollectionItems:section2];
+                [collection addItems:section1];
+                [collection addItems:section2];
                 
                 if ([collection iOS6]) {
                     [collection.collectionView reloadData];
@@ -549,7 +525,7 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should delete first section", ^{
-            [collection addCollectionItems:@[model1,model2]];
+            [collection addItems:@[model1,model2]];
             
             [collection deleteSections:[NSIndexSet indexSetWithIndex:0]];
             
@@ -557,9 +533,9 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should delete any section", ^{
-            [collection addCollectionItems:@[model1,model2] toSection:0];
-            [collection addCollectionItems:@[model3,model4] toSection:1];
-            [collection addCollectionItems:@[model5,model6] toSection:2];
+            [collection addItems:@[model1,model2] toSection:0];
+            [collection addItems:@[model3,model4] toSection:1];
+            [collection addItems:@[model5,model6] toSection:2];
             NSMutableIndexSet * indexSet = [NSMutableIndexSet indexSetWithIndex:0];
             [indexSet addIndex:2];
             
@@ -596,8 +572,8 @@ describe(@"Datasource specs", ^{
                 NSString * header = UICollectionElementKindSectionHeader;
                 [[collection supplementaryModelsOfKind:header] addObjectsFromArray:@[@1,@2]];
                 
-                [collection addCollectionItems:section0];
-                [collection addCollectionItems:section1 toSection:1];
+                [collection addItems:section0];
+                [collection addItems:section1 toSection:1];
                 
                 [collection deleteSections:[NSIndexSet indexSetWithIndex:0]];
                 
@@ -610,8 +586,8 @@ describe(@"Datasource specs", ^{
                 NSString * footer = UICollectionElementKindSectionFooter;
                 [[collection supplementaryModelsOfKind:footer] addObjectsFromArray:@[@1,@2]];
                 
-                [collection addCollectionItems:section0];
-                [collection addCollectionItems:section1 toSection:1];
+                [collection addItems:section0];
+                [collection addItems:section1 toSection:1];
                 
                 [collection deleteSections:[NSIndexSet indexSetWithIndex:0]];
                 
@@ -624,8 +600,8 @@ describe(@"Datasource specs", ^{
                 NSString * customKind = testKind;
                 [[collection supplementaryModelsOfKind:customKind] addObjectsFromArray:@[@1,@2]];
                 
-                [collection addCollectionItems:section0];
-                [collection addCollectionItems:section1 toSection:1];
+                [collection addItems:section0];
+                [collection addItems:section1 toSection:1];
                 
                 [collection deleteSections:[NSIndexSet indexSetWithIndex:0]];
                 

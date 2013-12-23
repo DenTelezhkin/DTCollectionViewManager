@@ -36,7 +36,7 @@ describe(@"Mapping tests", ^{
         
         it(@"should be able to register cell nib", ^{
             [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
-            [collection addCollectionItem:[[Model new] autorelease]];
+            [collection addItem:[[Model new] autorelease]];
             
             ModelCellWithNib * cell = (ModelCellWithNib *)[collection.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0
                                                                                                                 inSection:0]];
@@ -65,7 +65,7 @@ describe(@"Mapping tests", ^{
        
         beforeEach(^{
             [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
-            [collection addCollectionItem:[[Model new] autorelease]];
+            [collection addItem:[[Model new] autorelease]];
         });
         
         it(@"should be able to register supplementary header nib class", ^{
@@ -121,7 +121,7 @@ describe(@"Mapping tests", ^{
      
         beforeEach(^{
             [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
-            [collection addCollectionItem:[[Model new] autorelease]];
+            [collection addItem:[[Model new] autorelease]];
         });
         
         describe(@"NSString", ^{
@@ -139,13 +139,13 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept constant strings", ^{
                 ^{
-                    [collection addCollectionItem:@""];
+                    [collection addItem:@""];
                 } should_not raise_exception;
             });
             
             it(@"should accept non-empty strings", ^{
                 ^{
-                    [collection addCollectionItem:@"not empty"];
+                    [collection addItem:@"not empty"];
                 } should_not raise_exception;
             });
             
@@ -153,7 +153,7 @@ describe(@"Mapping tests", ^{
                 ^{
                     NSMutableString * string = [[NSMutableString alloc] initWithString:@"first"];
                     [string appendString:@",second"];
-                    [collection addCollectionItem:string];
+                    [collection addItem:string];
                 } should_not raise_exception;
             });
             
@@ -195,13 +195,13 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept constant strings", ^{
                 ^{
-                    [collection addCollectionItem:@""];
+                    [collection addItem:@""];
                 } should_not raise_exception;
             });
             
             it(@"should accept non-empty strings", ^{
                 ^{
-                    [collection addCollectionItem:@"not empty"];
+                    [collection addItem:@"not empty"];
                 } should_not raise_exception;
             });
             
@@ -209,7 +209,7 @@ describe(@"Mapping tests", ^{
                 ^{
                     NSMutableString * string = [[NSMutableString alloc] initWithString:@"first"];
                     [string appendString:@",second"];
-                    [collection addCollectionItem:string];
+                    [collection addItem:string];
                 } should_not raise_exception;
             });
             
@@ -251,13 +251,13 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept nsnumber for cells", ^{
                 ^{
-                    [collection addCollectionItem:@5];
+                    [collection addItem:@5];
                 } should_not raise_exception;
             });
             
             it(@"should accept bool number for cells", ^{
                 ^{
-                    [collection addCollectionItem:@YES];
+                    [collection addItem:@YES];
                 } should_not raise_exception;
             });
             
@@ -321,13 +321,13 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSDictionary for cells", ^{
                 ^{
-                    [collection addCollectionItem:@{@1:@2}];
+                    [collection addItem:@{@1:@2}];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSMutableDictionary for cells", ^{
                 ^{
-                    [collection addCollectionItem:[[@{@1:@2} mutableCopy] autorelease]];
+                    [collection addItem:[[@{@1:@2} mutableCopy] autorelease]];
                 } should_not raise_exception;
             });
             
@@ -392,13 +392,13 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSDictionary for cells", ^{
                 ^{
-                    [collection addCollectionItem:@{@1:@2}];
+                    [collection addItem:@{@1:@2}];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSMutableDictionary for cells", ^{
                 ^{
-                    [collection addCollectionItem:[[@{@1:@2} mutableCopy] autorelease]];
+                    [collection addItem:[[@{@1:@2} mutableCopy] autorelease]];
                 } should_not raise_exception;
             });
             
@@ -462,13 +462,13 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSArray for cells", ^{
                 ^{
-                    [collection addCollectionItem:@[]];
+                    [collection addItem:@[]];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSMutableArray for cells", ^{
                 ^{
-                    [collection addCollectionItem:[[@[] mutableCopy] autorelease]];
+                    [collection addItem:[[@[] mutableCopy] autorelease]];
                 } should_not raise_exception;
             });
             
@@ -532,13 +532,13 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSArray for cells", ^{
                 ^{
-                    [collection addCollectionItem:@[]];
+                    [collection addItem:@[]];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSMutableArray for cells", ^{
                 ^{
-                    [collection addCollectionItem:[[@[] mutableCopy] autorelease]];
+                    [collection addItem:[[@[] mutableCopy] autorelease]];
                 } should_not raise_exception;
             });
             

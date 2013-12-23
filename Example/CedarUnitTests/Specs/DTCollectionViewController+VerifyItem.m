@@ -12,7 +12,7 @@
 
 -(BOOL)verifyCollectionItem:(id)item atIndexPath:(NSIndexPath *)path
 {
-    id itemDatasource = [self collectionItemAtIndexPath:path];
+    id itemDatasource = [self.memoryStorage itemAtIndexPath:path];
     id itemCollection = [(id <DTModelTransfer>)[self collectionView:self.collectionView cellForItemAtIndexPath:path] model];
     
     if (![item isEqual:itemDatasource])

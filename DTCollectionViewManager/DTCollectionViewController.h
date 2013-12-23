@@ -57,7 +57,7 @@
 
  */
 
-#import "DTStorage.h"
+#import "DTMemoryStorage.h"
 
 @interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate,DTStorageUpdating>
 
@@ -71,7 +71,9 @@
  */
 @property (nonatomic,retain) IBOutlet UICollectionView * collectionView;
 
-@property (nonatomic, strong) id <DTStorage> dataStorage;
+@property (nonatomic, strong) id <DTStorage> storage;
+
+-(DTMemoryStorage *)memoryStorage;
 
 ///---------------------------------------
 /// @name Mapping
@@ -102,105 +104,6 @@
 -(void)registerSupplementaryClass:(Class)supplementaryClass
                           forKind:(NSString *)kind
                     forModelClass:(Class)modelClass;
-
-/**
- Use this method to get array of supplementary models of specific `kind`. Updating this array does not update UI. Returned array will never be nil.
- 
- @param kind UICollectionView supplementary view kind.
- 
- @return Mutable array of supplementary view models.
- 
- */
--(NSMutableArray *)supplementaryModelsOfKind:(NSString *)kind;
-
-///---------------------------------------
-/// @name Add collection items
-///---------------------------------------
-
-/**
- Add collection item to section 0. 
- 
- @param item Model you want to add to the collection view.
- */
--(void)addCollectionItem:(id)item;
-
-/**
- Add array of collection items to section 0.
- 
- @param items Array of items you want to add to the collection view.
- */
--(void)addCollectionItems:(NSArray *)items;
-
-/**
- Add array of collection items to section `section`.
- 
- @param item Item you want to add to the collection view.
- 
- @param section Number of section, to which collection item will be added.
- */
--(void)addCollectionItem:(id)item toSection:(int)section;
-
-/**
- Add array of collection items to section `section`.
- 
- @param items Array of items you want to add to the collection view.
- 
- @param section Number of section, to which collection items will be added.
- */
--(void)addCollectionItems:(NSArray *)items toSection:(int)section;
-
-///---------------------------------------
-/// @name Removing collection items
-///---------------------------------------
-
-/**
- Remove collection item. If `item` is not found, this method does nothing.
- 
- @param item Model object you want to remove from collection view.
- */
--(void)removeCollectionItem:(id)item;
-
-/**
- Remove collection item at given indexPath. If given `indexPath` does not exist in collection view, this method does nothing.
- 
- @param indexPath indexPath of model object you want to remove from collection view.
- */
--(void)removeCollectionItemAtIndexPath:(NSIndexPath *)indexPath;
-
-/**
- Remove collection items. If some item is not found, it is skipped.
- 
- @param items Array of items you want to remove from collection view.
- */
--(void)removeCollectionItems:(NSArray *)items;
-
-/**
- Remove collection items. If some item is not found at given indexPath, it is skipped.
- 
- @param indexPaths Array of indexPaths, from which you want to remove collection items.
- */
--(void)removeCollectionItemsAtIndexPaths:(NSArray *)indexPaths;
-
-/**
- Remove all collection items. After deletion UICollectionView gets reloadData message.
- */
--(void)removeAllCollectionItems;
-
-///---------------------------------------
-/// @name Insert, move, replace
-///---------------------------------------
-
-/**
- Insert collection item to indexPath `indexPath`. 
- 
- @param item model to insert.
- 
- @param indexPath Index, where item should be inserted.
- 
- @warning Inserting item at index, that is not valid, will not throw an exception, and won't do anything, except logging into console about failure
- */
--(void)insertItem:(id)item atIndexPath:(NSIndexPath *)indexPath;
-
 /**
  Move collection item to indexPath `indexPath`.
  
@@ -211,15 +114,6 @@
  @warning Moving item at index, that is not valid, will not throw an exception, and won't do anything, except logging into console about failure
  */
 -(void)moveItem:(id)item toIndexPath:(NSIndexPath *)indexPath;
-
-/**
- Replace oldItem with newItem. If oldItem is not found, or newItem is `nil`, this method does nothing.
- 
- @param oldItem Model object you want to replace.
- 
- @param newItem Model object you are replacing it with.
- */
--(void)replaceItem:(id)oldItem withItem:(id)newItem;
 
 ///---------------------------------------
 /// @name Managing sections
@@ -233,72 +127,6 @@
  @param toSection The index in the collection view that is the destination of the move for the section. The existing section at that location slides up or down to an adjoining index position to make room for it.
  */
 -(void)moveSection:(int)fromSection toSection:(int)toSection;
-
-/**
- Deletes one or more sections in the collection view. Supplementary models for sections are deleted automatically.
- 
- @param indexSet An index set that specifies the sections to delete from the collection view. 
- */
--(void)deleteSections:(NSIndexSet *)indexSet;
-
-///---------------------------------------
-/// @name Search
-///---------------------------------------
-
-/**
- Returns number of sections in collection view.
- 
- @return number of sections in collection view.
- 
- */
--(int)numberOfSections;
-
-/**
- Returns array of collection view items in section. 
- 
- @param section number of section.
- 
- @return number of sections in collection view.
- 
- */
--(NSArray *)itemsArrayForSection:(int)section;
-
-/**
- Returns number of collection view items in section.
- 
- @param section number of section.
- 
- @return number of collection items in collection view section.
- 
- */
--(int)numberOfCollectionItemsInSection:(int)section;
-
-/**
- Returns collection item at indexPath.
- 
- @param indexPath indexPath of the item you want to retrieve.
- 
- @return collection item model at given indexPath. 
- 
- */
--(id)collectionItemAtIndexPath:(NSIndexPath *)indexPath;
-
-/**
- Returns copy of collection items in UICollectionView.
- 
- @return NSArray of NSArrays - copy of all collection item models in DTCollectionViewController.
- */
--(NSArray *)sectionsArray;
-
-
-/**
- Control over DTCollectionViewController logs.
- 
- @param isEnabled passing YES enables logs, NO - disables them.
- */
-+(void)setLoggingEnabled:(BOOL)isEnabled;
-
-+(BOOL)isLoggingEnabled;
 
 
 @end

@@ -55,7 +55,7 @@
     self.sectionNumber ++;
     [[self supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:@(self.sectionNumber)];
     [[self supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:@(self.sectionNumber)];
-    [self addCollectionItems:@[@1,@2,@3] toSection:[self numberOfSections]];
+    [self addItems:@[@1,@2,@3] toSection:[self numberOfSections]];
 }
 
 - (void)moveSections:(id)sender

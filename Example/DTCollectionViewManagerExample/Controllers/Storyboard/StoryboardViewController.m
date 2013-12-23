@@ -29,8 +29,8 @@
     [[self supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObjectsFromArray:@[@"Section 1 header",@"Section 2 header"]];
     [[self supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObjectsFromArray:@[@"Section 1 footer",@"Section 2 footer"]];
     
-    [self addCollectionItems:@[@"1",@"2",@"3"]];
-    [self addCollectionItems:@[@"1",@"2"] toSection:1];
+    [self addItems:@[@"1",@"2",@"3"]];
+    [self addItems:@[@"1",@"2"] toSection:1];
 }
 
 @end
