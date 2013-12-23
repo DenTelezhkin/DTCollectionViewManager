@@ -2,6 +2,8 @@ xcodeproj 'DTCollectionViewManagerExample.xcodeproj'
 inhibit_all_warnings!
 platform :ios, 6.0
 
+pod 'DTModelStorage', '~> 0.1.0'
+
 target :CedarUnitTests do
   pod 'Cedar'
   pod 'AutoDescribe'

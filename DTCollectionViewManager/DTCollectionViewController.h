@@ -57,9 +57,9 @@
 
  */
 
-#import "DTCollectionViewStorage.h"
+#import "DTStorage.h"
 
-@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate,DTCollectionViewDataStorageUpdating>
+@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate,DTStorageUpdating>
 
 ///---------------------------------------
 /// @name Properties
@@ -71,7 +71,7 @@
  */
 @property (nonatomic,retain) IBOutlet UICollectionView * collectionView;
 
-@property (nonatomic, strong) id <DTCollectionViewStorage> dataStorage;
+@property (nonatomic, strong) id <DTStorage> dataStorage;
 
 ///---------------------------------------
 /// @name Mapping

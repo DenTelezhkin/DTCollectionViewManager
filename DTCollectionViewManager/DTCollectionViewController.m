@@ -620,7 +620,7 @@ referenceSizeForHeaderInSection:(NSInteger)section
     }
 }
 
--(void)performUpdate:(DTCollectionViewUpdate *)update
+-(void)performUpdate:(DTStorageUpdate *)update
 {
     [self.collectionView performBatchUpdates:^{
         [self.collectionView deleteSections:update.deletedSectionIndexes];
