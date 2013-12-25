@@ -36,7 +36,7 @@ describe(@"Mapping tests", ^{
         
         it(@"should be able to register cell nib", ^{
             [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
-            [collection addItem:[[Model new] autorelease]];
+            [collection.memoryStorage addItem:[[Model new] autorelease]];
             
             ModelCellWithNib * cell = (ModelCellWithNib *)[collection.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0
                                                                                                                 inSection:0]];
@@ -65,15 +65,15 @@ describe(@"Mapping tests", ^{
        
         beforeEach(^{
             [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
-            [collection addItem:[[Model new] autorelease]];
+            [collection.memoryStorage addItem:[[Model new] autorelease]];
         });
         
         it(@"should be able to register supplementary header nib class", ^{
             [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                            forKind:UICollectionElementKindSectionHeader
                                      forModelClass:[Model class]];
-            [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader]
-             addObject:[[Model new] autorelease]];
+            [collection.memoryStorage setSupplementaries:@[[[Model new] autorelease]]
+                                                 forKind:UICollectionElementKindSectionHeader];
             id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
             UIView * view = [datasource collectionView:collection.collectionView
                      viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -88,8 +88,8 @@ describe(@"Mapping tests", ^{
             [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                            forKind:UICollectionElementKindSectionFooter
                                      forModelClass:[Model class]];
-            [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter]
-             addObject:[[Model new] autorelease]];
+            [collection.memoryStorage setSupplementaries:@[[[Model new] autorelease]]
+                                                 forKind:UICollectionElementKindSectionFooter];
             id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
             UIView * view = [datasource collectionView:collection.collectionView
                      viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -121,7 +121,7 @@ describe(@"Mapping tests", ^{
      
         beforeEach(^{
             [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
-            [collection addItem:[[Model new] autorelease]];
+            [collection.memoryStorage addItem:[[Model new] autorelease]];
         });
         
         describe(@"NSString", ^{
@@ -139,13 +139,13 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept constant strings", ^{
                 ^{
-                    [collection addItem:@""];
+                    [collection.memoryStorage addItem:@""];
                 } should_not raise_exception;
             });
             
             it(@"should accept non-empty strings", ^{
                 ^{
-                    [collection addItem:@"not empty"];
+                    [collection.memoryStorage addItem:@"not empty"];
                 } should_not raise_exception;
             });
             
@@ -153,13 +153,14 @@ describe(@"Mapping tests", ^{
                 ^{
                     NSMutableString * string = [[NSMutableString alloc] initWithString:@"first"];
                     [string appendString:@",second"];
-                    [collection addItem:string];
+                    [collection.memoryStorage addItem:string];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSString header", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:@"foo"];
+                    [collection.memoryStorage setSupplementaries:@[@"foo"]
+                                                         forKind:UICollectionElementKindSectionHeader];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -170,7 +171,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSString footer", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:@"foo"];
+                    [collection.memoryStorage setSupplementaries:@[@"foo"]
+                                                         forKind:UICollectionElementKindSectionFooter];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -195,13 +197,13 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept constant strings", ^{
                 ^{
-                    [collection addItem:@""];
+                    [collection.memoryStorage addItem:@""];
                 } should_not raise_exception;
             });
             
             it(@"should accept non-empty strings", ^{
                 ^{
-                    [collection addItem:@"not empty"];
+                    [collection.memoryStorage addItem:@"not empty"];
                 } should_not raise_exception;
             });
             
@@ -209,13 +211,14 @@ describe(@"Mapping tests", ^{
                 ^{
                     NSMutableString * string = [[NSMutableString alloc] initWithString:@"first"];
                     [string appendString:@",second"];
-                    [collection addItem:string];
+                    [collection.memoryStorage addItem:string];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSString header", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:@"foo"];
+                    [collection.memoryStorage setSupplementaries:@[@"foo"]
+                                                         forKind:UICollectionElementKindSectionHeader];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -226,7 +229,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSString footer", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:@"foo"];
+                    [collection.memoryStorage setSupplementaries:@[@"foo"]
+                                                         forKind:UICollectionElementKindSectionFooter];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -251,19 +255,20 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept nsnumber for cells", ^{
                 ^{
-                    [collection addItem:@5];
+                    [collection.memoryStorage addItem:@5];
                 } should_not raise_exception;
             });
             
             it(@"should accept bool number for cells", ^{
                 ^{
-                    [collection addItem:@YES];
+                    [collection.memoryStorage addItem:@YES];
                 } should_not raise_exception;
             });
             
             it(@"should accept number for header", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:@5];
+                    [collection.memoryStorage setSupplementaries:@[@5]
+                                                         forKind:UICollectionElementKindSectionHeader];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -274,7 +279,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept number for footer", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:@5];
+                    [collection.memoryStorage setSupplementaries:@[@5]
+                                                         forKind:UICollectionElementKindSectionFooter];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -285,7 +291,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept BOOL for header", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:@YES];
+                    [collection.memoryStorage setSupplementaries:@[@YES]
+                                                         forKind:UICollectionElementKindSectionHeader];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -296,7 +303,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept bool for footer", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:@YES];
+                    [collection.memoryStorage setSupplementaries:@[@YES]
+                                                         forKind:UICollectionElementKindSectionFooter];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -321,19 +329,20 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSDictionary for cells", ^{
                 ^{
-                    [collection addItem:@{@1:@2}];
+                    [collection.memoryStorage addItem:@{@1:@2}];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSMutableDictionary for cells", ^{
                 ^{
-                    [collection addItem:[[@{@1:@2} mutableCopy] autorelease]];
+                    [collection.memoryStorage addItem:[[@{@1:@2} mutableCopy] autorelease]];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSDictionary for header", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:@{}];
+                    [collection.memoryStorage setSupplementaries:@[@{}]
+                                                         forKind:UICollectionElementKindSectionHeader];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -344,7 +353,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSDictionary for footer", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:@{}];
+                    [collection.memoryStorage setSupplementaries:@[@{}]
+                                                         forKind:UICollectionElementKindSectionFooter];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -355,7 +365,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableDictionary for header", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:[[@{} mutableCopy] autorelease]];
+                    [collection.memoryStorage setSupplementaries:@[[[@{} mutableCopy] autorelease]]
+                                                         forKind:UICollectionElementKindSectionHeader];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -366,7 +377,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableDictionary for footer", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:[[@{} mutableCopy] autorelease]];
+                    [collection.memoryStorage setSupplementaries:@[[[@{} mutableCopy] autorelease]]
+                                                         forKind:UICollectionElementKindSectionFooter];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -392,19 +404,20 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSDictionary for cells", ^{
                 ^{
-                    [collection addItem:@{@1:@2}];
+                    [collection.memoryStorage addItem:@{@1:@2}];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSMutableDictionary for cells", ^{
                 ^{
-                    [collection addItem:[[@{@1:@2} mutableCopy] autorelease]];
+                    [collection.memoryStorage addItem:[[@{@1:@2} mutableCopy] autorelease]];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSDictionary for header", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:@{}];
+                    [collection.memoryStorage setSupplementaries:@[@{}]
+                                                         forKind:UICollectionElementKindSectionHeader];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -415,7 +428,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSDictionary for footer", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:@{}];
+                    [collection.memoryStorage setSupplementaries:@[@{}]
+                                                         forKind:UICollectionElementKindSectionFooter];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -426,7 +440,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableDictionary for header", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:[[@{} mutableCopy] autorelease]];
+                    [collection.memoryStorage setSupplementaries:@[[[@{} mutableCopy] autorelease]]
+                                                         forKind:UICollectionElementKindSectionHeader];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -437,7 +452,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableDictionary for footer", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:[[@{} mutableCopy] autorelease]];
+                    [collection.memoryStorage setSupplementaries:@[[[@{} mutableCopy] autorelease]]
+                                                         forKind:UICollectionElementKindSectionFooter];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -462,19 +478,20 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSArray for cells", ^{
                 ^{
-                    [collection addItem:@[]];
+                    [collection.memoryStorage addItem:@[]];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSMutableArray for cells", ^{
                 ^{
-                    [collection addItem:[[@[] mutableCopy] autorelease]];
+                    [collection.memoryStorage addItem:[[@[] mutableCopy] autorelease]];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSArray for header", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:@[]];
+                    [collection.memoryStorage setSupplementaries:@[@[]]
+                                                         forKind:UICollectionElementKindSectionHeader];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -485,7 +502,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableArray for header", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:[[@[] mutableCopy] autorelease]];
+                    [collection.memoryStorage setSupplementaries:@[[[@[] mutableCopy] autorelease]]
+                                                         forKind:UICollectionElementKindSectionHeader];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -496,7 +514,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSArray for footer", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:@[]];
+                    [collection.memoryStorage setSupplementaries:@[@[]]
+                                                         forKind:UICollectionElementKindSectionFooter];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -506,7 +525,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableArray for footer", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:[[@[] mutableCopy] autorelease]];
+                    [collection.memoryStorage setSupplementaries:@[[[@[] mutableCopy] autorelease]]
+                                                         forKind:UICollectionElementKindSectionFooter];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -532,19 +552,20 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSArray for cells", ^{
                 ^{
-                    [collection addItem:@[]];
+                    [collection.memoryStorage addItem:@[]];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSMutableArray for cells", ^{
                 ^{
-                    [collection addItem:[[@[] mutableCopy] autorelease]];
+                    [collection.memoryStorage addItem:[[@[] mutableCopy] autorelease]];
                 } should_not raise_exception;
             });
             
             it(@"should accept NSArray for header", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:@[]];
+                    [collection.memoryStorage setSupplementaries:@[@[]]
+                                                         forKind:UICollectionElementKindSectionHeader];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -555,7 +576,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableArray for header", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:[[@[] mutableCopy] autorelease]];
+                    [collection.memoryStorage setSupplementaries:@[[[@[] mutableCopy] autorelease]]
+                                                         forKind:UICollectionElementKindSectionHeader];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -566,7 +588,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSArray for footer", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:@[]];
+                    [collection.memoryStorage setSupplementaries:@[@[]]
+                                                         forKind:UICollectionElementKindSectionFooter];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -577,7 +600,8 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableArray for footer", ^{
                 ^{
-                    [[collection supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:[[@[] mutableCopy] autorelease]];
+                    [collection.memoryStorage setSupplementaries:@[[[@[] mutableCopy] autorelease]]
+                                                         forKind:UICollectionElementKindSectionFooter];
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter

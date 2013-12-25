@@ -96,13 +96,13 @@
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return [[self.dataStorage sections] count];
+    return [[self.storage sections] count];
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)sectionNumber
 {
-    id <DTSection> section = [self.dataStorage sections][sectionNumber];
+    id <DTSection> section = [self.storage sections][sectionNumber];
     return [section numberOfObjects];
 }
 
@@ -110,7 +110,7 @@
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionViewCell <DTModelTransfer> *cell;
-    id model = [self.dataStorage objectAtIndexPath:indexPath];
+    id model = [self.storage objectAtIndexPath:indexPath];
        
     cell = [self.factory cellForItem:model atIndexPath:indexPath];
     [cell updateWithModel:model];
@@ -123,7 +123,7 @@
                                  atIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionReusableView <DTModelTransfer> *view = nil;
-    id supplementary = [self.dataStorage supplementaryModelOfKind:kind forSectionIndex:indexPath.section];
+    id supplementary = [self.storage supplementaryModelOfKind:kind forSectionIndex:indexPath.section];
     
     if (supplementary)
     {
@@ -156,6 +156,16 @@ referenceSizeForHeaderInSection:(NSInteger)section
     return [self numberOfCollectionItemsInSection:section] ? collectionViewLayout.headerReferenceSize : CGSizeZero;
 }
 */
+
+-(void)moveItem:(id)item toIndexPath:(NSIndexPath *)indexPath
+{
+    
+}
+
+-(void)moveSection:(int)fromSection toSection:(int)toSection
+{
+    
+}
 
 -(void)performUpdate:(DTStorageUpdate *)update
 {

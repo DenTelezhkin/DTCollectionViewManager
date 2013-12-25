@@ -3,7 +3,6 @@
 #import "ModelCell.h"
 #import "ModelCellWithNib.h"
 #import "SupplementaryViewWithNib.h"
-#import "DTCollectionViewController+iOS6.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -49,6 +48,7 @@ describe(@"Datasource specs", ^{
         beforeEach(^{
             [collection registerCellClass:[ModelCellWithNib class]
                             forModelClass:[Model class]];
+            [collection.collectionView reloadData];
         });
         
         it(@"should correctly add item", ^{
@@ -245,9 +245,9 @@ describe(@"Datasource specs", ^{
             [collection.memoryStorage addItems:@[model3,model4] toSection:1];
             
             
-            if ([collection iOS6]) {
+            /*if ([collection iOS6]) {
                 [collection.collectionView reloadData];
-            }
+            }*/
             
             [collection.memoryStorage insertItem:model5
                                      toIndexPath:[NSIndexPath indexPathForItem:0
@@ -292,9 +292,9 @@ describe(@"Datasource specs", ^{
         it(@"should be able to insert into 2 section", ^{
             [collection.memoryStorage addItems:@[model1,model2]];
             
-            if ([collection iOS6]) {
+            /*if ([collection iOS6]) {
                 [collection.collectionView reloadData];
-            }
+            }*/
             
             [collection.memoryStorage insertItem:model3
                                      toIndexPath:[NSIndexPath indexPathForItem:0
@@ -403,9 +403,10 @@ describe(@"Datasource specs", ^{
         it(@"should move section to empty section", ^{
             [collection.memoryStorage addItems:@[model1,model2]];
             
-            if ([collection iOS6]) {
+            /*if ([collection iOS6]) {
                 [collection.collectionView reloadData];
-            }
+            }*/
+            
             [collection moveSection:0 toSection:1];
             
             [collection verifySection:@[model1,model2] withSectionNumber:1];
@@ -449,66 +450,62 @@ describe(@"Datasource specs", ^{
             it(@"should move section headers", ^{
                 NSString * header = UICollectionElementKindSectionHeader;
                 
-                [[collection.memoryStorage sectionAtIndex:0] sets]
-                [[collection.memoryStorage supplementaryModelsOfKind:header] addObjectsFromArray:@[@1,@2,@3]];
+                [collection.memoryStorage setSupplementaries:@[@1,@2,@3] forKind:header];
                 
-                [collection addItems:section0];
-                [collection addItems:section1 toSection:1];
-                [collection addItems:section2 toSection:2];
+                [collection.memoryStorage addItems:section0];
+                [collection.memoryStorage addItems:section1 toSection:1];
+                [collection.memoryStorage addItems:section2 toSection:2];
                 
                 [collection moveSection:0 toSection:2];
                 
-                NSArray * headers = [collection supplementaryModelsOfKind:header];
-                
-                expect(headers[0]).to(equal(@2));
-                expect(headers[1]).to(equal(@3));
-                expect(headers[2]).to(equal(@1));
+                expect([collection.memoryStorage supplementaryModelOfKind:header forSectionIndex:0]).to(equal(@2));
+                expect([collection.memoryStorage supplementaryModelOfKind:header forSectionIndex:1]).to(equal(@3));
+                expect([collection.memoryStorage supplementaryModelOfKind:header forSectionIndex:2]).to(equal(@1));
             });
             
             it(@"should move section footers", ^{
                 NSString * footer = UICollectionElementKindSectionFooter;
-                [[collection supplementaryModelsOfKind:footer] addObjectsFromArray:@[@1,@2,@3]];
                 
-                [collection addItems:section0];
-                [collection addItems:section1 toSection:1];
-                [collection addItems:section2 toSection:2];
+                [collection.memoryStorage setSupplementaries:@[@1,@2,@3] forKind:footer];
+                
+                [collection.memoryStorage addItems:section0];
+                [collection.memoryStorage addItems:section1 toSection:1];
+                [collection.memoryStorage addItems:section2 toSection:2];
                 
                 [collection moveSection:0 toSection:2];
                 
-                NSArray * headers = [collection supplementaryModelsOfKind:footer];
-                
-                expect(headers[0]).to(equal(@2));
-                expect(headers[1]).to(equal(@3));
-                expect(headers[2]).to(equal(@1));
+                expect([collection.memoryStorage supplementaryModelOfKind:footer forSectionIndex:0]).to(equal(@2));
+                expect([collection.memoryStorage supplementaryModelOfKind:footer forSectionIndex:1]).to(equal(@3));
+                expect([collection.memoryStorage supplementaryModelOfKind:footer forSectionIndex:2]).to(equal(@1));
             });
             
             it(@"should move supplementaries of other kind", ^{
                 NSString * customKind = testKind;
-                [[collection supplementaryModelsOfKind:customKind] addObjectsFromArray:@[@1,@2,@3]];
                 
-                [collection addItems:section0];
-                [collection addItems:section1 toSection:1];
-                [collection addItems:section2 toSection:2];
+                [collection.memoryStorage setSupplementaries:@[@1,@2,@3] forKind:customKind];
+                
+                [collection.memoryStorage addItems:section0];
+                [collection.memoryStorage addItems:section1 toSection:1];
+                [collection.memoryStorage addItems:section2 toSection:2];
                 
                 [collection moveSection:0 toSection:2];
                 
-                NSArray * headers = [collection supplementaryModelsOfKind:customKind];
-                
-                expect(headers[0]).to(equal(@2));
-                expect(headers[1]).to(equal(@3));
-                expect(headers[2]).to(equal(@1));
+                expect([collection.memoryStorage supplementaryModelOfKind:customKind forSectionIndex:0]).to(equal(@2));
+                expect([collection.memoryStorage supplementaryModelOfKind:customKind forSectionIndex:1]).to(equal(@3));
+                expect([collection.memoryStorage supplementaryModelOfKind:customKind forSectionIndex:2]).to(equal(@1));
             });
             
             it(@"should not crash if moving inconsistent sections", ^{
                 NSString * kind = UICollectionElementKindSectionHeader;
-                [[collection supplementaryModelsOfKind:kind] addObjectsFromArray:@[@1]];
                 
-                [collection addItems:section1];
-                [collection addItems:section2];
+                [collection.memoryStorage setSupplementaries:@[@1] forKind:kind];
                 
-                if ([collection iOS6]) {
+                [collection.memoryStorage addItems:section1];
+                [collection.memoryStorage addItems:section2];
+#warning workaround?
+                /*if ([collection iOS6]) {
                     [collection.collectionView reloadData];
-                }
+                }*/
                 ^{
                     [collection moveSection:0 toSection:1];
                 } should_not raise_exception();
@@ -525,23 +522,23 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should delete first section", ^{
-            [collection addItems:@[model1,model2]];
+            [collection.memoryStorage addItems:@[model1,model2]];
             
-            [collection deleteSections:[NSIndexSet indexSetWithIndex:0]];
+            [collection.memoryStorage deleteSections:[NSIndexSet indexSetWithIndex:0]];
             
-            [collection numberOfSections] should equal(0);
+            [collection.memoryStorage.sections count] should equal(0);
         });
         
         it(@"should delete any section", ^{
-            [collection addItems:@[model1,model2] toSection:0];
-            [collection addItems:@[model3,model4] toSection:1];
-            [collection addItems:@[model5,model6] toSection:2];
+            [collection.memoryStorage addItems:@[model1,model2] toSection:0];
+            [collection.memoryStorage addItems:@[model3,model4] toSection:1];
+            [collection.memoryStorage addItems:@[model5,model6] toSection:2];
             NSMutableIndexSet * indexSet = [NSMutableIndexSet indexSetWithIndex:0];
             [indexSet addIndex:2];
             
-            [collection deleteSections:indexSet];
+            [collection.memoryStorage deleteSections:indexSet];
             
-            [collection numberOfSections] should equal(1);
+            [collection.memoryStorage.sections count] should equal(1);
             
             [collection verifySection:@[model3,model4] withSectionNumber:0];
         });
@@ -570,44 +567,38 @@ describe(@"Datasource specs", ^{
             
             it(@"should delete section headers", ^{
                 NSString * header = UICollectionElementKindSectionHeader;
-                [[collection supplementaryModelsOfKind:header] addObjectsFromArray:@[@1,@2]];
+                [collection.memoryStorage setSupplementaries:@[@1,@2] forKind:header];
                 
-                [collection addItems:section0];
-                [collection addItems:section1 toSection:1];
+                [collection.memoryStorage addItems:section0];
+                [collection.memoryStorage addItems:section1 toSection:1];
                 
-                [collection deleteSections:[NSIndexSet indexSetWithIndex:0]];
+                [collection.memoryStorage deleteSections:[NSIndexSet indexSetWithIndex:0]];
                 
-                NSArray * headers = [collection supplementaryModelsOfKind:header];
-                
-                expect(headers[0]).to(equal(@2));
+                expect([collection.memoryStorage supplementaryModelOfKind:header forSectionIndex:0]).to(equal(@2));
             });
             
             it(@"should delete section footers", ^{
                 NSString * footer = UICollectionElementKindSectionFooter;
-                [[collection supplementaryModelsOfKind:footer] addObjectsFromArray:@[@1,@2]];
+                [collection.memoryStorage setSupplementaries:@[@1,@2] forKind:footer];
                 
-                [collection addItems:section0];
-                [collection addItems:section1 toSection:1];
+                [collection.memoryStorage addItems:section0];
+                [collection.memoryStorage addItems:section1 toSection:1];
                 
-                [collection deleteSections:[NSIndexSet indexSetWithIndex:0]];
+                [collection.memoryStorage deleteSections:[NSIndexSet indexSetWithIndex:0]];
                 
-                NSArray * headers = [collection supplementaryModelsOfKind:footer];
-                
-                expect(headers[0]).to(equal(@2));
+                expect([collection.memoryStorage supplementaryModelOfKind:footer forSectionIndex:0]).to(equal(@2));
             });
             
             it(@"should delete supplementaries of other kind", ^{
                 NSString * customKind = testKind;
-                [[collection supplementaryModelsOfKind:customKind] addObjectsFromArray:@[@1,@2]];
+                [collection.memoryStorage setSupplementaries:@[@1,@2] forKind:customKind];
                 
-                [collection addItems:section0];
-                [collection addItems:section1 toSection:1];
+                [collection.memoryStorage addItems:section0];
+                [collection.memoryStorage addItems:section1 toSection:1];
                 
-                [collection deleteSections:[NSIndexSet indexSetWithIndex:0]];
+                [collection.memoryStorage deleteSections:[NSIndexSet indexSetWithIndex:0]];
                 
-                NSArray * headers = [collection supplementaryModelsOfKind:customKind];
-                
-                expect(headers[0]).to(equal(@2));
+                expect([collection.memoryStorage supplementaryModelOfKind:customKind forSectionIndex:0]).to(equal(@2));
             });
         });
 
