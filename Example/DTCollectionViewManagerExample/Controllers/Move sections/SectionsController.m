@@ -53,24 +53,24 @@
 -(void)addSection
 {
     self.sectionNumber ++;
-    [[self supplementaryModelsOfKind:UICollectionElementKindSectionHeader] addObject:@(self.sectionNumber)];
-    [[self supplementaryModelsOfKind:UICollectionElementKindSectionFooter] addObject:@(self.sectionNumber)];
-    [self addItems:@[@1,@2,@3] toSection:[self numberOfSections]];
+    [self.memoryStorage setSupplementaries:@[@(self.sectionNumber)] forKind:UICollectionElementKindSectionHeader];
+    [self.memoryStorage setSupplementaries:@[@(self.sectionNumber)] forKind:UICollectionElementKindSectionFooter];
+    [self.memoryStorage addItems:@[@1,@2,@3] toSection:[self.memoryStorage.sections count]];
 }
 
 - (void)moveSections:(id)sender
 {
-    if ([self numberOfSections])
+    if ([self.memoryStorage.sections count])
     {
-        [self moveSection:[self numberOfSections]-1 toSection:0];
+        [self moveSection:[self.memoryStorage.sections count]-1 toSection:0];
     }
 }
 
 -(void)removeSection
 {
-    if ([self numberOfSections])
+    if ([self.memoryStorage.sections count])
     {
-        [self deleteSections:[NSIndexSet indexSetWithIndex:[self numberOfSections] -1]];
+        [self.memoryStorage deleteSections:[NSIndexSet indexSetWithIndex:[self.memoryStorage.sections count] -1]];
     }
 }
 

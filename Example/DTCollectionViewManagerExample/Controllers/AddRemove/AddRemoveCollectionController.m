@@ -43,9 +43,6 @@
 {
     [super viewDidLoad];
     
-    self.dataStorage = [DTMemoryStorage storage];
-    self.dataStorage.delegate = self;
-    
     self.collectionView.allowsSelection = NO;
     self.collectionView.allowsMultipleSelection = YES;
     
@@ -60,10 +57,8 @@
 
 -(void)addItem:(id)sender
 {
-    DTMemoryStorage * storage = self.dataStorage;
-
-    [storage addItems:@[@"",@0,@{}] toSection:0];
-    [storage addItems:@[@"",@0,@{}] toSection:1];
+    [self.memoryStorage addItems:@[@"",@0,@{}] toSection:0];
+    [self.memoryStorage addItems:@[@"",@0,@{}] toSection:1];
 }
 
 - (void)editTapped:(UIBarButtonItem *)sender
@@ -75,7 +70,7 @@
 -(void)deleteSelectedItems
 {
     NSArray * selectedItems = [self.collectionView indexPathsForSelectedItems];
-    [self removeCollectionItemsAtIndexPaths:selectedItems];
+    [self.memoryStorage removeItemsAtIndexPaths:selectedItems];
 }
 
 -(void)doneEditing
