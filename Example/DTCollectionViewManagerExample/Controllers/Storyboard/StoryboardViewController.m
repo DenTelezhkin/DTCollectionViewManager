@@ -25,12 +25,10 @@
     [self registerSupplementaryClass:[PrototypedCollectionViewHeader class]
                              forKind:UICollectionElementKindSectionHeader
                        forModelClass:[NSString class]];
-    
     [self.memoryStorage setSupplementaries:@[@"Section 1 header",@"Section 2 header"]
                                    forKind:UICollectionElementKindSectionHeader];
     [self.memoryStorage setSupplementaries:@[@"Section 1 footer",@"Section 2 footer"]
                                    forKind:UICollectionElementKindSectionFooter];
-    
     [self.memoryStorage addItems:@[@"1",@"2",@"3"]];
     [self.memoryStorage addItems:@[@"1",@"2"] toSection:1];
 }

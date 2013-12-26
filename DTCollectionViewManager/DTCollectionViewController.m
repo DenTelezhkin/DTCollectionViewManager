@@ -178,7 +178,9 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
 
 -(void)storageDidPerformUpdate:(DTStorageUpdate *)update
 {
-    NSMutableIndexSet * sectionsToInsert = [NSMutableIndexSet indexSet];
+    [self.collectionView reloadData];
+    
+  /*  NSMutableIndexSet * sectionsToInsert = [NSMutableIndexSet indexSet];
     [update.insertedSectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
        if ([self.collectionView numberOfSections] <= idx)
        {
@@ -188,15 +190,15 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
     
     [self.collectionView performBatchUpdates:^{
         [self.collectionView deleteSections:update.deletedSectionIndexes];
-        
         [self.collectionView insertSections:sectionsToInsert];
-        
         [self.collectionView reloadSections:update.updatedSectionIndexes];
         
         [self.collectionView deleteItemsAtIndexPaths:update.deletedRowIndexPaths];
         [self.collectionView insertItemsAtIndexPaths:update.insertedRowIndexPaths];
         [self.collectionView reloadItemsAtIndexPaths:update.updatedRowIndexPaths];
-    } completion:nil];
+    } completion:^(BOOL finished) {
+        NSLog(@"completed updates");
+    }];*/
 }
 
 @end
