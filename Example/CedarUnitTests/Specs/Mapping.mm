@@ -38,7 +38,7 @@ describe(@"Mapping tests", ^{
             [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
             [collection.memoryStorage addItem:[[Model new] autorelease]];
             
-            ModelCellWithNib * cell = (ModelCellWithNib *)[collection.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0
+            ModelCellWithNib * cell = (ModelCellWithNib *)[collection.collectionView.dataSource collectionView:collection.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0
                                                                                                                 inSection:0]];
             [cell class] should equal([ModelCellWithNib class]);
             
