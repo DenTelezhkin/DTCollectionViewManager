@@ -53,9 +53,10 @@
 -(void)addSection
 {
     self.sectionNumber ++;
-    [self.memoryStorage setSupplementaries:@[@(self.sectionNumber)] forKind:UICollectionElementKindSectionHeader];
-    [self.memoryStorage setSupplementaries:@[@(self.sectionNumber)] forKind:UICollectionElementKindSectionFooter];
-    [self.memoryStorage addItems:@[@1,@2,@3] toSection:[self.memoryStorage.sections count]];
+    DTSectionModel * section = [self.memoryStorage sectionAtIndex:[[self.memoryStorage sections] count]];
+    [section setSupplementaryModel:@(self.sectionNumber) forKind:UICollectionElementKindSectionHeader];
+    [section setSupplementaryModel:@(self.sectionNumber) forKind:UICollectionElementKindSectionFooter];
+    [self.memoryStorage addItems:@[@1,@2,@3] toSection:[[self.memoryStorage sections] count]-1];
 }
 
 - (void)moveSections:(id)sender

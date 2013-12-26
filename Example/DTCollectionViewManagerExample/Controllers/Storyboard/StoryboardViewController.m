@@ -29,7 +29,7 @@
     [self.memoryStorage setSupplementaries:@[@"Section 1 header",@"Section 2 header"]
                                    forKind:UICollectionElementKindSectionHeader];
     [self.memoryStorage setSupplementaries:@[@"Section 1 footer",@"Section 2 footer"]
-                                   forKind:UICollectionElementKindSectionHeader];
+                                   forKind:UICollectionElementKindSectionFooter];
     
     [self.memoryStorage addItems:@[@"1",@"2",@"3"]];
     [self.memoryStorage addItems:@[@"1",@"2"] toSection:1];

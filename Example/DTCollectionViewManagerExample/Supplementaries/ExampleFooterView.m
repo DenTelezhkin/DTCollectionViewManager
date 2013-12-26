@@ -16,7 +16,7 @@
 
 -(void)updateWithModel:(NSNumber *)model
 {
-    self.sectionTitle.text = [NSString stringWithFormat:@"Section header %d",[model intValue]];
+    self.sectionTitle.text = [NSString stringWithFormat:@"Section footer %d",[model intValue]];
 }
 
 @end

@@ -7,7 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		5E19F7E97B2642DBBF393C71 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 5110E2F5FBA444889C7C5A93 /* libPods.a */; };
+		4DECD5AD540C489CAF31C722 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B86A8E03B74A7F86BF6C64 /* libPods.a */; };
 		9512F08317BFA71C008FF3A1 /* SectionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9512F08117BFA71C008FF3A1 /* SectionsController.m */; };
 		9512F08417BFA71C008FF3A1 /* SectionsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9512F08217BFA71C008FF3A1 /* SectionsController.xib */; };
 		9512F08817BFA9A3008FF3A1 /* ExampleHeaderView.m in Sources */ = {isa = PBXBuildFile; fileRef = 9512F08717BFA9A3008FF3A1 /* ExampleHeaderView.m */; };
@@ -65,15 +65,11 @@
 		95C89A1517B78F95009FA3F2 /* ExampleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C89A1317B78F95009FA3F2 /* ExampleCell.m */; };
 		95C89A1717B78FAA009FA3F2 /* ExampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */; };
 		95C89A1817B78FAA009FA3F2 /* ExampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */; };
-		D71C7A2F0BEF4D58AC714ABB /* libPods-DTCollectionViewManagerExample.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 453A6B4B6B64426CB4442756 /* libPods-DTCollectionViewManagerExample.a */; };
 		FF89B56B3FC940359B01B116 /* libPods-CedarUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
-		453A6B4B6B64426CB4442756 /* libPods-DTCollectionViewManagerExample.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-DTCollectionViewManagerExample.a"; sourceTree = BUILT_PRODUCTS_DIR; };
-		5110E2F5FBA444889C7C5A93 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CedarUnitTests.xcconfig"; path = "Pods/Pods-CedarUnitTests.xcconfig"; sourceTree = SOURCE_ROOT; };
-		56A9B52CA48E4250819EA253 /* Pods-DTCollectionViewManagerExample.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-DTCollectionViewManagerExample.xcconfig"; path = "Pods/Pods-DTCollectionViewManagerExample.xcconfig"; sourceTree = "<group>"; };
 		9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CedarUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9512F08017BFA71C008FF3A1 /* SectionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SectionsController.h; path = "Controllers/Move sections/SectionsController.h"; sourceTree = "<group>"; };
 		9512F08117BFA71C008FF3A1 /* SectionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SectionsController.m; path = "Controllers/Move sections/SectionsController.m"; sourceTree = "<group>"; };
@@ -152,6 +148,7 @@
 		95C89A1317B78F95009FA3F2 /* ExampleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleCell.m; path = Cells/ExampleCell.m; sourceTree = "<group>"; };
 		95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExampleCell.xib; path = Cells/ExampleCell.xib; sourceTree = "<group>"; };
 		B53D74224BE24E94BC85BDF7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
+		D1B86A8E03B74A7F86BF6C64 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -159,8 +156,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				D71C7A2F0BEF4D58AC714ABB /* libPods-DTCollectionViewManagerExample.a in Frameworks */,
-				5E19F7E97B2642DBBF393C71 /* libPods.a in Frameworks */,
+				4DECD5AD540C489CAF31C722 /* libPods.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -211,7 +207,6 @@
 				955F8584179ACAF000A38EAD /* Frameworks */,
 				955F8583179ACAF000A38EAD /* Products */,
 				530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */,
-				56A9B52CA48E4250819EA253 /* Pods-DTCollectionViewManagerExample.xcconfig */,
 				B53D74224BE24E94BC85BDF7 /* Pods.xcconfig */,
 			);
 			sourceTree = "<group>";
@@ -229,8 +224,7 @@
 			isa = PBXGroup;
 			children = (
 				9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */,
-				453A6B4B6B64426CB4442756 /* libPods-DTCollectionViewManagerExample.a */,
-				5110E2F5FBA444889C7C5A93 /* libPods.a */,
+				D1B86A8E03B74A7F86BF6C64 /* libPods.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";

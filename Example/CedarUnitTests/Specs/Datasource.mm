@@ -147,8 +147,9 @@ describe(@"Datasource specs", ^{
             [collection.memoryStorage addItems:@[model1,model2,model3]];
             [collection.memoryStorage addItems:@[model4,model5] toSection:1];
             
-            [collection.memoryStorage removeItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
-            [collection.memoryStorage removeItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+            [collection.memoryStorage removeItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:2 inSection:0],
+                                                                [NSIndexPath indexPathForItem:0 inSection:1]]
+             ];
             
             [collection verifySection:@[model1,model2] withSectionNumber:0];
             [collection verifySection:@[model5] withSectionNumber:1];
@@ -157,9 +158,9 @@ describe(@"Datasource specs", ^{
         it(@"should not crash when removing absent indexPath", ^{
             ^{
                 [collection.memoryStorage addItems:@[model2,model3]];
-                [collection.memoryStorage removeItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+                [collection.memoryStorage removeItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:2 inSection:0]]];
                 [collection verifySection:@[model2,model3] withSectionNumber:0];
-                [collection.memoryStorage removeItemAtIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+                [collection.memoryStorage removeItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0 inSection:1]]];
                 [collection verifySection:@[model2,model3] withSectionNumber:0];
             } should_not raise_exception;
         });
@@ -188,7 +189,7 @@ describe(@"Datasource specs", ^{
             ^{
                 [collection.memoryStorage addItems:@[model2,model3]];
                 
-                [collection.memoryStorage removeItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]];
+                [collection.memoryStorage removeItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:2 inSection:0]]];
                 [collection verifySection:@[model2,model3] withSectionNumber:0];
             } should_not raise_exception;
         });

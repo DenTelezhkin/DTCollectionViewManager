@@ -143,19 +143,28 @@
     // Returning nil from this method will cause crash on runtime.
     return view;
 }
-/*
+
 -(CGSize)collectionView:(UICollectionView *)collectionView
                  layout:(UICollectionViewFlowLayout *)collectionViewLayout
-referenceSizeForHeaderInSection:(NSInteger)section
+referenceSizeForHeaderInSection:(NSInteger)sectionNumber
 {
  
 //     Workaround for UICollectionView bug with insertItems.
 //     OpenRadar: http://openradar.appspot.com/12954582
 //     Stack0verflow solution: http://stackoverflow.com/questions/13904049/assertion-failure-in-uicollectionviewdata-indexpathforitematglobalindex
 
-    return [self numberOfCollectionItemsInSection:section] ? collectionViewLayout.headerReferenceSize : CGSizeZero;
+    id <DTSection> section = [self.storage sections][sectionNumber];
+    return [section numberOfObjects] ? collectionViewLayout.headerReferenceSize : CGSizeZero;
 }
-*/
+
+-(CGSize)collectionView:(UICollectionView *)collectionView
+                 layout:(UICollectionViewFlowLayout *)collectionViewLayout
+referenceSizeForFooterInSection:(NSInteger)sectionNumber
+{
+    id <DTSection> section = [self.storage sections][sectionNumber];
+    return [section numberOfObjects] ? collectionViewLayout.footerReferenceSize : CGSizeZero;
+}
+
 
 -(void)moveItem:(id)item toIndexPath:(NSIndexPath *)indexPath
 {
@@ -167,11 +176,21 @@ referenceSizeForHeaderInSection:(NSInteger)section
     
 }
 
--(void)performUpdate:(DTStorageUpdate *)update
+-(void)storageDidPerformUpdate:(DTStorageUpdate *)update
 {
+    NSMutableIndexSet * sectionsToInsert = [NSMutableIndexSet indexSet];
+    [update.insertedSectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+       if ([self.collectionView numberOfSections] <= idx)
+       {
+           [sectionsToInsert addIndex:idx];
+       }
+    }];
+    
     [self.collectionView performBatchUpdates:^{
         [self.collectionView deleteSections:update.deletedSectionIndexes];
-        [self.collectionView insertSections:update.insertedSectionIndexes];
+        
+        [self.collectionView insertSections:sectionsToInsert];
+        
         [self.collectionView reloadSections:update.updatedSectionIndexes];
         
         [self.collectionView deleteItemsAtIndexPaths:update.deletedRowIndexPaths];
