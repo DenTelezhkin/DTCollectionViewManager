@@ -25,7 +25,6 @@ describe(@"Mapping tests", ^{
                                                        collectionViewLayout:layout];
         collection.collectionView.dataSource = collection;
         collection.collectionView.delegate = collection;
-        [collection.collectionView reloadData];
     });
     
     afterEach(^{
@@ -65,7 +64,14 @@ describe(@"Mapping tests", ^{
        
         beforeEach(^{
             [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
-            [collection.memoryStorage addItem:[[Model new] autorelease]];
+            [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
+            @try {
+                [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
+                                                                                         inSection:0]]];
+            }
+            @catch (NSException * exception){
+                
+            };
         });
         
         it(@"should be able to register supplementary header nib class", ^{
@@ -121,7 +127,14 @@ describe(@"Mapping tests", ^{
      
         beforeEach(^{
             [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
-            [collection.memoryStorage addItem:[[Model new] autorelease]];
+            [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
+            @try {
+                [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
+                                                                                         inSection:0]]];
+            }
+            @catch (NSException * exception){
+                
+            };
         });
         
         describe(@"NSString", ^{
