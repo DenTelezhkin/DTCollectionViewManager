@@ -20,7 +20,6 @@ describe(@"Datasource specs", ^{
     __block Model * model6;
     
     beforeEach(^{
-        
         [UIView setAnimationsEnabled:NO];
         
         collection = [DTCollectionViewController new];
@@ -28,7 +27,6 @@ describe(@"Datasource specs", ^{
         collection.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)
                                                        collectionViewLayout:layout];
         collection.collectionView.dataSource = collection;
-        [collection.collectionView reloadData];
         
         model1 = [Model new];
         model2 = [Model new];
@@ -36,7 +34,6 @@ describe(@"Datasource specs", ^{
         model4 = [Model new];
         model5 = [Model new];
         model6 = [Model new];
-        
     });
     
     afterEach(^{
@@ -48,7 +45,6 @@ describe(@"Datasource specs", ^{
         beforeEach(^{
             [collection registerCellClass:[ModelCellWithNib class]
                             forModelClass:[Model class]];
-            [collection.collectionView reloadData];
         });
         
         it(@"should correctly add item", ^{
