@@ -65,6 +65,10 @@
 		95C89A1517B78F95009FA3F2 /* ExampleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C89A1317B78F95009FA3F2 /* ExampleCell.m */; };
 		95C89A1717B78FAA009FA3F2 /* ExampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */; };
 		95C89A1817B78FAA009FA3F2 /* ExampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */; };
+		AA06EFE2186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */; };
+		AA06EFE3186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */; };
+		AAB8057B186F0A7200BE6236 /* DTCollectionViewStorageUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB8057A186F0A7200BE6236 /* DTCollectionViewStorageUpdate.m */; };
+		AAB8057C186F0A7200BE6236 /* DTCollectionViewStorageUpdate.m in Sources */ = {isa = PBXBuildFile; fileRef = AAB8057A186F0A7200BE6236 /* DTCollectionViewStorageUpdate.m */; };
 		FF89B56B3FC940359B01B116 /* libPods-CedarUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */; };
 /* End PBXBuildFile section */
 
@@ -147,6 +151,11 @@
 		95C89A1217B78F95009FA3F2 /* ExampleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleCell.h; path = Cells/ExampleCell.h; sourceTree = "<group>"; };
 		95C89A1317B78F95009FA3F2 /* ExampleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleCell.m; path = Cells/ExampleCell.m; sourceTree = "<group>"; };
 		95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExampleCell.xib; path = Cells/ExampleCell.xib; sourceTree = "<group>"; };
+		AA06EFE0186EC7D0005123AA /* DTCollectionViewMemoryStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewMemoryStorage.h; path = ../DTCollectionViewManager/DTCollectionViewMemoryStorage.h; sourceTree = "<group>"; };
+		AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionViewMemoryStorage.m; path = ../DTCollectionViewManager/DTCollectionViewMemoryStorage.m; sourceTree = "<group>"; };
+		AA06EFE4186ECB08005123AA /* DTCollectionViewStorageUpdating.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewStorageUpdating.h; path = ../DTCollectionViewManager/DTCollectionViewStorageUpdating.h; sourceTree = "<group>"; };
+		AAB80579186F0A7200BE6236 /* DTCollectionViewStorageUpdate.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewStorageUpdate.h; path = ../DTCollectionViewManager/DTCollectionViewStorageUpdate.h; sourceTree = "<group>"; };
+		AAB8057A186F0A7200BE6236 /* DTCollectionViewStorageUpdate.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionViewStorageUpdate.m; path = ../DTCollectionViewManager/DTCollectionViewStorageUpdate.m; sourceTree = "<group>"; };
 		B53D74224BE24E94BC85BDF7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D1B86A8E03B74A7F86BF6C64 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 /* End PBXFileReference section */
@@ -262,6 +271,7 @@
 		955F85AE179ACB7300A38EAD /* DTCollectionViewManager */ = {
 			isa = PBXGroup;
 			children = (
+				AA06EFDF186EC7B2005123AA /* Memory storage */,
 				958C9354185DFC610050282A /* Cell factory */,
 				95ADB22217AD54EC004BBA29 /* Convenience */,
 				955F85AF179ACB8F00A38EAD /* DTCollectionViewController.h */,
@@ -432,6 +442,18 @@
 				958698361819BBE400F2695A /* PrototypedCell.m */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		AA06EFDF186EC7B2005123AA /* Memory storage */ = {
+			isa = PBXGroup;
+			children = (
+				AA06EFE0186EC7D0005123AA /* DTCollectionViewMemoryStorage.h */,
+				AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */,
+				AA06EFE4186ECB08005123AA /* DTCollectionViewStorageUpdating.h */,
+				AAB80579186F0A7200BE6236 /* DTCollectionViewStorageUpdate.h */,
+				AAB8057A186F0A7200BE6236 /* DTCollectionViewStorageUpdate.m */,
+			);
+			name = "Memory storage";
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -609,6 +631,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				955F8592179ACAF000A38EAD /* main.m in Sources */,
+				AA06EFE2186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */,
 				955F8596179ACAF000A38EAD /* AppDelegate.m in Sources */,
 				955F859F179ACAF000A38EAD /* ExamplesViewController.m in Sources */,
 				955F85A2179ACAF000A38EAD /* EmptyDetailViewController.m in Sources */,
@@ -616,6 +639,7 @@
 				958698371819BBE400F2695A /* PrototypedCell.m in Sources */,
 				95AE899E179C05BE00F834DB /* DTCollectionViewFactory.m in Sources */,
 				95ADB22517AD5527004BBA29 /* DTCollectionReusableView.m in Sources */,
+				AAB8057B186F0A7200BE6236 /* DTCollectionViewStorageUpdate.m in Sources */,
 				95ADB22917AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,
 				95ADB23317AE4D7E004BBA29 /* ControllerModel.m in Sources */,
 				95ADB23817AE53C7004BBA29 /* AddRemoveCollectionController.m in Sources */,
@@ -634,6 +658,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				95AE8973179AD03E00F834DB /* main.m in Sources */,
+				AA06EFE3186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */,
 				95AE8983179AD08100F834DB /* Datasource.mm in Sources */,
 				95AE898A179BF1B600F834DB /* Mapping.mm in Sources */,
 				95AE898D179BF33000F834DB /* DTCollectionViewController+VerifyItem.m in Sources */,
@@ -641,6 +666,7 @@
 				95AE8995179BF52B00F834DB /* ModelCell.m in Sources */,
 				95AE8998179BF59500F834DB /* ModelCellWithNib.m in Sources */,
 				95AE899B179BF9DA00F834DB /* DTCollectionViewController.m in Sources */,
+				AAB8057C186F0A7200BE6236 /* DTCollectionViewStorageUpdate.m in Sources */,
 				95AE899F179C05BE00F834DB /* DTCollectionViewFactory.m in Sources */,
 				95AE89A7179C1A1600F834DB /* SupplementaryView.m in Sources */,
 				95AE89AA179C1A7600F834DB /* SupplementaryViewWithNib.m in Sources */,

@@ -189,19 +189,6 @@ describe(@"Datasource specs", ^{
                 [collection verifySection:@[model2,model3] withSectionNumber:0];
             } should_not raise_exception;
         });
-        
-#warning removeAllItems
-        /*
-        it(@"should remove all collection items", ^{
-            [collection.memoryStorage addItems:@[model1,model2]];
-            [collection.memoryStorage addItems:@[model3,model4] toSection:1];
-            [collection.memoryStorage addItems:@[model5,model6] toSection:2];
-            
-            [collection removeAllCollectionItems];
-            
-            [collection numberOfSections] should equal(0);
-        });*/
-        
     });
     
     describe(@"inserting items", ^{
@@ -291,8 +278,7 @@ describe(@"Datasource specs", ^{
             [collection verifySection:@[model3] withSectionNumber:1];
         });
     });
-#warning move
-    /*
+
     describe(@"moving items", ^{
         
         beforeEach(^{
@@ -302,20 +288,18 @@ describe(@"Datasource specs", ^{
         
 
         it(@"should move item to another row", ^{
-            [collection addItems:@[model1,model2,model3]];
+            [collection.memoryStorage addItems:@[model1,model2,model3]];
             
-            [collection moveItem:model1 toIndexPath:[NSIndexPath indexPathForItem:2
+            [collection.memoryStorage moveItem:model1 toIndexPath:[NSIndexPath indexPathForItem:2
                                                                         inSection:0]];
             [collection verifySection:@[model2,model3,model1] withSectionNumber:0];
         });
         
         it(@"should move item to another empty section", ^{
+            
             [collection.memoryStorage addItems:@[model1,model2,model3]];
             
-            if ([collection iOS6]) {
-                [collection.collectionView reloadData];
-            }
-            [collection moveItem:model3 toIndexPath:[NSIndexPath indexPathForItem:0
+            [collection.memoryStorage moveItem:model3 toIndexPath:[NSIndexPath indexPathForItem:0
                                                                         inSection:1]];
             [collection verifySection:@[model1,model2] withSectionNumber:0];
             [collection verifySection:@[model3] withSectionNumber:1];
@@ -325,28 +309,28 @@ describe(@"Datasource specs", ^{
             [collection.memoryStorage addItems:@[model1,model2,model3]];
             [collection.memoryStorage addItems:@[model4] toSection:1];
             
-            [collection moveItem:model3 toIndexPath:[NSIndexPath indexPathForItem:0
+            [collection.memoryStorage moveItem:model3 toIndexPath:[NSIndexPath indexPathForItem:0
                                                                         inSection:1]];
             [collection verifySection:@[model1,model2] withSectionNumber:0];
             [collection verifySection:@[model3,model4] withSectionNumber:1];
         });
         
         it(@"should not crash when moving to wrong indexPath", ^{
-            [collection addItems:@[model1,model2]];
+            [collection.memoryStorage addItems:@[model1,model2]];
             
             ^{
-                [collection moveItem:model2
-                         toIndexPath:[NSIndexPath indexPathForItem:4 inSection:3]];
+                [collection.memoryStorage moveItem:model2
+                                       toIndexPath:[NSIndexPath indexPathForItem:4 inSection:3]];
             } should_not raise_exception;
         });
         
         it(@"should not crash when moving non existing item", ^{
             ^{
-                [collection moveItem:model1
-                         toIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+                [collection.memoryStorage moveItem:model1
+                                       toIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
             } should_not raise_exception;
         });
-    });*/
+    });
     
     describe(@"replacing items", ^{
         
@@ -394,23 +378,21 @@ describe(@"Datasource specs", ^{
                 [collection.collectionView reloadData];
             }*/
             
-            [collection moveSection:0 toSection:1];
+            [collection.memoryStorage moveSection:0 toSection:1];
             
             [collection verifySection:@[model1,model2] withSectionNumber:1];
             [collection verifySection:@[] withSectionNumber:0];
         });
-        
-#warning move section
-        /*
+
         it(@"should switch sections", ^{
             [collection.memoryStorage addItems:@[model1,model2]];
             [collection.memoryStorage addItems:@[model3,model4] toSection:1];
             
-            [collection moveSection:0 toSection:1];
+            [collection.memoryStorage moveSection:0 toSection:1];
             
             [collection verifySection:@[model3,model4] withSectionNumber:0];
             [collection verifySection:@[model1,model2] withSectionNumber:1];
-        });*/
+        });
         
         describe(@"supplementaries tests", ^{
             NSString * testKind = @"testSupplementaryKind";
@@ -443,7 +425,7 @@ describe(@"Datasource specs", ^{
                 [collection.memoryStorage addItems:section1 toSection:1];
                 [collection.memoryStorage addItems:section2 toSection:2];
                 
-                [collection moveSection:0 toSection:2];
+                [collection.memoryStorage moveSection:0 toSection:2];
                 
                 expect([collection.memoryStorage supplementaryModelOfKind:header forSectionIndex:0]).to(equal(@2));
                 expect([collection.memoryStorage supplementaryModelOfKind:header forSectionIndex:1]).to(equal(@3));
@@ -459,7 +441,7 @@ describe(@"Datasource specs", ^{
                 [collection.memoryStorage addItems:section1 toSection:1];
                 [collection.memoryStorage addItems:section2 toSection:2];
                 
-                [collection moveSection:0 toSection:2];
+                [collection.memoryStorage moveSection:0 toSection:2];
                 
                 expect([collection.memoryStorage supplementaryModelOfKind:footer forSectionIndex:0]).to(equal(@2));
                 expect([collection.memoryStorage supplementaryModelOfKind:footer forSectionIndex:1]).to(equal(@3));
@@ -475,7 +457,7 @@ describe(@"Datasource specs", ^{
                 [collection.memoryStorage addItems:section1 toSection:1];
                 [collection.memoryStorage addItems:section2 toSection:2];
                 
-                [collection moveSection:0 toSection:2];
+                [collection.memoryStorage moveSection:0 toSection:2];
                 
                 expect([collection.memoryStorage supplementaryModelOfKind:customKind forSectionIndex:0]).to(equal(@2));
                 expect([collection.memoryStorage supplementaryModelOfKind:customKind forSectionIndex:1]).to(equal(@3));
@@ -489,12 +471,8 @@ describe(@"Datasource specs", ^{
                 
                 [collection.memoryStorage addItems:section1];
                 [collection.memoryStorage addItems:section2];
-#warning workaround?
-                /*if ([collection iOS6]) {
-                    [collection.collectionView reloadData];
-                }*/
                 ^{
-                    [collection moveSection:0 toSection:1];
+                    [collection.memoryStorage moveSection:0 toSection:1];
                 } should_not raise_exception();
             });
         });
@@ -582,7 +560,7 @@ describe(@"Datasource specs", ^{
                                                                          [NSIndexPath indexPathForItem:0 inSection:0],
                                                                          [NSIndexPath indexPathForItem:1 inSection:0],
                                                                          [NSIndexPath indexPathForItem:0 inSection:1],
-                                                                         [NSIndexPath indexPathForItem:1 inSection:1],]];
+                                                                         [NSIndexPath indexPathForItem:1 inSection:1]]];
                 }
                 @catch (NSException * exception){
                 };

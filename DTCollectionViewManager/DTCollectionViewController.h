@@ -57,9 +57,10 @@
 
  */
 
-#import "DTMemoryStorage.h"
+#import "DTCollectionViewMemoryStorage.h"
+#import "DTCollectionViewStorageUpdating.h"
 
-@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate,DTStorageUpdating>
+@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate,DTCollectionViewStorageUpdating>
 
 ///---------------------------------------
 /// @name Properties
@@ -73,7 +74,7 @@
 
 @property (nonatomic, strong) id <DTStorage> storage;
 
--(DTMemoryStorage *)memoryStorage;
+-(DTCollectionViewMemoryStorage *)memoryStorage;
 
 ///---------------------------------------
 /// @name Mapping
@@ -104,29 +105,5 @@
 -(void)registerSupplementaryClass:(Class)supplementaryClass
                           forKind:(NSString *)kind
                     forModelClass:(Class)modelClass;
-/**
- Move collection item to indexPath `indexPath`.
- 
- @param item model to move.
- 
- @param indexPath Index, where item should be moved.
- 
- @warning Moving item at index, that is not valid, will not throw an exception, and won't do anything, except logging into console about failure
- */
--(void)moveItem:(id)item toIndexPath:(NSIndexPath *)indexPath;
-
-///---------------------------------------
-/// @name Managing sections
-///---------------------------------------
-
-/**
- Moves a section to a new location in the collection view. Supplementary models are moved automatically. 
- 
- @param fromSection The index of the section to move.
- 
- @param toSection The index in the collection view that is the destination of the move for the section. The existing section at that location slides up or down to an adjoining index position to make room for it.
- */
--(void)moveSection:(int)fromSection toSection:(int)toSection;
-
 
 @end

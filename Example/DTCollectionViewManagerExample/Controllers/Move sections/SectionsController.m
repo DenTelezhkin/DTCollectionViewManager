@@ -63,7 +63,7 @@
 {
     if ([self.memoryStorage.sections count])
     {
-        [self moveSection:[self.memoryStorage.sections count]-1 toSection:0];
+        [self.memoryStorage moveSection:[self.memoryStorage.sections count]-1 toSection:0];
     }
 }
 

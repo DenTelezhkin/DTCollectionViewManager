@@ -26,6 +26,7 @@
 #import "DTCollectionViewController.h"
 #import "DTModelTransfer.h"
 #import "DTCollectionViewFactory.h"
+#import "DTCollectionViewStorageUpdate.h"
 
 @interface DTCollectionViewController ()
 <DTCollectionFactoryDelegate,UICollectionViewDelegateFlowLayout>
@@ -65,13 +66,13 @@
     _factory = [DTCollectionViewFactory new];
     _factory.delegate = self;
     
-    _storage = [DTMemoryStorage storage];
+    _storage = [DTCollectionViewMemoryStorage storage];
     _storage.delegate = self;
 }
 
--(DTMemoryStorage *)memoryStorage
+-(DTCollectionViewMemoryStorage *)memoryStorage
 {
-    if ([self.storage isKindOfClass:[DTMemoryStorage class]])
+    if ([self.storage isKindOfClass:[DTCollectionViewMemoryStorage class]])
     {
         return self.storage;
     }
@@ -144,15 +145,13 @@
     return view;
 }
 
+//     Workaround for UICollectionView bug with insertItems.
+//     OpenRadar: http://openradar.appspot.com/12954582
+//     Stack0verflow solution: http://stackoverflow.com/questions/13904049/assertion-failure-in-uicollectionviewdata-indexpathforitematglobalindex
 -(CGSize)collectionView:(UICollectionView *)collectionView
                  layout:(UICollectionViewFlowLayout *)collectionViewLayout
 referenceSizeForHeaderInSection:(NSInteger)sectionNumber
 {
- 
-//     Workaround for UICollectionView bug with insertItems.
-//     OpenRadar: http://openradar.appspot.com/12954582
-//     Stack0verflow solution: http://stackoverflow.com/questions/13904049/assertion-failure-in-uicollectionviewdata-indexpathforitematglobalindex
-
     id <DTSection> section = [self.storage sections][sectionNumber];
     return [section numberOfObjects] ? collectionViewLayout.headerReferenceSize : CGSizeZero;
 }
@@ -165,15 +164,9 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
     return [section numberOfObjects] ? collectionViewLayout.footerReferenceSize : CGSizeZero;
 }
 
-
--(void)moveItem:(id)item toIndexPath:(NSIndexPath *)indexPath
+-(void)performAnimatedUpdate:(void (^)(UICollectionView *))animationBlock
 {
-    
-}
-
--(void)moveSection:(int)fromSection toSection:(int)toSection
-{
-    
+    animationBlock(self.collectionView);
 }
 
 -(void)storageDidPerformUpdate:(DTStorageUpdate *)update
@@ -189,25 +182,41 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
     NSInteger sectionChanges = [update.deletedSectionIndexes count] + [update.insertedSectionIndexes count] + [update.updatedSectionIndexes count];
     NSInteger itemChanges = [update.deletedRowIndexPaths count] + [update.insertedRowIndexPaths count] + [update.updatedRowIndexPaths count];
     
+    DTCollectionViewStorageUpdate * collectionUpdate = nil;
+    if ([update isKindOfClass:[DTCollectionViewStorageUpdate class]])
+    {
+        collectionUpdate = (DTCollectionViewStorageUpdate *)update;
+    }
     if (sectionChanges)
     {
         [self.collectionView performBatchUpdates:^{
             [self.collectionView deleteSections:update.deletedSectionIndexes];
             [self.collectionView insertSections:sectionsToInsert];
             [self.collectionView reloadSections:update.updatedSectionIndexes];
+
+            if (collectionUpdate.sectionAnimationBlock)
+            {
+                collectionUpdate.sectionAnimationBlock(self.collectionView);
+            }
         } completion:nil];
     }
+    
     if ([self shouldReloadCollectionViewToPreventFuckingInsertFirstItemIssueForUpdate:update])
     {
         [self.collectionView reloadData];
         return;
     }
+    
     if (itemChanges && (sectionChanges == 0))
     {
         [self.collectionView performBatchUpdates:^{
             [self.collectionView deleteItemsAtIndexPaths:update.deletedRowIndexPaths];
             [self.collectionView insertItemsAtIndexPaths:update.insertedRowIndexPaths];
             [self.collectionView reloadItemsAtIndexPaths:update.updatedRowIndexPaths];
+            if (collectionUpdate.itemAnimationBlock)
+            {
+                collectionUpdate.itemAnimationBlock(self.collectionView);
+            }
         } completion:nil];
     }
 }
