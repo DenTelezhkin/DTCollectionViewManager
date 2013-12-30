@@ -81,37 +81,30 @@
 
 -(void)moveSection:(int)fromSection toSection:(int)toSection
 {
-   /* NSMutableArray * validSectionFrom = [self validCollectionSection:fromSection];
-    [self validCollectionSection:toSection];
+    [self startUpdate];
+    DTSectionModel * validSectionFrom = [self getValidSection:fromSection];
+    [self getValidSection:toSection];
     
-    NSArray * supplementaryKinds = [self.supplementaryModels allKeys];
-    for (NSString * kind in supplementaryKinds)
-    {
-        NSMutableArray * supp = [self.supplementaryModels[kind] objectAtIndex:fromSection];
-        if ([self.supplementaryModels[kind] count] == [self.sections count])
+
+    
+    [self.currentUpdate.insertedSectionIndexes removeIndex:toSection];
+    
+    [self.delegate performAnimatedUpdate:^(UICollectionView * collectionView) {
+        if (self.sections.count > collectionView.numberOfSections)
         {
-            [self.supplementaryModels[kind] removeObjectAtIndex:fromSection];
-            [self.supplementaryModels[kind] insertObject:supp atIndex:toSection];
+            //Section does not exist, moving section causes many sections to change, so we just reload
+            [collectionView reloadData];
         }
         else {
-            if ([self isLoggingEnabled])
-            {
-                NSLog(@"DTCollectionViewManager: number of supplementary models for kind: %@ differs from section number. Moving section, leaving supplementary models untouched.",kind);
-            }
+            [collectionView performBatchUpdates:^{
+                [collectionView insertSections:self.currentUpdate.insertedSectionIndexes];
+                [self.sections removeObjectAtIndex:fromSection];
+                [self.sections insertObject:validSectionFrom atIndex:toSection];
+                [collectionView moveSection:fromSection toSection:toSection];
+            } completion:nil];
         }
-    }
-    
-    [self.sections removeObjectAtIndex:fromSection];
-    [self.sections insertObject:validSectionFrom atIndex:toSection];
-    
-    if (self.sections.count > self.collectionView.numberOfSections)
-    {
-        //Row does not exist, moving section causes many sections to change, so we just reload
-        [self.collectionView reloadData];
-    }
-    else {
-        [self.collectionView moveSection:fromSection toSection:toSection];
-    }*/
+    }];
+    self.currentUpdate = nil;
 }
 
 @end

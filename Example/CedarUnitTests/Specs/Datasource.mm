@@ -370,10 +370,6 @@ describe(@"Datasource specs", ^{
         it(@"should move section to empty section", ^{
             [collection.memoryStorage addItems:@[model1,model2]];
             
-            /*if ([collection iOS6]) {
-                [collection.collectionView reloadData];
-            }*/
-            
             [collection.memoryStorage moveSection:0 toSection:1];
             
             [collection verifySection:@[model1,model2] withSectionNumber:1];
