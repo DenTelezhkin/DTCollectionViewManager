@@ -105,5 +105,4 @@
 -(void)registerSupplementaryClass:(Class)supplementaryClass
                           forKind:(NSString *)kind
                     forModelClass:(Class)modelClass;
-
 @end

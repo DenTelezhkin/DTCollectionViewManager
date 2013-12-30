@@ -26,7 +26,6 @@
 #import "DTCollectionViewController.h"
 #import "DTModelTransfer.h"
 #import "DTCollectionViewFactory.h"
-#import "DTCollectionViewStorageUpdate.h"
 
 @interface DTCollectionViewController ()
 <DTCollectionFactoryDelegate,UICollectionViewDelegateFlowLayout>
@@ -182,22 +181,12 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
     NSInteger sectionChanges = [update.deletedSectionIndexes count] + [update.insertedSectionIndexes count] + [update.updatedSectionIndexes count];
     NSInteger itemChanges = [update.deletedRowIndexPaths count] + [update.insertedRowIndexPaths count] + [update.updatedRowIndexPaths count];
     
-    DTCollectionViewStorageUpdate * collectionUpdate = nil;
-    if ([update isKindOfClass:[DTCollectionViewStorageUpdate class]])
-    {
-        collectionUpdate = (DTCollectionViewStorageUpdate *)update;
-    }
     if (sectionChanges)
     {
         [self.collectionView performBatchUpdates:^{
             [self.collectionView deleteSections:update.deletedSectionIndexes];
             [self.collectionView insertSections:sectionsToInsert];
             [self.collectionView reloadSections:update.updatedSectionIndexes];
-
-            if (collectionUpdate.sectionAnimationBlock)
-            {
-                collectionUpdate.sectionAnimationBlock(self.collectionView);
-            }
         } completion:nil];
     }
     
@@ -207,16 +196,12 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
         return;
     }
     
-    if (itemChanges && (sectionChanges == 0))
+    if ((itemChanges && (sectionChanges == 0)))
     {
         [self.collectionView performBatchUpdates:^{
             [self.collectionView deleteItemsAtIndexPaths:update.deletedRowIndexPaths];
             [self.collectionView insertItemsAtIndexPaths:update.insertedRowIndexPaths];
             [self.collectionView reloadItemsAtIndexPaths:update.updatedRowIndexPaths];
-            if (collectionUpdate.itemAnimationBlock)
-            {
-                collectionUpdate.itemAnimationBlock(self.collectionView);
-            }
         } completion:nil];
     }
 }

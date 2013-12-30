@@ -7,7 +7,6 @@
 //
 
 #import "DTCollectionViewMemoryStorage.h"
-#import "DTCollectionViewStorageUpdate.h"
 
 @interface DTMemoryStorage()
 
@@ -20,17 +19,16 @@
 
 @implementation DTCollectionViewMemoryStorage
 
--(void)moveItem:(id)item toIndexPath:(NSIndexPath *)destinationIndexPath
+-(void)moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath
+               toIndexPath:(NSIndexPath *)destinationIndexPath;
 {
     [self startUpdate];
-    
-    NSIndexPath * sourceIndexPath = [self indexPathForItem:item];
     
     if (!sourceIndexPath)
     {
         if ([self loggingEnabled])
         {
-            NSLog(@"DTCollectionViewManager: item %@ not found in collectionView",item);
+            NSLog(@"DTCollectionViewManager: source indexPath should not be nil when moving collection item");
         }
         return;
     }
@@ -43,20 +41,42 @@
         {
             NSLog(@"DTCollectionViewManager: failed moving item to indexPath: %@, only %d items in section",destinationIndexPath,[destinationSection.objects count]);
         }
+        self.currentUpdate = nil;
         return;
     }
     
-    [sourceSection.objects removeObjectAtIndex:sourceIndexPath.row];
-    [destinationSection.objects insertObject:item atIndex:destinationIndexPath.row];
+    id item = [self objectAtIndexPath:sourceIndexPath];
     
-    DTCollectionViewStorageUpdate * update =[DTCollectionViewStorageUpdate collectionViewUpdateWithUpdate:self.currentUpdate];
-    update.itemAnimationBlock = ^(UICollectionView * collectionView) {
-        [collectionView moveItemAtIndexPath:sourceIndexPath
-                                toIndexPath:destinationIndexPath];
-    };
-    self.currentUpdate = update;
+ 
+    [self.delegate performAnimatedUpdate:^(UICollectionView *collectionView) {
+        NSMutableIndexSet * sectionsToInsert = [NSMutableIndexSet indexSet];
+        [self.currentUpdate.insertedSectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
+            if ([collectionView numberOfSections] <= idx)
+            {
+                [sectionsToInsert addIndex:idx];
+            }
+        }];
+        [collectionView performBatchUpdates:^{
+            [collectionView insertSections:sectionsToInsert];
+        } completion:nil];
+        
+        [sourceSection.objects removeObjectAtIndex:sourceIndexPath.row];
+        [destinationSection.objects insertObject:item
+                                         atIndex:destinationIndexPath.row];
+        
+        if (sourceIndexPath.item == 0 && sourceSection.objects.count == 0)
+        {
+            [collectionView reloadData];
+        }
+        else {
+            [collectionView performBatchUpdates:^{
+                [collectionView moveItemAtIndexPath:sourceIndexPath
+                                        toIndexPath:destinationIndexPath];
+            } completion:nil];
+        }
+    }];
     
-    [self finishUpdate];
+    self.currentUpdate = nil;
 }
 
 -(void)moveSection:(int)fromSection toSection:(int)toSection

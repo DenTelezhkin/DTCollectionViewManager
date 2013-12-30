@@ -286,21 +286,22 @@ describe(@"Datasource specs", ^{
                             forModelClass:[Model class]];
         });
         
-
         it(@"should move item to another row", ^{
             [collection.memoryStorage addItems:@[model1,model2,model3]];
             
-            [collection.memoryStorage moveItem:model1 toIndexPath:[NSIndexPath indexPathForItem:2
-                                                                        inSection:0]];
+            [collection.memoryStorage moveItemAtIndexPath:[NSIndexPath indexPathForItem:0
+                                                                              inSection:0]
+                                              toIndexPath:[NSIndexPath indexPathForItem:2
+                                                                              inSection:0]];
             [collection verifySection:@[model2,model3,model1] withSectionNumber:0];
         });
         
         it(@"should move item to another empty section", ^{
-            
             [collection.memoryStorage addItems:@[model1,model2,model3]];
             
-            [collection.memoryStorage moveItem:model3 toIndexPath:[NSIndexPath indexPathForItem:0
-                                                                        inSection:1]];
+            [collection.memoryStorage moveItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]
+                                              toIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+            
             [collection verifySection:@[model1,model2] withSectionNumber:0];
             [collection verifySection:@[model3] withSectionNumber:1];
         });
@@ -309,8 +310,9 @@ describe(@"Datasource specs", ^{
             [collection.memoryStorage addItems:@[model1,model2,model3]];
             [collection.memoryStorage addItems:@[model4] toSection:1];
             
-            [collection.memoryStorage moveItem:model3 toIndexPath:[NSIndexPath indexPathForItem:0
-                                                                        inSection:1]];
+            [collection.memoryStorage moveItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]
+                                              toIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+            
             [collection verifySection:@[model1,model2] withSectionNumber:0];
             [collection verifySection:@[model3,model4] withSectionNumber:1];
         });
@@ -319,17 +321,11 @@ describe(@"Datasource specs", ^{
             [collection.memoryStorage addItems:@[model1,model2]];
             
             ^{
-                [collection.memoryStorage moveItem:model2
-                                       toIndexPath:[NSIndexPath indexPathForItem:4 inSection:3]];
+                [collection.memoryStorage moveItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]
+                                                  toIndexPath:[NSIndexPath indexPathForItem:4 inSection:3]];
             } should_not raise_exception;
         });
-        
-        it(@"should not crash when moving non existing item", ^{
-            ^{
-                [collection.memoryStorage moveItem:model1
-                                       toIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
-            } should_not raise_exception;
-        });
+    
     });
     
     describe(@"replacing items", ^{

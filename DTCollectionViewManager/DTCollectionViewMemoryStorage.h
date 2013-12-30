@@ -20,7 +20,8 @@
  
  @warning Moving item at index, that is not valid, will not throw an exception, and won't do anything, except logging into console about failure
  */
--(void)moveItem:(id)item toIndexPath:(NSIndexPath *)indexPath;
+-(void)moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath
+               toIndexPath:(NSIndexPath *)destinationIndexPath;
 
 ///---------------------------------------
 /// @name Managing sections
