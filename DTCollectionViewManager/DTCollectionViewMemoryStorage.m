@@ -24,7 +24,9 @@
 {
     [self startUpdate];
     
-    if (!sourceIndexPath)
+    id item = [self objectAtIndexPath:sourceIndexPath];
+    
+    if (!sourceIndexPath || !item)
     {
         if ([self loggingEnabled])
         {
@@ -44,9 +46,6 @@
         self.currentUpdate = nil;
         return;
     }
-    
-    id item = [self objectAtIndexPath:sourceIndexPath];
-    
  
     [self.delegate performAnimatedUpdate:^(UICollectionView *collectionView) {
         NSMutableIndexSet * sectionsToInsert = [NSMutableIndexSet indexSet];
@@ -84,9 +83,7 @@
     [self startUpdate];
     DTSectionModel * validSectionFrom = [self getValidSection:fromSection];
     [self getValidSection:toSection];
-    
-
-    
+     
     [self.currentUpdate.insertedSectionIndexes removeIndex:toSection];
     
     [self.delegate performAnimatedUpdate:^(UICollectionView * collectionView) {
