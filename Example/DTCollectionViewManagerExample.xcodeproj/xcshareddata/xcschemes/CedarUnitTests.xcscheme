@@ -61,7 +61,7 @@
          <EnvironmentVariable
             key = "CEDAR_GUI_SPECS"
             value = ""
-            isEnabled = "NO">
+            isEnabled = "YES">
          </EnvironmentVariable>
       </EnvironmentVariables>
       <AdditionalOptions>

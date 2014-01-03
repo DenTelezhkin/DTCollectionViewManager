@@ -124,7 +124,7 @@
 {
     UICollectionReusableView <DTModelTransfer> *view = nil;
     id supplementary = [self.storage supplementaryModelOfKind:kind forSectionIndex:indexPath.section];
-    
+
     if (supplementary)
     {
         view = [self.factory supplementaryViewOfKind:kind
@@ -132,27 +132,25 @@
                                          atIndexPath:indexPath];
         [view updateWithModel:supplementary];
     }
-    else {
-        // Fallback scenario. There's no header model, where it was supposed to be.
-        // Returning empty, non-initialized view is bad, but it is better than crash
-        view = (id)[self.factory emptySupplementaryViewOfKind:kind
-                                                 forIndexPath:indexPath];
-        
-        //        NSLog(@"DTCollectionViewManager: supplementary of kind %@ not found for indexPath: %@",kind,indexPath);
-    }
-    // Returning nil from this method will cause crash on runtime.
+    
     return view;
 }
 
-//     Workaround for UICollectionView bug with insertItems.
-//     OpenRadar: http://openradar.appspot.com/12954582
-//     Stack0verflow solution: http://stackoverflow.com/questions/13904049/assertion-failure-in-uicollectionviewdata-indexpathforitematglobalindex
+// UICollectionViewFlowLayout headers and footer size delegate methods
+// They are needed, because if there are no header model, it's better to return CGSizeZero for a size of supplementary view.
+// This way viewForSupplementaryElementOfKind: method will not get called
 -(CGSize)collectionView:(UICollectionView *)collectionView
                  layout:(UICollectionViewFlowLayout *)collectionViewLayout
 referenceSizeForHeaderInSection:(NSInteger)sectionNumber
 {
     id <DTSection> section = [self.storage sections][sectionNumber];
-    return [section numberOfObjects] ? collectionViewLayout.headerReferenceSize : CGSizeZero;
+    BOOL supplementaryModelNotNil = ([self.storage supplementaryModelOfKind:UICollectionElementKindSectionHeader
+                                                            forSectionIndex:sectionNumber]!=nil);
+    if ([self iOS6] && ![section numberOfObjects])
+    {
+        supplementaryModelNotNil = NO;
+    }
+    return supplementaryModelNotNil ? collectionViewLayout.headerReferenceSize : CGSizeZero;
 }
 
 -(CGSize)collectionView:(UICollectionView *)collectionView
@@ -160,7 +158,13 @@ referenceSizeForHeaderInSection:(NSInteger)sectionNumber
 referenceSizeForFooterInSection:(NSInteger)sectionNumber
 {
     id <DTSection> section = [self.storage sections][sectionNumber];
-    return [section numberOfObjects] ? collectionViewLayout.footerReferenceSize : CGSizeZero;
+    BOOL supplementaryModelNotNil = ([self.storage supplementaryModelOfKind:UICollectionElementKindSectionFooter
+                                                            forSectionIndex:sectionNumber]!=nil);
+    if ([self iOS6] && ![section numberOfObjects])
+    {
+        supplementaryModelNotNil = NO;
+    }
+    return supplementaryModelNotNil ? collectionViewLayout.footerReferenceSize : CGSizeZero;
 }
 
 -(void)performAnimatedUpdate:(void (^)(UICollectionView *))animationBlock
@@ -209,6 +213,7 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
 // This is to prevent a bug in UICollectionView from occurring.
 // The bug presents itself when inserting the first object or deleting the last object in a collection view.
 // http://stackoverflow.com/questions/12611292/uicollectionview-assertion-failure
+// http://stackoverflow.com/questions/13904049/assertion-failure-in-uicollectionviewdata-indexpathforitematglobalindex
 // This code should be removed once the bug has been fixed, it is tracked in OpenRadar
 // http://openradar.appspot.com/12954582
 -(BOOL)shouldReloadCollectionViewToPreventFuckingInsertFirstItemIssueForUpdate:(DTStorageUpdate *)update
@@ -236,6 +241,12 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
         shouldReload = YES;
     }
     return shouldReload;
+}
+
+-(BOOL)iOS6
+{
+    NSString *version = [[UIDevice currentDevice] systemVersion];
+    return [version hasPrefix:@"6."];
 }
 
 @end

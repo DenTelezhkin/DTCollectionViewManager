@@ -94,19 +94,6 @@ static NSString *const DTSupplementaryFallbackReuseIdentifier = @"FallbackSupple
     }
 }
 
--(UICollectionReusableView *)emptySupplementaryViewOfKind:(NSString *)kind
-                                             forIndexPath:(NSIndexPath *)indexPath
-{
-    NSString * reuseIdentifier = DTSupplementaryFallbackReuseIdentifier;
-    [[self.delegate collectionView] registerClass:[UICollectionReusableView class]
-                       forSupplementaryViewOfKind:kind
-                              withReuseIdentifier:reuseIdentifier];
-    
-    return [[self.delegate collectionView] dequeueReusableSupplementaryViewOfKind:kind
-                                                              withReuseIdentifier:reuseIdentifier
-                                                                     forIndexPath:indexPath];
-}
-
 - (NSString *)reuseIdentifierForClass:(Class)class
 {
     NSString * classString = NSStringFromClass(class);
