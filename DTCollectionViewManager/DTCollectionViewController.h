@@ -24,7 +24,7 @@
 // THE SOFTWARE.
 
 /**
- `DTCollectionViewController` manages all `UICollectionView` datasource methods and provides API for managing your data models in the collection view.
+ `DTCollectionViewController` manages all `UICollectionView` datasource methods and provides API for mapping your data models to UICollectionViewCells. It also contains storage object, that is responsible for providing data models.
  
  ## Setup
  

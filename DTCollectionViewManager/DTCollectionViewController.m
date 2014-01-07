@@ -53,7 +53,6 @@
     return self;
 }
 
-
 -(void)dealloc
 {
     self.collectionView.delegate = nil;
