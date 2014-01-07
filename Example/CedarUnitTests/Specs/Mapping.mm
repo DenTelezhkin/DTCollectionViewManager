@@ -15,6 +15,7 @@ describe(@"Mapping tests", ^{
     beforeEach(^{
         
         [UIView setAnimationsEnabled:NO];
+        [CATransaction setDisableActions:YES];
         
         collection = [DTCollectionViewController new];
         UICollectionViewFlowLayout * layout = [[UICollectionViewFlowLayout alloc] init];
@@ -64,6 +65,8 @@ describe(@"Mapping tests", ^{
        
         beforeEach(^{
             [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
+            [UIView setAnimationsEnabled:NO];
+            [CATransaction setDisableActions:YES];
         });
         
         it(@"should be able to register supplementary header nib class", ^{

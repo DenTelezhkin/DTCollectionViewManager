@@ -21,6 +21,7 @@ describe(@"Datasource specs", ^{
     
     beforeEach(^{
         [UIView setAnimationsEnabled:NO];
+        [CATransaction setDisableActions:YES];
         
         collection = [DTCollectionViewController new];
         UICollectionViewLayout * layout = [[UICollectionViewFlowLayout alloc] init];
@@ -393,6 +394,9 @@ describe(@"Datasource specs", ^{
             __block NSArray * section1;
             __block NSArray * section2;
             beforeEach(^{
+                
+                [UIView setAnimationsEnabled:NO];
+                [CATransaction setDisableActions:YES];
                 
                 [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                                forKind:UICollectionElementKindSectionHeader
