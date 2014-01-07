@@ -44,7 +44,7 @@
             [self raiseInvalidSectionException];
         }
     }
-    int itemsInSection = [self.collectionView numberOfItemsInSection:sectionNumber];
+    NSInteger itemsInSection = [self.collectionView numberOfItemsInSection:sectionNumber];
     if (itemsInSection!=[section count])
     {
         [self raiseInvalidSectionException];
