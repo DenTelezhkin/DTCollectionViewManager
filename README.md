@@ -14,14 +14,14 @@ DTCollectionViewManager is built on several important concepts, that allow colle
 
 ### Mapping 
 
-Every time you use UICollectionView, you tend to have UICollectionViewCells, UICollectionReusableViews and your data models, that need to be represented. And every time you need to write method like this:
+Typically, you have UICollectionViewCells, UICollectionReusableViews and your data models, that need to be represented. And every time you need to write method like this:
 ```objective-c
 -(void)configureCell:(UICollectionViewCell *)cell withSomething:(id)something;
 ```
 
 You'll also will have some NSString reuseIdentifier you will use to dequeue your cells and supplementary views. And you'll also need to register appropriate classes on your UICollectionView instance. 
 
-DTCollectionViewManager removes all of that. You will need to call a single method:
+**DTCollectionViewManager removes all of that**. You will need to call a single method:
 
 ```objective-c
 [self registerCellClass:[MyCell class] forModelClass:[MyModel class]];
@@ -30,7 +30,9 @@ DTCollectionViewManager removes all of that. You will need to call a single meth
 or it's supplementary view variant:
 
 ```objective-c
-[self registerSupplementaryClass:[SupplementaryClass class] forKind:UICollectionViewElementHeader forModelClass:[SupplementaryModel class]];
+[self registerSupplementaryClass:[SupplementaryClass class] 
+                         forKind:UICollectionElementKindSectionHeader 
+                   forModelClass:[SupplementaryModel class]];
 ```
 And you are done! 
 
@@ -44,7 +46,7 @@ Every time you use UICollectionView in your app, you need to think about two thi
 
 ### Custom storage classes
 
-DTCollectionViewManager 2.0 introduces support for custom data storage classes. Current storage classes have been extracted to separate project and are used as a dependency. 
+DTCollectionViewManager 2.0 introduces support for custom data storage classes. Current storage classes have been extracted to separate project and are used as a dependency. Two data storage classes are supported by default.
 
 ##### Memory storage 
 
