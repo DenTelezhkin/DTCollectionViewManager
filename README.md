@@ -7,7 +7,47 @@ DTCollectionViewManager
 
 > This is a sister-project for [DTTableViewManager](https://github.com/DenHeadless/DTTableViewManager) - great tool for UITableView management, built on the same principles.
 
-## Features
+
+### Features
+
+DTCollectionViewManager is built on several important concepts, that allow collection view management to be flexible and clean. 
+
+#### Mapping 
+
+Every time you use UICollectionView, you tend to have UICollectionViewCells, UICollectionReusableViews and your data models, that need to be represented. And every time you need to write method like this:
+```objective-c
+-(void)configureCell:(UICollectionViewCell *)cell withSomething:(id)something;
+```
+
+You'll also will have some NSString reuseIdentifier you will use to dequeue your cells and supplementary views. And you'll also need to register appropriate classes on your UICollectionView instance. 
+
+DTCollectionViewManager removes all of that. You will need to call a single method:
+
+```objective-c
+[self registerCellClass:[MyCell class] forModelClass:[MyModel class]];
+```
+
+or it's supplementary view variant:
+
+```objective-c
+[self registerSupplementaryClass:[SupplementaryClass class] forKind:UICollectionViewElementHeader forModelClass:[SupplementaryModel class]];
+```
+And you are done! So, how does that work? DTCollectionViewManager uses your data model class as a reuseIdentifier for your cell. Every time data model needs to be displayed, it will create UICollectionViewCell and call a method -updateWithModel on it, which will transfer data model to a cell. Cell is then expected to properly update it's UI, based on data model.
+
+DTCollectionViewmanager supports creating cells and supplementary views both from XIBs and storyboards.
+
+#### Datasource and UI synchronization
+
+Every time you use UICollectionView in your app, you need to think about two things - data models and their representation. For every datasource change there has to be a method, that updates UI. DTCollectionViewManager simplifies that by having methods to update your datasource only. UICollectionView update methods are called automatically. You can also make any changes manually, if you choose to. 
+
+#### Custom storage classes
+
+DTCollectionViewManager 2.0 introduces support for custom data storage classes. Current storage classes have been extracted to separate project and are used as a dependency. You can take a look at them here:
+[DTModelStorage repo](https://github.com/DenHeadless/DTModelStorage)
+
+##### Memory storage 
+
+Out of the box there is support for memory storage and core data storage. Memory storage is basically array of section objects, which contain array of objects and any supplementary models for current section. Core data storage 
 
 * Powerful and clean mapping system between data models and UICollectionView cells, supplementary views 
 * Support for creating interface from XIBs and storyboards
