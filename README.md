@@ -111,13 +111,16 @@ Take a look at Example folder in repo.
 
 Most of the time you will have your own data models for cells. However, sometimes it's more convenient to use Foundation types, such as NSString, NSNumber, etc. For example, if you have supplementary view - header, that does not have any information except for it's title - you'll probably want to use NSString as its model. Mutable versions are also supported. 
  
- DTCollectionViewController supports mapping of following Foundation types:
+DTCollectionViewController supports mapping of following Foundation types:
  
  * NSString
  * NSNumber
  * NSDictionary
  * NSArray
 
+## Thanks
+
+Thanks to Ash Furrow for his amazing investigative [work on UICollectionView updates](https://github.com/AshFurrow/UICollectionView-NSFetchedResultsController).
 
 [![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/DenHeadless/dtcollectionviewmanager/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
 
