@@ -194,7 +194,7 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
         } completion:nil];
     }
     
-    if ([self shouldReloadCollectionViewToPreventFuckingInsertFirstItemIssueForUpdate:update])
+    if ([self shouldReloadCollectionViewToPreventInsertFirstItemIssueForUpdate:update])
     {
         [self.collectionView reloadData];
         return;
@@ -216,7 +216,7 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
 // http://stackoverflow.com/questions/13904049/assertion-failure-in-uicollectionviewdata-indexpathforitematglobalindex
 // This code should be removed once the bug has been fixed, it is tracked in OpenRadar
 // http://openradar.appspot.com/12954582
--(BOOL)shouldReloadCollectionViewToPreventFuckingInsertFirstItemIssueForUpdate:(DTStorageUpdate *)update
+-(BOOL)shouldReloadCollectionViewToPreventInsertFirstItemIssueForUpdate:(DTStorageUpdate *)update
 {
     BOOL shouldReload = NO;
     
