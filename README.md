@@ -32,7 +32,9 @@ or it's supplementary view variant:
 ```objective-c
 [self registerSupplementaryClass:[SupplementaryClass class] forKind:UICollectionViewElementHeader forModelClass:[SupplementaryModel class]];
 ```
-And you are done! So, how does that work? DTCollectionViewManager uses your data model class as a reuseIdentifier for your cell. Every time data model needs to be displayed, it will create UICollectionViewCell and call a method -updateWithModel on it, which will transfer data model to a cell. Cell is then expected to properly update it's UI, based on data model.
+And you are done! 
+
+So, how does that work? DTCollectionViewManager uses your data model class as a reuseIdentifier for your cell. Every time data model needs to be displayed, it will automatically create UICollectionViewCell and call a method -updateWithModel on it, which will transfer data model to a cell. Cell is then expected to properly update it's UI, based on data model.
 
 DTCollectionViewManager supports creating cells and supplementary views both from XIBs and storyboards.
 
