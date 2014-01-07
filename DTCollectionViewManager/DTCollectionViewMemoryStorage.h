@@ -12,13 +12,13 @@
 @interface DTCollectionViewMemoryStorage : DTMemoryStorage
 
 /**
- Move collection item to indexPath `indexPath`.
+ Move collection item to `indexPath`.
  
  @param item model to move.
  
  @param indexPath Index, where item should be moved.
  
- @warning Moving item at index, that is not valid, will not throw an exception, and won't do anything, except logging into console about failure
+ @warning Moving item at index, that is not valid, won't do anything, except logging into console about failure
  */
 -(void)moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath
                toIndexPath:(NSIndexPath *)destinationIndexPath;
