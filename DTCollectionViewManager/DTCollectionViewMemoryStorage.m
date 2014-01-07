@@ -78,7 +78,7 @@
     self.currentUpdate = nil;
 }
 
--(void)moveSection:(int)fromSection toSection:(int)toSection
+-(void)moveSection:(NSInteger)fromSection toSection:(NSInteger)toSection
 {
     [self startUpdate];
     DTSectionModel * validSectionFrom = [self getValidSection:fromSection];

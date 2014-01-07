@@ -12,5 +12,5 @@
 
 -(BOOL)verifyCollectionItem:(id)item atIndexPath:(NSIndexPath *)path;
 
--(void)verifySection:(NSArray *)section withSectionNumber:(int)sectionNumber;
+-(void)verifySection:(NSArray *)section withSectionNumber:(NSInteger)sectionNumber;
 @end

@@ -33,7 +33,7 @@
     [exception raise];
 }
 
--(void)verifySection:(NSArray *)section withSectionNumber:(int)sectionNumber
+-(void)verifySection:(NSArray *)section withSectionNumber:(NSInteger)sectionNumber
 {
     for (int itemNumber = 0; itemNumber < [section count]; itemNumber++)
     {

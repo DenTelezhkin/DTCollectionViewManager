@@ -34,7 +34,7 @@
  
  @param toSection The index in the collection view that is the destination of the move for the section. The existing section at that location slides up or down to an adjoining index position to make room for it.
  */
--(void)moveSection:(int)fromSection toSection:(int)toSection;
+-(void)moveSection:(NSInteger)fromSection toSection:(NSInteger)toSection;
 
 /**
  Delegate object, that gets notified about data storage updates. If delegate does not respond to optional `DTCollectionViewMemoryStorage` methods, it will not get called.

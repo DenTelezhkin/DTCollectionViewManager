@@ -45,12 +45,12 @@ static NSString * exampleCellReuseIdentifier = @"ExampleCellReuseId";
     [self.tableView reloadData];
 }
 
--(int)numberOfSectionsInTableView:(UITableView *)tableView
+-(NSInteger)numberOfSectionsInTableView:(UITableView *)tableView
 {
     return 1;
 }
 
--(int)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
+-(NSInteger)tableView:(UITableView *)tableView numberOfRowsInSection:(NSInteger)section
 {
     return [self.examples count];
 }
