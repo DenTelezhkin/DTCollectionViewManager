@@ -24,7 +24,7 @@
 // THE SOFTWARE.
 
 /**
- `DTCollectionViewController` manages all `UICollectionView` datasource methods and provides API for managing your data models in the table.
+ `DTCollectionViewController` manages all `UICollectionView` datasource methods and provides API for managing your data models in the collection view.
  
  ## Setup
  
@@ -35,7 +35,7 @@
  
  ## Managing collection items
  
- Every action that is done to collection items - add, delete, insert etc. is applied immediately. There's no need to manually reload data on your collection view.
+ Starting with 2.0, storage classes have been moved to separate project - DTModelStorage. Basically, every change in data storage object is transferred to current controller and automatically properly animated. DTCollectionViewMemoryStorage is a class used by default, you can retrieve it's instance by calling '-memoryStorage' method.
  
  ## Mapping
  
@@ -54,7 +54,6 @@
   - NSNumber
   - NSDictionary
   - NSArray
-
  */
 
 #import "DTCollectionViewMemoryStorage.h"
@@ -72,7 +71,17 @@
  */
 @property (nonatomic,retain) IBOutlet UICollectionView * collectionView;
 
+/**
+ Storage object, used as a datasource for collection view models.
+ */
+
 @property (nonatomic, strong) id <DTStorage> storage;
+
+/**
+ Convenience method, that allows retrieving memory storage. If data storage class is different than DTCollectionViewMemoryStorage, this method will return nil.
+ 
+ @return memory storage object
+ */
 
 -(DTCollectionViewMemoryStorage *)memoryStorage;
 
