@@ -29,7 +29,7 @@
  ## Setup
  
  # General steps
- - You should have custom `UICollectionViewCell` subclasses that manage cell layout, using given data model (or `DTCollectionViewCell`, which is convenience UICollectionView subclass, that conforms to `DTCollectionViewModelTransfer` protocol)
+ - You should have custom `UICollectionViewCell` subclasses that manage cell layout, using given data model (or `DTCollectionViewCell`, which is convenience UICollectionView subclass, that conforms to `DTModelTransfer` protocol)
  - Every cell class should be mapped to model class using mapping methods.
  - `UICollectionView` datasource and delegate is your `DTCollectionViewController` subclass.
  
@@ -102,7 +102,7 @@
 -(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass;
 
 /**
- This method registers `supplementaryClass` for UICollectionView supplementary `kind`. `supplementaryClass` should be a UICollectionReusableView subclass, conforming to `DTCollectionViewModelTransfer` protocol.
+ This method registers `supplementaryClass` for UICollectionView supplementary `kind`. `supplementaryClass` should be a UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol.
  
  @param supplementaryClass UICollectionReusableView subclass to be mapped for `modelClass`.
  

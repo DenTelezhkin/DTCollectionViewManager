@@ -26,7 +26,7 @@
 #import "DTModelTransfer.h"
 
 /**
- `DTCollectionReusableView` is a convinience UICollectionReusableView subclass, conforming to `DTCollectionViewModelTransfer` protocol.
+ `DTCollectionReusableView` is a convinience UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol.
  */
 
 @interface DTCollectionReusableView : UICollectionReusableView <DTModelTransfer>

@@ -1,5 +1,5 @@
 //
-//  CollectionViewModelTransfer.h
+//  DTModelTransfer.h
 //  DTCollectionViewManager
 //
 //  Created by Denys Telezhkin on 1/24/13.
@@ -24,7 +24,7 @@
 // THE SOFTWARE.
 
 /**
- `DTCollectionViewModelTransfer` protocol is used to pass `model` data to your cell or supplementary view. Every UICollectionViewCell or UICollectionReusableView subclass you have should implement this protocol.
+ `DTModelTransfer` protocol is used to pass `model` data to your cell or supplementary view. Every UICollectionViewCell or UICollectionReusableView subclass you have should implement this protocol.
  */
 
 @protocol DTModelTransfer

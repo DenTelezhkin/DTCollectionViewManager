@@ -26,7 +26,7 @@
 #import "DTModelTransfer.h"
 
 /**
- `DTCollectionViewCell` is a convinience UICollectionViewCell subclass, conforming to `DTCollectionViewModelTransfer` protocol.
+ `DTCollectionViewCell` is a convinience UICollectionViewCell subclass, conforming to `DTModelTransfer` protocol.
  */
 @interface DTCollectionViewCell : UICollectionViewCell <DTModelTransfer>
 

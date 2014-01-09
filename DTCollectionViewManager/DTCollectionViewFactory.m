@@ -140,7 +140,7 @@ static NSString *const DTSupplementaryFallbackReuseIdentifier = @"FallbackSupple
     if (![class conformsToProtocol:@protocol(DTModelTransfer)])
     {
         NSString * reason = [NSString stringWithFormat:@"class %@ should conform\n"
-                             "to DTCollectionViewModelTransfer protocol",
+                             "to DTModelTransfer protocol",
                              NSStringFromClass(class)];
         NSException * exc =
         [NSException exceptionWithName:@"DTCollectionViewManager API exception"
