@@ -100,7 +100,6 @@
 		955F85A7179ACAF000A38EAD /* en */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = en; path = en.lproj/EmptyDetailViewController.xib; sourceTree = "<group>"; };
 		955F85AF179ACB8F00A38EAD /* DTCollectionViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewController.h; path = ../DTCollectionViewManager/DTCollectionViewController.h; sourceTree = "<group>"; };
 		955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionViewController.m; path = ../DTCollectionViewManager/DTCollectionViewController.m; sourceTree = "<group>"; };
-		955F85B1179ACB8F00A38EAD /* DTModelTransfer.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTModelTransfer.h; path = ../DTCollectionViewManager/DTModelTransfer.h; sourceTree = "<group>"; };
 		9586982E1819BA2D00F2695A /* StoryboardViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = StoryboardViewController.h; path = Controllers/Storyboard/StoryboardViewController.h; sourceTree = "<group>"; };
 		9586982F1819BA2D00F2695A /* StoryboardViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = StoryboardViewController.m; path = Controllers/Storyboard/StoryboardViewController.m; sourceTree = "<group>"; };
 		958698321819BA6600F2695A /* Storyboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = Storyboard.storyboard; path = Controllers/Storyboard/Storyboard.storyboard; sourceTree = "<group>"; };
@@ -290,7 +289,6 @@
 		958C9354185DFC610050282A /* Cell factory */ = {
 			isa = PBXGroup;
 			children = (
-				955F85B1179ACB8F00A38EAD /* DTModelTransfer.h */,
 				95AE899C179C05BE00F834DB /* DTCollectionViewFactory.h */,
 				95AE899D179C05BE00F834DB /* DTCollectionViewFactory.m */,
 			);
