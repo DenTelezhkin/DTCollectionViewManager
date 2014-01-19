@@ -45,6 +45,18 @@
  
  Before executing mapping methods, make sure that collectionView property is set and collectionView is created. Good spot to call mapping methods is viewDidLoad method.
  
+ ## Search
+ 
+ Search implementation depends on what data storage you use. In both cases it's recommended to use this class as UISearchBarDelegate. Then searching data storage will be created automatically for every change in UISearchBar.
+ 
+ # DTCollectionViewMemoryStorage
+ 
+ Your data models should conform to `DTModelSearching` protocol. You need to implement method shouldShowInSearchResultsForSearchString:inScopeIndex: on your data model, this way DTCollectionViewController will know, when to show data models.
+ 
+ # DTCoreDataStorage
+ 
+ Subclass DTCoreDataStorage and implement single method: -searchingStorageForSearchString:inSearchScope:. You will need to provide a storage with NSFetchedResultsController and appropriate NSPredicate.
+ 
  ## Foundation class clusters mapping
  
  Most of the time you will have your own data models for cells. However, sometimes it's more convenient to use Foundation types, such as NSString, NSNumber, etc. For example, if you have supplementary view - header, that does not have any information except for it's title - you'll probably want to use NSString as its model. Mutable versions are also supported. 
