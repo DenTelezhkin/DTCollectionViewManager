@@ -17,7 +17,7 @@
     [self registerCellClass:[KittenCell class]
               forModelClass:[NSString class]];
     
-    [[self memoryStorage] addItems:[self kittensArrayOfSize:12]];
+    [[self memoryStorage] addItems:[self kittensArrayOfSize:25]];
 }
 
 -(NSArray *)kittensArrayOfSize:(NSInteger)size
