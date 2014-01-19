@@ -12,6 +12,7 @@
 #import "AddRemoveCollectionController.h"
 #import "SectionsController.h"
 #import "StoryboardViewController.h"
+#import "SearchViewController.h"
 
 @interface ExamplesViewController()
 @property (nonatomic, strong) NSMutableArray * examples;
@@ -42,6 +43,8 @@ static NSString * exampleCellReuseIdentifier = @"ExampleCellReuseId";
                                                     andTitle:@"Move sections"]];
     [self.examples addObject:[ControllerModel modelWithClass:[StoryboardViewController class]
                                                     andTitle:@"Storyboard"]];
+    [self.examples addObject:[ControllerModel modelWithClass:[SearchViewController class]
+                                                    andTitle:@"Search"]];
     [self.tableView reloadData];
 }
 

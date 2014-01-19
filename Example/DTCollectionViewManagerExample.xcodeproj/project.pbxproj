@@ -65,6 +65,11 @@
 		95C89A1517B78F95009FA3F2 /* ExampleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C89A1317B78F95009FA3F2 /* ExampleCell.m */; };
 		95C89A1717B78FAA009FA3F2 /* ExampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */; };
 		95C89A1817B78FAA009FA3F2 /* ExampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */; };
+		9AC87850188BFFAA00CB7DAF /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC8784E188BFFA900CB7DAF /* SearchViewController.m */; };
+		9AC87851188BFFAA00CB7DAF /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */; };
+		9AC87854188C01D900CB7DAF /* KittenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC87853188C01D900CB7DAF /* KittenCell.m */; };
+		9AC87856188C021200CB7DAF /* KittenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC87855188C021200CB7DAF /* KittenCell.xib */; };
+		9AC87859188C060A00CB7DAF /* NSString+DTModelSearching.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC87858188C060A00CB7DAF /* NSString+DTModelSearching.m */; };
 		AA06EFE2186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */; };
 		AA06EFE3186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */; };
 		FF89B56B3FC940359B01B116 /* libPods-CedarUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */; };
@@ -148,6 +153,14 @@
 		95C89A1217B78F95009FA3F2 /* ExampleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleCell.h; path = Cells/ExampleCell.h; sourceTree = "<group>"; };
 		95C89A1317B78F95009FA3F2 /* ExampleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleCell.m; path = Cells/ExampleCell.m; sourceTree = "<group>"; };
 		95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExampleCell.xib; path = Cells/ExampleCell.xib; sourceTree = "<group>"; };
+		9AC8784D188BFFA900CB7DAF /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Controllers/Search/SearchViewController.h; sourceTree = "<group>"; };
+		9AC8784E188BFFA900CB7DAF /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = Controllers/Search/SearchViewController.m; sourceTree = "<group>"; };
+		9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchViewController.xib; path = Controllers/Search/SearchViewController.xib; sourceTree = "<group>"; };
+		9AC87852188C01D900CB7DAF /* KittenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KittenCell.h; path = Cells/KittenCell.h; sourceTree = "<group>"; };
+		9AC87853188C01D900CB7DAF /* KittenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KittenCell.m; path = Cells/KittenCell.m; sourceTree = "<group>"; };
+		9AC87855188C021200CB7DAF /* KittenCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = KittenCell.xib; path = Cells/KittenCell.xib; sourceTree = "<group>"; };
+		9AC87857188C060A00CB7DAF /* NSString+DTModelSearching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+DTModelSearching.h"; path = "Models/NSString+DTModelSearching.h"; sourceTree = "<group>"; };
+		9AC87858188C060A00CB7DAF /* NSString+DTModelSearching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+DTModelSearching.m"; path = "Models/NSString+DTModelSearching.m"; sourceTree = "<group>"; };
 		AA06EFE0186EC7D0005123AA /* DTCollectionViewMemoryStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewMemoryStorage.h; path = ../DTCollectionViewManager/DTCollectionViewMemoryStorage.h; sourceTree = "<group>"; };
 		AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionViewMemoryStorage.m; path = ../DTCollectionViewManager/DTCollectionViewMemoryStorage.m; sourceTree = "<group>"; };
 		AA06EFE4186ECB08005123AA /* DTCollectionViewStorageUpdating.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewStorageUpdating.h; path = ../DTCollectionViewManager/DTCollectionViewStorageUpdating.h; sourceTree = "<group>"; };
@@ -318,6 +331,7 @@
 		95ADB23017AE4D48004BBA29 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9AC8784C188BFF7C00CB7DAF /* Search */,
 				9512F07F17BFA6B2008FF3A1 /* Sections */,
 				95C89A0C17B78F38009FA3F2 /* Views */,
 				95ADB23D17AE5AC8004BBA29 /* Empty */,
@@ -434,8 +448,23 @@
 				95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */,
 				958698351819BBE400F2695A /* PrototypedCell.h */,
 				958698361819BBE400F2695A /* PrototypedCell.m */,
+				9AC87852188C01D900CB7DAF /* KittenCell.h */,
+				9AC87853188C01D900CB7DAF /* KittenCell.m */,
+				9AC87855188C021200CB7DAF /* KittenCell.xib */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		9AC8784C188BFF7C00CB7DAF /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				9AC8784D188BFFA900CB7DAF /* SearchViewController.h */,
+				9AC8784E188BFFA900CB7DAF /* SearchViewController.m */,
+				9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */,
+				9AC87857188C060A00CB7DAF /* NSString+DTModelSearching.h */,
+				9AC87858188C060A00CB7DAF /* NSString+DTModelSearching.m */,
+			);
+			name = Search;
 			sourceTree = "<group>";
 		};
 		AA06EFDF186EC7B2005123AA /* Memory storage */ = {
@@ -532,6 +561,8 @@
 				95C89A1717B78FAA009FA3F2 /* ExampleCell.xib in Resources */,
 				9512F08417BFA71C008FF3A1 /* SectionsController.xib in Resources */,
 				9512F08D17BFAA0C008FF3A1 /* ExampleHeaderView.xib in Resources */,
+				9AC87851188BFFAA00CB7DAF /* SearchViewController.xib in Resources */,
+				9AC87856188C021200CB7DAF /* KittenCell.xib in Resources */,
 				9512F08F17BFAA34008FF3A1 /* ExampleFooterView.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -624,12 +655,14 @@
 			files = (
 				955F8592179ACAF000A38EAD /* main.m in Sources */,
 				AA06EFE2186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */,
+				9AC87854188C01D900CB7DAF /* KittenCell.m in Sources */,
 				955F8596179ACAF000A38EAD /* AppDelegate.m in Sources */,
 				955F859F179ACAF000A38EAD /* ExamplesViewController.m in Sources */,
 				955F85A2179ACAF000A38EAD /* EmptyDetailViewController.m in Sources */,
 				955F85B2179ACB8F00A38EAD /* DTCollectionViewController.m in Sources */,
 				958698371819BBE400F2695A /* PrototypedCell.m in Sources */,
 				95AE899E179C05BE00F834DB /* DTCollectionViewFactory.m in Sources */,
+				9AC87850188BFFAA00CB7DAF /* SearchViewController.m in Sources */,
 				95ADB22517AD5527004BBA29 /* DTCollectionReusableView.m in Sources */,
 				95ADB22917AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,
 				95ADB23317AE4D7E004BBA29 /* ControllerModel.m in Sources */,
@@ -640,6 +673,7 @@
 				9586983B1819BC7500F2695A /* PrototypedCollectionViewHeader.m in Sources */,
 				9512F08817BFA9A3008FF3A1 /* ExampleHeaderView.m in Sources */,
 				9586983F1819BC9600F2695A /* PrototypedCollectionViewFooter.m in Sources */,
+				9AC87859188C060A00CB7DAF /* NSString+DTModelSearching.m in Sources */,
 				9512F08B17BFA9C1008FF3A1 /* ExampleFooterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

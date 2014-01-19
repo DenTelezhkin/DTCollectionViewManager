@@ -3,8 +3,10 @@ inhibit_all_warnings!
 platform :ios, 6.0
 
 pod 'DTModelStorage', '0.3.1'
+pod 'PlaceKit', '~> 1.0.0'
 
 target :CedarUnitTests do
+
   pod 'Cedar'
   pod 'AutoDescribe'
   pod 'OCMock', '~> 2.2.1'
