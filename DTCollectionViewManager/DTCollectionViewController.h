@@ -131,21 +131,21 @@
 ///---------------------------------------
 
 /**
- This method filters presented table items, using searchString as a criteria. Current dataStorage is queried with `searchingStorageForSearchString:inSearchScope:` method. If searchString is not empty, UITableViewDataSource is assigned to searchingDataStorage and table view is reloaded automatically.
+ This method filters presented table items, using searchString as a criteria. Current storage is queried with `searchingStorageForSearchString:inSearchScope:` method. If searchString is not empty, UICollectionViewDatasource is assigned to searchingStorage and collection view is reloaded automatically.
  
  @param searchString Search string used as a criteria for filtering.
  */
--(void)filterTableItemsForSearchString:(NSString *)searchString;
+-(void)filterModelsForSearchString:(NSString *)searchString;
 
 /**
- This method filters presented table items, using searchString as a criteria. Current dataStorage is queried with `searchingStorageForSearchString:inSearchScope:` method. If searchString or scopeNUmber is not empty, UITableViewDataSource is assigned to searchingDataStorage and table view is reloaded automatically.
+ This method filters presented table items, using searchString as a criteria. Current storage is queried with `searchingStorageForSearchString:inSearchScope:` method. If searchString or scopeNumber is not empty, UICollectionViewDatasource is assigned to searchingStorage and collection view is reloaded automatically.
  
  @param searchString Search string used as a criteria for filtering.
  
  @param scopeNumber Scope number of UISearchBar
  */
--(void)filterTableItemsForSearchString:(NSString *)searchString
-                               inScope:(NSInteger)scopeNumber;
+-(void)filterModelsForSearchString:(NSString *)searchString
+                           inScope:(NSInteger)scopeNumber;
 
 /**
  Returns whether search is active, based on current searchString and searchScope, retrieved from UISearchBarDelegate methods.

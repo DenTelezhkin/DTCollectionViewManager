@@ -119,12 +119,12 @@
     return NO;
 }
 
--(void)filterTableItemsForSearchString:(NSString *)searchString
+-(void)filterModelsForSearchString:(NSString *)searchString
 {
-    [self filterTableItemsForSearchString:searchString inScope:-1];
+    [self filterModelsForSearchString:searchString inScope:-1];
 }
 
--(void)filterTableItemsForSearchString:(NSString *)searchString
+-(void)filterModelsForSearchString:(NSString *)searchString
                                inScope:(NSInteger)scopeNumber
 {
     BOOL wereSearching = [self isSearching];
@@ -169,12 +169,12 @@
 
 -(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
 {
-    [self filterTableItemsForSearchString:searchText];
+    [self filterModelsForSearchString:searchText];
 }
 
 -(void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
 {
-    [self filterTableItemsForSearchString:searchBar.text inScope:selectedScope];
+    [self filterModelsForSearchString:searchBar.text inScope:selectedScope];
 }
 
 #pragma mark - UICollectionView datasource
