@@ -71,11 +71,22 @@
  */
 @property (nonatomic,retain) IBOutlet UICollectionView * collectionView;
 
+/*
+ Property to store UISearchBar, attached to your UITableView. Attaching it to this property is completely optional.
+ */
+@property (nonatomic, retain) IBOutlet UISearchBar * searchBar;
+
 /**
  Storage object, used as a datasource for collection view models.
  */
 
 @property (nonatomic, strong) id <DTStorage> storage;
+
+/**
+ Searching data storage object. It will be created automatically, responding to changes in UISearchBar, or after method filterTableItemsForSearchString:inScope: is called.
+ */
+
+@property (nonatomic, strong) id <DTStorage> searchingStorage;
 
 /**
  Convenience method, that allows retrieving memory storage. If data storage class is different than DTCollectionViewMemoryStorage, this method will return nil.
@@ -114,4 +125,31 @@
 -(void)registerSupplementaryClass:(Class)supplementaryClass
                           forKind:(NSString *)kind
                     forModelClass:(Class)modelClass;
+
+///---------------------------------------
+/// @name Search
+///---------------------------------------
+
+/**
+ This method filters presented table items, using searchString as a criteria. Current dataStorage is queried with `searchingStorageForSearchString:inSearchScope:` method. If searchString is not empty, UITableViewDataSource is assigned to searchingDataStorage and table view is reloaded automatically.
+ 
+ @param searchString Search string used as a criteria for filtering.
+ */
+-(void)filterTableItemsForSearchString:(NSString *)searchString;
+
+/**
+ This method filters presented table items, using searchString as a criteria. Current dataStorage is queried with `searchingStorageForSearchString:inSearchScope:` method. If searchString or scopeNUmber is not empty, UITableViewDataSource is assigned to searchingDataStorage and table view is reloaded automatically.
+ 
+ @param searchString Search string used as a criteria for filtering.
+ 
+ @param scopeNumber Scope number of UISearchBar
+ */
+-(void)filterTableItemsForSearchString:(NSString *)searchString
+                               inScope:(NSInteger)scopeNumber;
+
+/**
+ Returns whether search is active, based on current searchString and searchScope, retrieved from UISearchBarDelegate methods.
+ */
+
+-(BOOL)isSearching;
 @end

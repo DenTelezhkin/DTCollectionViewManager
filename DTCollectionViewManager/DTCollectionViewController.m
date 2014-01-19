@@ -29,7 +29,8 @@
 
 @interface DTCollectionViewController ()
 <DTCollectionFactoryDelegate,UICollectionViewDelegateFlowLayout>
-
+@property (nonatomic, assign) int currentSearchScope;
+@property (nonatomic, copy) NSString * currentSearchString;
 @property (nonatomic, retain) DTCollectionViewFactory * factory;
 @end
 
@@ -61,6 +62,7 @@
 
 -(void)setup
 {
+    _currentSearchScope = -1;
     _factory = [DTCollectionViewFactory new];
     _factory.delegate = self;
     
@@ -77,6 +79,18 @@
     return nil;
 }
 
+-(void)setStorage:(id<DTStorage>)dataStorage
+{
+    _storage = dataStorage;
+    _storage.delegate = self;
+}
+
+-(void)setSearchingStorage:(id<DTStorage>)searchingStorage
+{
+    _searchingStorage = searchingStorage;
+    _searchingStorage.delegate = self;
+}
+
 #pragma mark - mapping
 
 -(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass
@@ -91,26 +105,119 @@
                                forModelClass:modelClass];
 }
 
+#pragma mark - search
+
+-(BOOL)isSearching
+{
+    // If search scope is selected, we are already searching, even if dataset is all items
+    if (((self.currentSearchString) && (![self.currentSearchString isEqualToString:@""]))
+        ||
+        self.currentSearchScope>-1)
+    {
+        return YES;
+    }
+    return NO;
+}
+
+-(void)filterTableItemsForSearchString:(NSString *)searchString
+{
+    [self filterTableItemsForSearchString:searchString inScope:-1];
+}
+
+-(void)filterTableItemsForSearchString:(NSString *)searchString
+                               inScope:(NSInteger)scopeNumber
+{
+    BOOL wereSearching = [self isSearching];
+    
+    if (![searchString isEqualToString:self.currentSearchString] ||
+        scopeNumber!=self.currentSearchScope)
+    {
+        self.currentSearchScope = scopeNumber;
+        self.currentSearchString = searchString;
+    }
+    else {
+        return;
+    }
+    
+    if (wereSearching && ![self isSearching])
+    {
+        [self.collectionView reloadData];
+        return;
+    }
+    if ([self.storage respondsToSelector:@selector(searchingStorageForSearchString:inSearchScope:)])
+    {
+        self.searchingStorage = [(DTCollectionViewMemoryStorage *)self.storage searchingStorageForSearchString:searchString
+                                                                                                     inSearchScope:scopeNumber];
+        [self.collectionView reloadData];
+    }
+}
+
+-(id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSInteger)sectionNumber
+{
+    if ([self isSearching])
+    {
+        return [self.searchingStorage supplementaryModelOfKind:kind
+                                                   forSectionIndex:sectionNumber];
+    }
+    else {
+        return [self.storage supplementaryModelOfKind:kind
+                                      forSectionIndex:sectionNumber];
+    }
+}
+
+#pragma  mark - UISearchBarDelegate
+
+-(void)searchBar:(UISearchBar *)searchBar textDidChange:(NSString *)searchText
+{
+    [self filterTableItemsForSearchString:searchText];
+}
+
+-(void)searchBar:(UISearchBar *)searchBar selectedScopeButtonIndexDidChange:(NSInteger)selectedScope
+{
+    [self filterTableItemsForSearchString:searchBar.text inScope:selectedScope];
+}
+
 #pragma mark - UICollectionView datasource
 
 - (NSInteger)numberOfSectionsInCollectionView:(UICollectionView *)collectionView
 {
-    return [[self.storage sections] count];
+    if ([self isSearching])
+    {
+        return [[self.searchingStorage sections] count];
+    }
+    else {
+        return [[self.storage sections] count];
+    }
 }
 
 - (NSInteger)collectionView:(UICollectionView *)collectionView
      numberOfItemsInSection:(NSInteger)sectionNumber
 {
-    id <DTSection> section = [self.storage sections][sectionNumber];
-    return [section numberOfObjects];
+    if ([self isSearching])
+    {
+        id <DTSection> sectionModel = [self.searchingStorage sections][sectionNumber];
+        return [sectionModel numberOfObjects];
+    }
+    else {
+        id <DTSection> sectionModel = [self.storage sections][sectionNumber];
+        return [sectionModel numberOfObjects];
+    }
 }
 
 - (UICollectionViewCell *)collectionView:(UICollectionView *)collectionView
                   cellForItemAtIndexPath:(NSIndexPath *)indexPath
 {
+    id model = nil;
+    if ([self isSearching])
+    {
+        model = [self.searchingStorage objectAtIndexPath:indexPath];
+    }
+    else {
+        model = [self.storage objectAtIndexPath:indexPath];
+    }
+    
     UICollectionViewCell <DTModelTransfer> *cell;
-    id model = [self.storage objectAtIndexPath:indexPath];
-       
+    
     cell = [self.factory cellForItem:model atIndexPath:indexPath];
     [cell updateWithModel:model];
     
