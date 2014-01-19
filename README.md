@@ -35,7 +35,7 @@ or it's supplementary view variant:
 ```
 And you are done! 
 
-So, how does that work? DTCollectionViewManager uses your data model class as a reuseIdentifier for your cell. Every time data model needs to be displayed, it will automatically create UICollectionViewCell and call a method -updateWithModel on it, which will transfer data model to a cell. Cell is then expected to properly update it's UI, based on data model.
+So, how does that work? DTCollectionViewManager uses your data model class as a reuseIdentifier for your cell. Every time data model needs to be displayed, it will automatically create UICollectionViewCell and call a method `-updateWithModel:` on it, which will transfer data model to a cell. Cell is then expected to properly update it's UI, based on data model.
 
 DTCollectionViewManager supports creating cells and supplementary views both from XIBs and storyboards.
 
@@ -76,31 +76,63 @@ UICollectionView has a great API, that provides enourmous possiibilities. Unfort
 
 DTCollectionViewManager tries very hard to eliminate those. And every issue i know of, is fixed in 2.0 release. If something is working not as expected - please [open an issue on GitHub](https://github.com/DenHeadless/DTCollectionViewManager/issues). Project also has good unit test coverage, which is very helpful.
 
-## Requirements
-
-- iOS 6,7
-- ARC
-
 ## Workflow
 
 Here are 4 simple steps you need to use DTCollectionViewManager:
 
-1. Your view controller should subclass DTCollectionViewController, and set collectionView, delegate and datasource properties.
-2. You should have subclasses of DTCollectionViewCell.
+1. Your view controller should subclass `DTCollectionViewController`, and set collectionView, delegate and datasource properties.
+2. You should have subclasses of `DTCollectionViewCell`.
 3. In your viewDidLoad method, call mapping methods to establish relationship between data models and UICollectionViewCells.
 4. Add data models to memoryStorage, or use CoreData storage class.
 	
 ## Using storyboards
 
-To use storyboard collection view, set reuseIdentifier for collection cell or reusable header/footer with the name of your model class. Call registerCellClass:forModelClass: just as for xib registration.
+To use storyboard collection view, set reuseIdentifier for collection cell or reusable header/footer with the name of your model class. Call `registerCellClass:forModelClass:` just as for xib registration.
 
 You can also take a look at example, which contains storyboard colllection view with prototyped cell, header, and footer.
+
+## Foundation class clusters mapping
+
+Most of the time you will have your own data models for cells. However, sometimes it's more convenient to use Foundation types, such as NSString, NSNumber, etc. For example, if you have supplementary view - header, that does not have any information except for it's title - you'll probably want to use NSString as its model. Mutable versions are also supported. 
+ 
+`DTCollectionViewController` supports mapping of following Foundation types:
+ 
+ * NSString
+ * NSNumber
+ * NSDictionary
+ * NSArray
+ 
+## Searching in UICollectionView
+
+### DTCollectionViewMemoryStorage
+
+Two steps are required to implement searching in memory storage
+
+* Wire up searchBar outlet and make your `DTCollectionViewController` subclass a delegate.
+* implement `DTModelSearching` protocol method on your models
+
+And that's it! `DTCollectionViewController` will automatically respond to UISearchBar events and update UICollectionView accordingly. Take a look at provided example.
+
+### DTCoreDataStorage
+
+Subclass `DTCoreDataStorage` and implement single method 
+```objective-c
+- (instancetype)searchingStorageForSearchString:(NSString *)searchString
+                                  inSearchScope:(NSInteger)searchScope;
+```	
+
+You will need to provide a storage with NSFetchedResultsController and appropriate NSPredicate. Model will also need to implement `DTModelSearching` protocol method, just like with memory storage.
 
 ## Installation
 
 Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 
 	pod 'DTCollectionViewManager', '~> 2.1.0'
+	
+## Requirements
+
+- iOS 6,7
+- ARC
 	
 ## Documentation
 
@@ -109,17 +141,6 @@ Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 ## Example
 
 Take a look at Example folder in repo.
-
-## Foundation class clusters mapping
-
-Most of the time you will have your own data models for cells. However, sometimes it's more convenient to use Foundation types, such as NSString, NSNumber, etc. For example, if you have supplementary view - header, that does not have any information except for it's title - you'll probably want to use NSString as its model. Mutable versions are also supported. 
- 
-DTCollectionViewController supports mapping of following Foundation types:
- 
- * NSString
- * NSNumber
- * NSDictionary
- * NSArray
 
 ## Thanks
 
