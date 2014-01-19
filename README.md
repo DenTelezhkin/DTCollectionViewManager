@@ -100,7 +100,7 @@ You can also take a look at example, which contains storyboard colllection view 
 
 Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 
-	pod 'DTCollectionViewManager', '~> 2.0.0'
+	pod 'DTCollectionViewManager', '~> 2.1.0'
 	
 ## Documentation
 

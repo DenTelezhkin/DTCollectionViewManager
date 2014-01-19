@@ -1,6 +1,6 @@
 Pod::Spec.new do |s|
   s.name     = 'DTCollectionViewManager'
-  s.version  = '2.0.0'
+  s.version  = '2.1.0'
   s.license  = 'MIT'
   s.summary  = 'The most simple and robust way to manage UICollectionView.'
   s.homepage = 'https://github.com/DenHeadless/DTCollectionViewManager'
@@ -11,5 +11,5 @@ Pod::Spec.new do |s|
   s.ios.deployment_target = '6.0'
   s.ios.frameworks = 'UIKit', 'Foundation'
   s.platform = :ios,'6.0'
-  s.dependency 'DTModelStorage' , '0.2.0'
+  s.dependency 'DTModelStorage' , '0.3.1'
 end
