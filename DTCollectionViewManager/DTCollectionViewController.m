@@ -91,6 +91,14 @@
     _searchingStorage.delegate = self;
 }
 
+-(void)viewDidLoad
+{
+    [super viewDidLoad];
+    
+    self.collectionView.dataSource = self;
+    self.collectionView.delegate = self;
+}
+
 #pragma mark - mapping
 
 -(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass
