@@ -16,6 +16,9 @@
     [super viewDidLoad];
     [self registerCellClass:[KittenCell class]
               forModelClass:[NSString class]];
+    [[self memoryStorage] setSearchingBlock:^BOOL(id model, NSString *searchString, NSInteger searchScope, DTSectionModel *section) {
+        return [model rangeOfString:searchString].location !=NSNotFound;
+    } forModelClass:[NSString class]];
     
     [[self memoryStorage] addItems:[self kittensArrayOfSize:50]];
 }

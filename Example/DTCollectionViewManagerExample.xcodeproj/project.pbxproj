@@ -69,7 +69,6 @@
 		9AC87851188BFFAA00CB7DAF /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */; };
 		9AC87854188C01D900CB7DAF /* KittenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC87853188C01D900CB7DAF /* KittenCell.m */; };
 		9AC87856188C021200CB7DAF /* KittenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC87855188C021200CB7DAF /* KittenCell.xib */; };
-		9AC87859188C060A00CB7DAF /* NSString+DTModelSearching.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC87858188C060A00CB7DAF /* NSString+DTModelSearching.m */; };
 		AA06EFE2186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */; };
 		AA06EFE3186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */; };
 		FF89B56B3FC940359B01B116 /* libPods-CedarUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */; };
@@ -159,8 +158,6 @@
 		9AC87852188C01D900CB7DAF /* KittenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KittenCell.h; path = Cells/KittenCell.h; sourceTree = "<group>"; };
 		9AC87853188C01D900CB7DAF /* KittenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KittenCell.m; path = Cells/KittenCell.m; sourceTree = "<group>"; };
 		9AC87855188C021200CB7DAF /* KittenCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = KittenCell.xib; path = Cells/KittenCell.xib; sourceTree = "<group>"; };
-		9AC87857188C060A00CB7DAF /* NSString+DTModelSearching.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "NSString+DTModelSearching.h"; path = "Models/NSString+DTModelSearching.h"; sourceTree = "<group>"; };
-		9AC87858188C060A00CB7DAF /* NSString+DTModelSearching.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "NSString+DTModelSearching.m"; path = "Models/NSString+DTModelSearching.m"; sourceTree = "<group>"; };
 		AA06EFE0186EC7D0005123AA /* DTCollectionViewMemoryStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewMemoryStorage.h; path = ../DTCollectionViewManager/DTCollectionViewMemoryStorage.h; sourceTree = "<group>"; };
 		AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionViewMemoryStorage.m; path = ../DTCollectionViewManager/DTCollectionViewMemoryStorage.m; sourceTree = "<group>"; };
 		AA06EFE4186ECB08005123AA /* DTCollectionViewStorageUpdating.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewStorageUpdating.h; path = ../DTCollectionViewManager/DTCollectionViewStorageUpdating.h; sourceTree = "<group>"; };
@@ -461,8 +458,6 @@
 				9AC8784D188BFFA900CB7DAF /* SearchViewController.h */,
 				9AC8784E188BFFA900CB7DAF /* SearchViewController.m */,
 				9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */,
-				9AC87857188C060A00CB7DAF /* NSString+DTModelSearching.h */,
-				9AC87858188C060A00CB7DAF /* NSString+DTModelSearching.m */,
 			);
 			name = Search;
 			sourceTree = "<group>";
@@ -673,7 +668,6 @@
 				9586983B1819BC7500F2695A /* PrototypedCollectionViewHeader.m in Sources */,
 				9512F08817BFA9A3008FF3A1 /* ExampleHeaderView.m in Sources */,
 				9586983F1819BC9600F2695A /* PrototypedCollectionViewFooter.m in Sources */,
-				9AC87859188C060A00CB7DAF /* NSString+DTModelSearching.m in Sources */,
 				9512F08B17BFA9C1008FF3A1 /* ExampleFooterView.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

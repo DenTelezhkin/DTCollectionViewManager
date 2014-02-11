@@ -2,7 +2,7 @@ xcodeproj 'DTCollectionViewManagerExample.xcodeproj'
 inhibit_all_warnings!
 platform :ios, 6.0
 
-pod 'DTModelStorage', :head
+pod 'DTModelStorage', '0.4.1'
 pod 'PlaceKit', '~> 1.0.0'
 
 target :CedarUnitTests do
