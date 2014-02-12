@@ -127,7 +127,7 @@ You will need to provide a storage with NSFetchedResultsController and appropria
 
 Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 
-	pod 'DTCollectionViewManager', '~> 2.1.0'
+	pod 'DTCollectionViewManager', '~> 2.2.0'
 	
 ## Requirements
 
