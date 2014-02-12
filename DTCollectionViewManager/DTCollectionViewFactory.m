@@ -31,8 +31,6 @@ static NSString *const DTSupplementaryFallbackReuseIdentifier = @"FallbackSupple
 
 -(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass
 {
-    [self checkClassForModelTransferProtocolSupport:cellClass];
-    
     NSString * reuseIdentifier = [self reuseIdentifierForClass:modelClass];
     NSString * cellClassString = NSStringFromClass(cellClass);
     
@@ -48,8 +46,6 @@ static NSString *const DTSupplementaryFallbackReuseIdentifier = @"FallbackSupple
                           forKind:(NSString *)kind
                     forModelClass:(Class)modelClass
 {
-    [self checkClassForModelTransferProtocolSupport:supplementaryClass];
-    
     NSString * reuseIdentifier = [self reuseIdentifierForClass:modelClass];
     NSString * supplementaryClassString = NSStringFromClass(supplementaryClass);
     
@@ -133,21 +129,6 @@ static NSString *const DTSupplementaryFallbackReuseIdentifier = @"FallbackSupple
         return YES;
     }
     return NO;
-}
-
--(void)checkClassForModelTransferProtocolSupport:(Class)class
-{
-    if (![class conformsToProtocol:@protocol(DTModelTransfer)])
-    {
-        NSString * reason = [NSString stringWithFormat:@"class %@ should conform\n"
-                             "to DTModelTransfer protocol",
-                             NSStringFromClass(class)];
-        NSException * exc =
-        [NSException exceptionWithName:@"DTCollectionViewManager API exception"
-                                reason:reason
-                              userInfo:nil];
-        [exc raise];
-    }
 }
 
 @end

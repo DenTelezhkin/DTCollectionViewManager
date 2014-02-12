@@ -103,11 +103,20 @@
 
 -(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass
 {
+    NSParameterAssert([cellClass isSubclassOfClass:[UICollectionViewCell class]]);
+    NSParameterAssert([cellClass conformsToProtocol:@protocol(DTModelTransfer)]);
+    NSParameterAssert(modelClass);
+    
     [self.factory registerCellClass:cellClass forModelClass:modelClass];
 }
 
 -(void)registerSupplementaryClass:(Class)supplementaryClass forKind:(NSString *)kind forModelClass:(Class)modelClass
 {
+    NSParameterAssert([supplementaryClass isSubclassOfClass:[UICollectionReusableView class]]);
+    NSParameterAssert([supplementaryClass conformsToProtocol:@protocol(DTModelTransfer)]);
+    NSParameterAssert(kind);
+    NSParameterAssert(modelClass);
+    
     [self.factory registerSupplementaryClass:supplementaryClass
                                      forKind:kind
                                forModelClass:modelClass];

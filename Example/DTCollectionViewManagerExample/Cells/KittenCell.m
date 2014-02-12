@@ -13,12 +13,13 @@
 
 -(void)updateWithModel:(id)model
 {
-    [PlaceKit placeKittenImageWithSize:CGSizeMake(120, 120)
-                            completion:^(UIImage *kittenImage) {
-                                self.kittenImage.image = kittenImage;
+    [PlaceKit placeRandomImageWithSize:CGSizeMake(120, 120)
+                              category:@"cats"
+                            completion:^(UIImage *randomImage) {
+                                self.kittenImage.image = randomImage;
                             }];
+
     self.kittenName.text = model;
 }
-
 
 @end

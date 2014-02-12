@@ -35,7 +35,7 @@
 /**
  `DTCollectionFactory` is a cell/supplementary view factory, that is used by DTCollectionViewController.
  
- This class is intended to be used internally by DTCollectionViewController.
+ This class is intended to be used internally by DTCollectionViewController. You shouldn't call any of it's methods.
  */
 
 @interface DTCollectionViewFactory : NSObject
