@@ -25,8 +25,6 @@
 
 #import "DTCollectionViewFactory.h"
 
-static NSString *const DTSupplementaryFallbackReuseIdentifier = @"FallbackSupplementaryReuseIdentifier";
-
 @implementation DTCollectionViewFactory
 
 -(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass
