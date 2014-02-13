@@ -106,12 +106,24 @@ Most of the time you will have your own data models for cells. However, sometime
 
 ### DTCollectionViewMemoryStorage
 
-Two steps are required to implement searching in memory storage
+Set UISearchBar's delegate property to your `DTCollectionViewController` subclass. 	
 
-* Wire up searchBar outlet and make your `DTCollectionViewController` subclass a delegate.
-* implement `DTModelSearching` protocol method on your models
+Call memoryStorage setSearchingBlock:forModelClass: to determine, whether model of passed class should show for current search criteria. This method can be called as many times as you need.
+```objective-c
+[self.memoryStorage setSearchingBlock:^BOOL(id model, NSString *searchString, NSInteger searchScope, DTSectionModel *section) 
+	{
+        Example * example  = model;
+        if ([example.text rangeOfString:searchString].location == NSNotFound)
+        {
+            return NO;
+        }
+        return YES;
+    } forModelClass:[Example class]];
+```
 
-And that's it! `DTCollectionViewController` will automatically respond to UISearchBar events and update UICollectionView accordingly. Take a look at provided example.
+Searching data storage will be created automatically for current search, and it will be used as a datasource for UICollectionView.
+
+`DTCollectionViewController` will automatically respond to UISearchBar events and update UICollectionView accordingly. Take a look at provided example.
 
 ### DTCoreDataStorage
 
