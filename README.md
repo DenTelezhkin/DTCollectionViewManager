@@ -152,7 +152,12 @@ Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 
 ## Example
 
-Take a look at Example folder in repo.
+Take a look at Example folder in repo. Don't forget to run 
+
+```bash
+pod install 
+```
+in example directory.
 
 ## Thanks
 
