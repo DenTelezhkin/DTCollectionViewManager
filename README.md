@@ -163,5 +163,3 @@ in example directory.
 
 Thanks to Ash Furrow for his amazing investigative [work on UICollectionView updates](https://github.com/AshFurrow/UICollectionView-NSFetchedResultsController).
 
-[![Bitdeli Badge](https://d2weczhvl823v0.cloudfront.net/DenHeadless/dtcollectionviewmanager/trend.png)](https://bitdeli.com/free "Bitdeli Badge")
-
