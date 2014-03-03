@@ -27,11 +27,11 @@
 
 @implementation DTCollectionViewFactory
 
--(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass
+- (void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass
 {
     NSString * reuseIdentifier = [self reuseIdentifierForClass:modelClass];
     NSString * cellClassString = NSStringFromClass(cellClass);
-    
+
     if ([self nibExistsWithNibName:cellClassString])
     {
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:cellClassString
@@ -40,13 +40,13 @@
     }
 }
 
--(void)registerSupplementaryClass:(Class)supplementaryClass
-                          forKind:(NSString *)kind
-                    forModelClass:(Class)modelClass
+- (void)registerSupplementaryClass:(Class)supplementaryClass
+                           forKind:(NSString *)kind
+                     forModelClass:(Class)modelClass
 {
     NSString * reuseIdentifier = [self reuseIdentifierForClass:modelClass];
     NSString * supplementaryClassString = NSStringFromClass(supplementaryClass);
-    
+
     if ([self nibExistsWithNibName:supplementaryClassString])
     {
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:supplementaryClassString
@@ -56,72 +56,74 @@
     }
 }
 
--(UICollectionViewCell <DTModelTransfer> *)cellForItem:(id)modelItem
-                                                         atIndexPath:(NSIndexPath *)indexPath
+- (UICollectionViewCell <DTModelTransfer> *)cellForItem:(id)modelItem
+                                            atIndexPath:(NSIndexPath *)indexPath
 {
     NSString * reuseIdentifier = [self reuseIdentifierForClass:[modelItem class]];
     if (!reuseIdentifier)
     {
         return nil;
     }
-    else {
+    else
+    {
         return [[self.delegate collectionView]
                 dequeueReusableCellWithReuseIdentifier:reuseIdentifier
                                           forIndexPath:indexPath];
     }
 }
 
--(UICollectionReusableView <DTModelTransfer> *)supplementaryViewOfKind:(NSString *)kind
-                                             forItem:(id)modelItem
-                                         atIndexPath:(NSIndexPath *)indexPath
+- (UICollectionReusableView <DTModelTransfer> *)supplementaryViewOfKind:(NSString *)kind
+                                                                forItem:(id)modelItem
+                                                            atIndexPath:(NSIndexPath *)indexPath
 {
     NSString * reuseIdentifier = [self reuseIdentifierForClass:[modelItem class]];
     if (!reuseIdentifier)
     {
         return nil;
     }
-    else {
+    else
+    {
         return [[self.delegate collectionView]
                 dequeueReusableSupplementaryViewOfKind:kind
-                withReuseIdentifier:reuseIdentifier
-                forIndexPath:indexPath];
+                                   withReuseIdentifier:reuseIdentifier
+                                          forIndexPath:indexPath];
     }
 }
 
 - (NSString *)reuseIdentifierForClass:(Class)class
 {
     NSString * classString = NSStringFromClass(class);
-    
+
     if ([classString isEqualToString:@"__NSCFConstantString"] ||
-        [classString isEqualToString:@"__NSCFString"] ||
-        class == [NSMutableString class])
+            [classString isEqualToString:@"__NSCFString"] ||
+            class == [NSMutableString class])
     {
         return @"NSString";
     }
     if ([classString isEqualToString:@"__NSCFNumber"] ||
-        [classString isEqualToString:@"__NSCFBoolean"])
+            [classString isEqualToString:@"__NSCFBoolean"])
     {
         return @"NSNumber";
     }
     if ([classString isEqualToString:@"__NSDictionaryI"] ||
-        [classString isEqualToString:@"__NSDictionaryM"] ||
-        class == [NSMutableDictionary class])
+            [classString isEqualToString:@"__NSDictionaryM"] ||
+            class == [NSMutableDictionary class])
     {
         return @"NSDictionary";
     }
     if ([classString isEqualToString:@"__NSArrayI"] ||
-        [classString isEqualToString:@"__NSArrayM"] ||
-        class == [NSMutableArray class])
+            [classString isEqualToString:@"__NSArrayM"] ||
+            class == [NSMutableArray class])
     {
         return @"NSArray";
     }
     return classString;
 }
 
--(BOOL)nibExistsWithNibName:(NSString *)nibName
+- (BOOL)nibExistsWithNibName:(NSString *)nibName
 {
-    NSString *path = [[NSBundle mainBundle] pathForResource:nibName
-                                                     ofType:@"nib"];
+    NSString * path = [[NSBundle mainBundle] pathForResource:nibName
+                                                      ofType:@"nib"];
     if (path)
     {
         return YES;

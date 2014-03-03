@@ -27,18 +27,18 @@
 
 @implementation DTCollectionReusableView
 
--(void)updateWithModel:(id)model
+- (void)updateWithModel:(id)model
 {
     NSString * reason = [NSString stringWithFormat:@"view %@ should implement updateWithModel: method\n",
-                         NSStringFromClass([self class])];
+                                                   NSStringFromClass([self class])];
     NSException * exc =
-    [NSException exceptionWithName:@"DTCollectionViewManager API exception"
-                            reason:reason
-                          userInfo:nil];
+            [NSException exceptionWithName:@"DTCollectionViewManager API exception"
+                                    reason:reason
+                                  userInfo:nil];
     [exc raise];
 }
 
--(id)model
+- (id)model
 {
     return nil;
 }

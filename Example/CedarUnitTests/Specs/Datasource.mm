@@ -3,6 +3,7 @@
 #import "ModelCell.h"
 #import "ModelCellWithNib.h"
 #import "SupplementaryViewWithNib.h"
+#import "DTMemoryStorage+UpdateWithoutAnimations.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -483,41 +484,24 @@ describe(@"Datasource specs", ^{
         });
         
         it(@"should delete first section", ^{
-            [[[collection.memoryStorage sectionAtIndex:0] objects] addObjectsFromArray:@[model1,model2]];
-            @try {
-                [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                         inSection:0],
-                                                                     [NSIndexPath indexPathForItem:1
-                                                                                         inSection:0]]];
-            }
-            @catch (NSException * exception){
-                
-            };
-            [collection.memoryStorage deleteSections:[NSIndexSet indexSetWithIndex:0]];
+            [collection.memoryStorage updateWithoutAnimations:^{
+                [collection.memoryStorage addItems:@[model1,model2]];
+                [collection.memoryStorage deleteSections:[NSIndexSet indexSetWithIndex:0]];
+            }];
             [collection.memoryStorage.sections count] should equal(0);
         });
         
         it(@"should delete any section", ^{
-            [[[collection.memoryStorage sectionAtIndex:0] objects] addObjectsFromArray:@[model1,model2]];
-            [[[collection.memoryStorage sectionAtIndex:1] objects] addObjectsFromArray:@[model3,model4]];
-            [[[collection.memoryStorage sectionAtIndex:2] objects] addObjectsFromArray:@[model5,model6]];
-            @try {
-                [collection.collectionView insertItemsAtIndexPaths:@[
-                                                                     [NSIndexPath indexPathForItem:0 inSection:0],
-                                                                     [NSIndexPath indexPathForItem:1 inSection:0],
-                                                                     [NSIndexPath indexPathForItem:0 inSection:1],
-                                                                     [NSIndexPath indexPathForItem:1 inSection:1],
-                                                                     [NSIndexPath indexPathForItem:0 inSection:2],
-                                                                     [NSIndexPath indexPathForItem:1 inSection:2]]];
-            }
-            @catch (NSException * exception){
+            [collection.memoryStorage updateWithoutAnimations:^{
+                [collection.memoryStorage addItems:@[model1,model2] toSection:0];
+                [collection.memoryStorage addItems:@[model3,model4] toSection:1];
+                [collection.memoryStorage addItems:@[model5,model6] toSection:2];
                 
-            };
-            NSMutableIndexSet * indexSet = [NSMutableIndexSet indexSetWithIndex:0];
-            [indexSet addIndex:2];
-            
-            [collection.memoryStorage deleteSections:indexSet];
-            
+                NSMutableIndexSet * indexSet = [NSMutableIndexSet indexSetWithIndex:0];
+                [indexSet addIndex:2];
+                
+                [collection.memoryStorage deleteSections:indexSet];
+            }];
             [collection.memoryStorage.sections count] should equal(1);
             
             [collection verifySection:@[model3,model4] withSectionNumber:0];
@@ -547,61 +531,38 @@ describe(@"Datasource specs", ^{
             
             it(@"should delete section headers", ^{
                 NSString * header = UICollectionElementKindSectionHeader;
-                [collection.memoryStorage setSupplementaries:@[@1,@2] forKind:header];
                 
-                [[[collection.memoryStorage sectionAtIndex:0] objects] addObjectsFromArray:section0];
-                [[[collection.memoryStorage sectionAtIndex:1] objects] addObjectsFromArray:section1];
-                @try {
-                    [collection.collectionView insertItemsAtIndexPaths:@[
-                                                                         [NSIndexPath indexPathForItem:0 inSection:0],
-                                                                         [NSIndexPath indexPathForItem:1 inSection:0],
-                                                                         [NSIndexPath indexPathForItem:0 inSection:1],
-                                                                         [NSIndexPath indexPathForItem:1 inSection:1]]];
-                }
-                @catch (NSException * exception){
-                };
-                
-                [collection.memoryStorage deleteSections:[NSIndexSet indexSetWithIndex:0]];
+                [collection.memoryStorage updateWithoutAnimations:^{
+                    [collection.memoryStorage setSupplementaries:@[@1,@2] forKind:header];
+                    [collection.memoryStorage addItems:section0];
+                    [collection.memoryStorage addItems:section1 toSection:1];
+                    [collection.memoryStorage deleteSections:[NSIndexSet indexSetWithIndex:0]];
+                }];
                 
                 expect([collection.memoryStorage supplementaryModelOfKind:header forSectionIndex:0]).to(equal(@2));
             });
             
             it(@"should delete section footers", ^{
                 NSString * footer = UICollectionElementKindSectionFooter;
-                [collection.memoryStorage setSupplementaries:@[@1,@2] forKind:footer];
-                [[[collection.memoryStorage sectionAtIndex:0] objects] addObjectsFromArray:section0];
-                [[[collection.memoryStorage sectionAtIndex:1] objects] addObjectsFromArray:section1];
-                @try {
-                    [collection.collectionView insertItemsAtIndexPaths:@[
-                                                                         [NSIndexPath indexPathForItem:0 inSection:0],
-                                                                         [NSIndexPath indexPathForItem:1 inSection:0],
-                                                                         [NSIndexPath indexPathForItem:0 inSection:1],
-                                                                         [NSIndexPath indexPathForItem:1 inSection:1],]];
-                }
-                @catch (NSException * exception){
-                };
                 
-                [collection.memoryStorage deleteSections:[NSIndexSet indexSetWithIndex:0]];
-                
+                [collection.memoryStorage updateWithoutAnimations:^{
+                    [collection.memoryStorage setSupplementaries:@[@1,@2] forKind:footer];
+                    [collection.memoryStorage addItems:section0 toSection:0];
+                    [collection.memoryStorage addItems:section1 toSection:1];
+                    
+                    [collection.memoryStorage deleteSections:[NSIndexSet indexSetWithIndex:0]];
+                }];
                 expect([collection.memoryStorage supplementaryModelOfKind:footer forSectionIndex:0]).to(equal(@2));
             });
             
             it(@"should delete supplementaries of other kind", ^{
                 NSString * customKind = testKind;
-                [collection.memoryStorage setSupplementaries:@[@1,@2] forKind:customKind];
-                [[[collection.memoryStorage sectionAtIndex:0] objects] addObjectsFromArray:section0];
-                [[[collection.memoryStorage sectionAtIndex:1] objects] addObjectsFromArray:section1];
-                @try {
-                    [collection.collectionView insertItemsAtIndexPaths:@[
-                                                                         [NSIndexPath indexPathForItem:0 inSection:0],
-                                                                         [NSIndexPath indexPathForItem:1 inSection:0],
-                                                                         [NSIndexPath indexPathForItem:0 inSection:1],
-                                                                         [NSIndexPath indexPathForItem:1 inSection:1],]];
-                }
-                @catch (NSException * exception){
-                };
-                [collection.memoryStorage deleteSections:[NSIndexSet indexSetWithIndex:0]];
-                
+                [collection.memoryStorage updateWithoutAnimations:^{
+                    [collection.memoryStorage setSupplementaries:@[@1,@2] forKind:customKind];
+                    [collection.memoryStorage addItems:section0 toSection:0];
+                    [collection.memoryStorage addItems:section1 toSection:1];
+                    [collection.memoryStorage deleteSections:[NSIndexSet indexSetWithIndex:0]];
+                }];                
                 expect([collection.memoryStorage supplementaryModelOfKind:customKind forSectionIndex:0]).to(equal(@2));
             });
         });

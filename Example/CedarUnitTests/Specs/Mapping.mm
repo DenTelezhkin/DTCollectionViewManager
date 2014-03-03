@@ -3,6 +3,7 @@
 #import "ModelCell.h"
 #import "ModelCellWithNib.h"
 #import "SupplementaryViewWithNib.h"
+#import "DTMemoryStorage+UpdateWithoutAnimations.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -73,16 +74,17 @@ describe(@"Mapping tests", ^{
             [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                            forKind:UICollectionElementKindSectionHeader
                                      forModelClass:[Model class]];
-            [collection.memoryStorage setSupplementaries:@[[[Model new] autorelease]]
-                                                 forKind:UICollectionElementKindSectionHeader];
-            [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-            @try {
-                [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                         inSection:0]]];
-            }
-            @catch (NSException * exception){
+            
+            [collection.memoryStorage updateWithoutAnimations:^{
+                [collection.memoryStorage setSupplementaries:@[[[Model new] autorelease]]
+                                                     forKind:UICollectionElementKindSectionHeader];
+                [collection.memoryStorage addItem:[[Model new] autorelease]];
                 
-            };
+            }];
+            
+            [collection.collectionView reloadData];
+            [collection.collectionView performBatchUpdates:nil completion:nil];
+            
             id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
             UIView * view = [datasource collectionView:collection.collectionView
                      viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -97,16 +99,16 @@ describe(@"Mapping tests", ^{
             [collection registerSupplementaryClass:[SupplementaryViewWithNib class]
                                            forKind:UICollectionElementKindSectionFooter
                                      forModelClass:[Model class]];
-            [collection.memoryStorage setSupplementaries:@[[[Model new] autorelease]]
-                                                 forKind:UICollectionElementKindSectionFooter];
-            [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-            @try {
-                [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                         inSection:0]]];
-            }
-            @catch (NSException * exception){
-                
-            };
+            
+            [collection.memoryStorage updateWithoutAnimations:^{
+                [collection.memoryStorage setSupplementaries:@[[[Model new] autorelease]]
+                                                     forKind:UICollectionElementKindSectionFooter];
+                [collection.memoryStorage addItem:[[Model new] autorelease]];
+            }];
+            
+            [collection.collectionView reloadData];
+            [collection.collectionView performBatchUpdates:nil completion:nil];
+            
             id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
             UIView * view = [datasource collectionView:collection.collectionView
                      viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -175,14 +177,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSString header", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@"foo"]
-                                                         forKind:UICollectionElementKindSectionHeader];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@"foo"]
+                                                             forKind:UICollectionElementKindSectionHeader];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+                    
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -193,14 +196,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSString footer", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@"foo"]
-                                                         forKind:UICollectionElementKindSectionFooter];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@"foo"]
+                                                             forKind:UICollectionElementKindSectionFooter];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -245,14 +249,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSString header", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@"foo"]
-                                                         forKind:UICollectionElementKindSectionHeader];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@"foo"]
+                                                             forKind:UICollectionElementKindSectionHeader];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -263,14 +268,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSString footer", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@"foo"]
-                                                         forKind:UICollectionElementKindSectionFooter];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@"foo"]
+                                                             forKind:UICollectionElementKindSectionFooter];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -307,14 +313,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept number for header", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@5]
-                                                         forKind:UICollectionElementKindSectionHeader];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@5]
+                                                             forKind:UICollectionElementKindSectionHeader];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -325,14 +332,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept number for footer", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@5]
-                                                         forKind:UICollectionElementKindSectionFooter];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@5]
+                                                             forKind:UICollectionElementKindSectionFooter];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+                    
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -343,14 +351,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept BOOL for header", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@YES]
-                                                         forKind:UICollectionElementKindSectionHeader];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@YES]
+                                                             forKind:UICollectionElementKindSectionHeader];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -361,14 +370,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept bool for footer", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@YES]
-                                                         forKind:UICollectionElementKindSectionFooter];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@YES]
+                                                             forKind:UICollectionElementKindSectionFooter];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -405,14 +415,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSDictionary for header", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@{}]
-                                                         forKind:UICollectionElementKindSectionHeader];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@{}]
+                                                             forKind:UICollectionElementKindSectionHeader];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -423,14 +434,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSDictionary for footer", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@{}]
-                                                         forKind:UICollectionElementKindSectionFooter];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@{}]
+                                                             forKind:UICollectionElementKindSectionFooter];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -441,14 +453,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableDictionary for header", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[[[@{} mutableCopy] autorelease]]
-                                                         forKind:UICollectionElementKindSectionHeader];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[[[@{} mutableCopy] autorelease]]
+                                                             forKind:UICollectionElementKindSectionHeader];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+                    
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -459,14 +472,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableDictionary for footer", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[[[@{} mutableCopy] autorelease]]
-                                                         forKind:UICollectionElementKindSectionFooter];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[[[@{} mutableCopy] autorelease]]
+                                                             forKind:UICollectionElementKindSectionFooter];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -504,14 +518,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSDictionary for header", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@{}]
-                                                         forKind:UICollectionElementKindSectionHeader];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@{}]
+                                                             forKind:UICollectionElementKindSectionHeader];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -522,14 +537,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSDictionary for footer", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@{}]
-                                                         forKind:UICollectionElementKindSectionFooter];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@{}]
+                                                             forKind:UICollectionElementKindSectionFooter];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -540,14 +556,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableDictionary for header", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[[[@{} mutableCopy] autorelease]]
-                                                         forKind:UICollectionElementKindSectionHeader];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[[[@{} mutableCopy] autorelease]]
+                                                             forKind:UICollectionElementKindSectionHeader];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -558,14 +575,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableDictionary for footer", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[[[@{} mutableCopy] autorelease]]
-                                                         forKind:UICollectionElementKindSectionFooter];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[[[@{} mutableCopy] autorelease]]
+                                                             forKind:UICollectionElementKindSectionFooter];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+                    
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -602,14 +620,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSArray for header", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@[]]
-                                                         forKind:UICollectionElementKindSectionHeader];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@[]]
+                                                             forKind:UICollectionElementKindSectionHeader];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+                    
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -620,14 +639,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableArray for header", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[[[@[] mutableCopy] autorelease]]
-                                                         forKind:UICollectionElementKindSectionHeader];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[[[@[] mutableCopy] autorelease]]
+                                                             forKind:UICollectionElementKindSectionHeader];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+                    
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -638,31 +658,34 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSArray for footer", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@[]]
-                                                         forKind:UICollectionElementKindSectionFooter];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@[]]
+                                                             forKind:UICollectionElementKindSectionFooter];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
                                    atIndexPath:[NSIndexPath indexPathForItem:0
-                                                                   inSection:0]];                } should_not raise_exception;
+                                                                   inSection:0]];
+                } should_not raise_exception;
             });
             
             it(@"should accept NSMutableArray for footer", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[[[@[] mutableCopy] autorelease]]
-                                                         forKind:UICollectionElementKindSectionFooter];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[[[@[] mutableCopy] autorelease]]
+                                                             forKind:UICollectionElementKindSectionFooter];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -700,14 +723,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSArray for header", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@[]]
-                                                         forKind:UICollectionElementKindSectionHeader];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@[]]
+                                                             forKind:UICollectionElementKindSectionHeader];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -718,14 +742,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableArray for header", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[[[@[] mutableCopy] autorelease]]
-                                                         forKind:UICollectionElementKindSectionHeader];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[[[@[] mutableCopy] autorelease]]
+                                                             forKind:UICollectionElementKindSectionHeader];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+                    
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
@@ -736,14 +761,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSArray for footer", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[@[]]
-                                                         forKind:UICollectionElementKindSectionFooter];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[@[]]
+                                                             forKind:UICollectionElementKindSectionFooter];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+             
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
@@ -754,14 +780,15 @@ describe(@"Mapping tests", ^{
             
             it(@"should accept NSMutableArray for footer", ^{
                 ^{
-                    [collection.memoryStorage setSupplementaries:@[[[@[] mutableCopy] autorelease]]
-                                                         forKind:UICollectionElementKindSectionFooter];
-                    [[[collection.memoryStorage sectionAtIndex:0] objects] addObject:[[Model new] autorelease]];
-                    @try {
-                        [collection.collectionView insertItemsAtIndexPaths:@[[NSIndexPath indexPathForItem:0
-                                                                                                 inSection:0]]];
-                    }
-                    @catch (NSException * exception){};
+                    [collection.memoryStorage updateWithoutAnimations:^{
+                        [collection.memoryStorage setSupplementaries:@[[[@[] mutableCopy] autorelease]]
+                                                             forKind:UICollectionElementKindSectionFooter];
+                        [collection.memoryStorage addItem:[[Model new] autorelease]];
+                    }];
+                    
+                    [collection.collectionView reloadData];
+                    [collection.collectionView performBatchUpdates:nil completion:nil];
+                    
                     id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
                     [datasource collectionView:collection.collectionView
              viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter

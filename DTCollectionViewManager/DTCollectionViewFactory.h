@@ -29,7 +29,7 @@
  Protocol, used by DTCollectionFactory to access collectionView property on DTCollectionViewController instance.
  */
 @protocol DTCollectionFactoryDelegate
--(UICollectionView *)collectionView;
+- (UICollectionView *)collectionView;
 @end
 
 /**
@@ -40,18 +40,19 @@
 
 @interface DTCollectionViewFactory : NSObject
 
--(void)registerCellClass:(Class)cellClass
-           forModelClass:(Class)modelClass;
+- (void)registerCellClass:(Class)cellClass
+            forModelClass:(Class)modelClass;
 
--(void)registerSupplementaryClass:(Class)supplementaryClass
-                          forKind:(NSString *)kind
-                    forModelClass:(Class)modelClass;
+- (void)registerSupplementaryClass:(Class)supplementaryClass
+                           forKind:(NSString *)kind
+                     forModelClass:(Class)modelClass;
 
--(UICollectionViewCell <DTModelTransfer> *)cellForItem:(id)modelItem
-                                                         atIndexPath:(NSIndexPath *)indexPath;
--(UICollectionReusableView <DTModelTransfer> *)supplementaryViewOfKind:(NSString *)kind
-                                             forItem:(id)modelItem
-                                         atIndexPath:(NSIndexPath *)indexPath;
+- (UICollectionViewCell <DTModelTransfer> *)cellForItem:(id)modelItem
+                                            atIndexPath:(NSIndexPath *)indexPath;
+
+- (UICollectionReusableView <DTModelTransfer> *)supplementaryViewOfKind:(NSString *)kind
+                                                                forItem:(id)modelItem
+                                                            atIndexPath:(NSIndexPath *)indexPath;
 
 @property (nonatomic, weak) id <DTCollectionFactoryDelegate> delegate;
 @end
