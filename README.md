@@ -1,3 +1,4 @@
+![Build Status](https://travis-ci.org/DenHeadless/DTCollectionViewManager.png?branch=master) &nbsp;
 ![CocoaPod platform](https://cocoapod-badges.herokuapp.com/p/DTCollectionViewManager/badge.svg) &nbsp;
 ![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTCollectionViewManager/badge.svg) &nbsp;
 ![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
@@ -139,7 +140,7 @@ You will need to provide a storage with NSFetchedResultsController and appropria
 
 Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 
-	pod 'DTCollectionViewManager', '~> 2.2.0'
+	pod 'DTCollectionViewManager', '~> 2.2.1'
 	
 ## Requirements
 
