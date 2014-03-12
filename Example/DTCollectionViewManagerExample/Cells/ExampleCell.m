@@ -7,10 +7,6 @@
 //
 
 #import "ExampleCell.h"
-@interface ExampleCell()
-@property (strong, nonatomic) IBOutlet UIView *contentView;
-
-@end
 
 @implementation ExampleCell
 
