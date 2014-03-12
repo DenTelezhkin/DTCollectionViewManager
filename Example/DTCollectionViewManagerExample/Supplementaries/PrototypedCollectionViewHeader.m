@@ -12,7 +12,7 @@
 
 -(void)updateWithModel:(id)model
 {
-    self.headerTitle.text = model;
+    self.headerTitle.text = [model firstObject];
 }
 
 @end

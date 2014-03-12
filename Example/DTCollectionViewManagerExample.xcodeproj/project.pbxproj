@@ -27,7 +27,6 @@
 		955F85B2179ACB8F00A38EAD /* DTCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */; };
 		958698301819BA2D00F2695A /* StoryboardViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9586982F1819BA2D00F2695A /* StoryboardViewController.m */; };
 		958698331819BA6600F2695A /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 958698321819BA6600F2695A /* Storyboard.storyboard */; };
-		958698341819BA6600F2695A /* Storyboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 958698321819BA6600F2695A /* Storyboard.storyboard */; };
 		958698371819BBE400F2695A /* PrototypedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 958698361819BBE400F2695A /* PrototypedCell.m */; };
 		958698381819BBE400F2695A /* PrototypedCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 958698361819BBE400F2695A /* PrototypedCell.m */; };
 		9586983B1819BC7500F2695A /* PrototypedCollectionViewHeader.m in Sources */ = {isa = PBXBuildFile; fileRef = 9586983A1819BC7500F2695A /* PrototypedCollectionViewHeader.m */; };
@@ -86,7 +85,7 @@
 		9512F08A17BFA9C1008FF3A1 /* ExampleFooterView.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleFooterView.m; path = Supplementaries/ExampleFooterView.m; sourceTree = "<group>"; };
 		9512F08C17BFAA0C008FF3A1 /* ExampleHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExampleHeaderView.xib; path = Supplementaries/ExampleHeaderView.xib; sourceTree = "<group>"; };
 		9512F08E17BFAA34008FF3A1 /* ExampleFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExampleFooterView.xib; path = Supplementaries/ExampleFooterView.xib; sourceTree = "<group>"; };
-		955F8582179ACAF000A38EAD /* DTCollectionViewManagerExample.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = DTCollectionViewManagerExample.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		955F8582179ACAF000A38EAD /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		955F858D179ACAF000A38EAD /* DTCollectionViewManagerExample-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "DTCollectionViewManagerExample-Info.plist"; sourceTree = "<group>"; };
 		955F858F179ACAF000A38EAD /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		955F8591179ACAF000A38EAD /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -122,7 +121,7 @@
 		95ADB23517AE53C7004BBA29 /* AddRemoveCollectionController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = AddRemoveCollectionController.h; path = Controllers/AddRemove/AddRemoveCollectionController.h; sourceTree = "<group>"; };
 		95ADB23617AE53C7004BBA29 /* AddRemoveCollectionController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = AddRemoveCollectionController.m; path = Controllers/AddRemove/AddRemoveCollectionController.m; sourceTree = "<group>"; };
 		95ADB23717AE53C7004BBA29 /* AddRemoveCollectionController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = AddRemoveCollectionController.xib; path = Controllers/AddRemove/AddRemoveCollectionController.xib; sourceTree = "<group>"; };
-		95AE8968179AD03E00F834DB /* CedarUnitTests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = CedarUnitTests.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		95AE8968179AD03E00F834DB /* Tests.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Tests.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		95AE896E179AD03E00F834DB /* CedarUnitTests-Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = "CedarUnitTests-Info.plist"; sourceTree = "<group>"; };
 		95AE8970179AD03E00F834DB /* en */ = {isa = PBXFileReference; lastKnownFileType = text.plist.strings; name = en; path = en.lproj/InfoPlist.strings; sourceTree = "<group>"; };
 		95AE8972179AD03E00F834DB /* main.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = main.m; sourceTree = "<group>"; };
@@ -228,8 +227,8 @@
 		955F8583179ACAF000A38EAD /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				955F8582179ACAF000A38EAD /* DTCollectionViewManagerExample.app */,
-				95AE8968179AD03E00F834DB /* CedarUnitTests.app */,
+				955F8582179ACAF000A38EAD /* Example.app */,
+				95AE8968179AD03E00F834DB /* Tests.app */,
 			);
 			name = Products;
 			sourceTree = "<group>";
@@ -475,9 +474,9 @@
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
-		955F8581179ACAF000A38EAD /* DTCollectionViewManagerExample */ = {
+		955F8581179ACAF000A38EAD /* Example */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 955F85AB179ACAF000A38EAD /* Build configuration list for PBXNativeTarget "DTCollectionViewManagerExample" */;
+			buildConfigurationList = 955F85AB179ACAF000A38EAD /* Build configuration list for PBXNativeTarget "Example" */;
 			buildPhases = (
 				9D20BA5B384344FFABFAF5AD /* Check Pods Manifest.lock */,
 				955F857E179ACAF000A38EAD /* Sources */,
@@ -489,14 +488,14 @@
 			);
 			dependencies = (
 			);
-			name = DTCollectionViewManagerExample;
+			name = Example;
 			productName = DTCollectionViewManagerExample;
-			productReference = 955F8582179ACAF000A38EAD /* DTCollectionViewManagerExample.app */;
+			productReference = 955F8582179ACAF000A38EAD /* Example.app */;
 			productType = "com.apple.product-type.application";
 		};
-		95AE8967179AD03E00F834DB /* CedarUnitTests */ = {
+		95AE8967179AD03E00F834DB /* Tests */ = {
 			isa = PBXNativeTarget;
-			buildConfigurationList = 95AE897E179AD03F00F834DB /* Build configuration list for PBXNativeTarget "CedarUnitTests" */;
+			buildConfigurationList = 95AE897E179AD03F00F834DB /* Build configuration list for PBXNativeTarget "Tests" */;
 			buildPhases = (
 				C73E6359E3B3406AA8542B7D /* Check Pods Manifest.lock */,
 				95AE8964179AD03E00F834DB /* Sources */,
@@ -508,9 +507,9 @@
 			);
 			dependencies = (
 			);
-			name = CedarUnitTests;
+			name = Tests;
 			productName = CedarUnitTests;
-			productReference = 95AE8968179AD03E00F834DB /* CedarUnitTests.app */;
+			productReference = 95AE8968179AD03E00F834DB /* Tests.app */;
 			productType = "com.apple.product-type.application";
 		};
 /* End PBXNativeTarget section */
@@ -534,8 +533,8 @@
 			projectDirPath = "";
 			projectRoot = "";
 			targets = (
-				955F8581179ACAF000A38EAD /* DTCollectionViewManagerExample */,
-				95AE8967179AD03E00F834DB /* CedarUnitTests */,
+				955F8581179ACAF000A38EAD /* Example */,
+				95AE8967179AD03E00F834DB /* Tests */,
 			);
 		};
 /* End PBXProject section */
@@ -568,7 +567,6 @@
 			files = (
 				95AE8971179AD03E00F834DB /* InfoPlist.strings in Resources */,
 				95AE8979179AD03F00F834DB /* Default.png in Resources */,
-				958698341819BA6600F2695A /* Storyboard.storyboard in Resources */,
 				95AE897B179AD03F00F834DB /* Default@2x.png in Resources */,
 				95AE897D179AD03F00F834DB /* Default-568h@2x.png in Resources */,
 				95AE899A179BF5B200F834DB /* ModelCellWithNib.xib in Resources */,
@@ -866,7 +864,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		955F85AB179ACAF000A38EAD /* Build configuration list for PBXNativeTarget "DTCollectionViewManagerExample" */ = {
+		955F85AB179ACAF000A38EAD /* Build configuration list for PBXNativeTarget "Example" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				955F85AC179ACAF000A38EAD /* Debug */,
@@ -875,7 +873,7 @@
 			defaultConfigurationIsVisible = 0;
 			defaultConfigurationName = Release;
 		};
-		95AE897E179AD03F00F834DB /* Build configuration list for PBXNativeTarget "CedarUnitTests" */ = {
+		95AE897E179AD03F00F834DB /* Build configuration list for PBXNativeTarget "Tests" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				95AE897F179AD03F00F834DB /* Debug */,

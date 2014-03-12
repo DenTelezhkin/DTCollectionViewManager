@@ -15,8 +15,8 @@
             <BuildableReference
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "95AE8967179AD03E00F834DB"
-               BuildableName = "CedarUnitTests.app"
-               BlueprintName = "CedarUnitTests"
+               BuildableName = "Tests.app"
+               BlueprintName = "Tests"
                ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -33,8 +33,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "95AE8967179AD03E00F834DB"
-            BuildableName = "CedarUnitTests.app"
-            BlueprintName = "CedarUnitTests"
+            BuildableName = "Tests.app"
+            BlueprintName = "Tests"
             ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -52,8 +52,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "95AE8967179AD03E00F834DB"
-            BuildableName = "CedarUnitTests.app"
-            BlueprintName = "CedarUnitTests"
+            BuildableName = "Tests.app"
+            BlueprintName = "Tests"
             ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>
@@ -77,8 +77,8 @@
          <BuildableReference
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "95AE8967179AD03E00F834DB"
-            BuildableName = "CedarUnitTests.app"
-            BlueprintName = "CedarUnitTests"
+            BuildableName = "Tests.app"
+            BlueprintName = "Tests"
             ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
          </BuildableReference>
       </BuildableProductRunnable>

@@ -26,10 +26,10 @@ describe(@"Datasource specs", ^{
         
         collection = [DTCollectionViewController new];
         UICollectionViewLayout * layout = [[UICollectionViewFlowLayout alloc] init];
-        collection.collectionView = [[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)
-                                                       collectionViewLayout:layout];
+        collection.collectionView = [[[UICollectionView alloc] initWithFrame:CGRectMake(0, 0, 1024, 768)
+                                                       collectionViewLayout:layout] autorelease];
         collection.collectionView.dataSource = collection;
-        
+        [layout release];
         model1 = [Model new];
         model2 = [Model new];
         model3 = [Model new];
