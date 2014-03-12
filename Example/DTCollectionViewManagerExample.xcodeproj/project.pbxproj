@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		39CD590144B845A98D65AF5F /* libPods-Tests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 6BC252B467C745DA950A57E8 /* libPods-Tests.a */; };
 		4DECD5AD540C489CAF31C722 /* libPods.a in Frameworks */ = {isa = PBXBuildFile; fileRef = D1B86A8E03B74A7F86BF6C64 /* libPods.a */; };
 		9512F08317BFA71C008FF3A1 /* SectionsController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9512F08117BFA71C008FF3A1 /* SectionsController.m */; };
 		9512F08417BFA71C008FF3A1 /* SectionsController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9512F08217BFA71C008FF3A1 /* SectionsController.xib */; };
@@ -70,12 +71,12 @@
 		9AC87856188C021200CB7DAF /* KittenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC87855188C021200CB7DAF /* KittenCell.xib */; };
 		AA06EFE2186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */; };
 		AA06EFE3186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */; };
-		FF89B56B3FC940359B01B116 /* libPods-CedarUnitTests.a in Frameworks */ = {isa = PBXBuildFile; fileRef = 9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
+		16301BFEFC654ED6888714E6 /* Pods-Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.xcconfig"; path = "Pods/Pods-Tests.xcconfig"; sourceTree = "<group>"; };
 		530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CedarUnitTests.xcconfig"; path = "Pods/Pods-CedarUnitTests.xcconfig"; sourceTree = SOURCE_ROOT; };
-		9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-CedarUnitTests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
+		6BC252B467C745DA950A57E8 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9512F08017BFA71C008FF3A1 /* SectionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SectionsController.h; path = "Controllers/Move sections/SectionsController.h"; sourceTree = "<group>"; };
 		9512F08117BFA71C008FF3A1 /* SectionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SectionsController.m; path = "Controllers/Move sections/SectionsController.m"; sourceTree = "<group>"; };
 		9512F08217BFA71C008FF3A1 /* SectionsController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SectionsController.xib; path = "Controllers/Move sections/SectionsController.xib"; sourceTree = "<group>"; };
@@ -177,7 +178,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				FF89B56B3FC940359B01B116 /* libPods-CedarUnitTests.a in Frameworks */,
+				39CD590144B845A98D65AF5F /* libPods-Tests.a in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -221,6 +222,7 @@
 				955F8583179ACAF000A38EAD /* Products */,
 				530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */,
 				B53D74224BE24E94BC85BDF7 /* Pods.xcconfig */,
+				16301BFEFC654ED6888714E6 /* Pods-Tests.xcconfig */,
 			);
 			sourceTree = "<group>";
 		};
@@ -236,8 +238,8 @@
 		955F8584179ACAF000A38EAD /* Frameworks */ = {
 			isa = PBXGroup;
 			children = (
-				9251C3C3BF2941A784985384 /* libPods-CedarUnitTests.a */,
 				D1B86A8E03B74A7F86BF6C64 /* libPods.a */,
+				6BC252B467C745DA950A57E8 /* libPods-Tests.a */,
 			);
 			name = Frameworks;
 			sourceTree = "<group>";
@@ -591,7 +593,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "\"${SRCROOT}/Pods/Pods-CedarUnitTests-resources.sh\"\n";
+			shellScript = "\"${SRCROOT}/Pods/Pods-Tests-resources.sh\"\n";
 			showEnvVarsInLog = 0;
 		};
 		2AC79D4DFEC54C89B30508EF /* Copy Pods Resources */ = {
@@ -822,7 +824,7 @@
 		};
 		95AE897F179AD03F00F834DB /* Debug */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */;
+			baseConfigurationReference = 16301BFEFC654ED6888714E6 /* Pods-Tests.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
@@ -838,7 +840,7 @@
 		};
 		95AE8980179AD03F00F834DB /* Release */ = {
 			isa = XCBuildConfiguration;
-			baseConfigurationReference = 530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */;
+			baseConfigurationReference = 16301BFEFC654ED6888714E6 /* Pods-Tests.xcconfig */;
 			buildSettings = {
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_ENABLE_OBJC_ARC = YES;
