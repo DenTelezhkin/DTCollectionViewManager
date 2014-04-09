@@ -81,7 +81,7 @@ DTCollectionViewManager tries very hard to eliminate those. And every issue i kn
 
 Here are 4 simple steps you need to use DTCollectionViewManager:
 
-1. Your view controller should subclass `DTCollectionViewController`, and set collectionView, delegate and datasource properties.
+1. Your view controller should subclass `DTCollectionViewController`, and set collectionView property.
 2. You should have subclasses of `DTCollectionViewCell`.
 3. In your viewDidLoad method, call mapping methods to establish relationship between data models and UICollectionViewCells.
 4. Add data models to memoryStorage, or use CoreData storage class.
