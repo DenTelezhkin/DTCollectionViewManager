@@ -7,6 +7,55 @@ DTCollectionViewManager
 
 > This is a sister-project for [DTTableViewManager](https://github.com/DenHeadless/DTTableViewManager) - great tool for UITableView management, built on the same principles.
 
+Try it out! 
+
+```bash
+pod try DTCollectionViewManager
+```
+## Workflow
+
+Here are 4 simple steps you need to use DTCollectionViewManager:
+
+1. Your view controller should subclass `DTCollectionViewController`, and set collectionView property.
+2. You should have subclasses of `DTCollectionViewCell`.
+3. In your viewDidLoad method, call mapping methods to establish relationship between data models and UICollectionViewCells.
+4. Add data models to memoryStorage, or use CoreData storage class.
+
+## API quickstart
+
+<table>
+<tr><th colspan=2 style="text-align:center;">Key classes</th></tr>
+	<tr>
+	<td> DTCollectionViewController </td>
+	<td>Your UIViewController, that presents collectionView, needs to subclass* this class. This class implements all UICollectionViewDatasource methods.</td>
+	</tr>
+	<tr>
+	<td>DTCollectionViewMemoryStorage</td>
+	<td>Class responsible for holding collectionView models. It is used as a default storage by DTCollectionViewManager.</td>
+	</tr>
+	<tr>
+	<td>DTCoreDataStorage</td>
+	<td>Class used to display data, using `NSFetchedResultsController`.</td>
+	</tr>
+	<tr>
+	<td>DTSectionModel</td>
+	<td> Object, representing section in UICollectionView. Basically has array of objects and array of supplementary models for current section.</td>
+	</tr>
+<tr><th colspan=2 style="text-align:center;">Protocols</th></tr>
+	<tr>
+	<td>DTModelTransfer</td>
+	<td> Protocol, which methods are used to transfer model to UICollectionViewCell subclass, that will be representing it.</td>
+	</tr>
+<tr><th colspan=2 style="text-align:center;">Convenience classes (optional)</th></tr>
+	<tr>
+	<td>DTCollectionViewCell</td>
+	<td> UICollectionViewCell subclass, conforming to `DTModelTransfer` protocol. </td>
+	</tr>
+	<tr>
+	<td>DTCollectionReusableView</td>
+	<td>UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol.</td>
+	</tr>
+</table>
 
 ## Features
 
@@ -36,7 +85,7 @@ or it's supplementary view variant:
 ```
 And you are done! 
 
-So, how does that work? DTCollectionViewManager uses your data model class as a reuseIdentifier for your cell. Every time data model needs to be displayed, it will automatically create UICollectionViewCell and call a method `-updateWithModel:` on it, which will transfer data model to a cell. Cell is then expected to properly update it's UI, based on data model.
+So, how does that work? DTCollectionViewManager uses your cell class as a reuseIdentifier for your cell. Every time data model needs to be displayed, it will automatically create UICollectionViewCell and call a method `-updateWithModel:` on it, which will transfer data model to a cell. Cell is then expected to properly update it's UI, based on data model.
 
 DTCollectionViewManager supports creating cells and supplementary views both from XIBs and storyboards.
 
@@ -46,7 +95,7 @@ Every time you use UICollectionView in your app, you need to think about two thi
 
 ### Custom storage classes
 
-DTCollectionViewManager 2.0 introduces support for custom data storage classes. Current storage classes have been extracted to separate project and are used as a dependency. Two data storage classes are supported by default.
+DTCollectionViewManager 2.0 introduces support for custom data storage classes. Current storage classes have been extracted to [separate project](https://github.com/DenHeadless/DTModelStorage) and are used as a dependency. Two data storage classes are supported by default.
 
 ##### Memory storage 
 
@@ -57,6 +106,13 @@ DTCollectionViewMemoryStorage * storage = [self memoryStorage];
 ```
 
 To add, delete and apply other operations, take a look here: [DTMemoryStorage methods](https://github.com/DenHeadless/DTModelStorage/blob/master/README.md#adding-items)
+
+In most cases, adding items to memory storage is as simple as calling:
+
+```objective-c
+- (void)addItem:(NSObject *)item;
+- (void)addItems:(NSArray *)items toSection:(NSInteger)sectionNumber;
+```
 
 ##### Core data storage 
 
@@ -76,19 +132,10 @@ DTCollectionViewManager will display models, based on info that NSFetchedResults
 UICollectionView has a great API, that provides enourmous possiibilities. Unfortunately, sometimes it is very fragile. It has some iOS 6 issues, some iOS 7 issues, and some issues, that persist in both iOS releases. Most important of them, if of course, [insertion of the first item in section](http://openradar.appspot.com/12954582). 
 
 DTCollectionViewManager tries very hard to eliminate those. And every issue i know of, is fixed in 2.0 release. If something is working not as expected - please [open an issue on GitHub](https://github.com/DenHeadless/DTCollectionViewManager/issues). Project also has good unit test coverage, which is very helpful.
-
-## Workflow
-
-Here are 4 simple steps you need to use DTCollectionViewManager:
-
-1. Your view controller should subclass `DTCollectionViewController`, and set collectionView property.
-2. You should have subclasses of `DTCollectionViewCell`.
-3. In your viewDidLoad method, call mapping methods to establish relationship between data models and UICollectionViewCells.
-4. Add data models to memoryStorage, or use CoreData storage class.
 	
 ## Using storyboards
 
-To use storyboard collection view, set reuseIdentifier for collection cell or reusable header/footer with the name of your model class. Call `registerCellClass:forModelClass:` just as for xib registration.
+To use storyboard collection view, set reuseIdentifier for collection cell or reusable header/footer with the name of your cell, header or footer class. Call `registerCellClass:forModelClass:` just as for xib registration.
 
 You can also take a look at example, which contains storyboard colllection view with prototyped cell, header, and footer.
 
@@ -140,7 +187,7 @@ You will need to provide a storage with NSFetchedResultsController and appropria
 
 Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 
-	pod 'DTCollectionViewManager', '~> 2.3.0'
+	pod 'DTCollectionViewManager', '~> 2.4'
 	
 ## Requirements
 
@@ -150,15 +197,6 @@ Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 ## Documentation
 
 [Cocoadocs](http://cocoadocs.org/docsets/DTCollectionViewManager)
-
-## Example
-
-Take a look at Example folder in repo. Don't forget to run 
-
-```bash
-pod install 
-```
-in example directory.
 
 ## Thanks
 
