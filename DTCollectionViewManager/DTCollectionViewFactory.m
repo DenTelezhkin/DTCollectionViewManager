@@ -25,26 +25,64 @@
 
 #import "DTCollectionViewFactory.h"
 
+@interface DTCollectionViewFactory()
+@property (nonatomic, strong) NSMutableDictionary * cellMappings;
+@property (nonatomic, strong) NSMutableDictionary * supplementaryMappings;
+
+@end
+
 @implementation DTCollectionViewFactory
+
+-(NSMutableDictionary *)cellMappings
+{
+    if (!_cellMappings)
+        _cellMappings = [NSMutableDictionary dictionary];
+    return _cellMappings;
+}
+
+-(NSMutableDictionary * )supplementaryMappings
+{
+    if (!_supplementaryMappings)
+    {
+        _supplementaryMappings = [NSMutableDictionary dictionary];
+    }
+    return _supplementaryMappings;
+}
+
+-(void)setSupplementaryClass:(Class)supplementaryClass forKind:(NSString *)kind forModelClass:(Class)modelClass
+{
+    NSMutableDictionary * kindMappings = self.supplementaryMappings[kind];
+    if (!kindMappings)
+    {
+        kindMappings = [NSMutableDictionary dictionary];
+        self.supplementaryMappings[kind] = kindMappings;
+    }
+    kindMappings[[self classStringForClass:modelClass]] = NSStringFromClass(supplementaryClass);
+}
+
+-(NSString *)supplementaryClassForKind:(NSString *)kind modelClass:(Class)modelClass
+{
+    NSMutableDictionary * kindMappings = self.supplementaryMappings[kind];
+    return kindMappings[[self classStringForClass:modelClass]];
+}
 
 - (void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass
 {
-    NSString * reuseIdentifier = [self reuseIdentifierForClass:modelClass];
     NSString * cellClassString = NSStringFromClass(cellClass);
 
     if ([self nibExistsWithNibName:cellClassString])
     {
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:cellClassString
                                                                    bundle:nil]
-                         forCellWithReuseIdentifier:reuseIdentifier];
+                         forCellWithReuseIdentifier:cellClassString];
     }
+    self.cellMappings[[self classStringForClass:modelClass]] = NSStringFromClass(cellClass);
 }
 
 - (void)registerSupplementaryClass:(Class)supplementaryClass
                            forKind:(NSString *)kind
                      forModelClass:(Class)modelClass
 {
-    NSString * reuseIdentifier = [self reuseIdentifierForClass:modelClass];
     NSString * supplementaryClassString = NSStringFromClass(supplementaryClass);
 
     if ([self nibExistsWithNibName:supplementaryClassString])
@@ -52,14 +90,17 @@
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:supplementaryClassString
                                                                    bundle:nil]
                          forSupplementaryViewOfKind:kind
-                                withReuseIdentifier:reuseIdentifier];
+                                withReuseIdentifier:supplementaryClassString];
     }
+    [self setSupplementaryClass:supplementaryClass
+                        forKind:kind
+                  forModelClass:modelClass];
 }
 
 - (UICollectionViewCell <DTModelTransfer> *)cellForItem:(id)modelItem
                                             atIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * reuseIdentifier = [self reuseIdentifierForClass:[modelItem class]];
+    NSString * reuseIdentifier = self.cellMappings[[self classStringForClass:[modelItem class]]];
     if (!reuseIdentifier)
     {
         return nil;
@@ -76,7 +117,7 @@
                                                                 forItem:(id)modelItem
                                                             atIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * reuseIdentifier = [self reuseIdentifierForClass:[modelItem class]];
+    NSString * reuseIdentifier = [self supplementaryClassForKind:kind modelClass:[modelItem class]];
     if (!reuseIdentifier)
     {
         return nil;
@@ -90,7 +131,7 @@
     }
 }
 
-- (NSString *)reuseIdentifierForClass:(Class)class
+- (NSString *)classStringForClass:(Class)class
 {
     NSString * classString = NSStringFromClass(class);
 
