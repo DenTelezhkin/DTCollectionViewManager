@@ -74,7 +74,7 @@
     {
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:cellClassString
                                                                    bundle:nil]
-                         forCellWithReuseIdentifier:cellClassString];
+                         forCellWithReuseIdentifier:[self reuseIdentifierFromClass:cellClass]];
     }
     self.cellMappings[[self classStringForClass:modelClass]] = NSStringFromClass(cellClass);
 }
@@ -84,7 +84,7 @@
     if ([self nibExistsWithNibName:nibName])
     {
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:nibName bundle:nil]
-                         forCellWithReuseIdentifier:cellClassString];
+                         forCellWithReuseIdentifier:[self reuseIdentifierFromClass:cellClass]];
         self.cellMappings[[self classStringForClass:modelClass]] = NSStringFromClass(cellClass);
     }
     else
@@ -109,7 +109,7 @@
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:supplementaryClassString
                                                                    bundle:nil]
                          forSupplementaryViewOfKind:kind
-                                withReuseIdentifier:supplementaryClassString];
+                                withReuseIdentifier:[self reuseIdentifierFromClass:supplementaryClass]];
     }
     [self setSupplementaryClass:supplementaryClass
                         forKind:kind
@@ -119,7 +119,8 @@
 - (UICollectionViewCell <DTModelTransfer> *)cellForItem:(id)modelItem
                                             atIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * reuseIdentifier = self.cellMappings[[self classStringForClass:[modelItem class]]];
+    NSString * classString = self.cellMappings[[self classStringForClass:[modelItem class]]];
+    NSString * reuseIdentifier = [self reuseIdentifierFromClass:NSClassFromString(classString)];
     if (!reuseIdentifier)
     {
         return nil;
@@ -136,7 +137,8 @@
                                                                 forItem:(id)modelItem
                                                             atIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * reuseIdentifier = [self supplementaryClassForKind:kind modelClass:[modelItem class]];
+    NSString * classString = [self supplementaryClassForKind:kind modelClass:[modelItem class]];
+    NSString * reuseIdentifier = [self reuseIdentifierFromClass:NSClassFromString(classString)];
     if (!reuseIdentifier)
     {
         return nil;
@@ -148,6 +150,17 @@
                                    withReuseIdentifier:reuseIdentifier
                                           forIndexPath:indexPath];
     }
+}
+
+-(NSString *)reuseIdentifierFromClass:(Class)klass
+{
+    NSString * reuseIdentifier = NSStringFromClass(klass);
+    
+    if ([klass respondsToSelector:@selector(reuseIdentifier)])
+    {
+        reuseIdentifier = [klass reuseIdentifier];
+    }
+    return reuseIdentifier;
 }
 
 - (NSString *)classStringForClass:(Class)class
