@@ -17,5 +17,4 @@ profile
 DerivedData
 .idea/
 
-Podfile.lock
 Pods/
