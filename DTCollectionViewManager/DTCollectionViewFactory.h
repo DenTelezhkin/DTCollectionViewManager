@@ -43,6 +43,10 @@
 - (void)registerCellClass:(Class)cellClass
             forModelClass:(Class)modelClass;
 
+- (void)registerNibNamed:(NSString *)nibName
+            forCellClass:(Class)cellClass
+           forModelClass:(Class)modelClass;
+
 - (void)registerSupplementaryClass:(Class)supplementaryClass
                            forKind:(NSString *)kind
                      forModelClass:(Class)modelClass;

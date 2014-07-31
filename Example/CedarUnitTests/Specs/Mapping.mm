@@ -40,12 +40,37 @@ describe(@"Mapping tests", ^{
             [collection registerCellClass:[ModelCellWithNib class] forModelClass:[Model class]];
             [collection.memoryStorage addItem:[[Model new] autorelease]];
             
-            ModelCellWithNib * cell = (ModelCellWithNib *)[collection.collectionView.dataSource collectionView:collection.collectionView cellForItemAtIndexPath:[NSIndexPath indexPathForItem:0
-                                                                                                                inSection:0]];
-            [cell class] should equal([ModelCellWithNib class]);
+            UICollectionView * collectionView = collection.collectionView;
+            NSObject <UICollectionViewDataSource> * dataSource = collectionView.dataSource;
+            NSIndexPath * indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+            UICollectionViewCell * cell = [dataSource collectionView:collectionView
+                                              cellForItemAtIndexPath:indexPath];
             
-            cell.inittedWithFrame should_not BeTruthy();
-            cell.awakenFromNib should BeTruthy();
+            cell should be_instance_of([ModelCellWithNib class]);
+
+            ModelCellWithNib * castedCell = (ModelCellWithNib *)cell;
+            
+            castedCell.inittedWithFrame should_not BeTruthy();
+            castedCell.awakenFromNib should BeTruthy();
+        });
+        
+        it(@"should be able to register cell with custom nib", ^{
+            [collection registerNibNamed:@"ModelCellWithNib" forCellClass:[ModelCellWithNib class]
+                           forModelClass:[Model class]];
+            [collection.memoryStorage addItem:[[Model new] autorelease]];
+            
+            UICollectionView * collectionView = collection.collectionView;
+            NSObject <UICollectionViewDataSource> * dataSource = collectionView.dataSource;
+            NSIndexPath * indexPath = [NSIndexPath indexPathForItem:0 inSection:0];
+            UICollectionViewCell * cell = [dataSource collectionView:collectionView
+                                              cellForItemAtIndexPath:indexPath];
+            
+            cell should be_instance_of([ModelCellWithNib class]);
+            
+            ModelCellWithNib * castedCell = (ModelCellWithNib *)cell;
+            
+            castedCell.inittedWithFrame should_not BeTruthy();
+            castedCell.awakenFromNib should BeTruthy();
         });
         
         it(@"should not be able to register wrong class", ^{
