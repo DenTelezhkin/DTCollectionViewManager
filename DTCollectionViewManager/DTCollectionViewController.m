@@ -132,6 +132,22 @@
                                forModelClass:modelClass];
 }
 
+-(void)registerNibNamed:(NSString *)nibName forSupplementaryClass:(Class)supplementaryClass
+                forKind:(NSString *)kind
+          forModelClass:(Class)modelClass
+{
+    NSParameterAssert(nibName.length > 0);
+    NSParameterAssert([supplementaryClass isSubclassOfClass:[UICollectionReusableView class]]);
+    NSParameterAssert([supplementaryClass conformsToProtocol:@protocol(DTModelTransfer)]);
+    NSParameterAssert(kind);
+    NSParameterAssert(modelClass);
+    
+    [self.factory registerNibNamed:nibName
+             forSupplementaryClass:supplementaryClass
+                           forKind:kind
+                     forModelClass:modelClass];
+}
+
 #pragma mark - search
 
 -(BOOL)isSearching

@@ -132,14 +132,11 @@
  @param cellClass Class of the cell you want to be created for model with modelClass.
  
  @param modelClass Class of the model you want to be mapped to cellClass.
- 
- @discussion This is the designated mapping method. Best place to call it - in viewDidLoad method.
- 
  */
 -(void)registerNibNamed:(NSString *)nibName forCellClass:(Class)cellClass forModelClass:(Class)modelClass;
 
 /**
- This method registers `supplementaryClass` for UICollectionView supplementary `kind`. `supplementaryClass` should be a UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol.
+ This method registers `supplementaryClass` for UICollectionView supplementary `kind`. `supplementaryClass` should be a UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol. xib file for supplementary class with `supplementaryClass` name is automatically detected if it exists. 
  
  @param supplementaryClass UICollectionReusableView subclass to be mapped for `modelClass`.
  
@@ -151,6 +148,23 @@
 -(void)registerSupplementaryClass:(Class)supplementaryClass
                           forKind:(NSString *)kind
                     forModelClass:(Class)modelClass;
+
+/**
+ This method registers `supplementaryClass` for UICollectionView supplementary `kind`. `supplementaryClass` should be a UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol.
+ 
+ @param nibName name of the nib file to be used
+ 
+ @param supplementaryClass UICollectionReusableView subclass to be mapped for `modelClass`.
+ 
+ @param kind UICollectionView supplementary view kind.
+ 
+ @param modelClass modelClass to be mapped to `supplementaryClass`
+ 
+ */
+-(void)registerNibNamed:(NSString *)nibName
+  forSupplementaryClass:(Class)supplementaryClass
+                forKind:(NSString *)kind
+          forModelClass:(Class)modelClass;
 
 ///---------------------------------------
 /// @name Search

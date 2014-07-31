@@ -51,6 +51,11 @@
                            forKind:(NSString *)kind
                      forModelClass:(Class)modelClass;
 
+- (void)registerNibNamed:(NSString *)nibName
+   forSupplementaryClass:(Class)supplementaryClass
+                 forKind:(NSString *)kind
+           forModelClass:(Class)modelClass;
+
 - (UICollectionViewCell <DTModelTransfer> *)cellForItem:(id)modelItem
                                             atIndexPath:(NSIndexPath *)indexPath;
 

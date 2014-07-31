@@ -145,6 +145,57 @@ describe(@"Mapping tests", ^{
             header.awakenFromNib should BeTruthy();
         });
         
+        it(@"should be able to register supplementary header nib class with custom nib", ^{
+            [collection registerNibNamed:@"SupplementaryViewWithNib"
+                   forSupplementaryClass:[SupplementaryViewWithNib class]
+                                 forKind:UICollectionElementKindSectionHeader
+                           forModelClass:[Model class]];
+            
+            [collection.memoryStorage updateWithoutAnimations:^{
+                [collection.memoryStorage setSupplementaries:@[[[Model new] autorelease]]
+                                                     forKind:UICollectionElementKindSectionHeader];
+                [collection.memoryStorage addItem:[[Model new] autorelease]];
+                
+            }];
+            
+            [collection.collectionView reloadData];
+            [collection.collectionView performBatchUpdates:nil completion:nil];
+            
+            id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
+            UIView * view = [datasource collectionView:collection.collectionView
+                     viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
+                                           atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+            SupplementaryView * header = (SupplementaryView *) view;
+            [header class] should equal([SupplementaryViewWithNib class]);
+            header.inittedWithFrame should_not BeTruthy();
+            header.awakenFromNib should BeTruthy();
+        });
+        
+        it(@"should be able to register supplementary footer nib class with custom nib", ^{
+            [collection registerNibNamed:@"SupplementaryViewWithNib"
+                   forSupplementaryClass:[SupplementaryViewWithNib class]
+                                 forKind:UICollectionElementKindSectionFooter
+                           forModelClass:[Model class]];
+            
+            [collection.memoryStorage updateWithoutAnimations:^{
+                [collection.memoryStorage setSupplementaries:@[[[Model new] autorelease]]
+                                                     forKind:UICollectionElementKindSectionFooter];
+                [collection.memoryStorage addItem:[[Model new] autorelease]];
+            }];
+            
+            [collection.collectionView reloadData];
+            [collection.collectionView performBatchUpdates:nil completion:nil];
+            
+            id <UICollectionViewDataSource> datasource = collection.collectionView.dataSource;
+            UIView * view = [datasource collectionView:collection.collectionView
+                     viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
+                                           atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
+            SupplementaryView * header = (SupplementaryView *) view;
+            [header class] should equal([SupplementaryViewWithNib class]);
+            header.inittedWithFrame should_not BeTruthy();
+            header.awakenFromNib should BeTruthy();
+        });
+        
         it(@"should not be able to register wrong class", ^{
             ^{
                 [collection registerSupplementaryClass:[NSString class]
