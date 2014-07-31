@@ -110,6 +110,16 @@
     [self.factory registerCellClass:cellClass forModelClass:modelClass];
 }
 
+-(void)registerNibNamed:(NSString *)nibName forCellClass:(Class)cellClass forModelClass:(Class)modelClass
+{
+    NSParameterAssert(nibName.length > 0);
+    NSParameterAssert([cellClass isSubclassOfClass:[UICollectionViewCell class]]);
+    NSParameterAssert([cellClass conformsToProtocol:@protocol(DTModelTransfer)]);
+    NSParameterAssert(modelClass);
+    
+    [self.factory registerCellClass:cellClass forModelClass:modelClass];
+}
+
 -(void)registerSupplementaryClass:(Class)supplementaryClass forKind:(NSString *)kind forModelClass:(Class)modelClass
 {
     NSParameterAssert([supplementaryClass isSubclassOfClass:[UICollectionReusableView class]]);

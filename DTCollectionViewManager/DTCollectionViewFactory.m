@@ -79,6 +79,25 @@
     self.cellMappings[[self classStringForClass:modelClass]] = NSStringFromClass(cellClass);
 }
 
+- (void)registerNibNamed:(NSString *)nibName forCellClass:(Class)cellClass forModelClass:(Class)modelClass
+{
+    if ([self nibExistsWithNibName:nibName])
+    {
+        [[self.delegate collectionView] registerNib:[UINib nibWithNibName:nibName bundle:nil]
+                         forCellWithReuseIdentifier:cellClassString];
+        self.cellMappings[[self classStringForClass:modelClass]] = NSStringFromClass(cellClass);
+    }
+    else
+    {
+        NSString * reason = [NSString stringWithFormat:@"nib named %@ not found", nibName];
+        NSException * exc =
+        [NSException exceptionWithName:@"DTCollectionViewManager API exception"
+                                reason:reason
+                              userInfo:nil];
+        [exc raise];
+    }
+}
+
 - (void)registerSupplementaryClass:(Class)supplementaryClass
                            forKind:(NSString *)kind
                      forModelClass:(Class)modelClass
