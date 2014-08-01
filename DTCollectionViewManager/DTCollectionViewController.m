@@ -117,7 +117,7 @@
     NSParameterAssert([cellClass conformsToProtocol:@protocol(DTModelTransfer)]);
     NSParameterAssert(modelClass);
     
-    [self.factory registerCellClass:cellClass forModelClass:modelClass];
+    [self.factory registerNibNamed:nibName forCellClass:cellClass forModelClass:modelClass];
 }
 
 -(void)registerSupplementaryClass:(Class)supplementaryClass forKind:(NSString *)kind forModelClass:(Class)modelClass
