@@ -71,6 +71,8 @@
 		9AC87856188C021200CB7DAF /* KittenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC87855188C021200CB7DAF /* KittenCell.xib */; };
 		AA06EFE2186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */; };
 		AA06EFE3186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */; };
+		FAEB5354198B8D4D00C39F85 /* CellCustomNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAEB5352198B8CC200C39F85 /* CellCustomNib.xib */; };
+		FAEB5355198B8D5200C39F85 /* ModelCellWithCustomNib.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB5350198B8CAA00C39F85 /* ModelCellWithCustomNib.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -163,6 +165,9 @@
 		AA06EFE4186ECB08005123AA /* DTCollectionViewStorageUpdating.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewStorageUpdating.h; path = ../DTCollectionViewManager/DTCollectionViewStorageUpdating.h; sourceTree = "<group>"; };
 		B53D74224BE24E94BC85BDF7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D1B86A8E03B74A7F86BF6C64 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
+		FAEB534F198B8CAA00C39F85 /* ModelCellWithCustomNib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ModelCellWithCustomNib.h; path = Cells/ModelCellWithCustomNib.h; sourceTree = "<group>"; };
+		FAEB5350198B8CAA00C39F85 /* ModelCellWithCustomNib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ModelCellWithCustomNib.m; path = Cells/ModelCellWithCustomNib.m; sourceTree = "<group>"; };
+		FAEB5352198B8CC200C39F85 /* CellCustomNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = CellCustomNib.xib; path = Cells/CellCustomNib.xib; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -413,6 +418,9 @@
 				95AE8996179BF59500F834DB /* ModelCellWithNib.h */,
 				95AE8997179BF59500F834DB /* ModelCellWithNib.m */,
 				95AE8999179BF5B200F834DB /* ModelCellWithNib.xib */,
+				FAEB534F198B8CAA00C39F85 /* ModelCellWithCustomNib.h */,
+				FAEB5350198B8CAA00C39F85 /* ModelCellWithCustomNib.m */,
+				FAEB5352198B8CC200C39F85 /* CellCustomNib.xib */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -575,6 +583,7 @@
 				95AE89AC179C1A9300F834DB /* SupplementaryViewWithNib.xib in Resources */,
 				95ADB23B17AE53C7004BBA29 /* AddRemoveCollectionController.xib in Resources */,
 				95C89A1817B78FAA009FA3F2 /* ExampleCell.xib in Resources */,
+				FAEB5354198B8D4D00C39F85 /* CellCustomNib.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -680,6 +689,7 @@
 				AA06EFE3186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */,
 				95AE8983179AD08100F834DB /* Datasource.mm in Sources */,
 				95AE898A179BF1B600F834DB /* Mapping.mm in Sources */,
+				FAEB5355198B8D5200C39F85 /* ModelCellWithCustomNib.m in Sources */,
 				95AE898D179BF33000F834DB /* DTCollectionViewController+VerifyItem.m in Sources */,
 				95AE8991179BF44700F834DB /* Model.m in Sources */,
 				95AE8995179BF52B00F834DB /* ModelCell.m in Sources */,

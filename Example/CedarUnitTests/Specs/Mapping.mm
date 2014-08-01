@@ -2,6 +2,7 @@
 #import "Model.h"
 #import "ModelCell.h"
 #import "ModelCellWithNib.h"
+#import "ModelCellWithCustomNib.h"
 #import "SupplementaryViewWithNib.h"
 #import "DTMemoryStorage+UpdateWithoutAnimations.h"
 
@@ -55,7 +56,7 @@ describe(@"Mapping tests", ^{
         });
         
         it(@"should be able to register cell with custom nib", ^{
-            [collection registerNibNamed:@"ModelCellWithNib" forCellClass:[ModelCellWithNib class]
+            [collection registerNibNamed:@"CellCustomNib" forCellClass:[ModelCellWithCustomNib class]
                            forModelClass:[Model class]];
             [collection.memoryStorage addItem:[[Model new] autorelease]];
             
@@ -65,9 +66,9 @@ describe(@"Mapping tests", ^{
             UICollectionViewCell * cell = [dataSource collectionView:collectionView
                                               cellForItemAtIndexPath:indexPath];
             
-            cell should be_instance_of([ModelCellWithNib class]);
+            cell should be_instance_of([ModelCellWithCustomNib class]);
             
-            ModelCellWithNib * castedCell = (ModelCellWithNib *)cell;
+            ModelCellWithCustomNib * castedCell = (ModelCellWithCustomNib *)cell;
             
             castedCell.inittedWithFrame should_not BeTruthy();
             castedCell.awakenFromNib should BeTruthy();
