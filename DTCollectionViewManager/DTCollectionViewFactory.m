@@ -81,8 +81,7 @@
 
 - (void)registerNibNamed:(NSString *)nibName forCellClass:(Class)cellClass forModelClass:(Class)modelClass
 {
-    BOOL nibExists = [self nibExistsWithNibName:nibName];
-    NSParameterAssert(nibExists);
+    NSParameterAssert([self nibExistsWithNibName:nibName]);
     
     [[self.delegate collectionView] registerNib:[UINib nibWithNibName:nibName bundle:nil]
                      forCellWithReuseIdentifier:[self reuseIdentifierFromClass:cellClass]];
@@ -112,9 +111,7 @@
                  forKind:(NSString *)kind
            forModelClass:(Class)modelClass
 {
-    BOOL nibExists = [self nibExistsWithNibName:nibName];
-    
-    NSParameterAssert(nibExists);
+    NSParameterAssert([self nibExistsWithNibName:nibName]);
     
     [[self.delegate collectionView] registerNib:[UINib nibWithNibName:nibName
                                                                bundle:nil]
