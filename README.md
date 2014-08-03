@@ -187,7 +187,7 @@ You will need to provide a storage with NSFetchedResultsController and appropria
 
 Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 
-	pod 'DTCollectionViewManager', '~> 2.4'
+	pod 'DTCollectionViewManager', '~> 2.6.1'
 	
 ## Requirements
 
@@ -200,5 +200,6 @@ Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 
 ## Thanks
 
-Thanks to Ash Furrow for his amazing investigative [work on UICollectionView updates](https://github.com/AshFurrow/UICollectionView-NSFetchedResultsController).
+[Ash Furrow](https://github.com/AshFurrow) for his amazing investigative [work on UICollectionView updates](https://github.com/AshFurrow/UICollectionView-NSFetchedResultsController).
+[Alexey Belkevich](https://github.com/belkevich) for continuous testing and contributing to the project.
 
