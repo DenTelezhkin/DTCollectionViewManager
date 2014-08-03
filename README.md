@@ -201,5 +201,6 @@ Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 ## Thanks
 
 [Ash Furrow](https://github.com/AshFurrow) for his amazing investigative [work on UICollectionView updates](https://github.com/AshFurrow/UICollectionView-NSFetchedResultsController).
+
 [Alexey Belkevich](https://github.com/belkevich) for continuous testing and contributing to the project.
 
