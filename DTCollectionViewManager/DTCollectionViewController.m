@@ -116,7 +116,7 @@
     NSParameterAssert([cellClass isSubclassOfClass:[UICollectionViewCell class]]);
     NSParameterAssert([cellClass conformsToProtocol:@protocol(DTModelTransfer)]);
     NSParameterAssert(modelClass);
-    
+
     [self.factory registerNibNamed:nibName forCellClass:cellClass forModelClass:modelClass];
 }
 

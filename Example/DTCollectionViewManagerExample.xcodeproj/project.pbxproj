@@ -65,6 +65,8 @@
 		95C89A1517B78F95009FA3F2 /* ExampleCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95C89A1317B78F95009FA3F2 /* ExampleCell.m */; };
 		95C89A1717B78FAA009FA3F2 /* ExampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */; };
 		95C89A1817B78FAA009FA3F2 /* ExampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */; };
+		9A20D589198E0509005D0F7D /* SupplementaryViewCustomNib.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A20D588198E0509005D0F7D /* SupplementaryViewCustomNib.m */; };
+		9A20D58B198E053C005D0F7D /* HeaderFooterNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A20D58A198E053C005D0F7D /* HeaderFooterNib.xib */; };
 		9AC87850188BFFAA00CB7DAF /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC8784E188BFFA900CB7DAF /* SearchViewController.m */; };
 		9AC87851188BFFAA00CB7DAF /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */; };
 		9AC87854188C01D900CB7DAF /* KittenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC87853188C01D900CB7DAF /* KittenCell.m */; };
@@ -154,6 +156,9 @@
 		95C89A1217B78F95009FA3F2 /* ExampleCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = ExampleCell.h; path = Cells/ExampleCell.h; sourceTree = "<group>"; };
 		95C89A1317B78F95009FA3F2 /* ExampleCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = ExampleCell.m; path = Cells/ExampleCell.m; sourceTree = "<group>"; };
 		95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ExampleCell.xib; path = Cells/ExampleCell.xib; sourceTree = "<group>"; };
+		9A20D587198E0509005D0F7D /* SupplementaryViewCustomNib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SupplementaryViewCustomNib.h; path = Supplementaries/SupplementaryViewCustomNib.h; sourceTree = "<group>"; };
+		9A20D588198E0509005D0F7D /* SupplementaryViewCustomNib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SupplementaryViewCustomNib.m; path = Supplementaries/SupplementaryViewCustomNib.m; sourceTree = "<group>"; };
+		9A20D58A198E053C005D0F7D /* HeaderFooterNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderFooterNib.xib; path = Supplementaries/HeaderFooterNib.xib; sourceTree = "<group>"; };
 		9AC8784D188BFFA900CB7DAF /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Controllers/Search/SearchViewController.h; sourceTree = "<group>"; };
 		9AC8784E188BFFA900CB7DAF /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = Controllers/Search/SearchViewController.m; sourceTree = "<group>"; };
 		9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchViewController.xib; path = Controllers/Search/SearchViewController.xib; sourceTree = "<group>"; };
@@ -433,6 +438,9 @@
 				95AE89A8179C1A7600F834DB /* SupplementaryViewWithNib.h */,
 				95AE89A9179C1A7600F834DB /* SupplementaryViewWithNib.m */,
 				95AE89AB179C1A9300F834DB /* SupplementaryViewWithNib.xib */,
+				9A20D587198E0509005D0F7D /* SupplementaryViewCustomNib.h */,
+				9A20D588198E0509005D0F7D /* SupplementaryViewCustomNib.m */,
+				9A20D58A198E053C005D0F7D /* HeaderFooterNib.xib */,
 			);
 			name = Supplementaries;
 			sourceTree = "<group>";
@@ -580,6 +588,7 @@
 				95AE897B179AD03F00F834DB /* Default@2x.png in Resources */,
 				95AE897D179AD03F00F834DB /* Default-568h@2x.png in Resources */,
 				95AE899A179BF5B200F834DB /* ModelCellWithNib.xib in Resources */,
+				9A20D58B198E053C005D0F7D /* HeaderFooterNib.xib in Resources */,
 				95AE89AC179C1A9300F834DB /* SupplementaryViewWithNib.xib in Resources */,
 				95ADB23B17AE53C7004BBA29 /* AddRemoveCollectionController.xib in Resources */,
 				95C89A1817B78FAA009FA3F2 /* ExampleCell.xib in Resources */,
@@ -700,6 +709,7 @@
 				95AE89AA179C1A7600F834DB /* SupplementaryViewWithNib.m in Sources */,
 				95ADB22617AD5527004BBA29 /* DTCollectionReusableView.m in Sources */,
 				958698381819BBE400F2695A /* PrototypedCell.m in Sources */,
+				9A20D589198E0509005D0F7D /* SupplementaryViewCustomNib.m in Sources */,
 				95ADB22A17AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,
 				95ADB23417AE4D7E004BBA29 /* ControllerModel.m in Sources */,
 				9586983C1819BC7500F2695A /* PrototypedCollectionViewHeader.m in Sources */,

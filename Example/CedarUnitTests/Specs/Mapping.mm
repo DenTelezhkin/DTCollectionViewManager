@@ -5,6 +5,7 @@
 #import "ModelCellWithCustomNib.h"
 #import "SupplementaryViewWithNib.h"
 #import "DTMemoryStorage+UpdateWithoutAnimations.h"
+#import "SupplementaryViewCustomNib.h"
 
 using namespace Cedar::Matchers;
 using namespace Cedar::Doubles;
@@ -147,8 +148,8 @@ describe(@"Mapping tests", ^{
         });
         
         it(@"should be able to register supplementary header nib class with custom nib", ^{
-            [collection registerNibNamed:@"SupplementaryViewWithNib"
-                   forSupplementaryClass:[SupplementaryViewWithNib class]
+            [collection registerNibNamed:@"HeaderFooterNib"
+                   forSupplementaryClass:[SupplementaryViewCustomNib class]
                                  forKind:UICollectionElementKindSectionHeader
                            forModelClass:[Model class]];
             
@@ -167,14 +168,14 @@ describe(@"Mapping tests", ^{
                      viewForSupplementaryElementOfKind:UICollectionElementKindSectionHeader
                                            atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
             SupplementaryView * header = (SupplementaryView *) view;
-            [header class] should equal([SupplementaryViewWithNib class]);
+            [header class] should equal([SupplementaryViewCustomNib class]);
             header.inittedWithFrame should_not BeTruthy();
             header.awakenFromNib should BeTruthy();
         });
         
         it(@"should be able to register supplementary footer nib class with custom nib", ^{
-            [collection registerNibNamed:@"SupplementaryViewWithNib"
-                   forSupplementaryClass:[SupplementaryViewWithNib class]
+            [collection registerNibNamed:@"HeaderFooterNib"
+                   forSupplementaryClass:[SupplementaryViewCustomNib class]
                                  forKind:UICollectionElementKindSectionFooter
                            forModelClass:[Model class]];
             
@@ -192,7 +193,7 @@ describe(@"Mapping tests", ^{
                      viewForSupplementaryElementOfKind:UICollectionElementKindSectionFooter
                                            atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
             SupplementaryView * header = (SupplementaryView *) view;
-            [header class] should equal([SupplementaryViewWithNib class]);
+            [header class] should equal([SupplementaryViewCustomNib class]);
             header.inittedWithFrame should_not BeTruthy();
             header.awakenFromNib should BeTruthy();
         });
