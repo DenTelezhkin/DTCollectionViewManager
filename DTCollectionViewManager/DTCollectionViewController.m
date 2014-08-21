@@ -66,13 +66,13 @@
     _factory = [DTCollectionViewFactory new];
     _factory.delegate = self;
     
-    _storage = [DTCollectionViewMemoryStorage storage];
+    _storage = [DTMemoryStorage storage];
     _storage.delegate = self;
 }
 
--(DTCollectionViewMemoryStorage *)memoryStorage
+-(DTMemoryStorage *)memoryStorage
 {
-    if ([self.storage isKindOfClass:[DTCollectionViewMemoryStorage class]])
+    if ([self.storage isKindOfClass:[DTMemoryStorage class]])
     {
         return self.storage;
     }
@@ -189,7 +189,7 @@
     }
     if ([self.storage respondsToSelector:@selector(searchingStorageForSearchString:inSearchScope:)])
     {
-        self.searchingStorage = [(DTCollectionViewMemoryStorage *)self.storage searchingStorageForSearchString:searchString
+        self.searchingStorage = [self.storage searchingStorageForSearchString:searchString
                                                                                                      inSearchScope:scopeNumber];
         [self.collectionView reloadData];
     }

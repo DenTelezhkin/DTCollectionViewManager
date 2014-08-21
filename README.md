@@ -30,7 +30,7 @@ Here are 4 simple steps you need to use DTCollectionViewManager:
 	<td>Your UIViewController, that presents collectionView, needs to subclass* this class. This class implements all UICollectionViewDatasource methods.</td>
 	</tr>
 	<tr>
-	<td>DTCollectionViewMemoryStorage</td>
+	<td>DTMemoryStorage</td>
 	<td>Class responsible for holding collectionView models. It is used as a default storage by DTCollectionViewManager.</td>
 	</tr>
 	<tr>
@@ -102,7 +102,7 @@ DTCollectionViewManager 2.0 introduces support for custom data storage classes. 
 Memory storage is basically array of section objects, which contain array of objects and any supplementary models for current section. It is used by default and there's convenience method to retrieve it:
 
 ```objective-c
-DTCollectionViewMemoryStorage * storage = [self memoryStorage];
+DTMemoryStorage * storage = [self memoryStorage];
 ```
 
 To add, delete and apply other operations, take a look here: [DTMemoryStorage methods](https://github.com/DenHeadless/DTModelStorage/blob/master/README.md#adding-items)
@@ -152,7 +152,7 @@ Most of the time you will have your own data models for cells. However, sometime
  
 ## Searching in UICollectionView
 
-### DTCollectionViewMemoryStorage
+### DTMemoryStorage
 
 Set UISearchBar's delegate property to your `DTCollectionViewController` subclass. 	
 
@@ -187,7 +187,7 @@ You will need to provide a storage with NSFetchedResultsController and appropria
 
 Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 
-	pod 'DTCollectionViewManager', '~> 2.6.1'
+	pod 'DTCollectionViewManager', '~> 2.7.0'
 	
 ## Requirements
 

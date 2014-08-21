@@ -67,19 +67,18 @@
 		95C89A1817B78FAA009FA3F2 /* ExampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */; };
 		9A20D589198E0509005D0F7D /* SupplementaryViewCustomNib.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A20D588198E0509005D0F7D /* SupplementaryViewCustomNib.m */; };
 		9A20D58B198E053C005D0F7D /* HeaderFooterNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A20D58A198E053C005D0F7D /* HeaderFooterNib.xib */; };
+		9A3CC15019A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */; };
+		9A3CC15119A61F1300D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */; };
 		9AC87850188BFFAA00CB7DAF /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC8784E188BFFA900CB7DAF /* SearchViewController.m */; };
 		9AC87851188BFFAA00CB7DAF /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */; };
 		9AC87854188C01D900CB7DAF /* KittenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC87853188C01D900CB7DAF /* KittenCell.m */; };
 		9AC87856188C021200CB7DAF /* KittenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC87855188C021200CB7DAF /* KittenCell.xib */; };
-		AA06EFE2186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */; };
-		AA06EFE3186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */ = {isa = PBXBuildFile; fileRef = AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */; };
 		FAEB5354198B8D4D00C39F85 /* CellCustomNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAEB5352198B8CC200C39F85 /* CellCustomNib.xib */; };
 		FAEB5355198B8D5200C39F85 /* ModelCellWithCustomNib.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB5350198B8CAA00C39F85 /* ModelCellWithCustomNib.m */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
 		16301BFEFC654ED6888714E6 /* Pods-Tests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.xcconfig"; path = "Pods/Pods-Tests.xcconfig"; sourceTree = "<group>"; };
-		530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-CedarUnitTests.xcconfig"; path = "Pods/Pods-CedarUnitTests.xcconfig"; sourceTree = SOURCE_ROOT; };
 		6BC252B467C745DA950A57E8 /* libPods-Tests.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = "libPods-Tests.a"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9512F08017BFA71C008FF3A1 /* SectionsController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SectionsController.h; path = "Controllers/Move sections/SectionsController.h"; sourceTree = "<group>"; };
 		9512F08117BFA71C008FF3A1 /* SectionsController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SectionsController.m; path = "Controllers/Move sections/SectionsController.m"; sourceTree = "<group>"; };
@@ -159,14 +158,14 @@
 		9A20D587198E0509005D0F7D /* SupplementaryViewCustomNib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SupplementaryViewCustomNib.h; path = Supplementaries/SupplementaryViewCustomNib.h; sourceTree = "<group>"; };
 		9A20D588198E0509005D0F7D /* SupplementaryViewCustomNib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SupplementaryViewCustomNib.m; path = Supplementaries/SupplementaryViewCustomNib.m; sourceTree = "<group>"; };
 		9A20D58A198E053C005D0F7D /* HeaderFooterNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderFooterNib.xib; path = Supplementaries/HeaderFooterNib.xib; sourceTree = "<group>"; };
+		9A3CC14E19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTMemoryStorage+DTCollectionViewManagerAdditions.h"; path = "../DTCollectionViewManager/DTMemoryStorage+DTCollectionViewManagerAdditions.h"; sourceTree = "<group>"; };
+		9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTMemoryStorage+DTCollectionViewManagerAdditions.m"; path = "../DTCollectionViewManager/DTMemoryStorage+DTCollectionViewManagerAdditions.m"; sourceTree = "<group>"; };
 		9AC8784D188BFFA900CB7DAF /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Controllers/Search/SearchViewController.h; sourceTree = "<group>"; };
 		9AC8784E188BFFA900CB7DAF /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = Controllers/Search/SearchViewController.m; sourceTree = "<group>"; };
 		9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchViewController.xib; path = Controllers/Search/SearchViewController.xib; sourceTree = "<group>"; };
 		9AC87852188C01D900CB7DAF /* KittenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KittenCell.h; path = Cells/KittenCell.h; sourceTree = "<group>"; };
 		9AC87853188C01D900CB7DAF /* KittenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KittenCell.m; path = Cells/KittenCell.m; sourceTree = "<group>"; };
 		9AC87855188C021200CB7DAF /* KittenCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = KittenCell.xib; path = Cells/KittenCell.xib; sourceTree = "<group>"; };
-		AA06EFE0186EC7D0005123AA /* DTCollectionViewMemoryStorage.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewMemoryStorage.h; path = ../DTCollectionViewManager/DTCollectionViewMemoryStorage.h; sourceTree = "<group>"; };
-		AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = DTCollectionViewMemoryStorage.m; path = ../DTCollectionViewManager/DTCollectionViewMemoryStorage.m; sourceTree = "<group>"; };
 		AA06EFE4186ECB08005123AA /* DTCollectionViewStorageUpdating.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewStorageUpdating.h; path = ../DTCollectionViewManager/DTCollectionViewStorageUpdating.h; sourceTree = "<group>"; };
 		B53D74224BE24E94BC85BDF7 /* Pods.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.xcconfig; path = Pods/Pods.xcconfig; sourceTree = "<group>"; };
 		D1B86A8E03B74A7F86BF6C64 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -230,7 +229,6 @@
 				95AE896C179AD03E00F834DB /* CedarUnitTests */,
 				955F8584179ACAF000A38EAD /* Frameworks */,
 				955F8583179ACAF000A38EAD /* Products */,
-				530B56A99C134B5FA0BBB8A0 /* Pods-CedarUnitTests.xcconfig */,
 				B53D74224BE24E94BC85BDF7 /* Pods.xcconfig */,
 				16301BFEFC654ED6888714E6 /* Pods-Tests.xcconfig */,
 			);
@@ -482,9 +480,9 @@
 		AA06EFDF186EC7B2005123AA /* Memory storage */ = {
 			isa = PBXGroup;
 			children = (
-				AA06EFE0186EC7D0005123AA /* DTCollectionViewMemoryStorage.h */,
-				AA06EFE1186EC7D0005123AA /* DTCollectionViewMemoryStorage.m */,
 				AA06EFE4186ECB08005123AA /* DTCollectionViewStorageUpdating.h */,
+				9A3CC14E19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.h */,
+				9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */,
 			);
 			name = "Memory storage";
 			sourceTree = "<group>";
@@ -667,7 +665,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				955F8592179ACAF000A38EAD /* main.m in Sources */,
-				AA06EFE2186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */,
 				9AC87854188C01D900CB7DAF /* KittenCell.m in Sources */,
 				955F8596179ACAF000A38EAD /* AppDelegate.m in Sources */,
 				955F859F179ACAF000A38EAD /* ExamplesViewController.m in Sources */,
@@ -683,6 +680,7 @@
 				95C89A1417B78F95009FA3F2 /* ExampleCell.m in Sources */,
 				9512F08317BFA71C008FF3A1 /* SectionsController.m in Sources */,
 				958698301819BA2D00F2695A /* StoryboardViewController.m in Sources */,
+				9A3CC15019A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */,
 				9586983B1819BC7500F2695A /* PrototypedCollectionViewHeader.m in Sources */,
 				9512F08817BFA9A3008FF3A1 /* ExampleHeaderView.m in Sources */,
 				9586983F1819BC9600F2695A /* PrototypedCollectionViewFooter.m in Sources */,
@@ -695,7 +693,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				95AE8973179AD03E00F834DB /* main.m in Sources */,
-				AA06EFE3186EC7D0005123AA /* DTCollectionViewMemoryStorage.m in Sources */,
 				95AE8983179AD08100F834DB /* Datasource.mm in Sources */,
 				95AE898A179BF1B600F834DB /* Mapping.mm in Sources */,
 				FAEB5355198B8D5200C39F85 /* ModelCellWithCustomNib.m in Sources */,
@@ -711,6 +708,7 @@
 				958698381819BBE400F2695A /* PrototypedCell.m in Sources */,
 				9A20D589198E0509005D0F7D /* SupplementaryViewCustomNib.m in Sources */,
 				95ADB22A17AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,
+				9A3CC15119A61F1300D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */,
 				95ADB23417AE4D7E004BBA29 /* ControllerModel.m in Sources */,
 				9586983C1819BC7500F2695A /* PrototypedCollectionViewHeader.m in Sources */,
 				958698401819BC9600F2695A /* PrototypedCollectionViewFooter.m in Sources */,

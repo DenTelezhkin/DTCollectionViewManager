@@ -35,7 +35,7 @@
  
  ## Managing collection items
  
- Starting with 2.0, storage classes have been moved to separate project - DTModelStorage. Basically, every change in data storage object is transferred to current controller and automatically properly animated. DTCollectionViewMemoryStorage is a class used by default, you can retrieve it's instance by calling '-memoryStorage' method.
+ Starting with 2.0, storage classes have been moved to separate project - DTModelStorage. Basically, every change in data storage object is transferred to current controller and automatically properly animated. DTMemoryStorage is a class used by default, you can retrieve it's instance by calling '-memoryStorage' method.
  
  ## Mapping
  
@@ -49,7 +49,7 @@
  
  Search implementation depends on what data storage you use. In both cases it's recommended to use this class as UISearchBarDelegate. Then searching data storage will be created automatically for every change in UISearchBar.
  
- # DTCollectionViewMemoryStorage
+ # DTMemoryStorage
  
  Call memoryStorage setSearchingBlock:forModelClass: to determine, whether model of passed class should show for current search criteria. This method can be called as many times as you need.
  
@@ -68,7 +68,7 @@
   - NSArray
  */
 
-#import "DTCollectionViewMemoryStorage.h"
+#import "DTMemoryStorage+DTCollectionViewManagerAdditions.h"
 #import "DTCollectionViewStorageUpdating.h"
 
 @interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate,DTCollectionViewStorageUpdating>
@@ -101,12 +101,12 @@
 @property (nonatomic, strong) id <DTStorage> searchingStorage;
 
 /**
- Convenience method, that allows retrieving memory storage. If data storage class is different than DTCollectionViewMemoryStorage, this method will return nil.
+ Convenience method, that allows retrieving memory storage. If data storage class is different than DTMemoryStorage, this method will return nil.
  
  @return memory storage object
  */
 
--(DTCollectionViewMemoryStorage *)memoryStorage;
+-(DTMemoryStorage *)memoryStorage;
 
 ///---------------------------------------
 /// @name Mapping
