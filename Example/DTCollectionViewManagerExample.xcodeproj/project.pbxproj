@@ -69,6 +69,8 @@
 		9A20D58B198E053C005D0F7D /* HeaderFooterNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A20D58A198E053C005D0F7D /* HeaderFooterNib.xib */; };
 		9A3CC15019A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */; };
 		9A3CC15119A61F1300D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */; };
+		9A4F710719A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F710619A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m */; };
+		9A4F710819A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F710619A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m */; };
 		9AC87850188BFFAA00CB7DAF /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC8784E188BFFA900CB7DAF /* SearchViewController.m */; };
 		9AC87851188BFFAA00CB7DAF /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */; };
 		9AC87854188C01D900CB7DAF /* KittenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC87853188C01D900CB7DAF /* KittenCell.m */; };
@@ -160,6 +162,8 @@
 		9A20D58A198E053C005D0F7D /* HeaderFooterNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderFooterNib.xib; path = Supplementaries/HeaderFooterNib.xib; sourceTree = "<group>"; };
 		9A3CC14E19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTMemoryStorage+DTCollectionViewManagerAdditions.h"; path = "../DTCollectionViewManager/DTMemoryStorage+DTCollectionViewManagerAdditions.h"; sourceTree = "<group>"; };
 		9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTMemoryStorage+DTCollectionViewManagerAdditions.m"; path = "../DTCollectionViewManager/DTMemoryStorage+DTCollectionViewManagerAdditions.m"; sourceTree = "<group>"; };
+		9A4F710519A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTCoreDataStorage+DTCollectionViewManagerAdditions.h"; path = "../DTCollectionViewManager/DTCoreDataStorage+DTCollectionViewManagerAdditions.h"; sourceTree = "<group>"; };
+		9A4F710619A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTCoreDataStorage+DTCollectionViewManagerAdditions.m"; path = "../DTCollectionViewManager/DTCoreDataStorage+DTCollectionViewManagerAdditions.m"; sourceTree = "<group>"; };
 		9AC8784D188BFFA900CB7DAF /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Controllers/Search/SearchViewController.h; sourceTree = "<group>"; };
 		9AC8784E188BFFA900CB7DAF /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = Controllers/Search/SearchViewController.m; sourceTree = "<group>"; };
 		9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchViewController.xib; path = Controllers/Search/SearchViewController.xib; sourceTree = "<group>"; };
@@ -483,6 +487,8 @@
 				AA06EFE4186ECB08005123AA /* DTCollectionViewStorageUpdating.h */,
 				9A3CC14E19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.h */,
 				9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */,
+				9A4F710519A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.h */,
+				9A4F710619A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m */,
 			);
 			name = "Memory storage";
 			sourceTree = "<group>";
@@ -679,6 +685,7 @@
 				95ADB23817AE53C7004BBA29 /* AddRemoveCollectionController.m in Sources */,
 				95C89A1417B78F95009FA3F2 /* ExampleCell.m in Sources */,
 				9512F08317BFA71C008FF3A1 /* SectionsController.m in Sources */,
+				9A4F710719A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m in Sources */,
 				958698301819BA2D00F2695A /* StoryboardViewController.m in Sources */,
 				9A3CC15019A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */,
 				9586983B1819BC7500F2695A /* PrototypedCollectionViewHeader.m in Sources */,
@@ -707,6 +714,7 @@
 				95ADB22617AD5527004BBA29 /* DTCollectionReusableView.m in Sources */,
 				958698381819BBE400F2695A /* PrototypedCell.m in Sources */,
 				9A20D589198E0509005D0F7D /* SupplementaryViewCustomNib.m in Sources */,
+				9A4F710819A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m in Sources */,
 				95ADB22A17AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,
 				9A3CC15119A61F1300D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */,
 				95ADB23417AE4D7E004BBA29 /* ControllerModel.m in Sources */,
