@@ -24,7 +24,7 @@
 // THE SOFTWARE.
 
 #import "DTMemoryStorage.h"
-#import "DTCollectionViewStorageUpdating.h"
+#import "DTStorage.h"
 
 /**
  Category, that adds UICollectionView specific methods to DTMemoryStorage.

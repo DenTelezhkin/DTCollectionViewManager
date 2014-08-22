@@ -34,6 +34,12 @@
 -(void)finishUpdate;
 @end
 
+@protocol DTCollectionViewStorageUpdating <DTStorageUpdating>
+
+-(void)performAnimatedUpdate:(void(^)(UICollectionView *))animationBlock;
+
+@end
+
 @implementation DTMemoryStorage(DTCollectionViewManagerAdditions)
 
 -(void)moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath

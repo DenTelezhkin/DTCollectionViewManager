@@ -69,9 +69,9 @@
  */
 
 #import "DTMemoryStorage+DTCollectionViewManagerAdditions.h"
-#import "DTCollectionViewStorageUpdating.h"
+#import "DTStorage.h"
 
-@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate,DTCollectionViewStorageUpdating>
+@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate, DTStorageUpdating>
 
 ///---------------------------------------
 /// @name Properties
@@ -192,5 +192,12 @@
  */
 
 -(BOOL)isSearching NS_REQUIRES_SUPER;
+
+/**
+ This method adds ability to perform animated update on UICollectionView. It can be used for complex animations, that should be run simultaneously. For example, `DTCollectionViewManagerAdditions` category on `DTMemoryStorage` uses it to implement moving items between indexPaths.
+ 
+ @param animationBlock animation block to run on UICollectionView.
+ */
+-(void)performAnimatedUpdate:(void (^)(UICollectionView *))animationBlock;
 
 @end
