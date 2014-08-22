@@ -32,6 +32,8 @@
 @property (nonatomic, assign) NSInteger currentSearchScope;
 @property (nonatomic, copy) NSString * currentSearchString;
 @property (nonatomic, retain) DTCollectionViewFactory * factory;
+
+
 @end
 
 @implementation DTCollectionViewController
@@ -40,7 +42,7 @@
 {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
     {
-        [self setup];
+        [self setupCollectionViewDefaults];
     }
     return self;
 }
@@ -49,7 +51,7 @@
 {
     if (self = [super initWithCoder:aDecoder])
     {
-        [self setup];
+        [self setupCollectionViewDefaults];
     }
     return self;
 }
@@ -60,7 +62,7 @@
     self.collectionView.dataSource = nil;
 }
 
--(void)setup
+-(void)setupCollectionViewDefaults
 {
     _currentSearchScope = -1;
     _factory = [DTCollectionViewFactory new];

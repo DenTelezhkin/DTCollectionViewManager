@@ -14,6 +14,7 @@
 @interface SectionsController()
 @property (strong, nonatomic) IBOutlet UINavigationItem *sectionsNavigationItem;
 @property (nonatomic, assign) int sectionNumber;
+
 @end
 
 @implementation SectionsController
