@@ -25,3 +25,10 @@
 
 #import "DTCollectionViewController.h"
 #import "DTModelTransfer.h"
+
+#import "DTModelStorage.h"
+#import "DTMemoryStorage+DTCollectionViewManagerAdditions.h"
+#import "DTCoreDataStorage+DTCollectionViewManagerAdditions.h"
+
+#import "DTCollectionViewCell.h"
+#import "DTCollectionReusableView.h"
