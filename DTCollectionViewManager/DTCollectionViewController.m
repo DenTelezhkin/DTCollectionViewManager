@@ -199,15 +199,21 @@
 
 -(id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSInteger)sectionNumber
 {
+    id <DTStorage> storage = nil;
     if ([self isSearching])
     {
-        return [self.searchingStorage supplementaryModelOfKind:kind
-                                                   forSectionIndex:sectionNumber];
+        storage = self.searchingStorage;
     }
     else {
-        return [self.storage supplementaryModelOfKind:kind
-                                      forSectionIndex:sectionNumber];
+        storage = self.storage;
     }
+    
+    if ([storage respondsToSelector:@selector(supplementaryModelOfKind:forSectionIndex:)])
+    {
+        return [storage supplementaryModelOfKind:kind
+                                 forSectionIndex:sectionNumber];
+    }
+    return nil;
 }
 
 #pragma  mark - UISearchBarDelegate
@@ -274,8 +280,12 @@
                                  atIndexPath:(NSIndexPath *)indexPath
 {
     UICollectionReusableView <DTModelTransfer> *view = nil;
-    id supplementary = [self.storage supplementaryModelOfKind:kind forSectionIndex:indexPath.section];
-
+    id supplementary = nil;
+    if ([self.storage respondsToSelector:@selector(supplementaryModelOfKind:forSectionIndex:)])
+    {
+        supplementary = [self.storage supplementaryModelOfKind:kind forSectionIndex:indexPath.section];
+    }
+    
     if (supplementary)
     {
         view = [self.factory supplementaryViewOfKind:kind
@@ -295,8 +305,12 @@
 referenceSizeForHeaderInSection:(NSInteger)sectionNumber
 {
     id <DTSection> section = [self.storage sections][sectionNumber];
-    BOOL supplementaryModelNotNil = ([self.storage supplementaryModelOfKind:UICollectionElementKindSectionHeader
-                                                            forSectionIndex:sectionNumber]!=nil);
+    BOOL supplementaryModelNotNil = NO;
+    if ([self.storage respondsToSelector:@selector(supplementaryModelOfKind:forSectionIndex:)])
+    {
+        supplementaryModelNotNil = ([self.storage supplementaryModelOfKind:UICollectionElementKindSectionHeader
+                                                           forSectionIndex:sectionNumber]!=nil);
+    }
     if ([self iOS6] && ![section numberOfObjects])
     {
         supplementaryModelNotNil = NO;
@@ -309,8 +323,12 @@ referenceSizeForHeaderInSection:(NSInteger)sectionNumber
 referenceSizeForFooterInSection:(NSInteger)sectionNumber
 {
     id <DTSection> section = [self.storage sections][sectionNumber];
-    BOOL supplementaryModelNotNil = ([self.storage supplementaryModelOfKind:UICollectionElementKindSectionFooter
-                                                            forSectionIndex:sectionNumber]!=nil);
+    BOOL supplementaryModelNotNil = NO;
+    if ([self.storage respondsToSelector:@selector(supplementaryModelOfKind:forSectionIndex:)])
+    {
+        supplementaryModelNotNil = ([self.storage supplementaryModelOfKind:UICollectionElementKindSectionFooter
+                                                           forSectionIndex:sectionNumber]!=nil);
+    }
     if ([self iOS6] && ![section numberOfObjects])
     {
         supplementaryModelNotNil = NO;

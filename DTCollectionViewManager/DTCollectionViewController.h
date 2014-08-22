@@ -191,6 +191,6 @@
  Returns whether search is active, based on current searchString and searchScope, retrieved from UISearchBarDelegate methods.
  */
 
--(BOOL)isSearching __attribute__((objc_requires_super));
+-(BOOL)isSearching NS_REQUIRES_SUPER;
 
 @end
