@@ -41,8 +41,8 @@
  
  @warning Moving item at index, that is not valid, won't do anything, except logging into console about failure
  */
--(void)moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath
-               toIndexPath:(NSIndexPath *)destinationIndexPath;
+-(void)moveCollectionItemAtIndexPath:(NSIndexPath *)sourceIndexPath
+                         toIndexPath:(NSIndexPath *)destinationIndexPath;
 
 ///---------------------------------------
 /// @name Managing sections
@@ -55,6 +55,6 @@
  
  @param toSection The index in the collection view that is the destination of the move for the section. The existing section at that location slides up or down to an adjoining index position to make room for it.
  */
--(void)moveSection:(NSInteger)fromSection toSection:(NSInteger)toSection;
+-(void)moveCollectionViewSection:(NSInteger)fromSection toSection:(NSInteger)toSection;
 
 @end

@@ -42,8 +42,8 @@
 
 @implementation DTMemoryStorage(DTCollectionViewManagerAdditions)
 
--(void)moveItemAtIndexPath:(NSIndexPath *)sourceIndexPath
-               toIndexPath:(NSIndexPath *)destinationIndexPath;
+-(void)moveCollectionItemAtIndexPath:(NSIndexPath *)sourceIndexPath
+                         toIndexPath:(NSIndexPath *)destinationIndexPath;
 {
     [self startUpdate];
     
@@ -101,7 +101,7 @@
     self.currentUpdate = nil;
 }
 
--(void)moveSection:(NSInteger)fromSection toSection:(NSInteger)toSection
+-(void)moveCollectionViewSection:(NSInteger)fromSection toSection:(NSInteger)toSection
 {
     [self startUpdate];
     DTSectionModel * validSectionFrom = [self getValidSection:fromSection];

@@ -290,19 +290,19 @@ describe(@"Datasource specs", ^{
         
         it(@"should move item to another row", ^{
             [collection.memoryStorage addItems:@[model1,model2,model3]];
-            
-            [collection.memoryStorage moveItemAtIndexPath:[NSIndexPath indexPathForItem:0
-                                                                              inSection:0]
-                                              toIndexPath:[NSIndexPath indexPathForItem:2
-                                                                              inSection:0]];
+
+            [collection.memoryStorage moveCollectionItemAtIndexPath:[NSIndexPath indexPathForItem:0
+                                                                                        inSection:0]
+                                                        toIndexPath:[NSIndexPath indexPathForItem:2
+                                                                                        inSection:0]];
             [collection verifySection:@[model2,model3,model1] withSectionNumber:0];
         });
         
         it(@"should move item to another empty section", ^{
             [collection.memoryStorage addItems:@[model1,model2,model3]];
-            
-            [collection.memoryStorage moveItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]
-                                              toIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+
+            [collection.memoryStorage moveCollectionItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]
+                                                        toIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
             
             [collection verifySection:@[model1,model2] withSectionNumber:0];
             [collection verifySection:@[model3] withSectionNumber:1];
@@ -311,9 +311,9 @@ describe(@"Datasource specs", ^{
         it(@"should move item to another section", ^{
             [collection.memoryStorage addItems:@[model1,model2,model3]];
             [collection.memoryStorage addItems:@[model4] toSection:1];
-            
-            [collection.memoryStorage moveItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]
-                                              toIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
+
+            [collection.memoryStorage moveCollectionItemAtIndexPath:[NSIndexPath indexPathForItem:2 inSection:0]
+                                                        toIndexPath:[NSIndexPath indexPathForItem:0 inSection:1]];
             
             [collection verifySection:@[model1,model2] withSectionNumber:0];
             [collection verifySection:@[model3,model4] withSectionNumber:1];
@@ -323,8 +323,8 @@ describe(@"Datasource specs", ^{
             [collection.memoryStorage addItems:@[model1,model2]];
             
             ^{
-                [collection.memoryStorage moveItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]
-                                                  toIndexPath:[NSIndexPath indexPathForItem:4 inSection:3]];
+                [collection.memoryStorage moveCollectionItemAtIndexPath:[NSIndexPath indexPathForItem:1 inSection:0]
+                                                            toIndexPath:[NSIndexPath indexPathForItem:4 inSection:3]];
             } should_not raise_exception;
         });
     
@@ -371,8 +371,8 @@ describe(@"Datasource specs", ^{
         
         it(@"should move section to empty section", ^{
             [collection.memoryStorage addItems:@[model1,model2]];
-            
-            [collection.memoryStorage moveSection:0 toSection:1];
+
+            [collection.memoryStorage moveCollectionViewSection:0 toSection:1];
             
             [collection verifySection:@[model1,model2] withSectionNumber:1];
             [collection verifySection:@[] withSectionNumber:0];
@@ -381,8 +381,8 @@ describe(@"Datasource specs", ^{
         it(@"should switch sections", ^{
             [collection.memoryStorage addItems:@[model1,model2]];
             [collection.memoryStorage addItems:@[model3,model4] toSection:1];
-            
-            [collection.memoryStorage moveSection:0 toSection:1];
+
+            [collection.memoryStorage moveCollectionViewSection:0 toSection:1];
             
             [collection verifySection:@[model3,model4] withSectionNumber:0];
             [collection verifySection:@[model1,model2] withSectionNumber:1];
@@ -421,8 +421,8 @@ describe(@"Datasource specs", ^{
                 [collection.memoryStorage addItems:section0];
                 [collection.memoryStorage addItems:section1 toSection:1];
                 [collection.memoryStorage addItems:section2 toSection:2];
-                
-                [collection.memoryStorage moveSection:0 toSection:2];
+
+                [collection.memoryStorage moveCollectionViewSection:0 toSection:2];
                 
                 expect([collection.memoryStorage supplementaryModelOfKind:header forSectionIndex:0]).to(equal(@2));
                 expect([collection.memoryStorage supplementaryModelOfKind:header forSectionIndex:1]).to(equal(@3));
@@ -437,8 +437,8 @@ describe(@"Datasource specs", ^{
                 [collection.memoryStorage addItems:section0];
                 [collection.memoryStorage addItems:section1 toSection:1];
                 [collection.memoryStorage addItems:section2 toSection:2];
-                
-                [collection.memoryStorage moveSection:0 toSection:2];
+
+                [collection.memoryStorage moveCollectionViewSection:0 toSection:2];
                 
                 expect([collection.memoryStorage supplementaryModelOfKind:footer forSectionIndex:0]).to(equal(@2));
                 expect([collection.memoryStorage supplementaryModelOfKind:footer forSectionIndex:1]).to(equal(@3));
@@ -453,8 +453,8 @@ describe(@"Datasource specs", ^{
                 [collection.memoryStorage addItems:section0];
                 [collection.memoryStorage addItems:section1 toSection:1];
                 [collection.memoryStorage addItems:section2 toSection:2];
-                
-                [collection.memoryStorage moveSection:0 toSection:2];
+
+                [collection.memoryStorage moveCollectionViewSection:0 toSection:2];
                 
                 expect([collection.memoryStorage supplementaryModelOfKind:customKind forSectionIndex:0]).to(equal(@2));
                 expect([collection.memoryStorage supplementaryModelOfKind:customKind forSectionIndex:1]).to(equal(@3));
@@ -469,7 +469,7 @@ describe(@"Datasource specs", ^{
                 [collection.memoryStorage addItems:section1];
                 [collection.memoryStorage addItems:section2];
                 ^{
-                    [collection.memoryStorage moveSection:0 toSection:1];
+                    [collection.memoryStorage moveCollectionViewSection:0 toSection:1];
                 } should_not raise_exception();
             });
         });

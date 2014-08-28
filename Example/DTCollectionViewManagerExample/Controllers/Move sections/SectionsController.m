@@ -64,7 +64,7 @@
 {
     if ([self.memoryStorage.sections count])
     {
-        [self.memoryStorage moveSection:[self.memoryStorage.sections count]-1 toSection:0];
+        [self.memoryStorage moveCollectionViewSection:[self.memoryStorage.sections count] - 1 toSection:0];
     }
 }
 
