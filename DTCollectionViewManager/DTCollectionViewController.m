@@ -304,16 +304,11 @@
                  layout:(UICollectionViewFlowLayout *)collectionViewLayout
 referenceSizeForHeaderInSection:(NSInteger)sectionNumber
 {
-    id <DTSection> section = [self.storage sections][sectionNumber];
     BOOL supplementaryModelNotNil = NO;
     if ([self.storage respondsToSelector:@selector(supplementaryModelOfKind:forSectionIndex:)])
     {
         supplementaryModelNotNil = ([self.storage supplementaryModelOfKind:UICollectionElementKindSectionHeader
                                                            forSectionIndex:sectionNumber]!=nil);
-    }
-    if ([self iOS6] && ![section numberOfObjects])
-    {
-        supplementaryModelNotNil = NO;
     }
     return supplementaryModelNotNil ? collectionViewLayout.headerReferenceSize : CGSizeZero;
 }
@@ -322,16 +317,11 @@ referenceSizeForHeaderInSection:(NSInteger)sectionNumber
                  layout:(UICollectionViewFlowLayout *)collectionViewLayout
 referenceSizeForFooterInSection:(NSInteger)sectionNumber
 {
-    id <DTSection> section = [self.storage sections][sectionNumber];
     BOOL supplementaryModelNotNil = NO;
     if ([self.storage respondsToSelector:@selector(supplementaryModelOfKind:forSectionIndex:)])
     {
         supplementaryModelNotNil = ([self.storage supplementaryModelOfKind:UICollectionElementKindSectionFooter
                                                            forSectionIndex:sectionNumber]!=nil);
-    }
-    if ([self iOS6] && ![section numberOfObjects])
-    {
-        supplementaryModelNotNil = NO;
     }
     return supplementaryModelNotNil ? collectionViewLayout.footerReferenceSize : CGSizeZero;
 }
@@ -410,12 +400,6 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
         shouldReload = YES;
     }
     return shouldReload;
-}
-
--(BOOL)iOS6
-{
-    NSString *version = [[UIDevice currentDevice] systemVersion];
-    return [version hasPrefix:@"6."];
 }
 
 @end

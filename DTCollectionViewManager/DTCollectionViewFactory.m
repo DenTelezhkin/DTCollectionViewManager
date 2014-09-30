@@ -161,13 +161,7 @@
 
 -(NSString *)reuseIdentifierFromClass:(Class)klass
 {
-    NSString * reuseIdentifier = NSStringFromClass(klass);
-    
-    if ([klass respondsToSelector:@selector(reuseIdentifier)])
-    {
-        reuseIdentifier = [klass reuseIdentifier];
-    }
-    return reuseIdentifier;
+    return NSStringFromClass(klass);
 }
 
 - (NSString *)classStringForClass:(Class)class
