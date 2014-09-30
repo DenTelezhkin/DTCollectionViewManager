@@ -30,7 +30,16 @@
  Category, that adds UICollectionView specific methods to DTMemoryStorage.
  */
 
-@interface DTMemoryStorage (DTCollectionViewManagerAdditions) 
+@interface DTMemoryStorage (DTCollectionViewManagerAdditions)
+
+/**
+ Remove all items in section and replace them with array of items. After replacement is done, UICollectionView reloadData method is called.
+ 
+ @param items Array of models to replace current section contents
+ 
+ @param sectionNumber number of section
+ */
+- (void)setItems:(NSArray *)items forSectionIndex:(NSUInteger)sectionNumber;
 
 /**
  Move collection item to `indexPath`.

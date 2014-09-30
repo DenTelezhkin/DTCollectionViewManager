@@ -70,8 +70,9 @@
 
 #import "DTMemoryStorage+DTCollectionViewManagerAdditions.h"
 #import "DTStorage.h"
+#import "DTCollectionViewControllerEvents.h"
 
-@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate, DTStorageUpdating>
+@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate, DTCollectionViewControllerEvents>
 
 ///---------------------------------------
 /// @name Properties

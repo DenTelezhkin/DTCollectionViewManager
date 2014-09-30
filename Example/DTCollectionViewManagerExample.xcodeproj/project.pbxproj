@@ -163,6 +163,7 @@
 		9A20D58A198E053C005D0F7D /* HeaderFooterNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderFooterNib.xib; path = Supplementaries/HeaderFooterNib.xib; sourceTree = "<group>"; };
 		9A3CC14E19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTMemoryStorage+DTCollectionViewManagerAdditions.h"; path = "../DTCollectionViewManager/DTMemoryStorage+DTCollectionViewManagerAdditions.h"; sourceTree = "<group>"; };
 		9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTMemoryStorage+DTCollectionViewManagerAdditions.m"; path = "../DTCollectionViewManager/DTMemoryStorage+DTCollectionViewManagerAdditions.m"; sourceTree = "<group>"; };
+		9A48860E19DADF3600A266BF /* DTCollectionViewControllerEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewControllerEvents.h; path = ../DTCollectionViewManager/DTCollectionViewControllerEvents.h; sourceTree = "<group>"; };
 		9A4F710519A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTCoreDataStorage+DTCollectionViewManagerAdditions.h"; path = "../DTCollectionViewManager/DTCoreDataStorage+DTCollectionViewManagerAdditions.h"; sourceTree = "<group>"; };
 		9A4F710619A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTCoreDataStorage+DTCollectionViewManagerAdditions.m"; path = "../DTCollectionViewManager/DTCoreDataStorage+DTCollectionViewManagerAdditions.m"; sourceTree = "<group>"; };
 		9AC8784D188BFFA900CB7DAF /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Controllers/Search/SearchViewController.h; sourceTree = "<group>"; };
@@ -305,6 +306,7 @@
 				95ADB22217AD54EC004BBA29 /* Convenience */,
 				955F85AF179ACB8F00A38EAD /* DTCollectionViewController.h */,
 				955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */,
+				9A48860E19DADF3600A266BF /* DTCollectionViewControllerEvents.h */,
 				95AE8986179BEDDC00F834DB /* DTCollectionViewManager.h */,
 			);
 			name = DTCollectionViewManager;

@@ -28,7 +28,7 @@
 #import "DTCollectionViewFactory.h"
 
 @interface DTCollectionViewController ()
-<DTCollectionFactoryDelegate,UICollectionViewDelegateFlowLayout>
+<DTCollectionFactoryDelegate,UICollectionViewDelegateFlowLayout, DTStorageUpdating>
 @property (nonatomic, assign) NSInteger currentSearchScope;
 @property (nonatomic, copy) NSString * currentSearchString;
 @property (nonatomic, retain) DTCollectionViewFactory * factory;
@@ -187,13 +187,16 @@
     if (wereSearching && ![self isSearching])
     {
         [self.collectionView reloadData];
+        [self collectionControllerDidCancelSearch];
         return;
     }
     if ([self.storage respondsToSelector:@selector(searchingStorageForSearchString:inSearchScope:)])
     {
+        [self collectionControllerWillBeginSearch];
         self.searchingStorage = [self.storage searchingStorageForSearchString:searchString
                                                                                                      inSearchScope:scopeNumber];
         [self.collectionView reloadData];
+        [self collectionControllerDidEndSearch];
     }
 }
 
@@ -333,6 +336,8 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
 
 -(void)storageDidPerformUpdate:(DTStorageUpdate *)update
 {
+    [self collectionControllerWillUpdateContent];
+    
     NSMutableIndexSet * sectionsToInsert = [NSMutableIndexSet indexSet];
     [update.insertedSectionIndexes enumerateIndexesUsingBlock:^(NSUInteger idx, BOOL *stop) {
         if ([self.collectionView numberOfSections] <= idx)
@@ -367,6 +372,8 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
             [self.collectionView reloadItemsAtIndexPaths:update.updatedRowIndexPaths];
         } completion:nil];
     }
+    
+    [self collectionControllerDidUpdateContent];
 }
 
 // This is to prevent a bug in UICollectionView from occurring.
@@ -400,6 +407,33 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
         shouldReload = YES;
     }
     return shouldReload;
+}
+
+#pragma mark - DTCollectionViewControllerEvents
+
+- (void)collectionControllerWillUpdateContent
+{
+    
+}
+
+- (void)collectionControllerDidUpdateContent
+{
+    
+}
+
+- (void)collectionControllerWillBeginSearch
+{
+    
+}
+
+- (void)collectionControllerDidEndSearch
+{
+    
+}
+
+- (void)collectionControllerDidCancelSearch
+{
+    
 }
 
 @end
