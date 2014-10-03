@@ -69,12 +69,25 @@
 		9A20D58B198E053C005D0F7D /* HeaderFooterNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A20D58A198E053C005D0F7D /* HeaderFooterNib.xib */; };
 		9A3CC15019A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */; };
 		9A3CC15119A61F1300D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */; };
+		9A3DB59419DE912200C8618E /* SwiftFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DB59219DE906200C8618E /* SwiftFooterView.swift */; };
+		9A3DB59619DEBA3A00C8618E /* SwiftStoryboardCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DB59519DEBA3A00C8618E /* SwiftStoryboardCell.swift */; };
+		9A3DB59A19DEDBA700C8618E /* SwiftProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DB59919DEDBA700C8618E /* SwiftProvider.m */; };
+		9A3DB59C19DEDE0500C8618E /* SwiftStoryboardHeader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DB59B19DEDE0500C8618E /* SwiftStoryboardHeader.swift */; };
+		9A48861319DAEAA900A266BF /* SwiftCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A48861119DAEAA900A266BF /* SwiftCollectionViewCell.swift */; };
+		9A48861419DAEAA900A266BF /* SwiftCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A48861119DAEAA900A266BF /* SwiftCollectionViewCell.swift */; };
+		9A48861519DAEAA900A266BF /* SwiftCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A48861219DAEAA900A266BF /* SwiftCollectionViewCell.xib */; };
+		9A48861619DAEAA900A266BF /* SwiftCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A48861219DAEAA900A266BF /* SwiftCollectionViewCell.xib */; };
 		9A4F710719A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F710619A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m */; };
 		9A4F710819A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F710619A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m */; };
 		9AC87850188BFFAA00CB7DAF /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC8784E188BFFA900CB7DAF /* SearchViewController.m */; };
 		9AC87851188BFFAA00CB7DAF /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */; };
 		9AC87854188C01D900CB7DAF /* KittenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC87853188C01D900CB7DAF /* KittenCell.m */; };
 		9AC87856188C021200CB7DAF /* KittenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC87855188C021200CB7DAF /* KittenCell.xib */; };
+		9AC9D2AB19DD93930077ABED /* SwiftStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AC9D2AA19DD93930077ABED /* SwiftStoryboard.storyboard */; };
+		9AC9D2AF19DD9EBD0077ABED /* SwiftStoryboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC9D2AE19DD9EBD0077ABED /* SwiftStoryboardViewController.swift */; };
+		9AFED3C319DB342C0058F9DF /* SwiftMappingTestsSpec.mm in Sources */ = {isa = PBXBuildFile; fileRef = 9AFED3C219DB342C0058F9DF /* SwiftMappingTestsSpec.mm */; };
+		9AFED3C619DB36990058F9DF /* SwiftHeaderView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFED3C419DB36990058F9DF /* SwiftHeaderView.swift */; };
+		9AFED3C719DB36990058F9DF /* SwiftHeaderView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AFED3C519DB36990058F9DF /* SwiftHeaderView.xib */; };
 		FAEB5354198B8D4D00C39F85 /* CellCustomNib.xib in Resources */ = {isa = PBXBuildFile; fileRef = FAEB5352198B8CC200C39F85 /* CellCustomNib.xib */; };
 		FAEB5355198B8D5200C39F85 /* ModelCellWithCustomNib.m in Sources */ = {isa = PBXBuildFile; fileRef = FAEB5350198B8CAA00C39F85 /* ModelCellWithCustomNib.m */; };
 /* End PBXBuildFile section */
@@ -163,7 +176,16 @@
 		9A20D58A198E053C005D0F7D /* HeaderFooterNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderFooterNib.xib; path = Supplementaries/HeaderFooterNib.xib; sourceTree = "<group>"; };
 		9A3CC14E19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTMemoryStorage+DTCollectionViewManagerAdditions.h"; path = "../DTCollectionViewManager/DTMemoryStorage+DTCollectionViewManagerAdditions.h"; sourceTree = "<group>"; };
 		9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTMemoryStorage+DTCollectionViewManagerAdditions.m"; path = "../DTCollectionViewManager/DTMemoryStorage+DTCollectionViewManagerAdditions.m"; sourceTree = "<group>"; };
+		9A3DB59219DE906200C8618E /* SwiftFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftFooterView.swift; path = Supplementaries/SwiftFooterView.swift; sourceTree = "<group>"; };
+		9A3DB59519DEBA3A00C8618E /* SwiftStoryboardCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftStoryboardCell.swift; path = Cells/SwiftStoryboardCell.swift; sourceTree = "<group>"; };
+		9A3DB59819DEDBA700C8618E /* SwiftProvider.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SwiftProvider.h; path = Mocks/SwiftProvider.h; sourceTree = "<group>"; };
+		9A3DB59919DEDBA700C8618E /* SwiftProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwiftProvider.m; path = Mocks/SwiftProvider.m; sourceTree = "<group>"; };
+		9A3DB59B19DEDE0500C8618E /* SwiftStoryboardHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftStoryboardHeader.swift; path = Mocks/SwiftStoryboardHeader.swift; sourceTree = "<group>"; };
 		9A48860E19DADF3600A266BF /* DTCollectionViewControllerEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewControllerEvents.h; path = ../DTCollectionViewManager/DTCollectionViewControllerEvents.h; sourceTree = "<group>"; };
+		9A48860F19DAEAA800A266BF /* Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Example-Bridging-Header.h"; sourceTree = "<group>"; };
+		9A48861019DAEAA800A266BF /* Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Bridging-Header.h"; sourceTree = "<group>"; };
+		9A48861119DAEAA900A266BF /* SwiftCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftCollectionViewCell.swift; path = Cells/SwiftCollectionViewCell.swift; sourceTree = "<group>"; };
+		9A48861219DAEAA900A266BF /* SwiftCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SwiftCollectionViewCell.xib; path = Cells/SwiftCollectionViewCell.xib; sourceTree = "<group>"; };
 		9A4F710519A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTCoreDataStorage+DTCollectionViewManagerAdditions.h"; path = "../DTCollectionViewManager/DTCoreDataStorage+DTCollectionViewManagerAdditions.h"; sourceTree = "<group>"; };
 		9A4F710619A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTCoreDataStorage+DTCollectionViewManagerAdditions.m"; path = "../DTCollectionViewManager/DTCoreDataStorage+DTCollectionViewManagerAdditions.m"; sourceTree = "<group>"; };
 		9AC8784D188BFFA900CB7DAF /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Controllers/Search/SearchViewController.h; sourceTree = "<group>"; };
@@ -172,6 +194,11 @@
 		9AC87852188C01D900CB7DAF /* KittenCell.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = KittenCell.h; path = Cells/KittenCell.h; sourceTree = "<group>"; };
 		9AC87853188C01D900CB7DAF /* KittenCell.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = KittenCell.m; path = Cells/KittenCell.m; sourceTree = "<group>"; };
 		9AC87855188C021200CB7DAF /* KittenCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = KittenCell.xib; path = Cells/KittenCell.xib; sourceTree = "<group>"; };
+		9AC9D2AA19DD93930077ABED /* SwiftStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SwiftStoryboard.storyboard; path = Specs/SwiftStoryboard.storyboard; sourceTree = "<group>"; };
+		9AC9D2AE19DD9EBD0077ABED /* SwiftStoryboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftStoryboardViewController.swift; path = Specs/SwiftStoryboardViewController.swift; sourceTree = "<group>"; };
+		9AFED3C219DB342C0058F9DF /* SwiftMappingTestsSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SwiftMappingTestsSpec.mm; path = Specs/SwiftMappingTestsSpec.mm; sourceTree = "<group>"; };
+		9AFED3C419DB36990058F9DF /* SwiftHeaderView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftHeaderView.swift; path = Supplementaries/SwiftHeaderView.swift; sourceTree = "<group>"; };
+		9AFED3C519DB36990058F9DF /* SwiftHeaderView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SwiftHeaderView.xib; path = Supplementaries/SwiftHeaderView.xib; sourceTree = "<group>"; };
 		9E46AC88AF8B9555FA75D0AA /* Pods.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = Pods.release.xcconfig; path = "Pods/Target Support Files/Pods/Pods.release.xcconfig"; sourceTree = "<group>"; };
 		D1B86A8E03B74A7F86BF6C64 /* libPods.a */ = {isa = PBXFileReference; explicitFileType = archive.ar; includeInIndex = 0; path = libPods.a; sourceTree = BUILT_PRODUCTS_DIR; };
 		EE0E5170C1AF24DCB68584F7 /* Pods-Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-Tests/Pods-Tests.debug.xcconfig"; sourceTree = "<group>"; };
@@ -387,6 +414,7 @@
 		95AE896C179AD03E00F834DB /* CedarUnitTests */ = {
 			isa = PBXGroup;
 			children = (
+				9A3DB59719DEDB9200C8618E /* Mocks */,
 				95AE8992179BF51400F834DB /* Cells */,
 				95AE89A4179C194E00F834DB /* Supplementaries */,
 				95AE898E179BF42900F834DB /* Models */,
@@ -415,6 +443,7 @@
 			children = (
 				95AE8982179AD08100F834DB /* Datasource.mm */,
 				95AE8989179BF1B600F834DB /* Mapping.mm */,
+				9AFED3C219DB342C0058F9DF /* SwiftMappingTestsSpec.mm */,
 				95AE898B179BF33000F834DB /* DTCollectionViewController+VerifyItem.h */,
 				95AE898C179BF33000F834DB /* DTCollectionViewController+VerifyItem.m */,
 			);
@@ -441,6 +470,17 @@
 				FAEB534F198B8CAA00C39F85 /* ModelCellWithCustomNib.h */,
 				FAEB5350198B8CAA00C39F85 /* ModelCellWithCustomNib.m */,
 				FAEB5352198B8CC200C39F85 /* CellCustomNib.xib */,
+				9A48861119DAEAA900A266BF /* SwiftCollectionViewCell.swift */,
+				9A48861219DAEAA900A266BF /* SwiftCollectionViewCell.xib */,
+				9A3DB59519DEBA3A00C8618E /* SwiftStoryboardCell.swift */,
+				9AFED3C419DB36990058F9DF /* SwiftHeaderView.swift */,
+				9A3DB59B19DEDE0500C8618E /* SwiftStoryboardHeader.swift */,
+				9A3DB59219DE906200C8618E /* SwiftFooterView.swift */,
+				9AFED3C519DB36990058F9DF /* SwiftHeaderView.xib */,
+				9AC9D2AA19DD93930077ABED /* SwiftStoryboard.storyboard */,
+				9AC9D2AE19DD9EBD0077ABED /* SwiftStoryboardViewController.swift */,
+				9A48860F19DAEAA800A266BF /* Example-Bridging-Header.h */,
+				9A48861019DAEAA800A266BF /* Tests-Bridging-Header.h */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -482,6 +522,15 @@
 				9AC87855188C021200CB7DAF /* KittenCell.xib */,
 			);
 			name = Cells;
+			sourceTree = "<group>";
+		};
+		9A3DB59719DEDB9200C8618E /* Mocks */ = {
+			isa = PBXGroup;
+			children = (
+				9A3DB59819DEDBA700C8618E /* SwiftProvider.h */,
+				9A3DB59919DEDBA700C8618E /* SwiftProvider.m */,
+			);
+			name = Mocks;
 			sourceTree = "<group>";
 		};
 		9AC8784C188BFF7C00CB7DAF /* Search */ = {
@@ -582,6 +631,7 @@
 				955F8598179ACAF000A38EAD /* Default.png in Resources */,
 				955F859A179ACAF000A38EAD /* Default@2x.png in Resources */,
 				955F859C179ACAF000A38EAD /* Default-568h@2x.png in Resources */,
+				9A48861519DAEAA900A266BF /* SwiftCollectionViewCell.xib in Resources */,
 				955F85A5179ACAF000A38EAD /* ExamplesViewController.xib in Resources */,
 				958698331819BA6600F2695A /* Storyboard.storyboard in Resources */,
 				955F85A8179ACAF000A38EAD /* EmptyDetailViewController.xib in Resources */,
@@ -603,9 +653,12 @@
 				95AE8979179AD03F00F834DB /* Default.png in Resources */,
 				95AE897B179AD03F00F834DB /* Default@2x.png in Resources */,
 				95AE897D179AD03F00F834DB /* Default-568h@2x.png in Resources */,
+				9A48861619DAEAA900A266BF /* SwiftCollectionViewCell.xib in Resources */,
+				9AFED3C719DB36990058F9DF /* SwiftHeaderView.xib in Resources */,
 				95AE899A179BF5B200F834DB /* ModelCellWithNib.xib in Resources */,
 				9A20D58B198E053C005D0F7D /* HeaderFooterNib.xib in Resources */,
 				95AE89AC179C1A9300F834DB /* SupplementaryViewWithNib.xib in Resources */,
+				9AC9D2AB19DD93930077ABED /* SwiftStoryboard.storyboard in Resources */,
 				95ADB23B17AE53C7004BBA29 /* AddRemoveCollectionController.xib in Resources */,
 				95C89A1817B78FAA009FA3F2 /* ExampleCell.xib in Resources */,
 				FAEB5354198B8D4D00C39F85 /* CellCustomNib.xib in Resources */,
@@ -686,6 +739,7 @@
 				9AC87854188C01D900CB7DAF /* KittenCell.m in Sources */,
 				955F8596179ACAF000A38EAD /* AppDelegate.m in Sources */,
 				955F859F179ACAF000A38EAD /* ExamplesViewController.m in Sources */,
+				9A48861319DAEAA900A266BF /* SwiftCollectionViewCell.swift in Sources */,
 				955F85A2179ACAF000A38EAD /* EmptyDetailViewController.m in Sources */,
 				955F85B2179ACB8F00A38EAD /* DTCollectionViewController.m in Sources */,
 				958698371819BBE400F2695A /* PrototypedCell.m in Sources */,
@@ -715,24 +769,32 @@
 				95AE8983179AD08100F834DB /* Datasource.mm in Sources */,
 				95AE898A179BF1B600F834DB /* Mapping.mm in Sources */,
 				FAEB5355198B8D5200C39F85 /* ModelCellWithCustomNib.m in Sources */,
+				9A48861419DAEAA900A266BF /* SwiftCollectionViewCell.swift in Sources */,
+				9AFED3C619DB36990058F9DF /* SwiftHeaderView.swift in Sources */,
 				95AE898D179BF33000F834DB /* DTCollectionViewController+VerifyItem.m in Sources */,
 				95AE8991179BF44700F834DB /* Model.m in Sources */,
 				95AE8995179BF52B00F834DB /* ModelCell.m in Sources */,
 				95AE8998179BF59500F834DB /* ModelCellWithNib.m in Sources */,
 				95AE899B179BF9DA00F834DB /* DTCollectionViewController.m in Sources */,
+				9AC9D2AF19DD9EBD0077ABED /* SwiftStoryboardViewController.swift in Sources */,
 				95AE899F179C05BE00F834DB /* DTCollectionViewFactory.m in Sources */,
 				95AE89A7179C1A1600F834DB /* SupplementaryView.m in Sources */,
 				95AE89AA179C1A7600F834DB /* SupplementaryViewWithNib.m in Sources */,
 				95ADB22617AD5527004BBA29 /* DTCollectionReusableView.m in Sources */,
 				958698381819BBE400F2695A /* PrototypedCell.m in Sources */,
+				9A3DB59A19DEDBA700C8618E /* SwiftProvider.m in Sources */,
 				9A20D589198E0509005D0F7D /* SupplementaryViewCustomNib.m in Sources */,
+				9A3DB59619DEBA3A00C8618E /* SwiftStoryboardCell.swift in Sources */,
 				9A4F710819A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m in Sources */,
 				95ADB22A17AD5586004BBA29 /* DTCollectionViewCell.m in Sources */,
+				9A3DB59419DE912200C8618E /* SwiftFooterView.swift in Sources */,
 				9A3CC15119A61F1300D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */,
 				95ADB23417AE4D7E004BBA29 /* ControllerModel.m in Sources */,
 				9586983C1819BC7500F2695A /* PrototypedCollectionViewHeader.m in Sources */,
 				958698401819BC9600F2695A /* PrototypedCollectionViewFooter.m in Sources */,
 				95C89A1517B78F95009FA3F2 /* ExampleCell.m in Sources */,
+				9AFED3C319DB342C0058F9DF /* SwiftMappingTestsSpec.mm in Sources */,
+				9A3DB59C19DEDE0500C8618E /* SwiftStoryboardHeader.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -841,7 +903,10 @@
 				GCC_PREFIX_HEADER = "DTCollectionViewManagerExample/DTCollectionViewManagerExample-Prefix.pch";
 				INFOPLIST_FILE = "DTCollectionViewManagerExample/DTCollectionViewManagerExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CedarUnitTests/Example-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Debug;
@@ -855,7 +920,9 @@
 				GCC_PREFIX_HEADER = "DTCollectionViewManagerExample/DTCollectionViewManagerExample-Prefix.pch";
 				INFOPLIST_FILE = "DTCollectionViewManagerExample/DTCollectionViewManagerExample-Info.plist";
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CedarUnitTests/Example-Bridging-Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;
@@ -870,7 +937,11 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CedarUnitTests/CedarUnitTests-Prefix.pch";
 				INFOPLIST_FILE = "CedarUnitTests/CedarUnitTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CedarUnitTests/Tests-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};
@@ -886,7 +957,10 @@
 				GCC_PRECOMPILE_PREFIX_HEADER = YES;
 				GCC_PREFIX_HEADER = "CedarUnitTests/CedarUnitTests-Prefix.pch";
 				INFOPLIST_FILE = "CedarUnitTests/CedarUnitTests-Info.plist";
+				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
+				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "CedarUnitTests/Tests-Bridging-Header.h";
 				TARGETED_DEVICE_FAMILY = 1;
 				WRAPPER_EXTENSION = app;
 			};

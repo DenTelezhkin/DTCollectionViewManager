@@ -24,6 +24,7 @@
 // THE SOFTWARE.
 
 #import "DTCollectionViewFactory.h"
+#import "DTRuntimeHelper.h"
 
 @interface DTCollectionViewFactory()
 @property (nonatomic, strong) NSMutableDictionary * cellMappings;
@@ -57,26 +58,19 @@
         kindMappings = [NSMutableDictionary dictionary];
         self.supplementaryMappings[kind] = kindMappings;
     }
-    kindMappings[[self classStringForClass:modelClass]] = NSStringFromClass(supplementaryClass);
-}
-
--(NSString *)supplementaryClassForKind:(NSString *)kind modelClass:(Class)modelClass
-{
-    NSMutableDictionary * kindMappings = self.supplementaryMappings[kind];
-    return kindMappings[[self classStringForClass:modelClass]];
+    kindMappings[[DTRuntimeHelper modelStringForClass:modelClass]] = [DTRuntimeHelper classStringForClass:supplementaryClass];
 }
 
 - (void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass
 {
-    NSString * cellClassString = NSStringFromClass(cellClass);
-
+    NSString * cellClassString = [DTRuntimeHelper classStringForClass:cellClass];
     if ([self nibExistsWithNibName:cellClassString])
     {
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:cellClassString
                                                                    bundle:nil]
-                         forCellWithReuseIdentifier:[self reuseIdentifierFromClass:cellClass]];
+                         forCellWithReuseIdentifier:[DTRuntimeHelper classStringForClass:cellClass]];
     }
-    self.cellMappings[[self classStringForClass:modelClass]] = NSStringFromClass(cellClass);
+    self.cellMappings[[DTRuntimeHelper modelStringForClass:modelClass]] = [DTRuntimeHelper classStringForClass:cellClass];
 }
 
 - (void)registerNibNamed:(NSString *)nibName forCellClass:(Class)cellClass forModelClass:(Class)modelClass
@@ -84,22 +78,22 @@
     NSParameterAssert([self nibExistsWithNibName:nibName]);
     
     [[self.delegate collectionView] registerNib:[UINib nibWithNibName:nibName bundle:nil]
-                     forCellWithReuseIdentifier:[self reuseIdentifierFromClass:cellClass]];
-    self.cellMappings[[self classStringForClass:modelClass]] = NSStringFromClass(cellClass);
+                     forCellWithReuseIdentifier:[DTRuntimeHelper classStringForClass:cellClass]];
+    self.cellMappings[[DTRuntimeHelper modelStringForClass:modelClass]] = NSStringFromClass(cellClass);
 }
 
 - (void)registerSupplementaryClass:(Class)supplementaryClass
                            forKind:(NSString *)kind
                      forModelClass:(Class)modelClass
 {
-    NSString * supplementaryClassString = NSStringFromClass(supplementaryClass);
+    NSString * supplementaryClassString = [DTRuntimeHelper classStringForClass:supplementaryClass];
 
     if ([self nibExistsWithNibName:supplementaryClassString])
     {
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:supplementaryClassString
                                                                    bundle:nil]
                          forSupplementaryViewOfKind:kind
-                                withReuseIdentifier:[self reuseIdentifierFromClass:supplementaryClass]];
+                                withReuseIdentifier:supplementaryClassString];
     }
     [self setSupplementaryClass:supplementaryClass
                         forKind:kind
@@ -116,7 +110,7 @@
     [[self.delegate collectionView] registerNib:[UINib nibWithNibName:nibName
                                                                bundle:nil]
                      forSupplementaryViewOfKind:kind
-                            withReuseIdentifier:[self reuseIdentifierFromClass:supplementaryClass]];
+                            withReuseIdentifier:[DTRuntimeHelper classStringForClass:supplementaryClass]];
     
     [self setSupplementaryClass:supplementaryClass
                         forKind:kind
@@ -126,27 +120,19 @@
 - (UICollectionViewCell <DTModelTransfer> *)cellForItem:(id)modelItem
                                             atIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * classString = self.cellMappings[[self classStringForClass:[modelItem class]]];
-    NSString * reuseIdentifier = [self reuseIdentifierFromClass:NSClassFromString(classString)];
-    if (!reuseIdentifier)
-    {
-        return nil;
-    }
-    else
-    {
-        return [[self.delegate collectionView]
-                dequeueReusableCellWithReuseIdentifier:reuseIdentifier
+    NSString * classString = self.cellMappings[[DTRuntimeHelper modelStringForClass:[modelItem class]]];
+    return [[self.delegate collectionView]
+                dequeueReusableCellWithReuseIdentifier:classString
                                           forIndexPath:indexPath];
-    }
 }
 
 - (UICollectionReusableView <DTModelTransfer> *)supplementaryViewOfKind:(NSString *)kind
                                                                 forItem:(id)modelItem
                                                             atIndexPath:(NSIndexPath *)indexPath
 {
-    NSString * classString = [self supplementaryClassForKind:kind modelClass:[modelItem class]];
-    NSString * reuseIdentifier = [self reuseIdentifierFromClass:NSClassFromString(classString)];
-    if (!reuseIdentifier)
+    NSMutableDictionary * kindMappings = self.supplementaryMappings[kind];
+    NSString * cellClassString  = kindMappings[[DTRuntimeHelper modelStringForClass:[modelItem class]]];
+    if (!cellClassString)
     {
         return nil;
     }
@@ -154,44 +140,9 @@
     {
         return [[self.delegate collectionView]
                 dequeueReusableSupplementaryViewOfKind:kind
-                                   withReuseIdentifier:reuseIdentifier
+                                   withReuseIdentifier:cellClassString
                                           forIndexPath:indexPath];
     }
-}
-
--(NSString *)reuseIdentifierFromClass:(Class)klass
-{
-    return NSStringFromClass(klass);
-}
-
-- (NSString *)classStringForClass:(Class)class
-{
-    NSString * classString = NSStringFromClass(class);
-
-    if ([classString isEqualToString:@"__NSCFConstantString"] ||
-            [classString isEqualToString:@"__NSCFString"] ||
-            class == [NSMutableString class])
-    {
-        return @"NSString";
-    }
-    if ([classString isEqualToString:@"__NSCFNumber"] ||
-            [classString isEqualToString:@"__NSCFBoolean"])
-    {
-        return @"NSNumber";
-    }
-    if ([classString isEqualToString:@"__NSDictionaryI"] ||
-            [classString isEqualToString:@"__NSDictionaryM"] ||
-            class == [NSMutableDictionary class])
-    {
-        return @"NSDictionary";
-    }
-    if ([classString isEqualToString:@"__NSArrayI"] ||
-            [classString isEqualToString:@"__NSArrayM"] ||
-            class == [NSMutableArray class])
-    {
-        return @"NSArray";
-    }
-    return classString;
 }
 
 - (BOOL)nibExistsWithNibName:(NSString *)nibName
