@@ -79,6 +79,12 @@
 		9A48861619DAEAA900A266BF /* SwiftCollectionViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A48861219DAEAA900A266BF /* SwiftCollectionViewCell.xib */; };
 		9A4F710719A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F710619A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m */; };
 		9A4F710819A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A4F710619A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m */; };
+		9A9E0A7219E3112A00C64D0B /* SwiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E0A7119E3112A00C64D0B /* SwiftViewController.swift */; };
+		9A9E0A7519E3140D00C64D0B /* ExecuteAfter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E0A7419E3140D00C64D0B /* ExecuteAfter.swift */; };
+		9A9E0A7919E3168400C64D0B /* SwiftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A9E0A7819E3168400C64D0B /* SwiftViewController.xib */; };
+		9A9E0A7C19E316DA00C64D0B /* SwiftNumberCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E0A7B19E316DA00C64D0B /* SwiftNumberCell.swift */; };
+		9A9E0A7E19E3170F00C64D0B /* SwiftNumberCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A9E0A7D19E3170F00C64D0B /* SwiftNumberCell.xib */; };
+		9A9E0A8319E31BAD00C64D0B /* UIColor+RandomColor.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E0A8219E31BAD00C64D0B /* UIColor+RandomColor.m */; };
 		9AC87850188BFFAA00CB7DAF /* SearchViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC8784E188BFFA900CB7DAF /* SearchViewController.m */; };
 		9AC87851188BFFAA00CB7DAF /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */; };
 		9AC87854188C01D900CB7DAF /* KittenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC87853188C01D900CB7DAF /* KittenCell.m */; };
@@ -182,12 +188,19 @@
 		9A3DB59919DEDBA700C8618E /* SwiftProvider.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SwiftProvider.m; path = Mocks/SwiftProvider.m; sourceTree = "<group>"; };
 		9A3DB59B19DEDE0500C8618E /* SwiftStoryboardHeader.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftStoryboardHeader.swift; path = Mocks/SwiftStoryboardHeader.swift; sourceTree = "<group>"; };
 		9A48860E19DADF3600A266BF /* DTCollectionViewControllerEvents.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewControllerEvents.h; path = ../DTCollectionViewManager/DTCollectionViewControllerEvents.h; sourceTree = "<group>"; };
-		9A48860F19DAEAA800A266BF /* Example-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Example-Bridging-Header.h"; sourceTree = "<group>"; };
 		9A48861019DAEAA800A266BF /* Tests-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Tests-Bridging-Header.h"; sourceTree = "<group>"; };
 		9A48861119DAEAA900A266BF /* SwiftCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftCollectionViewCell.swift; path = Cells/SwiftCollectionViewCell.swift; sourceTree = "<group>"; };
 		9A48861219DAEAA900A266BF /* SwiftCollectionViewCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SwiftCollectionViewCell.xib; path = Cells/SwiftCollectionViewCell.xib; sourceTree = "<group>"; };
 		9A4F710519A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTCoreDataStorage+DTCollectionViewManagerAdditions.h"; path = "../DTCollectionViewManager/DTCoreDataStorage+DTCollectionViewManagerAdditions.h"; sourceTree = "<group>"; };
 		9A4F710619A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTCoreDataStorage+DTCollectionViewManagerAdditions.m"; path = "../DTCollectionViewManager/DTCoreDataStorage+DTCollectionViewManagerAdditions.m"; sourceTree = "<group>"; };
+		9A9E0A7119E3112A00C64D0B /* SwiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftViewController.swift; path = Controllers/Swift/SwiftViewController.swift; sourceTree = "<group>"; };
+		9A9E0A7319E3114700C64D0B /* Example-Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Example-Bridging_Header.h"; sourceTree = "<group>"; };
+		9A9E0A7419E3140D00C64D0B /* ExecuteAfter.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ExecuteAfter.swift; sourceTree = "<group>"; };
+		9A9E0A7819E3168400C64D0B /* SwiftViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SwiftViewController.xib; path = Controllers/Swift/SwiftViewController.xib; sourceTree = "<group>"; };
+		9A9E0A7B19E316DA00C64D0B /* SwiftNumberCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftNumberCell.swift; path = Cells/SwiftNumberCell.swift; sourceTree = "<group>"; };
+		9A9E0A7D19E3170F00C64D0B /* SwiftNumberCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SwiftNumberCell.xib; path = Cells/SwiftNumberCell.xib; sourceTree = "<group>"; };
+		9A9E0A8119E31BAD00C64D0B /* UIColor+RandomColor.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "UIColor+RandomColor.h"; path = "Helpers/UIColor+RandomColor.h"; sourceTree = "<group>"; };
+		9A9E0A8219E31BAD00C64D0B /* UIColor+RandomColor.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "UIColor+RandomColor.m"; path = "Helpers/UIColor+RandomColor.m"; sourceTree = "<group>"; };
 		9AC8784D188BFFA900CB7DAF /* SearchViewController.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SearchViewController.h; path = Controllers/Search/SearchViewController.h; sourceTree = "<group>"; };
 		9AC8784E188BFFA900CB7DAF /* SearchViewController.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SearchViewController.m; path = Controllers/Search/SearchViewController.m; sourceTree = "<group>"; };
 		9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SearchViewController.xib; path = Controllers/Search/SearchViewController.xib; sourceTree = "<group>"; };
@@ -321,6 +334,7 @@
 				955F8597179ACAF000A38EAD /* Default.png */,
 				955F8599179ACAF000A38EAD /* Default@2x.png */,
 				955F859B179ACAF000A38EAD /* Default-568h@2x.png */,
+				9A9E0A7319E3114700C64D0B /* Example-Bridging_Header.h */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -381,6 +395,7 @@
 		95ADB23017AE4D48004BBA29 /* Controllers */ = {
 			isa = PBXGroup;
 			children = (
+				9A9E0A6E19E30E9900C64D0B /* Swift */,
 				9AC8784C188BFF7C00CB7DAF /* Search */,
 				9512F07F17BFA6B2008FF3A1 /* Sections */,
 				95C89A0C17B78F38009FA3F2 /* Views */,
@@ -479,7 +494,6 @@
 				9AFED3C519DB36990058F9DF /* SwiftHeaderView.xib */,
 				9AC9D2AA19DD93930077ABED /* SwiftStoryboard.storyboard */,
 				9AC9D2AE19DD9EBD0077ABED /* SwiftStoryboardViewController.swift */,
-				9A48860F19DAEAA800A266BF /* Example-Bridging-Header.h */,
 				9A48861019DAEAA800A266BF /* Tests-Bridging-Header.h */,
 			);
 			name = Cells;
@@ -531,6 +545,28 @@
 				9A3DB59919DEDBA700C8618E /* SwiftProvider.m */,
 			);
 			name = Mocks;
+			sourceTree = "<group>";
+		};
+		9A9E0A6E19E30E9900C64D0B /* Swift */ = {
+			isa = PBXGroup;
+			children = (
+				9A9E0A7A19E316C100C64D0B /* Cells */,
+				9A9E0A7419E3140D00C64D0B /* ExecuteAfter.swift */,
+				9A9E0A7119E3112A00C64D0B /* SwiftViewController.swift */,
+				9A9E0A7819E3168400C64D0B /* SwiftViewController.xib */,
+			);
+			name = Swift;
+			sourceTree = "<group>";
+		};
+		9A9E0A7A19E316C100C64D0B /* Cells */ = {
+			isa = PBXGroup;
+			children = (
+				9A9E0A7B19E316DA00C64D0B /* SwiftNumberCell.swift */,
+				9A9E0A7D19E3170F00C64D0B /* SwiftNumberCell.xib */,
+				9A9E0A8119E31BAD00C64D0B /* UIColor+RandomColor.h */,
+				9A9E0A8219E31BAD00C64D0B /* UIColor+RandomColor.m */,
+			);
+			name = Cells;
 			sourceTree = "<group>";
 		};
 		9AC8784C188BFF7C00CB7DAF /* Search */ = {
@@ -631,7 +667,9 @@
 				955F8598179ACAF000A38EAD /* Default.png in Resources */,
 				955F859A179ACAF000A38EAD /* Default@2x.png in Resources */,
 				955F859C179ACAF000A38EAD /* Default-568h@2x.png in Resources */,
+				9A9E0A7919E3168400C64D0B /* SwiftViewController.xib in Resources */,
 				9A48861519DAEAA900A266BF /* SwiftCollectionViewCell.xib in Resources */,
+				9A9E0A7E19E3170F00C64D0B /* SwiftNumberCell.xib in Resources */,
 				955F85A5179ACAF000A38EAD /* ExamplesViewController.xib in Resources */,
 				958698331819BA6600F2695A /* Storyboard.storyboard in Resources */,
 				955F85A8179ACAF000A38EAD /* EmptyDetailViewController.xib in Resources */,
@@ -735,6 +773,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A9E0A7219E3112A00C64D0B /* SwiftViewController.swift in Sources */,
 				955F8592179ACAF000A38EAD /* main.m in Sources */,
 				9AC87854188C01D900CB7DAF /* KittenCell.m in Sources */,
 				955F8596179ACAF000A38EAD /* AppDelegate.m in Sources */,
@@ -750,11 +789,14 @@
 				95ADB23317AE4D7E004BBA29 /* ControllerModel.m in Sources */,
 				95ADB23817AE53C7004BBA29 /* AddRemoveCollectionController.m in Sources */,
 				95C89A1417B78F95009FA3F2 /* ExampleCell.m in Sources */,
+				9A9E0A7519E3140D00C64D0B /* ExecuteAfter.swift in Sources */,
 				9512F08317BFA71C008FF3A1 /* SectionsController.m in Sources */,
 				9A4F710719A63E7E0044425B /* DTCoreDataStorage+DTCollectionViewManagerAdditions.m in Sources */,
+				9A9E0A8319E31BAD00C64D0B /* UIColor+RandomColor.m in Sources */,
 				958698301819BA2D00F2695A /* StoryboardViewController.m in Sources */,
 				9A3CC15019A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */,
 				9586983B1819BC7500F2695A /* PrototypedCollectionViewHeader.m in Sources */,
+				9A9E0A7C19E316DA00C64D0B /* SwiftNumberCell.swift in Sources */,
 				9512F08817BFA9A3008FF3A1 /* ExampleHeaderView.m in Sources */,
 				9586983F1819BC9600F2695A /* PrototypedCollectionViewFooter.m in Sources */,
 				9512F08B17BFA9C1008FF3A1 /* ExampleFooterView.m in Sources */,
@@ -905,7 +947,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "CedarUnitTests/Example-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "DTCollectionViewManagerExample/Example-Bridging_Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				WRAPPER_EXTENSION = app;
 			};
@@ -922,7 +964,7 @@
 				IPHONEOS_DEPLOYMENT_TARGET = 7.0;
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
 				PRODUCT_NAME = "$(TARGET_NAME)";
-				SWIFT_OBJC_BRIDGING_HEADER = "CedarUnitTests/Example-Bridging-Header.h";
+				SWIFT_OBJC_BRIDGING_HEADER = "DTCollectionViewManagerExample/Example-Bridging_Header.h";
 				WRAPPER_EXTENSION = app;
 			};
 			name = Release;

@@ -13,6 +13,7 @@
 #import "SectionsController.h"
 #import "StoryboardViewController.h"
 #import "SearchViewController.h"
+#import "Example-Swift.h"
 
 @interface ExamplesViewController()
 @property (nonatomic, strong) NSMutableArray * examples;
@@ -22,18 +23,11 @@ static NSString * exampleCellReuseIdentifier = @"ExampleCellReuseId";
 
 @implementation ExamplesViewController
 
-- (id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
-{
-    self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil];
-    if (self) {
-        self.examples = [NSMutableArray array];
-    }
-    return self;
-}
-
 -(void)viewDidLoad
 {
     [super viewDidLoad];
+    
+    self.examples = [NSMutableArray array];
     [self.tableView registerClass:[UITableViewCell class]
            forCellReuseIdentifier:exampleCellReuseIdentifier];
     
@@ -45,6 +39,8 @@ static NSString * exampleCellReuseIdentifier = @"ExampleCellReuseId";
                                                     andTitle:@"Storyboard"]];
     [self.examples addObject:[ControllerModel modelWithClass:[SearchViewController class]
                                                     andTitle:@"Search"]];
+    [self.examples addObject:[ControllerModel modelWithClass:[SwiftViewController class]
+                                                    andTitle:@"Swift"]];
     [self.tableView reloadData];
 }
 
