@@ -28,7 +28,7 @@
 #import "DTCollectionViewFactory.h"
 
 @interface DTCollectionViewController ()
-<DTCollectionFactoryDelegate,UICollectionViewDelegateFlowLayout, DTStorageUpdating>
+<DTCollectionFactoryDelegate, UICollectionViewDelegateFlowLayout, DTStorageUpdating>
 @property (nonatomic, assign) NSInteger currentSearchScope;
 @property (nonatomic, copy) NSString * currentSearchString;
 @property (nonatomic, retain) DTCollectionViewFactory * factory;
@@ -99,6 +99,8 @@
     
     self.collectionView.dataSource = self;
     self.collectionView.delegate = self;
+    
+    self.searchBar.delegate = self;
 }
 
 #pragma mark - mapping
@@ -134,6 +136,20 @@
                                forModelClass:modelClass];
 }
 
+- (void)registerHeaderClass:(Class)supplementaryClass forModelClass:(Class)modelClass
+{
+    [self registerSupplementaryClass:supplementaryClass
+                             forKind:UICollectionElementKindSectionHeader
+                       forModelClass:modelClass];
+}
+
+- (void)registerFooterClass:(Class)footerClass forModelClass:(Class)modelClass
+{
+    [self registerSupplementaryClass:footerClass
+                             forKind:UICollectionElementKindSectionFooter
+                       forModelClass:modelClass];
+}
+
 -(void)registerNibNamed:(NSString *)nibName forSupplementaryClass:(Class)supplementaryClass
                 forKind:(NSString *)kind
           forModelClass:(Class)modelClass
@@ -148,6 +164,22 @@
              forSupplementaryClass:supplementaryClass
                            forKind:kind
                      forModelClass:modelClass];
+}
+
+- (void)registerNibNamed:(NSString *)nibName forHeaderClass:(Class)headerClass modelClass:(Class)modelClass
+{
+    [self registerNibNamed:nibName
+     forSupplementaryClass:headerClass
+                   forKind:UICollectionElementKindSectionHeader
+             forModelClass:modelClass];
+}
+
+-(void)registerNibNamed:(NSString *)nibName forFooterClass:(Class)footerClass modelClass:(Class)modelClass
+{
+    [self registerNibNamed:nibName
+     forSupplementaryClass:footerClass
+                   forKind:UICollectionElementKindSectionFooter
+             forModelClass:modelClass];
 }
 
 #pragma mark - search

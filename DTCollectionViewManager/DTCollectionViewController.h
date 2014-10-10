@@ -72,7 +72,7 @@
 #import "DTStorage.h"
 #import "DTCollectionViewControllerEvents.h"
 
-@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate, DTCollectionViewControllerEvents>
+@interface DTCollectionViewController : UIViewController <UICollectionViewDataSource,UICollectionViewDelegate, UISearchBarDelegate, DTCollectionViewControllerEvents>
 
 ///---------------------------------------
 /// @name Properties
@@ -80,12 +80,12 @@
 
 /**
  
- Collection view that will present your data models.
+ Collection view that will present your data models. Delegate and datasource properties are set automatically.
  */
 @property (nonatomic,retain) IBOutlet UICollectionView * collectionView;
 
 /*
- Property to store UISearchBar, attached to your UITableView. Attaching it to this property is completely optional.
+ Property to store UISearchBar, attached to your UITableView. Attaching it to this property is completely optional. 
  */
 @property (nonatomic, retain) IBOutlet UISearchBar * searchBar;
 
@@ -106,7 +106,6 @@
  
  @return memory storage object
  */
-
 -(DTMemoryStorage *)memoryStorage;
 
 ///---------------------------------------
@@ -114,7 +113,7 @@
 ///---------------------------------------
 
 /**
- This method is used to register mapping from model class to cell class. It will automatically check for nib with the same name as `cellClass`. If it exists - nib will be registered instead of class.
+ Register mapping from model class to cell class. This will automatically check for nib with the same name as `cellClass`. If it exists - nib will be registered instead of class.
  
  @param cellClass Class of the cell you want to be created for model with modelClass.
  
@@ -126,7 +125,7 @@
 -(void)registerCellClass:(Class)cellClass forModelClass:(Class)modelClass;
 
 /**
- This method is used to register mapping from model class to cell class with custom nib name.
+ Register mapping from model class to cell class with custom nib name.
  
  @param nibName Name of the nib file with cell
  
@@ -137,21 +136,38 @@
 -(void)registerNibNamed:(NSString *)nibName forCellClass:(Class)cellClass forModelClass:(Class)modelClass;
 
 /**
- This method registers `supplementaryClass` for UICollectionView supplementary `kind`. `supplementaryClass` should be a UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol. xib file for supplementary class with `supplementaryClass` name is automatically detected if it exists. 
+ Register `supplementaryClass` for UICollectionView supplementary `kind`. `supplementaryClass` should be a UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol. xib file for supplementary class with `supplementaryClass` name is automatically detected if it exists.
  
  @param supplementaryClass UICollectionReusableView subclass to be mapped for `modelClass`.
  
  @param kind UICollectionView supplementary view kind.
  
  @param modelClass modelClass to be mapped to `supplementaryClass`
- 
  */
--(void)registerSupplementaryClass:(Class)supplementaryClass
+- (void)registerSupplementaryClass:(Class)supplementaryClass
                           forKind:(NSString *)kind
                     forModelClass:(Class)modelClass;
 
 /**
- This method registers `supplementaryClass` for UICollectionView supplementary `kind`. `supplementaryClass` should be a UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol.
+ Register `headerClass` for UICollectionElementKindHeader. `headerClass` should be a UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol. xib file for supplementary class with `headerClass` name is automatically detected if it exists.
+ 
+ @param headerClass UICollectionReusableView subclass to be mapped for `modelClass`.
+ 
+ @param modelClass modelClass to be mapped to `headerClass`.
+ */
+- (void)registerHeaderClass:(Class)headerClass forModelClass:(Class)modelClass;
+
+/**
+ Register `footerClass` for UICollectionElementKindFooter. `footerClass` should be a UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol. xib file for supplementary class with `footerClass` name is automatically detected if it exists.
+ 
+ @param footerClass UICollectionReusableView subclass to be mapped for `modelClass`.
+ 
+ @param modelClass modelClass to be mapped to `footerClass`.
+ */
+- (void)registerFooterClass:(Class)footerClass forModelClass:(Class)modelClass;
+
+/**
+ Register `supplementaryClass` for UICollectionView supplementary `kind`. `supplementaryClass` should be a UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol.
  
  @param nibName name of the nib file to be used
  
@@ -167,19 +183,41 @@
                 forKind:(NSString *)kind
           forModelClass:(Class)modelClass;
 
+/**
+ Register `headerClass` for UICollectionElementKindHeader. `headerClass` should be a UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol.
+ 
+ @param nibName name of the nib file to be used
+ 
+ @param headerClass UICollectionReusableView subclass to be mapped for `modelClass`.
+ 
+ @param modelClass modelClass to be mapped to `headerClass`
+ */
+- (void)registerNibNamed:(NSString *)nibName forHeaderClass:(Class)headerClass modelClass:(Class)modelClass;
+
+/**
+ Register `footerClass` for UICollectionElementKindFooter. `footerClass` should be a UICollectionReusableView subclass, conforming to `DTModelTransfer` protocol.
+ 
+ @param nibName name of the nib file to be used
+ 
+ @param footerClass UICollectionReusableView subclass to be mapped for `modelClass`.
+ 
+ @param modelClass modelClass to be mapped to `footerClass`
+ */
+- (void)registerNibNamed:(NSString *)nibName forFooterClass:(Class)footerClass modelClass:(Class)modelClass;
+
 ///---------------------------------------
 /// @name Search
 ///---------------------------------------
 
 /**
- This method filters presented table items, using searchString as a criteria. Current storage is queried with `searchingStorageForSearchString:inSearchScope:` method. If searchString is not empty, UICollectionViewDatasource is assigned to searchingStorage and collection view is reloaded automatically.
+ Filter presented table items, using searchString as a criteria. Current storage is queried with `searchingStorageForSearchString:inSearchScope:` method. If searchString is not empty, UICollectionViewDatasource is assigned to searchingStorage and collection view is reloaded automatically.
  
  @param searchString Search string used as a criteria for filtering.
  */
 -(void)filterModelsForSearchString:(NSString *)searchString;
 
 /**
- This method filters presented table items, using searchString as a criteria. Current storage is queried with `searchingStorageForSearchString:inSearchScope:` method. If searchString or scopeNumber is not empty, UICollectionViewDatasource is assigned to searchingStorage and collection view is reloaded automatically.
+ Filter presented table items, using searchString as a criteria. Current storage is queried with `searchingStorageForSearchString:inSearchScope:` method. If searchString or scopeNumber is not empty, UICollectionViewDatasource is assigned to searchingStorage and collection view is reloaded automatically.
  
  @param searchString Search string used as a criteria for filtering.
  
@@ -195,7 +233,7 @@
 -(BOOL)isSearching NS_REQUIRES_SUPER;
 
 /**
- This method adds ability to perform animated update on UICollectionView. It can be used for complex animations, that should be run simultaneously. For example, `DTCollectionViewManagerAdditions` category on `DTMemoryStorage` uses it to implement moving items between indexPaths.
+ Perform animated update on UICollectionView. It can be used for complex animations, that should be run simultaneously. For example, `DTCollectionViewManagerAdditions` category on `DTMemoryStorage` uses it to implement moving items between indexPaths.
  
  @param animationBlock animation block to run on UICollectionView.
  */
