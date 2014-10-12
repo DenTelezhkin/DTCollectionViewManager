@@ -43,19 +43,6 @@
 
 @implementation DTMemoryStorage(DTCollectionViewManagerAdditions)
 
--(void)setItems:(NSArray *)items forSectionIndex:(NSUInteger)sectionNumber
-{
-    DTSectionModel * section = [self sectionAtIndex:sectionNumber];
-    [section.objects removeAllObjects];
-    [section.objects addObjectsFromArray:items];
-    [(id <DTCollectionViewStorageUpdating>)self.delegate performAnimatedUpdate:^(UICollectionView * collectionView)
-     {
-         [(id <DTCollectionViewControllerEvents>)self.delegate collectionControllerWillUpdateContent];
-         [collectionView reloadData];
-         [(id <DTCollectionViewControllerEvents>)self.delegate collectionControllerDidUpdateContent];
-     }];
-}
-
 -(void)moveCollectionItemAtIndexPath:(NSIndexPath *)sourceIndexPath
                          toIndexPath:(NSIndexPath *)destinationIndexPath;
 {

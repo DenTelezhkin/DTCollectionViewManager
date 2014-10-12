@@ -24,7 +24,7 @@
 // THE SOFTWARE.
 
 #import "DTMemoryStorage+DTCollectionViewManagerAdditions.h"
-#import "DTStorage.h"
+#import "DTStorageProtocol.h"
 #import "DTCollectionViewControllerEvents.h"
 
 /**
@@ -52,13 +52,13 @@
  Storage object, used as a datasource for collection view models.
  */
 
-@property (nonatomic, strong) id <DTStorage> storage;
+@property (nonatomic, strong) id <DTStorageProtocol> storage;
 
 /**
  Searching data storage object. It will be created automatically, responding to changes in UISearchBar, or after method filterTableItemsForSearchString:inScope: is called.
  */
 
-@property (nonatomic, strong) id <DTStorage> searchingStorage;
+@property (nonatomic, strong) id <DTStorageProtocol> searchingStorage;
 
 /**
  Convenience method, that allows retrieving memory storage. If data storage class is different than DTMemoryStorage, this method will return nil.

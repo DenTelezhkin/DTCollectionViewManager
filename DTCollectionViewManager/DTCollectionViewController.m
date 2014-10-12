@@ -38,6 +38,8 @@
 
 @implementation DTCollectionViewController
 
+@synthesize storage = _storage;
+
 -(id)initWithNibName:(NSString *)nibNameOrNil bundle:(NSBundle *)nibBundleOrNil
 {
     if (self = [super initWithNibName:nibNameOrNil bundle:nibBundleOrNil])
@@ -67,9 +69,6 @@
     _currentSearchScope = -1;
     _factory = [DTCollectionViewFactory new];
     _factory.delegate = self;
-    
-    _storage = [DTMemoryStorage storage];
-    _storage.delegate = self;
 }
 
 -(DTMemoryStorage *)memoryStorage
@@ -81,13 +80,26 @@
     return nil;
 }
 
--(void)setStorage:(id<DTStorage>)dataStorage
+-(id<DTStorageProtocol>)storage
+{
+    if (!_storage)
+    {
+        DTMemoryStorage * storage = [DTMemoryStorage storage];
+        storage.supplementaryHeaderKind = UICollectionElementKindSectionHeader;
+        storage.supplementaryFooterKind = UICollectionElementKindSectionFooter;
+        _storage = storage;
+        _storage.delegate = self;
+    }
+    return _storage;
+}
+
+-(void)setStorage:(id<DTStorageProtocol>)dataStorage
 {
     _storage = dataStorage;
     _storage.delegate = self;
 }
 
--(void)setSearchingStorage:(id<DTStorage>)searchingStorage
+-(void)setSearchingStorage:(id<DTStorageProtocol>)searchingStorage
 {
     _searchingStorage = searchingStorage;
     _searchingStorage.delegate = self;
@@ -234,7 +246,7 @@
 
 -(id)supplementaryModelOfKind:(NSString *)kind forSectionIndex:(NSInteger)sectionNumber
 {
-    id <DTStorage> storage = nil;
+    id <DTStorageProtocol> storage = nil;
     if ([self isSearching])
     {
         storage = self.searchingStorage;
@@ -407,6 +419,17 @@ referenceSizeForFooterInSection:(NSInteger)sectionNumber
     
     [self collectionControllerDidUpdateContent];
 }
+
+-(void)storageNeedsReload
+{
+    [self collectionControllerWillUpdateContent];
+    
+    [self.collectionView reloadData];
+    
+    [self collectionControllerDidUpdateContent];
+}
+
+#pragma mark - workarounds
 
 // This is to prevent a bug in UICollectionView from occurring.
 // The bug presents itself when inserting the first object or deleting the last object in a collection view.
