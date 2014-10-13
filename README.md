@@ -80,7 +80,7 @@ or it's supplementary view variant:
 ```
 And you are done! 
 
-For more detailed look at mapping in DTCollectionViewManager, check out dedicated *[Mapping wiki page](https://github.com/DenHeadless/DTCollectionViewManager/wiki/Mapping)*.
+For more detailed look at mapping in DTCollectionViewManager, check out dedicated *[Mapping wiki page](https://github.com/DenHeadless/DTCollectionViewManager/wiki/Mapping-and-registration)*.
 
 ## Managing collection items
 
