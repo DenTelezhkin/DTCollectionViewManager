@@ -66,7 +66,7 @@ Typically, you have UICollectionViewCells, UICollectionReusableViews and your da
 
 You'll also will have some NSString reuseIdentifier you will use to dequeue your cells and supplementary views. And you'll also need to register appropriate classes on your UICollectionView instance. 
 
-**DTCollectionViewManager removes all of that**. You will need to call a single method:
+DTCollectionViewManager removes all of that. You will need to call a single method:
 
 ```objective-c
 [self registerCellClass:[MyCell class] forModelClass:[MyModel class]];
@@ -86,7 +86,7 @@ For more detailed look at mapping in DTCollectionViewManager, check out dedicate
 
 Storage classes for DTCollectionViewManager have been moved to [separate repo](https://github.com/DenHeadless/DTModelStorage). Two data storage classes are provided - memory and core data storage. 
 
-### Memory storage
+#### Memory storage
 
 `DTMemoryStorage` encapsulates storage of collection view data models in memory. It's basically NSArray of `DTSectionModel` objects, which contain array of items and supplementary models for current section.
 
@@ -94,7 +94,7 @@ Storage classes for DTCollectionViewManager have been moved to [separate repo](h
 
 DTCollectionViewManager adds several methods to `DTMemoryStorage`, that are specific to UICollectionView. Take a look at them here: **[DTMemoryStorage additions](https://github.com/DenHeadless/DTCollectionViewManager/wiki/DTMemoryStorage-additions)**
 
-### NSFetchedResultsController and DTCoreDataStorage
+#### NSFetchedResultsController and DTCoreDataStorage
 
 `DTCoreDataStorage` is meant to be used with NSFetchedResultsController. It automatically monitors all NSFetchedResultsControllerDelegate methods and updates UI accordingly to it's changes. All you need to do to display CoreData models in your UICollectionView, is create DTCoreDataStorage object and set it on your DTCollectionViewController subclass.
 
@@ -104,11 +104,11 @@ self.dataStorage = [DTCoreDataStorage storageWithFetchResultsController:controll
 
 **Important** Keep in mind, that DTMemoryStorage is not limited to objects in memory. For example, if you have CoreData database, and you now for sure, that number of items is not big, you can choose not to use DTCoreDataStorage and NSFetchedResultsController. You can fetch all required models, and store them in DTMemoryStorage, just like you would do with NSObject subclasses.
 
-##### Search
+## Search
 
 DTCollectionViewManager has a built-in search system, that is easy to use and flexible. Read all about it in a dedicated **[Implementing search](https://github.com/DenHeadless/DTCollectionViewManager/wiki/Implementing-search)** wiki page.
 
-### UICollectionView - fixed!
+## UICollectionView - fixed!
 
 UICollectionView has a great API, that provides enourmous possiibilities. Unfortunately, sometimes it is very fragile. Up until iOS 8, it has some issues, that could lead to crashes, if you "hold it wrong". Most important of them, if of course, [insertion of the first item in section](http://openradar.appspot.com/12954582). 
 
