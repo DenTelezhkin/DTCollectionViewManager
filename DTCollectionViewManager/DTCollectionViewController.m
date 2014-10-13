@@ -96,12 +96,16 @@
 -(void)setStorage:(id<DTStorageProtocol>)dataStorage
 {
     _storage = dataStorage;
+    [_storage setSupplementaryHeaderKind:UICollectionElementKindSectionHeader];
+    [_storage setSupplementaryFooterKind:UICollectionElementKindSectionFooter];
     _storage.delegate = self;
 }
 
 -(void)setSearchingStorage:(id<DTStorageProtocol>)searchingStorage
 {
     _searchingStorage = searchingStorage;
+    [_searchingStorage setSupplementaryHeaderKind:UICollectionElementKindSectionHeader];
+    [_searchingStorage setSupplementaryFooterKind:UICollectionElementKindSectionFooter];
     _searchingStorage.delegate = self;
 }
 

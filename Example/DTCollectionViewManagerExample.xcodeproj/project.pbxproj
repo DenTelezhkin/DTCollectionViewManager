@@ -454,7 +454,6 @@ fi
 				<string>95C89A1417B78F95009FA3F2</string>
 				<string>9A9E0A7519E3140D00C64D0B</string>
 				<string>9512F08317BFA71C008FF3A1</string>
-				<string>9A4F710719A63E7E0044425B</string>
 				<string>9A9E0A8319E31BAD00C64D0B</string>
 				<string>958698301819BA2D00F2695A</string>
 				<string>9A3CC15019A61F0E00D52963</string>
@@ -1653,7 +1652,6 @@ fi
 				<string>9A3DB59A19DEDBA700C8618E</string>
 				<string>9A20D589198E0509005D0F7D</string>
 				<string>9A3DB59619DEBA3A00C8618E</string>
-				<string>9A4F710819A63E7E0044425B</string>
 				<string>95ADB22A17AD5586004BBA29</string>
 				<string>9A3DB59419DE912200C8618E</string>
 				<string>9A3CC15119A61F1300D52963</string>
@@ -2961,50 +2959,6 @@ fi
 			<key>isa</key>
 			<string>PBXBuildFile</string>
 		</dict>
-		<key>9A4F710519A63E7E0044425B</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.h</string>
-			<key>name</key>
-			<string>DTCoreDataStorage+DTCollectionViewManagerAdditions.h</string>
-			<key>path</key>
-			<string>../DTCollectionViewManager/DTCoreDataStorage+DTCollectionViewManagerAdditions.h</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9A4F710619A63E7E0044425B</key>
-		<dict>
-			<key>fileEncoding</key>
-			<string>4</string>
-			<key>isa</key>
-			<string>PBXFileReference</string>
-			<key>lastKnownFileType</key>
-			<string>sourcecode.c.objc</string>
-			<key>name</key>
-			<string>DTCoreDataStorage+DTCollectionViewManagerAdditions.m</string>
-			<key>path</key>
-			<string>../DTCollectionViewManager/DTCoreDataStorage+DTCollectionViewManagerAdditions.m</string>
-			<key>sourceTree</key>
-			<string>&lt;group&gt;</string>
-		</dict>
-		<key>9A4F710719A63E7E0044425B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9A4F710619A63E7E0044425B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
-		<key>9A4F710819A63E7E0044425B</key>
-		<dict>
-			<key>fileRef</key>
-			<string>9A4F710619A63E7E0044425B</string>
-			<key>isa</key>
-			<string>PBXBuildFile</string>
-		</dict>
 		<key>9A9E0A6E19E30E9900C64D0B</key>
 		<dict>
 			<key>children</key>
@@ -3449,8 +3403,6 @@ fi
 			<array>
 				<string>9A3CC14E19A61F0E00D52963</string>
 				<string>9A3CC14F19A61F0E00D52963</string>
-				<string>9A4F710519A63E7E0044425B</string>
-				<string>9A4F710619A63E7E0044425B</string>
 			</array>
 			<key>isa</key>
 			<string>PBXGroup</string>

@@ -23,6 +23,22 @@ describe(@"memory storage on DTCollectionViewController", ^{
         [(DTMemoryStorage *)controller.searchingStorage supplementaryHeaderKind] should equal(UICollectionElementKindSectionHeader);
         [(DTMemoryStorage *)controller.searchingStorage supplementaryFooterKind] should equal(UICollectionElementKindSectionFooter);
     });
+    
+    it(@"should set kinds for storage",^{
+        DTMemoryStorage * storage = [DTMemoryStorage new];
+        controller.storage = storage;
+        
+        storage.supplementaryHeaderKind should equal(UICollectionElementKindSectionHeader);
+        storage.supplementaryFooterKind should equal(UICollectionElementKindSectionFooter);
+    });
+    
+    it(@"should set kinds for searching storage",^{
+        DTMemoryStorage * storage = [DTMemoryStorage new];
+        controller.searchingStorage = storage;
+        
+        storage.supplementaryHeaderKind should equal(UICollectionElementKindSectionHeader);
+        storage.supplementaryFooterKind should equal(UICollectionElementKindSectionFooter);
+    });
 });
 
 SPEC_END
