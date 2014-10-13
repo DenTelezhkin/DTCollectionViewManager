@@ -4,12 +4,12 @@ xcodeproj 'DTCollectionViewManagerExample.xcodeproj'
 platform :ios, 7.0
 
 target :Example do
-	pod 'DTModelStorage', :head
+	pod 'DTModelStorage', '1.1.0'
 	pod 'PlaceKit', '~> 1.0.0'
 end
 
 target :Tests do
-	pod 'DTModelStorage', :head
+	pod 'DTModelStorage', '1.1.0'
 	pod 'Cedar', '0.9.8'
 	pod 'AutoDescribe'
 	pod 'OCMock', '~> 2.2.1'

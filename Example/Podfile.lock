@@ -1,20 +1,20 @@
 PODS:
   - AutoDescribe (1.0.0)
   - Cedar (0.9.8)
-  - DTModelStorage (HEAD based on 1.0.0):
+  - DTModelStorage (1.1.0):
     - DTModelStorage/All
-  - DTModelStorage/All (HEAD based on 1.0.0):
+  - DTModelStorage/All (1.1.0):
     - DTModelStorage/Core
     - DTModelStorage/CoreDataStorage
     - DTModelStorage/MemoryStorage
     - DTModelStorage/Utilities
-  - DTModelStorage/Core (HEAD based on 1.0.0)
-  - DTModelStorage/CoreDataStorage (HEAD based on 1.0.0):
+  - DTModelStorage/Core (1.1.0)
+  - DTModelStorage/CoreDataStorage (1.1.0):
     - DTModelStorage/Core
-  - DTModelStorage/MemoryStorage (HEAD based on 1.0.0):
+  - DTModelStorage/MemoryStorage (1.1.0):
     - DTModelStorage/Core
     - DTModelStorage/Utilities
-  - DTModelStorage/Utilities (HEAD based on 1.0.0):
+  - DTModelStorage/Utilities (1.1.0):
     - DTModelStorage/MemoryStorage
   - OCMock (2.2.4)
   - PlaceKit (1.0.0):
@@ -24,14 +24,14 @@ PODS:
 DEPENDENCIES:
   - AutoDescribe
   - Cedar (= 0.9.8)
-  - DTModelStorage (HEAD)
+  - DTModelStorage (= 1.1.0)
   - OCMock (~> 2.2.1)
   - PlaceKit (~> 1.0.0)
 
 SPEC CHECKSUMS:
   AutoDescribe: ef4ac47c8593c58ab852506368f61d3820a24ad5
   Cedar: 6ad54fd39ef5f32292af175bc0259462c724ffb3
-  DTModelStorage: 9425b03c76d707b44181ba9eb4ff78aad38c30a1
+  DTModelStorage: c694a64e6c7fd8561285c00189ccf8b4f604c3c6
   OCMock: 6db79185520e24f9f299548f2b8b07e41d881bd5
   PlaceKit: bf5a00a4abada01dd8dc8f822987571a99263449
 
