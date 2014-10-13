@@ -129,6 +129,8 @@ Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 
 [Cocoadocs](http://cocoadocs.org/docsets/DTCollectionViewManager)
 
+Also check out [wiki page](https://github.com/DenHeadless/DTCollectionViewManager/wiki) for lot's of information on DTCollectionViewManager internals and best practices.
+
 ## Thanks
 
 [Ash Furrow](https://github.com/AshFurrow) for his amazing investigative [work on UICollectionView updates](https://github.com/AshFurrow/UICollectionView-NSFetchedResultsController).
