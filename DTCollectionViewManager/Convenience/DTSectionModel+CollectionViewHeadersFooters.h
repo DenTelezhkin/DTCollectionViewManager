@@ -6,7 +6,7 @@
 //  Copyright (c) 2014 Denys Telezhkin. All rights reserved.
 //
 
-#import "DTSectionModel.h"
+#import <DTModelStorage/DTSectionModel.h>
 
 /**
  Convenience category for section headers and footers in UICollectionViewFlowLayout.

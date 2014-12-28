@@ -23,7 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "DTModelTransfer.h"
+#import <DTModelStorage/DTModelTransfer.h>
 
 /**
  Protocol, used by DTCollectionFactory to access collectionView property on DTCollectionViewController instance.
