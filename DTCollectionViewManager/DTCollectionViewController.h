@@ -24,7 +24,7 @@
 // THE SOFTWARE.
 
 #import "DTMemoryStorage+DTCollectionViewManagerAdditions.h"
-#import "DTStorageProtocol.h"
+#import <DTModelStorage/DTStorageProtocol.h>
 #import "DTCollectionViewControllerEvents.h"
 
 /**

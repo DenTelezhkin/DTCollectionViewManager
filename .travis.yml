@@ -1,3 +1,7 @@
+sudo: false
+
+cache: cocoapods
+
 language: objective-c
 
 before_install:

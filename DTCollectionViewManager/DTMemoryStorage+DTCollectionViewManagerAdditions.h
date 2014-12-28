@@ -23,7 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "DTMemoryStorage.h"
+#import <DTModelStorage/DTMemoryStorage.h>
 
 /**
  Category, that adds UICollectionView specific methods to DTMemoryStorage.
