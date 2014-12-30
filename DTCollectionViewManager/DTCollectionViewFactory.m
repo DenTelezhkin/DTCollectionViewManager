@@ -69,6 +69,8 @@
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:cellClassString
                                                                    bundle:nil]
                          forCellWithReuseIdentifier:[DTRuntimeHelper classStringForClass:cellClass]];
+    } else{
+        [[self.delegate collectionView] registerClass:cellClass forCellWithReuseIdentifier:cellClassString];
     }
     self.cellMappings[[DTRuntimeHelper modelStringForClass:modelClass]] = [DTRuntimeHelper classStringForClass:cellClass];
 }
