@@ -14,7 +14,7 @@
 {
     if (self = [super init])
     {
-        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"SwiftStoryboard" bundle:nil];
+        UIStoryboard * storyboard = [UIStoryboard storyboardWithName:@"SwiftStoryboard" bundle:[NSBundle bundleForClass:[self class]]];
         self.controller = [storyboard instantiateInitialViewController];
     }
     return self;

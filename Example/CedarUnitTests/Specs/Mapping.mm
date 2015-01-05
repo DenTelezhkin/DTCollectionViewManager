@@ -52,8 +52,8 @@ describe(@"Mapping tests", ^{
 
             ModelCellWithNib * castedCell = (ModelCellWithNib *)cell;
             
-            castedCell.inittedWithFrame should_not BeTruthy();
-            castedCell.awakenFromNib should BeTruthy();
+            castedCell.inittedWithFrame should_not be_truthy;
+            castedCell.awakenFromNib should be_truthy;
         });
         
         it(@"should be able to register cell with custom nib", ^{
@@ -71,8 +71,8 @@ describe(@"Mapping tests", ^{
             
             ModelCellWithCustomNib * castedCell = (ModelCellWithCustomNib *)cell;
             
-            castedCell.inittedWithFrame should_not BeTruthy();
-            castedCell.awakenFromNib should BeTruthy();
+            castedCell.inittedWithFrame should_not be_truthy;
+            castedCell.awakenFromNib should be_truthy;
         });
         
         it(@"should not be able to register wrong class", ^{
@@ -119,8 +119,8 @@ describe(@"Mapping tests", ^{
                                            atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
             SupplementaryView * header = (SupplementaryView *) view;
             [header class] should equal([SupplementaryViewWithNib class]);
-            header.inittedWithFrame should_not BeTruthy();
-            header.awakenFromNib should BeTruthy();
+            header.inittedWithFrame should_not be_truthy;
+            header.awakenFromNib should be_truthy;
         });
         
         it(@"should be able to register supplementary footer nib class", ^{
@@ -143,8 +143,8 @@ describe(@"Mapping tests", ^{
                                            atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
             SupplementaryView * header = (SupplementaryView *) view;
             [header class] should equal([SupplementaryViewWithNib class]);
-            header.inittedWithFrame should_not BeTruthy();
-            header.awakenFromNib should BeTruthy();
+            header.inittedWithFrame should_not be_truthy;
+            header.awakenFromNib should be_truthy;
         });
         
         it(@"should be able to register supplementary header nib class with custom nib", ^{
@@ -169,8 +169,8 @@ describe(@"Mapping tests", ^{
                                            atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
             SupplementaryView * header = (SupplementaryView *) view;
             [header class] should equal([SupplementaryViewCustomNib class]);
-            header.inittedWithFrame should_not BeTruthy();
-            header.awakenFromNib should BeTruthy();
+            header.inittedWithFrame should_not be_truthy;
+            header.awakenFromNib should be_truthy;
         });
         
         it(@"should be able to register supplementary footer nib class with custom nib", ^{
@@ -194,8 +194,8 @@ describe(@"Mapping tests", ^{
                                            atIndexPath:[NSIndexPath indexPathForItem:0 inSection:0]];
             SupplementaryView * header = (SupplementaryView *) view;
             [header class] should equal([SupplementaryViewCustomNib class]);
-            header.inittedWithFrame should_not BeTruthy();
-            header.awakenFromNib should BeTruthy();
+            header.inittedWithFrame should_not be_truthy;
+            header.awakenFromNib should be_truthy;
         });
         
         it(@"should not be able to register wrong class", ^{

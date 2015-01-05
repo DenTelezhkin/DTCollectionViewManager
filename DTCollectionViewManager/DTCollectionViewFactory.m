@@ -67,7 +67,7 @@
     if ([self nibExistsWithNibName:cellClassString])
     {
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:cellClassString
-                                                                   bundle:nil]
+                                                                   bundle:[NSBundle bundleForClass:[self class]]]
                          forCellWithReuseIdentifier:[DTRuntimeHelper classStringForClass:cellClass]];
     }
     self.cellMappings[[DTRuntimeHelper modelStringForClass:modelClass]] = [DTRuntimeHelper classStringForClass:cellClass];
@@ -77,7 +77,7 @@
 {
     NSParameterAssert([self nibExistsWithNibName:nibName]);
     
-    [[self.delegate collectionView] registerNib:[UINib nibWithNibName:nibName bundle:nil]
+    [[self.delegate collectionView] registerNib:[UINib nibWithNibName:nibName bundle:[NSBundle bundleForClass:[self class]]]
                      forCellWithReuseIdentifier:[DTRuntimeHelper classStringForClass:cellClass]];
     self.cellMappings[[DTRuntimeHelper modelStringForClass:modelClass]] = NSStringFromClass(cellClass);
 }
@@ -91,7 +91,7 @@
     if ([self nibExistsWithNibName:supplementaryClassString])
     {
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:supplementaryClassString
-                                                                   bundle:nil]
+                                                                   bundle:[NSBundle bundleForClass:[self class]]]
                          forSupplementaryViewOfKind:kind
                                 withReuseIdentifier:supplementaryClassString];
     }
@@ -108,7 +108,7 @@
     NSParameterAssert([self nibExistsWithNibName:nibName]);
     
     [[self.delegate collectionView] registerNib:[UINib nibWithNibName:nibName
-                                                               bundle:nil]
+                                                               bundle:[NSBundle bundleForClass:[self class]]]
                      forSupplementaryViewOfKind:kind
                             withReuseIdentifier:[DTRuntimeHelper classStringForClass:supplementaryClass]];
     
@@ -147,8 +147,8 @@
 
 - (BOOL)nibExistsWithNibName:(NSString *)nibName
 {
-    NSString * path = [[NSBundle mainBundle] pathForResource:nibName
-                                                      ofType:@"nib"];
+    NSString * path = [[NSBundle bundleForClass:[self class]] pathForResource:nibName
+                                                                       ofType:@"nib"];
     if (path)
     {
         return YES;

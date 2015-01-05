@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Scheme
-   LastUpgradeVersion = "0510"
+   LastUpgradeVersion = "0610"
    version = "1.3">
    <BuildAction
       parallelizeBuildables = "YES"
@@ -9,14 +9,14 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "YES"
-            buildForArchiving = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
             buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "95AE8967179AD03E00F834DB"
-               BuildableName = "Tests.app"
-               BlueprintName = "Tests"
+               BlueprintIdentifier = "9A6FB6211A5AF5B8004ED709"
+               BuildableName = "XCTests.xctest"
+               BlueprintName = "XCTests"
                ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,13 +28,23 @@
       shouldUseLaunchSchemeArgsEnv = "YES"
       buildConfiguration = "Debug">
       <Testables>
+         <TestableReference
+            skipped = "NO">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9A6FB6211A5AF5B8004ED709"
+               BuildableName = "XCTests.xctest"
+               BlueprintName = "XCTests"
+               ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
+            </BuildableReference>
+         </TestableReference>
       </Testables>
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "95AE8967179AD03E00F834DB"
-            BuildableName = "Tests.app"
-            BlueprintName = "Tests"
+            BlueprintIdentifier = "9A6FB6211A5AF5B8004ED709"
+            BuildableName = "XCTests.xctest"
+            BlueprintName = "XCTests"
             ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -48,22 +58,15 @@
       ignoresPersistentStateOnLaunch = "NO"
       debugDocumentVersioning = "YES"
       allowLocationSimulation = "YES">
-      <BuildableProductRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "95AE8967179AD03E00F834DB"
-            BuildableName = "Tests.app"
-            BlueprintName = "Tests"
+            BlueprintIdentifier = "9A6FB6211A5AF5B8004ED709"
+            BuildableName = "XCTests.xctest"
+            BlueprintName = "XCTests"
             ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
-      <EnvironmentVariables>
-         <EnvironmentVariable
-            key = "NSZombieEnabled"
-            value = "YES"
-            isEnabled = "YES">
-         </EnvironmentVariable>
-      </EnvironmentVariables>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -73,15 +76,15 @@
       useCustomWorkingDirectory = "NO"
       buildConfiguration = "Release"
       debugDocumentVersioning = "YES">
-      <BuildableProductRunnable>
+      <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "95AE8967179AD03E00F834DB"
-            BuildableName = "Tests.app"
-            BlueprintName = "Tests"
+            BlueprintIdentifier = "9A6FB6211A5AF5B8004ED709"
+            BuildableName = "XCTests.xctest"
+            BlueprintName = "XCTests"
             ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
          </BuildableReference>
-      </BuildableProductRunnable>
+      </MacroExpansion>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

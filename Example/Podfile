@@ -8,9 +8,9 @@ target :Example do
 	pod 'PlaceKit', '~> 1.0.0'
 end
 
-target :Tests do
+target :XCTests do
 	pod 'DTModelStorage', '1.1.1'
-	pod 'Cedar', '0.9.8'
+	pod 'Cedar'
 	pod 'AutoDescribe'
 	pod 'OCMock', '~> 2.2.1'
 end
