@@ -39,6 +39,12 @@
 		95C89A1717B78FAA009FA3F2 /* ExampleCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 95C89A1617B78FAA009FA3F2 /* ExampleCell.xib */; };
 		9A0F9BFE19EACB9A001F689D /* DTSectionModel+CollectionViewHeadersFooters.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F9BFD19EACB9A001F689D /* DTSectionModel+CollectionViewHeadersFooters.m */; };
 		9A3CC15019A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */; };
+		9A427DF41A5C0A090092E046 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */; };
+		9A427DF51A5C0A090092E046 /* DTCollectionViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE899D179C05BE00F834DB /* DTCollectionViewFactory.m */; };
+		9A427DF61A5C0A090092E046 /* DTCollectionReusableView.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB22417AD5527004BBA29 /* DTCollectionReusableView.m */; };
+		9A427DF71A5C0A090092E046 /* DTCollectionViewCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95ADB22817AD5586004BBA29 /* DTCollectionViewCell.m */; };
+		9A427DF81A5C0A090092E046 /* DTSectionModel+CollectionViewHeadersFooters.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F9BFD19EACB9A001F689D /* DTSectionModel+CollectionViewHeadersFooters.m */; };
+		9A427DF91A5C0A090092E046 /* DTCollectionViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 955F85B0179ACB8F00A38EAD /* DTCollectionViewController.m */; };
 		9A48861319DAEAA900A266BF /* SwiftCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A48861119DAEAA900A266BF /* SwiftCollectionViewCell.swift */; };
 		9A6FB62D1A5AF5D1004ED709 /* SwiftProvider.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3DB59919DEDBA700C8618E /* SwiftProvider.m */; };
 		9A6FB62E1A5AF5DF004ED709 /* ModelCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE8994179BF52B00F834DB /* ModelCell.m */; };
@@ -643,7 +649,6 @@
 				TargetAttributes = {
 					9A6FB6211A5AF5B8004ED709 = {
 						CreatedOnToolsVersion = 6.1.1;
-						TestTargetID = 955F8581179ACAF000A38EAD;
 					};
 				};
 			};
@@ -808,14 +813,19 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A6FB62D1A5AF5D1004ED709 /* SwiftProvider.m in Sources */,
+				9A427DF81A5C0A090092E046 /* DTSectionModel+CollectionViewHeadersFooters.m in Sources */,
+				9A427DF51A5C0A090092E046 /* DTCollectionViewFactory.m in Sources */,
 				9A6FB62E1A5AF5DF004ED709 /* ModelCell.m in Sources */,
 				9A6FB62F1A5AF5DF004ED709 /* ModelCellWithNib.m in Sources */,
 				9A6FB6431A5AF789004ED709 /* XCMockTestCase.m in Sources */,
+				9A427DF91A5C0A090092E046 /* DTCollectionViewController.m in Sources */,
 				9A6FB6301A5AF5DF004ED709 /* ModelCellWithCustomNib.m in Sources */,
 				9A6FB6311A5AF5DF004ED709 /* SwiftCollectionViewCell.swift in Sources */,
 				9A6FB6321A5AF5DF004ED709 /* SwiftStoryboardCell.swift in Sources */,
+				9A427DF71A5C0A090092E046 /* DTCollectionViewCell.m in Sources */,
 				9A6FB6331A5AF5DF004ED709 /* SwiftHeaderView.swift in Sources */,
 				9A6FB6341A5AF5DF004ED709 /* SwiftStoryboardHeader.swift in Sources */,
+				9A427DF61A5C0A090092E046 /* DTCollectionReusableView.m in Sources */,
 				9A6FB6371A5AF627004ED709 /* SupplementaryView.m in Sources */,
 				9A6FB6381A5AF627004ED709 /* SupplementaryViewWithNib.m in Sources */,
 				9A6FB6391A5AF627004ED709 /* SupplementaryViewCustomNib.m in Sources */,
@@ -823,6 +833,7 @@
 				9A6FB63B1A5AF627004ED709 /* Datasource.mm in Sources */,
 				9A6FB63C1A5AF627004ED709 /* SupplementaryKindsSpec.mm in Sources */,
 				9A6FB63D1A5AF627004ED709 /* Mapping.mm in Sources */,
+				9A427DF41A5C0A090092E046 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */,
 				9A6FB63E1A5AF627004ED709 /* SwiftMappingTestsSpec.mm in Sources */,
 				9A6FB63F1A5AF627004ED709 /* DTCollectionViewController+VerifyItem.m in Sources */,
 				9A6FB6351A5AF5DF004ED709 /* SwiftFooterView.swift in Sources */,
@@ -963,7 +974,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 2DF71FF124F0C43EE8ACF49F /* Pods-XCTests.debug.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -992,7 +1002,6 @@
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CedarUnitTests/XCTests-Bridging-Header.h";
 				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
 			};
 			name = Debug;
 		};
@@ -1000,7 +1009,6 @@
 			isa = XCBuildConfiguration;
 			baseConfigurationReference = 400759B20BA7921A5C2D9488 /* Pods-XCTests.release.xcconfig */;
 			buildSettings = {
-				BUNDLE_LOADER = "$(TEST_HOST)";
 				CLANG_ENABLE_MODULES = YES;
 				CLANG_WARN_BOOL_CONVERSION = YES;
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
@@ -1025,7 +1033,6 @@
 				MTL_ENABLE_DEBUG_INFO = NO;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_OBJC_BRIDGING_HEADER = "CedarUnitTests/XCTests-Bridging-Header.h";
-				TEST_HOST = "$(BUILT_PRODUCTS_DIR)/Example.app/Example";
 			};
 			name = Release;
 		};
