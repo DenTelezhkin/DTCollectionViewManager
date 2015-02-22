@@ -29,12 +29,12 @@ Let's say you have an array of Kittens you want to display in UICollectionView. 
 Subclass DTCollectionViewController, create xib, or storyboard with your view controller, wire up collectionView outlet. Add following code to viewDidLoad:
 
 ```objective-c
-[self registerCellClass:[Kitten class] forModelClass:[KittenCell class]];
+[self registerCellClass:[KittenCell class] forModelClass:[Kitten class]];
 [self.memoryStorage addItems:kittens];
 ```
 or in Swift:
 ```swift
-self.registerCellClass(Kitten.self, forModelClass:KittenCell.self)
+self.registerCellClass(KittenCell.self, forModelClass:Kitten.self)
 self.memoryStorage().addItems(kittens)
 ```
 
