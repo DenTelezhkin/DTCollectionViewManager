@@ -10,7 +10,7 @@ import UIKit
 
 class SwiftFooterView: UICollectionReusableView, DTModelTransfer {
     @IBOutlet weak var titleLabel: UILabel!
-    func updateWithModel(model: AnyObject!) {
+    func updateWithModel(model: AnyObject) {
         
     }
 }

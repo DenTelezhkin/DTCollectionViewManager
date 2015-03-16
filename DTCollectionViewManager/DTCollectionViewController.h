@@ -27,6 +27,13 @@
 #import <DTModelStorage/DTStorageProtocol.h>
 #import "DTCollectionViewControllerEvents.h"
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /**
  `DTCollectionViewController` manages all `UICollectionView` datasource methods and provides API for mapping your data models to UICollectionViewCells. It also contains storage object, that is responsible for providing data models.
  */
@@ -46,26 +53,26 @@
 /*
  Property to store UISearchBar, attached to your UITableView. Attaching it to this property is completely optional. 
  */
-@property (nonatomic, retain) IBOutlet UISearchBar * searchBar;
+@property (nonatomic, retain, nullable) IBOutlet UISearchBar * searchBar;
 
 /**
  Storage object, used as a datasource for collection view models.
  */
 
-@property (nonatomic, strong) id <DTStorageProtocol> storage;
+@property (nonatomic, strong, null_resettable) id <DTStorageProtocol> storage;
 
 /**
  Searching data storage object. It will be created automatically, responding to changes in UISearchBar, or after method filterTableItemsForSearchString:inScope: is called.
  */
 
-@property (nonatomic, strong) id <DTStorageProtocol> searchingStorage;
+@property (nonatomic, strong, nullable) id <DTStorageProtocol> searchingStorage;
 
 /**
  Convenience method, that allows retrieving memory storage. If data storage class is different than DTMemoryStorage, this method will return nil.
  
  @return memory storage object
  */
--(DTMemoryStorage *)memoryStorage;
+-(__null_unspecified DTMemoryStorage *)memoryStorage;
 
 ///---------------------------------------
 /// @name Mapping
@@ -199,3 +206,7 @@
 -(void)performAnimatedUpdate:(void (^)(UICollectionView *))animationBlock;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

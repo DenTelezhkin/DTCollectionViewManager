@@ -8,6 +8,13 @@
 
 #import <DTModelStorage/DTSectionModel.h>
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /**
  Convenience category for section headers and footers in UICollectionViewFlowLayout.
  */
@@ -19,27 +26,31 @@
  
  @return header model
  */
--(id)collectionHeaderModel;
+-(nullable id)collectionHeaderModel;
 
 /**
  Retrieve collection header model for current section.
  
  @return footer model
  */
--(id)collectionFooterModel;
+-(nullable id)collectionFooterModel;
 
 /**
  Header model for current section.
  
  @param headerModel footer model for current section
  */
--(void)setCollectionSectionHeader:(id)headerModel;
+-(void)setCollectionSectionHeader:(nullable id)headerModel;
 
 /**
  Footer model for current section.
  
  @param footerModel footer model for current section
  */
--(void)setCollectionSectionFooter:(id)footerModel;
+-(void)setCollectionSectionFooter:(nullable id)footerModel;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

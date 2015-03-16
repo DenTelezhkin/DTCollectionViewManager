@@ -2,14 +2,15 @@ source 'https://github.com/CocoaPods/Specs.git'
 
 xcodeproj 'DTCollectionViewManagerExample.xcodeproj'
 platform :ios, 7.0
+inhibit_all_warnings!
 
 target :Example do
-	pod 'DTModelStorage', '1.1.2'
+	pod 'DTModelStorage', :head
 	pod 'PlaceKit', '~> 1.0.0'
 end
 
 target :XCTests do
-	pod 'DTModelStorage', '1.1.2'
+	pod 'DTModelStorage', :head
 	pod 'Cedar'
 	pod 'AutoDescribe'
 	pod 'OCMock', '~> 2.2.1'

@@ -25,6 +25,13 @@
 
 #import <DTModelStorage/DTModelTransfer.h>
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /**
  Protocol, used by DTCollectionFactory to access collectionView property on DTCollectionViewController instance.
  */
@@ -59,9 +66,13 @@
 - (UICollectionViewCell <DTModelTransfer> *)cellForItem:(id)modelItem
                                             atIndexPath:(NSIndexPath *)indexPath;
 
-- (UICollectionReusableView <DTModelTransfer> *)supplementaryViewOfKind:(NSString *)kind
-                                                                forItem:(id)modelItem
-                                                            atIndexPath:(NSIndexPath *)indexPath;
+- (nullable UICollectionReusableView <DTModelTransfer> *)supplementaryViewOfKind:(NSString *)kind
+                                                                         forItem:(id)modelItem
+                                                                     atIndexPath:(NSIndexPath *)indexPath;
 
 @property (nonatomic, weak) id <DTCollectionFactoryDelegate> delegate;
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

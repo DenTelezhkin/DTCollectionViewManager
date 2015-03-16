@@ -25,6 +25,13 @@
 
 #import <DTModelStorage/DTMemoryStorage.h>
 
+#if __has_feature(nullability) // Xcode 6.3+
+#pragma clang assume_nonnull begin
+#else
+#define nullable
+#define __nullable
+#endif
+
 /**
  Category, that adds UICollectionView specific methods to DTMemoryStorage.
  */
@@ -57,3 +64,7 @@
 -(void)moveCollectionViewSection:(NSInteger)fromSection toSection:(NSInteger)toSection;
 
 @end
+
+#if __has_feature(nullability)
+#pragma clang assume_nonnull end
+#endif

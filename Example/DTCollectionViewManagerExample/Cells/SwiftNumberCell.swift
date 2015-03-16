@@ -11,8 +11,8 @@ import UIKit
 class SwiftNumberCell: DTCollectionViewCell, DTModelTransfer {
 
     @IBOutlet weak var numberLabel: UILabel!
-    override func updateWithModel(model: AnyObject!) {
-        self.numberLabel.text = (model as NSNumber).stringValue
+    override func updateWithModel(model: AnyObject) {
+        self.numberLabel.text = (model as! NSNumber).stringValue
         self.backgroundColor = UIColor.dt_randomColor()
     }
 }
