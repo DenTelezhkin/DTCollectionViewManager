@@ -118,12 +118,13 @@ DTCollectionViewManager tries very hard to eliminate those. And every issue i kn
 
 Simplest option is to use [CocoaPods](http://www.cocoapods.org):
 
-	pod 'DTCollectionViewManager', '~> 3.0.0'
+	pod 'DTCollectionViewManager', '~> 3.1.0'
 	
 ## Requirements
 
-- iOS 7,8
-- ARC
+* XCode 6.3 and higher
+* iOS 7,8
+* ARC
 	
 ## Documentation
 

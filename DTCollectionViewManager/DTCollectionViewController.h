@@ -27,14 +27,7 @@
 #import <DTModelStorage/DTStorageProtocol.h>
 #import "DTCollectionViewControllerEvents.h"
 
-#if __has_feature(nullability) // Xcode 6.3+
 #pragma clang assume_nonnull begin
-#else
-#define nullable
-#define __nullable
-#define __null_unspecified
-#define null_resettable
-#endif
 
 /**
  `DTCollectionViewController` manages all `UICollectionView` datasource methods and provides API for mapping your data models to UICollectionViewCells. It also contains storage object, that is responsible for providing data models.
@@ -74,7 +67,7 @@
  
  @return memory storage object
  */
--(__null_unspecified DTMemoryStorage *)memoryStorage;
+-(null_unspecified DTMemoryStorage *)memoryStorage;
 
 ///---------------------------------------
 /// @name Mapping
@@ -209,6 +202,4 @@
 
 @end
 
-#if __has_feature(nullability)
 #pragma clang assume_nonnull end
-#endif
