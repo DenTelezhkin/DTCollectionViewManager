@@ -1,6 +1,7 @@
 ![Build Status](https://travis-ci.org/DenHeadless/DTCollectionViewManager.png?branch=master) &nbsp;
 ![CocoaPod platform](https://cocoapod-badges.herokuapp.com/p/DTCollectionViewManager/badge.svg) &nbsp;
 ![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTCollectionViewManager/badge.svg) &nbsp;
+[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 ![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
 DTCollectionViewManager
 =======================
@@ -116,9 +117,15 @@ DTCollectionViewManager tries very hard to eliminate those. And every issue i kn
 	
 ## Installation
 
-Simplest option is to use [CocoaPods](http://www.cocoapods.org):
+[CocoaPods](http://www.cocoapods.org):
 
 	pod 'DTCollectionViewManager', '~> 3.1.0'
+	
+[Carthage](https://github.com/Carthage/Carthage):
+
+    github "DenHeadless/DTCollectionViewManager"
+    
+Carthage uses dynamic frameworks, which require iOS 8 and higher. After running `carthage update` drop DTCollectionViewManager.framework and DTModelStorage.framework to XCode project embedded binaries.
 	
 ## Requirements
 
