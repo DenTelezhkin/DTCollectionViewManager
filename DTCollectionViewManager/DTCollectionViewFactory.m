@@ -24,7 +24,7 @@
 // THE SOFTWARE.
 
 #import "DTCollectionViewFactory.h"
-#import "DTRuntimeHelper.h"
+#import <DTModelStorage/DTRuntimeHelper.h>
 
 @interface DTCollectionViewFactory()
 @property (nonatomic, strong) NSMutableDictionary * cellMappings;

@@ -24,7 +24,7 @@
 // THE SOFTWARE.
 
 #import "DTCollectionViewController.h"
-#import "DTModelTransfer.h"
+#import <DTModelStorage/DTModelTransfer.h>
 #import "DTCollectionViewFactory.h"
 
 @interface DTCollectionViewController ()

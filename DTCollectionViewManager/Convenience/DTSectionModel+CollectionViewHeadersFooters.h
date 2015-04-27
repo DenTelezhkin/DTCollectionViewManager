@@ -6,6 +6,7 @@
 //  Copyright (c) 2014 Denys Telezhkin. All rights reserved.
 //
 
+@import UIKit;
 #import <DTModelStorage/DTSectionModel.h>
 
 #pragma clang assume_nonnull begin
