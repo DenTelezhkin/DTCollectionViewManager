@@ -119,7 +119,7 @@ DTCollectionViewManager tries very hard to eliminate those. And every issue i kn
 
 [CocoaPods](http://www.cocoapods.org):
 
-	pod 'DTCollectionViewManager', '~> 3.1.0'
+	pod 'DTCollectionViewManager', '~> 3.1.2'
 	
 [Carthage](https://github.com/Carthage/Carthage):
 

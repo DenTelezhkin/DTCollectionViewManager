@@ -84,7 +84,7 @@
 {
     if (!_storage)
     {
-        DTMemoryStorage * storage = [DTMemoryStorage storage];
+        DTMemoryStorage * storage = [DTMemoryStorage new];
         storage.supplementaryHeaderKind = UICollectionElementKindSectionHeader;
         storage.supplementaryFooterKind = UICollectionElementKindSectionFooter;
         _storage = storage;

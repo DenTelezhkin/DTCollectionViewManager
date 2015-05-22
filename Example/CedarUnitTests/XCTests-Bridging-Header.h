@@ -4,4 +4,4 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "DTCollectionViewManager.h"
+#import <DTCollectionViewManager/DTCollectionViewManager.h>
