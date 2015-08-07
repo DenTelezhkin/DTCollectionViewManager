@@ -147,8 +147,7 @@
 
 - (BOOL)nibExistsWithNibName:(NSString *)nibName
 {
-    NSString * path = [[NSBundle bundleForClass:[self class]] pathForResource:nibName
-                                                                       ofType:@"nib"];
+    NSString * path = [[NSBundle mainBundle] pathForResource:nibName ofType:@"nib"];
     if (path)
     {
         return YES;
