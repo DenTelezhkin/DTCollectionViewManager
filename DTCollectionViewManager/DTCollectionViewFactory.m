@@ -67,7 +67,7 @@
     if ([self nibExistsWithNibName:cellClassString])
     {
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:cellClassString
-                                                                   bundle:[NSBundle bundleForClass:[self class]]]
+                                                                   bundle:[NSBundle mainBundle]]
                          forCellWithReuseIdentifier:[DTRuntimeHelper classStringForClass:cellClass]];
     }
     self.cellMappings[[DTRuntimeHelper modelStringForClass:modelClass]] = [DTRuntimeHelper classStringForClass:cellClass];
@@ -77,7 +77,7 @@
 {
     NSParameterAssert([self nibExistsWithNibName:nibName]);
     
-    [[self.delegate collectionView] registerNib:[UINib nibWithNibName:nibName bundle:[NSBundle bundleForClass:[self class]]]
+    [[self.delegate collectionView] registerNib:[UINib nibWithNibName:nibName bundle:[NSBundle mainBundle]]
                      forCellWithReuseIdentifier:[DTRuntimeHelper classStringForClass:cellClass]];
     self.cellMappings[[DTRuntimeHelper modelStringForClass:modelClass]] = NSStringFromClass(cellClass);
 }
@@ -91,7 +91,7 @@
     if ([self nibExistsWithNibName:supplementaryClassString])
     {
         [[self.delegate collectionView] registerNib:[UINib nibWithNibName:supplementaryClassString
-                                                                   bundle:[NSBundle bundleForClass:[self class]]]
+                                                                   bundle:[NSBundle mainBundle]]
                          forSupplementaryViewOfKind:kind
                                 withReuseIdentifier:supplementaryClassString];
     }
@@ -108,7 +108,7 @@
     NSParameterAssert([self nibExistsWithNibName:nibName]);
     
     [[self.delegate collectionView] registerNib:[UINib nibWithNibName:nibName
-                                                               bundle:[NSBundle bundleForClass:[self class]]]
+                                                               bundle:[NSBundle mainBundle]]
                      forSupplementaryViewOfKind:kind
                             withReuseIdentifier:[DTRuntimeHelper classStringForClass:supplementaryClass]];
     
