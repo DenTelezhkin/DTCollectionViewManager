@@ -98,6 +98,9 @@
 		9AC87851188BFFAA00CB7DAF /* SearchViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */; };
 		9AC87854188C01D900CB7DAF /* KittenCell.m in Sources */ = {isa = PBXBuildFile; fileRef = 9AC87853188C01D900CB7DAF /* KittenCell.m */; };
 		9AC87856188C021200CB7DAF /* KittenCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC87855188C021200CB7DAF /* KittenCell.xib */; };
+		9ADFC8B71B8A2CBC00AB4CD9 /* DTCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8B61B8A2CBC00AB4CD9 /* DTCollectionViewManager.swift */; };
+		9ADFC8BB1B8A2E5B00AB4CD9 /* CollectionViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8BA1B8A2E5B00AB4CD9 /* CollectionViewFactory.swift */; };
+		9ADFC8BF1B8A303600AB4CD9 /* ViewModelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8BE1B8A303600AB4CD9 /* ViewModelMapping.swift */; };
 		E42CFFD5656E8C0D7C14B6E0 /* libPods-XCTestsLegacy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC20C6B27A385A5B6F2663CD /* libPods-XCTestsLegacy.a */; };
 /* End PBXBuildFile section */
 
@@ -262,6 +265,9 @@
 		9AC87855188C021200CB7DAF /* KittenCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = KittenCell.xib; path = Cells/KittenCell.xib; sourceTree = "<group>"; };
 		9AC9D2AA19DD93930077ABED /* SwiftStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = SwiftStoryboard.storyboard; path = Specs/SwiftStoryboard.storyboard; sourceTree = "<group>"; };
 		9AC9D2AE19DD9EBD0077ABED /* SwiftStoryboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftStoryboardViewController.swift; path = Specs/SwiftStoryboardViewController.swift; sourceTree = "<group>"; };
+		9ADFC8B61B8A2CBC00AB4CD9 /* DTCollectionViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DTCollectionViewManager.swift; path = ../DTCollectionViewManager/Swift/DTCollectionViewManager.swift; sourceTree = "<group>"; };
+		9ADFC8BA1B8A2E5B00AB4CD9 /* CollectionViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewFactory.swift; path = ../DTCollectionViewManager/Swift/CollectionViewFactory.swift; sourceTree = "<group>"; };
+		9ADFC8BE1B8A303600AB4CD9 /* ViewModelMapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModelMapping.swift; path = ../DTCollectionViewManager/Swift/Utilities/ViewModelMapping.swift; sourceTree = "<group>"; };
 		9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTCollectionViewManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AE6714C1AEE61F800B25A5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AFED3C219DB342C0058F9DF /* SwiftMappingTestsSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SwiftMappingTestsSpec.mm; path = Specs/SwiftMappingTestsSpec.mm; sourceTree = "<group>"; };
@@ -651,7 +657,9 @@
 		9A99AA761B8A1C9B00428802 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
+				9ADFC8BD1B8A301300AB4CD9 /* Utilities */,
 				95AE8986179BEDDC00F834DB /* DTCollectionViewManager.h */,
+				9ADFC8B61B8A2CBC00AB4CD9 /* DTCollectionViewManager.swift */,
 			);
 			name = Swift;
 			sourceTree = "<group>";
@@ -710,6 +718,15 @@
 				9AC8784F188BFFA900CB7DAF /* SearchViewController.xib */,
 			);
 			name = Search;
+			sourceTree = "<group>";
+		};
+		9ADFC8BD1B8A301300AB4CD9 /* Utilities */ = {
+			isa = PBXGroup;
+			children = (
+				9ADFC8BA1B8A2E5B00AB4CD9 /* CollectionViewFactory.swift */,
+				9ADFC8BE1B8A303600AB4CD9 /* ViewModelMapping.swift */,
+			);
+			name = Utilities;
 			sourceTree = "<group>";
 		};
 		9AE6714A1AEE61F800B25A5F /* DTCollectionViewManager */ = {
@@ -1141,6 +1158,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ADFC8BF1B8A303600AB4CD9 /* ViewModelMapping.swift in Sources */,
+				9ADFC8B71B8A2CBC00AB4CD9 /* DTCollectionViewManager.swift in Sources */,
+				9ADFC8BB1B8A2E5B00AB4CD9 /* CollectionViewFactory.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1516,6 +1536,7 @@
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mlsdev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SKIP_INSTALL = YES;
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				TARGETED_DEVICE_FAMILY = "1,2";
 				VERSIONING_SYSTEM = "apple-generic";
 				VERSION_INFO_PREFIX = "";
