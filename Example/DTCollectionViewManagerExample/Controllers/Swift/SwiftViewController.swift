@@ -48,7 +48,7 @@ class SwiftViewController: DTCollectionViewController {
     }
 }
 
-extension SwiftViewController: DTCollectionViewControllerEvents {
+extension SwiftViewController {
     override func collectionControllerDidUpdateContent() {
         if self.collectionView.numberOfItemsInSection(0) > 0
         {

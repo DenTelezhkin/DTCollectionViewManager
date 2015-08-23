@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "XCTests-Swift.h"
+#import "XCTestsLegacy-Swift.h"
 
 @interface SwiftProvider : NSObject
 

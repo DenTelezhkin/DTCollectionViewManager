@@ -4,4 +4,6 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
+#import "DTModelTransfer.h"
+#import "DTCollectionViewController.h"
 #import "DTCollectionViewManager.h"

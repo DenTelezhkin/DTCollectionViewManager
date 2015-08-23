@@ -7,7 +7,7 @@
 //
 
 #import <Foundation/Foundation.h>
-#import "DTCollectionViewManager.h"
+#import "DTModelTransfer.h"
 
 @interface Model : NSObject
 

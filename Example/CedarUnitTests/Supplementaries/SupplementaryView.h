@@ -7,7 +7,7 @@
 //
 
 #import <UIKit/UIKit.h>
-#import "DTCollectionViewManager.h"
+#import "DTModelTransfer.h"
 
 @interface SupplementaryView : UICollectionReusableView <DTModelTransfer>
 

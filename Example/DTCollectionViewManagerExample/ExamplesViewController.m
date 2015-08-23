@@ -13,7 +13,7 @@
 #import "SectionsController.h"
 #import "StoryboardViewController.h"
 #import "SearchViewController.h"
-#import "Example-Swift.h"
+#import "ExampleLegacy-Swift.h"
 
 @interface ExamplesViewController()
 @property (nonatomic, strong) NSMutableArray * examples;

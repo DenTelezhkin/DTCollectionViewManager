@@ -12,6 +12,5 @@
     #import <UIKit/UIKit.h>
     #import <Foundation/Foundation.h>
     #import <Cedar/Cedar-iOS.h>
-    #import "DTCollectionViewManager.h"
     #import <AutoDescribe/NSObject+AutoDescribe.h>
 #endif

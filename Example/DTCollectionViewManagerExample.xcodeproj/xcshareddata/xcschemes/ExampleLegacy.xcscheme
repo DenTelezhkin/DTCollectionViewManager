@@ -9,14 +9,14 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A99AA901B8A219300428802"
-               BuildableName = "XCTests.xctest"
-               BlueprintName = "XCTests"
+               BlueprintIdentifier = "955F8581179ACAF000A38EAD"
+               BuildableName = "ExampleLegacy.app"
+               BlueprintName = "ExampleLegacy"
                ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -28,17 +28,16 @@
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
-         <TestableReference
-            skipped = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A99AA901B8A219300428802"
-               BuildableName = "XCTests.xctest"
-               BlueprintName = "XCTests"
-               ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
-            </BuildableReference>
-         </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "955F8581179ACAF000A38EAD"
+            BuildableName = "ExampleLegacy.app"
+            BlueprintName = "ExampleLegacy"
+            ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -52,15 +51,16 @@
       debugDocumentVersioning = "YES"
       debugServiceExtension = "internal"
       allowLocationSimulation = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9A99AA901B8A219300428802"
-            BuildableName = "XCTests.xctest"
-            BlueprintName = "XCTests"
+            BlueprintIdentifier = "955F8581179ACAF000A38EAD"
+            BuildableName = "ExampleLegacy.app"
+            BlueprintName = "ExampleLegacy"
             ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
       <AdditionalOptions>
       </AdditionalOptions>
    </LaunchAction>
@@ -70,15 +70,16 @@
       savedToolIdentifier = ""
       useCustomWorkingDirectory = "NO"
       debugDocumentVersioning = "YES">
-      <MacroExpansion>
+      <BuildableProductRunnable
+         runnableDebuggingMode = "0">
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9A99AA901B8A219300428802"
-            BuildableName = "XCTests.xctest"
-            BlueprintName = "XCTests"
+            BlueprintIdentifier = "955F8581179ACAF000A38EAD"
+            BuildableName = "ExampleLegacy.app"
+            BlueprintName = "ExampleLegacy"
             ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
          </BuildableReference>
-      </MacroExpansion>
+      </BuildableProductRunnable>
    </ProfileAction>
    <AnalyzeAction
       buildConfiguration = "Debug">

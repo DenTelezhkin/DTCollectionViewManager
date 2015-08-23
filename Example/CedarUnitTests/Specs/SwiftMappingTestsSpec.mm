@@ -1,5 +1,5 @@
 #import "DTCollectionViewController.h"
-#import "XCTests-Swift.h"
+#import "XCTestsLegacy-Swift.h"
 #import "DTMemoryStorage+DTCollectionViewManagerAdditions.h"
 #import "DTMemoryStorage+UpdateWithoutAnimations.h"
 #import "ModelCellWithNib.h"

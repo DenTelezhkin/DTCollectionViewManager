@@ -2,8 +2,8 @@
 //  DTCollectionViewManager.h
 //  DTCollectionViewManagerExample
 //
-//  Created by Denys Telezhkin on 21.07.13.
-//  Copyright (c) 2013 Denys Telezhkin. All rights reserved.
+//  Created by Denys Telezhkin on 23.08.15.
+//  Copyright (c) 2015 Denys Telezhkin. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,10 +23,7 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-#import "DTCollectionViewController.h"
-#import <DTModelStorage/DTModelTransfer.h>
-#import <DTModelStorage/DTModelStorage.h>
-#import "DTMemoryStorage+DTCollectionViewManagerAdditions.h"
+@import Foundation;
 
-#import "DTCollectionViewCell.h"
-#import "DTCollectionReusableView.h"
+FOUNDATION_EXPORT double DTCollectionViewManagerVersionNumber;
+FOUNDATION_EXPORT const unsigned char DTCollectionViewManagerVersionString[];

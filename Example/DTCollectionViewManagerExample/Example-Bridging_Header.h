@@ -8,5 +8,7 @@
 
 #import <Foundation/Foundation.h>
 #import <UIKit/UIKit.h>
-#import "DTCollectionViewManager.h"
+#import "DTCollectionViewController.h"
+#import "DTModelStorage.h"
+#import "DTCollectionViewCell.h"
 #import "UIColor+RandomColor.h"

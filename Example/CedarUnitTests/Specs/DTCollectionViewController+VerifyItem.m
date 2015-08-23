@@ -7,6 +7,7 @@
 //
 
 #import "DTCollectionViewController+VerifyItem.h"
+#import "DTModelTransfer.h"
 
 @implementation DTCollectionViewController (Verify)
 
