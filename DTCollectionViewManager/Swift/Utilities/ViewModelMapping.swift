@@ -25,7 +25,16 @@ enum ViewType : Equatable
 
 func == (left: ViewType, right: ViewType) -> Bool
 {
-    if left == .Cell && right == .Cell { return true }
+    switch left
+    {
+    case .Cell:
+        switch right
+        {
+        case .Cell: return true
+        default: return false
+        }
+    default: ()
+    }
     
     return left.supplementaryKind() == right.supplementaryKind()
 }

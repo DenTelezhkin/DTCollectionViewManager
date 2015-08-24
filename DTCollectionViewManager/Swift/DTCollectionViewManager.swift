@@ -409,6 +409,12 @@ extension DTCollectionViewManager : StorageUpdating
         let sectionChanges = update.deletedSectionIndexes.count + update.insertedSectionIndexes.count + update.updatedSectionIndexes.count
         let itemChanges = update.deletedRowIndexPaths.count + update.insertedRowIndexPaths.count + update.updatedRowIndexPaths.count
         
+        if self.shouldReloadCollectionViewToPreventInsertFirstItemIssueForUpdate(update) {
+            self.collectionView.reloadData()
+            return
+        }
+        // TODO - Check if historic workaround is needed.
+        
         if sectionChanges > 0 {
             self.collectionView.performBatchUpdates({ () -> Void in
                 self.collectionView.deleteSections(update.deletedSectionIndexes)
@@ -416,8 +422,6 @@ extension DTCollectionViewManager : StorageUpdating
                 self.collectionView.reloadSections(update.updatedSectionIndexes)
                 }, completion: nil)
         }
-        
-        // TODO - Check if historic workaround is needed.
         
         if itemChanges > 0 && sectionChanges == 0 {
             self.collectionView.performBatchUpdates({ () -> Void in
@@ -451,5 +455,38 @@ extension DTCollectionViewManager : StorageUpdating
         {
             reaction.perform()
         }
+    }
+}
+
+extension DTCollectionViewManager : CollectionViewStorageUpdating
+{
+    public func performAnimatedUpdate(block: (UICollectionView) -> Void) {
+        block(collectionView)
+    }
+}
+
+private extension DTCollectionViewManager
+{
+    func shouldReloadCollectionViewToPreventInsertFirstItemIssueForUpdate(update: StorageUpdate) -> Bool
+    {
+        var shouldReload = false
+        for indexPath in update.insertedRowIndexPaths {
+            if self.collectionView.numberOfItemsInSection(indexPath.section) == 0 {
+                shouldReload = true
+                break
+            }
+        }
+        for indexPath in update.deletedRowIndexPaths {
+            if self.collectionView.numberOfItemsInSection(indexPath.section) == 1 {
+                shouldReload = true
+                break
+            }
+        }
+        
+        if self.collectionView.window == nil {
+            shouldReload = true
+        }
+        
+        return shouldReload
     }
 }

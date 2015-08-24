@@ -87,7 +87,6 @@
 		9A99AA861B8A219300428802 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA841B8A219300428802 /* Main.storyboard */; };
 		9A99AA881B8A219300428802 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA871B8A219300428802 /* Assets.xcassets */; };
 		9A99AA8B1B8A219300428802 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA891B8A219300428802 /* LaunchScreen.storyboard */; };
-		9A99AA961B8A219300428802 /* ExampleTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99AA951B8A219300428802 /* ExampleTests.swift */; };
 		9A9E0A7219E3112A00C64D0B /* SwiftViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E0A7119E3112A00C64D0B /* SwiftViewController.swift */; };
 		9A9E0A7519E3140D00C64D0B /* ExecuteAfter.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9E0A7419E3140D00C64D0B /* ExecuteAfter.swift */; };
 		9A9E0A7919E3168400C64D0B /* SwiftViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A9E0A7819E3168400C64D0B /* SwiftViewController.xib */; };
@@ -103,6 +102,20 @@
 		9ADFC8BF1B8A303600AB4CD9 /* ViewModelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8BE1B8A303600AB4CD9 /* ViewModelMapping.swift */; };
 		9ADFC8C11B8B359900AB4CD9 /* CollectionViewReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8C01B8B359900AB4CD9 /* CollectionViewReaction.swift */; };
 		9ADFC8C51B8B459800AB4CD9 /* SectionModel+ConvenienceGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8C41B8B459800AB4CD9 /* SectionModel+ConvenienceGetters.swift */; };
+		9ADFC8C81B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8C71B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift */; };
+		9ADFC8CA1B8B4A7100AB4CD9 /* DTTestCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8C91B8B4A7100AB4CD9 /* DTTestCollectionController.swift */; };
+		9ADFC8CC1B8B4AE500AB4CD9 /* NSIndexPath+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8CB1B8B4AE500AB4CD9 /* NSIndexPath+Convenience.swift */; };
+		9ADFC8CE1B8B4B8100AB4CD9 /* DataSourceTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8CD1B8B4B8100AB4CD9 /* DataSourceTestCase.swift */; };
+		9ADFC8D21B8B4CCD00AB4CD9 /* XibCollectionViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8D01B8B4CCD00AB4CD9 /* XibCollectionViewController.swift */; };
+		9ADFC8D31B8B4CCD00AB4CD9 /* XibCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8D11B8B4CCD00AB4CD9 /* XibCollectionViewController.xib */; };
+		9ADFC8D51B8B4CFA00AB4CD9 /* FixtureCells.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8D41B8B4CFA00AB4CD9 /* FixtureCells.swift */; };
+		9ADFC8D71B8B4D5000AB4CD9 /* NibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8D61B8B4D5000AB4CD9 /* NibCell.xib */; };
+		9ADFC8D91B8B4D6E00AB4CD9 /* RandomNibNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8D81B8B4D6E00AB4CD9 /* RandomNibNameCell.xib */; };
+		9ADFC8DC1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8DA1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift */; };
+		9ADFC8DD1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8DB1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.xib */; };
+		9ADFC8E01B8B595800AB4CD9 /* NibHeaderFooterVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterVIew.swift */; };
+		9ADFC8E11B8B595800AB4CD9 /* NibHeaderFooterVIew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8DF1B8B595800AB4CD9 /* NibHeaderFooterVIew.xib */; };
+		9ADFC8E31B8B599500AB4CD9 /* NibView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8E21B8B599500AB4CD9 /* NibView.xib */; };
 		E42CFFD5656E8C0D7C14B6E0 /* libPods-XCTestsLegacy.a in Frameworks */ = {isa = PBXBuildFile; fileRef = EC20C6B27A385A5B6F2663CD /* libPods-XCTestsLegacy.a */; };
 /* End PBXBuildFile section */
 
@@ -249,7 +262,6 @@
 		9A99AA8A1B8A219300428802 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A99AA8C1B8A219300428802 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A99AA911B8A219300428802 /* XCTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = XCTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A99AA951B8A219300428802 /* ExampleTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ExampleTests.swift; sourceTree = "<group>"; };
 		9A99AA971B8A219300428802 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A9E0A7119E3112A00C64D0B /* SwiftViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftViewController.swift; path = Controllers/Swift/SwiftViewController.swift; sourceTree = "<group>"; };
 		9A9E0A7319E3114700C64D0B /* Example-Bridging_Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Example-Bridging_Header.h"; sourceTree = "<group>"; };
@@ -272,6 +284,20 @@
 		9ADFC8BE1B8A303600AB4CD9 /* ViewModelMapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModelMapping.swift; path = ../DTCollectionViewManager/Swift/Utilities/ViewModelMapping.swift; sourceTree = "<group>"; };
 		9ADFC8C01B8B359900AB4CD9 /* CollectionViewReaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewReaction.swift; path = ../DTCollectionViewManager/Swift/Utilities/CollectionViewReaction.swift; sourceTree = "<group>"; };
 		9ADFC8C41B8B459800AB4CD9 /* SectionModel+ConvenienceGetters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SectionModel+ConvenienceGetters.swift"; path = "../DTCollectionViewManager/Swift/Utilities/SectionModel+ConvenienceGetters.swift"; sourceTree = "<group>"; };
+		9ADFC8C71B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CollectionViewManager+UnitTests.swift"; path = "Helpers/CollectionViewManager+UnitTests.swift"; sourceTree = "<group>"; };
+		9ADFC8C91B8B4A7100AB4CD9 /* DTTestCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DTTestCollectionController.swift; path = Helpers/DTTestCollectionController.swift; sourceTree = "<group>"; };
+		9ADFC8CB1B8B4AE500AB4CD9 /* NSIndexPath+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSIndexPath+Convenience.swift"; path = "Helpers/NSIndexPath+Convenience.swift"; sourceTree = "<group>"; };
+		9ADFC8CD1B8B4B8100AB4CD9 /* DataSourceTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DataSourceTestCase.swift; sourceTree = "<group>"; };
+		9ADFC8D01B8B4CCD00AB4CD9 /* XibCollectionViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = XibCollectionViewController.swift; path = Fixtures/XibCollectionViewController.swift; sourceTree = "<group>"; };
+		9ADFC8D11B8B4CCD00AB4CD9 /* XibCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XibCollectionViewController.xib; path = Fixtures/XibCollectionViewController.xib; sourceTree = "<group>"; };
+		9ADFC8D41B8B4CFA00AB4CD9 /* FixtureCells.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = FixtureCells.swift; path = Fixtures/FixtureCells.swift; sourceTree = "<group>"; };
+		9ADFC8D61B8B4D5000AB4CD9 /* NibCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NibCell.xib; path = Fixtures/NibCell.xib; sourceTree = "<group>"; };
+		9ADFC8D81B8B4D6E00AB4CD9 /* RandomNibNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RandomNibNameCell.xib; path = Fixtures/RandomNibNameCell.xib; sourceTree = "<group>"; };
+		9ADFC8DA1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReactingHeaderFooterView.swift; path = Fixtures/ReactingHeaderFooterView.swift; sourceTree = "<group>"; };
+		9ADFC8DB1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReactingHeaderFooterView.xib; path = Fixtures/ReactingHeaderFooterView.xib; sourceTree = "<group>"; };
+		9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NibHeaderFooterVIew.swift; path = Fixtures/NibHeaderFooterVIew.swift; sourceTree = "<group>"; };
+		9ADFC8DF1B8B595800AB4CD9 /* NibHeaderFooterVIew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NibHeaderFooterVIew.xib; path = Fixtures/NibHeaderFooterVIew.xib; sourceTree = "<group>"; };
+		9ADFC8E21B8B599500AB4CD9 /* NibView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NibView.xib; path = Fixtures/NibView.xib; sourceTree = "<group>"; };
 		9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTCollectionViewManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AE6714C1AEE61F800B25A5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AFED3C219DB342C0058F9DF /* SwiftMappingTestsSpec.mm */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.cpp.objcpp; name = SwiftMappingTestsSpec.mm; path = Specs/SwiftMappingTestsSpec.mm; sourceTree = "<group>"; };
@@ -686,8 +712,10 @@
 		9A99AA941B8A219300428802 /* XCTests */ = {
 			isa = PBXGroup;
 			children = (
-				9A99AA951B8A219300428802 /* ExampleTests.swift */,
+				9ADFC8CF1B8B4CB200AB4CD9 /* Fixtures */,
+				9ADFC8C61B8B4A2200AB4CD9 /* Helpers */,
 				9A99AA971B8A219300428802 /* Info.plist */,
+				9ADFC8CD1B8B4B8100AB4CD9 /* DataSourceTestCase.swift */,
 			);
 			name = XCTests;
 			path = ExampleTests;
@@ -733,6 +761,33 @@
 				9ADFC8C01B8B359900AB4CD9 /* CollectionViewReaction.swift */,
 			);
 			name = Utilities;
+			sourceTree = "<group>";
+		};
+		9ADFC8C61B8B4A2200AB4CD9 /* Helpers */ = {
+			isa = PBXGroup;
+			children = (
+				9ADFC8C71B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift */,
+				9ADFC8C91B8B4A7100AB4CD9 /* DTTestCollectionController.swift */,
+				9ADFC8CB1B8B4AE500AB4CD9 /* NSIndexPath+Convenience.swift */,
+			);
+			name = Helpers;
+			sourceTree = "<group>";
+		};
+		9ADFC8CF1B8B4CB200AB4CD9 /* Fixtures */ = {
+			isa = PBXGroup;
+			children = (
+				9ADFC8D01B8B4CCD00AB4CD9 /* XibCollectionViewController.swift */,
+				9ADFC8D11B8B4CCD00AB4CD9 /* XibCollectionViewController.xib */,
+				9ADFC8D41B8B4CFA00AB4CD9 /* FixtureCells.swift */,
+				9ADFC8D61B8B4D5000AB4CD9 /* NibCell.xib */,
+				9ADFC8D81B8B4D6E00AB4CD9 /* RandomNibNameCell.xib */,
+				9ADFC8DA1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift */,
+				9ADFC8DB1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.xib */,
+				9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterVIew.swift */,
+				9ADFC8DF1B8B595800AB4CD9 /* NibHeaderFooterVIew.xib */,
+				9ADFC8E21B8B599500AB4CD9 /* NibView.xib */,
+			);
+			name = Fixtures;
 			sourceTree = "<group>";
 		};
 		9AE6714A1AEE61F800B25A5F /* DTCollectionViewManager */ = {
@@ -999,6 +1054,12 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9ADFC8D91B8B4D6E00AB4CD9 /* RandomNibNameCell.xib in Resources */,
+				9ADFC8DD1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.xib in Resources */,
+				9ADFC8E31B8B599500AB4CD9 /* NibView.xib in Resources */,
+				9ADFC8D31B8B4CCD00AB4CD9 /* XibCollectionViewController.xib in Resources */,
+				9ADFC8E11B8B595800AB4CD9 /* NibHeaderFooterVIew.xib in Resources */,
+				9ADFC8D71B8B4D5000AB4CD9 /* NibCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1156,7 +1217,14 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A99AA961B8A219300428802 /* ExampleTests.swift in Sources */,
+				9ADFC8E01B8B595800AB4CD9 /* NibHeaderFooterVIew.swift in Sources */,
+				9ADFC8D51B8B4CFA00AB4CD9 /* FixtureCells.swift in Sources */,
+				9ADFC8DC1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift in Sources */,
+				9ADFC8D21B8B4CCD00AB4CD9 /* XibCollectionViewController.swift in Sources */,
+				9ADFC8CE1B8B4B8100AB4CD9 /* DataSourceTestCase.swift in Sources */,
+				9ADFC8C81B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift in Sources */,
+				9ADFC8CA1B8B4A7100AB4CD9 /* DTTestCollectionController.swift in Sources */,
+				9ADFC8CC1B8B4AE500AB4CD9 /* NSIndexPath+Convenience.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
