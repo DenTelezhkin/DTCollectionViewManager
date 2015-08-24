@@ -15,7 +15,7 @@ import DTModelStorage
 public protocol DTCollectionViewManageable : NSObjectProtocol
 {
     /// Collection view, that will be managed by DTCollectionViewManager
-    var collectionView : UICollectionView! { get }
+    var collectionView : UICollectionView? { get }
 }
 
 private var DTCollectionViewManagerAssociatedKey = "DTCollectionView Manager Associated Key"
@@ -118,8 +118,8 @@ public class DTCollectionViewManager : NSObject {
         precondition(delegate.collectionView != nil,"Call startManagingWithDelegate: method only when UICollectionView has been created")
         
         self.delegate = delegate
-        delegate.collectionView.delegate = self
-        delegate.collectionView.dataSource = self
+        delegate.collectionView!.delegate = self
+        delegate.collectionView!.dataSource = self
     }
     
     /// Call this method to retrieve model from specific UICollectionViewCell subclass.
@@ -431,14 +431,14 @@ extension DTCollectionViewManager : StorageUpdating
                 self.collectionView.reloadItemsAtIndexPaths(update.updatedRowIndexPaths)
         }
         
-        self.controllerDidUpdateContent()
+//        self.controllerDidUpdateContent()
     }
     
     /// Call this method, if you want UICollectionView to be reloaded, and beforeContentUpdate: and afterContentUpdate: closures to be called.
     public func storageNeedsReloading() {
         self.controllerWillUpdateContent()
         collectionView.reloadData()
-        self.controllerDidUpdateContent()
+//        self.controllerDidUpdateContent()
     }
     
     func controllerWillUpdateContent()
@@ -449,13 +449,13 @@ extension DTCollectionViewManager : StorageUpdating
         }
     }
     
-    func controllerDidUpdateContent()
-    {
-        if let reaction = self.reactionOfReactionType(.ControllerDidUpdateContent)
-        {
-            reaction.perform()
-        }
-    }
+//    func controllerDidUpdateContent()
+//    {
+//        if let reaction = self.reactionOfReactionType(.ControllerDidUpdateContent)
+//        {
+//            reaction.perform()
+//        }
+//    }
 }
 
 extension DTCollectionViewManager : CollectionViewStorageUpdating

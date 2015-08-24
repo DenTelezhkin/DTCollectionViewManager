@@ -17,9 +17,9 @@ class AlwaysVisibleCollectionView: UICollectionView
         return self.dataSource?.collectionView(self, cellForItemAtIndexPath: indexPath)
     }
     
-    override func supplementaryViewForElementKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-        return self.dataSource!.collectionView!(self, viewForSupplementaryElementOfKind: elementKind, atIndexPath: indexPath)
-    }
+//    override func supplementaryViewForElementKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
+//        return self.dataSource!.collectionView!(self, viewForSupplementaryElementOfKind: elementKind, atIndexPath: indexPath)
+//    }
 }
 
 class DataSourceTestCase: XCTestCase {
@@ -51,8 +51,8 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItems([1,1,1,1], toSection: 0)
         controller.manager.memoryStorage.addItems([2,2,2], toSection: 1)
         let collectionView = controller.collectionView
-        expect(self.controller.manager.collectionView(collectionView, numberOfItemsInSection: 0)) == 4
-        expect(self.controller.manager.collectionView(collectionView, numberOfItemsInSection: 1)) == 3
+        expect(self.controller.manager.collectionView(collectionView!, numberOfItemsInSection: 0)) == 4
+        expect(self.controller.manager.collectionView(collectionView!, numberOfItemsInSection: 1)) == 3
     }
     
     func testShouldReturnCorrectNumberOfSections()
@@ -61,7 +61,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItem(4, toSection: 3)
         controller.manager.memoryStorage.addItem(2, toSection: 2)
         
-        expect(self.controller.manager.numberOfSectionsInCollectionView(self.controller.collectionView)) == 4
+        expect(self.controller.manager.numberOfSectionsInCollectionView(self.controller.collectionView!)) == 4
     }
     
     func testShouldAddTableItems()
@@ -168,24 +168,31 @@ class DataSourceTestCase: XCTestCase {
     
 //    func testHeaderViewShouldBeCreated()
 //    {
+//        controller.manager.registerCellClass(NibCell)
 //        controller.manager.registerHeaderClass(NibHeaderFooterView)
-//        controller.manager.memoryStorage.setSupplementaries([1], forKind: UICollectionElementKindSectionHeader)
-//        controller.manager.memoryStorage.addItem(1)
-//        expect(self.controller.manager.collectionView(self.controller.collectionView, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, atIndexPath: indexPath(0, 0))).to(beAKindOf(NibHeaderFooterView))
-//    }
+//        controller.manager.memoryStorage.updateWithoutAnimations {
+//            self.controller.manager.memoryStorage.setSupplementaries([1], forKind: UICollectionElementKindSectionHeader)
+//            self.controller.manager.memoryStorage.addItem(1)
+//        }
 //    
+//        controller.collectionView?.reloadData()
+//        controller.collectionView?.performBatchUpdates(nil, completion: nil)
+//        
+//        expect(self.controller.manager.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, atIndexPath: indexPath(0, 0))).to(beAKindOf(NibHeaderFooterView))
+//    }
+    
 //    func testFooterViewShouldBeCreated()
 //    {
 //        controller.manager.registerFooterClass(NibHeaderFooterView)
 //        controller.manager.memoryStorage.setSectionFooterModels([1])
-//        expect(self.controller.manager.collectionView(self.controller.collectionView, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, atIndexPath: indexPath(0, 0))).to(beAKindOf(NibHeaderFooterView))
+//        expect(self.controller.manager.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, atIndexPath: indexPath(0, 0))).to(beAKindOf(NibHeaderFooterView))
 //    }
     
     func testObjectForCellAtIndexPathGenericConversion()
     {
         controller.manager.registerCellClass(NibCell)
         controller.manager.memoryStorage.addItem(1, toSection: 0)
-        let cell = controller.manager.collectionView(controller.collectionView, cellForItemAtIndexPath: indexPath(0, 0))
+        let cell = controller.manager.collectionView(controller.collectionView!, cellForItemAtIndexPath: indexPath(0, 0))
         
         if let object = controller.manager.storage.objectForCell(cell as? NibCell, atIndexPath: indexPath(0, 0))
         {
@@ -201,7 +208,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.registerCellClass(NibCell)
         controller.manager.memoryStorage.addItem(1, toSection: 0)
         
-        let cell = controller.manager.collectionView(controller.collectionView, cellForItemAtIndexPath: indexPath(0, 0))
+        let cell = controller.manager.collectionView(controller.collectionView!, cellForItemAtIndexPath: indexPath(0, 0))
         
         if let _ = controller.manager.storage.objectForCell(cell as? StringCell, atIndexPath: indexPath(0, 0))
         {

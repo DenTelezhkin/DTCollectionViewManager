@@ -40,9 +40,10 @@ class ReactingCollectionCell: UICollectionViewCell, ModelTransfer {
     
 }
 
-class SelectionReactingTableCell: ReactingCollectionCell
+class SelectionReactingCollectionCell: ReactingCollectionCell
 {
+    @IBOutlet weak var textLabel: UILabel!
     var indexPath: NSIndexPath?
-    var cell: SelectionReactingTableCell?
+    var cell: SelectionReactingCollectionCell?
     var model : Int?
 }

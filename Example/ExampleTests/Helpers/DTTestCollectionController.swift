@@ -11,6 +11,17 @@ import DTCollectionViewManager
 
 class DTTestCollectionController: UIViewController, DTCollectionViewManageable {
 
-    var collectionView: UICollectionView! = AlwaysVisibleCollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
+    var collectionView: UICollectionView? = AlwaysVisibleCollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
 
+}
+
+extension DTTestCollectionController : UICollectionViewDelegateFlowLayout
+{
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+        return CGSize(width: 200, height: 300)
+    }
+    
+    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+        return CGSize(width: 200, height: 300)
+    }
 }

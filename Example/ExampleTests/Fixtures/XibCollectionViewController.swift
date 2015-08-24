@@ -7,7 +7,7 @@
 //
 
 import UIKit
+import DTCollectionViewManager
 
-class XibCollectionViewController: UICollectionViewController {
-    
+class XibCollectionViewController: UICollectionViewController, DTCollectionViewManageable {
 }

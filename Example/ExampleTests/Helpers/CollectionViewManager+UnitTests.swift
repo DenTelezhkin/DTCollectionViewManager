@@ -30,7 +30,7 @@ extension DTTestCollectionController
 {
     func verifyItem<T:Equatable>(item: T, atIndexPath indexPath: NSIndexPath) -> Bool
     {
-        let itemTable = (self.manager.collectionView(self.collectionView, cellForItemAtIndexPath: indexPath) as! ModelRetrievable).model as! T
+        let itemTable = (self.manager.collectionView(self.collectionView!, cellForItemAtIndexPath: indexPath) as! ModelRetrievable).model as! T
         let itemDatasource = recursiveForceUnwrap(self.manager.storage.objectAtIndexPath(indexPath)!) as! T
         
         if !(item == itemDatasource)
@@ -55,7 +55,7 @@ extension DTTestCollectionController
                 return false
             }
         }
-        if self.manager.collectionView(self.collectionView, numberOfItemsInSection: sectionNumber) == section.count
+        if self.manager.collectionView(self.collectionView!, numberOfItemsInSection: sectionNumber) == section.count
         {
             return true
         }
