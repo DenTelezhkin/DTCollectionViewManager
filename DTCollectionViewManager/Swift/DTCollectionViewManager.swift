@@ -319,12 +319,12 @@ public extension DTCollectionViewManager
     
     /// Perform action after content is updated.
     /// - Note: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
-    public func afterContentUpdate(block : () -> Void )
-    {
-        let reaction = CollectionViewReaction(reactionType: .ControllerDidUpdateContent)
-        reaction.reactionBlock = block
-        self.collectionViewReactions.append(reaction)
-    }
+//    public func afterContentUpdate(block : () -> Void )
+//    {
+//        let reaction = CollectionViewReaction(reactionType: .ControllerDidUpdateContent)
+//        reaction.reactionBlock = block
+//        self.collectionViewReactions.append(reaction)
+//    }
 }
 
 extension DTCollectionViewManager : UICollectionViewDataSource

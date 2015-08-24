@@ -19,7 +19,7 @@ func randomColor() -> UIColor {
         return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
 }
 
-class SectionsViewController: UIViewController, DTCollectionViewManageable {
+class SectionsViewController: UIViewController, DTCollectionViewManageable, UICollectionViewDelegateFlowLayout {
 
     @IBOutlet weak var collectionView: UICollectionView?
     var sectionNumber = 0
@@ -32,6 +32,7 @@ class SectionsViewController: UIViewController, DTCollectionViewManageable {
         self.manager.registerHeaderClass(SimpleTextCollectionReusableView)
         self.manager.registerFooterClass(SimpleTextCollectionReusableView)
         (self.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
+        (self.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize = CGSize(width: 320, height: 50)
         
         self.addSection()
         self.addSection()

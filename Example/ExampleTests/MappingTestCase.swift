@@ -23,6 +23,15 @@ class MappingTestCase: XCTestCase {
         controller.manager.storage = MemoryStorage()
     }
     
+    func testRegistrationWithDifferentNibName()
+    {
+        controller.manager.registerNibNamed("RandomNibNameCell", forCellType: NibCell.self)
+        
+        controller.manager.memoryStorage.addItem(3)
+        
+        expect(self.controller.verifyItem(3, atIndexPath: indexPath(0,0))) == true
+    }
+    
     func testOptionalUnwrapping()
     {
         controller.manager.registerCellClass(NibCell)
@@ -42,6 +51,16 @@ class MappingTestCase: XCTestCase {
         
         expect(self.controller.verifyItem(3, atIndexPath: indexPath(0, 0))) == true
     }
+    
+//    func testObjectForCellGenericMethod()
+//    {
+//        controller.manager.registerCellClass(NibCell)
+//        controller.manager.memoryStorage.addItem(3)
+//        
+//        let cell = controller.collectionView?.cellForItemAtIndexPath(indexPath(0,0)) as? NibCell
+//        
+//        expect(self.controller.manager.objectForCell(cell!)) == 3
+//    }
     
     // MARK: TODO - Reevaluate this functionality in the future
     // Is there a reason to have optional cell mapping or not?
