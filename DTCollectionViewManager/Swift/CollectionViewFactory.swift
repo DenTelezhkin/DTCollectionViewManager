@@ -28,7 +28,7 @@ private extension CollectionViewFactory
 {
     func mappingForViewType(type: ViewType,modelTypeMirror: _MirrorType) -> ViewModelMapping?
     {
-        var adjustedModelTypeMirror = RuntimeHelper.classClusterReflectionFromMirrorType(modelTypeMirror)
+        let adjustedModelTypeMirror = RuntimeHelper.classClusterReflectionFromMirrorType(modelTypeMirror)
         return self.mappings.filter({ (mapping) -> Bool in
             return mapping.viewType == type && mapping.modelTypeMirror.summary == adjustedModelTypeMirror.summary
         }).first
