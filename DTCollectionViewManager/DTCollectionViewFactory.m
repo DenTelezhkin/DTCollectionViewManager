@@ -76,10 +76,12 @@
 - (void)registerNibNamed:(NSString *)nibName forCellClass:(Class)cellClass forModelClass:(Class)modelClass
 {
     NSParameterAssert([self nibExistsWithNibName:nibName]);
-    
+  
+    NSString * cellClassString = [DTRuntimeHelper classStringForClass:cellClass];
+  
     [[self.delegate collectionView] registerNib:[UINib nibWithNibName:nibName bundle:[NSBundle mainBundle]]
                      forCellWithReuseIdentifier:[DTRuntimeHelper classStringForClass:cellClass]];
-    self.cellMappings[[DTRuntimeHelper modelStringForClass:modelClass]] = NSStringFromClass(cellClass);
+    self.cellMappings[[DTRuntimeHelper modelStringForClass:modelClass]] = cellClassString;
 }
 
 - (void)registerSupplementaryClass:(Class)supplementaryClass
