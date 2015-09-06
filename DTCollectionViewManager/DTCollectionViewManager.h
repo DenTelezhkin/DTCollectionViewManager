@@ -1,6 +1,6 @@
 //
 //  DTCollectionViewManager.h
-//  DTCollectionViewManagerExample
+//  DTCollectionViewManager
 //
 //  Created by Denys Telezhkin on 23.08.15.
 //  Copyright (c) 2015 Denys Telezhkin. All rights reserved.

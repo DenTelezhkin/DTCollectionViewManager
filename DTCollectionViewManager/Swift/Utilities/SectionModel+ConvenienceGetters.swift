@@ -1,6 +1,6 @@
 //
-//  File.swift
-//  DTCollectionViewManagerExample
+//  SectionModel+ConvenienceGetters.swift
+//  DTCollectionViewManager
 //
 //  Created by Denys Telezhkin on 24.08.15.
 //  Copyright © 2015 Denys Telezhkin. All rights reserved.

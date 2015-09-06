@@ -1,6 +1,6 @@
 //
 //  DTCollectionViewManager.swift
-//  DTCollectionViewManagerExample
+//  DTCollectionViewManager
 //
 //  Created by Denys Telezhkin on 23.08.15.
 //  Copyright © 2015 Denys Telezhkin. All rights reserved.
@@ -237,11 +237,20 @@ extension DTCollectionViewManager
         viewFactory.registerNibNamed(nibName, forSupplementaryClass: T.self, forKind: UICollectionElementKindSectionFooter)
     }
     
+    /// Register mapping from model class to custom supplementary view class. Method will automatically check for nib with the same name as `supplementaryClass`. If it exists - nib will be registered instead of class.
+    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
+    /// - Parameter supplementaryClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
+    /// - Parameter kind: Supplementary kind
     public func registerSupplementaryClass<T:ModelTransfer where T:UICollectionReusableView>(supplementaryClass: T.Type, forKind kind: String)
     {
         viewFactory.registerSupplementaryClass(T.self, forKind: kind)
     }
     
+    /// Register mapping from model class to custom supplementary class using specific nib file.
+    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
+    /// - Parameter nibName: Name of xib file to use
+    /// - Parameter supplementaryClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
+    /// - Parameter kind: Supplementary kind
     public func registerNibNamed<T:ModelTransfer where T:UICollectionReusableView>(nibName: String, supplementaryClass: T.Type, forKind kind: String)
     {
         viewFactory.registerNibNamed(nibName, forSupplementaryClass: supplementaryClass, forKind: kind)
@@ -309,6 +318,10 @@ public extension DTCollectionViewManager
         self.configureSupplementary(T.self, ofKind: UICollectionElementKindSectionFooter, closure)
     }
     
+    /// Define additional configuration action, that will happen, when UICollectionReusableView supplementary subclass is requested by UICollectionView. This action will be performed *after* supplementary is created and updateWithModel: method is called.
+    /// - Parameter supplementaryClass: Type of UICollectionReusableView subclass
+    /// - Parameter closure: closure to run when UICollectionReusableView is being configured
+    /// - Note: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
     public func configureSupplementary<T:ModelTransfer where T: UICollectionReusableView>(supplementaryClass: T.Type, ofKind kind: String, _ closure: (T,T.ModelType,Int) -> Void)
     {
         let reaction = CollectionViewReaction(reactionType: .SupplementaryConfiguration)
@@ -335,6 +348,7 @@ public extension DTCollectionViewManager
     }
     
     /// Perform action after content is updated.
+    /// - Note: UICollectionView reloadData is asynchronous, so this method can be called before reload animation is completed
     /// - Note: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
     public func afterContentUpdate(block : () -> Void )
     {
@@ -344,6 +358,7 @@ public extension DTCollectionViewManager
     }
 }
 
+// MARK : - UICollectionViewDataSource
 extension DTCollectionViewManager : UICollectionViewDataSource
 {
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
@@ -378,6 +393,7 @@ extension DTCollectionViewManager : UICollectionViewDataSource
     }
 }
 
+// MARK : - UICollectionViewDelegateFlowLayout
 extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
 {
     public func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize
@@ -411,6 +427,7 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
     }
 }
 
+// MARK : - StorageUpdating
 extension DTCollectionViewManager : StorageUpdating
 {
     public func storageDidPerformUpdate(update: StorageUpdate) {
@@ -475,6 +492,7 @@ extension DTCollectionViewManager : StorageUpdating
     }
 }
 
+// MARK: - CollectionViewStorageUpdating
 extension DTCollectionViewManager : CollectionViewStorageUpdating
 {
     public func performAnimatedUpdate(block: (UICollectionView) -> Void) {
@@ -482,8 +500,15 @@ extension DTCollectionViewManager : CollectionViewStorageUpdating
     }
 }
 
+// MARK: - Workarounds
 private extension DTCollectionViewManager
 {
+    // This is to prevent a bug in UICollectionView from occurring.
+    // The bug presents itself when inserting the first object or deleting the last object in a collection view.
+    // http://stackoverflow.com/questions/12611292/uicollectionview-assertion-failure
+    // http://stackoverflow.com/questions/13904049/assertion-failure-in-uicollectionviewdata-indexpathforitematglobalindex
+    // This code should be removed once the bug has been fixed, it is tracked in OpenRadar
+    // http://openradar.appspot.com/12954582
     func shouldReloadCollectionViewToPreventInsertFirstItemIssueForUpdate(update: StorageUpdate) -> Bool
     {
         var shouldReload = false
