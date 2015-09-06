@@ -42,8 +42,8 @@ class SectionsViewController: UIViewController, DTCollectionViewManageable, UICo
     {
         sectionNumber++
         let section = self.manager.memoryStorage.sectionAtIndex(manager.memoryStorage.sections.count)
-        section.setSupplementaryModel("Section \(sectionNumber) header", forKind: UICollectionElementKindSectionHeader)
-        section.setSupplementaryModel("Section \(sectionNumber) footer", forKind: UICollectionElementKindSectionFooter)
+        section.collectionHeaderModel = "Section \(sectionNumber) header"
+        section.collectionFooterModel = "Section \(sectionNumber) footer"
         self.manager.memoryStorage.addItems([randomColor(), randomColor(), randomColor()], toSection: manager.memoryStorage.sections.count - 1)
     }
 

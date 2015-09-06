@@ -95,19 +95,21 @@ class ReactingToEventsTestCase: XCTestCase {
 //        expect(reactingFooter?.model) == "Bar"
 //    }
     
-//    func testShouldReactAfterContentUpdate()
-//    {
-//        controller.manager.registerCellClass(NibCell)
-//        
-//        var updated : Int?
-//        controller.manager.afterContentUpdate { () -> Void in
-//            updated = 42
-//        }
-//        
-//        controller.manager.memoryStorage.addItem(1, toSection: 0)
-//        
-//        expect(updated) == 42
-//    }
+    func testShouldReactAfterContentUpdate()
+    {
+        controller.manager.registerCellClass(NibCell)
+        
+        let expectation = expectationWithDescription("afterContentUpdate")
+        controller.manager.afterContentUpdate { () -> Void in
+            expectation.fulfill()
+        }
+        
+        controller.manager.memoryStorage.addItem(1, toSection: 0)
+        
+        waitForExpectationsWithTimeout(0.5) { _ in
+            
+        }
+    }
     
     func testShouldReactBeforeContentUpdate()
     {

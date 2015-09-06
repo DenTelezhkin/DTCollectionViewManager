@@ -10,6 +10,7 @@ import Foundation
 import UIKit
 import DTModelStorage
 
+/// Internal class, that is used to create collection view cells and supplementary views.
 class CollectionViewFactory
 {
     private let collectionView: UICollectionView

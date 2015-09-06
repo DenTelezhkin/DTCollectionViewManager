@@ -5,6 +5,23 @@
 //  Created by Denys Telezhkin on 23.08.15.
 //  Copyright © 2015 Denys Telezhkin. All rights reserved.
 //
+// Permission is hereby granted, free of charge, to any person obtaining a copy
+// of this software and associated documentation files (the "Software"), to deal
+// in the Software without restriction, including without limitation the rights
+// to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+// copies of the Software, and to permit persons to whom the Software is
+// furnished to do so, subject to the following conditions:
+//
+// The above copyright notice and this permission notice shall be included in
+// all copies or substantial portions of the Software.
+//
+// THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+// IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+// FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+// AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+// LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+// OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
+// THE SOFTWARE.
 
 import Foundation
 import UIKit
@@ -319,12 +336,12 @@ public extension DTCollectionViewManager
     
     /// Perform action after content is updated.
     /// - Note: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
-//    public func afterContentUpdate(block : () -> Void )
-//    {
-//        let reaction = CollectionViewReaction(reactionType: .ControllerDidUpdateContent)
-//        reaction.reactionBlock = block
-//        self.collectionViewReactions.append(reaction)
-//    }
+    public func afterContentUpdate(block : () -> Void )
+    {
+        let reaction = CollectionViewReaction(reactionType: .ControllerDidUpdateContent)
+        reaction.reactionBlock = block
+        self.collectionViewReactions.append(reaction)
+    }
 }
 
 extension DTCollectionViewManager : UICollectionViewDataSource
@@ -410,7 +427,7 @@ extension DTCollectionViewManager : StorageUpdating
         let itemChanges = update.deletedRowIndexPaths.count + update.insertedRowIndexPaths.count + update.updatedRowIndexPaths.count
         
         if self.shouldReloadCollectionViewToPreventInsertFirstItemIssueForUpdate(update) {
-            self.collectionView.reloadData()
+            self.storageNeedsReloading()
             return
         }
         // TODO - Check if historic workaround is needed.
@@ -431,14 +448,14 @@ extension DTCollectionViewManager : StorageUpdating
                 self.collectionView.reloadItemsAtIndexPaths(update.updatedRowIndexPaths)
         }
         
-//        self.controllerDidUpdateContent()
+        self.controllerDidUpdateContent()
     }
     
     /// Call this method, if you want UICollectionView to be reloaded, and beforeContentUpdate: and afterContentUpdate: closures to be called.
     public func storageNeedsReloading() {
         self.controllerWillUpdateContent()
         collectionView.reloadData()
-//        self.controllerDidUpdateContent()
+        self.controllerDidUpdateContent()
     }
     
     func controllerWillUpdateContent()
@@ -449,13 +466,13 @@ extension DTCollectionViewManager : StorageUpdating
         }
     }
     
-//    func controllerDidUpdateContent()
-//    {
-//        if let reaction = self.reactionOfReactionType(.ControllerDidUpdateContent)
-//        {
-//            reaction.perform()
-//        }
-//    }
+    func controllerDidUpdateContent()
+    {
+        if let reaction = self.reactionOfReactionType(.ControllerDidUpdateContent)
+        {
+            reaction.perform()
+        }
+    }
 }
 
 extension DTCollectionViewManager : CollectionViewStorageUpdating
