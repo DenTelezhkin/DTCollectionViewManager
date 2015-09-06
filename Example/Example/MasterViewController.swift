@@ -13,7 +13,8 @@ import DTCollectionViewManager
 class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
 
     @IBOutlet weak var tableView: UITableView!
-    let controllers = [("Move sections", SectionsViewController.self)]
+    let controllers : [(String, AnyClass)] = [("Move sections", SectionsViewController.self),
+                        ("Complex layout", ComplexLayoutViewController.self)]
     
     override func viewDidLoad() {
         super.viewDidLoad()

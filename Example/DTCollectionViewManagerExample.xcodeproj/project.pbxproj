@@ -46,6 +46,8 @@
 		9A08A9D11B8A252A00877C62 /* Nimble.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9A08A9CC1B8A24C300877C62 /* Nimble.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A08A9D21B8A25AF00877C62 /* DTCollectionViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 95AE8986179BEDDC00F834DB /* DTCollectionViewManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A0F9BFE19EACB9A001F689D /* DTSectionModel+CollectionViewHeadersFooters.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A0F9BFD19EACB9A001F689D /* DTSectionModel+CollectionViewHeadersFooters.m */; };
+		9A2109E31B9C58E20036D151 /* ComplexLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */; settings = {ASSET_TAGS = (); }; };
+		9A2109E71B9C5A020036D151 /* CollectionContainingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */; settings = {ASSET_TAGS = (); }; };
 		9A3CC15019A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */; };
 		9A427DF41A5C0A090092E046 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m in Sources */ = {isa = PBXBuildFile; fileRef = 9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */; };
 		9A427DF51A5C0A090092E046 /* DTCollectionViewFactory.m in Sources */ = {isa = PBXBuildFile; fileRef = 95AE899D179C05BE00F834DB /* DTCollectionViewFactory.m */; };
@@ -253,6 +255,8 @@
 		9A20D587198E0509005D0F7D /* SupplementaryViewCustomNib.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = SupplementaryViewCustomNib.h; path = Supplementaries/SupplementaryViewCustomNib.h; sourceTree = "<group>"; };
 		9A20D588198E0509005D0F7D /* SupplementaryViewCustomNib.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = SupplementaryViewCustomNib.m; path = Supplementaries/SupplementaryViewCustomNib.m; sourceTree = "<group>"; };
 		9A20D58A198E053C005D0F7D /* HeaderFooterNib.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = HeaderFooterNib.xib; path = Supplementaries/HeaderFooterNib.xib; sourceTree = "<group>"; };
+		9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexLayoutViewController.swift; sourceTree = "<group>"; };
+		9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionContainingCell.swift; path = Cells/CollectionContainingCell.swift; sourceTree = "<group>"; };
 		9A3CC14E19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = "DTMemoryStorage+DTCollectionViewManagerAdditions.h"; path = "../DTCollectionViewManager/DTMemoryStorage+DTCollectionViewManagerAdditions.h"; sourceTree = "<group>"; };
 		9A3CC14F19A61F0E00D52963 /* DTMemoryStorage+DTCollectionViewManagerAdditions.m */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.objc; name = "DTMemoryStorage+DTCollectionViewManagerAdditions.m"; path = "../DTCollectionViewManager/DTMemoryStorage+DTCollectionViewManagerAdditions.m"; sourceTree = "<group>"; };
 		9A3DB59219DE906200C8618E /* SwiftFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SwiftFooterView.swift; path = Supplementaries/SwiftFooterView.swift; sourceTree = "<group>"; };
@@ -729,6 +733,7 @@
 				9A99AA801B8A219300428802 /* MasterViewController.swift */,
 				9A99AA841B8A219300428802 /* Main.storyboard */,
 				9ADFC8EE1B8B73A300AB4CD9 /* SectionsViewController.swift */,
+				9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */,
 				9A99AA871B8A219300428802 /* Assets.xcassets */,
 				9A99AA891B8A219300428802 /* LaunchScreen.storyboard */,
 				9A99AA8C1B8A219300428802 /* Info.plist */,
@@ -836,6 +841,7 @@
 			children = (
 				9ADFC8F21B8B76A000AB4CD9 /* SolidColorCollectionCell.swift */,
 				9ADFC8F31B8B76A000AB4CD9 /* SolidColorCollectionCell.xib */,
+				9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */,
 			);
 			name = Cells;
 			sourceTree = "<group>";
@@ -1263,7 +1269,9 @@
 			files = (
 				9A99AA811B8A219300428802 /* MasterViewController.swift in Sources */,
 				9ADFC8F81B8B771800AB4CD9 /* SimpleTextCollectionReusableView.swift in Sources */,
+				9A2109E71B9C5A020036D151 /* CollectionContainingCell.swift in Sources */,
 				9ADFC8EF1B8B73A300AB4CD9 /* SectionsViewController.swift in Sources */,
+				9A2109E31B9C58E20036D151 /* ComplexLayoutViewController.swift in Sources */,
 				9A99AA7F1B8A219300428802 /* AppDelegate.swift in Sources */,
 				9ADFC8F41B8B76A000AB4CD9 /* SolidColorCollectionCell.swift in Sources */,
 			);

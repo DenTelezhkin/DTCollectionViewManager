@@ -1,8 +1,8 @@
 <?xml version="1.0" encoding="UTF-8" standalone="no"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8173.3" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="aXh-fa-hM8">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="8187.4" systemVersion="14F27" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" initialViewController="aXh-fa-hM8">
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8142"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="8151.3"/>
         <capability name="Navigation items with more than one left or right bar item" minToolsVersion="7.0"/>
     </dependencies>
     <scenes>
@@ -183,7 +183,72 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="qW3-Vm-rfu" userLabel="First Responder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="375" y="157"/>
+            <point key="canvasLocation" x="306" y="157"/>
+        </scene>
+        <!--Complex layout-->
+        <scene sceneID="8L4-0z-vc8">
+            <objects>
+                <collectionViewController storyboardIdentifier="ComplexLayoutViewController" useStoryboardIdentifierAsRestorationIdentifier="YES" id="V73-py-PTd" customClass="ComplexLayoutViewController" customModule="Example" customModuleProvider="target" sceneMemberID="viewController">
+                    <collectionView key="view" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" id="4cY-WG-XF0">
+                        <rect key="frame" x="0.0" y="0.0" width="600" height="600"/>
+                        <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <color key="backgroundColor" white="1" alpha="1" colorSpace="calibratedWhite"/>
+                        <collectionViewFlowLayout key="collectionViewLayout" minimumLineSpacing="10" minimumInteritemSpacing="0.0" id="Iuq-L7-GGF">
+                            <size key="itemSize" width="600" height="100"/>
+                            <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                            <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                            <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                        </collectionViewFlowLayout>
+                        <cells>
+                            <collectionViewCell opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" reuseIdentifier="CollectionContainingCell" id="9HH-q4-fB3" customClass="CollectionContainingCell" customModule="Example" customModuleProvider="target">
+                                <rect key="frame" x="0.0" y="64" width="600" height="100"/>
+                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                <view key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center">
+                                    <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                    <autoresizingMask key="autoresizingMask"/>
+                                    <subviews>
+                                        <collectionView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" alwaysBounceHorizontal="YES" dataMode="prototypes" translatesAutoresizingMaskIntoConstraints="NO" id="zkk-RK-I59">
+                                            <rect key="frame" x="0.0" y="0.0" width="600" height="100"/>
+                                            <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                            <collectionViewFlowLayout key="collectionViewLayout" scrollDirection="horizontal" minimumLineSpacing="10" minimumInteritemSpacing="10" id="QZK-O2-02H">
+                                                <size key="itemSize" width="50" height="50"/>
+                                                <size key="headerReferenceSize" width="0.0" height="0.0"/>
+                                                <size key="footerReferenceSize" width="0.0" height="0.0"/>
+                                                <inset key="sectionInset" minX="0.0" minY="0.0" maxX="0.0" maxY="0.0"/>
+                                            </collectionViewFlowLayout>
+                                            <cells/>
+                                        </collectionView>
+                                    </subviews>
+                                    <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="calibratedWhite"/>
+                                </view>
+                                <constraints>
+                                    <constraint firstItem="zkk-RK-I59" firstAttribute="leading" secondItem="9HH-q4-fB3" secondAttribute="leading" id="3b9-Lu-Qaw"/>
+                                    <constraint firstItem="zkk-RK-I59" firstAttribute="top" secondItem="9HH-q4-fB3" secondAttribute="top" id="7Up-CT-TF8"/>
+                                    <constraint firstAttribute="bottom" secondItem="zkk-RK-I59" secondAttribute="bottom" id="8Fr-mK-pjH"/>
+                                    <constraint firstAttribute="trailing" secondItem="zkk-RK-I59" secondAttribute="trailing" id="yLd-wt-y9C"/>
+                                </constraints>
+                                <connections>
+                                    <outlet property="collectionView" destination="zkk-RK-I59" id="52j-bM-bX9"/>
+                                </connections>
+                            </collectionViewCell>
+                        </cells>
+                        <connections>
+                            <outlet property="dataSource" destination="V73-py-PTd" id="0T2-Tb-KlS"/>
+                            <outlet property="delegate" destination="V73-py-PTd" id="Iw6-fd-IdT"/>
+                        </connections>
+                    </collectionView>
+                    <navigationItem key="navigationItem" title="Complex layout" id="jai-rX-oye">
+                        <barButtonItem key="rightBarButtonItem" systemItem="add" id="udJ-0p-wz4">
+                            <connections>
+                                <action selector="plusTapped:" destination="V73-py-PTd" id="uiL-rD-fzd"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
+                    <simulatedNavigationBarMetrics key="simulatedTopBarMetrics" prompted="NO"/>
+                </collectionViewController>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="SgK-SB-LR5" userLabel="First Responder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="306" y="829"/>
         </scene>
         <!--Split View Controller-->
         <scene sceneID="4k1-vq-At6">
