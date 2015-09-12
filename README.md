@@ -55,13 +55,13 @@ First, make sure your UICollectionView outlet is wired to your class.
 **Important** Your UICollectionView outlet should be declared as optional:
 
 ```swift
-  @IBOutlet weak collectionView: UICollectionView?
+  @IBOutlet weak var collectionView: UICollectionView?
 ```
 
 Call `startManagingWithDelegate:` to initiate UICollectionView management:
 
 ```swift
-	manager.startManagingWithDelegate(self)
+    manager.startManagingWithDelegate(self)
 ```
 
 Let's say you have an array of Posts you want to display in UICollectionView. To quickly show them using DTCollectionViewManager, here's what you need to do:
