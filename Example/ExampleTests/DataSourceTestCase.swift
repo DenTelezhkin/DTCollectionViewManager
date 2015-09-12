@@ -192,9 +192,8 @@ class DataSourceTestCase: XCTestCase {
     {
         controller.manager.registerCellClass(NibCell)
         controller.manager.memoryStorage.addItem(1, toSection: 0)
-        let cell = controller.manager.collectionView(controller.collectionView!, cellForItemAtIndexPath: indexPath(0, 0))
         
-        if let object = controller.manager.storage.objectForCell(cell as? NibCell, atIndexPath: indexPath(0, 0))
+        if let object = controller.manager.storage.objectForCellClass(NibCell.self, atIndexPath: indexPath(0, 0))
         {
             expect(object) == 1
         }
@@ -208,9 +207,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.registerCellClass(NibCell)
         controller.manager.memoryStorage.addItem(1, toSection: 0)
         
-        let cell = controller.manager.collectionView(controller.collectionView!, cellForItemAtIndexPath: indexPath(0, 0))
-        
-        if let _ = controller.manager.storage.objectForCell(cell as? StringCell, atIndexPath: indexPath(0, 0))
+        if let _ = controller.manager.storage.objectForCellClass(StringCell.self, atIndexPath: indexPath(0, 0))
         {
             XCTFail()
         }

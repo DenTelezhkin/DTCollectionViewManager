@@ -69,9 +69,9 @@ private extension CollectionViewFactory
 // MARK: Registration
 extension CollectionViewFactory
 {
-    func registerCellClass<T:ModelTransfer where T: UICollectionViewCell>(cellType: T.Type)
+    func registerCellClass<T:ModelTransfer where T: UICollectionViewCell>(cellClass: T.Type)
     {
-        let reuseIdentifier = RuntimeHelper.classNameFromReflection(_reflect(cellType))
+        let reuseIdentifier = RuntimeHelper.classNameFromReflection(_reflect(cellClass))
         if UINib.nibExistsWithNibName(reuseIdentifier, inBundle: bundle) {
             collectionView.registerNib(UINib(nibName: reuseIdentifier, bundle: bundle), forCellWithReuseIdentifier: reuseIdentifier)
         }
@@ -79,9 +79,9 @@ extension CollectionViewFactory
         self.addMappingForViewType(.Cell, viewClass: T.self)
     }
     
-    func registerNibNamed<T:ModelTransfer where T: UICollectionViewCell>(nibName: String, forCellType cellType: T.Type)
+    func registerNibNamed<T:ModelTransfer where T: UICollectionViewCell>(nibName: String, forCellClass cellClass: T.Type)
     {
-        let reuseIdentifier = RuntimeHelper.classNameFromReflection(_reflect(cellType))
+        let reuseIdentifier = RuntimeHelper.classNameFromReflection(_reflect(cellClass))
         assert(UINib.nibExistsWithNibName(reuseIdentifier, inBundle: bundle))
         collectionView.registerNib(UINib(nibName: reuseIdentifier, bundle: bundle), forCellWithReuseIdentifier: reuseIdentifier)
         self.addMappingForViewType(.Cell, viewClass: T.self)

@@ -62,12 +62,11 @@ extension DTCollectionViewManageable
 /// - SeeAlso: `startManagingWithDelegate:`
 public class DTCollectionViewManager : NSObject {
     
-    var collectionView : UICollectionView!
-        {
-            return self.delegate?.collectionView
+    private var collectionView : UICollectionView! {
+        return self.delegate?.collectionView
     }
     
-    weak var delegate : DTCollectionViewManageable?
+    private weak var delegate : DTCollectionViewManageable?
     
     ///  Factory for creating cells and reusable views for UICollectionView
     private lazy var viewFactory: CollectionViewFactory = {
@@ -85,9 +84,9 @@ public class DTCollectionViewManager : NSObject {
     
     /// Array of reactions for `DTCollectionViewManager`.
     /// - SeeAlso: `CollectionViewReaction`.
-    var collectionViewReactions = [CollectionViewReaction]()
+    private var collectionViewReactions = [CollectionViewReaction]()
     
-    func reactionOfReactionType(type: CollectionViewReactionType, forViewType viewType: _MirrorType? = nil, ofKind kind: String? = nil) -> CollectionViewReaction?
+    private func reactionOfReactionType(type: CollectionViewReactionType, forViewType viewType: _MirrorType? = nil, ofKind kind: String? = nil) -> CollectionViewReaction?
     {
         return self.collectionViewReactions.filter({ (reaction) -> Bool in
             return reaction.reactionType == type &&
@@ -142,7 +141,7 @@ public class DTCollectionViewManager : NSObject {
     /// Call this method to retrieve model from specific UICollectionViewCell subclass.
     /// - Note: This method uses UICollectionView `indexPathForCell` method, that returns nil if cell is not visible. Therefore, if cell is not visible, this method will return nil as well.
     /// - SeeAlso: `StorageProtocol` method `objectForCell:atIndexPath:` - will return model even if cell is not visible
-    public func objectForCell<T:ModelTransfer where T:UICollectionViewCell>(cell:T?) -> T.ModelType?
+    public func objectForVisibleCell<T:ModelTransfer where T:UICollectionViewCell>(cell:T?) -> T.ModelType?
     {
         guard cell != nil else {  return nil }
         
@@ -150,6 +149,36 @@ public class DTCollectionViewManager : NSObject {
             return storage.objectAtIndexPath(indexPath) as? T.ModelType
         }
         return nil
+    }
+    
+    /// Retrieve model of specific type at index path.
+    /// - Parameter cell: UICollectionViewCell type
+    /// - Parameter indexPath: NSIndexPath of the data model
+    /// - Returns: data model that belongs to this index path.
+    /// - Note: Method does not require cell to be visible, however it requires that storage really contains object of `ModelType` at specified index path, otherwise it will return nil.
+    public func objectForCellClass<T:ModelTransfer where T:UICollectionViewCell>(cellClass: T.Type, atIndexPath indexPath: NSIndexPath) -> T.ModelType?
+    {
+        return self.storage.objectForCellClass(T.self, atIndexPath: indexPath)
+    }
+    
+    /// Retrieve model of specific type for section index.
+    /// - Parameter headerView: UICollectionReusableView type
+    /// - Parameter indexPath: NSIndexPath of the view
+    /// - Returns: data model that belongs to this view
+    /// - Note: Method does not require header to be visible, however it requires that storage really contains object of `ModelType` at specified section index, and storage to comply to `HeaderFooterStorageProtocol`, otherwise it will return nil.
+    public func objectForHeaderClass<T:ModelTransfer where T:UICollectionReusableView>(headerClass: T.Type, atSectionIndex sectionIndex: Int) -> T.ModelType?
+    {
+        return self.storage.objectForHeaderClass(T.self, atSectionIndex: sectionIndex)
+    }
+    
+    /// Retrieve model of specific type for section index.
+    /// - Parameter footerView: UICollectionReusableView type
+    /// - Parameter indexPath: NSIndexPath of the view
+    /// - Returns: data model that belongs to this view
+    /// - Note: Method does not require footer to be visible, however it requires that storage really contains object of `ModelType` at specified section index, and storage to comply to `HeaderFooterStorageProtocol`, otherwise it will return nil.
+    public func objectForFooterClass<T:ModelTransfer where T:UICollectionReusableView>(footerClass: T.Type, atSectionIndex sectionIndex: Int) -> T.ModelType?
+    {
+        return self.storage.objectForFooterClass(T.self, atSectionIndex: sectionIndex)
     }
 }
 
@@ -173,48 +202,48 @@ extension DTCollectionViewManager
 // MARK: - View registration
 extension DTCollectionViewManager
 {
-    /// Register mapping from model class to custom cell class. Method will automatically check for nib with the same name as `cellType`. If it exists - nib will be registered instead of class.
+    /// Register mapping from model class to custom cell class. Method will automatically check for nib with the same name as `cellClass`. If it exists - nib will be registered instead of class.
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter cellType: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
-    public func registerCellClass<T:ModelTransfer where T: UICollectionViewCell>(cellType:T.Type)
+    /// - Parameter cellClass: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
+    public func registerCellClass<T:ModelTransfer where T: UICollectionViewCell>(cellClass:T.Type)
     {
-        self.viewFactory.registerCellClass(cellType)
+        self.viewFactory.registerCellClass(cellClass)
     }
     
     /// This method combines registerCellClass and whenSelected: methods together.
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter cellType: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
+    /// - Parameter cellClass: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
     /// - Parameter selectionClosure: closure to run when UICollectionViewCell is selected
     /// - Note: selectionClosure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
     /// - SeeAlso: `registerCellClass`, `whenSelected` methods
-    public func registerCellClass<T:ModelTransfer where T:UICollectionViewCell>(cellType: T.Type,
-        selectionClosure: (T,T.ModelType, NSIndexPath) -> Void)
+    public func registerCellClass<T:ModelTransfer where T:UICollectionViewCell>(cellClass: T.Type,
+        whenSelected: (T,T.ModelType, NSIndexPath) -> Void)
     {
-        viewFactory.registerCellClass(cellType)
-        self.whenSelected(cellType, selectionClosure)
+        viewFactory.registerCellClass(cellClass)
+        self.whenSelected(cellClass, whenSelected)
     }
     
     /// Register mapping from model class to custom cell class using specific nib file.
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
     /// - Parameter nibName: Name of xib file to use
-    /// - Parameter cellType: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
-    public func registerNibNamed<T:ModelTransfer where T: UICollectionViewCell>(nibName: String, forCellType cellType: T.Type)
+    /// - Parameter cellClass: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
+    public func registerNibNamed<T:ModelTransfer where T: UICollectionViewCell>(nibName: String, forCellClass cellClass: T.Type)
     {
-        viewFactory.registerNibNamed(nibName, forCellType: cellType)
+        viewFactory.registerNibNamed(nibName, forCellClass: cellClass)
     }
     
-    /// Register mapping from model class to custom header view class. Method will automatically check for nib with the same name as `headerType`. If it exists - nib will be registered instead of class.
+    /// Register mapping from model class to custom header view class. Method will automatically check for nib with the same name as `headerClass`. If it exists - nib will be registered instead of class.
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter headerType: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
-    public func registerHeaderClass<T:ModelTransfer where T: UICollectionReusableView>(headerType : T.Type)
+    /// - Parameter headerClass: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
+    public func registerHeaderClass<T:ModelTransfer where T: UICollectionReusableView>(headerClass : T.Type)
     {
         viewFactory.registerSupplementaryClass(T.self, forKind: UICollectionElementKindSectionHeader)
     }
     
-    /// Register mapping from model class to custom footer view class. Method will automatically check for nib with the same name as `footerType`. If it exists - nib will be registered instead of class.
+    /// Register mapping from model class to custom footer view class. Method will automatically check for nib with the same name as `footerClass`. If it exists - nib will be registered instead of class.
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter footerType: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
-    public func registerFooterClass<T:ModelTransfer where T:UICollectionReusableView>(footerType: T.Type)
+    /// - Parameter footerClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
+    public func registerFooterClass<T:ModelTransfer where T:UICollectionReusableView>(footerClass: T.Type)
     {
         viewFactory.registerSupplementaryClass(T.self, forKind: UICollectionElementKindSectionFooter)
     }
@@ -222,8 +251,8 @@ extension DTCollectionViewManager
     /// Register mapping from model class to custom header class using specific nib file.
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
     /// - Parameter nibName: Name of xib file to use
-    /// - Parameter headerType: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
-    public func registerNibNamed<T:ModelTransfer where T:UICollectionReusableView>(nibName: String, forHeaderType headerType: T.Type)
+    /// - Parameter headerClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
+    public func registerNibNamed<T:ModelTransfer where T:UICollectionReusableView>(nibName: String, forHeaderClass headerClass: T.Type)
     {
         viewFactory.registerNibNamed(nibName, forSupplementaryClass: T.self, forKind: UICollectionElementKindSectionHeader)
     }
@@ -231,8 +260,8 @@ extension DTCollectionViewManager
     /// Register mapping from model class to custom footer class using specific nib file.
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
     /// - Parameter nibName: Name of xib file to use
-    /// - Parameter footerType: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
-    public func registerNibNamed<T:ModelTransfer where T:UICollectionReusableView>(nibName: String, forFooterType footerType: T.Type)
+    /// - Parameter footerClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
+    public func registerNibNamed<T:ModelTransfer where T:UICollectionReusableView>(nibName: String, forFooterClass footerClass: T.Type)
     {
         viewFactory.registerNibNamed(nibName, forSupplementaryClass: T.self, forKind: UICollectionElementKindSectionFooter)
     }
