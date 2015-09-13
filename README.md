@@ -128,6 +128,10 @@ For in-depth look at how subclassing storage classes can improve your code base,
 
 You can register closures, that will be executed on various events. First and most important is cell selection event.
 
+** Important **
+
+All events are stored on `DTCollectionViewManager` instance, so be sure to declare self weak in capture lists to prevent retain cycles.
+
 ### Selection
 
  Instead of reacting to cell selection at UICollectionView NSIndexPath, `DTCollectionViewManager` allows you to react when user selects concrete model:
