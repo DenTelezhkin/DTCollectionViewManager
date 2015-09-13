@@ -2,7 +2,7 @@ Pod::Spec.new do |s|
   s.name     = 'DTCollectionViewManager'
   s.version  = '4.0.0'
   s.license  = 'MIT'
-  s.summary  = 'Protocol-oriented UICollectionView management framework.'
+  s.summary  = 'Protocol-oriented UICollectionView management, powered by generics and associated types.'
   s.homepage = 'https://github.com/DenHeadless/DTCollectionViewManager'
   s.authors  = { 'Denys Telezhkin' => 'denys.telezhkin@yandex.ru' }
   s.social_media_url = 'https://twitter.com/DTCoder'
