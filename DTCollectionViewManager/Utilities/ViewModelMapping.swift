@@ -1,9 +1,9 @@
 //
-//  DTCollectionViewManager.h
+//  ViewModelMapping.swift
 //  DTCollectionViewManager
 //
 //  Created by Denys Telezhkin on 23.08.15.
-//  Copyright (c) 2015 Denys Telezhkin. All rights reserved.
+//  Copyright © 2015 Denys Telezhkin. All rights reserved.
 //
 // Permission is hereby granted, free of charge, to any person obtaining a copy
 // of this software and associated documentation files (the "Software"), to deal
@@ -23,7 +23,53 @@
 // OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN
 // THE SOFTWARE.
 
-@import Foundation;
+import DTModelStorage
 
-FOUNDATION_EXPORT double DTCollectionViewManagerVersionNumber;
-FOUNDATION_EXPORT const unsigned char DTCollectionViewManagerVersionString[];
+enum ViewType : Equatable
+{
+    case Cell
+    case SupplementaryView(kind: String)
+    
+    func supplementaryKind() -> String?
+    {
+        switch self
+        {
+        case .Cell: return nil
+        case .SupplementaryView(let kind): return kind
+        }
+    }
+}
+
+func == (left: ViewType, right: ViewType) -> Bool
+{
+    switch left
+    {
+    case .Cell:
+        switch right
+        {
+        case .Cell: return true
+        default: return false
+        }
+    default: ()
+    }
+    
+    return left.supplementaryKind() == right.supplementaryKind()
+}
+
+struct ViewModelMapping
+{
+    let viewType : ViewType
+    let viewTypeMirror : _MirrorType
+    let modelTypeMirror: _MirrorType
+    let updateBlock : (Any, Any) -> Void
+}
+
+extension ViewModelMapping : CustomStringConvertible
+{
+    var description : String
+        {
+            return "Mapping type : \(viewType) \n" +
+                "View Type : \(viewTypeMirror.value) \n" +
+            "Model Type : \(modelTypeMirror.value) \n"
+    }
+}
