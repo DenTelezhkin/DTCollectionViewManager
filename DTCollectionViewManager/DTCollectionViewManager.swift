@@ -152,7 +152,7 @@ public class DTCollectionViewManager : NSObject {
     }
     
     /// Retrieve model of specific type at index path.
-    /// - Parameter cell: UICollectionViewCell type
+    /// - Parameter cellClass: UICollectionViewCell type
     /// - Parameter indexPath: NSIndexPath of the data model
     /// - Returns: data model that belongs to this index path.
     /// - Note: Method does not require cell to be visible, however it requires that storage really contains object of `ModelType` at specified index path, otherwise it will return nil.
@@ -162,7 +162,7 @@ public class DTCollectionViewManager : NSObject {
     }
     
     /// Retrieve model of specific type for section index.
-    /// - Parameter headerView: UICollectionReusableView type
+    /// - Parameter headerClass: UICollectionReusableView type
     /// - Parameter indexPath: NSIndexPath of the view
     /// - Returns: data model that belongs to this view
     /// - Note: Method does not require header to be visible, however it requires that storage really contains object of `ModelType` at specified section index, and storage to comply to `HeaderFooterStorageProtocol`, otherwise it will return nil.
@@ -172,13 +172,24 @@ public class DTCollectionViewManager : NSObject {
     }
     
     /// Retrieve model of specific type for section index.
-    /// - Parameter footerView: UICollectionReusableView type
+    /// - Parameter footerClass: UICollectionReusableView type
     /// - Parameter indexPath: NSIndexPath of the view
     /// - Returns: data model that belongs to this view
     /// - Note: Method does not require footer to be visible, however it requires that storage really contains object of `ModelType` at specified section index, and storage to comply to `HeaderFooterStorageProtocol`, otherwise it will return nil.
     public func objectForFooterClass<T:ModelTransfer where T:UICollectionReusableView>(footerClass: T.Type, atSectionIndex sectionIndex: Int) -> T.ModelType?
     {
         return self.storage.objectForFooterClass(T.self, atSectionIndex: sectionIndex)
+    }
+    
+    /// Retrieve model of specific type for section index.
+    /// - Parameter supplementaryClass: UICollectionReusableView type
+    /// - Parameter kind: supplementary kind
+    /// - Parameter atSectionIndex: NSIndexPath of the view
+    /// - Returns: data model that belongs to this view
+    /// - Note: Method does not require supplementary view to be visible, however it requires that storage really contains object of `ModelType` at specified section index, and storage to comply to `SupplementaryStorageProcotol`, otherwise it will return nil.
+    public func objectForSupplementaryClass<T:ModelTransfer where T:UICollectionReusableView>(supplementaryClass: T.Type, ofKind kind: String, atSectionIndex sectionIndex: Int) -> T.ModelType?
+    {
+        return (self.storage as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndex: sectionIndex) as? T.ModelType
     }
 }
 
