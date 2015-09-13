@@ -9,15 +9,29 @@
          <BuildActionEntry
             buildForTesting = "YES"
             buildForRunning = "YES"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
+            buildForProfiling = "YES"
+            buildForArchiving = "YES"
+            buildForAnalyzing = "YES">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A99AA901B8A219300428802"
-               BuildableName = "XCTests.xctest"
-               BlueprintName = "XCTests"
-               ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
+               BlueprintIdentifier = "9AE671481AEE61F800B25A5F"
+               BuildableName = "DTCollectionViewManager.framework"
+               BlueprintName = "DTCollectionViewManager"
+               ReferencedContainer = "container:DTCollectionViewManager.xcodeproj">
+            </BuildableReference>
+         </BuildActionEntry>
+         <BuildActionEntry
+            buildForTesting = "YES"
+            buildForRunning = "YES"
+            buildForProfiling = "NO"
+            buildForArchiving = "NO"
+            buildForAnalyzing = "YES">
+            <BuildableReference
+               BuildableIdentifier = "primary"
+               BlueprintIdentifier = "9AE671521AEE61F800B25A5F"
+               BuildableName = "DTCollectionViewManagerTests.xctest"
+               BlueprintName = "DTCollectionViewManagerTests"
+               ReferencedContainer = "container:DTCollectionViewManager.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
       </BuildActionEntries>
@@ -26,20 +40,28 @@
       buildConfiguration = "Debug"
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
             <BuildableReference
                BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A99AA901B8A219300428802"
-               BuildableName = "XCTests.xctest"
-               BlueprintName = "XCTests"
-               ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
+               BlueprintIdentifier = "9AE671521AEE61F800B25A5F"
+               BuildableName = "DTCollectionViewManagerTests.xctest"
+               BlueprintName = "DTCollectionViewManagerTests"
+               ReferencedContainer = "container:DTCollectionViewManager.xcodeproj">
             </BuildableReference>
          </TestableReference>
       </Testables>
+      <MacroExpansion>
+         <BuildableReference
+            BuildableIdentifier = "primary"
+            BlueprintIdentifier = "9AE671481AEE61F800B25A5F"
+            BuildableName = "DTCollectionViewManager.framework"
+            BlueprintName = "DTCollectionViewManager"
+            ReferencedContainer = "container:DTCollectionViewManager.xcodeproj">
+         </BuildableReference>
+      </MacroExpansion>
       <AdditionalOptions>
       </AdditionalOptions>
    </TestAction>
@@ -56,10 +78,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9A99AA901B8A219300428802"
-            BuildableName = "XCTests.xctest"
-            BlueprintName = "XCTests"
-            ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
+            BlueprintIdentifier = "9AE671481AEE61F800B25A5F"
+            BuildableName = "DTCollectionViewManager.framework"
+            BlueprintName = "DTCollectionViewManager"
+            ReferencedContainer = "container:DTCollectionViewManager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
       <AdditionalOptions>
@@ -74,10 +96,10 @@
       <MacroExpansion>
          <BuildableReference
             BuildableIdentifier = "primary"
-            BlueprintIdentifier = "9A99AA901B8A219300428802"
-            BuildableName = "XCTests.xctest"
-            BlueprintName = "XCTests"
-            ReferencedContainer = "container:DTCollectionViewManagerExample.xcodeproj">
+            BlueprintIdentifier = "9AE671481AEE61F800B25A5F"
+            BuildableName = "DTCollectionViewManager.framework"
+            BlueprintName = "DTCollectionViewManager"
+            ReferencedContainer = "container:DTCollectionViewManager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
    </ProfileAction>

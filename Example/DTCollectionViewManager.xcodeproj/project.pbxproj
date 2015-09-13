@@ -436,7 +436,7 @@
 					};
 				};
 			};
-			buildConfigurationList = 955F857D179ACAF000A38EAD /* Build configuration list for PBXProject "DTCollectionViewManagerExample" */;
+			buildConfigurationList = 955F857D179ACAF000A38EAD /* Build configuration list for PBXProject "DTCollectionViewManager" */;
 			compatibilityVersion = "Xcode 3.2";
 			developmentRegion = English;
 			hasScannedForEncodings = 0;
@@ -833,7 +833,7 @@
 /* End XCBuildConfiguration section */
 
 /* Begin XCConfigurationList section */
-		955F857D179ACAF000A38EAD /* Build configuration list for PBXProject "DTCollectionViewManagerExample" */ = {
+		955F857D179ACAF000A38EAD /* Build configuration list for PBXProject "DTCollectionViewManager" */ = {
 			isa = XCConfigurationList;
 			buildConfigurations = (
 				955F85A9179ACAF000A38EAD /* Debug */,
