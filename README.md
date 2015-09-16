@@ -200,9 +200,14 @@ You can view documentation online or you can install it locally using [cocoadocs
 
 Also check out [wiki page](https://github.com/DenHeadless/DTCollectionViewManager/wiki) for some information on DTCollectionViewManager internals.
 
-## Examples
+## Running example project
 
 There is an example project, that shows some usage examples of `DTCollectionViewManager`.
+You need [Carthage](https://github.com/Carthage/Carthage) installed in order to run Example project. Also, make sure XCode 7 command-line tools are used. Steps to compile:
+
+1. git clone git@github.com:DenHeadless/DTCollectionViewManager.git
+2. cd DTCollectionViewManager && carthage update
+3. Open DTCollectionViewManager.xcodeproj and run Example target.
 
 ## Thanks
 
