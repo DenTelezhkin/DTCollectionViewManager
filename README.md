@@ -194,11 +194,18 @@ Headers are supplementary views of type `UICollectionElementKindSectionHeader`, 
 
 ### Content updates
 
-Sometimes it's convenient to know, when data is updated, for example to hide UICollectionView, if there's no data.
+Sometimes it's convenient to know, when data is updated, for example to hide UICollectionView, if there's no data. Conform to `DTCollectionViewContentUpdatable` protocol and implement one of the following methods:
 
 ```swift
-  manager.beforeContentUpdate {}
-  manager.afterContentUpdate {}
+extension PostsViewController: DTCollectionViewContentUpdatable {
+  func beforeContentUpdate() {
+
+  }
+
+  func afterContentUpdate() {
+
+  }
+}
 ```
 
 ## UICollectionViewDelegate and UICollectionViewDatasource
