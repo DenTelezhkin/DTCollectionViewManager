@@ -32,7 +32,7 @@ Powerful protocol-oriented UICollectionView management framework, written in Swi
 
 [CocoaPods](http://www.cocoapods.org):
 
-    pod 'DTCollectionViewManager', '~> 4.0.0'
+    pod 'DTCollectionViewManager', '~> 4.1.0'
 
 [Carthage](https://github.com/Carthage/Carthage):
 
@@ -128,11 +128,40 @@ For in-depth look at how subclassing storage classes can improve your code base,
 
 ## Reacting to events
 
-You can register closures, that will be executed on various events. First and most important is cell selection event.
+### Method pointers
+
+There are two types of events reaction. The first and recommended one is to pass method pointers to `DTCollectionViewManager`. For example, selection:
+
+```swift
+manager.cellSelection(PostViewController.selectedPost)
+
+func selectedPost(cell: PostCell, post: Post, indexPath: NSIndexPath) {
+  // Do something with Post
+}
+```
+
+`DTCollectionViewManager` automatically breaks retain cycles, that can happen when you pass method pointers around. There's no need to worry about [weak self] stuff.
+
+There are also methods for configuring cells, headers and footers:
+
+```swift
+manager.cellConfiguration(PostViewController.configurePostCell)
+manager.headerConfiguration(PostViewController.configurePostsHeader)
+manager.footerConfiguration(PostViewController.configurePostsFooter)
+manager.supplementaryConfiguration(kind: UICollectionElementKindSectionHeader, PostViewController.configurePostsSupplementary)
+```
+
+And of course, you can always use dynamicType instead of directly referencing type name:
+
+```swift
+manager.cellSelection(self.dynamicType.selectedPost)
+```
+
+Another way of dealing with events, is registrating closures.
 
 **Important**
 
-All events are stored on `DTCollectionViewManager` instance, so be sure to declare self weak in capture lists to prevent retain cycles.
+Unlike methods with method pointers, all events with closures are stored on `DTCollectionViewManager` instance, so be sure to declare [weak self] in capture lists to prevent retain cycles.
 
 ### Selection
 

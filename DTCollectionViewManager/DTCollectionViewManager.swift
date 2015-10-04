@@ -40,7 +40,7 @@ private var DTCollectionViewManagerAssociatedKey = "DTCollectionView Manager Ass
 /// Default implementation for `DTCollectionViewManageable` protocol, that will inject `manager` property to any object, that declares itself `DTCollectionViewManageable`.
 extension DTCollectionViewManageable
 {
-    /// Lazily instantiated `DTCollectionViewManager` instance. When your table view is loaded, call startManagingWithDelegate: method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
+    /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call startManagingWithDelegate: method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
     /// - SeeAlso: `startManagingWithDelegate:`
     public var manager : DTCollectionViewManager
         {
@@ -58,7 +58,7 @@ extension DTCollectionViewManageable
     }
 }
 
-/// `DTCollectionViewManager` manages some of `UICollectionView` datasource and delegate methods and provides API for managing your data models in the table. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
+/// `DTCollectionViewManager` manages some of `UICollectionView` datasource and delegate methods and provides API for managing your data models in the collection view. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
 /// - SeeAlso: `startManagingWithDelegate:`
 public class DTCollectionViewManager : NSObject {
     
@@ -304,19 +304,37 @@ public extension DTCollectionViewManager
     /// Define an action, that will be performed, when cell of specific type is selected.
     /// - Parameter cellClass: Type of UICollectionViewCell subclass
     /// - Parameter closure: closure to run when UICollectionViewCell is selected
-    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Note: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
-    /// - SeeAlso: `registerCellClass:selectionClosure` method
-    func whenSelected<T:ModelTransfer where T:UICollectionViewCell>(cellClass:  T.Type, _ closure: (T,T.ModelType, NSIndexPath) -> Void)
+    /// - Warning: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
+    public func whenSelected<T:ModelTransfer where T:UICollectionViewCell>(cellClass:  T.Type, _ closure: (T,T.ModelType, NSIndexPath) -> Void)
     {
-        let reaction = CollectionViewReaction(reactionType: .Selection)
+        let reaction = CollectionViewReaction(.Selection)
         reaction.viewType = _reflect(T)
         reaction.reactionBlock = { [weak self, reaction] in
             if let indexPath = reaction.reactionData as? NSIndexPath,
-                let cell = self?.collectionView.cellForItemAtIndexPath(indexPath),
-                let model = self?.storage.objectAtIndexPath(indexPath)
+                let cell = self?.collectionView.cellForItemAtIndexPath(indexPath) as? T,
+                let model = self?.storage.objectAtIndexPath(indexPath) as? T.ModelType
             {
-                closure(cell as! T, model as! T.ModelType, indexPath)
+                closure(cell, model, indexPath)
+            }
+        }
+        self.collectionViewReactions.append(reaction)
+    }
+    
+    /// Define an action, that will be performed, when cell of specific type is selected.
+    /// - Parameter methodPointer: pointer to `DTCollectionViewManageable` method with signature: (Cell, Model, NSIndexPath) closure to run when UICollectionViewCell is selected
+    /// - Note: This method automatically breaks retain cycles, that can happen when passing method pointer somewhere.
+    /// - Note: `ModelType` associated type. `DTCollectionViewManageable` instance is used to call selection event.
+    public func cellSelection<T,U where T:ModelTransfer, T: UICollectionViewCell, U: DTCollectionViewManageable>( methodPointer: U -> (T,T.ModelType, NSIndexPath) -> Void )
+    {
+        let reaction = CollectionViewReaction(.Selection)
+        reaction.viewType = _reflect(T)
+        reaction.reactionBlock = { [weak self, reaction] in
+            if let indexPath = reaction.reactionData as? NSIndexPath,
+                let cell = self?.collectionView.cellForItemAtIndexPath(indexPath) as? T,
+                let model = self?.storage.objectAtIndexPath(indexPath) as? T.ModelType,
+                let delegate = self?.delegate as? U
+            {
+                methodPointer(delegate)(cell, model, indexPath)
             }
         }
         self.collectionViewReactions.append(reaction)
@@ -325,16 +343,37 @@ public extension DTCollectionViewManager
     /// Define additional configuration action, that will happen, when UICollectionViewCell subclass is requested by UICollectionView. This action will be performed *after* cell is created and updateWithModel: method is called.
     /// - Parameter cellClass: Type of UICollectionViewCell subclass
     /// - Parameter closure: closure to run when UICollectionViewCell is being configured
-    /// - Note: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
+    /// - Warning: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
     public func configureCell<T:ModelTransfer where T: UICollectionViewCell>(cellClass:T.Type, _ closure: (T, T.ModelType, NSIndexPath) -> Void)
     {
-        let reaction = CollectionViewReaction(reactionType: .CellConfiguration)
+        let reaction = CollectionViewReaction(.CellConfiguration)
         reaction.viewType = _reflect(T)
         reaction.reactionBlock = { [weak self, reaction] in
             if let configuration = reaction.reactionData as? ViewConfiguration,
-                let model = self?.storage.objectAtIndexPath(configuration.indexPath)
+                let view = configuration.view as? T,
+                let model = self?.storage.objectAtIndexPath(configuration.indexPath) as? T.ModelType
             {
-                closure(configuration.view as! T, model as! T.ModelType, configuration.indexPath)
+                closure(view, model, configuration.indexPath)
+            }
+        }
+        self.collectionViewReactions.append(reaction)
+    }
+    
+    /// Define an action, that will be performed, when cell of specific type is configured.
+    /// - Parameter methodPointer: pointer to `DTCollectionViewManageable` method with signature: (Cell, Model, NSIndexPath) closure to run when UICollectionViewCell is configured
+    /// - Note: This method automatically breaks retain cycles, that can happen when passing method pointer somewhere.
+    /// - Note: `DTCollectionViewManageable` instance is used to call selection event.
+    public func cellConfiguration<T,U where T:ModelTransfer, T: UICollectionViewCell, U: DTCollectionViewManageable>( methodPointer: U -> (T,T.ModelType, NSIndexPath) -> Void )
+    {
+        let reaction = CollectionViewReaction(.CellConfiguration)
+        reaction.viewType = _reflect(T)
+        reaction.reactionBlock = { [weak self, reaction] in
+            if let indexPath = reaction.reactionData as? NSIndexPath,
+                let cell = self?.collectionView.cellForItemAtIndexPath(indexPath) as? T,
+                let model = self?.storage.objectAtIndexPath(indexPath) as? T.ModelType,
+                let delegate = self?.delegate as? U
+            {
+                methodPointer(delegate)(cell, model, indexPath)
             }
         }
         self.collectionViewReactions.append(reaction)
@@ -343,7 +382,7 @@ public extension DTCollectionViewManager
     /// Define additional configuration action, that will happen, when UICollectionReusableView header subclass is requested by UICollectionView. This action will be performed *after* header is created and updateWithModel: method is called.
     /// - Parameter headerClass: Type of UICollectionReusableView subclass
     /// - Parameter closure: closure to run when UICollectionReusableView is being configured
-    /// - Note: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
+    /// - Warning: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
     public func configureHeader<T:ModelTransfer where T: UICollectionReusableView>(headerClass: T.Type, _ closure: (T, T.ModelType, Int) -> Void)
     {
         self.configureSupplementary(T.self, ofKind: UICollectionElementKindSectionHeader, closure)
@@ -352,7 +391,7 @@ public extension DTCollectionViewManager
     /// Define additional configuration action, that will happen, when UICollectionReusableView footer subclass is requested by UICollectionView. This action will be performed *after* footer is created and updateWithModel: method is called.
     /// - Parameter footerClass: Type of UICollectionReusableView subclass
     /// - Parameter closure: closure to run when UICollectionReusableView is being configured
-    /// - Note: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
+    /// - Warning: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
     public func configureFooter<T:ModelTransfer where T: UICollectionReusableView>(footerClass: T.Type, _ closure: (T, T.ModelType, Int) -> Void)
     {
         self.configureSupplementary(T.self, ofKind: UICollectionElementKindSectionFooter, closure)
@@ -361,40 +400,75 @@ public extension DTCollectionViewManager
     /// Define additional configuration action, that will happen, when UICollectionReusableView supplementary subclass is requested by UICollectionView. This action will be performed *after* supplementary is created and updateWithModel: method is called.
     /// - Parameter supplementaryClass: Type of UICollectionReusableView subclass
     /// - Parameter closure: closure to run when UICollectionReusableView is being configured
-    /// - Note: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
+    /// - Warning: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
     public func configureSupplementary<T:ModelTransfer where T: UICollectionReusableView>(supplementaryClass: T.Type, ofKind kind: String, _ closure: (T,T.ModelType,Int) -> Void)
     {
-        let reaction = CollectionViewReaction(reactionType: .SupplementaryConfiguration)
+        let reaction = CollectionViewReaction(.SupplementaryConfiguration)
         reaction.kind = kind
         reaction.viewType = _reflect(T)
         reaction.reactionBlock = { [weak self, reaction] in
             if let configuration = reaction.reactionData as? ViewConfiguration,
+                let view = configuration.view as? T,
                 let headerStorage = self?.storage as? HeaderFooterStorageProtocol,
-                let model = headerStorage.headerModelForSectionIndex(configuration.indexPath.section)
+                let model = headerStorage.headerModelForSectionIndex(configuration.indexPath.section) as? T.ModelType
             {
-                closure(configuration.view as! T, model as! T.ModelType, configuration.indexPath.section)
+                closure(view, model, configuration.indexPath.section)
+            }
+        }
+        self.collectionViewReactions.append(reaction)
+    }
+    
+    /// Define additional configuration action, that will happen, when UICollectionReusableView header subclass is requested by UICollectionView. This action will be performed *after* supplementary is created and updateWithModel: method is called.
+    /// - Parameter methodPointer: function to run when UICollectionReusableView header is being configured
+    /// - Note: This method automatically breaks retain cycles, that can happen when passing method pointer somewhere.
+    /// - Note: `DTCollectionViewManageable` instance is used to call configuration event.
+    public func headerConfiguration<T,U where T:ModelTransfer, T: UICollectionReusableView, U: DTCollectionViewManageable>(kind kind: String, _ methodPointer: U -> (T,T.ModelType, Int) -> Void)
+    {
+        supplementaryConfiguration(kind: UICollectionElementKindSectionHeader, methodPointer)
+    }
+    
+    /// Define additional configuration action, that will happen, when UICollectionReusableView footer subclass is requested by UICollectionView. This action will be performed *after* supplementary is created and updateWithModel: method is called.
+    /// - Parameter methodPointer: function to run when UICollectionReusableView footer is being configured
+    /// - Note: This method automatically breaks retain cycles, that can happen when passing method pointer somewhere.
+    /// - Note: `DTCollectionViewManageable` instance is used to call configuration event.
+    public func footerConfiguration<T,U where T:ModelTransfer, T: UICollectionReusableView, U: DTCollectionViewManageable>(kind kind: String, _ methodPointer: U -> (T,T.ModelType, Int) -> Void)
+    {
+        supplementaryConfiguration(kind: UICollectionElementKindSectionFooter, methodPointer)
+    }
+    
+    /// Define additional configuration action, that will happen, when UICollectionReusableView supplementary subclass is requested by UICollectionView. This action will be performed *after* supplementary is created and updateWithModel: method is called.
+    /// - Parameter kind: Kind of UICollectionReusableView subclass
+    /// - Parameter methodPointer: function to run when UICollectionReusableView is being configured
+    /// - Note: This method automatically breaks retain cycles, that can happen when passing method pointer somewhere.
+    /// - Note: `DTCollectionViewManageable` instance is used to call configuration event.
+    public func supplementaryConfiguration<T,U where T:ModelTransfer, T: UICollectionReusableView, U: DTCollectionViewManageable>(kind kind: String, _ methodPointer: U -> (T,T.ModelType, Int) -> Void)
+    {
+        let reaction = CollectionViewReaction(.SupplementaryConfiguration)
+        reaction.kind = kind
+        reaction.viewType = _reflect(T)
+        reaction.reactionBlock = { [weak self, reaction] in
+            if let configuration = reaction.reactionData as? ViewConfiguration,
+                let view = configuration.view as? T,
+                let headerStorage = self?.storage as? HeaderFooterStorageProtocol,
+                let model = headerStorage.headerModelForSectionIndex(configuration.indexPath.section) as? T.ModelType,
+                let delegate = self?.delegate as? U
+            {
+                methodPointer(delegate)(view, model, configuration.indexPath.section)
             }
         }
         self.collectionViewReactions.append(reaction)
     }
     
     /// Perform action before content will be updated.
-    /// - Note: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
+    @available(*, unavailable, message="Adopt DTCollectionViewContentUpdatable protocol on your DTCollectionViewManageable instance instead")
     public func beforeContentUpdate(block: () -> Void )
     {
-        let reaction = CollectionViewReaction(reactionType: .ControllerWillUpdateContent)
-        reaction.reactionBlock = block
-        self.collectionViewReactions.append(reaction)
     }
     
     /// Perform action after content is updated.
-    /// - Note: UICollectionView reloadData is asynchronous, so this method can be called before reload animation is completed
-    /// - Note: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
+    @available(*, unavailable, message="Adopt DTCollectionViewContentUpdatable protocol on your DTCollectionViewManageable instance instead")
     public func afterContentUpdate(block : () -> Void )
     {
-        let reaction = CollectionViewReaction(reactionType: .ControllerDidUpdateContent)
-        reaction.reactionBlock = block
-        self.collectionViewReactions.append(reaction)
     }
 }
 
@@ -467,6 +541,16 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
     }
 }
 
+public protocol DTCollectionViewContentUpdatable {
+    func beforeContentUpdate()
+    func afterContentUpdate()
+}
+
+public extension DTCollectionViewContentUpdatable where Self : DTCollectionViewManageable {
+    func beforeContentUpdate() {}
+    func afterContentUpdate() {}
+}
+
 // MARK : - StorageUpdating
 extension DTCollectionViewManager : StorageUpdating
 {
@@ -517,18 +601,12 @@ extension DTCollectionViewManager : StorageUpdating
     
     func controllerWillUpdateContent()
     {
-        if let reaction = self.reactionOfReactionType(.ControllerWillUpdateContent)
-        {
-            reaction.perform()
-        }
+        (self.delegate as? DTCollectionViewContentUpdatable)?.beforeContentUpdate()
     }
     
     func controllerDidUpdateContent()
     {
-        if let reaction = self.reactionOfReactionType(.ControllerDidUpdateContent)
-        {
-            reaction.perform()
-        }
+        (self.delegate as? DTCollectionViewContentUpdatable)?.afterContentUpdate()
     }
 }
 

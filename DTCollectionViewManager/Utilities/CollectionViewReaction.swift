@@ -32,8 +32,6 @@ enum CollectionViewReactionType
     case Selection
     case CellConfiguration
     case SupplementaryConfiguration
-    case ControllerWillUpdateContent
-    case ControllerDidUpdateContent
 }
 
 protocol CollectionViewReactionData {}
@@ -53,7 +51,7 @@ class CollectionViewReaction {
         reactionBlock?()
     }
     
-    init(reactionType: CollectionViewReactionType)
+    init(_ reactionType: CollectionViewReactionType)
     {
         self.reactionType = reactionType
     }

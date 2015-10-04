@@ -18,7 +18,6 @@
 		9A7576FE1BB954CD00180D46 /* Nimble.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7576FD1BB954CD00180D46 /* Nimble.framework */; };
 		9A7576FF1BB954D600180D46 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7576FB1BB954AC00180D46 /* DTModelStorage.framework */; };
 		9A7577001BB954E100180D46 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7576FB1BB954AC00180D46 /* DTModelStorage.framework */; };
-		9A7577011BB954E700180D46 /* DTModelStorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9A7576FB1BB954AC00180D46 /* DTModelStorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A99AA7F1B8A219300428802 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99AA7E1B8A219300428802 /* AppDelegate.swift */; };
 		9A99AA811B8A219300428802 /* MasterViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99AA801B8A219300428802 /* MasterViewController.swift */; };
 		9A99AA861B8A219300428802 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA841B8A219300428802 /* Main.storyboard */; };
@@ -89,7 +88,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9A7577011BB954E700180D46 /* DTModelStorage.framework in Embed Frameworks */,
 				9A7576F71BB951B500180D46 /* DTCollectionViewManager.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
