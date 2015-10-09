@@ -54,7 +54,7 @@ class SectionsViewController: UIViewController, DTCollectionViewManageable, UICo
     }
     @IBAction func moveSection(sender: AnyObject) {
         if self.manager.memoryStorage.sections.count > 0 {
-            self.manager.memoryStorage.moveCollectionViewSection(self.manager.memoryStorage.sections.count - 1, toSection: 0)
+            self.manager.memoryStorage.moveSection(self.manager.memoryStorage.sections.count - 1, toSection:0)
         }
     }
 }

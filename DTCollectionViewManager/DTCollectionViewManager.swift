@@ -557,37 +557,65 @@ extension DTCollectionViewManager : StorageUpdating
     public func storageDidPerformUpdate(update: StorageUpdate) {
         self.controllerWillUpdateContent()
         
-        let sectionsToInsert = NSMutableIndexSet()
-        for index in 0..<update.insertedSectionIndexes.count {
-            if self.collectionView.numberOfSections() <= index {
-                sectionsToInsert.addIndex(index)
+        collectionView.performBatchUpdates({
+            if update.insertedRowIndexPaths.count > 0 { self.collectionView.insertItemsAtIndexPaths(Array(update.insertedRowIndexPaths)) }
+            if update.deletedRowIndexPaths.count > 0 { self.collectionView.deleteItemsAtIndexPaths(Array(update.deletedRowIndexPaths)) }
+            if update.updatedRowIndexPaths.count > 0 { self.collectionView.reloadItemsAtIndexPaths(Array(update.updatedRowIndexPaths)) }
+            if update.movedRowIndexPaths.count > 0 {
+                for moveAction in update.movedRowIndexPaths {
+                    if let from = moveAction.first, let to = moveAction.last {
+                        self.collectionView.moveItemAtIndexPath(from, toIndexPath: to)
+                    }
+                }
             }
+            
+            if update.insertedSectionIndexes.count > 0 { self.collectionView.insertSections(update.insertedSectionIndexes.makeNSIndexSet()) }
+            if update.deletedSectionIndexes.count > 0 { self.collectionView.deleteSections(update.deletedSectionIndexes.makeNSIndexSet()) }
+            if update.updatedSectionIndexes.count > 0 { self.collectionView.reloadSections(update.updatedSectionIndexes.makeNSIndexSet())}
+            if update.movedSectionIndexes.count > 0 {
+                for moveAction in update.movedSectionIndexes {
+                    if let from = moveAction.first, let to = moveAction.last {
+                        self.collectionView.moveSection(from, toSection: to)
+                    }
+                }
+            }
+            }) { (finished) in
+                if update.insertedSectionIndexes.count + update.deletedSectionIndexes.count + update.updatedSectionIndexes.count > 0 {
+                    self.collectionView.reloadData()
+                }
         }
         
-        let sectionChanges = update.deletedSectionIndexes.count + update.insertedSectionIndexes.count + update.updatedSectionIndexes.count
-        let itemChanges = update.deletedRowIndexPaths.count + update.insertedRowIndexPaths.count + update.updatedRowIndexPaths.count
-        
-        if self.shouldReloadCollectionViewToPreventInsertFirstItemIssueForUpdate(update) {
-            self.storageNeedsReloading()
-            return
-        }
-        // TODO - Check if historic workaround is needed.
-        
-        if sectionChanges > 0 {
-            self.collectionView.performBatchUpdates({ () -> Void in
-                self.collectionView.deleteSections(update.deletedSectionIndexes)
-                self.collectionView.insertSections(update.insertedSectionIndexes)
-                self.collectionView.reloadSections(update.updatedSectionIndexes)
-                }, completion: nil)
-        }
-        
-        if itemChanges > 0 && sectionChanges == 0 {
-            self.collectionView.performBatchUpdates({ () -> Void in
-                self.collectionView.deleteItemsAtIndexPaths(update.deletedRowIndexPaths)
-                self.collectionView.insertItemsAtIndexPaths(update.insertedRowIndexPaths)
-                }, completion: nil)
-                self.collectionView.reloadItemsAtIndexPaths(update.updatedRowIndexPaths)
-        }
+//        let sectionsToInsert = NSMutableIndexSet()
+//        for index in 0..<update.insertedSectionIndexes.count {
+//            if self.collectionView.numberOfSections() <= index {
+//                sectionsToInsert.addIndex(index)
+//            }
+//        }
+//        
+//        let sectionChanges = update.deletedSectionIndexes.count + update.insertedSectionIndexes.count + update.updatedSectionIndexes.count
+//        let itemChanges = update.deletedRowIndexPaths.count + update.insertedRowIndexPaths.count + update.updatedRowIndexPaths.count
+//        
+//        if self.shouldReloadCollectionViewToPreventInsertFirstItemIssueForUpdate(update) {
+//            self.storageNeedsReloading()
+//            return
+//        }
+//        // TODO - Check if historic workaround is needed.
+//        
+//        if sectionChanges > 0 {
+//            self.collectionView.performBatchUpdates({ () -> Void in
+//                self.collectionView.deleteSections(update.deletedSectionIndexes.makeNSIndexSet())
+//                self.collectionView.insertSections(update.insertedSectionIndexes.makeNSIndexSet())
+//                self.collectionView.reloadSections(update.updatedSectionIndexes.makeNSIndexSet())
+//                }, completion: nil)
+//        }
+//        
+//        if itemChanges > 0 && sectionChanges == 0 {
+//            self.collectionView.performBatchUpdates({ () -> Void in
+//                self.collectionView.deleteItemsAtIndexPaths(Array(update.deletedRowIndexPaths))
+//                self.collectionView.insertItemsAtIndexPaths(Array(update.insertedRowIndexPaths))
+//                }, completion: nil)
+//                self.collectionView.reloadItemsAtIndexPaths(Array(update.updatedRowIndexPaths))
+//        }
         
         self.controllerDidUpdateContent()
     }

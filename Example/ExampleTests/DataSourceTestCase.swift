@@ -34,6 +34,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.storage = MemoryStorage()
         
         controller.manager.registerCellClass(NibCell)
+        let _ = controller.collectionView?.numberOfSections()
     }
     
     func testCollectionItemAtIndexPath()
@@ -97,6 +98,7 @@ class DataSourceTestCase: XCTestCase {
     func testRemoveItem()
     {
         controller.manager.memoryStorage.addItems([1,3,2,4], toSection: 0)
+        let _ = controller.collectionView?.numberOfItemsInSection(0)
         controller.manager.memoryStorage.removeItems([1,4,3,5])
         
         expect(self.controller.manager.memoryStorage.itemsInSection(0)?.count) == 1
@@ -114,7 +116,7 @@ class DataSourceTestCase: XCTestCase {
     func testMovingItems()
     {
         controller.manager.memoryStorage.addItems([1,2,3], toSection: 0)
-        controller.manager.memoryStorage.moveCollectionItemAtIndexPath(indexPath(0, 0), toIndexPath: indexPath(2, 0))
+        controller.manager.memoryStorage.moveItemFromIndexPath(indexPath(0, 0), toIndexPath: indexPath(2, 0))
         
         expect(self.controller.verifySection([2,3,1], withSectionNumber: 0)) == true
     }
@@ -123,13 +125,13 @@ class DataSourceTestCase: XCTestCase {
     {
         controller.manager.memoryStorage.addItem([1,2,3], toSection: 0)
         
-        controller.manager.memoryStorage.moveCollectionItemAtIndexPath(indexPath(0, 0), toIndexPath: indexPath(2, 1))
+        controller.manager.memoryStorage.moveItemFromIndexPath(indexPath(0, 0), toIndexPath: indexPath(2, 1))
     }
     
     func testShouldNotCrashWhenMovingFromBadRow()
     {
         controller.manager.memoryStorage.addItem([1,2,3], toSection: 0)
-        controller.manager.memoryStorage.moveCollectionItemAtIndexPath(indexPath(0, 1), toIndexPath: indexPath(0, 0))
+        controller.manager.memoryStorage.moveItemFromIndexPath(indexPath(0, 1), toIndexPath: indexPath(0, 0))
     }
     
     func testShouldMoveSections()
@@ -138,7 +140,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItem(2, toSection: 1)
         controller.manager.memoryStorage.addItem(3, toSection: 2)
         
-        controller.manager.memoryStorage.moveCollectionViewSection(0, toSection: 1)
+        controller.manager.memoryStorage.moveSection(0, toSection: 1)
         
         expect(self.controller.verifySection([2], withSectionNumber: 0)) == true
         expect(self.controller.verifySection([1], withSectionNumber: 1)) == true
