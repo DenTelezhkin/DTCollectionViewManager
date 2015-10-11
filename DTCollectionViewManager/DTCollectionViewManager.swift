@@ -325,7 +325,7 @@ public extension DTCollectionViewManager
     {
         let reaction = CollectionViewReaction(.Selection)
         reaction.viewType = _reflect(T)
-        reaction.reactionBlock = { [weak self, reaction] in
+        reaction.reactionBlock = { [weak self, unowned reaction] in
             if let indexPath = reaction.reactionData as? NSIndexPath,
                 let cell = self?.collectionView.cellForItemAtIndexPath(indexPath) as? T,
                 let model = self?.storage.itemAtIndexPath(indexPath) as? T.ModelType
@@ -344,7 +344,7 @@ public extension DTCollectionViewManager
     {
         let reaction = CollectionViewReaction(.Selection)
         reaction.viewType = _reflect(T)
-        reaction.reactionBlock = { [weak self, reaction] in
+        reaction.reactionBlock = { [weak self, unowned reaction] in
             if let indexPath = reaction.reactionData as? NSIndexPath,
                 let cell = self?.collectionView.cellForItemAtIndexPath(indexPath) as? T,
                 let model = self?.storage.itemAtIndexPath(indexPath) as? T.ModelType,
@@ -364,7 +364,7 @@ public extension DTCollectionViewManager
     {
         let reaction = CollectionViewReaction(.CellConfiguration)
         reaction.viewType = _reflect(T)
-        reaction.reactionBlock = { [weak self, reaction] in
+        reaction.reactionBlock = { [weak self, unowned reaction] in
             if let configuration = reaction.reactionData as? ViewConfiguration,
                 let view = configuration.view as? T,
                 let model = self?.storage.itemAtIndexPath(configuration.indexPath) as? T.ModelType
@@ -383,7 +383,7 @@ public extension DTCollectionViewManager
     {
         let reaction = CollectionViewReaction(.CellConfiguration)
         reaction.viewType = _reflect(T)
-        reaction.reactionBlock = { [weak self, reaction] in
+        reaction.reactionBlock = { [weak self, unowned reaction] in
             if let configuration = reaction.reactionData as? ViewConfiguration,
                 let cell = configuration.view as? T,
                 let model = self?.storage.itemAtIndexPath(configuration.indexPath) as? T.ModelType,
@@ -422,7 +422,7 @@ public extension DTCollectionViewManager
         let reaction = CollectionViewReaction(.SupplementaryConfiguration)
         reaction.kind = kind
         reaction.viewType = _reflect(T)
-        reaction.reactionBlock = { [weak self, reaction] in
+        reaction.reactionBlock = { [weak self, unowned reaction] in
             if let configuration = reaction.reactionData as? ViewConfiguration,
                 let view = configuration.view as? T,
                 let headerStorage = self?.storage as? HeaderFooterStorageProtocol,
@@ -462,7 +462,7 @@ public extension DTCollectionViewManager
         let reaction = CollectionViewReaction(.SupplementaryConfiguration)
         reaction.kind = kind
         reaction.viewType = _reflect(T)
-        reaction.reactionBlock = { [weak self, reaction] in
+        reaction.reactionBlock = { [weak self, unowned reaction] in
             if let configuration = reaction.reactionData as? ViewConfiguration,
                 let view = configuration.view as? T,
                 let headerStorage = self?.storage as? HeaderFooterStorageProtocol,
@@ -557,6 +557,7 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
     }
 }
 
+/// Conform to this protocol, if you want to monitor, when changes in storage are happening
 public protocol DTCollectionViewContentUpdatable {
     func beforeContentUpdate()
     func afterContentUpdate()
@@ -600,39 +601,6 @@ extension DTCollectionViewManager : StorageUpdating
                     self.collectionView.reloadData()
                 }
         }
-        
-//        let sectionsToInsert = NSMutableIndexSet()
-//        for index in 0..<update.insertedSectionIndexes.count {
-//            if self.collectionView.numberOfSections() <= index {
-//                sectionsToInsert.addIndex(index)
-//            }
-//        }
-//        
-//        let sectionChanges = update.deletedSectionIndexes.count + update.insertedSectionIndexes.count + update.updatedSectionIndexes.count
-//        let itemChanges = update.deletedRowIndexPaths.count + update.insertedRowIndexPaths.count + update.updatedRowIndexPaths.count
-//        
-//        if self.shouldReloadCollectionViewToPreventInsertFirstItemIssueForUpdate(update) {
-//            self.storageNeedsReloading()
-//            return
-//        }
-//        // TODO - Check if historic workaround is needed.
-//        
-//        if sectionChanges > 0 {
-//            self.collectionView.performBatchUpdates({ () -> Void in
-//                self.collectionView.deleteSections(update.deletedSectionIndexes.makeNSIndexSet())
-//                self.collectionView.insertSections(update.insertedSectionIndexes.makeNSIndexSet())
-//                self.collectionView.reloadSections(update.updatedSectionIndexes.makeNSIndexSet())
-//                }, completion: nil)
-//        }
-//        
-//        if itemChanges > 0 && sectionChanges == 0 {
-//            self.collectionView.performBatchUpdates({ () -> Void in
-//                self.collectionView.deleteItemsAtIndexPaths(Array(update.deletedRowIndexPaths))
-//                self.collectionView.insertItemsAtIndexPaths(Array(update.insertedRowIndexPaths))
-//                }, completion: nil)
-//                self.collectionView.reloadItemsAtIndexPaths(Array(update.updatedRowIndexPaths))
-//        }
-        
         self.controllerDidUpdateContent()
     }
     
@@ -659,38 +627,5 @@ extension DTCollectionViewManager : CollectionViewStorageUpdating
 {
     public func performAnimatedUpdate(block: (UICollectionView) -> Void) {
         block(collectionView)
-    }
-}
-
-// MARK: - Workarounds
-private extension DTCollectionViewManager
-{
-    // This is to prevent a bug in UICollectionView from occurring.
-    // The bug presents itself when inserting the first object or deleting the last object in a collection view.
-    // http://stackoverflow.com/questions/12611292/uicollectionview-assertion-failure
-    // http://stackoverflow.com/questions/13904049/assertion-failure-in-uicollectionviewdata-indexpathforitematglobalindex
-    // This code should be removed once the bug has been fixed, it is tracked in OpenRadar
-    // http://openradar.appspot.com/12954582
-    func shouldReloadCollectionViewToPreventInsertFirstItemIssueForUpdate(update: StorageUpdate) -> Bool
-    {
-        var shouldReload = false
-        for indexPath in update.insertedRowIndexPaths {
-            if self.collectionView.numberOfItemsInSection(indexPath.section) == 0 {
-                shouldReload = true
-                break
-            }
-        }
-        for indexPath in update.deletedRowIndexPaths {
-            if self.collectionView.numberOfItemsInSection(indexPath.section) == 1 {
-                shouldReload = true
-                break
-            }
-        }
-        
-        if self.collectionView.window == nil {
-            shouldReload = true
-        }
-        
-        return shouldReload
     }
 }
