@@ -9,14 +9,14 @@ This release aims to improve storage updates and UI animation with UICollectionV
 
 There are some backwards-incompatible changes in this release, however Xcode quick-fix tips should guide you through what needs to be changed.
 
- ## Added
+## Added
 
  * `registerNiblessCellClass` and `registerNiblessSupplementaryClass` methods to  support creating cells and supplementary views from code
-
 
 ## Bugfixes
 
 * Fixed `cellConfiguration` method, that was working incorrectly
+* Fixed retain cycles in event blocks
 
 ## [4.1.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.1.0)
 

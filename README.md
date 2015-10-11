@@ -14,6 +14,7 @@ Powerful protocol-oriented UICollectionView management framework, written in Swi
 ## Features
 
 - [x] Powerful mapping system between data models and cells, headers and footers
+- [x] Views created from code, XIB, or storyboard
 - [x] Flexible Memory/CoreData/Custom storage options
 - [x] Automatic datasource and interface synchronization.
 - [x] Automatic XIB registration and dequeue
