@@ -368,12 +368,12 @@ public extension DTCollectionViewManager
         let reaction = CollectionViewReaction(.CellConfiguration)
         reaction.viewType = _reflect(T)
         reaction.reactionBlock = { [weak self, reaction] in
-            if let indexPath = reaction.reactionData as? NSIndexPath,
-                let cell = self?.collectionView.cellForItemAtIndexPath(indexPath) as? T,
-                let model = self?.storage.objectAtIndexPath(indexPath) as? T.ModelType,
+            if let configuration = reaction.reactionData as? ViewConfiguration,
+                let cell = configuration.view as? T,
+                let model = self?.storage.objectAtIndexPath(configuration.indexPath) as? T.ModelType,
                 let delegate = self?.delegate as? U
             {
-                methodPointer(delegate)(cell, model, indexPath)
+                methodPointer(delegate)(cell, model, configuration.indexPath)
             }
         }
         self.collectionViewReactions.append(reaction)
