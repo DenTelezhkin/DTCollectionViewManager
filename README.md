@@ -32,11 +32,11 @@ Powerful protocol-oriented UICollectionView management framework, written in Swi
 
 [CocoaPods](http://www.cocoapods.org):
 
-    pod 'DTCollectionViewManager', '~> 4.1.0'
+    pod 'DTCollectionViewManager', '~> 4.2.0'
 
 [Carthage](https://github.com/Carthage/Carthage):
 
-    github "DenHeadless/DTCollectionViewManager"
+    github "DenHeadless/DTCollectionViewManager"  ~> 4.2.0
 
 After running `carthage update` drop DTCollectionViewManager.framework and DTModelStorage.framework to XCode project embedded binaries.
 
@@ -217,15 +217,15 @@ extension PostsViewController: DTCollectionViewContentUpdatable {
 There are several convenience model getters, that will allow you to get data model from storage classes. Those include cell, header or footer class types to gather type information and being able to return model of correct type. Again, no need for type casts.
 
 ```swift
-  let post = manager.objectForCellClass(PostCell.self, atIndexPath: indexPath)
-  let postHeaderModel = manager.objectForHeaderClass(PostHeaderClass.self, atSectionIndex: sectionIndex)
-  let postFooterModel = manager.objectForFooterClass(PostFooterClass.self, atSectionIndex: sectionIndex)
+  let post = manager.itemForCellClass(PostCell.self, atIndexPath: indexPath)
+  let postHeaderModel = manager.itemForHeaderClass(PostHeaderClass.self, atSectionIndex: sectionIndex)
+  let postFooterModel = manager.itemForFooterClass(PostFooterClass.self, atSectionIndex: sectionIndex)
 ```
 
 There's also convenience getter, that will allow you to get model from visible `UICollectionViewCell`.
 
 ```swift
-  let post = manager.objectForVisibleCell(postCell)
+  let post = manager.itemForVisibleCell(postCell)
 ```
 
 ## ObjectiveC
