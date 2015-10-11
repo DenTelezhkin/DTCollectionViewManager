@@ -11,17 +11,6 @@ import DTModelStorage
 import DTCollectionViewManager
 import Nimble
 
-class AlwaysVisibleCollectionView: UICollectionView
-{
-    override func cellForItemAtIndexPath(indexPath: NSIndexPath) -> UICollectionViewCell? {
-        return self.dataSource?.collectionView(self, cellForItemAtIndexPath: indexPath)
-    }
-    
-//    override func supplementaryViewForElementKind(elementKind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView {
-//        return self.dataSource!.collectionView!(self, viewForSupplementaryElementOfKind: elementKind, atIndexPath: indexPath)
-//    }
-}
-
 class DataSourceTestCase: XCTestCase {
     
     var controller = DTTestCollectionController()
@@ -98,7 +87,6 @@ class DataSourceTestCase: XCTestCase {
     func testRemoveItem()
     {
         controller.manager.memoryStorage.addItems([1,3,2,4], toSection: 0)
-        let _ = controller.collectionView?.numberOfItemsInSection(0)
         controller.manager.memoryStorage.removeItems([1,4,3,5])
         
         expect(self.controller.manager.memoryStorage.itemsInSection(0)?.count) == 1
@@ -123,14 +111,14 @@ class DataSourceTestCase: XCTestCase {
     
     func testShouldNotCrashWhenMovingToBadRow()
     {
-        controller.manager.memoryStorage.addItem([1,2,3], toSection: 0)
+        controller.manager.memoryStorage.addItems([1,2,3], toSection: 0)
         
         controller.manager.memoryStorage.moveItemFromIndexPath(indexPath(0, 0), toIndexPath: indexPath(2, 1))
     }
     
     func testShouldNotCrashWhenMovingFromBadRow()
     {
-        controller.manager.memoryStorage.addItem([1,2,3], toSection: 0)
+        controller.manager.memoryStorage.addItems([1,2,3], toSection: 0)
         controller.manager.memoryStorage.moveItemFromIndexPath(indexPath(0, 1), toIndexPath: indexPath(0, 0))
     }
     

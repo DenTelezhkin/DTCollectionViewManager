@@ -11,7 +11,7 @@ import DTCollectionViewManager
 
 class DTTestCollectionController: UIViewController, DTCollectionViewManageable {
 
-    var collectionView: UICollectionView? = AlwaysVisibleCollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
+    var collectionView: UICollectionView? = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
 
 }
 
