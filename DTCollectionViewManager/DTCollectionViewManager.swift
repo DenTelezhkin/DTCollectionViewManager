@@ -146,7 +146,7 @@ public class DTCollectionViewManager : NSObject {
         guard cell != nil else {  return nil }
         
         if let indexPath = self.collectionView.indexPathForCell(cell!) {
-            return storage.objectAtIndexPath(indexPath) as? T.ModelType
+            return storage.itemAtIndexPath(indexPath) as? T.ModelType
         }
         return nil
     }
@@ -158,7 +158,7 @@ public class DTCollectionViewManager : NSObject {
     /// - Note: Method does not require cell to be visible, however it requires that storage really contains object of `ModelType` at specified index path, otherwise it will return nil.
     public func objectForCellClass<T:ModelTransfer where T:UICollectionViewCell>(cellClass: T.Type, atIndexPath indexPath: NSIndexPath) -> T.ModelType?
     {
-        return self.storage.objectForCellClass(T.self, atIndexPath: indexPath)
+        return self.storage.itemForCellClass(T.self, atIndexPath: indexPath)
     }
     
     /// Retrieve model of specific type for section index.
@@ -168,7 +168,7 @@ public class DTCollectionViewManager : NSObject {
     /// - Note: Method does not require header to be visible, however it requires that storage really contains object of `ModelType` at specified section index, and storage to comply to `HeaderFooterStorageProtocol`, otherwise it will return nil.
     public func objectForHeaderClass<T:ModelTransfer where T:UICollectionReusableView>(headerClass: T.Type, atSectionIndex sectionIndex: Int) -> T.ModelType?
     {
-        return self.storage.objectForHeaderClass(T.self, atSectionIndex: sectionIndex)
+        return self.storage.itemForHeaderClass(T.self, atSectionIndex: sectionIndex)
     }
     
     /// Retrieve model of specific type for section index.
@@ -178,7 +178,7 @@ public class DTCollectionViewManager : NSObject {
     /// - Note: Method does not require footer to be visible, however it requires that storage really contains object of `ModelType` at specified section index, and storage to comply to `HeaderFooterStorageProtocol`, otherwise it will return nil.
     public func objectForFooterClass<T:ModelTransfer where T:UICollectionReusableView>(footerClass: T.Type, atSectionIndex sectionIndex: Int) -> T.ModelType?
     {
-        return self.storage.objectForFooterClass(T.self, atSectionIndex: sectionIndex)
+        return self.storage.itemForFooterClass(T.self, atSectionIndex: sectionIndex)
     }
     
     /// Retrieve model of specific type for section index.
@@ -219,6 +219,14 @@ extension DTCollectionViewManager
     public func registerCellClass<T:ModelTransfer where T: UICollectionViewCell>(cellClass:T.Type)
     {
         self.viewFactory.registerCellClass(cellClass)
+    }
+    
+    /// Register mapping from model class to custom cell class. This method should be used, when you don't have cell interface created in XIB or storyboard, and you need cell, created from code.
+    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
+    /// - Parameter cellClass: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
+    public func registerNiblessCellClass<T:ModelTransfer where T: UICollectionViewCell>(cellClass:T.Type)
+    {
+        viewFactory.registerNiblessCellClass(cellClass)
     }
     
     /// This method combines registerCellClass and whenSelected: methods together.
@@ -296,6 +304,14 @@ extension DTCollectionViewManager
         viewFactory.registerNibNamed(nibName, forSupplementaryClass: supplementaryClass, forKind: kind)
     }
     
+    /// Register mapping from model class to custom supplementary view class. This method should be used, when you don't have supplementary interface created in XIB or storyboard, and you need view, created from code.
+    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
+    /// - Parameter supplementaryClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
+    /// - Parameter kind: Supplementary kind
+    public func registerNiblessSupplementaryClass<T:ModelTransfer where T:UICollectionReusableView>(supplementaryClass: T.Type, forKind kind: String) {
+        viewFactory.registerNiblessSupplementaryClass(supplementaryClass, forKind: kind)
+    }
+    
 }
 
 // MARK: - Collection view reactions
@@ -312,7 +328,7 @@ public extension DTCollectionViewManager
         reaction.reactionBlock = { [weak self, reaction] in
             if let indexPath = reaction.reactionData as? NSIndexPath,
                 let cell = self?.collectionView.cellForItemAtIndexPath(indexPath) as? T,
-                let model = self?.storage.objectAtIndexPath(indexPath) as? T.ModelType
+                let model = self?.storage.itemAtIndexPath(indexPath) as? T.ModelType
             {
                 closure(cell, model, indexPath)
             }
@@ -331,7 +347,7 @@ public extension DTCollectionViewManager
         reaction.reactionBlock = { [weak self, reaction] in
             if let indexPath = reaction.reactionData as? NSIndexPath,
                 let cell = self?.collectionView.cellForItemAtIndexPath(indexPath) as? T,
-                let model = self?.storage.objectAtIndexPath(indexPath) as? T.ModelType,
+                let model = self?.storage.itemAtIndexPath(indexPath) as? T.ModelType,
                 let delegate = self?.delegate as? U
             {
                 methodPointer(delegate)(cell, model, indexPath)
@@ -351,7 +367,7 @@ public extension DTCollectionViewManager
         reaction.reactionBlock = { [weak self, reaction] in
             if let configuration = reaction.reactionData as? ViewConfiguration,
                 let view = configuration.view as? T,
-                let model = self?.storage.objectAtIndexPath(configuration.indexPath) as? T.ModelType
+                let model = self?.storage.itemAtIndexPath(configuration.indexPath) as? T.ModelType
             {
                 closure(view, model, configuration.indexPath)
             }
@@ -370,7 +386,7 @@ public extension DTCollectionViewManager
         reaction.reactionBlock = { [weak self, reaction] in
             if let configuration = reaction.reactionData as? ViewConfiguration,
                 let cell = configuration.view as? T,
-                let model = self?.storage.objectAtIndexPath(configuration.indexPath) as? T.ModelType,
+                let model = self?.storage.itemAtIndexPath(configuration.indexPath) as? T.ModelType,
                 let delegate = self?.delegate as? U
             {
                 methodPointer(delegate)(cell, model, configuration.indexPath)
@@ -476,7 +492,7 @@ public extension DTCollectionViewManager
 extension DTCollectionViewManager : UICollectionViewDataSource
 {
     public func collectionView(collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return storage.sections[section].numberOfObjects
+        return storage.sections[section].numberOfItems
     }
     
     public func numberOfSectionsInCollectionView(collectionView: UICollectionView) -> Int {
@@ -484,7 +500,7 @@ extension DTCollectionViewManager : UICollectionViewDataSource
     }
     
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
-        let model = storage.objectAtIndexPath(indexPath)
+        let model = storage.itemAtIndexPath(indexPath)
         let cell = viewFactory.cellForModel(model, atIndexPath: indexPath)
         if let reaction = self.reactionOfReactionType(.CellConfiguration, forViewType: _reflect(cell.dynamicType)) {
             reaction.reactionData = ViewConfiguration(view: cell, indexPath:indexPath)

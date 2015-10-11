@@ -104,7 +104,7 @@ class DataSourceTestCase: XCTestCase {
     func testMovingItems()
     {
         controller.manager.memoryStorage.addItems([1,2,3], toSection: 0)
-        controller.manager.memoryStorage.moveItemFromIndexPath(indexPath(0, 0), toIndexPath: indexPath(2, 0))
+        controller.manager.memoryStorage.moveItemAtIndexPath(indexPath(0, 0), toIndexPath: indexPath(2, 0))
         
         expect(self.controller.verifySection([2,3,1], withSectionNumber: 0)) == true
     }
@@ -113,13 +113,13 @@ class DataSourceTestCase: XCTestCase {
     {
         controller.manager.memoryStorage.addItems([1,2,3], toSection: 0)
         
-        controller.manager.memoryStorage.moveItemFromIndexPath(indexPath(0, 0), toIndexPath: indexPath(2, 1))
+        controller.manager.memoryStorage.moveItemAtIndexPath(indexPath(0, 0), toIndexPath: indexPath(2, 1))
     }
     
     func testShouldNotCrashWhenMovingFromBadRow()
     {
         controller.manager.memoryStorage.addItems([1,2,3], toSection: 0)
-        controller.manager.memoryStorage.moveItemFromIndexPath(indexPath(0, 1), toIndexPath: indexPath(0, 0))
+        controller.manager.memoryStorage.moveItemAtIndexPath(indexPath(0, 1), toIndexPath: indexPath(0, 0))
     }
     
     func testShouldMoveSections()
@@ -183,7 +183,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.registerCellClass(NibCell)
         controller.manager.memoryStorage.addItem(1, toSection: 0)
         
-        if let object = controller.manager.storage.objectForCellClass(NibCell.self, atIndexPath: indexPath(0, 0))
+        if let object = controller.manager.storage.itemForCellClass(NibCell.self, atIndexPath: indexPath(0, 0))
         {
             expect(object) == 1
         }
@@ -197,7 +197,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.registerCellClass(NibCell)
         controller.manager.memoryStorage.addItem(1, toSection: 0)
         
-        if let _ = controller.manager.storage.objectForCellClass(StringCell.self, atIndexPath: indexPath(0, 0))
+        if let _ = controller.manager.storage.itemForCellClass(StringCell.self, atIndexPath: indexPath(0, 0))
         {
             XCTFail()
         }

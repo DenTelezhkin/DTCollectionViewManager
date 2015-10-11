@@ -79,12 +79,26 @@ extension CollectionViewFactory
         self.addMappingForViewType(.Cell, viewClass: T.self)
     }
     
+    func registerNiblessCellClass<T:ModelTransfer where T:UICollectionViewCell>(cellClass: T.Type)
+    {
+        let reuseIdentifier = RuntimeHelper.classNameFromReflection(_reflect(cellClass))
+        collectionView.registerClass(cellClass, forCellWithReuseIdentifier: reuseIdentifier)
+        self.addMappingForViewType(.Cell, viewClass: T.self)
+    }
+    
     func registerNibNamed<T:ModelTransfer where T: UICollectionViewCell>(nibName: String, forCellClass cellClass: T.Type)
     {
         let reuseIdentifier = RuntimeHelper.classNameFromReflection(_reflect(cellClass))
         assert(UINib.nibExistsWithNibName(reuseIdentifier, inBundle: bundle))
         collectionView.registerNib(UINib(nibName: reuseIdentifier, bundle: bundle), forCellWithReuseIdentifier: reuseIdentifier)
         self.addMappingForViewType(.Cell, viewClass: T.self)
+    }
+    
+    func registerNiblessSupplementaryClass<T:ModelTransfer where T: UICollectionReusableView>(supplementaryClass: T.Type, forKind kind: String)
+    {
+        let reuseIdentifier = RuntimeHelper.classNameFromReflection(_reflect(supplementaryClass))
+        collectionView.registerClass(supplementaryClass, forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
+        self.addMappingForViewType(ViewType.SupplementaryView(kind: kind), viewClass: T.self)
     }
     
     func registerSupplementaryClass<T:ModelTransfer where T:UICollectionReusableView>(supplementaryClass: T.Type, forKind kind: String)

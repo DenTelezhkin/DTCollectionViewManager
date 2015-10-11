@@ -8,6 +8,7 @@
 
 import UIKit
 import DTCollectionViewManager
+import DTModelStorage
 
 func randomColor() -> UIColor {
         let randomRed:CGFloat = CGFloat(drand48())
@@ -41,10 +42,13 @@ class SectionsViewController: UIViewController, DTCollectionViewManageable, UICo
     @IBAction func addSection()
     {
         sectionNumber++
-        let section = self.manager.memoryStorage.sectionAtIndex(manager.memoryStorage.sections.count)
+        let nextSection = manager.memoryStorage.sections.count > 0 ? manager.memoryStorage.sections.count : 0
+        
+        let section = SectionModel()
         section.collectionHeaderModel = "Section \(sectionNumber) header"
         section.collectionFooterModel = "Section \(sectionNumber) footer"
-        self.manager.memoryStorage.addItems([randomColor(), randomColor(), randomColor()], toSection: manager.memoryStorage.sections.count - 1)
+        section.items = [randomColor(), randomColor(), randomColor()]
+        manager.memoryStorage.insertSection(section, atIndex: nextSection)
     }
 
     @IBAction func removeSection(sender: AnyObject) {
