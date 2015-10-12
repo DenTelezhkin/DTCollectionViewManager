@@ -62,7 +62,7 @@ extension DTCollectionViewManageable
 /// - SeeAlso: `startManagingWithDelegate:`
 public class DTCollectionViewManager : NSObject {
     
-    private var collectionView : UICollectionView! {
+    private var collectionView : UICollectionView? {
         return self.delegate?.collectionView
     }
     
@@ -71,8 +71,12 @@ public class DTCollectionViewManager : NSObject {
     ///  Factory for creating cells and reusable views for UICollectionView
     private lazy var viewFactory: CollectionViewFactory = {
         precondition(self.collectionView != nil, "Please call manager.startManagingWithDelegate(self) before calling any other DTCollectionViewManager methods")
-        return CollectionViewFactory(collectionView: self.collectionView)
+        return CollectionViewFactory(collectionView: self.collectionView!)
     }()
+    
+    deinit {
+        delegate = nil
+    }
     
     /// Bundle to search your xib's in. This can sometimes be useful for unit-testing. Defaults to NSBundle.mainBundle()
     public var viewBundle = NSBundle.mainBundle()
@@ -145,7 +149,7 @@ public class DTCollectionViewManager : NSObject {
     {
         guard cell != nil else {  return nil }
         
-        if let indexPath = self.collectionView.indexPathForCell(cell!) {
+        if let indexPath = collectionView?.indexPathForCell(cell!) {
             return storage.itemAtIndexPath(indexPath) as? T.ModelType
         }
         return nil
@@ -327,7 +331,7 @@ public extension DTCollectionViewManager
         reaction.viewType = _reflect(T)
         reaction.reactionBlock = { [weak self, unowned reaction] in
             if let indexPath = reaction.reactionData as? NSIndexPath,
-                let cell = self?.collectionView.cellForItemAtIndexPath(indexPath) as? T,
+                let cell = self?.collectionView?.cellForItemAtIndexPath(indexPath) as? T,
                 let model = self?.storage.itemAtIndexPath(indexPath) as? T.ModelType
             {
                 closure(cell, model, indexPath)
@@ -346,7 +350,7 @@ public extension DTCollectionViewManager
         reaction.viewType = _reflect(T)
         reaction.reactionBlock = { [weak self, unowned reaction] in
             if let indexPath = reaction.reactionData as? NSIndexPath,
-                let cell = self?.collectionView.cellForItemAtIndexPath(indexPath) as? T,
+                let cell = self?.collectionView?.cellForItemAtIndexPath(indexPath) as? T,
                 let model = self?.storage.itemAtIndexPath(indexPath) as? T.ModelType,
                 let delegate = self?.delegate as? U
             {
@@ -574,31 +578,31 @@ extension DTCollectionViewManager : StorageUpdating
     public func storageDidPerformUpdate(update: StorageUpdate) {
         self.controllerWillUpdateContent()
         
-        collectionView.performBatchUpdates({
-            if update.insertedRowIndexPaths.count > 0 { self.collectionView.insertItemsAtIndexPaths(Array(update.insertedRowIndexPaths)) }
-            if update.deletedRowIndexPaths.count > 0 { self.collectionView.deleteItemsAtIndexPaths(Array(update.deletedRowIndexPaths)) }
-            if update.updatedRowIndexPaths.count > 0 { self.collectionView.reloadItemsAtIndexPaths(Array(update.updatedRowIndexPaths)) }
+        collectionView?.performBatchUpdates({
+            if update.insertedRowIndexPaths.count > 0 { self.collectionView?.insertItemsAtIndexPaths(Array(update.insertedRowIndexPaths)) }
+            if update.deletedRowIndexPaths.count > 0 { self.collectionView?.deleteItemsAtIndexPaths(Array(update.deletedRowIndexPaths)) }
+            if update.updatedRowIndexPaths.count > 0 { self.collectionView?.reloadItemsAtIndexPaths(Array(update.updatedRowIndexPaths)) }
             if update.movedRowIndexPaths.count > 0 {
                 for moveAction in update.movedRowIndexPaths {
                     if let from = moveAction.first, let to = moveAction.last {
-                        self.collectionView.moveItemAtIndexPath(from, toIndexPath: to)
+                        self.collectionView?.moveItemAtIndexPath(from, toIndexPath: to)
                     }
                 }
             }
             
-            if update.insertedSectionIndexes.count > 0 { self.collectionView.insertSections(update.insertedSectionIndexes.makeNSIndexSet()) }
-            if update.deletedSectionIndexes.count > 0 { self.collectionView.deleteSections(update.deletedSectionIndexes.makeNSIndexSet()) }
-            if update.updatedSectionIndexes.count > 0 { self.collectionView.reloadSections(update.updatedSectionIndexes.makeNSIndexSet())}
+            if update.insertedSectionIndexes.count > 0 { self.collectionView?.insertSections(update.insertedSectionIndexes.makeNSIndexSet()) }
+            if update.deletedSectionIndexes.count > 0 { self.collectionView?.deleteSections(update.deletedSectionIndexes.makeNSIndexSet()) }
+            if update.updatedSectionIndexes.count > 0 { self.collectionView?.reloadSections(update.updatedSectionIndexes.makeNSIndexSet())}
             if update.movedSectionIndexes.count > 0 {
                 for moveAction in update.movedSectionIndexes {
                     if let from = moveAction.first, let to = moveAction.last {
-                        self.collectionView.moveSection(from, toSection: to)
+                        self.collectionView?.moveSection(from, toSection: to)
                     }
                 }
             }
             }) { (finished) in
                 if update.insertedSectionIndexes.count + update.deletedSectionIndexes.count + update.updatedSectionIndexes.count > 0 {
-                    self.collectionView.reloadData()
+                    self.collectionView?.reloadData()
                 }
         }
         self.controllerDidUpdateContent()
@@ -607,7 +611,7 @@ extension DTCollectionViewManager : StorageUpdating
     /// Call this method, if you want UICollectionView to be reloaded, and beforeContentUpdate: and afterContentUpdate: closures to be called.
     public func storageNeedsReloading() {
         self.controllerWillUpdateContent()
-        collectionView.reloadData()
+        collectionView?.reloadData()
         self.controllerDidUpdateContent()
     }
     
@@ -626,7 +630,9 @@ extension DTCollectionViewManager : StorageUpdating
 extension DTCollectionViewManager : CollectionViewStorageUpdating
 {
     public func performAnimatedUpdate(block: (UICollectionView) -> Void) {
-        block(collectionView)
+        guard collectionView != nil else { return }
+        
+        block(collectionView!)
     }
 }
 
@@ -642,7 +648,7 @@ extension DTCollectionViewManager
     {
         guard cell != nil else {  return nil }
         
-        if let indexPath = self.collectionView.indexPathForCell(cell!) {
+        if let indexPath = collectionView?.indexPathForCell(cell!) {
             return storage.itemAtIndexPath(indexPath) as? T.ModelType
         }
         return nil
