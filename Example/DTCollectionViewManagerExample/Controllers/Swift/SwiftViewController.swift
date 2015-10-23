@@ -24,13 +24,13 @@ class SwiftViewController: DTCollectionViewController {
         self.refreshControl.addTarget(self, action: "refreshShouldStart:",
             forControlEvents: .ValueChanged)
         
-        executeAfter(1, { () -> Void in
+        executeAfter(1, block: { () -> Void in
             self.memoryStorage().setItems(self.randomNumbers(), forSectionIndex: 0)
         })
     }
     
     func refreshShouldStart(sender: UIRefreshControl) {
-        executeAfter(1, { () -> Void in
+        executeAfter(1, block: { () -> Void in
             self.refreshControl.endRefreshing()
             self.memoryStorage().setItems(self.randomNumbers(), forSectionIndex: 0)
         })
@@ -48,7 +48,7 @@ class SwiftViewController: DTCollectionViewController {
     }
 }
 
-extension SwiftViewController: DTCollectionViewControllerEvents {
+extension SwiftViewController {
     override func collectionControllerDidUpdateContent() {
         if self.collectionView.numberOfItemsInSection(0) > 0
         {
