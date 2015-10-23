@@ -8,7 +8,7 @@
 
 import UIKit
 
-class SwiftNumberCell: DTCollectionViewCell, DTModelTransfer {
+class SwiftNumberCell: DTCollectionViewCell {
 
     @IBOutlet weak var numberLabel: UILabel!
     override func updateWithModel(model: AnyObject) {
