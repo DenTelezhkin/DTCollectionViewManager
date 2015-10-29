@@ -626,17 +626,6 @@ extension DTCollectionViewManager : StorageUpdating
     }
 }
 
-// MARK: - CollectionViewStorageUpdating
-extension DTCollectionViewManager : CollectionViewStorageUpdating
-{
-    public func performAnimatedUpdate(block: (UICollectionView) -> Void) {
-        guard collectionView != nil else { return }
-        
-        block(collectionView!)
-    }
-}
-
-
 // MARK: - DEPRECATED 
 extension DTCollectionViewManager
 {
