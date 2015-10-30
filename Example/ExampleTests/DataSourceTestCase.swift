@@ -13,7 +13,7 @@ import Nimble
 
 class DataSourceTestCase: XCTestCase {
     
-    var controller = DTTestCollectionController()
+    var controller = DTCellTestCollectionController()
     
     override func setUp() {
         super.setUp()

@@ -519,7 +519,7 @@ extension DTCollectionViewManager : UICollectionViewDataSource
             }
             return view
         }
-        return UICollectionReusableView()
+        preconditionFailure("Failed to create supplementary view of kind: \(kind), atIndexPath: \(indexPath)")
     }
 }
 

@@ -9,19 +9,24 @@
 import UIKit
 import DTCollectionViewManager
 
-class DTTestCollectionController: UIViewController, DTCollectionViewManageable {
+class DTCellTestCollectionController: UIViewController, DTCollectionViewManageable {
 
     var collectionView: UICollectionView? = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
 
 }
 
-extension DTTestCollectionController : UICollectionViewDelegateFlowLayout
-{
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
-        return CGSize(width: 200, height: 300)
-    }
+class DTSupplementaryTestCollectionController: UIViewController, DTCollectionViewManageable {
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        return CGSize(width: 200, height: 300)
-    }
+    var collectionView : UICollectionView? = UICollectionView(frame: CGRect(x: 0, y: 0, width: 1024, height: 768), collectionViewLayout: UICollectionViewFlowLayout())
+}
+
+extension DTSupplementaryTestCollectionController : UICollectionViewDelegateFlowLayout
+{
+//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+//        return CGSize(width: 200, height: 300)
+//    }
+//    
+//    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+//        return CGSize(width: 200, height: 300)
+//    }
 }

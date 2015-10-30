@@ -13,7 +13,7 @@ import DTCollectionViewManager
 
 class MappingTestCase: XCTestCase {
     
-    var controller = DTTestCollectionController()
+    var controller = DTCellTestCollectionController()
     
     override func setUp() {
         super.setUp()
@@ -61,48 +61,30 @@ class MappingTestCase: XCTestCase {
         expect(self.controller.manager.memoryStorage.itemAtIndexPath(indexPath(0, 0)) as? String) == "foo"
     }
     
-//    func testObjectForCellGenericMethod()
+// MARK: TODO - Reevaluate this functionality in the future
+// Is there a reason to have optional cell mapping or not?
+//    func testOptionalModelCellMapping()
 //    {
-//        controller.manager.registerCellClass(NibCell)
-//        controller.manager.memoryStorage.addItem(3)
-//        
-//        let cell = controller.collectionView?.cellForItemAtIndexPath(indexPath(0,0)) as? NibCell
-//        
-//        expect(self.controller.manager.objectForCell(cell!)) == 3
+//        controller.registerCellClass(OptionalIntCell)
+//
+//        controller.memoryStorage.addItem(Optional(1), toSection: 0)
+//
+//        expect(self.controller.verifyItem(1, atIndexPath: indexPath(0, 0))) == true
 //    }
     
-    // MARK: TODO - Reevaluate this functionality in the future
-    // Is there a reason to have optional cell mapping or not?
-    //    func testOptionalModelCellMapping()
-    //    {
-    //        controller.registerCellClass(OptionalIntCell)
-    //
-    //        controller.memoryStorage.addItem(Optional(1), toSection: 0)
-    //
-    //        expect(self.controller.verifyItem(1, atIndexPath: indexPath(0, 0))) == true
-    //    }
     
-//    func testHeaderViewMappingFromUIView()
-//    {
-//        controller.manager.registerHeaderClass(NibHeaderFooterView)
-//        
-//        controller.manager.memoryStorage.setSectionHeaderModels([1])
-//        
-//        controller.collectionView?.reloadData()
-//        controller.collectionView?.performBatchUpdates(nil, completion: nil)
-//        
-//        let view = controller.manager.collectionView(controller.tableView, viewForHeaderInSection: 0)
-//        expect(view).to(beAKindOf(NibHeaderFooterView.self))
-//    }
-//    
 //    func testHeaderMappingFromHeaderFooterView()
 //    {
 //        controller.manager.registerHeaderClass(NibHeaderFooterView)
-//        controller.manager.memoryStorage.setSectionHeaderModels([1])
-//        let view = controller.manager.tableView(controller.tableView, viewForHeaderInSection: 0)
+//        controller.manager.registerCellClass(NibCell)
+//
+//        let section = SectionModel()
+//        section.collectionHeaderModel = 1
+//        controller.manager.memoryStorage.setSection(section, forSectionIndex: 0)
+//        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, atIndexPath:  indexPath(0, 0))
 //        expect(view).to(beAKindOf(NibHeaderFooterView.self))
 //    }
-//    
+//
 //    func testFooterViewMappingFromUIView()
 //    {
 //        controller.manager.registerFooterClass(NibView)

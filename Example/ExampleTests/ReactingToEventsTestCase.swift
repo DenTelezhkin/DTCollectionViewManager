@@ -11,7 +11,7 @@ import DTModelStorage
 import Nimble
 import DTCollectionViewManager
 
-class ReactingTestCollectionViewController: DTTestCollectionController
+class ReactingTestCollectionViewController: DTCellTestCollectionController
 {
     var indexPath : NSIndexPath?
     var model: Int?

@@ -26,7 +26,7 @@ func recursiveForceUnwrap<T>(any: T) -> T
     return recursiveForceUnwrap(some.value as! T)
 }
 
-extension DTTestCollectionController
+extension DTCellTestCollectionController
 {
     func verifyItem<T:Equatable>(item: T, atIndexPath indexPath: NSIndexPath) -> Bool
     {

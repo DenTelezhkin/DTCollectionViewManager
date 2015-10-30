@@ -22,7 +22,7 @@ class CreationTestCase: XCTestCase {
     
     func testCreatingCollectionControllerFromCode()
     {
-        let controller = DTTestCollectionController()
+        let controller = DTCellTestCollectionController()
         controller.manager.startManagingWithDelegate(controller)
         controller.manager.registerCellClass(FooCell)
     }
@@ -37,7 +37,7 @@ class CreationTestCase: XCTestCase {
     
     func testConfigurationAssociation()
     {
-        let foo = DTTestCollectionController(nibName: nil, bundle: nil)
+        let foo = DTCellTestCollectionController(nibName: nil, bundle: nil)
         foo.manager.startManagingWithDelegate(foo)
         
         expect(foo.manager) != nil
@@ -47,7 +47,7 @@ class CreationTestCase: XCTestCase {
     func testManagerSetter()
     {
         let manager = DTCollectionViewManager()
-        let foo = DTTestCollectionController(nibName: nil, bundle: nil)
+        let foo = DTCellTestCollectionController(nibName: nil, bundle: nil)
         foo.manager = manager
         foo.manager.startManagingWithDelegate(foo)
         

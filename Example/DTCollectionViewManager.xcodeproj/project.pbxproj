@@ -11,6 +11,7 @@
 		9A08A9D21B8A25AF00877C62 /* DTCollectionViewManager.h in Headers */ = {isa = PBXBuildFile; fileRef = 95AE8986179BEDDC00F834DB /* DTCollectionViewManager.h */; settings = {ATTRIBUTES = (Public, ); }; };
 		9A2109E31B9C58E20036D151 /* ComplexLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */; };
 		9A2109E71B9C5A020036D151 /* CollectionContainingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */; };
+		9A2C6E431BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */; };
 		9A61AA581BA5C52100018E59 /* DTCollectionViewManager.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A7576F31BB951A100180D46 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
 		9A7576F71BB951B500180D46 /* DTCollectionViewManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -35,8 +36,8 @@
 		9ADFC8D91B8B4D6E00AB4CD9 /* RandomNibNameCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8D81B8B4D6E00AB4CD9 /* RandomNibNameCell.xib */; };
 		9ADFC8DC1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8DA1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift */; };
 		9ADFC8DD1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8DB1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.xib */; };
-		9ADFC8E01B8B595800AB4CD9 /* NibHeaderFooterVIew.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterVIew.swift */; };
-		9ADFC8E11B8B595800AB4CD9 /* NibHeaderFooterVIew.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8DF1B8B595800AB4CD9 /* NibHeaderFooterVIew.xib */; };
+		9ADFC8E01B8B595800AB4CD9 /* NibHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterView.swift */; };
+		9ADFC8E11B8B595800AB4CD9 /* NibHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8DF1B8B595800AB4CD9 /* NibHeaderFooterView.xib */; };
 		9ADFC8E31B8B599500AB4CD9 /* NibView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8E21B8B599500AB4CD9 /* NibView.xib */; };
 		9ADFC8E71B8B5BBD00AB4CD9 /* CreationTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8E61B8B5BBD00AB4CD9 /* CreationTestCase.swift */; };
 		9ADFC8E91B8B5D2E00AB4CD9 /* MappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8E81B8B5D2E00AB4CD9 /* MappingTestCase.swift */; };
@@ -99,6 +100,7 @@
 		95AE8986179BEDDC00F834DB /* DTCollectionViewManager.h */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.c.h; name = DTCollectionViewManager.h; path = ../DTCollectionViewManager/DTCollectionViewManager.h; sourceTree = "<group>"; };
 		9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexLayoutViewController.swift; sourceTree = "<group>"; };
 		9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionContainingCell.swift; path = Cells/CollectionContainingCell.swift; sourceTree = "<group>"; };
+		9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplementaryMappingTestCase.swift; sourceTree = "<group>"; };
 		9A7576FB1BB954AC00180D46 /* DTModelStorage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DTModelStorage.framework; path = "DerivedData/DTCollectionViewManager/Build/Products/Debug-iphoneos/DTModelStorage.framework"; sourceTree = "<group>"; };
 		9A7576FD1BB954CD00180D46 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "../Carthage/Checkouts/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
 		9A99AA7C1B8A219300428802 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -123,8 +125,8 @@
 		9ADFC8D81B8B4D6E00AB4CD9 /* RandomNibNameCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RandomNibNameCell.xib; path = Fixtures/RandomNibNameCell.xib; sourceTree = "<group>"; };
 		9ADFC8DA1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ReactingHeaderFooterView.swift; path = Fixtures/ReactingHeaderFooterView.swift; sourceTree = "<group>"; };
 		9ADFC8DB1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = ReactingHeaderFooterView.xib; path = Fixtures/ReactingHeaderFooterView.xib; sourceTree = "<group>"; };
-		9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterVIew.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NibHeaderFooterVIew.swift; path = Fixtures/NibHeaderFooterVIew.swift; sourceTree = "<group>"; };
-		9ADFC8DF1B8B595800AB4CD9 /* NibHeaderFooterVIew.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NibHeaderFooterVIew.xib; path = Fixtures/NibHeaderFooterVIew.xib; sourceTree = "<group>"; };
+		9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NibHeaderFooterView.swift; path = Fixtures/NibHeaderFooterView.swift; sourceTree = "<group>"; };
+		9ADFC8DF1B8B595800AB4CD9 /* NibHeaderFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NibHeaderFooterView.xib; path = Fixtures/NibHeaderFooterView.xib; sourceTree = "<group>"; };
 		9ADFC8E21B8B599500AB4CD9 /* NibView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NibView.xib; path = Fixtures/NibView.xib; sourceTree = "<group>"; };
 		9ADFC8E61B8B5BBD00AB4CD9 /* CreationTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CreationTestCase.swift; sourceTree = "<group>"; };
 		9ADFC8E81B8B5D2E00AB4CD9 /* MappingTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = MappingTestCase.swift; sourceTree = "<group>"; };
@@ -243,6 +245,7 @@
 				9A99AA971B8A219300428802 /* Info.plist */,
 				9ADFC8CD1B8B4B8100AB4CD9 /* DataSourceTestCase.swift */,
 				9ADFC8E81B8B5D2E00AB4CD9 /* MappingTestCase.swift */,
+				9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */,
 				9ADFC8E61B8B5BBD00AB4CD9 /* CreationTestCase.swift */,
 				9ADFC8EA1B8B6D7F00AB4CD9 /* ReactingToEventsTestCase.swift */,
 				9AC7A2801BE2A84600942849 /* ViewModelMappingTestCase.swift */,
@@ -289,8 +292,8 @@
 				9ADFC8D81B8B4D6E00AB4CD9 /* RandomNibNameCell.xib */,
 				9ADFC8DA1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift */,
 				9ADFC8DB1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.xib */,
-				9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterVIew.swift */,
-				9ADFC8DF1B8B595800AB4CD9 /* NibHeaderFooterVIew.xib */,
+				9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterView.swift */,
+				9ADFC8DF1B8B595800AB4CD9 /* NibHeaderFooterView.xib */,
 				9ADFC8E21B8B599500AB4CD9 /* NibView.xib */,
 				9ADFC8EC1B8B6E8200AB4CD9 /* SelectionReactingCollectionCell.xib */,
 			);
@@ -464,7 +467,7 @@
 				9ADFC8DD1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.xib in Resources */,
 				9ADFC8E31B8B599500AB4CD9 /* NibView.xib in Resources */,
 				9ADFC8D31B8B4CCD00AB4CD9 /* XibCollectionViewController.xib in Resources */,
-				9ADFC8E11B8B595800AB4CD9 /* NibHeaderFooterVIew.xib in Resources */,
+				9ADFC8E11B8B595800AB4CD9 /* NibHeaderFooterView.xib in Resources */,
 				9ADFC8D71B8B4D5000AB4CD9 /* NibCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -491,7 +494,8 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AC7A2811BE2A84600942849 /* ViewModelMappingTestCase.swift in Sources */,
-				9ADFC8E01B8B595800AB4CD9 /* NibHeaderFooterVIew.swift in Sources */,
+				9A2C6E431BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift in Sources */,
+				9ADFC8E01B8B595800AB4CD9 /* NibHeaderFooterView.swift in Sources */,
 				9ADFC8D51B8B4CFA00AB4CD9 /* FixtureCells.swift in Sources */,
 				9ADFC8E71B8B5BBD00AB4CD9 /* CreationTestCase.swift in Sources */,
 				9ADFC8DC1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift in Sources */,

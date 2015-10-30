@@ -155,6 +155,6 @@ extension CollectionViewFactory
             return reusableView
         }
         
-        preconditionFailure("Unable to find cell mappings for type: \(_reflect(typeMirror.valueType).summary)")
+        preconditionFailure("Unable to find supplementary mappings for type: \(_reflect(typeMirror.valueType).summary)")
     }
 }
