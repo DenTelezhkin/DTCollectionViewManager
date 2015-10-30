@@ -9,6 +9,7 @@
 import XCTest
 import DTCollectionViewManager
 import DTModelStorage
+import Nimble
 
 class FooCell : UICollectionViewCell, ModelTransfer
 {
@@ -32,5 +33,24 @@ class CreationTestCase: XCTestCase {
         let _ = controller.view
         controller.manager.startManagingWithDelegate(controller)
         controller.manager.registerCellClass(FooCell)
+    }
+    
+    func testConfigurationAssociation()
+    {
+        let foo = DTTestCollectionController(nibName: nil, bundle: nil)
+        foo.manager.startManagingWithDelegate(foo)
+        
+        expect(foo.manager) != nil
+        expect(foo.manager) == foo.manager // Test if lazily instantiating using associations works correctly
+    }
+    
+    func testManagerSetter()
+    {
+        let manager = DTCollectionViewManager()
+        let foo = DTTestCollectionController(nibName: nil, bundle: nil)
+        foo.manager = manager
+        foo.manager.startManagingWithDelegate(foo)
+        
+        expect(foo.manager === manager)
     }
 }

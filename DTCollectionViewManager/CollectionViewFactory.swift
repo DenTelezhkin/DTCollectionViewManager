@@ -125,8 +125,7 @@ extension CollectionViewFactory
     func cellForModel(model: Any, atIndexPath indexPath:NSIndexPath) -> UICollectionViewCell
     {
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
-            assertionFailure("Received nil model at indexPath: \(indexPath)")
-            return UICollectionViewCell()
+            preconditionFailure("Received nil model at indexPath: \(indexPath)")
         }
         
         let typeMirror = RuntimeHelper.mirrorFromModel(unwrappedModel)
@@ -137,10 +136,7 @@ extension CollectionViewFactory
             mapping.updateBlock(cell, unwrappedModel)
             return cell
         }
-        
-        assertionFailure("Unable to find cell mappings for type: \(_reflect(typeMirror.valueType).summary)")
-        
-        return UICollectionViewCell()
+        preconditionFailure("Unable to find cell mappings for type: \(_reflect(typeMirror.valueType).summary)")
     }
 
     func supplementaryViewOfKind(kind: String, forModel model: Any, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
@@ -159,8 +155,6 @@ extension CollectionViewFactory
             return reusableView
         }
         
-        assertionFailure("Unable to find cell mappings for type: \(_reflect(typeMirror.valueType).summary)")
-        
-        return UICollectionReusableView()
+        preconditionFailure("Unable to find cell mappings for type: \(_reflect(typeMirror.valueType).summary)")
     }
 }

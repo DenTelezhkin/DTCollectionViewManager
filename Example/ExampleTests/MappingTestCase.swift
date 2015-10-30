@@ -53,6 +53,14 @@ class MappingTestCase: XCTestCase {
         expect(self.controller.verifyItem(3, atIndexPath: indexPath(0, 0))) == true
     }
     
+    func testNiblessMapping()
+    {
+        controller.manager.registerNiblessCellClass(StringCell)
+        controller.manager.memoryStorage.addItem("foo")
+        
+        expect(self.controller.manager.memoryStorage.itemAtIndexPath(indexPath(0, 0)) as? String) == "foo"
+    }
+    
 //    func testObjectForCellGenericMethod()
 //    {
 //        controller.manager.registerCellClass(NibCell)

@@ -74,10 +74,6 @@ public class DTCollectionViewManager : NSObject {
         return CollectionViewFactory(collectionView: self.collectionView!)
     }()
     
-    deinit {
-        delegate = nil
-    }
-    
     /// Bundle to search your xib's in. This can sometimes be useful for unit-testing. Defaults to NSBundle.mainBundle()
     public var viewBundle = NSBundle.mainBundle()
         {
