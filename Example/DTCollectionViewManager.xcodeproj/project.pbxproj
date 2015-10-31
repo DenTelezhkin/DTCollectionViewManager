@@ -12,6 +12,10 @@
 		9A2109E31B9C58E20036D151 /* ComplexLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */; };
 		9A2109E71B9C5A020036D151 /* CollectionContainingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */; };
 		9A2C6E431BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */; };
+		9A4C3BF91BE553FE000931BA /* RandomNameHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A4C3BF81BE553FE000931BA /* RandomNameHeaderFooterView.xib */; };
+		9A4C3BFB1BE5567A000931BA /* NiblessHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4C3BFA1BE5567A000931BA /* NiblessHeaderFooterView.swift */; };
+		9A4C3BFD1BE557D8000931BA /* SupplementaryEventsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4C3BFC1BE557D8000931BA /* SupplementaryEventsTestCase.swift */; };
+		9A4C3BFF1BE55F87000931BA /* DelegateForwardingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4C3BFE1BE55F87000931BA /* DelegateForwardingTestCase.swift */; };
 		9A61AA581BA5C52100018E59 /* DTCollectionViewManager.framework in CopyFiles */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A7576F31BB951A100180D46 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
 		9A7576F71BB951B500180D46 /* DTCollectionViewManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -101,6 +105,10 @@
 		9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexLayoutViewController.swift; sourceTree = "<group>"; };
 		9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionContainingCell.swift; path = Cells/CollectionContainingCell.swift; sourceTree = "<group>"; };
 		9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplementaryMappingTestCase.swift; sourceTree = "<group>"; };
+		9A4C3BF81BE553FE000931BA /* RandomNameHeaderFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = RandomNameHeaderFooterView.xib; path = Fixtures/RandomNameHeaderFooterView.xib; sourceTree = "<group>"; };
+		9A4C3BFA1BE5567A000931BA /* NiblessHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NiblessHeaderFooterView.swift; path = Fixtures/NiblessHeaderFooterView.swift; sourceTree = "<group>"; };
+		9A4C3BFC1BE557D8000931BA /* SupplementaryEventsTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplementaryEventsTestCase.swift; sourceTree = "<group>"; };
+		9A4C3BFE1BE55F87000931BA /* DelegateForwardingTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateForwardingTestCase.swift; sourceTree = "<group>"; };
 		9A7576FB1BB954AC00180D46 /* DTModelStorage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DTModelStorage.framework; path = "DerivedData/DTCollectionViewManager/Build/Products/Debug-iphoneos/DTModelStorage.framework"; sourceTree = "<group>"; };
 		9A7576FD1BB954CD00180D46 /* Nimble.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = Nimble.framework; path = "../Carthage/Checkouts/Nimble/build/Debug-iphoneos/Nimble.framework"; sourceTree = "<group>"; };
 		9A99AA7C1B8A219300428802 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -209,6 +217,21 @@
 			name = DTCollectionViewManager;
 			sourceTree = "<group>";
 		};
+		9A4C3BF71BE553B1000931BA /* iOS XIBs */ = {
+			isa = PBXGroup;
+			children = (
+				9ADFC8D61B8B4D5000AB4CD9 /* NibCell.xib */,
+				9ADFC8DB1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.xib */,
+				9ADFC8D81B8B4D6E00AB4CD9 /* RandomNibNameCell.xib */,
+				9ADFC8DF1B8B595800AB4CD9 /* NibHeaderFooterView.xib */,
+				9A4C3BF81BE553FE000931BA /* RandomNameHeaderFooterView.xib */,
+				9ADFC8E21B8B599500AB4CD9 /* NibView.xib */,
+				9ADFC8EC1B8B6E8200AB4CD9 /* SelectionReactingCollectionCell.xib */,
+				9ADFC8D11B8B4CCD00AB4CD9 /* XibCollectionViewController.xib */,
+			);
+			name = "iOS XIBs";
+			sourceTree = "<group>";
+		};
 		9A99AA761B8A1C9B00428802 /* Swift */ = {
 			isa = PBXGroup;
 			children = (
@@ -248,7 +271,9 @@
 				9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */,
 				9ADFC8E61B8B5BBD00AB4CD9 /* CreationTestCase.swift */,
 				9ADFC8EA1B8B6D7F00AB4CD9 /* ReactingToEventsTestCase.swift */,
+				9A4C3BFC1BE557D8000931BA /* SupplementaryEventsTestCase.swift */,
 				9AC7A2801BE2A84600942849 /* ViewModelMappingTestCase.swift */,
+				9A4C3BFE1BE55F87000931BA /* DelegateForwardingTestCase.swift */,
 			);
 			name = XCTests;
 			path = ExampleTests;
@@ -285,17 +310,12 @@
 		9ADFC8CF1B8B4CB200AB4CD9 /* Fixtures */ = {
 			isa = PBXGroup;
 			children = (
+				9A4C3BF71BE553B1000931BA /* iOS XIBs */,
 				9ADFC8D01B8B4CCD00AB4CD9 /* XibCollectionViewController.swift */,
-				9ADFC8D11B8B4CCD00AB4CD9 /* XibCollectionViewController.xib */,
 				9ADFC8D41B8B4CFA00AB4CD9 /* FixtureCells.swift */,
-				9ADFC8D61B8B4D5000AB4CD9 /* NibCell.xib */,
-				9ADFC8D81B8B4D6E00AB4CD9 /* RandomNibNameCell.xib */,
 				9ADFC8DA1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift */,
-				9ADFC8DB1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.xib */,
 				9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterView.swift */,
-				9ADFC8DF1B8B595800AB4CD9 /* NibHeaderFooterView.xib */,
-				9ADFC8E21B8B599500AB4CD9 /* NibView.xib */,
-				9ADFC8EC1B8B6E8200AB4CD9 /* SelectionReactingCollectionCell.xib */,
+				9A4C3BFA1BE5567A000931BA /* NiblessHeaderFooterView.swift */,
 			);
 			name = Fixtures;
 			sourceTree = "<group>";
@@ -466,6 +486,7 @@
 				9ADFC8ED1B8B6E8200AB4CD9 /* SelectionReactingCollectionCell.xib in Resources */,
 				9ADFC8DD1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.xib in Resources */,
 				9ADFC8E31B8B599500AB4CD9 /* NibView.xib in Resources */,
+				9A4C3BF91BE553FE000931BA /* RandomNameHeaderFooterView.xib in Resources */,
 				9ADFC8D31B8B4CCD00AB4CD9 /* XibCollectionViewController.xib in Resources */,
 				9ADFC8E11B8B595800AB4CD9 /* NibHeaderFooterView.xib in Resources */,
 				9ADFC8D71B8B4D5000AB4CD9 /* NibCell.xib in Resources */,
@@ -495,12 +516,15 @@
 			files = (
 				9AC7A2811BE2A84600942849 /* ViewModelMappingTestCase.swift in Sources */,
 				9A2C6E431BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift in Sources */,
+				9A4C3BFD1BE557D8000931BA /* SupplementaryEventsTestCase.swift in Sources */,
 				9ADFC8E01B8B595800AB4CD9 /* NibHeaderFooterView.swift in Sources */,
+				9A4C3BFB1BE5567A000931BA /* NiblessHeaderFooterView.swift in Sources */,
 				9ADFC8D51B8B4CFA00AB4CD9 /* FixtureCells.swift in Sources */,
 				9ADFC8E71B8B5BBD00AB4CD9 /* CreationTestCase.swift in Sources */,
 				9ADFC8DC1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift in Sources */,
 				9ADFC8D21B8B4CCD00AB4CD9 /* XibCollectionViewController.swift in Sources */,
 				9ADFC8CE1B8B4B8100AB4CD9 /* DataSourceTestCase.swift in Sources */,
+				9A4C3BFF1BE55F87000931BA /* DelegateForwardingTestCase.swift in Sources */,
 				9ADFC8C81B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift in Sources */,
 				9ADFC8CA1B8B4A7100AB4CD9 /* DTTestCollectionController.swift in Sources */,
 				9ADFC8CC1B8B4AE500AB4CD9 /* NSIndexPath+Convenience.swift in Sources */,

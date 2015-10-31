@@ -425,8 +425,8 @@ public extension DTCollectionViewManager
         reaction.reactionBlock = { [weak self, unowned reaction] in
             if let configuration = reaction.reactionData as? ViewConfiguration,
                 let view = configuration.view as? T,
-                let headerStorage = self?.storage as? HeaderFooterStorageProtocol,
-                let model = headerStorage.headerModelForSectionIndex(configuration.indexPath.section) as? T.ModelType
+                let supplementaryStorage = self?.storage as? SupplementaryStorageProtocol,
+                let model = supplementaryStorage.supplementaryModelOfKind(kind, sectionIndex: configuration.indexPath.section) as? T.ModelType
             {
                 closure(view, model, configuration.indexPath.section)
             }
@@ -438,7 +438,7 @@ public extension DTCollectionViewManager
     /// - Parameter methodPointer: function to run when UICollectionReusableView header is being configured
     /// - Note: This method automatically breaks retain cycles, that can happen when passing method pointer somewhere.
     /// - Note: `DTCollectionViewManageable` instance is used to call configuration event.
-    public func headerConfiguration<T,U where T:ModelTransfer, T: UICollectionReusableView, U: DTCollectionViewManageable>(kind kind: String, _ methodPointer: U -> (T,T.ModelType, Int) -> Void)
+    public func headerConfiguration<T,U where T:ModelTransfer, T: UICollectionReusableView, U: DTCollectionViewManageable>( methodPointer: U -> (T,T.ModelType, Int) -> Void)
     {
         supplementaryConfiguration(kind: UICollectionElementKindSectionHeader, methodPointer)
     }
@@ -447,7 +447,7 @@ public extension DTCollectionViewManager
     /// - Parameter methodPointer: function to run when UICollectionReusableView footer is being configured
     /// - Note: This method automatically breaks retain cycles, that can happen when passing method pointer somewhere.
     /// - Note: `DTCollectionViewManageable` instance is used to call configuration event.
-    public func footerConfiguration<T,U where T:ModelTransfer, T: UICollectionReusableView, U: DTCollectionViewManageable>(kind kind: String, _ methodPointer: U -> (T,T.ModelType, Int) -> Void)
+    public func footerConfiguration<T,U where T:ModelTransfer, T: UICollectionReusableView, U: DTCollectionViewManageable>(methodPointer: U -> (T,T.ModelType, Int) -> Void)
     {
         supplementaryConfiguration(kind: UICollectionElementKindSectionFooter, methodPointer)
     }
@@ -465,8 +465,8 @@ public extension DTCollectionViewManager
         reaction.reactionBlock = { [weak self, unowned reaction] in
             if let configuration = reaction.reactionData as? ViewConfiguration,
                 let view = configuration.view as? T,
-                let headerStorage = self?.storage as? HeaderFooterStorageProtocol,
-                let model = headerStorage.headerModelForSectionIndex(configuration.indexPath.section) as? T.ModelType,
+                let supplementaryStorage = self?.storage as? SupplementaryStorageProtocol,
+                let model = supplementaryStorage.supplementaryModelOfKind(kind, sectionIndex: configuration.indexPath.section) as? T.ModelType,
                 let delegate = self?.delegate as? U
             {
                 methodPointer(delegate)(view, model, configuration.indexPath.section)

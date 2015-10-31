@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Master
+
+## Fixed
+
+* Footer and supplementary configuration closures and method pointers
+
+## Changed 
+
+* Improved failure cases for situations where cell or supplementary mappings were not found
+
 ## [4.2.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.2.1)
 
 ### Updated

@@ -142,8 +142,7 @@ extension CollectionViewFactory
     func supplementaryViewOfKind(kind: String, forModel model: Any, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
     {
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
-            assertionFailure("Received nil model at indexPath: \(indexPath)")
-            return UICollectionViewCell()
+            preconditionFailure("Received nil model at indexPath: \(indexPath)")
         }
         
         let typeMirror = RuntimeHelper.mirrorFromModel(unwrappedModel)
@@ -155,6 +154,6 @@ extension CollectionViewFactory
             return reusableView
         }
         
-        preconditionFailure("Unable to find supplementary mappings for type: \(_reflect(typeMirror.valueType).summary)")
+        preconditionFailure("Unable to find supplementary mappings for kind: \(kind) of type: \(_reflect(typeMirror.valueType).summary)")
     }
 }
