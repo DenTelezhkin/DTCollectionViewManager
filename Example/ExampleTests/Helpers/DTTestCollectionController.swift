@@ -7,6 +7,7 @@
 //
 
 import UIKit
+import DTModelStorage
 import DTCollectionViewManager
 
 class DTCellTestCollectionController: UIViewController, DTCollectionViewManageable {

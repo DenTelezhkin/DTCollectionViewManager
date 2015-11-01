@@ -1,13 +1,19 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Master
+## [4.3.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.3.0)
+
+Dependency changelog -> [DTModelStorage 2.2 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
+
+## Changed
+
+* Added support for AppleTV platform (tvOS)
 
 ## Fixed
 
 * Footer and supplementary configuration closures and method pointers
 
-## Changed 
+## Changed
 
 * Improved failure cases for situations where cell or supplementary mappings were not found
 
