@@ -26,7 +26,7 @@ Powerful protocol-oriented UICollectionView management framework, written in Swi
 ## Requirements
 
 * XCode 7 and higher
-* iOS 8,9
+* iOS 8 and higher / tvOS 9.0 and higher
 * Swift 2
 
 ## Installation
