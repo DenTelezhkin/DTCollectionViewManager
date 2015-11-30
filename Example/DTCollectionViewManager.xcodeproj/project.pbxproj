@@ -36,10 +36,8 @@
 		9AC5320C1BE5F741006CB18A /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC5320B1BE5F741006CB18A /* DTModelStorage.framework */; };
 		9AC5320D1BE5F74B006CB18A /* CollectionViewReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A641BA473F90067D0C1 /* CollectionViewReaction.swift */; };
 		9AC5320E1BE5F74B006CB18A /* SectionModel+ConvenienceGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */; };
-		9AC5320F1BE5F74B006CB18A /* ViewModelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A661BA473F90067D0C1 /* ViewModelMapping.swift */; };
 		9AC532101BE5F74B006CB18A /* CollectionViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A5E1BA473EA0067D0C1 /* CollectionViewFactory.swift */; };
 		9AC532111BE5F74B006CB18A /* DTCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */; };
-		9AC532161BE5F77F006CB18A /* ViewModelMappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC7A2801BE2A84600942849 /* ViewModelMappingTestCase.swift */; };
 		9AC532171BE5F77F006CB18A /* SupplementaryMappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */; };
 		9AC532181BE5F77F006CB18A /* SupplementaryEventsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4C3BFC1BE557D8000931BA /* SupplementaryEventsTestCase.swift */; };
 		9AC532191BE5F77F006CB18A /* NibHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterView.swift */; };
@@ -62,7 +60,6 @@
 		9AC5324F1BE5F9CC006CB18A /* NibView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC5324E1BE5F9CC006CB18A /* NibView.xib */; };
 		9AC532511BE5F9FA006CB18A /* SelectionReactingCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC532501BE5F9FA006CB18A /* SelectionReactingCollectionCell.xib */; };
 		9AC532531BE5FA40006CB18A /* XibCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC532521BE5FA40006CB18A /* XibCollectionViewController.xib */; };
-		9AC7A2811BE2A84600942849 /* ViewModelMappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AC7A2801BE2A84600942849 /* ViewModelMappingTestCase.swift */; };
 		9ADFC8C81B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8C71B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift */; };
 		9ADFC8CA1B8B4A7100AB4CD9 /* DTTestCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8C91B8B4A7100AB4CD9 /* DTTestCollectionController.swift */; };
 		9ADFC8CC1B8B4AE500AB4CD9 /* NSIndexPath+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8CB1B8B4AE500AB4CD9 /* NSIndexPath+Convenience.swift */; };
@@ -90,7 +87,6 @@
 		9AF55A611BA473EA0067D0C1 /* DTCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */; };
 		9AF55A671BA473F90067D0C1 /* CollectionViewReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A641BA473F90067D0C1 /* CollectionViewReaction.swift */; };
 		9AF55A681BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */; };
-		9AF55A691BA473F90067D0C1 /* ViewModelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A661BA473F90067D0C1 /* ViewModelMapping.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -187,7 +183,6 @@
 		9AC5324E1BE5F9CC006CB18A /* NibView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NibView.xib; path = Fixtures/tvOS/NibView.xib; sourceTree = "<group>"; };
 		9AC532501BE5F9FA006CB18A /* SelectionReactingCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SelectionReactingCollectionCell.xib; path = Fixtures/tvOS/SelectionReactingCollectionCell.xib; sourceTree = "<group>"; };
 		9AC532521BE5FA40006CB18A /* XibCollectionViewController.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = XibCollectionViewController.xib; path = Fixtures/tvOS/XibCollectionViewController.xib; sourceTree = "<group>"; };
-		9AC7A2801BE2A84600942849 /* ViewModelMappingTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ViewModelMappingTestCase.swift; sourceTree = "<group>"; };
 		9ADFC8C71B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CollectionViewManager+UnitTests.swift"; path = "Helpers/CollectionViewManager+UnitTests.swift"; sourceTree = "<group>"; };
 		9ADFC8C91B8B4A7100AB4CD9 /* DTTestCollectionController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DTTestCollectionController.swift; path = Helpers/DTTestCollectionController.swift; sourceTree = "<group>"; };
 		9ADFC8CB1B8B4AE500AB4CD9 /* NSIndexPath+Convenience.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "NSIndexPath+Convenience.swift"; path = "Helpers/NSIndexPath+Convenience.swift"; sourceTree = "<group>"; };
@@ -217,7 +212,6 @@
 		9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DTCollectionViewManager.swift; path = ../DTCollectionViewManager/DTCollectionViewManager.swift; sourceTree = "<group>"; };
 		9AF55A641BA473F90067D0C1 /* CollectionViewReaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewReaction.swift; path = ../DTCollectionViewManager/Utilities/CollectionViewReaction.swift; sourceTree = "<group>"; };
 		9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SectionModel+ConvenienceGetters.swift"; path = "../DTCollectionViewManager/Utilities/SectionModel+ConvenienceGetters.swift"; sourceTree = "<group>"; };
-		9AF55A661BA473F90067D0C1 /* ViewModelMapping.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = ViewModelMapping.swift; path = ../DTCollectionViewManager/Utilities/ViewModelMapping.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -371,7 +365,6 @@
 				9ADFC8E61B8B5BBD00AB4CD9 /* CreationTestCase.swift */,
 				9ADFC8EA1B8B6D7F00AB4CD9 /* ReactingToEventsTestCase.swift */,
 				9A4C3BFC1BE557D8000931BA /* SupplementaryEventsTestCase.swift */,
-				9AC7A2801BE2A84600942849 /* ViewModelMappingTestCase.swift */,
 				9A4C3BFE1BE55F87000931BA /* DelegateForwardingTestCase.swift */,
 			);
 			name = XCTests;
@@ -406,7 +399,6 @@
 			children = (
 				9AF55A641BA473F90067D0C1 /* CollectionViewReaction.swift */,
 				9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */,
-				9AF55A661BA473F90067D0C1 /* ViewModelMapping.swift */,
 			);
 			name = Utilities;
 			sourceTree = "<group>";
@@ -700,7 +692,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AC7A2811BE2A84600942849 /* ViewModelMappingTestCase.swift in Sources */,
 				9A2C6E431BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift in Sources */,
 				9A4C3BFD1BE557D8000931BA /* SupplementaryEventsTestCase.swift in Sources */,
 				9ADFC8E01B8B595800AB4CD9 /* NibHeaderFooterView.swift in Sources */,
@@ -725,7 +716,6 @@
 			files = (
 				9AC5320D1BE5F74B006CB18A /* CollectionViewReaction.swift in Sources */,
 				9AC5320E1BE5F74B006CB18A /* SectionModel+ConvenienceGetters.swift in Sources */,
-				9AC5320F1BE5F74B006CB18A /* ViewModelMapping.swift in Sources */,
 				9AC532101BE5F74B006CB18A /* CollectionViewFactory.swift in Sources */,
 				9AC532111BE5F74B006CB18A /* DTCollectionViewManager.swift in Sources */,
 			);
@@ -735,7 +725,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AC532161BE5F77F006CB18A /* ViewModelMappingTestCase.swift in Sources */,
 				9AC532171BE5F77F006CB18A /* SupplementaryMappingTestCase.swift in Sources */,
 				9AC532181BE5F77F006CB18A /* SupplementaryEventsTestCase.swift in Sources */,
 				9AC532191BE5F77F006CB18A /* NibHeaderFooterView.swift in Sources */,
@@ -759,7 +748,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AF55A601BA473EA0067D0C1 /* CollectionViewFactory.swift in Sources */,
-				9AF55A691BA473F90067D0C1 /* ViewModelMapping.swift in Sources */,
 				9AF55A671BA473F90067D0C1 /* CollectionViewReaction.swift in Sources */,
 				9AF55A611BA473EA0067D0C1 /* DTCollectionViewManager.swift in Sources */,
 				9AF55A681BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift in Sources */,

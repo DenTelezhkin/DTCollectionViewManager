@@ -42,80 +42,55 @@ class CollectionViewFactory
     }
 }
 
-private extension CollectionViewFactory
-{
-    func mappingForViewType(type: ViewType,modelTypeMirror: _MirrorType) -> ViewModelMapping?
-    {
-        let adjustedModelTypeMirror = RuntimeHelper.classClusterReflectionFromMirrorType(modelTypeMirror)
-        return self.mappings.filter({ (mapping) -> Bool in
-            return mapping.viewType == type && mapping.modelTypeMirror.summary == adjustedModelTypeMirror.summary
-        }).first
-    }
-    
-    func addMappingForViewType<T:ModelTransfer>(type: ViewType, viewClass : T.Type)
-    {
-        if self.mappingForViewType(type, modelTypeMirror: _reflect(T.ModelType.self)) == nil
-        {
-            self.mappings.append(ViewModelMapping(viewType : type,
-                viewTypeMirror : _reflect(T),
-                modelTypeMirror: _reflect(T.ModelType.self),
-                updateBlock: { (view, model) in
-                    (view as! T).updateWithModel(model as! T.ModelType)
-            }))
-        }
-    }
-}
-
 // MARK: Registration
 extension CollectionViewFactory
 {
     func registerCellClass<T:ModelTransfer where T: UICollectionViewCell>(cellClass: T.Type)
     {
-        let reuseIdentifier = RuntimeHelper.classNameFromReflection(_reflect(cellClass))
+        let reuseIdentifier = String(T)
         if UINib.nibExistsWithNibName(reuseIdentifier, inBundle: bundle) {
             collectionView.registerNib(UINib(nibName: reuseIdentifier, bundle: bundle), forCellWithReuseIdentifier: reuseIdentifier)
         }
-        
-        self.addMappingForViewType(.Cell, viewClass: T.self)
+        mappings.addMappingForViewType(.Cell, viewClass: T.self)
     }
     
     func registerNiblessCellClass<T:ModelTransfer where T:UICollectionViewCell>(cellClass: T.Type)
     {
-        let reuseIdentifier = RuntimeHelper.classNameFromReflection(_reflect(cellClass))
+        let reuseIdentifier = String(T)
         collectionView.registerClass(cellClass, forCellWithReuseIdentifier: reuseIdentifier)
-        self.addMappingForViewType(.Cell, viewClass: T.self)
+        mappings.addMappingForViewType(.Cell, viewClass: T.self)
     }
     
     func registerNibNamed<T:ModelTransfer where T: UICollectionViewCell>(nibName: String, forCellClass cellClass: T.Type)
     {
-        let reuseIdentifier = RuntimeHelper.classNameFromReflection(_reflect(cellClass))
+        let reuseIdentifier = String(T)
         assert(UINib.nibExistsWithNibName(reuseIdentifier, inBundle: bundle))
         collectionView.registerNib(UINib(nibName: reuseIdentifier, bundle: bundle), forCellWithReuseIdentifier: reuseIdentifier)
-        self.addMappingForViewType(.Cell, viewClass: T.self)
+        mappings.addMappingForViewType(.Cell, viewClass: T.self)
     }
     
     func registerNiblessSupplementaryClass<T:ModelTransfer where T: UICollectionReusableView>(supplementaryClass: T.Type, forKind kind: String)
     {
-        let reuseIdentifier = RuntimeHelper.classNameFromReflection(_reflect(supplementaryClass))
+        let reuseIdentifier = String(T)
         collectionView.registerClass(supplementaryClass, forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
-        self.addMappingForViewType(ViewType.SupplementaryView(kind: kind), viewClass: T.self)
+        mappings.addMappingForViewType(.SupplementaryView(kind: kind), viewClass: T.self)
     }
     
     func registerSupplementaryClass<T:ModelTransfer where T:UICollectionReusableView>(supplementaryClass: T.Type, forKind kind: String)
     {
-        let reuseIdentifier = RuntimeHelper.classNameFromReflection(_reflect(supplementaryClass))
+        let reuseIdentifier = String(T)
         if UINib.nibExistsWithNibName(reuseIdentifier, inBundle: bundle) {
             self.collectionView.registerNib(UINib(nibName: reuseIdentifier, bundle: bundle), forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
         }
-        self.addMappingForViewType(ViewType.SupplementaryView(kind: kind), viewClass: T.self)
+        mappings.addMappingForViewType(.SupplementaryView(kind: kind), viewClass: T.self)
     }
     
     func registerNibNamed<T:ModelTransfer where T:UICollectionReusableView>(nibName: String, forSupplementaryClass supplementaryClass: T.Type, forKind kind: String)
     {
-        let reuseIdentifier = RuntimeHelper.classNameFromReflection(_reflect(supplementaryClass))
+        let reuseIdentifier = String(T)
         assert(UINib.nibExistsWithNibName(nibName, inBundle: bundle))
         self.collectionView.registerNib(UINib(nibName: nibName, bundle: bundle), forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
-        self.addMappingForViewType(ViewType.SupplementaryView(kind: kind), viewClass: T.self)
+        mappings.addMappingForViewType(.SupplementaryView(kind: kind), viewClass: T.self)
     }
 }
 
@@ -128,15 +103,14 @@ extension CollectionViewFactory
             preconditionFailure("Received nil model at indexPath: \(indexPath)")
         }
         
-        let typeMirror = RuntimeHelper.mirrorFromModel(unwrappedModel)
-        if let mapping = self.mappingForViewType(.Cell, modelTypeMirror: typeMirror)
+        if let mapping = mappings.mappingCandidatesForViewType(.Cell, model: unwrappedModel).first
         {
-            let cellClassName = RuntimeHelper.classNameFromReflection(mapping.viewTypeMirror)
+            let cellClassName = String(mapping.viewClass)
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellClassName, forIndexPath: indexPath)
             mapping.updateBlock(cell, unwrappedModel)
             return cell
         }
-        preconditionFailure("Unable to find cell mappings for type: \(_reflect(typeMirror.valueType).summary)")
+        preconditionFailure("Unable to find cell mappings for model: \(unwrappedModel)")
     }
 
     func supplementaryViewOfKind(kind: String, forModel model: Any, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
@@ -145,15 +119,14 @@ extension CollectionViewFactory
             preconditionFailure("Received nil model at indexPath: \(indexPath)")
         }
         
-        let typeMirror = RuntimeHelper.mirrorFromModel(unwrappedModel)
-        if let mapping = self.mappingForViewType(ViewType.SupplementaryView(kind: kind), modelTypeMirror: typeMirror)
+        if let mapping = mappings.mappingCandidatesForViewType(.SupplementaryView(kind: kind), model: unwrappedModel).first
         {
-            let viewClassName = RuntimeHelper.classNameFromReflection(mapping.viewTypeMirror)
+            let viewClassName = String(mapping.viewClass)
             let reusableView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: viewClassName, forIndexPath: indexPath)
             mapping.updateBlock(reusableView, unwrappedModel)
             return reusableView
         }
         
-        preconditionFailure("Unable to find supplementary mappings for kind: \(kind) of type: \(_reflect(typeMirror.valueType).summary)")
+        preconditionFailure("Unable to find supplementary mappings for kind: \(kind) for model: \(unwrappedModel)")
     }
 }
