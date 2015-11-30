@@ -69,7 +69,7 @@ public class DTCollectionViewManager : NSObject {
     private weak var delegate : DTCollectionViewManageable?
     
     ///  Factory for creating cells and reusable views for UICollectionView
-    private lazy var viewFactory: CollectionViewFactory = {
+    lazy var viewFactory: CollectionViewFactory = {
         precondition(self.collectionView != nil, "Please call manager.startManagingWithDelegate(self) before calling any other DTCollectionViewManager methods")
         return CollectionViewFactory(collectionView: self.collectionView!)
     }()
@@ -85,6 +85,11 @@ public class DTCollectionViewManager : NSObject {
     /// Array of reactions for `DTCollectionViewManager`.
     /// - SeeAlso: `CollectionViewReaction`.
     private var collectionViewReactions = [UIReaction]()
+    
+    /// Error handler ot be executed when critical error happens with `CollectionViewFactory`.
+    /// This can be useful to provide more debug information for crash logs, since preconditionFailure Swift method provides little to zero insight about what happened and when.
+    /// This closure will be called prior to calling preconditionFailure in `handleCollectionViewFactoryError` method.
+    public var viewFactoryErrorHandler : (DTCollectionViewFactoryError -> Void)?
     
     /// Implicitly unwrap storage property to `MemoryStorage`.
     /// - Warning: if storage is not MemoryStorage, will throw an exception.
@@ -475,6 +480,19 @@ public extension DTCollectionViewManager
     }
 }
 
+// MARK : - error handling
+
+extension DTCollectionViewManager {
+    func handleCollectionViewFactoryError(error: DTCollectionViewFactoryError) {
+        if let handler = viewFactoryErrorHandler {
+            handler(error)
+        } else {
+            print(error.description)
+            fatalError(error.description)
+        }
+    }
+}
+
 // MARK : - UICollectionViewDataSource
 extension DTCollectionViewManager : UICollectionViewDataSource
 {
@@ -488,7 +506,16 @@ extension DTCollectionViewManager : UICollectionViewDataSource
     
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let model = storage.itemAtIndexPath(indexPath)
-        let cell = viewFactory.cellForModel(model, atIndexPath: indexPath)
+        
+        let cell : UICollectionViewCell
+        do {
+            cell = try viewFactory.cellForModel(model, atIndexPath: indexPath)
+        } catch let error as DTCollectionViewFactoryError {
+            handleCollectionViewFactoryError(error)
+            cell = UICollectionViewCell()
+        } catch {
+            cell = UICollectionViewCell()
+        }
         if let reaction = collectionViewReactions.reactionsOfType(.CellConfiguration, forView: cell).first {
             reaction.reactionData = ViewData(view: cell, indexPath:indexPath)
             reaction.perform()
@@ -499,14 +526,24 @@ extension DTCollectionViewManager : UICollectionViewDataSource
     public func collectionView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
     {
         if let model = (self.storage as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndex: indexPath.section) {
-            let view = viewFactory.supplementaryViewOfKind(kind, forModel: model, atIndexPath: indexPath)
+            let view : UICollectionReusableView
+            do {
+                view = try viewFactory.supplementaryViewOfKind(kind, forModel: model, atIndexPath: indexPath)
+            } catch let error as DTCollectionViewFactoryError {
+                handleCollectionViewFactoryError(error)
+                view = UICollectionReusableView()
+            } catch {
+                view = UICollectionReusableView()
+            }
+            
             if let reaction = collectionViewReactions.reactionsOfType(.SupplementaryConfiguration(kind: kind), forView: view).first {
                 reaction.reactionData = ViewData(view: view, indexPath:indexPath)
                 reaction.perform()
             }
             return view
         }
-        preconditionFailure("Failed to create supplementary view of kind: \(kind), atIndexPath: \(indexPath)")
+        handleCollectionViewFactoryError(.NilSupplementaryModel(kind: kind, indexPath: indexPath))
+        fatalError()
     }
 }
 

@@ -27,6 +27,29 @@ import Foundation
 import UIKit
 import DTModelStorage
 
+/// Errors, that can be thrown by `CollectionViewFactory` if it fails to create a cell or supplementary view because of various reasons. 
+/// These errors are handled by `DTCollectionViewManager` class.
+public enum DTCollectionViewFactoryError : ErrorType, CustomStringConvertible
+{
+    case NilCellModel(NSIndexPath)
+    case NilSupplementaryModel(kind: String, indexPath: NSIndexPath)
+    case NoCellMappings(model: Any)
+    case NoSupplementaryViewMapping(kind: String, model: Any)
+    
+    public var description : String {
+        switch self {
+        case .NilCellModel(let indexPath):
+            return "Received nil model for cell at index path: \(indexPath)"
+        case .NilSupplementaryModel(let kind, let indexPath):
+            return "Received nil model for supplementary view of kind: \(kind) at index path: \(indexPath)"
+        case .NoCellMappings(let model):
+            return "Cell mapping is missing for model: \(model)"
+        case .NoSupplementaryViewMapping(let kind, let model):
+            return "Supplementary mapping of kind: \(kind) is missing for model: \(model)"
+        }
+    }
+}
+
 /// Internal class, that is used to create collection view cells and supplementary views.
 class CollectionViewFactory
 {
@@ -99,10 +122,10 @@ extension CollectionViewFactory
 // MARK: View creation
 extension CollectionViewFactory
 {
-    func cellForModel(model: Any, atIndexPath indexPath:NSIndexPath) -> UICollectionViewCell
+    func cellForModel(model: Any, atIndexPath indexPath:NSIndexPath) throws -> UICollectionViewCell
     {
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
-            preconditionFailure("Received nil model at indexPath: \(indexPath)")
+            throw DTCollectionViewFactoryError.NilCellModel(indexPath)
         }
         let mappingCandidates = mappings.mappingCandidatesForViewType(.Cell, model: unwrappedModel)
         let mapping : ViewModelMapping?
@@ -119,13 +142,13 @@ extension CollectionViewFactory
             mapping?.updateBlock(cell, unwrappedModel)
             return cell
         }
-        preconditionFailure("Unable to find cell mappings for model: \(unwrappedModel)")
+        throw DTCollectionViewFactoryError.NoCellMappings(model: unwrappedModel)
     }
 
-    func supplementaryViewOfKind(kind: String, forModel model: Any, atIndexPath indexPath: NSIndexPath) -> UICollectionReusableView
+    func supplementaryViewOfKind(kind: String, forModel model: Any, atIndexPath indexPath: NSIndexPath) throws -> UICollectionReusableView
     {
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
-            preconditionFailure("Received nil model at indexPath: \(indexPath)")
+            throw DTCollectionViewFactoryError.NilSupplementaryModel(kind: kind, indexPath: indexPath)
         }
         
         let mappingCandidates = mappings.mappingCandidatesForViewType(.SupplementaryView(kind: kind), model: unwrappedModel)
@@ -145,6 +168,6 @@ extension CollectionViewFactory
             return reusableView
         }
         
-        preconditionFailure("Unable to find supplementary mappings for kind: \(kind) for model: \(unwrappedModel)")
+        throw DTCollectionViewFactoryError.NoSupplementaryViewMapping(kind: kind, model: unwrappedModel)
     }
 }
