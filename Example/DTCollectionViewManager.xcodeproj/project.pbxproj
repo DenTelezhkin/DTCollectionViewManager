@@ -34,7 +34,6 @@
 		9A99AA881B8A219300428802 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA871B8A219300428802 /* Assets.xcassets */; };
 		9A99AA8B1B8A219300428802 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA891B8A219300428802 /* LaunchScreen.storyboard */; };
 		9AC5320C1BE5F741006CB18A /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AC5320B1BE5F741006CB18A /* DTModelStorage.framework */; };
-		9AC5320D1BE5F74B006CB18A /* CollectionViewReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A641BA473F90067D0C1 /* CollectionViewReaction.swift */; };
 		9AC5320E1BE5F74B006CB18A /* SectionModel+ConvenienceGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */; };
 		9AC532101BE5F74B006CB18A /* CollectionViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A5E1BA473EA0067D0C1 /* CollectionViewFactory.swift */; };
 		9AC532111BE5F74B006CB18A /* DTCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */; };
@@ -85,7 +84,6 @@
 		9ADFC8F91B8B771800AB4CD9 /* SimpleTextCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8F71B8B771800AB4CD9 /* SimpleTextCollectionReusableView.xib */; };
 		9AF55A601BA473EA0067D0C1 /* CollectionViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A5E1BA473EA0067D0C1 /* CollectionViewFactory.swift */; };
 		9AF55A611BA473EA0067D0C1 /* DTCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */; };
-		9AF55A671BA473F90067D0C1 /* CollectionViewReaction.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A641BA473F90067D0C1 /* CollectionViewReaction.swift */; };
 		9AF55A681BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */; };
 /* End PBXBuildFile section */
 
@@ -210,7 +208,6 @@
 		9AE6714C1AEE61F800B25A5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9AF55A5E1BA473EA0067D0C1 /* CollectionViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewFactory.swift; path = ../DTCollectionViewManager/CollectionViewFactory.swift; sourceTree = "<group>"; };
 		9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DTCollectionViewManager.swift; path = ../DTCollectionViewManager/DTCollectionViewManager.swift; sourceTree = "<group>"; };
-		9AF55A641BA473F90067D0C1 /* CollectionViewReaction.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewReaction.swift; path = ../DTCollectionViewManager/Utilities/CollectionViewReaction.swift; sourceTree = "<group>"; };
 		9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SectionModel+ConvenienceGetters.swift"; path = "../DTCollectionViewManager/Utilities/SectionModel+ConvenienceGetters.swift"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -397,7 +394,6 @@
 		9ADFC8BD1B8A301300AB4CD9 /* Utilities */ = {
 			isa = PBXGroup;
 			children = (
-				9AF55A641BA473F90067D0C1 /* CollectionViewReaction.swift */,
 				9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */,
 			);
 			name = Utilities;
@@ -714,7 +710,6 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AC5320D1BE5F74B006CB18A /* CollectionViewReaction.swift in Sources */,
 				9AC5320E1BE5F74B006CB18A /* SectionModel+ConvenienceGetters.swift in Sources */,
 				9AC532101BE5F74B006CB18A /* CollectionViewFactory.swift in Sources */,
 				9AC532111BE5F74B006CB18A /* DTCollectionViewManager.swift in Sources */,
@@ -748,7 +743,6 @@
 			buildActionMask = 2147483647;
 			files = (
 				9AF55A601BA473EA0067D0C1 /* CollectionViewFactory.swift in Sources */,
-				9AF55A671BA473F90067D0C1 /* CollectionViewReaction.swift in Sources */,
 				9AF55A611BA473EA0067D0C1 /* DTCollectionViewManager.swift in Sources */,
 				9AF55A681BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift in Sources */,
 			);

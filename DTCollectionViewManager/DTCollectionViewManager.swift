@@ -84,16 +84,7 @@ public class DTCollectionViewManager : NSObject {
     
     /// Array of reactions for `DTCollectionViewManager`.
     /// - SeeAlso: `CollectionViewReaction`.
-    private var collectionViewReactions = [CollectionViewReaction]()
-    
-    private func reactionOfReactionType(type: CollectionViewReactionType, forViewType viewType: _MirrorType? = nil, ofKind kind: String? = nil) -> CollectionViewReaction?
-    {
-        return self.collectionViewReactions.filter({ (reaction) -> Bool in
-            return reaction.reactionType == type &&
-                reaction.viewType?.summary == viewType?.summary &&
-                reaction.kind == kind
-        }).first
-    }
+    private var collectionViewReactions = [UIReaction]()
     
     /// Implicitly unwrap storage property to `MemoryStorage`.
     /// - Warning: if storage is not MemoryStorage, will throw an exception.
@@ -323,10 +314,9 @@ public extension DTCollectionViewManager
     /// - Warning: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
     public func whenSelected<T:ModelTransfer where T:UICollectionViewCell>(cellClass:  T.Type, _ closure: (T,T.ModelType, NSIndexPath) -> Void)
     {
-        let reaction = CollectionViewReaction(.Selection)
-        reaction.viewType = _reflect(T)
+        let reaction = UIReaction(.CellSelection, viewClass: T.self)
         reaction.reactionBlock = { [weak self, unowned reaction] in
-            if let indexPath = reaction.reactionData as? NSIndexPath,
+            if let indexPath = reaction.reactionData?.indexPath,
                 let cell = self?.collectionView?.cellForItemAtIndexPath(indexPath) as? T,
                 let model = self?.storage.itemAtIndexPath(indexPath) as? T.ModelType
             {
@@ -342,10 +332,9 @@ public extension DTCollectionViewManager
     /// - Note: `ModelType` associated type. `DTCollectionViewManageable` instance is used to call selection event.
     public func cellSelection<T,U where T:ModelTransfer, T: UICollectionViewCell, U: DTCollectionViewManageable>( methodPointer: U -> (T,T.ModelType, NSIndexPath) -> Void )
     {
-        let reaction = CollectionViewReaction(.Selection)
-        reaction.viewType = _reflect(T)
+        let reaction = UIReaction(.CellSelection, viewClass: T.self)
         reaction.reactionBlock = { [weak self, unowned reaction] in
-            if let indexPath = reaction.reactionData as? NSIndexPath,
+            if let indexPath = reaction.reactionData?.indexPath,
                 let cell = self?.collectionView?.cellForItemAtIndexPath(indexPath) as? T,
                 let model = self?.storage.itemAtIndexPath(indexPath) as? T.ModelType,
                 let delegate = self?.delegate as? U
@@ -362,10 +351,9 @@ public extension DTCollectionViewManager
     /// - Warning: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
     public func configureCell<T:ModelTransfer where T: UICollectionViewCell>(cellClass:T.Type, _ closure: (T, T.ModelType, NSIndexPath) -> Void)
     {
-        let reaction = CollectionViewReaction(.CellConfiguration)
-        reaction.viewType = _reflect(T)
+        let reaction = UIReaction(.CellConfiguration, viewClass: T.self)
         reaction.reactionBlock = { [weak self, unowned reaction] in
-            if let configuration = reaction.reactionData as? ViewConfiguration,
+            if let configuration = reaction.reactionData,
                 let view = configuration.view as? T,
                 let model = self?.storage.itemAtIndexPath(configuration.indexPath) as? T.ModelType
             {
@@ -381,10 +369,9 @@ public extension DTCollectionViewManager
     /// - Note: `DTCollectionViewManageable` instance is used to call selection event.
     public func cellConfiguration<T,U where T:ModelTransfer, T: UICollectionViewCell, U: DTCollectionViewManageable>( methodPointer: U -> (T,T.ModelType, NSIndexPath) -> Void )
     {
-        let reaction = CollectionViewReaction(.CellConfiguration)
-        reaction.viewType = _reflect(T)
+        let reaction = UIReaction(.CellConfiguration, viewClass: T.self)
         reaction.reactionBlock = { [weak self, unowned reaction] in
-            if let configuration = reaction.reactionData as? ViewConfiguration,
+            if let configuration = reaction.reactionData,
                 let cell = configuration.view as? T,
                 let model = self?.storage.itemAtIndexPath(configuration.indexPath) as? T.ModelType,
                 let delegate = self?.delegate as? U
@@ -419,11 +406,9 @@ public extension DTCollectionViewManager
     /// - Warning: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
     public func configureSupplementary<T:ModelTransfer where T: UICollectionReusableView>(supplementaryClass: T.Type, ofKind kind: String, _ closure: (T,T.ModelType,Int) -> Void)
     {
-        let reaction = CollectionViewReaction(.SupplementaryConfiguration)
-        reaction.kind = kind
-        reaction.viewType = _reflect(T)
+        let reaction = UIReaction(.SupplementaryConfiguration(kind: kind), viewClass: T.self)
         reaction.reactionBlock = { [weak self, unowned reaction] in
-            if let configuration = reaction.reactionData as? ViewConfiguration,
+            if let configuration = reaction.reactionData,
                 let view = configuration.view as? T,
                 let supplementaryStorage = self?.storage as? SupplementaryStorageProtocol,
                 let model = supplementaryStorage.supplementaryModelOfKind(kind, sectionIndex: configuration.indexPath.section) as? T.ModelType
@@ -459,11 +444,9 @@ public extension DTCollectionViewManager
     /// - Note: `DTCollectionViewManageable` instance is used to call configuration event.
     public func supplementaryConfiguration<T,U where T:ModelTransfer, T: UICollectionReusableView, U: DTCollectionViewManageable>(kind kind: String, _ methodPointer: U -> (T,T.ModelType, Int) -> Void)
     {
-        let reaction = CollectionViewReaction(.SupplementaryConfiguration)
-        reaction.kind = kind
-        reaction.viewType = _reflect(T)
+        let reaction = UIReaction(.SupplementaryConfiguration(kind: kind), viewClass: T.self)
         reaction.reactionBlock = { [weak self, unowned reaction] in
-            if let configuration = reaction.reactionData as? ViewConfiguration,
+            if let configuration = reaction.reactionData,
                 let view = configuration.view as? T,
                 let supplementaryStorage = self?.storage as? SupplementaryStorageProtocol,
                 let model = supplementaryStorage.supplementaryModelOfKind(kind, sectionIndex: configuration.indexPath.section) as? T.ModelType,
@@ -502,8 +485,8 @@ extension DTCollectionViewManager : UICollectionViewDataSource
     public func collectionView(collectionView: UICollectionView, cellForItemAtIndexPath indexPath: NSIndexPath) -> UICollectionViewCell {
         let model = storage.itemAtIndexPath(indexPath)
         let cell = viewFactory.cellForModel(model, atIndexPath: indexPath)
-        if let reaction = self.reactionOfReactionType(.CellConfiguration, forViewType: _reflect(cell.dynamicType)) {
-            reaction.reactionData = ViewConfiguration(view: cell, indexPath:indexPath)
+        if let reaction = collectionViewReactions.reactionsOfType(.CellConfiguration, forView: cell).first {
+            reaction.reactionData = ViewData(view: cell, indexPath:indexPath)
             reaction.perform()
         }
         return cell
@@ -513,8 +496,8 @@ extension DTCollectionViewManager : UICollectionViewDataSource
     {
         if let model = (self.storage as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndex: indexPath.section) {
             let view = viewFactory.supplementaryViewOfKind(kind, forModel: model, atIndexPath: indexPath)
-            if let reaction = self.reactionOfReactionType(.SupplementaryConfiguration, forViewType: _reflect(view.dynamicType), ofKind: kind) {
-                reaction.reactionData = ViewConfiguration(view: view, indexPath:indexPath)
+            if let reaction = collectionViewReactions.reactionsOfType(.SupplementaryConfiguration(kind: kind), forView: view).first {
+                reaction.reactionData = ViewData(view: view, indexPath:indexPath)
                 reaction.perform()
             }
             return view
@@ -550,8 +533,8 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
     public func collectionView(collectionView: UICollectionView, didSelectItemAtIndexPath indexPath: NSIndexPath)
     {
         let cell = collectionView.cellForItemAtIndexPath(indexPath)!
-        if let reaction = self.reactionOfReactionType(.Selection, forViewType: _reflect(cell.dynamicType)) {
-            reaction.reactionData = indexPath
+        if let reaction = collectionViewReactions.reactionsOfType(.CellSelection, forView: cell).first {
+            reaction.reactionData = ViewData(view: cell, indexPath: indexPath)
             reaction.perform()
         }
     }
