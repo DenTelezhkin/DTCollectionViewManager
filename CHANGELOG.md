@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Master
+
+* Use `ViewModelMapping` model from `DTModelStorage`. Use typecasting instead of runtime introspection to map models.
+* Replace `CollectionViewReaction` class with `UIReaction` class from `DTModelStorage`
+* Allow user to customize view model mappings via `DTViewModelMappingCustomizable` protocol.
+
 ## [4.3.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.3.0)
 
 Dependency changelog -> [DTModelStorage 2.2 and higher](https://github.com/DenHeadless/DTModelStorage/releases)

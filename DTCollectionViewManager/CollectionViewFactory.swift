@@ -36,6 +36,8 @@ class CollectionViewFactory
     
     var bundle = NSBundle.mainBundle()
     
+    weak var mappingCustomizableDelegate : DTViewModelMappingCustomizable?
+    
     init(collectionView: UICollectionView)
     {
         self.collectionView = collectionView
@@ -102,12 +104,19 @@ extension CollectionViewFactory
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
             preconditionFailure("Received nil model at indexPath: \(indexPath)")
         }
+        let mappingCandidates = mappings.mappingCandidatesForViewType(.Cell, model: unwrappedModel)
+        let mapping : ViewModelMapping?
         
-        if let mapping = mappings.mappingCandidatesForViewType(.Cell, model: unwrappedModel).first
-        {
-            let cellClassName = String(mapping.viewClass)
+        if let customizedMapping = mappingCustomizableDelegate?.viewModelMappingFromCandidates(mappingCandidates, forModel: unwrappedModel) {
+            mapping = customizedMapping
+        } else if let defaultMapping = mappingCandidates.first {
+            mapping = defaultMapping
+        } else { mapping = nil }
+        
+        if mapping != nil {
+            let cellClassName = String(mapping!.viewClass)
             let cell = collectionView.dequeueReusableCellWithReuseIdentifier(cellClassName, forIndexPath: indexPath)
-            mapping.updateBlock(cell, unwrappedModel)
+            mapping?.updateBlock(cell, unwrappedModel)
             return cell
         }
         preconditionFailure("Unable to find cell mappings for model: \(unwrappedModel)")
@@ -119,11 +128,20 @@ extension CollectionViewFactory
             preconditionFailure("Received nil model at indexPath: \(indexPath)")
         }
         
-        if let mapping = mappings.mappingCandidatesForViewType(.SupplementaryView(kind: kind), model: unwrappedModel).first
+        let mappingCandidates = mappings.mappingCandidatesForViewType(.SupplementaryView(kind: kind), model: unwrappedModel)
+        let mapping : ViewModelMapping?
+        
+        if let customizedMapping = mappingCustomizableDelegate?.viewModelMappingFromCandidates(mappingCandidates, forModel: unwrappedModel) {
+            mapping = customizedMapping
+        } else if let defaultMapping = mappingCandidates.first {
+            mapping = defaultMapping
+        } else { mapping = nil }
+        
+        if mapping != nil
         {
-            let viewClassName = String(mapping.viewClass)
+            let viewClassName = String(mapping!.viewClass)
             let reusableView = collectionView.dequeueReusableSupplementaryViewOfKind(kind, withReuseIdentifier: viewClassName, forIndexPath: indexPath)
-            mapping.updateBlock(reusableView, unwrappedModel)
+            mapping!.updateBlock(reusableView, unwrappedModel)
             return reusableView
         }
         

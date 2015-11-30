@@ -127,6 +127,10 @@ public class DTCollectionViewManager : NSObject {
         self.delegate = delegate
         delegate.collectionView!.delegate = self
         delegate.collectionView!.dataSource = self
+        
+        if let mappingDelegate = delegate as? DTViewModelMappingCustomizable {
+            viewFactory.mappingCustomizableDelegate = mappingDelegate
+        }
     }
     
     /// Call this method to retrieve model from specific UICollectionViewCell subclass.

@@ -85,6 +85,8 @@
 		9AF55A601BA473EA0067D0C1 /* CollectionViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A5E1BA473EA0067D0C1 /* CollectionViewFactory.swift */; };
 		9AF55A611BA473EA0067D0C1 /* DTCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */; };
 		9AF55A681BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */; };
+		9AF938A51C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF938A41C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift */; };
+		9AF938A61C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF938A41C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -209,6 +211,7 @@
 		9AF55A5E1BA473EA0067D0C1 /* CollectionViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewFactory.swift; path = ../DTCollectionViewManager/CollectionViewFactory.swift; sourceTree = "<group>"; };
 		9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DTCollectionViewManager.swift; path = ../DTCollectionViewManager/DTCollectionViewManager.swift; sourceTree = "<group>"; };
 		9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SectionModel+ConvenienceGetters.swift"; path = "../DTCollectionViewManager/Utilities/SectionModel+ConvenienceGetters.swift"; sourceTree = "<group>"; };
+		9AF938A41C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIewModelMappingCustomizableTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -363,6 +366,7 @@
 				9ADFC8EA1B8B6D7F00AB4CD9 /* ReactingToEventsTestCase.swift */,
 				9A4C3BFC1BE557D8000931BA /* SupplementaryEventsTestCase.swift */,
 				9A4C3BFE1BE55F87000931BA /* DelegateForwardingTestCase.swift */,
+				9AF938A41C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift */,
 			);
 			name = XCTests;
 			path = ExampleTests;
@@ -699,6 +703,7 @@
 				9ADFC8CE1B8B4B8100AB4CD9 /* DataSourceTestCase.swift in Sources */,
 				9A4C3BFF1BE55F87000931BA /* DelegateForwardingTestCase.swift in Sources */,
 				9ADFC8C81B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift in Sources */,
+				9AF938A51C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift in Sources */,
 				9ADFC8CA1B8B4A7100AB4CD9 /* DTTestCollectionController.swift in Sources */,
 				9ADFC8CC1B8B4AE500AB4CD9 /* NSIndexPath+Convenience.swift in Sources */,
 				9ADFC8EB1B8B6D7F00AB4CD9 /* ReactingToEventsTestCase.swift in Sources */,
@@ -731,6 +736,7 @@
 				9AC5321F1BE5F77F006CB18A /* DataSourceTestCase.swift in Sources */,
 				9AC532201BE5F77F006CB18A /* DelegateForwardingTestCase.swift in Sources */,
 				9AC532211BE5F77F006CB18A /* CollectionViewManager+UnitTests.swift in Sources */,
+				9AF938A61C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift in Sources */,
 				9AC532221BE5F77F006CB18A /* DTTestCollectionController.swift in Sources */,
 				9AC532231BE5F77F006CB18A /* NSIndexPath+Convenience.swift in Sources */,
 				9AC532241BE5F77F006CB18A /* ReactingToEventsTestCase.swift in Sources */,
