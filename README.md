@@ -14,13 +14,14 @@ Powerful protocol-oriented UICollectionView management framework, written in Swi
 ## Features
 
 - [x] Powerful mapping system between data models and cells, headers and footers
+- [x] Support for all Swift types - classes, structs, enums, tuples
+- [x] Support for protocols and subclasses as data models
 - [x] Views created from code, XIB, or storyboard
 - [x] Flexible Memory/CoreData/Custom storage options
 - [x] Automatic datasource and interface synchronization.
 - [x] Automatic XIB registration and dequeue
 - [x] No type casts required
 - [x] No need to subclass
-- [x] Support for all Swift types - classes, structs, enums, tuples
 - [x] Can be used with UICollectionViewController, or UIViewController with UICollectionView, or any other class, that contains UICollectionView
 
 ## Requirements
@@ -33,11 +34,11 @@ Powerful protocol-oriented UICollectionView management framework, written in Swi
 
 [CocoaPods](http://www.cocoapods.org):
 
-    pod 'DTCollectionViewManager', '~> 4.3.0'
+    pod 'DTCollectionViewManager', '~> 4.4.0'
 
 [Carthage](https://github.com/Carthage/Carthage):
 
-    github "DenHeadless/DTCollectionViewManager"  ~> 4.3.0
+    github "DenHeadless/DTCollectionViewManager"  ~> 4.4.0
 
 After running `carthage update` drop DTCollectionViewManager.framework and DTModelStorage.framework to XCode project embedded binaries.
 
@@ -106,8 +107,63 @@ That's it! It's that easy!
 * `registerNibNamed:forFooterClass:`
 * `registerSupplementaryClass:forKind:`
 * `registerNibNamed:forSupplementaryClass:forKind:`
+* `registerNiblessSupplementaryClass:forKind:`
 
 For more detailed look at mapping in DTCollectionViewManager, check out dedicated *[Mapping wiki page](https://github.com/DenHeadless/DTCollectionViewManager/wiki/Mapping-and-registration)*.
+
+## Data models
+
+Starting from [4.4.0 release](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.4.0), `DTCollectionViewManager` supports all Swift and Objective-C types as data models. This also includes protocols and subclasses. So now this works:
+
+```swift
+protocol Food {}
+class Apple : Food {}
+class Carrot: Food {}
+
+class FoodCollectionViewCell : UICollectionViewCell, ModelTransfer {
+    func updateWithModel(model: Food) {
+        // Display food in a cell
+    }
+}
+manager.registerCellClass(FoodCollectionViewCell)
+manager.memoryStorage.addItems([Apple(),Carrot()])
+```
+
+Mappings are resolved simply by calling `is` type-check. In our example Apple is Food and Carrot is Food, so mapping will work.
+
+### Customizing mapping resolution
+
+There can be cases, where you might want to customize mappings based on some criteria. For example, you might want to display model in several kinds of cells:
+
+```swift
+class FoodTextCell: UICollectionViewCell, ModelTransfer {
+    func updateWithModel(model: Food) {
+        // Text representation
+    }
+}
+
+class FoodImageCell: UICollectionViewCell, ModelTransfer {
+    func updateWithModel(model: Food) {
+        // Photo representation
+    }
+}
+
+manager.registerCellClass(FoodTextCell)
+manager.registerCellClass(FoodImageCell)
+```
+
+If you don't do anything, FoodTextCell mapping will be selected as first mapping, however you can adopt `DTViewModelMappingCustomizable` protocol to adjust your mappings:
+
+```swift
+extension PostViewController : DTViewModelMappingCustomizable {
+    func viewModelMappingFromCandidates(candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping? {
+        if let foodModel = model as? Food where foodModel.hasPhoto {
+            return candidates.last
+        }
+        return candidates.first
+    }
+}
+```
 
 ## DTModelStorage
 
@@ -115,7 +171,7 @@ For more detailed look at mapping in DTCollectionViewManager, check out dedicate
 
 ### MemoryStorage
 
-`MemoryStorage` is a class, that manages UICollectionView models in memory. It has methods for adding, removing, replacing, reordering table view models etc. You can read all about them in [DTModelStorage repo](https://github.com/DenHeadless/DTModelStorage#memorystorage). Basically, every section in `MemoryStorage` is an array of `SectionModel` objects, which itself is an object, that contains optional header and footer models, and array of table items.
+`MemoryStorage` is a class, that manages UICollectionView models in memory. It has methods for adding, removing, replacing, reordering collection view models etc. You can read all about them in [DTModelStorage repo](https://github.com/DenHeadless/DTModelStorage#memorystorage). Basically, every section in `MemoryStorage` is an array of `SectionModel` objects, which itself is an object, that contains optional header and footer models, and array of collection items.
 
 ### NSFetchedResultsController and CoreDataStorage
 
@@ -227,6 +283,17 @@ There's also convenience getter, that will allow you to get model from visible `
 
 ```swift
   let post = manager.itemForVisibleCell(postCell)
+```
+
+## Error reporting
+
+In some cases `DTCollectionViewManager` will not be able to create cell or supplementary view. This can happen when passed model is nil, or mapping is not set. By default, 'fatalError' method will be called and application will crash. You can improve crash logs by setting your own error handler via closure:
+
+```swift
+manager.viewFactoryErrorHandler = { error in
+    // DTCollectionViewFactoryError type
+    print(error.description)
+}
 ```
 
 ## ObjectiveC

@@ -1,13 +1,22 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Master
+## [4.4.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.4.0)
 
-* Use `ViewModelMapping` model from `DTModelStorage`. Use typecasting instead of runtime introspection to map models.
-* Replace `CollectionViewReaction` class with `UIReaction` class from `DTModelStorage`
-* Allow user to customize view model mappings via `DTViewModelMappingCustomizable` protocol.
-* Better error handling via `DTCollectionViewFactory` error types. 
-* Allow custom closure to be run before fatal error in collection view factory will crash the application.
+Dependency changelog -> [DTModelStorage 2.3 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
+
+This release aims to improve mapping system and error reporting.
+
+## Added
+
+* [New mapping system](https://github.com/DenHeadless/DTCollectionViewManager#data-models) with support for protocols and subclasses
+* Mappings can now be [customized](https://github.com/DenHeadless/DTCollectionViewManager#customizing-mapping-resolution) using `DTViewModelMappingCustomizable` protocol.
+* [Custom error handler](https://github.com/DenHeadless/DTCollectionViewManager#error-reporting) for `DTTableViewFactoryError` errors.
+
+## Changed
+
+* preconditionFailures have been replaced with `DTCollectionViewFactoryError` ErrorType
+* Internal `CollectionViewReaction` class have been replaced by `UIReaction` class from DTModelStorage.
 
 ## [4.3.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.3.0)
 

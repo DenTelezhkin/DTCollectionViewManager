@@ -38,7 +38,7 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(tableView: UITableView, didSelectRowAtIndexPath indexPath: NSIndexPath) {
         let model = controllers[indexPath.row]
-        let controllerID = RuntimeHelper.classNameFromReflection(_reflect(model.1))
+        let controllerID = String(model.1)
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewControllerWithIdentifier(controllerID)
         let navigation = UINavigationController(rootViewController: controller)
         self.splitViewController?.viewControllers = [self, navigation]
