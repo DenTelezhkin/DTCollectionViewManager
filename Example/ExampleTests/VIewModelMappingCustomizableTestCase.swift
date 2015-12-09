@@ -55,7 +55,6 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
         controller.manager.startManagingWithDelegate(controller)
         controller.manager.viewBundle = NSBundle(forClass: self.dynamicType)
         controller.manager.storage = MemoryStorage()
-        _ = controller.collectionView?.numberOfSections()
         controller.manager.memoryStorage.configureForCollectionViewFlowLayoutUsage()
     }
     

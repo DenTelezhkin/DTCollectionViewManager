@@ -1,7 +1,13 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## [4.4.1](https://github.com/DenHeadless/DTTableViewManager/releases/tag/4.4.1)
+## [4.4.2](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.4.2)
+
+## Fixed
+
+* Fixed a rare crash, that could happen when new items are being added to UICollectionView prior to UICollectionView calling any delegate methods
+
+## [4.4.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.4.1)
 
 ## Fixed
 

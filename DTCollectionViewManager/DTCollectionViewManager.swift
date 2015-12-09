@@ -137,6 +137,12 @@ public class DTCollectionViewManager : NSObject {
             viewFactory.mappingCustomizableDelegate = mappingDelegate
         }
         storage.delegate = self
+        
+        // Workaround, that prevents UICollectionView from being confused about it's own number of sections
+        // This happens mostly on UICollectionView creation, before any delegate methods have been called and is not reproducible after it was fully initialized.
+        // This is rare, and is not documented anywhere, but since workaround is small and harmless, we are including it 
+        // as a part of DTCollectionViewManager framework.
+        _ = collectionView?.numberOfSections()
     }
     
     /// Call this method to retrieve model from specific UICollectionViewCell subclass.

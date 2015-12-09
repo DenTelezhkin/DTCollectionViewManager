@@ -23,7 +23,6 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.storage = MemoryStorage()
         
         controller.manager.registerCellClass(NibCell)
-        let _ = controller.collectionView?.numberOfSections()
     }
     
     func testCollectionItemAtIndexPath()

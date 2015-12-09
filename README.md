@@ -34,11 +34,11 @@ Powerful protocol-oriented UICollectionView management framework, written in Swi
 
 [CocoaPods](http://www.cocoapods.org):
 
-    pod 'DTCollectionViewManager', '~> 4.4.1'
+    pod 'DTCollectionViewManager', '~> 4.4.2'
 
 [Carthage](https://github.com/Carthage/Carthage):
 
-    github "DenHeadless/DTCollectionViewManager"  ~> 4.4.1
+    github "DenHeadless/DTCollectionViewManager"  ~> 4.4.2
 
 After running `carthage update` drop DTCollectionViewManager.framework and DTModelStorage.framework to XCode project embedded binaries.
 

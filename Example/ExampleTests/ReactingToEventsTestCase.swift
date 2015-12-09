@@ -46,7 +46,6 @@ class ReactingToEventsTestCase: XCTestCase {
         controller.manager.startManagingWithDelegate(controller)
         controller.manager.viewBundle = NSBundle(forClass: self.dynamicType)
         controller.manager.storage = MemoryStorage()
-        let _ = controller.collectionView?.numberOfSections()
     }
     
     func testCellSelectionClosure()
