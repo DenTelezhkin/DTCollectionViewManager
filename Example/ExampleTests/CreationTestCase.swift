@@ -20,6 +20,31 @@ class FooCell : UICollectionViewCell, ModelTransfer
 
 class CreationTestCase: XCTestCase {
     
+    func testDelegateIsNotNil() {
+        let controller = DTCellTestCollectionController()
+        controller.manager.startManagingWithDelegate(controller)
+        expect(controller.manager.storage.delegate != nil).to(beTrue())
+    }
+    
+    func testDelegateIsNotNilForMemoryStorage() {
+        let controller = DTCellTestCollectionController()
+        controller.manager.startManagingWithDelegate(controller)
+        expect(controller.manager.memoryStorage.delegate != nil).to(beTrue())
+    }
+    
+    func testSwitchingStorages() {
+        let controller = DTCellTestCollectionController()
+        let first = MemoryStorage()
+        let second = MemoryStorage()
+        controller.manager.storage = first
+        expect(first.delegate === controller.manager).to(beTrue())
+        
+        controller.manager.storage = second
+        
+        expect(first.delegate == nil).to(beTrue())
+        expect(second.delegate === controller.manager).to(beTrue())
+    }
+    
     func testCreatingCollectionControllerFromCode()
     {
         let controller = DTCellTestCollectionController()
