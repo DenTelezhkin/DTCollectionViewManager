@@ -24,6 +24,7 @@
 // THE SOFTWARE.
 
 @import Foundation;
+@import UIKit;
 
 FOUNDATION_EXPORT double DTCollectionViewManagerVersionNumber;
 FOUNDATION_EXPORT const unsigned char DTCollectionViewManagerVersionString[];
