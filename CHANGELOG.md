@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 ## [4.5.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.5.0)
 
+Dependency changelog -> [DTModelStorage 2.4 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
+
 ## Added
 
 * Support for Realm database storage - using `RealmStorage` class.
