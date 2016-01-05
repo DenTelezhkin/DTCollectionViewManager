@@ -165,7 +165,7 @@ public class DTCollectionViewManager : NSObject {
     /// - Note: Method does not require cell to be visible, however it requires that storage really contains item of `ModelType` at specified index path, otherwise it will return nil.
     public func itemForCellClass<T:ModelTransfer where T:UICollectionViewCell>(cellClass: T.Type, atIndexPath indexPath: NSIndexPath) -> T.ModelType?
     {
-        return self.storage.itemForCellClass(T.self, atIndexPath: indexPath)
+        return storage.itemForCellClass(T.self, atIndexPath: indexPath)
     }
     
     /// Retrieve model of specific type for section index.
@@ -175,7 +175,7 @@ public class DTCollectionViewManager : NSObject {
     /// - Note: Method does not require header to be visible, however it requires that storage really contains item of `ModelType` at specified section index, and storage to comply to `HeaderFooterStorageProtocol`, otherwise it will return nil.
     public func itemForHeaderClass<T:ModelTransfer where T:UICollectionReusableView>(headerClass: T.Type, atSectionIndex sectionIndex: Int) -> T.ModelType?
     {
-        return self.storage.itemForHeaderClass(T.self, atSectionIndex: sectionIndex)
+        return storage.itemForHeaderClass(T.self, atSectionIndex: sectionIndex)
     }
     
     /// Retrieve model of specific type for section index.
@@ -185,7 +185,7 @@ public class DTCollectionViewManager : NSObject {
     /// - Note: Method does not require footer to be visible, however it requires that storage really contains item of `ModelType` at specified section index, and storage to comply to `HeaderFooterStorageProtocol`, otherwise it will return nil.
     public func itemForFooterClass<T:ModelTransfer where T:UICollectionReusableView>(footerClass: T.Type, atSectionIndex sectionIndex: Int) -> T.ModelType?
     {
-        return self.storage.itemForFooterClass(T.self, atSectionIndex: sectionIndex)
+        return storage.itemForFooterClass(T.self, atSectionIndex: sectionIndex)
     }
     
     /// Retrieve model of specific type for section index.
@@ -196,7 +196,7 @@ public class DTCollectionViewManager : NSObject {
     /// - Note: Method does not require supplementary view to be visible, however it requires that storage really contains item of `ModelType` at specified section index, and storage to comply to `SupplementaryStorageProcotol`, otherwise it will return nil.
     public func itemForSupplementaryClass<T:ModelTransfer where T:UICollectionReusableView>(supplementaryClass: T.Type, ofKind kind: String, atSectionIndex sectionIndex: Int) -> T.ModelType?
     {
-        return (self.storage as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndex: sectionIndex) as? T.ModelType
+        return (storage as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndex: sectionIndex) as? T.ModelType
     }
 }
 
@@ -334,7 +334,7 @@ public extension DTCollectionViewManager
         reaction.reactionBlock = { [weak self, unowned reaction] in
             if let indexPath = reaction.reactionData?.indexPath,
                 let cell = self?.collectionView?.cellForItemAtIndexPath(indexPath) as? T,
-                let model = self?.storage.itemAtIndexPath(indexPath) as? T.ModelType
+                let model = RuntimeHelper.recursivelyUnwrapAnyValue(self?.storage.itemAtIndexPath(indexPath)) as? T.ModelType
             {
                 closure(cell, model, indexPath)
             }
@@ -352,7 +352,7 @@ public extension DTCollectionViewManager
         reaction.reactionBlock = { [weak self, unowned reaction] in
             if let indexPath = reaction.reactionData?.indexPath,
                 let cell = self?.collectionView?.cellForItemAtIndexPath(indexPath) as? T,
-                let model = self?.storage.itemAtIndexPath(indexPath) as? T.ModelType,
+                let model = RuntimeHelper.recursivelyUnwrapAnyValue(self?.storage.itemAtIndexPath(indexPath)) as? T.ModelType,
                 let delegate = self?.delegate as? U
             {
                 methodPointer(delegate)(cell, model, indexPath)
@@ -371,7 +371,7 @@ public extension DTCollectionViewManager
         reaction.reactionBlock = { [weak self, unowned reaction] in
             if let configuration = reaction.reactionData,
                 let view = configuration.view as? T,
-                let model = self?.storage.itemAtIndexPath(configuration.indexPath) as? T.ModelType
+                let model = RuntimeHelper.recursivelyUnwrapAnyValue(self?.storage.itemAtIndexPath(configuration.indexPath)) as? T.ModelType
             {
                 closure(view, model, configuration.indexPath)
             }
@@ -389,7 +389,7 @@ public extension DTCollectionViewManager
         reaction.reactionBlock = { [weak self, unowned reaction] in
             if let configuration = reaction.reactionData,
                 let cell = configuration.view as? T,
-                let model = self?.storage.itemAtIndexPath(configuration.indexPath) as? T.ModelType,
+                let model = RuntimeHelper.recursivelyUnwrapAnyValue(self?.storage.itemAtIndexPath(configuration.indexPath)) as? T.ModelType,
                 let delegate = self?.delegate as? U
             {
                 methodPointer(delegate)(cell, model, configuration.indexPath)
@@ -427,7 +427,7 @@ public extension DTCollectionViewManager
             if let configuration = reaction.reactionData,
                 let view = configuration.view as? T,
                 let supplementaryStorage = self?.storage as? SupplementaryStorageProtocol,
-                let model = supplementaryStorage.supplementaryModelOfKind(kind, sectionIndex: configuration.indexPath.section) as? T.ModelType
+                let model = RuntimeHelper.recursivelyUnwrapAnyValue(supplementaryStorage.supplementaryModelOfKind(kind, sectionIndex: configuration.indexPath.section)) as? T.ModelType
             {
                 closure(view, model, configuration.indexPath.section)
             }
@@ -465,7 +465,7 @@ public extension DTCollectionViewManager
             if let configuration = reaction.reactionData,
                 let view = configuration.view as? T,
                 let supplementaryStorage = self?.storage as? SupplementaryStorageProtocol,
-                let model = supplementaryStorage.supplementaryModelOfKind(kind, sectionIndex: configuration.indexPath.section) as? T.ModelType,
+                let model = RuntimeHelper.recursivelyUnwrapAnyValue(supplementaryStorage.supplementaryModelOfKind(kind, sectionIndex: configuration.indexPath.section)) as? T.ModelType,
                 let delegate = self?.delegate as? U
             {
                 methodPointer(delegate)(view, model, configuration.indexPath.section)

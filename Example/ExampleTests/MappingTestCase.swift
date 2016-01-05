@@ -9,7 +9,7 @@
 import XCTest
 import Nimble
 import DTModelStorage
-import DTCollectionViewManager
+@testable import DTCollectionViewManager
 
 class MappingTestCase: XCTestCase {
     
@@ -108,4 +108,38 @@ class MappingTestCase: XCTestCase {
 //        expect(self.controller.manager.tableView(self.controller.tableView, viewForHeaderInSection: 0)).to(beAKindOf(NibHeaderFooterView))
 //    }
 //
+}
+
+class NibNameViewModelMappingTestCase : XCTestCase {
+    var factory : CollectionViewFactory!
+    
+    override func setUp() {
+        super.setUp()
+        factory = CollectionViewFactory(collectionView: UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout()))
+        factory.bundle = NSBundle(forClass: self.dynamicType)
+    }
+    
+    func testRegisterCellWithoutNibYieldsNoXibName() {
+        factory.registerCellClass(NiblessCell)
+        
+        expect(self.factory.mappings.first?.xibName).to(beNil())
+    }
+    
+    func testCellWithXibHasXibNameInMapping() {
+        factory.registerCellClass(NibCell)
+        
+        expect(self.factory.mappings.first?.xibName) == "NibCell"
+    }
+    
+    func testHeaderHasXibInMapping() {
+        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionElementKindSectionHeader)
+        
+        expect(self.factory.mappings.first?.xibName) == "NibHeaderFooterView"
+    }
+    
+    func testFooterHasXibInMapping() {
+        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionElementKindSectionFooter)
+        
+        expect(self.factory.mappings.first?.xibName) == "NibHeaderFooterView"
+    }
 }
