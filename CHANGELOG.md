@@ -1,6 +1,12 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Master
+
+## Added 
+
+* Support for Realm database storage - using `RealmStorage` class.
+
 ## [4.4.2](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.4.2)
 
 ## Fixed
