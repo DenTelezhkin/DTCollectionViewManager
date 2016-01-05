@@ -82,6 +82,10 @@ public class DTCollectionViewManager : NSObject {
         }
     }
     
+    /// Boolean property, that indicates whether batch updates are completed. 
+    /// - Note: this can be useful if you are deciding whether to run another batch of animations - insertion, deletions etc. UICollectionView is not very tolerant to multiple performBatchUpdates, executed at once.
+    public var batchUpdatesInProgress = false
+    
     /// Array of reactions for `DTCollectionViewManager`.
     /// - SeeAlso: `CollectionViewReaction`.
     private var collectionViewReactions = [UIReaction]()
@@ -605,32 +609,35 @@ extension DTCollectionViewManager : StorageUpdating
     public func storageDidPerformUpdate(update: StorageUpdate) {
         self.controllerWillUpdateContent()
         
-        collectionView?.performBatchUpdates({
-            if update.insertedRowIndexPaths.count > 0 { self.collectionView?.insertItemsAtIndexPaths(Array(update.insertedRowIndexPaths)) }
-            if update.deletedRowIndexPaths.count > 0 { self.collectionView?.deleteItemsAtIndexPaths(Array(update.deletedRowIndexPaths)) }
-            if update.updatedRowIndexPaths.count > 0 { self.collectionView?.reloadItemsAtIndexPaths(Array(update.updatedRowIndexPaths)) }
+        batchUpdatesInProgress = true
+        
+        collectionView?.performBatchUpdates({ [weak self] in
+            if update.insertedRowIndexPaths.count > 0 { self?.collectionView?.insertItemsAtIndexPaths(Array(update.insertedRowIndexPaths)) }
+            if update.deletedRowIndexPaths.count > 0 { self?.collectionView?.deleteItemsAtIndexPaths(Array(update.deletedRowIndexPaths)) }
+            if update.updatedRowIndexPaths.count > 0 { self?.collectionView?.reloadItemsAtIndexPaths(Array(update.updatedRowIndexPaths)) }
             if update.movedRowIndexPaths.count > 0 {
                 for moveAction in update.movedRowIndexPaths {
                     if let from = moveAction.first, let to = moveAction.last {
-                        self.collectionView?.moveItemAtIndexPath(from, toIndexPath: to)
+                        self?.collectionView?.moveItemAtIndexPath(from, toIndexPath: to)
                     }
                 }
             }
             
-            if update.insertedSectionIndexes.count > 0 { self.collectionView?.insertSections(update.insertedSectionIndexes.makeNSIndexSet()) }
-            if update.deletedSectionIndexes.count > 0 { self.collectionView?.deleteSections(update.deletedSectionIndexes.makeNSIndexSet()) }
-            if update.updatedSectionIndexes.count > 0 { self.collectionView?.reloadSections(update.updatedSectionIndexes.makeNSIndexSet())}
+            if update.insertedSectionIndexes.count > 0 { self?.collectionView?.insertSections(update.insertedSectionIndexes.makeNSIndexSet()) }
+            if update.deletedSectionIndexes.count > 0 { self?.collectionView?.deleteSections(update.deletedSectionIndexes.makeNSIndexSet()) }
+            if update.updatedSectionIndexes.count > 0 { self?.collectionView?.reloadSections(update.updatedSectionIndexes.makeNSIndexSet())}
             if update.movedSectionIndexes.count > 0 {
                 for moveAction in update.movedSectionIndexes {
                     if let from = moveAction.first, let to = moveAction.last {
-                        self.collectionView?.moveSection(from, toSection: to)
+                        self?.collectionView?.moveSection(from, toSection: to)
                     }
                 }
             }
-            }) { (finished) in
+            }) { [weak self] finished in
                 if update.insertedSectionIndexes.count + update.deletedSectionIndexes.count + update.updatedSectionIndexes.count > 0 {
-                    self.collectionView?.reloadData()
+                    self?.collectionView?.reloadData()
                 }
+                self?.batchUpdatesInProgress = false
         }
         self.controllerDidUpdateContent()
     }
@@ -650,68 +657,5 @@ extension DTCollectionViewManager : StorageUpdating
     func controllerDidUpdateContent()
     {
         (self.delegate as? DTCollectionViewContentUpdatable)?.afterContentUpdate()
-    }
-}
-
-// MARK: - DEPRECATED 
-extension DTCollectionViewManager
-{
-    /// Call this method to retrieve model from specific UICollectionViewCell subclass.
-    /// - Note: This method uses UICollectionView `indexPathForCell` method, that returns nil if cell is not visible. Therefore, if cell is not visible, this method will return nil as well.
-    /// - SeeAlso: `StorageProtocol` method `objectForCell:atIndexPath:` - will return model even if cell is not visible
-    @available(*, unavailable, renamed="itemForVisibleCell")
-    public func objectForVisibleCell<T:ModelTransfer where T:UICollectionViewCell>(cell:T?) -> T.ModelType?
-    {
-        guard cell != nil else {  return nil }
-        
-        if let indexPath = collectionView?.indexPathForCell(cell!) {
-            return storage.itemAtIndexPath(indexPath) as? T.ModelType
-        }
-        return nil
-    }
-    
-    /// Retrieve model of specific type at index path.
-    /// - Parameter cellClass: UICollectionViewCell type
-    /// - Parameter indexPath: NSIndexPath of the data model
-    /// - Returns: data model that belongs to this index path.
-    /// - Note: Method does not require cell to be visible, however it requires that storage really contains object of `ModelType` at specified index path, otherwise it will return nil.
-    @available(*, unavailable, renamed="itemForCellClass")
-    public func objectForCellClass<T:ModelTransfer where T:UICollectionViewCell>(cellClass: T.Type, atIndexPath indexPath: NSIndexPath) -> T.ModelType?
-    {
-        return self.storage.itemForCellClass(T.self, atIndexPath: indexPath)
-    }
-    
-    /// Retrieve model of specific type for section index.
-    /// - Parameter headerClass: UICollectionReusableView type
-    /// - Parameter indexPath: NSIndexPath of the view
-    /// - Returns: data model that belongs to this view
-    /// - Note: Method does not require header to be visible, however it requires that storage really contains object of `ModelType` at specified section index, and storage to comply to `HeaderFooterStorageProtocol`, otherwise it will return nil.
-    @available(*,unavailable,renamed="itemForHeaderClass")
-    public func objectForHeaderClass<T:ModelTransfer where T:UICollectionReusableView>(headerClass: T.Type, atSectionIndex sectionIndex: Int) -> T.ModelType?
-    {
-        return self.storage.itemForHeaderClass(T.self, atSectionIndex: sectionIndex)
-    }
-    
-    /// Retrieve model of specific type for section index.
-    /// - Parameter footerClass: UICollectionReusableView type
-    /// - Parameter indexPath: NSIndexPath of the view
-    /// - Returns: data model that belongs to this view
-    /// - Note: Method does not require footer to be visible, however it requires that storage really contains object of `ModelType` at specified section index, and storage to comply to `HeaderFooterStorageProtocol`, otherwise it will return nil.
-    @available(*,unavailable,renamed="itemForFooterClass")
-    public func objectForFooterClass<T:ModelTransfer where T:UICollectionReusableView>(footerClass: T.Type, atSectionIndex sectionIndex: Int) -> T.ModelType?
-    {
-        return self.storage.itemForFooterClass(T.self, atSectionIndex: sectionIndex)
-    }
-    
-    /// Retrieve model of specific type for section index.
-    /// - Parameter supplementaryClass: UICollectionReusableView type
-    /// - Parameter kind: supplementary kind
-    /// - Parameter atSectionIndex: NSIndexPath of the view
-    /// - Returns: data model that belongs to this view
-    /// - Note: Method does not require supplementary view to be visible, however it requires that storage really contains object of `ModelType` at specified section index, and storage to comply to `SupplementaryStorageProcotol`, otherwise it will return nil.
-    @available(*,unavailable,renamed="itemForSupplementaryClass")
-    public func objectForSupplementaryClass<T:ModelTransfer where T:UICollectionReusableView>(supplementaryClass: T.Type, ofKind kind: String, atSectionIndex sectionIndex: Int) -> T.ModelType?
-    {
-        return (self.storage as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndex: sectionIndex) as? T.ModelType
     }
 }

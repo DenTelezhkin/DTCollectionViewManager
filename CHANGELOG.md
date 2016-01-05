@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ## Added 
 
 * Support for Realm database storage - using `RealmStorage` class.
+* `batchUpdatesInProgress` property on `DTCollectionViewManager` that indicates if batch updates are finished or not.  
 
 ## Changed
 
