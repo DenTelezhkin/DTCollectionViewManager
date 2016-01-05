@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A006F381C3C22D80074E924 /* SectionModel+ConvenienceGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A006F371C3C22D80074E924 /* SectionModel+ConvenienceGetters.swift */; };
+		9A006F391C3C22D80074E924 /* SectionModel+ConvenienceGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A006F371C3C22D80074E924 /* SectionModel+ConvenienceGetters.swift */; };
 		9A08A9C91B8A249300877C62 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
 		9A2109E31B9C58E20036D151 /* ComplexLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */; };
 		9A2109E71B9C5A020036D151 /* CollectionContainingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */; };
@@ -30,7 +32,6 @@
 		9A99AA861B8A219300428802 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA841B8A219300428802 /* Main.storyboard */; };
 		9A99AA881B8A219300428802 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA871B8A219300428802 /* Assets.xcassets */; };
 		9A99AA8B1B8A219300428802 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA891B8A219300428802 /* LaunchScreen.storyboard */; };
-		9AC5320E1BE5F74B006CB18A /* SectionModel+ConvenienceGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */; };
 		9AC532101BE5F74B006CB18A /* CollectionViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A5E1BA473EA0067D0C1 /* CollectionViewFactory.swift */; };
 		9AC532111BE5F74B006CB18A /* DTCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */; };
 		9AC532171BE5F77F006CB18A /* SupplementaryMappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */; };
@@ -80,7 +81,6 @@
 		9ADFC8F91B8B771800AB4CD9 /* SimpleTextCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8F71B8B771800AB4CD9 /* SimpleTextCollectionReusableView.xib */; };
 		9AF55A601BA473EA0067D0C1 /* CollectionViewFactory.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A5E1BA473EA0067D0C1 /* CollectionViewFactory.swift */; };
 		9AF55A611BA473EA0067D0C1 /* DTCollectionViewManager.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */; };
-		9AF55A681BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */; };
 		9AF938A51C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF938A41C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift */; };
 		9AF938A61C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF938A41C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift */; };
 		9AF938A81C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF938A71C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift */; };
@@ -196,6 +196,7 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9A006F371C3C22D80074E924 /* SectionModel+ConvenienceGetters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SectionModel+ConvenienceGetters.swift"; path = "../Sources/SectionModel+ConvenienceGetters.swift"; sourceTree = "<group>"; };
 		9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexLayoutViewController.swift; sourceTree = "<group>"; };
 		9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionContainingCell.swift; path = Cells/CollectionContainingCell.swift; sourceTree = "<group>"; };
 		9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplementaryMappingTestCase.swift; sourceTree = "<group>"; };
@@ -249,10 +250,9 @@
 		9ADFC8F61B8B771800AB4CD9 /* SimpleTextCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleTextCollectionReusableView.swift; path = Views/SimpleTextCollectionReusableView.swift; sourceTree = "<group>"; };
 		9ADFC8F71B8B771800AB4CD9 /* SimpleTextCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SimpleTextCollectionReusableView.xib; path = Views/SimpleTextCollectionReusableView.xib; sourceTree = "<group>"; };
 		9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTCollectionViewManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9AE6714C1AEE61F800B25A5F /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
-		9AF55A5E1BA473EA0067D0C1 /* CollectionViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewFactory.swift; path = ../DTCollectionViewManager/CollectionViewFactory.swift; sourceTree = "<group>"; };
-		9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DTCollectionViewManager.swift; path = ../DTCollectionViewManager/DTCollectionViewManager.swift; sourceTree = "<group>"; };
-		9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SectionModel+ConvenienceGetters.swift"; path = "../DTCollectionViewManager/Utilities/SectionModel+ConvenienceGetters.swift"; sourceTree = "<group>"; };
+		9AE6714C1AEE61F800B25A5F /* .. */ = {isa = PBXFileReference; lastKnownFileType = folder; path = ..; sourceTree = "<group>"; };
+		9AF55A5E1BA473EA0067D0C1 /* CollectionViewFactory.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewFactory.swift; path = ../Sources/CollectionViewFactory.swift; sourceTree = "<group>"; };
+		9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DTCollectionViewManager.swift; path = ../Sources/DTCollectionViewManager.swift; sourceTree = "<group>"; };
 		9AF938A41C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIewModelMappingCustomizableTestCase.swift; sourceTree = "<group>"; };
 		9AF938A71C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewFactoryTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
@@ -333,7 +333,7 @@
 		955F85AE179ACB7300A38EAD /* DTCollectionViewManager */ = {
 			isa = PBXGroup;
 			children = (
-				9ADFC8BD1B8A301300AB4CD9 /* Utilities */,
+				9A006F371C3C22D80074E924 /* SectionModel+ConvenienceGetters.swift */,
 				9AF55A5E1BA473EA0067D0C1 /* CollectionViewFactory.swift */,
 				9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */,
 			);
@@ -448,14 +448,6 @@
 			name = tvOS;
 			sourceTree = "<group>";
 		};
-		9ADFC8BD1B8A301300AB4CD9 /* Utilities */ = {
-			isa = PBXGroup;
-			children = (
-				9AF55A651BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift */,
-			);
-			name = Utilities;
-			sourceTree = "<group>";
-		};
 		9ADFC8C61B8B4A2200AB4CD9 /* Helpers */ = {
 			isa = PBXGroup;
 			children = (
@@ -510,7 +502,7 @@
 		9AE6714B1AEE61F800B25A5F /* Supporting Files */ = {
 			isa = PBXGroup;
 			children = (
-				9AE6714C1AEE61F800B25A5F /* Info.plist */,
+				9AE6714C1AEE61F800B25A5F /* .. */,
 			);
 			name = "Supporting Files";
 			sourceTree = "<group>";
@@ -822,7 +814,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9AC5320E1BE5F74B006CB18A /* SectionModel+ConvenienceGetters.swift in Sources */,
+				9A006F391C3C22D80074E924 /* SectionModel+ConvenienceGetters.swift in Sources */,
 				9AC532101BE5F74B006CB18A /* CollectionViewFactory.swift in Sources */,
 				9AC532111BE5F74B006CB18A /* DTCollectionViewManager.swift in Sources */,
 			);
@@ -856,9 +848,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A006F381C3C22D80074E924 /* SectionModel+ConvenienceGetters.swift in Sources */,
 				9AF55A601BA473EA0067D0C1 /* CollectionViewFactory.swift in Sources */,
 				9AF55A611BA473EA0067D0C1 /* DTCollectionViewManager.swift in Sources */,
-				9AF55A681BA473F90067D0C1 /* SectionModel+ConvenienceGetters.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -1082,7 +1074,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = DTCollectionViewManager/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1118,7 +1110,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = DTCollectionViewManager/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;
@@ -1205,7 +1197,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = DTCollectionViewManager/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = YES;
@@ -1240,7 +1232,7 @@
 				GCC_WARN_UNDECLARED_SELECTOR = YES;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GCC_WARN_UNUSED_FUNCTION = YES;
-				INFOPLIST_FILE = DTCollectionViewManager/Info.plist;
+				INFOPLIST_FILE = Info.plist;
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
 				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
 				MTL_ENABLE_DEBUG_INFO = NO;

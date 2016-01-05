@@ -1,9 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Master
+## [4.5.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.5.0)
 
-## Added 
+## Added
 
 * Support for Realm database storage - using `RealmStorage` class.
 * `batchUpdatesInProgress` property on `DTCollectionViewManager` that indicates if batch updates are finished or not.  

@@ -1,0 +1,5 @@
+try:
+  install:
+    pre:
+      - git submodule foreach --recursive git submodule update --init
+  project: 'Example/DTCollectionViewManager.xcodeproj'
