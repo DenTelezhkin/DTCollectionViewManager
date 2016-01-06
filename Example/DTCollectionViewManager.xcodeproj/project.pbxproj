@@ -56,6 +56,8 @@
 		9AC5324F1BE5F9CC006CB18A /* NibView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC5324E1BE5F9CC006CB18A /* NibView.xib */; };
 		9AC532511BE5F9FA006CB18A /* SelectionReactingCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC532501BE5F9FA006CB18A /* SelectionReactingCollectionCell.xib */; };
 		9AC532531BE5FA40006CB18A /* XibCollectionViewController.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AC532521BE5FA40006CB18A /* XibCollectionViewController.xib */; };
+		9AD3D57D1C3D0D840093DDE4 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A52AAAD1C3C0A140067FD84 /* DTModelStorage.framework */; };
+		9AD3D5841C3D0D8D0093DDE4 /* DTModelStorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9A52AAAD1C3C0A140067FD84 /* DTModelStorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9ADFC8C81B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8C71B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift */; };
 		9ADFC8CA1B8B4A7100AB4CD9 /* DTTestCollectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8C91B8B4A7100AB4CD9 /* DTTestCollectionController.swift */; };
 		9ADFC8CC1B8B4AE500AB4CD9 /* NSIndexPath+Convenience.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8CB1B8B4AE500AB4CD9 /* NSIndexPath+Convenience.swift */; };
@@ -189,6 +191,7 @@
 			dstSubfolderSpec = 10;
 			files = (
 				9A7576F71BB951B500180D46 /* DTCollectionViewManager.framework in Embed Frameworks */,
+				9AD3D5841C3D0D8D0093DDE4 /* DTModelStorage.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -262,6 +265,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AD3D57D1C3D0D840093DDE4 /* DTModelStorage.framework in Frameworks */,
 				9A7576F31BB951A100180D46 /* DTCollectionViewManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
