@@ -87,6 +87,16 @@
 		9AF938A61C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF938A41C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift */; };
 		9AF938A81C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF938A71C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift */; };
 		9AF938A91C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF938A71C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift */; };
+		9AFD88EB1C42B62000254257 /* FixtureStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AFD88EA1C42B62000254257 /* FixtureStoryboard.storyboard */; };
+		9AFD88EC1C42B62000254257 /* FixtureStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AFD88EA1C42B62000254257 /* FixtureStoryboard.storyboard */; };
+		9AFD88F81C42B65900254257 /* StoryboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD88F71C42B65900254257 /* StoryboardViewController.swift */; };
+		9AFD88F91C42B65900254257 /* StoryboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD88F71C42B65900254257 /* StoryboardViewController.swift */; };
+		9AFD88FB1C42B66A00254257 /* StoryboardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD88FA1C42B66A00254257 /* StoryboardCollectionViewCell.swift */; };
+		9AFD88FC1C42B66A00254257 /* StoryboardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD88FA1C42B66A00254257 /* StoryboardCollectionViewCell.swift */; };
+		9AFD88FE1C42B68300254257 /* StoryboardCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD88FD1C42B68300254257 /* StoryboardCollectionReusableView.swift */; };
+		9AFD88FF1C42B68300254257 /* StoryboardCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD88FD1C42B68300254257 /* StoryboardCollectionReusableView.swift */; };
+		9AFD89011C42B73F00254257 /* StoryboardMappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD89001C42B73F00254257 /* StoryboardMappingTestCase.swift */; };
+		9AFD89021C42B73F00254257 /* StoryboardMappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD89001C42B73F00254257 /* StoryboardMappingTestCase.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -258,6 +268,11 @@
 		9AF55A5F1BA473EA0067D0C1 /* DTCollectionViewManager.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = DTCollectionViewManager.swift; path = ../Sources/DTCollectionViewManager.swift; sourceTree = "<group>"; };
 		9AF938A41C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = VIewModelMappingCustomizableTestCase.swift; sourceTree = "<group>"; };
 		9AF938A71C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = CollectionViewFactoryTestCase.swift; sourceTree = "<group>"; };
+		9AFD88EA1C42B62000254257 /* FixtureStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = FixtureStoryboard.storyboard; path = Fixtures/FixtureStoryboard.storyboard; sourceTree = "<group>"; };
+		9AFD88F71C42B65900254257 /* StoryboardViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = StoryboardViewController.swift; path = Fixtures/StoryboardViewController.swift; sourceTree = "<group>"; };
+		9AFD88FA1C42B66A00254257 /* StoryboardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardCollectionViewCell.swift; sourceTree = "<group>"; };
+		9AFD88FD1C42B68300254257 /* StoryboardCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardCollectionReusableView.swift; sourceTree = "<group>"; };
+		9AFD89001C42B73F00254257 /* StoryboardMappingTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardMappingTestCase.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -417,6 +432,7 @@
 				9A99AA971B8A219300428802 /* Info.plist */,
 				9ADFC8CD1B8B4B8100AB4CD9 /* DataSourceTestCase.swift */,
 				9ADFC8E81B8B5D2E00AB4CD9 /* MappingTestCase.swift */,
+				9AFD89001C42B73F00254257 /* StoryboardMappingTestCase.swift */,
 				9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */,
 				9ADFC8E61B8B5BBD00AB4CD9 /* CreationTestCase.swift */,
 				9ADFC8EA1B8B6D7F00AB4CD9 /* ReactingToEventsTestCase.swift */,
@@ -472,6 +488,10 @@
 				9ADFC8DA1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift */,
 				9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterView.swift */,
 				9A4C3BFA1BE5567A000931BA /* NiblessHeaderFooterView.swift */,
+				9AFD88EA1C42B62000254257 /* FixtureStoryboard.storyboard */,
+				9AFD88F71C42B65900254257 /* StoryboardViewController.swift */,
+				9AFD88FA1C42B66A00254257 /* StoryboardCollectionViewCell.swift */,
+				9AFD88FD1C42B68300254257 /* StoryboardCollectionReusableView.swift */,
 			);
 			name = Fixtures;
 			sourceTree = "<group>";
@@ -753,6 +773,7 @@
 				9ADFC8E31B8B599500AB4CD9 /* NibView.xib in Resources */,
 				9A4C3BF91BE553FE000931BA /* RandomNameHeaderFooterView.xib in Resources */,
 				9ADFC8D31B8B4CCD00AB4CD9 /* XibCollectionViewController.xib in Resources */,
+				9AFD88EB1C42B62000254257 /* FixtureStoryboard.storyboard in Resources */,
 				9ADFC8E11B8B595800AB4CD9 /* NibHeaderFooterView.xib in Resources */,
 				9ADFC8D71B8B4D5000AB4CD9 /* NibCell.xib in Resources */,
 			);
@@ -768,6 +789,7 @@
 				9AC5324F1BE5F9CC006CB18A /* NibView.xib in Resources */,
 				9AC532511BE5F9FA006CB18A /* SelectionReactingCollectionCell.xib in Resources */,
 				9AC532451BE5F921006CB18A /* NibCell.xib in Resources */,
+				9AFD88EC1C42B62000254257 /* FixtureStoryboard.storyboard in Resources */,
 				9AC532531BE5FA40006CB18A /* XibCollectionViewController.xib in Resources */,
 				9AC532471BE5F94F006CB18A /* ReactingHeaderFooterView.xib in Resources */,
 			);
@@ -798,9 +820,12 @@
 				9A4C3BFD1BE557D8000931BA /* SupplementaryEventsTestCase.swift in Sources */,
 				9ADFC8E01B8B595800AB4CD9 /* NibHeaderFooterView.swift in Sources */,
 				9A4C3BFB1BE5567A000931BA /* NiblessHeaderFooterView.swift in Sources */,
+				9AFD88FB1C42B66A00254257 /* StoryboardCollectionViewCell.swift in Sources */,
 				9AF938A81C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift in Sources */,
+				9AFD89011C42B73F00254257 /* StoryboardMappingTestCase.swift in Sources */,
 				9ADFC8D51B8B4CFA00AB4CD9 /* FixtureCells.swift in Sources */,
 				9ADFC8E71B8B5BBD00AB4CD9 /* CreationTestCase.swift in Sources */,
+				9AFD88F81C42B65900254257 /* StoryboardViewController.swift in Sources */,
 				9ADFC8DC1B8B4DB900AB4CD9 /* ReactingHeaderFooterView.swift in Sources */,
 				9ADFC8D21B8B4CCD00AB4CD9 /* XibCollectionViewController.swift in Sources */,
 				9ADFC8CE1B8B4B8100AB4CD9 /* DataSourceTestCase.swift in Sources */,
@@ -808,6 +833,7 @@
 				9ADFC8C81B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift in Sources */,
 				9AF938A51C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift in Sources */,
 				9ADFC8CA1B8B4A7100AB4CD9 /* DTTestCollectionController.swift in Sources */,
+				9AFD88FE1C42B68300254257 /* StoryboardCollectionReusableView.swift in Sources */,
 				9ADFC8CC1B8B4AE500AB4CD9 /* NSIndexPath+Convenience.swift in Sources */,
 				9ADFC8EB1B8B6D7F00AB4CD9 /* ReactingToEventsTestCase.swift in Sources */,
 				9ADFC8E91B8B5D2E00AB4CD9 /* MappingTestCase.swift in Sources */,
@@ -832,9 +858,12 @@
 				9AC532181BE5F77F006CB18A /* SupplementaryEventsTestCase.swift in Sources */,
 				9AC532191BE5F77F006CB18A /* NibHeaderFooterView.swift in Sources */,
 				9AC5321A1BE5F77F006CB18A /* NiblessHeaderFooterView.swift in Sources */,
+				9AFD88FC1C42B66A00254257 /* StoryboardCollectionViewCell.swift in Sources */,
 				9AF938A91C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift in Sources */,
+				9AFD89021C42B73F00254257 /* StoryboardMappingTestCase.swift in Sources */,
 				9AC5321B1BE5F77F006CB18A /* FixtureCells.swift in Sources */,
 				9AC5321C1BE5F77F006CB18A /* CreationTestCase.swift in Sources */,
+				9AFD88F91C42B65900254257 /* StoryboardViewController.swift in Sources */,
 				9AC5321D1BE5F77F006CB18A /* ReactingHeaderFooterView.swift in Sources */,
 				9AC5321E1BE5F77F006CB18A /* XibCollectionViewController.swift in Sources */,
 				9AC5321F1BE5F77F006CB18A /* DataSourceTestCase.swift in Sources */,
@@ -842,6 +871,7 @@
 				9AC532211BE5F77F006CB18A /* CollectionViewManager+UnitTests.swift in Sources */,
 				9AF938A61C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift in Sources */,
 				9AC532221BE5F77F006CB18A /* DTTestCollectionController.swift in Sources */,
+				9AFD88FF1C42B68300254257 /* StoryboardCollectionReusableView.swift in Sources */,
 				9AC532231BE5F77F006CB18A /* NSIndexPath+Convenience.swift in Sources */,
 				9AC532241BE5F77F006CB18A /* ReactingToEventsTestCase.swift in Sources */,
 				9AC532251BE5F77F006CB18A /* MappingTestCase.swift in Sources */,
