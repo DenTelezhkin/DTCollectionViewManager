@@ -88,7 +88,6 @@
 		9AF938A81C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF938A71C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift */; };
 		9AF938A91C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AF938A71C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift */; };
 		9AFD88EB1C42B62000254257 /* FixtureStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AFD88EA1C42B62000254257 /* FixtureStoryboard.storyboard */; };
-		9AFD88EC1C42B62000254257 /* FixtureStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AFD88EA1C42B62000254257 /* FixtureStoryboard.storyboard */; };
 		9AFD88F81C42B65900254257 /* StoryboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD88F71C42B65900254257 /* StoryboardViewController.swift */; };
 		9AFD88F91C42B65900254257 /* StoryboardViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD88F71C42B65900254257 /* StoryboardViewController.swift */; };
 		9AFD88FB1C42B66A00254257 /* StoryboardCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD88FA1C42B66A00254257 /* StoryboardCollectionViewCell.swift */; };
@@ -97,6 +96,7 @@
 		9AFD88FF1C42B68300254257 /* StoryboardCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD88FD1C42B68300254257 /* StoryboardCollectionReusableView.swift */; };
 		9AFD89011C42B73F00254257 /* StoryboardMappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD89001C42B73F00254257 /* StoryboardMappingTestCase.swift */; };
 		9AFD89021C42B73F00254257 /* StoryboardMappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AFD89001C42B73F00254257 /* StoryboardMappingTestCase.swift */; };
+		9AFD89101C42C80C00254257 /* FixtureStoryboard.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9AFD890F1C42C80C00254257 /* FixtureStoryboard.storyboard */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -273,6 +273,7 @@
 		9AFD88FA1C42B66A00254257 /* StoryboardCollectionViewCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardCollectionViewCell.swift; sourceTree = "<group>"; };
 		9AFD88FD1C42B68300254257 /* StoryboardCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardCollectionReusableView.swift; sourceTree = "<group>"; };
 		9AFD89001C42B73F00254257 /* StoryboardMappingTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = StoryboardMappingTestCase.swift; sourceTree = "<group>"; };
+		9AFD890F1C42C80C00254257 /* FixtureStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = FixtureStoryboard.storyboard; path = Fixtures/tvOS/FixtureStoryboard.storyboard; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -489,6 +490,7 @@
 				9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterView.swift */,
 				9A4C3BFA1BE5567A000931BA /* NiblessHeaderFooterView.swift */,
 				9AFD88EA1C42B62000254257 /* FixtureStoryboard.storyboard */,
+				9AFD890F1C42C80C00254257 /* FixtureStoryboard.storyboard */,
 				9AFD88F71C42B65900254257 /* StoryboardViewController.swift */,
 				9AFD88FA1C42B66A00254257 /* StoryboardCollectionViewCell.swift */,
 				9AFD88FD1C42B68300254257 /* StoryboardCollectionReusableView.swift */,
@@ -789,7 +791,7 @@
 				9AC5324F1BE5F9CC006CB18A /* NibView.xib in Resources */,
 				9AC532511BE5F9FA006CB18A /* SelectionReactingCollectionCell.xib in Resources */,
 				9AC532451BE5F921006CB18A /* NibCell.xib in Resources */,
-				9AFD88EC1C42B62000254257 /* FixtureStoryboard.storyboard in Resources */,
+				9AFD89101C42C80C00254257 /* FixtureStoryboard.storyboard in Resources */,
 				9AC532531BE5FA40006CB18A /* XibCollectionViewController.xib in Resources */,
 				9AC532471BE5F94F006CB18A /* ReactingHeaderFooterView.xib in Resources */,
 			);

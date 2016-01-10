@@ -37,16 +37,20 @@ class StoryboardMappingTestCase: XCTestCase {
         controller.manager.registerHeaderClass(StoryboardCollectionReusableHeaderView)
         controller.manager.registerFooterClass(StoryboardCollectionReusableFooterView)
         
+        
         controller.manager.memoryStorage.setSectionHeaderModels(["1"])
         controller.manager.memoryStorage.setSectionFooterModels(["2"])
         
-        controller.collectionView?.performBatchUpdates(nil, completion: nil)
+        if #available(iOS 9, *) {
+            controller.collectionView?.performBatchUpdates(nil, completion: nil)
+            
+            let headerView = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, atIndexPath:  indexPath(0, 0)) as? StoryboardCollectionReusableHeaderView
+            
+            let footerView = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, atIndexPath:  indexPath(0, 0)) as? StoryboardCollectionReusableFooterView
+            
+            expect(headerView?.storyboardLabel.text) == "Header"
+            expect(footerView?.storyboardLabel.text) == "Footer"
+        }
         
-        let headerView = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, atIndexPath:  indexPath(0, 0)) as? StoryboardCollectionReusableHeaderView
-        
-        let footerView = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, atIndexPath:  indexPath(0, 0)) as? StoryboardCollectionReusableFooterView
-        
-        expect(headerView?.storyboardLabel.text) == "Header"
-        expect(footerView?.storyboardLabel.text) == "Footer"
     }
 }
