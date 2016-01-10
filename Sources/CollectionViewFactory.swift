@@ -113,7 +113,6 @@ extension CollectionViewFactory
             mappings.addMappingForViewType(.SupplementaryView(kind: kind), viewClass: T.self, xibName: reuseIdentifier)
         }
         else {
-            collectionView.registerClass(supplementaryClass, forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
             mappings.addMappingForViewType(.SupplementaryView(kind: kind), viewClass: T.self)
         }
     }
