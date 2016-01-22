@@ -1,4 +1,4 @@
-![Build Status](https://travis-ci.org/DenHeadless/DTCollectionViewManager.png?branch=master) &nbsp;
+![Build Status](https://travis-ci.org/DenHeadless/DTCollectionViewManager.svg?branch=master) &nbsp;
 [![codecov.io](http://codecov.io/github/DenHeadless/DTCollectionViewManager/coverage.svg?branch=master)](http://codecov.io/github/DenHeadless/DTCollectionViewManager?branch=master)
 ![CocoaPod platform](https://cocoapod-badges.herokuapp.com/p/DTCollectionViewManager/badge.svg) &nbsp;
 ![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTCollectionViewManager/badge.svg) &nbsp;
