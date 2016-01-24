@@ -3,7 +3,7 @@
 ![CocoaPod platform](https://cocoapod-badges.herokuapp.com/p/DTCollectionViewManager/badge.svg) &nbsp;
 ![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTCollectionViewManager/badge.svg) &nbsp;
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
-![License MIT](https://go-shields.herokuapp.com/license-MIT-blue.png)
+[![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)]()
 DTCollectionViewManager 4
 =======================
 
