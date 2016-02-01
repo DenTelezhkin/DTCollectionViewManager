@@ -107,6 +107,48 @@
 			remoteGlobalIDString = 9AE671481AEE61F800B25A5F;
 			remoteInfo = DTCollectionViewManager;
 		};
+		9A16AFC01C5FC0B100643BC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A52AAB21C3C0A1F0067FD84 /* Nimble.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F1A74281940169200FFFC47;
+			remoteInfo = "Nimble-iOS";
+		};
+		9A16AFCC1C5FC0B600643BC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A52AAA31C3C0A140067FD84 /* DTModelStorage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A2A385A1AEE24340021E97D;
+			remoteInfo = "DTModelStorage-iOS";
+		};
+		9A16AFCE1C5FC0BC00643BC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A52AAA31C3C0A140067FD84 /* DTModelStorage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A2A385A1AEE24340021E97D;
+			remoteInfo = "DTModelStorage-iOS";
+		};
+		9A16AFD01C5FC0C300643BC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A52AAA31C3C0A140067FD84 /* DTModelStorage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A4C3BBB1BE4E32B000931BA;
+			remoteInfo = "DTModelStorage-tvOS";
+		};
+		9A16AFD21C5FC0C700643BC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A52AAB21C3C0A1F0067FD84 /* Nimble.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 1F5DF1541BDCA0CE00C3A531;
+			remoteInfo = "Nimble-tvOS";
+		};
+		9A16AFD41C5FC0CB00643BC7 /* PBXContainerItemProxy */ = {
+			isa = PBXContainerItemProxy;
+			containerPortal = 9A52AAA31C3C0A140067FD84 /* DTModelStorage.xcodeproj */;
+			proxyType = 1;
+			remoteGlobalIDString = 9A4C3BBB1BE4E32B000931BA;
+			remoteInfo = "DTModelStorage-tvOS";
+		};
 		9A423E6B1BE5FBB800A81045 /* PBXContainerItemProxy */ = {
 			isa = PBXContainerItemProxy;
 			containerPortal = 955F857A179ACAF000A38EAD /* Project object */;
@@ -566,6 +608,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				9A16AFCD1C5FC0B600643BC7 /* PBXTargetDependency */,
+				9A16AFC11C5FC0B100643BC7 /* PBXTargetDependency */,
 				9A08A9C81B8A248F00877C62 /* PBXTargetDependency */,
 			);
 			name = "Tests-iOS";
@@ -583,6 +627,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9A16AFD11C5FC0C300643BC7 /* PBXTargetDependency */,
 			);
 			name = "DTCollectionViewManager-tvOS";
 			productName = "DTCollectionViewManager-tvOS";
@@ -600,6 +645,8 @@
 			buildRules = (
 			);
 			dependencies = (
+				9A16AFD51C5FC0CB00643BC7 /* PBXTargetDependency */,
+				9A16AFD31C5FC0C700643BC7 /* PBXTargetDependency */,
 				9A423E6C1BE5FBB800A81045 /* PBXTargetDependency */,
 			);
 			name = "Tests-tvOS";
@@ -617,6 +664,7 @@
 			buildRules = (
 			);
 			dependencies = (
+				9A16AFCF1C5FC0BC00643BC7 /* PBXTargetDependency */,
 			);
 			name = "DTCollectionViewManager-iOS";
 			productName = DTCollectionViewManager;
@@ -897,6 +945,36 @@
 			isa = PBXTargetDependency;
 			target = 9AE671481AEE61F800B25A5F /* DTCollectionViewManager-iOS */;
 			targetProxy = 9A08A9C71B8A248F00877C62 /* PBXContainerItemProxy */;
+		};
+		9A16AFC11C5FC0B100643BC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Nimble-iOS";
+			targetProxy = 9A16AFC01C5FC0B100643BC7 /* PBXContainerItemProxy */;
+		};
+		9A16AFCD1C5FC0B600643BC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "DTModelStorage-iOS";
+			targetProxy = 9A16AFCC1C5FC0B600643BC7 /* PBXContainerItemProxy */;
+		};
+		9A16AFCF1C5FC0BC00643BC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "DTModelStorage-iOS";
+			targetProxy = 9A16AFCE1C5FC0BC00643BC7 /* PBXContainerItemProxy */;
+		};
+		9A16AFD11C5FC0C300643BC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "DTModelStorage-tvOS";
+			targetProxy = 9A16AFD01C5FC0C300643BC7 /* PBXContainerItemProxy */;
+		};
+		9A16AFD31C5FC0C700643BC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "Nimble-tvOS";
+			targetProxy = 9A16AFD21C5FC0C700643BC7 /* PBXContainerItemProxy */;
+		};
+		9A16AFD51C5FC0CB00643BC7 /* PBXTargetDependency */ = {
+			isa = PBXTargetDependency;
+			name = "DTModelStorage-tvOS";
+			targetProxy = 9A16AFD41C5FC0CB00643BC7 /* PBXContainerItemProxy */;
 		};
 		9A423E6C1BE5FBB800A81045 /* PBXTargetDependency */ = {
 			isa = PBXTargetDependency;
