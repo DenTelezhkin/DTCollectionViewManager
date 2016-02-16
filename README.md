@@ -27,7 +27,7 @@ Powerful protocol-oriented UICollectionView management framework, written in Swi
 
 ## Requirements
 
-* XCode 7 and higher
+* Xcode 7 and higher
 * iOS 8 and higher / tvOS 9.0 and higher
 * Swift 2
 
@@ -41,7 +41,7 @@ Powerful protocol-oriented UICollectionView management framework, written in Swi
 
     github "DenHeadless/DTCollectionViewManager"  ~> 4.5.0
 
-After running `carthage update` drop DTCollectionViewManager.framework and DTModelStorage.framework to XCode project embedded binaries.
+After running `carthage update` drop DTCollectionViewManager.framework and DTModelStorage.framework to Xcode project embedded binaries.
 
 ## Quick start
 
