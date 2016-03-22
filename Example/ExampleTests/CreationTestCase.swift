@@ -76,6 +76,6 @@ class CreationTestCase: XCTestCase {
         foo.manager = manager
         foo.manager.startManagingWithDelegate(foo)
         
-        expect(foo.manager === manager)
+        expect(foo.manager === manager).to(beTruthy())
     }
 }

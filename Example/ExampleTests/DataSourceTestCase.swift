@@ -143,7 +143,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.deleteSections(NSIndexSet(index: 1))
         
         expect(self.controller.manager.memoryStorage.sections.count) == 2
-        expect(self.controller.verifySection([2], withSectionNumber: 1))
+        expect(self.controller.verifySection([2], withSectionNumber: 1)).to(beTruthy())
     }
     
     

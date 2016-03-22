@@ -41,7 +41,7 @@ class SectionsViewController: UIViewController, DTCollectionViewManageable, UICo
     
     @IBAction func addSection()
     {
-        sectionNumber++
+        sectionNumber += 1
         let nextSection = manager.memoryStorage.sections.count > 0 ? manager.memoryStorage.sections.count : 0
         
         let section = SectionModel()
