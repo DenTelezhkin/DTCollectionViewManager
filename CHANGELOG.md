@@ -1,9 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Master
+## [4.6.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.6.0)
+
+Dependency changelog -> [DTModelStorage 2.5 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
+
+### Breaking
 
 * Update to Swift 2.2. This release is not backwards compatible with Swift 2.1.
+
+### Changed
+
 * Require Only-App-Extension-Safe API is set to YES in framework targets.
 
 ## [4.5.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.5.0)
