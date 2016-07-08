@@ -1,6 +1,16 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## Master
+
+### Changed
+
+* Now all view registration methods use `NSBundle(forClass:)` constructor, instead of falling back on `DTCollectionViewManager` `viewBundle` property. This allows having cells from separate bundles or frameworks to be used with single `DTCollectionViewManager` instance.
+
+### Deprecations
+
+* `viewBundle` property on `DTCollectionViewManager`
+
 ## [4.7.0](https://github.com/DenHeadless/DTTableViewManager/releases/tag/4.7.0)
 
 Dependency changelog -> [DTModelStorage 2.6.0 and higher](https://github.com/DenHeadless/DTModelStorage/releases)

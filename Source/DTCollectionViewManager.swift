@@ -75,12 +75,8 @@ public class DTCollectionViewManager : NSObject {
     }()
     
     /// Bundle to search your xib's in. This can sometimes be useful for unit-testing. Defaults to NSBundle.mainBundle()
+    @available(*,deprecated,message="Using this property makes no effect, bundle is now determined automatically")
     public var viewBundle = NSBundle.mainBundle()
-        {
-        didSet {
-            viewFactory.bundle = viewBundle
-        }
-    }
     
     /// Boolean property, that indicates whether batch updates are completed. 
     /// - Note: this can be useful if you are deciding whether to run another batch of animations - insertion, deletions etc. UICollectionView is not very tolerant to multiple performBatchUpdates, executed at once.

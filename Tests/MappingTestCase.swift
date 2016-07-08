@@ -19,7 +19,6 @@ class MappingTestCase: XCTestCase {
         super.setUp()
         let _ = controller.view
         controller.manager.startManagingWithDelegate(controller)
-        controller.manager.viewBundle = NSBundle(forClass: self.dynamicType)
         controller.manager.storage = MemoryStorage()
     }
     
@@ -116,7 +115,6 @@ class NibNameViewModelMappingTestCase : XCTestCase {
     override func setUp() {
         super.setUp()
         factory = CollectionViewFactory(collectionView: UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout()))
-        factory.bundle = NSBundle(forClass: self.dynamicType)
     }
     
     func testRegisterCellWithoutNibYieldsNoXibName() {

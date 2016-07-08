@@ -44,7 +44,6 @@ class ReactingToEventsTestCase: XCTestCase {
         controller = ReactingTestCollectionViewController()
         let _ = controller.view
         controller.manager.startManagingWithDelegate(controller)
-        controller.manager.viewBundle = NSBundle(forClass: self.dynamicType)
         controller.manager.storage = MemoryStorage()
     }
     

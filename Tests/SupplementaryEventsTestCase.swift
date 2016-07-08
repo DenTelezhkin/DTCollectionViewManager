@@ -42,7 +42,6 @@ class SupplementaryEventsTestCase: XCTestCase {
         controller = ReactingSupplementaryCollectionController()
         let _ = controller.view
         controller.manager.startManagingWithDelegate(controller)
-        controller.manager.viewBundle = NSBundle(forClass: self.dynamicType)
         controller.manager.memoryStorage.configureForCollectionViewFlowLayoutUsage()
     }
     
