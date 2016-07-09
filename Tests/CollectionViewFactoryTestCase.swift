@@ -26,9 +26,9 @@ class CollectionViewFactoryTestCase: XCTestCase {
     func testCellForModelNilModelError() {
         let model: Int? = nil
         do {
-            try controller.manager.viewFactory.cellForModel(model, atIndexPath: indexPath(0, 0))
-        } catch DTCollectionViewFactoryError.NilCellModel(let indexPath) {
-            expect(indexPath) == NSIndexPath(forItem: 0, inSection: 0)
+            try _ = controller.manager.viewFactory.cellForModel(model, atIndexPath: indexPath(0, 0))
+        } catch DTCollectionViewFactoryError.nilCellModel(let indexPath) {
+            expect(indexPath) == IndexPath(item: 0, section: 0)
         } catch {
             XCTFail()
         }
@@ -36,8 +36,8 @@ class CollectionViewFactoryTestCase: XCTestCase {
     
     func testNoMappingsFound() {
         do {
-            try controller.manager.viewFactory.cellForModel(1, atIndexPath: indexPath(0, 0))
-        } catch DTCollectionViewFactoryError.NoCellMappings(let model) {
+            try _ = controller.manager.viewFactory.cellForModel(1, atIndexPath: indexPath(0, 0))
+        } catch DTCollectionViewFactoryError.noCellMappings(let model) {
             expect(model as? Int) == 1
         } catch {
             XCTFail()
@@ -47,10 +47,10 @@ class CollectionViewFactoryTestCase: XCTestCase {
     func testNilHeaderFooterModel() {
         let model: Int? = nil
         do {
-            try controller.manager.viewFactory.supplementaryViewOfKind("Foo", forModel: model, atIndexPath: indexPath(0, 0))
-        } catch DTCollectionViewFactoryError.NilSupplementaryModel(let kind, let indexPath) {
+            try _ = controller.manager.viewFactory.supplementaryViewOfKind("Foo", forModel: model, atIndexPath: indexPath(0, 0))
+        } catch DTCollectionViewFactoryError.nilSupplementaryModel(let kind, let indexPath) {
             expect(kind) == "Foo"
-            expect(indexPath) == NSIndexPath(forItem: 0, inSection: 0)
+            expect(indexPath) == IndexPath(item: 0, section: 0)
         } catch {
             XCTFail()
         }
@@ -58,8 +58,8 @@ class CollectionViewFactoryTestCase: XCTestCase {
     
     func testNoSupplementaryViewMapping() {
         do {
-            try controller.manager.viewFactory.supplementaryViewOfKind("Foo", forModel: "Bar", atIndexPath: indexPath(0, 0))
-        } catch DTCollectionViewFactoryError.NoSupplementaryViewMapping(let kind, let model) {
+            try _ = controller.manager.viewFactory.supplementaryViewOfKind("Foo", forModel: "Bar", atIndexPath: indexPath(0, 0))
+        } catch DTCollectionViewFactoryError.noSupplementaryViewMapping(let kind, let model) {
             expect(kind) == "Foo"
             expect(model as? String) == "Bar"
         } catch {

@@ -11,7 +11,7 @@ import DTModelStorage
 
 class SolidColorCollectionCell: UICollectionViewCell, ModelTransfer {
 
-    func updateWithModel(model: UIColor) {
+    func updateWithModel(_ model: UIColor) {
         self.backgroundColor = model
     }
 

@@ -11,7 +11,7 @@ import DTModelStorage
 
 class StoryboardCollectionViewCell: UICollectionViewCell, ModelTransfer {
     @IBOutlet weak var storyboardLabel: UILabel!
-    func updateWithModel(model: Int) {
+    func updateWithModel(_ model: Int) {
         
     }
 }

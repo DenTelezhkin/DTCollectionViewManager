@@ -11,14 +11,14 @@ import DTModelStorage
 
 class StoryboardCollectionReusableHeaderView: UICollectionReusableView, ModelTransfer {
     @IBOutlet weak var storyboardLabel: UILabel!
-    func updateWithModel(model: String) {
+    func updateWithModel(_ model: String) {
         
     }
 }
 
 class StoryboardCollectionReusableFooterView: UICollectionReusableView, ModelTransfer {
     @IBOutlet weak var storyboardLabel: UILabel!
-    func updateWithModel(model: String) {
+    func updateWithModel(_ model: String) {
         
     }
 }

@@ -14,7 +14,7 @@ class ReactingHeaderFooterView : UICollectionReusableView, ModelTransfer
     var sectionIndex: Int?
     var model : String?
     
-    func updateWithModel(model: String) {
+    func updateWithModel(_ model: String) {
         self.model = model
     }
 }

@@ -33,7 +33,7 @@ class MappingTestCase: XCTestCase {
     
     func testOptionalUnwrapping()
     {
-        controller.manager.registerCellClass(NibCell)
+        controller.manager.registerCellClass(NibCell.self)
         
         let intOptional : Int? = 3
         controller.manager.memoryStorage.addItem(intOptional, toSection: 0)
@@ -43,7 +43,7 @@ class MappingTestCase: XCTestCase {
     
     func testSeveralLevelsOfOptionalUnwrapping()
     {
-        controller.manager.registerCellClass(NibCell)
+        controller.manager.registerCellClass(NibCell.self)
         
         let intOptional : Int?? = 3
         controller.manager.memoryStorage.addItem(intOptional, toSection: 0)
@@ -53,7 +53,7 @@ class MappingTestCase: XCTestCase {
     
     func testNiblessMapping()
     {
-        controller.manager.registerNiblessCellClass(StringCell)
+        controller.manager.registerNiblessCellClass(StringCell.self)
         controller.manager.memoryStorage.addItem("foo")
         
         expect(self.controller.manager.memoryStorage.itemAtIndexPath(indexPath(0, 0)) as? String) == "foo"
@@ -114,17 +114,17 @@ class NibNameViewModelMappingTestCase : XCTestCase {
     
     override func setUp() {
         super.setUp()
-        factory = CollectionViewFactory(collectionView: UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout()))
+        factory = CollectionViewFactory(collectionView: UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout()))
     }
     
     func testRegisterCellWithoutNibYieldsNoXibName() {
-        factory.registerCellClass(NiblessCell)
+        factory.registerCellClass(NiblessCell.self)
         
         expect(self.factory.mappings.first?.xibName).to(beNil())
     }
     
     func testCellWithXibHasXibNameInMapping() {
-        factory.registerCellClass(NibCell)
+        factory.registerCellClass(NibCell.self)
         
         expect(self.factory.mappings.first?.xibName) == "NibCell"
     }

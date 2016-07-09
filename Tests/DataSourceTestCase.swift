@@ -21,7 +21,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.startManagingWithDelegate(controller)
         controller.manager.storage = MemoryStorage()
         
-        controller.manager.registerCellClass(NibCell)
+        controller.manager.registerCellClass(NibCell.self)
     }
     
     func testCollectionItemAtIndexPath()
@@ -49,7 +49,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItem(4, toSection: 3)
         controller.manager.memoryStorage.addItem(2, toSection: 2)
         
-        expect(self.controller.manager.numberOfSectionsInCollectionView(self.controller.collectionView!)) == 4
+        expect(self.controller.manager.numberOfSections(in: self.controller.collectionView!)) == 4
     }
     
     func testShouldAddTableItems()
@@ -139,7 +139,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItem(1, toSection: 1)
         controller.manager.memoryStorage.addItem(2, toSection: 2)
         
-        controller.manager.memoryStorage.deleteSections(NSIndexSet(index: 1))
+        controller.manager.memoryStorage.deleteSections(IndexSet(integer: 1))
         
         expect(self.controller.manager.memoryStorage.sections.count) == 2
         expect(self.controller.verifySection([2], withSectionNumber: 1)).to(beTruthy())
@@ -185,7 +185,7 @@ class DataSourceTestCase: XCTestCase {
     
     func testObjectForCellAtIndexPathGenericConversion()
     {
-        controller.manager.registerCellClass(NibCell)
+        controller.manager.registerCellClass(NibCell.self)
         controller.manager.memoryStorage.addItem(1, toSection: 0)
         
         if let object = controller.manager.storage.itemForCellClass(NibCell.self, atIndexPath: indexPath(0, 0))
@@ -198,7 +198,7 @@ class DataSourceTestCase: XCTestCase {
     }
     
     func testObjectForCell() {
-        controller.manager.registerCellClass(NibCell)
+        controller.manager.registerCellClass(NibCell.self)
         controller.manager.memoryStorage.addItem(1, toSection: 0)
         
         if let object = controller.manager.itemForCellClass(NibCell.self, atIndexPath: indexPath(0, 0))
@@ -212,7 +212,7 @@ class DataSourceTestCase: XCTestCase {
     
     func testObjectAtIndexPathGenericConversionFailsForNil()
     {
-        controller.manager.registerCellClass(NibCell)
+        controller.manager.registerCellClass(NibCell.self)
         controller.manager.memoryStorage.addItem(1, toSection: 0)
         
         if let _ = controller.manager.storage.itemForCellClass(StringCell.self, atIndexPath: indexPath(0, 0))

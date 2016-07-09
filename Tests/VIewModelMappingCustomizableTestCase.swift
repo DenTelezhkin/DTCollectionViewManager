@@ -15,31 +15,31 @@ class CustomizableViewController: DTSupplementaryTestCollectionController, DTVie
     
     var mappingSelectableBlock : (([ViewModelMapping], Any) -> ViewModelMapping?)?
     
-    func viewModelMappingFromCandidates(candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping? {
+    func viewModelMappingFromCandidates(_ candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping? {
         return mappingSelectableBlock?(candidates, model)
     }
 }
 
 class IntCell : UICollectionViewCell, ModelTransfer {
-    func updateWithModel(model: Int) {
+    func updateWithModel(_ model: Int) {
         
     }
 }
 
 class AnotherIntCell : UICollectionViewCell, ModelTransfer {
-    func updateWithModel(model: Int) {
+    func updateWithModel(_ model: Int) {
         
     }
 }
 
 class IntHeader: UICollectionReusableView, ModelTransfer {
-    func updateWithModel(model: Int) {
+    func updateWithModel(_ model: Int) {
         
     }
 }
 
 class AnotherIntHeader: UICollectionReusableView, ModelTransfer {
-    func updateWithModel(model: Int) {
+    func updateWithModel(_ model: Int) {
         
     }
 }
@@ -58,15 +58,15 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
     }
     
     func testMappingCustomizableAllowsSelectingAnotherCellMapping() {
-        controller.manager.registerNiblessCellClass(IntCell)
-        controller.manager.registerNiblessCellClass(AnotherIntCell)
+        controller.manager.registerNiblessCellClass(IntCell.self)
+        controller.manager.registerNiblessCellClass(AnotherIntCell.self)
         controller.mappingSelectableBlock = { mappings, model in
             return mappings.last
         }
         
         controller.manager.memoryStorage.addItem(3)
         
-        let cell = controller.manager.collectionView(controller.collectionView!, cellForItemAtIndexPath: indexPath(0, 0))
+        let cell = controller.manager.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0))
         
         expect(cell is AnotherIntCell).to(beTrue())
     }
@@ -82,7 +82,7 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
         
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        expect(self.controller.manager.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, atIndexPath: indexPath(0, 0))).to(beAKindOf(AnotherIntHeader))
+        expect(self.controller.manager.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at: indexPath(0, 0))).to(beAKindOf(AnotherIntHeader.self))
     }
     
     func testMappingCustomizableAllowsSelectingAnotherFooterMapping() {
@@ -96,6 +96,6 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
         
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        expect(self.controller.manager.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, atIndexPath: indexPath(0, 0))).to(beAKindOf(AnotherIntHeader))
+        expect(self.controller.manager.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, at: indexPath(0, 0))).to(beAKindOf(AnotherIntHeader.self))
     }
 }

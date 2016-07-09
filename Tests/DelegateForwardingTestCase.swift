@@ -17,18 +17,18 @@ class DelegateCollectionViewController: DTSupplementaryTestCollectionController,
     var footerHeightRequested = false
     var delegateMethodCalled = false
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize
     {
         headerHeightRequested = true
         return CGSize(width: 200, height: 300)
     }
 
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
         footerHeightRequested = true
         return CGSize(width: 200, height: 300)
     }
     
-    func collectionView(collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAtIndexPath indexPath: NSIndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
         delegateMethodCalled = true
         return CGSize(width: 20, height: 50)
     }
@@ -57,7 +57,7 @@ class DelegateForwardingTestCase: XCTestCase {
     }
     
     func testDelegateMethodIsCalled() {
-        controller.manager.registerNiblessCellClass(NiblessCell)
+        controller.manager.registerNiblessCellClass(NiblessCell.self)
         controller.manager.registerNiblessSupplementaryClass(NiblessHeaderFooterView.self, forKind: UICollectionElementKindSectionHeader)
         controller.manager.registerNiblessSupplementaryClass(NiblessHeaderFooterView.self, forKind: UICollectionElementKindSectionFooter)
         let section = SectionModel()

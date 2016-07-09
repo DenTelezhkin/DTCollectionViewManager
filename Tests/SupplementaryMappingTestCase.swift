@@ -29,7 +29,7 @@ class SupplementaryMappingTestCase: XCTestCase {
         
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, atIndexPath:  indexPath(0, 0))
+        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at:  indexPath(0, 0))
         expect(view).to(beAKindOf(NibHeaderFooterView.self))
     }
     
@@ -39,19 +39,19 @@ class SupplementaryMappingTestCase: XCTestCase {
         
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, atIndexPath:  indexPath(0, 0))
+        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, at:  indexPath(0, 0))
         expect(view).to(beAKindOf(NibHeaderFooterView.self))
     }
     
     func testHeaderMappingFromHeaderFooterView()
     {
-        controller.manager.registerHeaderClass(NibHeaderFooterView)
+        controller.manager.registerHeaderClass(NibHeaderFooterView.self)
         verifyHeader()
     }
     
     func testFooterMappingFromHeaderFooterView()
     {
-        controller.manager.registerFooterClass(NibHeaderFooterView)
+        controller.manager.registerFooterClass(NibHeaderFooterView.self)
         verifyFooter()
     }
     
@@ -86,7 +86,7 @@ class SupplementaryMappingTestCase: XCTestCase {
         
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, atIndexPath:  indexPath(0, 0))
+        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at:  indexPath(0, 0))
         expect(view).to(beAKindOf(NiblessHeaderFooterView.self))
     }
 }

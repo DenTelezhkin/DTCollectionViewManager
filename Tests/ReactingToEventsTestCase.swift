@@ -13,22 +13,22 @@ import DTCollectionViewManager
 
 class ReactingTestCollectionViewController: DTCellTestCollectionController
 {
-    var indexPath : NSIndexPath?
+    var indexPath : IndexPath?
     var model: Int?
     var text : String?
     
-    func cellConfiguration(cell: SelectionReactingCollectionCell, model: Int, indexPath: NSIndexPath) {
+    func cellConfiguration(_ cell: SelectionReactingCollectionCell, model: Int, indexPath: IndexPath) {
         cell.indexPath = indexPath
         cell.model = model
         cell.textLabel?.text = "Foo"
     }
     
-    func headerConfiguration(header: ReactingHeaderFooterView, model: String, sectionIndex: Int) {
+    func headerConfiguration(_ header: ReactingHeaderFooterView, model: String, sectionIndex: Int) {
         header.model = "Bar"
         header.sectionIndex = sectionIndex
     }
     
-    func cellSelection(cell: SelectionReactingCollectionCell, model: Int, indexPath: NSIndexPath) {
+    func cellSelection(_ cell: SelectionReactingCollectionCell, model: Int, indexPath: IndexPath) {
         self.indexPath = indexPath
         self.model = model
         self.text = "Bar"
@@ -49,7 +49,7 @@ class ReactingToEventsTestCase: XCTestCase {
     
     func testCellSelectionClosure()
     {
-        controller.manager.registerCellClass(SelectionReactingCollectionCell)
+        controller.manager.registerCellClass(SelectionReactingCollectionCell.self)
         var reactingCell : SelectionReactingCollectionCell?
         controller.manager.whenSelected(SelectionReactingCollectionCell.self) { (cell, model, indexPath) in
             cell.indexPath = indexPath
@@ -58,7 +58,7 @@ class ReactingToEventsTestCase: XCTestCase {
         }
         
         controller.manager.memoryStorage.addItems([1,2], toSection: 0)
-        controller.manager.collectionView(controller.collectionView!, didSelectItemAtIndexPath: indexPath(1, 0))
+        controller.manager.collectionView(controller.collectionView!, didSelectItemAt: indexPath(1, 0))
         
         expect(reactingCell?.indexPath) == indexPath(1, 0)
         expect(reactingCell?.model) == 2
@@ -66,12 +66,12 @@ class ReactingToEventsTestCase: XCTestCase {
     
     func testCellSelectionMethodPointer()
     {
-        controller.manager.registerCellClass(SelectionReactingCollectionCell)
+        controller.manager.registerCellClass(SelectionReactingCollectionCell.self)
         
         controller.manager.cellSelection(ReactingTestCollectionViewController.self.cellSelection)
         
         controller.manager.memoryStorage.addItems([1,2], toSection: 0)
-        controller.manager.collectionView(controller.collectionView!, didSelectItemAtIndexPath: indexPath(1, 0))
+        controller.manager.collectionView(controller.collectionView!, didSelectItemAt: indexPath(1, 0))
         expect(self.controller.indexPath) == indexPath(1, 0)
         expect(self.controller.model) == 2
         expect(self.controller.text) == "Bar"
@@ -79,7 +79,7 @@ class ReactingToEventsTestCase: XCTestCase {
     
     func testCellConfigurationClosure()
     {
-        controller.manager.registerCellClass(SelectionReactingCollectionCell)
+        controller.manager.registerCellClass(SelectionReactingCollectionCell.self)
         
         var reactingCell : SelectionReactingCollectionCell?
         
@@ -91,7 +91,7 @@ class ReactingToEventsTestCase: XCTestCase {
         })
         
         controller.manager.memoryStorage.addItem(2, toSection: 0)
-        controller.manager.collectionView(controller.collectionView!, cellForItemAtIndexPath: indexPath(0, 0))
+        _ = controller.manager.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0))
         
         expect(reactingCell?.indexPath) == indexPath(0, 0)
         expect(reactingCell?.model) == 2
@@ -100,10 +100,10 @@ class ReactingToEventsTestCase: XCTestCase {
     
     func testCellConfigurationMethodPointer()
     {
-        controller.manager.registerCellClass(SelectionReactingCollectionCell)
+        controller.manager.registerCellClass(SelectionReactingCollectionCell.self)
         controller.manager.cellConfiguration(ReactingTestCollectionViewController.self.cellConfiguration)
         controller.manager.memoryStorage.addItem(2, toSection: 0)
-        let reactingCell = controller.manager.collectionView(controller.collectionView!, cellForItemAtIndexPath: indexPath(0, 0)) as? SelectionReactingCollectionCell
+        let reactingCell = controller.manager.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0)) as? SelectionReactingCollectionCell
         
         expect(reactingCell?.indexPath) == indexPath(0, 0)
         expect(reactingCell?.model) == 2
@@ -155,7 +155,7 @@ class ReactingToEventsTestCase: XCTestCase {
         })
         
         controller.manager.memoryStorage.addItems([1,2], toSection: 0)
-        controller.manager.collectionView(controller.collectionView!, didSelectItemAtIndexPath: indexPath(1, 0))
+        controller.manager.collectionView(controller.collectionView!, didSelectItemAt: indexPath(1, 0))
         
         expect(reactingCell?.indexPath) == indexPath(1, 0)
         expect(reactingCell?.model) == 2
