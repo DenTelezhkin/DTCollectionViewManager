@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 ## Master
 
+### Added
+
+* `isManagingCollectionView` property on `DTCollectionViewManager`.
+
 ### Changed
 
 * Now all view registration methods use `NSBundle(forClass:)` constructor, instead of falling back on `DTCollectionViewManager` `viewBundle` property. This allows having cells from separate bundles or frameworks to be used with single `DTCollectionViewManager` instance.

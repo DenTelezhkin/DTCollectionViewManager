@@ -68,9 +68,14 @@ public class DTCollectionViewManager : NSObject {
     
     private weak var delegate : DTCollectionViewManageable?
     
+    /// Bool property, that will be true, after `startManagingWithDelegate` method is called on `DTCollectionViewManager`.
+    public var isManagingCollectionView : Bool {
+        return collectionView != nil
+    }
+    
     ///  Factory for creating cells and reusable views for UICollectionView
     lazy var viewFactory: CollectionViewFactory = {
-        precondition(self.collectionView != nil, "Please call manager.startManagingWithDelegate(self) before calling any other DTCollectionViewManager methods")
+        precondition(self.isManagingCollectionView, "Please call manager.startManagingWithDelegate(self) before calling any other DTCollectionViewManager methods")
         return CollectionViewFactory(collectionView: self.collectionView!)
     }()
     
