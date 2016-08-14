@@ -29,7 +29,7 @@ import DTModelStorage
 
 /// Errors, that can be thrown by `CollectionViewFactory` if it fails to create a cell or supplementary view because of various reasons. 
 /// These errors are handled by `DTCollectionViewManager` class.
-public enum DTCollectionViewFactoryError : ErrorProtocol, CustomStringConvertible
+public enum DTCollectionViewFactoryError : Error, CustomStringConvertible
 {
     case nilCellModel(IndexPath)
     case nilSupplementaryModel(kind: String, indexPath: IndexPath)
@@ -129,13 +129,10 @@ extension CollectionViewFactory
 {
     func cellForModel(_ model: Any, atIndexPath indexPath:IndexPath) throws -> UICollectionViewCell
     {
-        guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
-            throw DTCollectionViewFactoryError.nilCellModel(indexPath)
-        }
-        let mappingCandidates = mappings.mappingCandidatesForViewType(.cell, model: unwrappedModel)
+        let mappingCandidates = mappings.mappingCandidatesForViewType(.cell, model: model)
         let mapping : ViewModelMapping?
         
-        if let customizedMapping = mappingCustomizableDelegate?.viewModelMappingFromCandidates(mappingCandidates, forModel: unwrappedModel) {
+        if let customizedMapping = mappingCustomizableDelegate?.viewModelMappingFromCandidates(mappingCandidates, forModel: model) {
             mapping = customizedMapping
         } else if let defaultMapping = mappingCandidates.first {
             mapping = defaultMapping
@@ -144,10 +141,10 @@ extension CollectionViewFactory
         if mapping != nil {
             let cellClassName = String(mapping!.viewClass)
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellClassName, for: indexPath)
-            mapping?.updateBlock(cell, unwrappedModel)
+            mapping?.updateBlock(cell, model)
             return cell
         }
-        throw DTCollectionViewFactoryError.noCellMappings(model: unwrappedModel)
+        throw DTCollectionViewFactoryError.noCellMappings(model: model)
     }
 
     func supplementaryViewOfKind(_ kind: String, forModel model: Any, atIndexPath indexPath: IndexPath) throws -> UICollectionReusableView

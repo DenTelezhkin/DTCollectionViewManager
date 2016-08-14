@@ -9,11 +9,15 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+* Event system is migrated to new `EventReaction` class from `DTModelStorage`
 * Now all view registration methods use `NSBundle(forClass:)` constructor, instead of falling back on `DTCollectionViewManager` `viewBundle` property. This allows having cells from separate bundles or frameworks to be used with single `DTCollectionViewManager` instance.
 
-### Deprecations
+### Removals
 
 * `viewBundle` property on `DTCollectionViewManager`
+* `itemForVisibleCell`, `itemForCellClass:atIndexPath:`, `itemForHeaderClass:atSectionIndex:`, `itemForFooterClass:atSectionIndex:` were removed - they were not particularly useful and can be replaced with much shorter Swift conditional typecasts.
+* All events methods with method pointer semantics. Please use block based methods instead.
+* `registerCellClass:whenSelected` method, that was tightly coupling something that did not need coupling.
 
 ## [4.7.0](https://github.com/DenHeadless/DTTableViewManager/releases/tag/4.7.0)
 

@@ -76,32 +76,4 @@ class SupplementaryEventsTestCase: XCTestCase {
         
         expect((view as? ReactingHeaderFooterView)?.model) == "FooBar"
     }
-    
-    func testHeaderConfigurationMethodPointer()
-    {
-        controller.manager.registerHeaderClass(ReactingHeaderFooterView.self)
-        (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
-        controller.manager.headerConfiguration(ReactingSupplementaryCollectionController.self.headerConfiguration)
-        controller.manager.memoryStorage.setSectionHeaderModels(["1"])
-        
-        controller.collectionView?.performBatchUpdates(nil, completion: nil)
-        
-        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at:  indexPath(0, 0))
-        
-        expect((view as? ReactingHeaderFooterView)?.model) == "Foo"
-    }
-    
-    func testFooterConfigurationMethodPointer()
-    {
-        controller.manager.registerFooterClass(ReactingHeaderFooterView.self)
-        (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize = CGSize(width: 320, height: 50)
-        controller.manager.footerConfiguration(ReactingSupplementaryCollectionController.self.footerConfiguration)
-        controller.manager.memoryStorage.setSectionFooterModels(["1"])
-        
-        controller.collectionView?.performBatchUpdates(nil, completion: nil)
-        
-        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, at:  indexPath(0, 0))
-        
-        expect((view as? ReactingHeaderFooterView)?.model) == "Bar"
-    }
 }

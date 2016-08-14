@@ -23,17 +23,6 @@ class CollectionViewFactoryTestCase: XCTestCase {
         controller.manager.storage = MemoryStorage()
     }
     
-    func testCellForModelNilModelError() {
-        let model: Int? = nil
-        do {
-            try _ = controller.manager.viewFactory.cellForModel(model, atIndexPath: indexPath(0, 0))
-        } catch DTCollectionViewFactoryError.nilCellModel(let indexPath) {
-            expect(indexPath) == IndexPath(item: 0, section: 0)
-        } catch {
-            XCTFail()
-        }
-    }
-    
     func testNoMappingsFound() {
         do {
             try _ = controller.manager.viewFactory.cellForModel(1, atIndexPath: indexPath(0, 0))

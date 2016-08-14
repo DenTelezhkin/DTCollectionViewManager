@@ -51,7 +51,7 @@ class ReactingToEventsTestCase: XCTestCase {
     {
         controller.manager.registerCellClass(SelectionReactingCollectionCell.self)
         var reactingCell : SelectionReactingCollectionCell?
-        controller.manager.whenSelected(SelectionReactingCollectionCell.self) { (cell, model, indexPath) in
+        controller.manager.didSelect(SelectionReactingCollectionCell.self) { (cell, model, indexPath) in
             cell.indexPath = indexPath
             cell.model = model
             reactingCell = cell
@@ -62,19 +62,6 @@ class ReactingToEventsTestCase: XCTestCase {
         
         expect(reactingCell?.indexPath) == indexPath(1, 0)
         expect(reactingCell?.model) == 2
-    }
-    
-    func testCellSelectionMethodPointer()
-    {
-        controller.manager.registerCellClass(SelectionReactingCollectionCell.self)
-        
-        controller.manager.cellSelection(ReactingTestCollectionViewController.self.cellSelection)
-        
-        controller.manager.memoryStorage.addItems([1,2], toSection: 0)
-        controller.manager.collectionView(controller.collectionView!, didSelectItemAt: indexPath(1, 0))
-        expect(self.controller.indexPath) == indexPath(1, 0)
-        expect(self.controller.model) == 2
-        expect(self.controller.text) == "Bar"
     }
     
     func testCellConfigurationClosure()
@@ -92,18 +79,6 @@ class ReactingToEventsTestCase: XCTestCase {
         
         controller.manager.memoryStorage.addItem(2, toSection: 0)
         _ = controller.manager.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0))
-        
-        expect(reactingCell?.indexPath) == indexPath(0, 0)
-        expect(reactingCell?.model) == 2
-        expect(reactingCell?.textLabel?.text) == "Foo"
-    }
-    
-    func testCellConfigurationMethodPointer()
-    {
-        controller.manager.registerCellClass(SelectionReactingCollectionCell.self)
-        controller.manager.cellConfiguration(ReactingTestCollectionViewController.self.cellConfiguration)
-        controller.manager.memoryStorage.addItem(2, toSection: 0)
-        let reactingCell = controller.manager.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0)) as? SelectionReactingCollectionCell
         
         expect(reactingCell?.indexPath) == indexPath(0, 0)
         expect(reactingCell?.model) == 2
@@ -144,21 +119,31 @@ class ReactingToEventsTestCase: XCTestCase {
 //        expect(reactingFooter?.model) == "Bar"
 //    }
     
-    func testCellRegisterSelectionClosure()
-    {
-        var reactingCell : SelectionReactingCollectionCell?
-        
-        controller.manager.registerCellClass(SelectionReactingCollectionCell.self, whenSelected: { (cell, model, indexPath) in
-            cell.indexPath = indexPath
-            cell.model = model
-            reactingCell = cell
-        })
-        
-        controller.manager.memoryStorage.addItems([1,2], toSection: 0)
-        controller.manager.collectionView(controller.collectionView!, didSelectItemAt: indexPath(1, 0))
-        
-        expect(reactingCell?.indexPath) == indexPath(1, 0)
-        expect(reactingCell?.model) == 2
+    
+}
+
+class ReactingToEventsFastTestCase : XCTestCase {
+    var sut : DTCellTestCollectionController!
+    
+    override func setUp() {
+        super.setUp()
+        sut = DTCellTestCollectionController()
+        let _ = sut.view
+        sut.manager.startManagingWithDelegate(sut)
+        sut.manager.storage = MemoryStorage()
+        sut.manager.registerCellClass(NibCell.self)
     }
     
+    @available(iOS 9.0, tvOS 9.0, *)
+    func testCanMoveItemAtIndexPath() {
+        let exp = expectation(description: "canMoveItemAtIndexPath")
+        sut.manager.canMove(NibCell.self, { cell, model, indexPath -> Bool in
+            exp.fulfill()
+            return false
+        })
+        sut.manager.memoryStorage.addItem(3)
+        
+        _ = sut.manager.collectionView(sut.collectionView!, canMoveItemAt: indexPath(0,0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
 }
