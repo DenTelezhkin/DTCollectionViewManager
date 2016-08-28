@@ -285,7 +285,7 @@ internal enum EventMethodSignature: String {
 }
 
 // MARK: - Collection view reactions
-public extension DTCollectionViewManager
+extension DTCollectionViewManager
 {
     fileprivate func appendReaction<T,U>(for cellClass: T.Type, signature: EventMethodSignature, closure: @escaping (T,T.ModelType, IndexPath) -> U) where T: ModelTransfer, T:UICollectionViewCell
     {
