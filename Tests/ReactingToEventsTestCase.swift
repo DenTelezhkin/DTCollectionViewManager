@@ -9,7 +9,7 @@
 import XCTest
 import DTModelStorage
 import Nimble
-import DTCollectionViewManager
+@testable import DTCollectionViewManager
 
 class ReactingTestCollectionViewController: DTCellTestCollectionController
 {
@@ -132,6 +132,8 @@ class ReactingToEventsFastTestCase : XCTestCase {
         sut.manager.startManagingWithDelegate(sut)
         sut.manager.storage = MemoryStorage()
         sut.manager.registerCellClass(NibCell.self)
+        sut.manager.registerHeaderClass(NibHeaderFooterView.self)
+        sut.manager.registerFooterClass(NibHeaderFooterView.self)
     }
     
     @available(iOS 9.0, tvOS 9.0, *)
@@ -145,5 +147,280 @@ class ReactingToEventsFastTestCase : XCTestCase {
         
         _ = sut.manager.collectionView(sut.collectionView!, canMoveItemAt: indexPath(0,0))
         waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testShouldSelectItemAtIndexPath() {
+        let exp = expectation(description: "shouldSelectItemAtIndexPath")
+        sut.manager.shouldSelect(NibCell.self, { cell, model, indexPath -> Bool in
+            exp.fulfill()
+            return false
+        })
+        sut.manager.memoryStorage.addItem(3)
+        
+        _ = sut.manager.collectionView(sut.collectionView!, shouldSelectItemAt: indexPath(0,0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testShouldDeselectItemAtIndexPath() {
+        let exp = expectation(description: "shouldDeselectItemAtIndexPath")
+        sut.manager.shouldDeselect(NibCell.self, { cell, model, indexPath -> Bool in
+            exp.fulfill()
+            return false
+        })
+        sut.manager.memoryStorage.addItem(3)
+        
+        _ = sut.manager.collectionView(sut.collectionView!, shouldDeselectItemAt: indexPath(0,0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDidDeselectItemAtIndexPath() {
+        let exp = expectation(description: "didDeselectItemAtIndexPath")
+        sut.manager.didDeselect(NibCell.self, { cell, model, indexPath  in
+            exp.fulfill()
+            return
+        })
+        sut.manager.memoryStorage.addItem(3)
+        
+        _ = sut.manager.collectionView(sut.collectionView!, didDeselectItemAt: indexPath(0,0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testShouldHighlightItemAtIndexPath() {
+        let exp = expectation(description: "shouldHighlightItemAtIndexPath")
+        sut.manager.shouldHighlight(NibCell.self, { cell, model, indexPath -> Bool in
+            exp.fulfill()
+            return false
+        })
+        sut.manager.memoryStorage.addItem(3)
+        
+        _ = sut.manager.collectionView(sut.collectionView!, shouldHighlightItemAt: indexPath(0,0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDidHighlightItemAtIndexPath() {
+        let exp = expectation(description: "didHighlightItemAtIndexPath")
+        sut.manager.didHighlight(NibCell.self, { cell, model, indexPath  in
+            exp.fulfill()
+            return
+        })
+        sut.manager.memoryStorage.addItem(3)
+        
+        _ = sut.manager.collectionView(sut.collectionView!, didHighlightItemAt: indexPath(0,0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDidUnhighlightItemAtIndexPath() {
+        let exp = expectation(description: "didUnhighlightItemAtIndexPath")
+        sut.manager.didUnhighlight(NibCell.self, { cell, model, indexPath  in
+            exp.fulfill()
+            return
+        })
+        sut.manager.memoryStorage.addItem(3)
+        
+        _ = sut.manager.collectionView(sut.collectionView!, didUnhighlightItemAt: indexPath(0,0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testWillDisplayItemAtIndexPath() {
+        let exp = expectation(description: "willDisplayItemAtIndexPath")
+        sut.manager.willDisplay(NibCell.self, { cell, model, indexPath  in
+            // Method is called twice due to complex storage updating logic, so we are waiting 0.1 second and cancel all previous requests
+            type(of: exp).cancelPreviousPerformRequests(withTarget: exp)
+            exp.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.1)
+            return
+        })
+        sut.manager.memoryStorage.addItem(3)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testWillDisplaySupplementaryViewAtIndexPath() {
+        let exp = expectation(description: "willDisplaySupplementaryViewAtIndexPath")
+        sut.manager.willDisplaySupplementaryView(NibHeaderFooterView.self, forElementKind: UICollectionElementKindSectionHeader, { view, model, section  in
+            exp.fulfill()
+            return
+        })
+        sut.manager.memoryStorage.setSectionHeaderModels([5])
+        _ = sut.manager.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionElementKindSectionHeader, at: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testWillDisplayHeaderViewAtIndexPath() {
+        let exp = expectation(description: "willDisplayHeaderViewAtIndexPath")
+        sut.manager.willDisplayHeaderView(NibHeaderFooterView.self, { view, model, section  in
+            exp.fulfill()
+            return
+        })
+        sut.manager.memoryStorage.setSectionHeaderModels([5])
+        _ = sut.manager.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionElementKindSectionHeader, at: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testWillDisplayFooterViewAtIndexPath() {
+        let exp = expectation(description: "willDisplayHeaderViewAtIndexPath")
+        sut.manager.willDisplayFooterView(NibHeaderFooterView.self, { view, model, section  in
+            exp.fulfill()
+            return
+        })
+        sut.manager.memoryStorage.setSectionFooterModels([5])
+        _ = sut.manager.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionElementKindSectionFooter, at: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testEndDisplayingItemAtIndexPath() {
+        let exp = expectation(description: "didEndDisplayingItemAtIndexPath")
+        sut.manager.didEndDisplaying(NibCell.self, { cell, model, indexPath  in
+            // Method is called twice due to complex storage updating logic, so we are waiting 0.1 second and cancel all previous requests
+            type(of: exp).cancelPreviousPerformRequests(withTarget: exp)
+            exp.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.1)
+            return
+        })
+        sut.manager.memoryStorage.addItem(3)
+        _ = sut.manager.collectionView(sut.collectionView!, didEndDisplaying: NibCell(), forItemAt: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDidEndDisplayingSupplementaryViewAtIndexPath() {
+        let exp = expectation(description: "didEndDisplayingSupplementaryViewAtIndexPath")
+        sut.manager.didEndDisplayingSupplementaryView(NibHeaderFooterView.self, forElementKind: UICollectionElementKindSectionHeader, { view, model, section  in
+            exp.fulfill()
+            return
+        })
+        sut.manager.memoryStorage.setSectionHeaderModels([5])
+        _ = sut.manager.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionElementKindSectionHeader, at: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDidEndDisplayingHeaderViewAtIndexPath() {
+        let exp = expectation(description: "didEndDisplayingHeaderViewAtIndexPath")
+        sut.manager.didEndDisplayingHeaderView(NibHeaderFooterView.self, { view, model, section  in
+            exp.fulfill()
+            return
+        })
+        sut.manager.memoryStorage.setSectionHeaderModels([5])
+        _ = sut.manager.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionElementKindSectionHeader, at: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testEndDisplayingFooterViewAtIndexPath() {
+        let exp = expectation(description: "didEndDisplayingHeaderViewAtIndexPath")
+        sut.manager.didEndDisplayingFooterView(NibHeaderFooterView.self, { view, model, section  in
+            exp.fulfill()
+            return
+        })
+        sut.manager.memoryStorage.setSectionFooterModels([5])
+        _ = sut.manager.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionElementKindSectionFooter, at: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testShouldShowMenuForItemAtIndexPath() {
+        let exp = expectation(description: "shouldshowMenuForItemAtIndexPath")
+        sut.manager.shouldShowMenu(for: NibCell.self, { cell, model, indexPath -> Bool in
+            exp.fulfill()
+            return false
+        })
+        sut.manager.memoryStorage.addItem(3)
+        
+        _ = sut.manager.collectionView(sut.collectionView!, shouldShowMenuForItemAt: indexPath(0,0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testCanPerformActionForRowAtIndexPath() {
+        let exp = expectation(description: "canPerformActionForRowAtIndexPath")
+        sut.manager.canPerformAction(for: NibCell.self, { (selector, sender, cell, model, indexPath) -> Bool in
+            exp.fulfill()
+            return true
+        })
+        sut.manager.memoryStorage.addItem(3)
+        _ = sut.manager.collectionView(sut.collectionView!, canPerformAction: #selector(testShouldShowMenuForItemAtIndexPath), forItemAt: indexPath(0, 0), withSender: exp)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testPerformActionForRowAtIndexPath() {
+        let exp = expectation(description: "performActionForItemAtIndexPath")
+        sut.manager.performAction(for: NibCell.self, { (selector, sender, cell, model, indexPath) in
+            exp.fulfill()
+            return
+        })
+        sut.manager.memoryStorage.addItem(3)
+        _ = sut.manager.collectionView(sut.collectionView!, performAction: #selector(testShouldShowMenuForItemAtIndexPath), forItemAt: indexPath(0, 0), withSender: exp)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    @available(iOS 9.0, tvOS 9.0, *)
+    func testCanFocusItemAtIndexPath() {
+        let exp = expectation(description: "canFocusRowAtIndexPath")
+        sut.manager.canFocus(NibCell.self, { (cell, model, indexPath) -> Bool in
+            exp.fulfill()
+            return true
+        })
+        sut.manager.memoryStorage.addItem(3)
+        _ = sut.manager.collectionView(sut.collectionView!, canFocusItemAt: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testSizeForItemAtIndexPath() {
+        let exp = expectation(description: "sizeForItemAtIndexPath")
+        sut.manager.size(forItemType: Int.self, { (model, indexPath) -> CGSize in
+            exp.fulfill()
+            return .zero
+        })
+        sut.manager.memoryStorage.addItem(3)
+        _ = sut.manager.collectionView(sut.collectionView!, layout: UICollectionViewFlowLayout(), sizeForItemAt: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testSizeForHeaderInSection() {
+        let exp = expectation(description: "sizeForHeaderInSection")
+        sut.manager.referenceSizeForHeaderView(withItemType: Int.self, { (model, indexPath) -> CGSize in
+            exp.fulfill()
+            return .zero
+        })
+        sut.manager.memoryStorage.setSectionHeaderModels([5])
+        _ = sut.manager.collectionView(sut.collectionView!, layout: UICollectionViewFlowLayout(), referenceSizeForHeaderInSection: 0)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testSizeForFooterInSection() {
+        let exp = expectation(description: "sizeForFooterInSection")
+        sut.manager.referenceSizeForFooterView(withItemType: Int.self, { (model, indexPath) -> CGSize in
+            exp.fulfill()
+            return .zero
+        })
+        sut.manager.memoryStorage.setSectionFooterModels([5])
+        _ = sut.manager.collectionView(sut.collectionView!, layout: UICollectionViewFlowLayout(), referenceSizeForFooterInSection: 0)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testAllDelegateMethodSignatures() {
+        if #available(iOS 9, tvOS 9, *) {
+            expect(String(describing: #selector(UICollectionViewDataSource.collectionView(_:canMoveItemAt:)))) == EventMethodSignature.canMoveItemAtIndexPath.rawValue
+        }
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldSelectItemAt:)))) == EventMethodSignature.shouldSelectItemAtIndexPath.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didSelectItemAt:)))) == EventMethodSignature.didSelectItemAtIndexPath.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldDeselectItemAt:)))) == EventMethodSignature.shouldDeselectItemAtIndexPath.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didDeselectItemAt:)))) == EventMethodSignature.didDeselectItemAtIndexPath.rawValue
+        
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldHighlightItemAt:)))) == EventMethodSignature.shouldHighlightItemAtIndexPath.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didHighlightItemAt:)))) == EventMethodSignature.didHighlightItemAtIndexPath.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didUnhighlightItemAt:)))) == EventMethodSignature.didUnhighlightItemAtIndexPath.rawValue
+        
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:willDisplay:forItemAt:)))) == EventMethodSignature.willDisplayCellForItemAtIndexPath.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)))) == EventMethodSignature.willDisplaySupplementaryViewForElementKindAtIndexPath.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didEndDisplaying:forItemAt:)))) == EventMethodSignature.didEndDisplayingCellForItemAtIndexPath.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementOfKind:at:)))) == EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue
+        
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldShowMenuForItemAt:)))) == EventMethodSignature.shouldShowMenuForItemAtIndexPath.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canPerformAction:forItemAt:withSender:)))) == EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:performAction:forItemAt:withSender:)))) == EventMethodSignature.performActionForItemAtIndexPath.rawValue
+        
+        if #available(iOS 9, tvOS 9, *) {
+            expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canFocusItemAt:)))) == EventMethodSignature.canFocusItemAtIndexPath.rawValue
+        }
+        
+        expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:sizeForItemAt:)))) == EventMethodSignature.sizeForItemAtIndexPath.rawValue
+        
+        // These methods are not equal on purpose - DTCollectionViewManager implements custom logic in them, and they are always implemented, even though they can act as events
+        expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderInSection:)))) != EventMethodSignature.referenceSizeForHeaderInSection.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterInSection:)))) != EventMethodSignature.referenceSizeForFooterInSection.rawValue
     }
 }

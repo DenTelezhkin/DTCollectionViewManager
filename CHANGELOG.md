@@ -5,6 +5,7 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
+* New events system that covers almost all available `UICollectionViewDelegate`, `UICollectionViewDataSource` and `UICollectionViewDelegateFlowLayout` delegate methods.
 * `isManagingCollectionView` property on `DTCollectionViewManager`.
 
 ### Changed
