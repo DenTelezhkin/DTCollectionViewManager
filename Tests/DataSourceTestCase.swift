@@ -183,4 +183,18 @@ class DataSourceTestCase: XCTestCase {
 //        expect(self.controller.manager.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, atIndexPath: indexPath(0, 0))).to(beAKindOf(NibHeaderFooterView))
 //    }
     
+    func testReloadRowsClosure() {
+        let exp = expectation(description: "Reload row closure")
+        controller.manager.collectionViewUpdater = CollectionViewUpdater(collectionView: controller.collectionView!, reloadItem: { indexPath in
+            if indexPath.section == 0 && indexPath.item == 3 {
+                exp.fulfill()
+            }
+        })
+        
+        controller.manager.memoryStorage.addItems([1,2,3,4,5])
+        controller.manager.memoryStorage.reloadItem(4)
+        waitForExpectations(timeout: 0.5, handler: nil)
+    }
+
+    
 }

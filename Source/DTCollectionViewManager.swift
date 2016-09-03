@@ -79,10 +79,6 @@ open class DTCollectionViewManager : NSObject {
         return CollectionViewFactory(collectionView: self.collectionView!)
     }()
     
-    /// Boolean property, that indicates whether batch updates are completed. 
-    /// - Note: this can be useful if you are deciding whether to run another batch of animations - insertion, deletions etc. UICollectionView is not very tolerant to multiple performBatchUpdates, executed at once.
-    open var batchUpdatesInProgress = false
-    
     /// Array of reactions for `DTCollectionViewManager`.
     /// - SeeAlso: `CollectionViewReaction`.
     fileprivate var collectionViewReactions = ContiguousArray<EventReaction>() {
@@ -130,7 +126,13 @@ open class DTCollectionViewManager : NSObject {
             if let headerFooterCompatibleStorage = storage as? BaseStorage {
                 headerFooterCompatibleStorage.configureForCollectionViewFlowLayoutUsage()
             }
-            storage.delegate = self
+            storage.delegate = collectionViewUpdater
+        }
+    }
+    
+    open var collectionViewUpdater : StorageUpdating? {
+        didSet {
+            storage.delegate = collectionViewUpdater
         }
     }
     
@@ -139,22 +141,41 @@ open class DTCollectionViewManager : NSObject {
     /// - Parameter delegate: Object, that has UICollectionView, that will be managed by `DTCollectionViewManager`.
     open func startManagingWithDelegate(_ delegate : DTCollectionViewManageable)
     {
-        precondition(delegate.collectionView != nil,"Call startManagingWithDelegate: method only when UICollectionView has been created")
+        guard let collectionView = delegate.collectionView else {
+            preconditionFailure("Call startManagingWithDelegate: method only when UICollectionView has been created")
+        }
         
         self.delegate = delegate
-        delegate.collectionView?.delegate = self
-        delegate.collectionView?.dataSource = self
+        collectionView.delegate = self
+        collectionView.dataSource = self
         
         if let mappingDelegate = delegate as? DTViewModelMappingCustomizable {
             viewFactory.mappingCustomizableDelegate = mappingDelegate
         }
-        storage.delegate = self
+        collectionViewUpdater = CollectionViewUpdater(collectionView: collectionView)
+        storage.delegate = collectionViewUpdater
         
         // Workaround, that prevents UICollectionView from being confused about it's own number of sections
         // This happens mostly on UICollectionView creation, before any delegate methods have been called and is not reproducible after it was fully initialized.
         // This is rare, and is not documented anywhere, but since workaround is small and harmless, we are including it 
         // as a part of DTCollectionViewManager framework.
-        _ = collectionView?.numberOfSections
+        _ = collectionView.numberOfSections
+    }
+    
+    open func updateCellClosure() -> (IndexPath) -> Void {
+        return { [weak self] in
+            guard let model = self?.storage.itemAtIndexPath($0) else { return }
+            self?.viewFactory.updateCellAt($0, with: model)
+        }
+    }
+    
+    open func coreDataUpdater() -> CollectionViewUpdater {
+        guard let collectionView = delegate?.collectionView else {
+            preconditionFailure("Call startManagingWithDelegate: method only when UICollectionView has been created")
+        }
+        return CollectionViewUpdater(collectionView: collectionView,
+                                     reloadItem: updateCellClosure(),
+                                     animateMoveAsDeleteAndInsert: true)
     }
 }
 
@@ -783,73 +804,5 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
     fileprivate func performSupplementaryReaction(forKind kind: String, signature: EventMethodSignature, location: IndexPath, view: UICollectionReusableView?) -> Any? {
         guard let model = (storage as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndexPath: location) else { return nil }
         return collectionViewReactions.performReaction(ofType: .supplementary(kind: kind), signature: signature.rawValue, view: view, model: model, location: location)
-    }
-}
-
-/// Conform to this protocol, if you want to monitor, when changes in storage are happening
-public protocol DTCollectionViewContentUpdatable {
-    func beforeContentUpdate()
-    func afterContentUpdate()
-}
-
-public extension DTCollectionViewContentUpdatable where Self : DTCollectionViewManageable {
-    func beforeContentUpdate() {}
-    func afterContentUpdate() {}
-}
-
-// MARK : - StorageUpdating
-extension DTCollectionViewManager : StorageUpdating
-{
-    open func storageDidPerformUpdate(_ update: StorageUpdate) {
-        self.controllerWillUpdateContent()
-        
-        batchUpdatesInProgress = true
-        
-        collectionView?.performBatchUpdates({ [weak self] in
-            if update.insertedRowIndexPaths.count > 0 { self?.collectionView?.insertItems(at: Array(update.insertedRowIndexPaths)) }
-            if update.deletedRowIndexPaths.count > 0 { self?.collectionView?.deleteItems(at: Array(update.deletedRowIndexPaths)) }
-            if update.updatedRowIndexPaths.count > 0 { self?.collectionView?.reloadItems(at: Array(update.updatedRowIndexPaths)) }
-            if update.movedRowIndexPaths.count > 0 {
-                for moveAction in update.movedRowIndexPaths {
-                    if let from = moveAction.first, let to = moveAction.last {
-                        self?.collectionView?.moveItem(at: from, to: to)
-                    }
-                }
-            }
-            
-            if update.insertedSectionIndexes.count > 0 { self?.collectionView?.insertSections(IndexSet(update.insertedSectionIndexes)) }
-            if update.deletedSectionIndexes.count > 0 { self?.collectionView?.deleteSections(IndexSet(update.deletedSectionIndexes)) }
-            if update.updatedSectionIndexes.count > 0 { self?.collectionView?.reloadSections(IndexSet(update.updatedSectionIndexes))}
-            if update.movedSectionIndexes.count > 0 {
-                for moveAction in update.movedSectionIndexes {
-                    if let from = moveAction.first, let to = moveAction.last {
-                        self?.collectionView?.moveSection(from, toSection: to)
-                    }
-                }
-            }
-            }) { [weak self] finished in
-                if update.insertedSectionIndexes.count + update.deletedSectionIndexes.count + update.updatedSectionIndexes.count > 0 {
-                    self?.collectionView?.reloadData()
-                }
-                self?.batchUpdatesInProgress = false
-        }
-        self.controllerDidUpdateContent()
-    }
-    
-    /// Call this method, if you want UICollectionView to be reloaded, and beforeContentUpdate: and afterContentUpdate: closures to be called.
-    open func storageNeedsReloading() {
-        self.controllerWillUpdateContent()
-        collectionView?.reloadData()
-        self.controllerDidUpdateContent()
-    }
-    
-    private func controllerWillUpdateContent()
-    {
-        (self.delegate as? DTCollectionViewContentUpdatable)?.beforeContentUpdate()
-    }
-    
-    private func controllerDidUpdateContent()
-    {
-        (self.delegate as? DTCollectionViewContentUpdatable)?.afterContentUpdate()
     }
 }

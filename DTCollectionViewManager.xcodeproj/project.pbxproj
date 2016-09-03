@@ -53,6 +53,8 @@
 		9A99AA861B8A219300428802 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA841B8A219300428802 /* Main.storyboard */; };
 		9A99AA881B8A219300428802 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA871B8A219300428802 /* Assets.xcassets */; };
 		9A99AA8B1B8A219300428802 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA891B8A219300428802 /* LaunchScreen.storyboard */; };
+		9AB666D41D7B13E300A6CEED /* CollectionViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB666D31D7B13E300A6CEED /* CollectionViewUpdater.swift */; };
+		9AB666D51D7B13E300A6CEED /* CollectionViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB666D31D7B13E300A6CEED /* CollectionViewUpdater.swift */; };
 		9AC532171BE5F77F006CB18A /* SupplementaryMappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */; };
 		9AC532181BE5F77F006CB18A /* SupplementaryEventsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4C3BFC1BE557D8000931BA /* SupplementaryEventsTestCase.swift */; };
 		9AC532191BE5F77F006CB18A /* NibHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8DE1B8B595800AB4CD9 /* NibHeaderFooterView.swift */; };
@@ -299,6 +301,7 @@
 		9A99AA871B8A219300428802 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A99AA8A1B8A219300428802 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A99AA911B8A219300428802 /* Tests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AB666D31D7B13E300A6CEED /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewUpdater.swift; path = Source/CollectionViewUpdater.swift; sourceTree = "<group>"; };
 		9AC532031BE5F67D006CB18A /* DTCollectionViewManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTCollectionViewManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9AC532381BE5F77F006CB18A /* Tests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ADFC8C71B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CollectionViewManager+UnitTests.swift"; path = "Helpers/CollectionViewManager+UnitTests.swift"; sourceTree = "<group>"; };
@@ -406,6 +409,7 @@
 			children = (
 				9A1B88621CE1E4CB005B6F07 /* CollectionViewFactory.swift */,
 				9A1B88631CE1E4CB005B6F07 /* DTCollectionViewManager.swift */,
+				9AB666D31D7B13E300A6CEED /* CollectionViewUpdater.swift */,
 				9A1B88641CE1E4CB005B6F07 /* SectionModel+ConvenienceGetters.swift */,
 			);
 			name = Source;
@@ -435,10 +439,10 @@
 		9A3243811CE34D5200C32A5B /* Products */ = {
 			isa = PBXGroup;
 			children = (
-				9A32438A1CE34D5200C32A5B /* Nimble.framework */,
-				9A32438C1CE34D5200C32A5B /* NimbleTests.xctest */,
 				9A32438E1CE34D5200C32A5B /* Nimble.framework */,
 				9A3243901CE34D5200C32A5B /* NimbleTests.xctest */,
+				9A32438A1CE34D5200C32A5B /* Nimble.framework */,
+				9A32438C1CE34D5200C32A5B /* NimbleTests.xctest */,
 				9A3243921CE34D5200C32A5B /* Nimble.framework */,
 				9A3243941CE34D5200C32A5B /* NimbleTests.xctest */,
 			);
@@ -903,6 +907,7 @@
 			files = (
 				9A1B886A1CE1E4CB005B6F07 /* SectionModel+ConvenienceGetters.swift in Sources */,
 				9A1B88661CE1E4CB005B6F07 /* CollectionViewFactory.swift in Sources */,
+				9AB666D51D7B13E300A6CEED /* CollectionViewUpdater.swift in Sources */,
 				9A1B88681CE1E4CB005B6F07 /* DTCollectionViewManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -941,6 +946,7 @@
 			files = (
 				9A1B88691CE1E4CB005B6F07 /* SectionModel+ConvenienceGetters.swift in Sources */,
 				9A1B88651CE1E4CB005B6F07 /* CollectionViewFactory.swift in Sources */,
+				9AB666D41D7B13E300A6CEED /* CollectionViewUpdater.swift in Sources */,
 				9A1B88671CE1E4CB005B6F07 /* DTCollectionViewManager.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

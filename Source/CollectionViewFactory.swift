@@ -149,24 +149,43 @@ extension CollectionViewFactory
 // MARK: View creation
 extension CollectionViewFactory
 {
+    func viewModelMappingForViewType(_ viewType: ViewType, model: Any) -> ViewModelMapping?
+    {
+        guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
+            return nil
+        }
+        let mappingCandidates = mappings.mappingCandidatesForViewType(viewType, model: unwrappedModel)
+        
+        if let customizedMapping = mappingCustomizableDelegate?.viewModelMappingFromCandidates(mappingCandidates, forModel: unwrappedModel) {
+            return customizedMapping
+        } else if let defaultMapping = mappingCandidates.first {
+            return defaultMapping
+        } else {
+            return nil
+        }
+    }
+    
     func cellForModel(_ model: Any, atIndexPath indexPath:IndexPath) throws -> UICollectionViewCell
     {
-        let mappingCandidates = mappings.mappingCandidatesForViewType(.cell, model: model)
-        let mapping : ViewModelMapping?
-        
-        if let customizedMapping = mappingCustomizableDelegate?.viewModelMappingFromCandidates(mappingCandidates, forModel: model) {
-            mapping = customizedMapping
-        } else if let defaultMapping = mappingCandidates.first {
-            mapping = defaultMapping
-        } else { mapping = nil }
-        
-        if let mapping = mapping {
+        guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
+            throw DTCollectionViewFactoryError.nilCellModel(indexPath)
+        }
+        if let mapping = viewModelMappingForViewType(.cell, model: unwrappedModel)
+        {
             let cellClassName = String(describing: mapping.viewClass)
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellClassName, for: indexPath)
             mapping.updateBlock(cell, model)
             return cell
         }
         throw DTCollectionViewFactoryError.noCellMappings(model: model)
+    }
+    
+    func updateCellAt(_ indexPath : IndexPath, with model: Any) {
+        guard let cell = collectionView.cellForItem(at: indexPath) else { return }
+        guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return }
+        if let mapping = viewModelMappingForViewType(.cell, model: unwrappedModel) {
+            mapping.updateBlock(cell, unwrappedModel)
+        }
     }
 
     func supplementaryViewOfKind(_ kind: String, forModel model: Any, atIndexPath indexPath: IndexPath) throws -> UICollectionReusableView

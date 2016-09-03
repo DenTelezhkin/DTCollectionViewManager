@@ -11,6 +11,23 @@ import XCTest
 import DTModelStorage
 import Nimble
 
+fileprivate class UpdatableModel {
+    var value: Bool = false
+}
+
+fileprivate class UpdatableCell : UICollectionViewCell, ModelTransfer {
+    var model : UpdatableModel?
+    
+    func updateWithModel(_ model: UpdatableModel) {
+        self.model = model
+    }
+    
+    fileprivate override func prepareForReuse() {
+        super.prepareForReuse()
+        XCTFail()
+    }
+}
+
 class CollectionViewFactoryTestCase: XCTestCase {
     
     var controller : DTSupplementaryTestCollectionController!
@@ -56,4 +73,15 @@ class CollectionViewFactoryTestCase: XCTestCase {
         }
     }
     
+    func testUpdateCellAtIndexPath() {
+        controller.manager.registerNiblessCellClass(UpdatableCell.self)
+        let model = UpdatableModel()
+        controller.manager.memoryStorage.addItem(model)
+        
+        controller.manager.collectionViewUpdater = controller.manager.coreDataUpdater()
+        model.value = true
+        controller.manager.updateCellClosure()(indexPath(0, 0))
+        expect((self.controller.collectionView?.cellForItem(at: indexPath(0, 0)) as? UpdatableCell)?.model?.value).to(beTrue())
+    }
+
 }
