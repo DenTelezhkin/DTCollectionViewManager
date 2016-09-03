@@ -13,7 +13,7 @@ import Nimble
 
 class FooCell : UICollectionViewCell, ModelTransfer
 {
-    func updateWithModel(_ model: Int) {
+    func update(with model: Int) {
         
     }
 }

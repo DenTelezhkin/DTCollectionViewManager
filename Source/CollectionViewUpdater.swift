@@ -13,16 +13,16 @@ import DTModelStorage
 open class CollectionViewUpdater : StorageUpdating {
     
     weak var collectionView: UICollectionView?
-    public var willUpdateContent: ((StorageUpdate?) -> Void)? = nil
-    public var didUpdateContent: ((StorageUpdate?) -> Void)? = nil
+    open var willUpdateContent: ((StorageUpdate?) -> Void)? = nil
+    open var didUpdateContent: ((StorageUpdate?) -> Void)? = nil
     
-    public var reloadItemClosure : ((IndexPath) -> Void)?
+    open var reloadItemClosure : ((IndexPath) -> Void)?
     
-    public var animateMoveAsDeleteAndInsert: Bool
+    open var animateMoveAsDeleteAndInsert: Bool
     
     /// Boolean property, that indicates whether batch updates are completed.
     /// - Note: this can be useful if you are deciding whether to run another batch of animations - insertion, deletions etc. UICollectionView is not very tolerant to multiple performBatchUpdates, executed at once.
-    public var batchUpdatesInProgress: Bool = false
+    open var batchUpdatesInProgress: Bool = false
     
     public init(collectionView: UICollectionView,
                 reloadItem: ((IndexPath) -> Void)? = nil,

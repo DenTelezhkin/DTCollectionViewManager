@@ -13,7 +13,7 @@ class SimpleTextCollectionReusableView: UICollectionReusableView, ModelTransfer 
 
     @IBOutlet weak var title: UILabel!
     
-    func updateWithModel(_ model: String) {
+    func update(with model: String) {
         title.text = model
     }
     

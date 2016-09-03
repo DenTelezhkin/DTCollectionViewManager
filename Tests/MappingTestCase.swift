@@ -56,7 +56,7 @@ class MappingTestCase: XCTestCase {
         controller.manager.registerNiblessCellClass(StringCell.self)
         controller.manager.memoryStorage.addItem("foo")
         
-        expect(self.controller.manager.memoryStorage.itemAtIndexPath(indexPath(0, 0)) as? String) == "foo"
+        expect(self.controller.manager.memoryStorage.item(at: indexPath(0, 0)) as? String) == "foo"
     }
     
     func testUnregisterCellClass() {

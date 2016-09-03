@@ -14,9 +14,9 @@ class CollectionContainingCell: UICollectionViewCell, DTCollectionViewManageable
     
     @IBOutlet weak var collectionView: UICollectionView?
     
-    func updateWithModel(_ model: Int) {
+    func update(with model: Int) {
         let itemsArray = (1...model).map { _ in return randomColor() }
-        self.manager.memoryStorage.setItems(itemsArray, forSectionIndex: 0)
+        self.manager.memoryStorage.setItems(itemsArray, forSection: 0)
     }
     
     override func awakeFromNib() {

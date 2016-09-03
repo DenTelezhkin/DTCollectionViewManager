@@ -31,7 +31,7 @@ class DataSourceTestCase: XCTestCase {
         
         expect(self.controller.verifyItem(6, atIndexPath: indexPath(3, 0))) == true
         expect(self.controller.verifyItem(3, atIndexPath: indexPath(0, 0))) == true
-        expect(self.controller.manager.memoryStorage.itemAtIndexPath(indexPath(56, 0))).to(beNil())
+        expect(self.controller.manager.memoryStorage.item(at: indexPath(56, 0))).to(beNil())
     }
     
     func testShouldReturnCorrectNumberOfCollectionItems()
@@ -56,15 +56,15 @@ class DataSourceTestCase: XCTestCase {
     {
         controller.manager.memoryStorage.addItems([3,2], toSection: 0)
         
-        expect(self.controller.manager.memoryStorage.itemsInSection(0)?.count) == 2
+        expect(self.controller.manager.memoryStorage.items(inSection: 0)?.count) == 2
     }
     
     func testShouldInsertTableItem()
     {
         controller.manager.memoryStorage.addItems([2,4,6], toSection: 0)
-        try! controller.manager.memoryStorage.insertItem(1, toIndexPath: indexPath(2, 0))
+        try! controller.manager.memoryStorage.insertItem(1, to: indexPath(2, 0))
         
-        expect(self.controller.manager.memoryStorage.itemsInSection(0)?.count) == 4
+        expect(self.controller.manager.memoryStorage.items(inSection: 0)?.count) == 4
         expect(self.controller.verifyItem(1, atIndexPath: indexPath(2, 0))) == true
         expect(self.controller.verifyItem(6, atIndexPath: indexPath(3, 0))) == true
     }
@@ -73,11 +73,11 @@ class DataSourceTestCase: XCTestCase {
     {
         controller.manager.memoryStorage.addItems([1,3], toSection: 0)
         controller.manager.memoryStorage.addItems([4,6], toSection: 1)
-        try! controller.manager.memoryStorage.replaceItem(3, replacingItem: 2)
-        try! controller.manager.memoryStorage.replaceItem(4, replacingItem: 5)
+        try! controller.manager.memoryStorage.replaceItem(3, with: 2)
+        try! controller.manager.memoryStorage.replaceItem(4, with: 5)
         
-        expect(self.controller.manager.memoryStorage.itemsInSection(0)?.count) == 2
-        expect(self.controller.manager.memoryStorage.itemsInSection(1)?.count) == 2
+        expect(self.controller.manager.memoryStorage.items(inSection: 0)?.count) == 2
+        expect(self.controller.manager.memoryStorage.items(inSection: 1)?.count) == 2
         expect(self.controller.verifyItem(2, atIndexPath: indexPath(1, 0))) == true
         expect(self.controller.verifyItem(5, atIndexPath: indexPath(0, 1))) == true
     }
@@ -87,22 +87,22 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItems([1,3,2,4], toSection: 0)
         controller.manager.memoryStorage.removeItems([1,4,3,5])
         
-        expect(self.controller.manager.memoryStorage.itemsInSection(0)?.count) == 1
+        expect(self.controller.manager.memoryStorage.items(inSection: 0)?.count) == 1
         expect(self.controller.verifyItem(2, atIndexPath: indexPath(0, 0))) == true
     }
     
     func testRemoveItems()
     {
         controller.manager.memoryStorage.addItems([1,2,3], toSection: 0)
-        controller.manager.memoryStorage.setItems([Int](), forSectionIndex: 0)
+        controller.manager.memoryStorage.setItems([Int](), forSection: 0)
         
-        expect(self.controller.manager.memoryStorage.itemsInSection(0)?.count) == 0
+        expect(self.controller.manager.memoryStorage.items(inSection: 0)?.count) == 0
     }
     
     func testMovingItems()
     {
         controller.manager.memoryStorage.addItems([1,2,3], toSection: 0)
-        controller.manager.memoryStorage.moveItemAtIndexPath(indexPath(0, 0), toIndexPath: indexPath(2, 0))
+        controller.manager.memoryStorage.moveItem(at: indexPath(0, 0), to: indexPath(2, 0))
         
         expect(self.controller.verifySection([2,3,1], withSectionNumber: 0)) == true
     }
@@ -111,13 +111,13 @@ class DataSourceTestCase: XCTestCase {
     {
         controller.manager.memoryStorage.addItems([1,2,3], toSection: 0)
         
-        controller.manager.memoryStorage.moveItemAtIndexPath(indexPath(0, 0), toIndexPath: indexPath(2, 1))
+        controller.manager.memoryStorage.moveItem(at: indexPath(0, 0), to: indexPath(2, 1))
     }
     
     func testShouldNotCrashWhenMovingFromBadRow()
     {
         controller.manager.memoryStorage.addItems([1,2,3], toSection: 0)
-        controller.manager.memoryStorage.moveItemAtIndexPath(indexPath(0, 1), toIndexPath: indexPath(0, 0))
+        controller.manager.memoryStorage.moveItem(at: indexPath(0, 1), to: indexPath(0, 0))
     }
     
     func testShouldMoveSections()

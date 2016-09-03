@@ -57,7 +57,7 @@ final class CollectionViewFactory
     
     var mappings = [ViewModelMapping]()
     
-    weak var mappingCustomizableDelegate : DTViewModelMappingCustomizable?
+    weak var mappingCustomizableDelegate : ViewModelMappingCustomizing?
     
     init(collectionView: UICollectionView)
     {
@@ -71,12 +71,12 @@ extension CollectionViewFactory
     func registerCellClass<T:ModelTransfer>(_ cellClass: T.Type) where T: UICollectionViewCell
     {
         let reuseIdentifier = String(describing: T.self)
-        if UINib.nibExistsWithNibName(reuseIdentifier, inBundle: Bundle(for: T.self)) {
+        if UINib.nibExists(withNibName: reuseIdentifier, inBundle: Bundle(for: T.self)) {
             collectionView.register(UINib(nibName: reuseIdentifier, bundle: Bundle(for: T.self)), forCellWithReuseIdentifier: reuseIdentifier)
-            mappings.addMappingForViewType(.cell, viewClass: T.self, xibName: reuseIdentifier)
+            mappings.addMapping(for: .cell, viewClass: T.self, xibName: reuseIdentifier)
         }
         else {
-            mappings.addMappingForViewType(.cell, viewClass: T.self)
+            mappings.addMapping(for: .cell, viewClass: T.self)
         }
         
     }
@@ -85,42 +85,42 @@ extension CollectionViewFactory
     {
         let reuseIdentifier = String(describing: T.self)
         collectionView.register(cellClass, forCellWithReuseIdentifier: reuseIdentifier)
-        mappings.addMappingForViewType(.cell, viewClass: T.self)
+        mappings.addMapping(for: .cell, viewClass: T.self)
     }
     
     func registerNibNamed<T:ModelTransfer>(_ nibName: String, forCellClass cellClass: T.Type) where T: UICollectionViewCell
     {
         let reuseIdentifier = String(describing: T.self)
-        assert(UINib.nibExistsWithNibName(reuseIdentifier, inBundle: Bundle(for: T.self)))
+        assert(UINib.nibExists(withNibName: reuseIdentifier, inBundle: Bundle(for: T.self)))
         collectionView.register(UINib(nibName: reuseIdentifier, bundle: Bundle(for: T.self)), forCellWithReuseIdentifier: reuseIdentifier)
-        mappings.addMappingForViewType(.cell, viewClass: T.self, xibName: nibName)
+        mappings.addMapping(for: .cell, viewClass: T.self, xibName: nibName)
     }
     
     func registerNiblessSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T: UICollectionReusableView
     {
         let reuseIdentifier = String(describing: T.self)
         collectionView.register(supplementaryClass, forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
-        mappings.addMappingForViewType(.supplementaryView(kind: kind), viewClass: T.self)
+        mappings.addMapping(for: .supplementaryView(kind: kind), viewClass: T.self)
     }
     
     func registerSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView
     {
         let reuseIdentifier = String(describing: T.self)
-        if UINib.nibExistsWithNibName(reuseIdentifier, inBundle: Bundle(for: T.self)) {
+        if UINib.nibExists(withNibName: reuseIdentifier, inBundle: Bundle(for: T.self)) {
             self.collectionView.register(UINib(nibName: reuseIdentifier, bundle: Bundle(for: T.self)), forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
-            mappings.addMappingForViewType(.supplementaryView(kind: kind), viewClass: T.self, xibName: reuseIdentifier)
+            mappings.addMapping(for: .supplementaryView(kind: kind), viewClass: T.self, xibName: reuseIdentifier)
         }
         else {
-            mappings.addMappingForViewType(.supplementaryView(kind: kind), viewClass: T.self)
+            mappings.addMapping(for: .supplementaryView(kind: kind), viewClass: T.self)
         }
     }
     
     func registerNibNamed<T:ModelTransfer>(_ nibName: String, forSupplementaryClass supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView
     {
         let reuseIdentifier = String(describing: T.self)
-        assert(UINib.nibExistsWithNibName(nibName, inBundle: Bundle(for: T.self)))
+        assert(UINib.nibExists(withNibName: nibName, inBundle: Bundle(for: T.self)))
         self.collectionView.register(UINib(nibName: nibName, bundle: Bundle(for: T.self)), forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
-        mappings.addMappingForViewType(.supplementaryView(kind: kind), viewClass: T.self, xibName: nibName)
+        mappings.addMapping(for: .supplementaryView(kind: kind), viewClass: T.self, xibName: nibName)
     }
     
     open func unregisterCellClass<T:ModelTransfer>(_ cellClass: T.Type) where T: UICollectionViewCell {
@@ -154,9 +154,9 @@ extension CollectionViewFactory
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
             return nil
         }
-        let mappingCandidates = mappings.mappingCandidatesForViewType(viewType, model: unwrappedModel)
+        let mappingCandidates = mappings.mappingCandidates(forViewType: viewType, withModel: unwrappedModel)
         
-        if let customizedMapping = mappingCustomizableDelegate?.viewModelMappingFromCandidates(mappingCandidates, forModel: unwrappedModel) {
+        if let customizedMapping = mappingCustomizableDelegate?.viewModelMapping(fromCandidates: mappingCandidates, forModel: unwrappedModel) {
             return customizedMapping
         } else if let defaultMapping = mappingCandidates.first {
             return defaultMapping
@@ -194,10 +194,10 @@ extension CollectionViewFactory
             throw DTCollectionViewFactoryError.nilSupplementaryModel(kind: kind, indexPath: indexPath)
         }
         
-        let mappingCandidates = mappings.mappingCandidatesForViewType(.supplementaryView(kind: kind), model: unwrappedModel)
+        let mappingCandidates = mappings.mappingCandidates(forViewType: .supplementaryView(kind: kind), withModel: unwrappedModel)
         let mapping : ViewModelMapping?
         
-        if let customizedMapping = mappingCustomizableDelegate?.viewModelMappingFromCandidates(mappingCandidates, forModel: unwrappedModel) {
+        if let customizedMapping = mappingCustomizableDelegate?.viewModelMapping(fromCandidates: mappingCandidates, forModel: unwrappedModel) {
             mapping = customizedMapping
         } else if let defaultMapping = mappingCandidates.first {
             mapping = defaultMapping

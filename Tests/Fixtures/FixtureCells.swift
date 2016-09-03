@@ -16,7 +16,7 @@ class BaseTestCell : UICollectionViewCell, ModelTransfer, ModelRetrievable
     var awakedFromNib = false
     var inittedWithStyle = false
     
-    func updateWithModel(_ model: Int) {
+    func update(with model: Int) {
         self.model = model
     }
 }
@@ -27,14 +27,14 @@ class NibCell: BaseTestCell {}
 
 class StringCell : UICollectionViewCell, ModelTransfer
 {
-    func updateWithModel(_ model: String) {
+    func update(with model: String) {
         
     }
 }
 
 class ReactingCollectionCell: UICollectionViewCell, ModelTransfer {
     
-    func updateWithModel(_ model: Int) {
+    func update(with model: Int) {
         
     }
     

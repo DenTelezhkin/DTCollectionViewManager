@@ -33,7 +33,7 @@ public extension SectionModel
     /// UICollectionView header model for current section
     var collectionHeaderModel : Any? {
         get {
-            return self.supplementaryModelOfKind(UICollectionElementKindSectionHeader, atIndex: 0)
+            return self.supplementaryModel(ofKind: UICollectionElementKindSectionHeader, atIndex: 0)
         }
         set {
             self.setSupplementaryModel(newValue, forKind: UICollectionElementKindSectionHeader, atIndex: 0)
@@ -43,7 +43,7 @@ public extension SectionModel
     /// UICollectionView footer model for current section
     var collectionFooterModel : Any? {
         get {
-            return self.supplementaryModelOfKind(UICollectionElementKindSectionFooter, atIndex: 0)
+            return self.supplementaryModel(ofKind: UICollectionElementKindSectionFooter, atIndex: 0)
         }
         set {
             self.setSupplementaryModel(newValue, forKind: UICollectionElementKindSectionFooter, atIndex: 0)

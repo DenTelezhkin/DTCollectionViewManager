@@ -112,7 +112,7 @@ open class DTCollectionViewManager : NSObject {
     /// - Note: When setting custom storage for this property, it will be automatically configured for using with UICollectionViewFlowLayout and it's delegate will be set to `DTCollectionViewManager` instance.
     /// - Note: Previous storage `delegate` property will be nilled out to avoid collisions.
     /// - SeeAlso: `MemoryStorage`, `CoreDataStorage`.
-    open var storage : StorageProtocol = {
+    open var storage : Storage = {
         let storage = MemoryStorage()
         storage.configureForCollectionViewFlowLayoutUsage()
         return storage
@@ -149,7 +149,7 @@ open class DTCollectionViewManager : NSObject {
         collectionView.delegate = self
         collectionView.dataSource = self
         
-        if let mappingDelegate = delegate as? DTViewModelMappingCustomizable {
+        if let mappingDelegate = delegate as? ViewModelMappingCustomizing {
             viewFactory.mappingCustomizableDelegate = mappingDelegate
         }
         collectionViewUpdater = CollectionViewUpdater(collectionView: collectionView)
@@ -164,7 +164,7 @@ open class DTCollectionViewManager : NSObject {
     
     open func updateCellClosure() -> (IndexPath) -> Void {
         return { [weak self] in
-            guard let model = self?.storage.itemAtIndexPath($0) else { return }
+            guard let model = self?.storage.item(at: $0) else { return }
             self?.viewFactory.updateCellAt($0, with: model)
         }
     }
@@ -542,17 +542,17 @@ extension DTCollectionViewManager
         appendReaction(for: T.self, signature: EventMethodSignature.canFocusItemAtIndexPath, closure: closure)
     }
     
-    open func size<T>(forItemType: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
+    open func size<T>(_ forItemType: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
         appendReaction(for: T.self, signature: EventMethodSignature.sizeForItemAtIndexPath, closure: closure)
     }
     
-    open func referenceSizeForHeaderView<T>(withItemType: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
+    open func referenceSizeForHeaderView<T>(_ withItemType: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
         appendReaction(forSupplementaryKind: UICollectionElementKindSectionHeader, modelClass: T.self, signature: EventMethodSignature.referenceSizeForHeaderInSection, closure: closure)
     }
     
-    open func referenceSizeForFooterView<T>(withItemType: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
+    open func referenceSizeForFooterView<T>(_ withItemType: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
         appendReaction(forSupplementaryKind: UICollectionElementKindSectionFooter, modelClass: T.self, signature: EventMethodSignature.referenceSizeForFooterInSection, closure: closure)
     }
@@ -583,7 +583,7 @@ extension DTCollectionViewManager : UICollectionViewDataSource
     }
     
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let model = RuntimeHelper.recursivelyUnwrapAnyValue(storage.itemAtIndexPath(indexPath)) else {
+        guard let model = RuntimeHelper.recursivelyUnwrapAnyValue(storage.item(at: indexPath)) else {
             handleCollectionViewFactoryError(DTCollectionViewFactoryError.nilCellModel(indexPath))
             return UICollectionViewCell()
         }
@@ -607,7 +607,7 @@ extension DTCollectionViewManager : UICollectionViewDataSource
     
     open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
     {
-        if let model = (self.storage as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndexPath: indexPath) {
+        if let model = (self.storage as? SupplementaryStorage)?.supplementaryModel(ofKind: kind, forSectionAt: indexPath) {
             let view : UICollectionReusableView
             do {
                 view = try viewFactory.supplementaryViewOfKind(kind, forModel: model, atIndexPath: indexPath)
@@ -672,7 +672,7 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
         if let size = (self.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, referenceSizeForHeaderInSection: section) {
             return size
         }
-        if let _ = (storage as? HeaderFooterStorageProtocol)?.headerModelForSectionIndex(section) {
+        if let _ = (storage as? HeaderFooterStorage)?.headerModel(forSection: section) {
             return (collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize ?? .zero
         }
         return CGSize.zero
@@ -685,7 +685,7 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
         if let size = (self.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, referenceSizeForFooterInSection: section) {
             return size
         }
-        if let _ = (storage as? HeaderFooterStorageProtocol)?.footerModelForSectionIndex(section) {
+        if let _ = (storage as? HeaderFooterStorage)?.footerModel(forSection: section) {
             return (collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize ?? .zero
         }
         return CGSize.zero
@@ -738,7 +738,7 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
     
     open func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, willDisplay: cell, forItemAt: indexPath) }
-        guard let model = storage.itemAtIndexPath(indexPath) else { return }
+        guard let model = storage.item(at: indexPath) else { return }
         _ = collectionViewReactions.performReaction(ofType: .cell, signature: EventMethodSignature.willDisplayCellForItemAtIndexPath.rawValue, view: cell, model: model, location: indexPath)
     }
     
@@ -749,13 +749,13 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
     
     open func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didEndDisplaying: cell, forItemAt: indexPath) }
-        guard let model = storage.itemAtIndexPath(indexPath) else { return }
+        guard let model = storage.item(at: indexPath) else { return }
         _ = collectionViewReactions.performReaction(ofType: .cell, signature: EventMethodSignature.didEndDisplayingCellForItemAtIndexPath.rawValue, view: cell, model: model, location: indexPath)
     }
     
     open func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
         defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didEndDisplayingSupplementaryView: view, forElementOfKind: elementKind, at: indexPath) }
-        guard let model = (storage as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(elementKind, sectionIndexPath: indexPath) else { return }
+        guard let model = (storage as? SupplementaryStorage)?.supplementaryModel(ofKind: elementKind, forSectionAt: indexPath) else { return }
         _ = collectionViewReactions.performReaction(ofType: .supplementary(kind: elementKind), signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue, view: view, model: model, location: indexPath)
     }
     
@@ -767,7 +767,7 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
     }
     
     open func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        guard let model = RuntimeHelper.recursivelyUnwrapAnyValue(storage.itemAtIndexPath(indexPath)),
+        guard let model = RuntimeHelper.recursivelyUnwrapAnyValue(storage.item(at: indexPath)),
             let cell = collectionView.cellForItem(at: indexPath)
             else { return false }
         if let reaction = collectionViewReactions.reactionOfType(.cell, signature: EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue, forModel: model) as? FiveArgumentsEventReaction {
@@ -778,7 +778,7 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
     
     open func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, performAction: action, forItemAt: indexPath, withSender: sender) }
-        guard let model = RuntimeHelper.recursivelyUnwrapAnyValue(storage.itemAtIndexPath(indexPath)),
+        guard let model = RuntimeHelper.recursivelyUnwrapAnyValue(storage.item(at: indexPath)),
             let cell = collectionView.cellForItem(at: indexPath)
             else { return }
         if let reaction = collectionViewReactions.reactionOfType(.cell, signature: EventMethodSignature.performActionForItemAtIndexPath.rawValue, forModel: model) as? FiveArgumentsEventReaction {
@@ -797,12 +797,12 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
     fileprivate func performCellReaction(_ signature: EventMethodSignature, location: IndexPath, provideCell: Bool) -> Any? {
         var cell : UICollectionViewCell?
         if provideCell { cell = collectionView?.cellForItem(at:location) }
-        guard let model = storage.itemAtIndexPath(location) else { return nil }
+        guard let model = storage.item(at: location) else { return nil }
         return collectionViewReactions.performReaction(ofType: .cell, signature: signature.rawValue, view: cell, model: model, location: location)
     }
     
     fileprivate func performSupplementaryReaction(forKind kind: String, signature: EventMethodSignature, location: IndexPath, view: UICollectionReusableView?) -> Any? {
-        guard let model = (storage as? SupplementaryStorageProtocol)?.supplementaryModelOfKind(kind, sectionIndexPath: location) else { return nil }
+        guard let model = (storage as? SupplementaryStorage)?.supplementaryModel(ofKind: kind, forSectionAt: location) else { return nil }
         return collectionViewReactions.performReaction(ofType: .supplementary(kind: kind), signature: signature.rawValue, view: view, model: model, location: location)
     }
 }

@@ -360,7 +360,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     func testSizeForItemAtIndexPath() {
         let exp = expectation(description: "sizeForItemAtIndexPath")
-        sut.manager.size(forItemType: Int.self, { (model, indexPath) -> CGSize in
+        sut.manager.size(Int.self, { (model, indexPath) -> CGSize in
             exp.fulfill()
             return .zero
         })
@@ -371,7 +371,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     func testSizeForHeaderInSection() {
         let exp = expectation(description: "sizeForHeaderInSection")
-        sut.manager.referenceSizeForHeaderView(withItemType: Int.self, { (model, indexPath) -> CGSize in
+        sut.manager.referenceSizeForHeaderView(Int.self, { (model, indexPath) -> CGSize in
             exp.fulfill()
             return .zero
         })
@@ -382,7 +382,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     func testSizeForFooterInSection() {
         let exp = expectation(description: "sizeForFooterInSection")
-        sut.manager.referenceSizeForFooterView(withItemType: Int.self, { (model, indexPath) -> CGSize in
+        sut.manager.referenceSizeForFooterView(Int.self, { (model, indexPath) -> CGSize in
             exp.fulfill()
             return .zero
         })

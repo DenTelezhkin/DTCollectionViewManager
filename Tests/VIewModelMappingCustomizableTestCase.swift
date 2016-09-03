@@ -11,35 +11,35 @@ import DTCollectionViewManager
 import DTModelStorage
 import Nimble
 
-class CustomizableViewController: DTSupplementaryTestCollectionController, DTViewModelMappingCustomizable {
+class CustomizableViewController: DTSupplementaryTestCollectionController, ViewModelMappingCustomizing {
     
     var mappingSelectableBlock : (([ViewModelMapping], Any) -> ViewModelMapping?)?
     
-    func viewModelMappingFromCandidates(_ candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping? {
+    func viewModelMapping(fromCandidates candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping? {
         return mappingSelectableBlock?(candidates, model)
     }
 }
 
 class IntCell : UICollectionViewCell, ModelTransfer {
-    func updateWithModel(_ model: Int) {
+    func update(with model: Int) {
         
     }
 }
 
 class AnotherIntCell : UICollectionViewCell, ModelTransfer {
-    func updateWithModel(_ model: Int) {
+    func update(with model: Int) {
         
     }
 }
 
 class IntHeader: UICollectionReusableView, ModelTransfer {
-    func updateWithModel(_ model: Int) {
+    func update(with model: Int) {
         
     }
 }
 
 class AnotherIntHeader: UICollectionReusableView, ModelTransfer {
-    func updateWithModel(_ model: Int) {
+    func update(with model: Int) {
         
     }
 }

@@ -64,7 +64,7 @@ class DelegateForwardingTestCase: XCTestCase {
         section.collectionHeaderModel = 1
         section.collectionFooterModel = 2
         section.items = [1]
-        controller.manager.memoryStorage.setSection(section, forSectionIndex: 0)
+        controller.manager.memoryStorage.setSection(section, forSection: 0)
         
         controller.collectionView!.performBatchUpdates(nil, completion: nil)
         

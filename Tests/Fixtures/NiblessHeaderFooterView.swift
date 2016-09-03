@@ -13,7 +13,7 @@ import DTModelStorage
 
 class NiblessHeaderFooterView : UICollectionReusableView, ModelTransfer
 {
-    func updateWithModel(_ model: Int) {
+    func update(with model: Int) {
         
     }
 }
