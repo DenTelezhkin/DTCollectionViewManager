@@ -59,54 +59,43 @@ class MappingTestCase: XCTestCase {
         expect(self.controller.manager.memoryStorage.itemAtIndexPath(indexPath(0, 0)) as? String) == "foo"
     }
     
-// MARK: TODO - Reevaluate this functionality in the future
-// Is there a reason to have optional cell mapping or not?
-//    func testOptionalModelCellMapping()
-//    {
-//        controller.registerCellClass(OptionalIntCell)
-//
-//        controller.memoryStorage.addItem(Optional(1), toSection: 0)
-//
-//        expect(self.controller.verifyItem(1, atIndexPath: indexPath(0, 0))) == true
-//    }
+    func testUnregisterCellClass() {
+        controller.manager.registerCellClass(NibCell.self)
+        controller.manager.unregisterCellClass(NibCell.self)
+        
+        expect(self.controller.manager.viewFactory.mappings.count) == 0
+    }
     
+    func testUnregisterHeaderClass() {
+        controller.manager.registerHeaderClass(NibHeaderFooterView.self)
+        controller.manager.unregisterHeaderClass(NibHeaderFooterView.self)
+        
+        expect(self.controller.manager.viewFactory.mappings.count) == 0
+    }
     
-//    func testHeaderMappingFromHeaderFooterView()
-//    {
-//        controller.manager.registerHeaderClass(NibHeaderFooterView)
-//        controller.manager.registerCellClass(NibCell)
-//
-//        let section = SectionModel()
-//        section.collectionHeaderModel = 1
-//        controller.manager.memoryStorage.setSection(section, forSectionIndex: 0)
-//        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, atIndexPath:  indexPath(0, 0))
-//        expect(view).to(beAKindOf(NibHeaderFooterView.self))
-//    }
-//
-//    func testFooterViewMappingFromUIView()
-//    {
-//        controller.manager.registerFooterClass(NibView)
-//        
-//        controller.manager.memoryStorage.setSectionFooterModels([1])
-//        let view = controller.manager.tableView(controller.tableView, viewForFooterInSection: 0)
-//        expect(view).to(beAKindOf(NibView.self))
-//    }
-//    
-//    func testFooterMappingFromHeaderFooterView()
-//    {
-//        controller.manager.registerHeaderClass(ReactingHeaderFooterView)
-//        controller.manager.memoryStorage.setSectionHeaderModels(["Foo"])
-//        let view = controller.manager.tableView(controller.tableView, viewForHeaderInSection: 0)
-//        expect(view).to(beAKindOf(ReactingHeaderFooterView.self))
-//    }
-//    
-//    func testHeaderViewShouldSupportNSStringModel()
-//    {
-//        controller.manager.registerNibNamed("NibHeaderFooterView", forHeaderType: NibHeaderFooterView.self)
-//        controller.manager.memoryStorage.setSectionHeaderModels([1])
-//        expect(self.controller.manager.tableView(self.controller.tableView, viewForHeaderInSection: 0)).to(beAKindOf(NibHeaderFooterView))
-//    }
-//
+    func testUnregisterFooterClass() {
+        controller.manager.registerFooterClass(NibHeaderFooterView.self)
+        controller.manager.unregisterFooterClass(NibHeaderFooterView.self)
+        
+        expect(self.controller.manager.viewFactory.mappings.count) == 0
+    }
+    
+    func testUnregisterHeaderClassDoesNotUnregisterCell() {
+        controller.manager.registerCellClass(NibCell.self)
+        controller.manager.registerHeaderClass(NibHeaderFooterView.self)
+        controller.manager.unregisterHeaderClass(NibCell.self)
+        
+        expect(self.controller.manager.viewFactory.mappings.count) == 2
+    }
+    
+    func testUnregisteringHeaderDoesNotUnregisterFooter() {
+        controller.manager.registerFooterClass(NibHeaderFooterView.self)
+        controller.manager.registerHeaderClass(NibHeaderFooterView.self)
+        controller.manager.unregisterHeaderClass(NibHeaderFooterView.self)
+        
+        expect(self.controller.manager.viewFactory.mappings.count) == 1
+    }
+
 }
 
 class NibNameViewModelMappingTestCase : XCTestCase {

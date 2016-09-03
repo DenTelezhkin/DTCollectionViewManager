@@ -122,6 +122,28 @@ extension CollectionViewFactory
         self.collectionView.register(UINib(nibName: nibName, bundle: Bundle(for: T.self)), forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
         mappings.addMappingForViewType(.supplementaryView(kind: kind), viewClass: T.self, xibName: nibName)
     }
+    
+    open func unregisterCellClass<T:ModelTransfer>(_ cellClass: T.Type) where T: UICollectionViewCell {
+        mappings = mappings.filter({ mapping in
+            if mapping.viewClass is T.Type && mapping.viewType == .cell { return false }
+            return true
+        })
+        let nilClass : AnyClass? = nil
+        let nilNib : UINib? = nil
+        collectionView.register(nilClass, forCellWithReuseIdentifier: String(describing: T.self))
+        collectionView.register(nilNib, forCellWithReuseIdentifier: String(describing: T.self))
+    }
+    
+    open func unregisterSupplementaryClass<T:ModelTransfer>(_ klass: T.Type, forKind kind: String) where T:UICollectionReusableView {
+        mappings = mappings.filter({ mapping in
+            if mapping.viewClass is T.Type && mapping.viewType == .supplementaryView(kind: kind) { return false }
+            return true
+        })
+        let nilClass : AnyClass? = nil
+        let nilNib : UINib? = nil
+        collectionView.register(nilClass, forSupplementaryViewOfKind: kind, withReuseIdentifier: String(describing: self))
+        collectionView.register(nilNib, forSupplementaryViewOfKind: kind, withReuseIdentifier: String(describing: self))
+    }
 }
 
 // MARK: View creation

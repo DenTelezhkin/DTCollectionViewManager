@@ -269,6 +269,22 @@ extension DTCollectionViewManager
     open func registerNiblessSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView {
         viewFactory.registerNiblessSupplementaryClass(supplementaryClass, forKind: kind)
     }
+    
+    open func unregisterCellClass<T:ModelTransfer>(_ cellClass: T.Type) where T: UICollectionViewCell {
+        viewFactory.unregisterCellClass(T.self)
+    }
+    
+    open func unregisterHeaderClass<T:ModelTransfer>(_ headerClass: T.Type) where T:UICollectionReusableView {
+        unregisterSupplementaryClass(T.self, forKind: UICollectionElementKindSectionHeader)
+    }
+    
+    open func unregisterFooterClass<T:ModelTransfer>(_ headerClass: T.Type) where T:UICollectionReusableView {
+        unregisterSupplementaryClass(T.self, forKind: UICollectionElementKindSectionFooter)
+    }
+    
+    open func unregisterSupplementaryClass<T:ModelTransfer>(_ klass: T.Type, forKind kind: String) where T:UICollectionReusableView {
+        viewFactory.unregisterSupplementaryClass(T.self, forKind: kind)
+    }
 }
 
 internal enum EventMethodSignature: String {
@@ -801,9 +817,9 @@ extension DTCollectionViewManager : StorageUpdating
                 }
             }
             
-            if update.insertedSectionIndexes.count > 0 { self?.collectionView?.insertSections(update.insertedSectionIndexes.makeNSIndexSet()) }
-            if update.deletedSectionIndexes.count > 0 { self?.collectionView?.deleteSections(update.deletedSectionIndexes.makeNSIndexSet()) }
-            if update.updatedSectionIndexes.count > 0 { self?.collectionView?.reloadSections(update.updatedSectionIndexes.makeNSIndexSet())}
+            if update.insertedSectionIndexes.count > 0 { self?.collectionView?.insertSections(IndexSet(update.insertedSectionIndexes)) }
+            if update.deletedSectionIndexes.count > 0 { self?.collectionView?.deleteSections(IndexSet(update.deletedSectionIndexes)) }
+            if update.updatedSectionIndexes.count > 0 { self?.collectionView?.reloadSections(IndexSet(update.updatedSectionIndexes))}
             if update.movedSectionIndexes.count > 0 {
                 for moveAction in update.movedSectionIndexes {
                     if let from = moveAction.first, let to = moveAction.last {
