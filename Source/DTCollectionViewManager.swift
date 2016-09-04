@@ -40,8 +40,8 @@ private var DTCollectionViewManagerAssociatedKey = "DTCollectionView Manager Ass
 /// Default implementation for `DTCollectionViewManageable` protocol, that will inject `manager` property to any object, that declares itself `DTCollectionViewManageable`.
 extension DTCollectionViewManageable
 {
-    /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call startManagingWithDelegate: method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
-    /// - SeeAlso: `startManagingWithDelegate:`
+    /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call `startManaging(withDelegate:)` method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
+    /// - SeeAlso: `startManaging(withDelegate:)`
     public var manager : DTCollectionViewManager
         {
         get {
@@ -58,7 +58,7 @@ extension DTCollectionViewManageable
     }
 }
 
-/// `DTCollectionViewManager` manages some of `UICollectionView` datasource and delegate methods and provides API for managing your data models in the collection view. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
+/// `DTCollectionViewManager` manages most of `UICollectionView` datasource and delegate methods and provides API for managing your data models in the collection view. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
 /// - SeeAlso: `startManagingWithDelegate:`
 open class DTCollectionViewManager : NSObject {
     
@@ -119,8 +119,7 @@ open class DTCollectionViewManager : NSObject {
         }()
         {
         willSet {
-            // explicit self is required due to known bug in Swift compiler - https://devforums.apple.com/message/1065306#1065306
-            self.storage.delegate = nil
+            storage.delegate = nil
         }
         didSet {
             if let headerFooterCompatibleStorage = storage as? BaseStorage {
@@ -130,6 +129,7 @@ open class DTCollectionViewManager : NSObject {
         }
     }
     
+    /// Object, that is responsible for updating `UICollectionView`, when received update from `Storage`
     open var collectionViewUpdater : StorageUpdating? {
         didSet {
             storage.delegate = collectionViewUpdater
@@ -162,6 +162,9 @@ open class DTCollectionViewManager : NSObject {
         _ = collectionView.numberOfSections
     }
     
+    /// Returns closure, that updates cell at provided indexPath.
+    ///
+    /// This is used by `coreDataUpdater` method and can be used to silently update a cell without animation.
     open func updateCellClosure() -> (IndexPath) -> Void {
         return { [weak self] in
             guard let model = self?.storage.item(at: $0) else { return }
@@ -169,6 +172,9 @@ open class DTCollectionViewManager : NSObject {
         }
     }
     
+    /// Returns `CollectionViewUpdater`, configured to work with `CoreDataStorage` and `NSFetchedResultsController` updates.
+    ///
+    /// - Precondition: UICollectionView instance on `delegate` should not be nil.
     open func coreDataUpdater() -> CollectionViewUpdater {
         guard let collectionView = delegate?.collectionView else {
             preconditionFailure("Call startManagingWithDelegate: method only when UICollectionView has been created")
@@ -182,12 +188,16 @@ open class DTCollectionViewManager : NSObject {
 // MARK: - Runtime forwarding
 extension DTCollectionViewManager
 {
-    /// Any `UICollectionViewDatasource` and `UICollectionViewDelegate` method, that is not implemented by `DTCollectionViewManager` will be redirected to delegate, if it implements it.
+    /// Forwards `aSelector`, that is not implemented by `DTCollectionViewManager` to delegate, if it implements it.
+    ///
+    /// - Returns: `DTTableViewManager` delegate
     open override func forwardingTarget(for aSelector: Selector) -> Any? {
         return delegate
     }
     
-    /// Any `UICollectionViewDatasource` and `UICollectionViewDelegate` method, that is not implemented by `DTCollectionViewManager` will be redirected to delegate, if it implements it.
+    /// Returns true, if `DTCollectionViewManageable` implements `aSelector`, or `DTCollectionViewManager` has an event, associated with this selector.
+    ///
+    /// - SeeAlso: `EventMethodSignature`
     open override func responds(to aSelector: Selector) -> Bool {
         if self.delegate?.responds(to: aSelector) ?? false {
             return true
@@ -205,109 +215,98 @@ extension DTCollectionViewManager
 // MARK: - View registration
 extension DTCollectionViewManager
 {
-    /// Register mapping from model class to custom cell class. Method will automatically check for nib with the same name as `cellClass`. If it exists - nib will be registered instead of class.
-    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter cellClass: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
+    /// Registers mapping from model class to `cellClass`.
+    ///
+    /// Method will automatically check for nib with the same name as `cellClass`. If it exists - nib will be registered instead of class. If not - it is assumed that cell is registered in storyboard.
+    /// - Note: If you need to create cell interface from code, use `registerNibless(_:)` method
     open func register<T:ModelTransfer>(_ cellClass:T.Type) where T: UICollectionViewCell
     {
         self.viewFactory.registerCellClass(cellClass)
     }
     
-    /// Register mapping from model class to custom cell class. This method should be used, when you don't have cell interface created in XIB or storyboard, and you need cell, created from code.
-    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter cellClass: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
+    /// Registers mapping from model class to `cellClass`.
     open func registerNibless<T:ModelTransfer>(_ cellClass:T.Type) where T: UICollectionViewCell
     {
         viewFactory.registerNiblessCellClass(cellClass)
     }
     
-    /// Register mapping from model class to custom cell class using specific nib file.
-    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter nibName: Name of xib file to use
-    /// - Parameter cellClass: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
+    /// Registers nib with `nibName` mapping from model class to `cellClass`.
     open func registerNibNamed<T:ModelTransfer>(_ nibName: String, for cellClass: T.Type) where T: UICollectionViewCell
     {
         viewFactory.registerNibNamed(nibName, forCellClass: cellClass)
     }
     
-    /// Register mapping from model class to custom header view class. Method will automatically check for nib with the same name as `headerClass`. If it exists - nib will be registered instead of class.
-    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter headerClass: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
+    /// Registers mapping from model class to suppplementary view of `headerClass` type for UICollectionElementKindSectionHeader.
+    ///
+    /// Method will automatically check for nib with the same name as `headerClass`. If it exists - nib will be registered instead of class.
     open func registerHeader<T:ModelTransfer>(_ headerClass : T.Type) where T: UICollectionReusableView
     {
         viewFactory.registerSupplementaryClass(T.self, forKind: UICollectionElementKindSectionHeader)
     }
     
-    /// Register mapping from model class to custom footer view class. Method will automatically check for nib with the same name as `footerClass`. If it exists - nib will be registered instead of class.
-    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter footerClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
+    /// Registers mapping from model class to suppplementary view of `footerClass` type for UICollectionElementKindSectionFooter.
+    ///
+    /// Method will automatically check for nib with the same name as `footerClass`. If it exists - nib will be registered instead of class.
     open func registerFooter<T:ModelTransfer>(_ footerClass: T.Type) where T:UICollectionReusableView
     {
         viewFactory.registerSupplementaryClass(T.self, forKind: UICollectionElementKindSectionFooter)
     }
     
-    /// Register mapping from model class to custom header class using specific nib file.
-    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter nibName: Name of xib file to use
-    /// - Parameter headerClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
+    /// Registers mapping from model class to supplementary view of `headerClass` type with `nibName` for UICollectionElementKindSectionHeader.
     open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forHeader headerClass: T.Type) where T:UICollectionReusableView
     {
         viewFactory.registerNibNamed(nibName, forSupplementaryClass: T.self, forKind: UICollectionElementKindSectionHeader)
     }
     
-    /// Register mapping from model class to custom footer class using specific nib file.
-    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter nibName: Name of xib file to use
-    /// - Parameter footerClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
+    /// Registers mapping from model class to supplementary view of `footerClass` type with `nibName` for UICollectionElementKindSectionFooter.
     open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forFooter footerClass: T.Type) where T:UICollectionReusableView
     {
         viewFactory.registerNibNamed(nibName, forSupplementaryClass: T.self, forKind: UICollectionElementKindSectionFooter)
     }
     
-    /// Register mapping from model class to custom supplementary view class. Method will automatically check for nib with the same name as `supplementaryClass`. If it exists - nib will be registered instead of class.
-    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter supplementaryClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
-    /// - Parameter kind: Supplementary kind
+    /// Registers mapping from model class to suppplementary view of `supplementaryClass` type for supplementary `kind`.
+    ///
+    /// Method will automatically check for nib with the same name as `supplementaryClass`. If it exists - nib will be registered instead of class.
     open func registerSupplementary<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView
     {
         viewFactory.registerSupplementaryClass(T.self, forKind: kind)
     }
     
-    /// Register mapping from model class to custom supplementary class using specific nib file.
-    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter nibName: Name of xib file to use
-    /// - Parameter supplementaryClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
-    /// - Parameter kind: Supplementary kind
-    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forSupplementary klass: T.Type, ofKind kind: String) where T:UICollectionReusableView
+    /// Registers mapping from model class to supplementary view of `supplementaryClass` type with `nibName` for supplementary `kind`.
+    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forSupplementary supplementaryClass: T.Type, ofKind kind: String) where T:UICollectionReusableView
     {
-        viewFactory.registerNibNamed(nibName, forSupplementaryClass: klass, forKind: kind)
+        viewFactory.registerNibNamed(nibName, forSupplementaryClass: T.self, forKind: kind)
     }
     
-    /// Register mapping from model class to custom supplementary view class. This method should be used, when you don't have supplementary interface created in XIB or storyboard, and you need view, created from code.
-    /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
-    /// - Parameter supplementaryClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
-    /// - Parameter kind: Supplementary kind
+    /// Registers mapping from model class to supplementary view of `supplementaryClass` type for supplementary `kind`.
     open func registerNiblessSupplementary<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView {
         viewFactory.registerNiblessSupplementaryClass(supplementaryClass, forKind: kind)
     }
     
+    /// Unregisters `cellClass` from `DTCollectionViewManager` and `UICollectionView`.
     open func unregister<T:ModelTransfer>(_ cellClass: T.Type) where T: UICollectionViewCell {
         viewFactory.unregisterCellClass(T.self)
     }
     
+    /// Unregisters `headerClass` from `DTCollectionViewManager` and `UICollectionView`.
     open func unregisterHeader<T:ModelTransfer>(_ headerClass: T.Type) where T:UICollectionReusableView {
         unregisterSupplementary(T.self, forKind: UICollectionElementKindSectionHeader)
     }
     
+    /// Unregisters `footerClass` from `DTCollectionViewManager` and `UICollectionView`.
     open func unregisterFooter<T:ModelTransfer>(_ headerClass: T.Type) where T:UICollectionReusableView {
         unregisterSupplementary(T.self, forKind: UICollectionElementKindSectionFooter)
     }
     
-    open func unregisterSupplementary<T:ModelTransfer>(_ klass: T.Type, forKind kind: String) where T:UICollectionReusableView {
+    /// Unregisters `supplementaryClass` of `kind` from `DTCollectionViewManager` and `UICollectionView`.
+    open func unregisterSupplementary<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView {
         viewFactory.unregisterSupplementaryClass(T.self, forKind: kind)
     }
 }
 
+/// All supported Objective-C method signatures.
+///
+/// Some of signatures are made up, so that we would be able to link them with event, however they don't stop "responds(to:)" method from returning true.
 internal enum EventMethodSignature: String {
     /// UICollectionViewDataSource
     case configureCell = "collectionViewConfigureCell_imaginarySelector"
@@ -370,34 +369,23 @@ extension DTCollectionViewManager
         collectionViewReactions.append(reaction)
     }
     
-    /// Define an action, that will be performed, when cell of specific type is selected.
-    /// - Parameter cellClass: Type of UICollectionViewCell subclass
-    /// - Parameter closure: closure to run when UICollectionViewCell is selected
-    /// - Warning: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didSelectItemAt:)` method is called for `cellClass`.
     open func didSelect<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping (T,T.ModelType, IndexPath) -> Void) where T:UICollectionViewCell
     {
         appendReaction(for: T.self, signature: .didSelectItemAtIndexPath, closure: closure)
     }
     
-    @available(*, unavailable, renamed:"didSelect(_:_:)")
-    open func whenSelected<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping (T,T.ModelType, IndexPath) -> Void) where T:UICollectionViewCell
-    {
-        didSelect(cellClass, closure)
-    }
-    
-    /// Define additional configuration action, that will happen, when UICollectionViewCell subclass is requested by UICollectionView. This action will be performed *after* cell is created and updateWithModel: method is called.
-    /// - Parameter cellClass: Type of UICollectionViewCell subclass
-    /// - Parameter closure: closure to run when UICollectionViewCell is being configured
-    /// - Warning: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
+    /// Registers `closure` to be executed, when `UICollectionView` requests `cellClass` in `UICollectionViewDataSource.collectionView(_:cellForItemAt:)` method and cell is being configured.
+    ///
+    /// This closure will be performed *after* cell is created and `update(with:)` method is called.
     open func configureCell<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
     {
         appendReaction(for: T.self, signature: .configureCell, closure: closure)
     }
     
-    /// Define additional configuration action, that will happen, when UICollectionReusableView header subclass is requested by UICollectionView. This action will be performed *after* header is created and updateWithModel: method is called.
-    /// - Parameter headerClass: Type of UICollectionReusableView subclass
-    /// - Parameter closure: closure to run when UICollectionReusableView is being configured
-    /// - Warning: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
+    /// Registers `closure` to be executed, when `UICollectionView` requests `headerClass` in `UICollectionViewDataSource.collectionView(_:viewForSupplementaryElementOf:at:)` method and header is being configured.
+    ///
+    /// This closure will be performed *after* header is created and `update(with:)` method is called.
     open func configureHeader<T:ModelTransfer>(_ headerClass: T.Type, _ closure: @escaping (T, T.ModelType, Int) -> Void) where T: UICollectionReusableView
     {
         let indexPathClosure : (T,T.ModelType, IndexPath) -> Void = { view, model, indexPath in
@@ -406,10 +394,9 @@ extension DTCollectionViewManager
         self.configureSupplementary(T.self, ofKind: UICollectionElementKindSectionHeader, indexPathClosure)
     }
     
-    /// Define additional configuration action, that will happen, when UICollectionReusableView footer subclass is requested by UICollectionView. This action will be performed *after* footer is created and updateWithModel: method is called.
-    /// - Parameter footerClass: Type of UICollectionReusableView subclass
-    /// - Parameter closure: closure to run when UICollectionReusableView is being configured
-    /// - Warning: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
+    /// Registers `closure` to be executed, when `UICollectionView` requests `footerClass` in `UICollectionViewDataSource.collectionView(_:viewForSupplementaryElementOf:at:)` method and footer is being configured.
+    ///
+    /// This closure will be performed *after* footer is created and `update(with:)` method is called.
     open func configureFooter<T:ModelTransfer>(_ footerClass: T.Type, _ closure: @escaping (T, T.ModelType, Int) -> Void) where T: UICollectionReusableView
     {
         let indexPathClosure : (T,T.ModelType, IndexPath) -> Void = { view, model, indexPath in
@@ -418,96 +405,112 @@ extension DTCollectionViewManager
         self.configureSupplementary(T.self, ofKind: UICollectionElementKindSectionFooter, indexPathClosure)
     }
     
-    /// Define additional configuration action, that will happen, when UICollectionReusableView supplementary subclass is requested by UICollectionView. This action will be performed *after* supplementary is created and updateWithModel: method is called.
-    /// - Parameter supplementaryClass: Type of UICollectionReusableView subclass
-    /// - Parameter closure: closure to run when UICollectionReusableView is being configured
-    /// - Warning: Closure will be stored on `DTCollectionViewManager` instance, which can create a retain cycle, so make sure to declare weak self and any other `DTCollectionViewManager` property in capture lists.
+    /// Registers `closure` to be executed, when `UICollectionView` requests `supplementaryClass` of `kind` in `UICollectionViewDataSource.collectionView(_:viewForSupplementaryElementOf:at:)` method and supplementary view is being configured.
+    ///
+    /// This closure will be performed *after* supplementary view is created and `update(with:)` method is called.
     open func configureSupplementary<T:ModelTransfer>(_ supplementaryClass: T.Type, ofKind kind: String, _ closure: @escaping (T,T.ModelType,IndexPath) -> Void) where T: UICollectionReusableView
     {
         appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: .configureSupplementary, closure: closure)
     }
     
     @available(iOS 9.0, tvOS 9.0, *)
+    /// Registers `closure` to be executed, when `UICollectionViewDataSource.collectionView(_:canMoveItemAt:)` method is called for `cellClass`.
     open func canMove<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
         appendReaction(for: T.self, signature: EventMethodSignature.canMoveItemAtIndexPath, closure: closure)
     }
     
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldSelectItemAt:)` method is called for `cellClass`.
     open func shouldSelect<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
         appendReaction(for: T.self, signature: EventMethodSignature.shouldSelectItemAtIndexPath, closure: closure)
     }
     
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldDeselectItemAt:)` method is called for `cellClass`.
     open func shouldDeselect<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
         appendReaction(for: T.self, signature: EventMethodSignature.shouldDeselectItemAtIndexPath, closure: closure)
     }
     
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didDeselectItemAt:)` method is called for `cellClass`.
     open func didDeselect<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping (T,T.ModelType, IndexPath) -> Void) where T:UICollectionViewCell
     {
         appendReaction(for: T.self, signature: .didDeselectItemAtIndexPath, closure: closure)
     }
     
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldHighlightItemAt:)` method is called for `cellClass`.
     open func shouldHighlight<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
         appendReaction(for: T.self, signature: EventMethodSignature.shouldHighlightItemAtIndexPath, closure: closure)
     }
     
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didHighlightItemAt:)` method is called for `cellClass`.
     open func didHighlight<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
     {
         appendReaction(for: T.self, signature: EventMethodSignature.didHighlightItemAtIndexPath, closure: closure)
     }
     
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didUnhighlightItemAt:)` method is called for `cellClass`.
     open func didUnhighlight<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
     {
         appendReaction(for: T.self, signature: EventMethodSignature.didUnhighlightItemAtIndexPath, closure: closure)
     }
     
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplayCell:forItemAt:)` method is called for `cellClass`.
     open func willDisplay<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
     {
         appendReaction(for: T.self, signature: EventMethodSignature.willDisplayCellForItemAtIndexPath, closure: closure)
     }
     
-    open func willDisplaySupplementaryView<T:ModelTransfer>(_ cellClass:T.Type, forElementKind kind: String,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `kind`.
+    open func willDisplaySupplementaryView<T:ModelTransfer>(_ supplementaryClass:T.Type, forElementKind kind: String,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
         appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: EventMethodSignature.willDisplaySupplementaryViewForElementKindAtIndexPath, closure: closure)
     }
     
-    open func willDisplayHeaderView<T:ModelTransfer>(_ cellClass:T.Type,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `UICollectionElementKindSectionHeader`.
+    open func willDisplayHeaderView<T:ModelTransfer>(_ headerClass:T.Type,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
         willDisplaySupplementaryView(T.self, forElementKind: UICollectionElementKindSectionHeader, closure)
     }
     
-    open func willDisplayFooterView<T:ModelTransfer>(_ cellClass:T.Type,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `UICollectionElementKindSectionFooter`.
+    open func willDisplayFooterView<T:ModelTransfer>(_ footerClass:T.Type,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
         willDisplaySupplementaryView(T.self, forElementKind: UICollectionElementKindSectionFooter, closure)
     }
     
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplaying:forItemAt:)` method is called for `cellClass`.
     open func didEndDisplaying<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
     {
         appendReaction(for: T.self, signature: EventMethodSignature.didEndDisplayingCellForItemAtIndexPath, closure: closure)
     }
     
-    open func didEndDisplayingSupplementaryView<T:ModelTransfer>(_ cellClass:T.Type, forElementKind kind: String,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `kind`.
+    open func didEndDisplayingSupplementaryView<T:ModelTransfer>(_ supplementaryClass:T.Type, forElementKind kind: String,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
         appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath, closure: closure)
     }
     
-    open func didEndDisplayingHeaderView<T:ModelTransfer>(_ cellClass:T.Type,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `headerClass` of `UICollectionElementKindSectionHeader`.
+    open func didEndDisplayingHeaderView<T:ModelTransfer>(_ headerClass:T.Type,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
         didEndDisplayingSupplementaryView(T.self, forElementKind: UICollectionElementKindSectionHeader, closure)
     }
     
-    open func didEndDisplayingFooterView<T:ModelTransfer>(_ cellClass:T.Type,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `footerClass` of `UICollectionElementKindSectionFooter`.
+    open func didEndDisplayingFooterView<T:ModelTransfer>(_ footerClass:T.Type,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
         didEndDisplayingSupplementaryView(T.self, forElementKind: UICollectionElementKindSectionFooter, closure)
     }
     
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldShowMenuForItemAt:)` method is called for `cellClass`.
     open func shouldShowMenu<T:ModelTransfer>(for cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
         appendReaction(for: T.self, signature: EventMethodSignature.shouldShowMenuForItemAtIndexPath, closure: closure)
     }
     
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canPerformAction:forItemAt:withSender:)` method is called for `cellClass`.
     open func canPerformAction<T:ModelTransfer>(for cellClass: T.Type, _ closure: @escaping (Selector, Any?, T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell {
         let reaction = FiveArgumentsEventReaction(signature: EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue)
         reaction.modelTypeCheckingBlock = { $0 is T.ModelType }
@@ -522,6 +525,7 @@ extension DTCollectionViewManager
         collectionViewReactions.append(reaction)
     }
     
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:performAction:forItemAt:withSender:)` method is called for `cellClass`.
     open func performAction<T:ModelTransfer>(for cellClass: T.Type, _ closure: @escaping (Selector, Any?, T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell {
         let reaction = FiveArgumentsEventReaction(signature: EventMethodSignature.performActionForItemAtIndexPath.rawValue)
         reaction.modelTypeCheckingBlock = { $0 is T.ModelType }
@@ -537,21 +541,27 @@ extension DTCollectionViewManager
     }
     
     @available(iOS 9, tvOS 9, *)
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canFocusItemAt:)` method is called for `cellClass`.
     open func canFocus<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
         appendReaction(for: T.self, signature: EventMethodSignature.canFocusItemAtIndexPath, closure: closure)
     }
     
+    // MARK: - UICollectionViewDelegateFlowLayout
+    
+    /// Registers `closure` to be executed to determine cell size in `UICollectionViewDelegateFlowLayout.collectionView(_:sizeForItemAt:)` method, when it's called for cell which model is of `itemType`.
     open func sizeOfCell<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
         appendReaction(for: T.self, signature: EventMethodSignature.sizeForItemAtIndexPath, closure: closure)
     }
     
+    /// Registers `closure` to be executed to determine header size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderViewInSection:)` method, when it's called for header which model is of `itemType`.
     open func referenceSizeForHeaderView<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
         appendReaction(forSupplementaryKind: UICollectionElementKindSectionHeader, modelClass: T.self, signature: EventMethodSignature.referenceSizeForHeaderInSection, closure: closure)
     }
     
+    /// Registers `closure` to be executed to determine footer size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterViewInSection:)` method, when it's called for footer which model is of `itemType`.
     open func referenceSizeForFooterView<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
         appendReaction(forSupplementaryKind: UICollectionElementKindSectionFooter, modelClass: T.self, signature: EventMethodSignature.referenceSizeForFooterInSection, closure: closure)
@@ -560,6 +570,7 @@ extension DTCollectionViewManager
 
 // MARK : - error handling
 
+/// Calls `viewFactoryErrorHandler` with `error`. If it's nil, prints error into console and asserts.
 extension DTCollectionViewManager {
     @nonobjc final func handleCollectionViewFactoryError(_ error: DTCollectionViewFactoryError) {
         if let handler = viewFactoryErrorHandler {
@@ -617,7 +628,7 @@ extension DTCollectionViewManager : UICollectionViewDataSource
             } catch {
                 view = UICollectionReusableView()
             }
-            _ = collectionViewReactions.performReaction(ofType: .supplementary(kind: kind),
+            _ = collectionViewReactions.performReaction(ofType: .supplementaryView(kind: kind),
                                                         signature: EventMethodSignature.configureSupplementary.rawValue,
                                                         view: view,
                                                         model: model,
@@ -756,7 +767,7 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
     open func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
         defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didEndDisplayingSupplementaryView: view, forElementOfKind: elementKind, at: indexPath) }
         guard let model = (storage as? SupplementaryStorage)?.supplementaryModel(ofKind: elementKind, forSectionAt: indexPath) else { return }
-        _ = collectionViewReactions.performReaction(ofType: .supplementary(kind: elementKind), signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue, view: view, model: model, location: indexPath)
+        _ = collectionViewReactions.performReaction(ofType: .supplementaryView(kind: elementKind), signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue, view: view, model: model, location: indexPath)
     }
     
     open func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
@@ -803,7 +814,7 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
     
     fileprivate func performSupplementaryReaction(forKind kind: String, signature: EventMethodSignature, location: IndexPath, view: UICollectionReusableView?) -> Any? {
         guard let model = (storage as? SupplementaryStorage)?.supplementaryModel(ofKind: kind, forSectionAt: location) else { return nil }
-        return collectionViewReactions.performReaction(ofType: .supplementary(kind: kind), signature: signature.rawValue, view: view, model: model, location: location)
+        return collectionViewReactions.performReaction(ofType: .supplementaryView(kind: kind), signature: signature.rawValue, view: view, model: model, location: location)
     }
 }
 
@@ -870,6 +881,12 @@ extension DTCollectionViewManager {
     
     @available(*,unavailable,renamed:"registerNiblessSupplementary(_:forKind:)")
     open func registerNiblessSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*, unavailable, renamed:"didSelect(_:_:)")
+    open func whenSelected<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping (T,T.ModelType, IndexPath) -> Void) where T:UICollectionViewCell
+    {
         fatalError("UNAVAILABLE")
     }
 }

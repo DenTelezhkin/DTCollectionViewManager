@@ -10,20 +10,31 @@ import Foundation
 import UIKit
 import DTModelStorage
 
+/// `CollectionViewUpdater` is responsible for updating `UICollectionView`, when it receives storage updates.
 open class CollectionViewUpdater : StorageUpdating {
     
+    /// collection view, that will be updated
     weak var collectionView: UICollectionView?
+    
+    /// closure to be executed before content is updated
     open var willUpdateContent: ((StorageUpdate?) -> Void)? = nil
+    
+    /// closure to be executed after content is updated
     open var didUpdateContent: ((StorageUpdate?) -> Void)? = nil
     
+    /// Closure to be executed, when reloading an item.
+    ///
+    /// - SeeAlso: `DTCollectionViewManager.updateCellClosure()` method and `DTCollectionViewManager.coreDataUpdater()` method.
     open var reloadItemClosure : ((IndexPath) -> Void)?
     
+    /// When this property is true, move events will be animated as delete event and insert event.
     open var animateMoveAsDeleteAndInsert: Bool
     
     /// Boolean property, that indicates whether batch updates are completed.
     /// - Note: this can be useful if you are deciding whether to run another batch of animations - insertion, deletions etc. UICollectionView is not very tolerant to multiple performBatchUpdates, executed at once.
     open var batchUpdatesInProgress: Bool = false
     
+    /// Creates updater.
     public init(collectionView: UICollectionView,
                 reloadItem: ((IndexPath) -> Void)? = nil,
                 animateMoveAsDeleteAndInsert: Bool = false) {

@@ -31,9 +31,16 @@ import DTModelStorage
 /// These errors are handled by `DTCollectionViewManager` class.
 public enum DTCollectionViewFactoryError : Error, CustomStringConvertible
 {
+    /// `UICollectionView` requested a cell, however model at indexPath is nil.
     case nilCellModel(IndexPath)
+    
+    /// `UICollectionView` requested a supplementary of `kind`, however supplementary at `indexPath` is nil.
     case nilSupplementaryModel(kind: String, indexPath: IndexPath)
+    
+    /// `UICollectionView` requested a cell for `model`, however `DTCollectionViewManager` does not have mapping for it
     case noCellMappings(model: Any)
+    
+    /// `UICollectionView` requested a supplementary for `model` of `kind`, however `DTCollectionViewManager` does not have mapping for it
     case noSupplementaryViewMapping(kind: String, model: Any)
     
     public var description : String {

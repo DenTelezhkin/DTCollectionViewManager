@@ -30,7 +30,7 @@ import DTModelStorage
 /// Convenience getters and setters for collection view header and footer models, used in UICollectionViewFlowLayout
 public extension SectionModel
 {
-    /// UICollectionView header model for current section
+    /// Returns UICollectionView header model for current section
     var collectionHeaderModel : Any? {
         get {
             return self.supplementaryModel(ofKind: UICollectionElementKindSectionHeader, atIndex: 0)
@@ -40,7 +40,7 @@ public extension SectionModel
         }
     }
     
-    /// UICollectionView footer model for current section
+    /// Returns UICollectionView footer model for current section
     var collectionFooterModel : Any? {
         get {
             return self.supplementaryModel(ofKind: UICollectionElementKindSectionFooter, atIndex: 0)
