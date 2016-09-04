@@ -19,7 +19,7 @@ class SupplementaryMappingTestCase: XCTestCase {
         super.setUp()
         controller = DTSupplementaryTestCollectionController()
         let _ = controller.view
-        controller.manager.startManagingWithDelegate(controller)
+        controller.manager.startManaging(withDelegate: controller)
         controller.manager.memoryStorage.configureForCollectionViewFlowLayoutUsage()
     }
     
@@ -45,42 +45,42 @@ class SupplementaryMappingTestCase: XCTestCase {
     
     func testHeaderMappingFromHeaderFooterView()
     {
-        controller.manager.registerHeaderClass(NibHeaderFooterView.self)
+        controller.manager.registerHeader(NibHeaderFooterView.self)
         verifyHeader()
     }
     
     func testFooterMappingFromHeaderFooterView()
     {
-        controller.manager.registerFooterClass(NibHeaderFooterView.self)
+        controller.manager.registerFooter(NibHeaderFooterView.self)
         verifyFooter()
     }
     
     func testRegisterNibNamedForHeaderClass()
     {
-        controller.manager.registerNibNamed("RandomNameHeaderFooterView", forHeaderClass: NibHeaderFooterView.self)
+        controller.manager.registerNibNamed("RandomNameHeaderFooterView", forHeader: NibHeaderFooterView.self)
         verifyHeader()
     }
     
     func testRegisterNibNamedForFooterClass()
     {
-        controller.manager.registerNibNamed("RandomNameHeaderFooterView", forFooterClass: NibHeaderFooterView.self)
+        controller.manager.registerNibNamed("RandomNameHeaderFooterView", forFooter: NibHeaderFooterView.self)
         verifyFooter()
     }
     
     func testRegisterSupplementaryClassForKind()
     {
-        controller.manager.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionElementKindSectionFooter)
+        controller.manager.registerSupplementary(NibHeaderFooterView.self, forKind: UICollectionElementKindSectionFooter)
         verifyFooter()
     }
     
     func testRegisterNibNamedForSupplementaryClass()
     {
-        controller.manager.registerNibNamed("RandomNameHeaderFooterView", supplementaryClass: NibHeaderFooterView.self, forKind: UICollectionElementKindSectionFooter)
+        controller.manager.registerNibNamed("RandomNameHeaderFooterView", forSupplementary: NibHeaderFooterView.self, ofKind: UICollectionElementKindSectionFooter)
         verifyFooter()
     }
     
     func testRegisterNiblessSupplementaryClass() {
-        controller.manager.registerNiblessSupplementaryClass(NiblessHeaderFooterView.self, forKind: UICollectionElementKindSectionHeader)
+        controller.manager.registerNiblessSupplementary(NiblessHeaderFooterView.self, forKind: UICollectionElementKindSectionHeader)
         (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
         controller.manager.memoryStorage.setSectionHeaderModels([1])
         

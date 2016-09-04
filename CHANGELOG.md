@@ -14,6 +14,7 @@ All notable changes to this project will be documented in this file.
 
 ### Changed
 
+* Swift 3 API Design guidelines have been applied to all public API.
 * Event system is migrated to new `EventReaction` class from `DTModelStorage`
 * Now all view registration methods use `NSBundle(forClass:)` constructor, instead of falling back on `DTCollectionViewManager` `viewBundle` property. This allows having cells from separate bundles or frameworks to be used with single `DTCollectionViewManager` instance.
 

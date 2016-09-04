@@ -21,11 +21,11 @@ class StoryboardMappingTestCase: XCTestCase {
         let storyboard = UIStoryboard(name: "FixtureStoryboard", bundle: Bundle(for: type(of: self)))
         controller = storyboard.instantiateInitialViewController() as! StoryboardViewController
         _ = controller.view
-        controller.manager.startManagingWithDelegate(controller)
+        controller.manager.startManaging(withDelegate: controller)
     }
     
     func testStoryboardCellIsCreatedAndOutletsAreWired() {
-        controller.manager.registerCellClass(StoryboardCollectionViewCell.self)
+        controller.manager.register(StoryboardCollectionViewCell.self)
         controller.manager.memoryStorage.addItem(3)
         
         let cell = controller.manager.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0)) as? StoryboardCollectionViewCell
@@ -34,8 +34,8 @@ class StoryboardMappingTestCase: XCTestCase {
     }
     
     func testSupplementaryHeadersAreRegisteredAndOutletsAreWired() {
-        controller.manager.registerHeaderClass(StoryboardCollectionReusableHeaderView.self)
-        controller.manager.registerFooterClass(StoryboardCollectionReusableFooterView.self)
+        controller.manager.registerHeader(StoryboardCollectionReusableHeaderView.self)
+        controller.manager.registerFooter(StoryboardCollectionReusableFooterView.self)
         
         
         controller.manager.memoryStorage.setSectionHeaderModels(["1"])

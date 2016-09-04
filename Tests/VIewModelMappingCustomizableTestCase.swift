@@ -52,14 +52,14 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
         super.setUp()
         controller = CustomizableViewController()
         let _ = controller.view
-        controller.manager.startManagingWithDelegate(controller)
+        controller.manager.startManaging(withDelegate: controller)
         controller.manager.storage = MemoryStorage()
         controller.manager.memoryStorage.configureForCollectionViewFlowLayoutUsage()
     }
     
     func testMappingCustomizableAllowsSelectingAnotherCellMapping() {
-        controller.manager.registerNiblessCellClass(IntCell.self)
-        controller.manager.registerNiblessCellClass(AnotherIntCell.self)
+        controller.manager.registerNibless(IntCell.self)
+        controller.manager.registerNibless(AnotherIntCell.self)
         controller.mappingSelectableBlock = { mappings, model in
             return mappings.last
         }
@@ -72,8 +72,8 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
     }
     
     func testMappingCustomizableAllowsSelectingAnotherHeaderMapping() {
-        controller.manager.registerNiblessSupplementaryClass(IntHeader.self, forKind: UICollectionElementKindSectionHeader)
-        controller.manager.registerNiblessSupplementaryClass(AnotherIntHeader.self, forKind: UICollectionElementKindSectionHeader)
+        controller.manager.registerNiblessSupplementary(IntHeader.self, forKind: UICollectionElementKindSectionHeader)
+        controller.manager.registerNiblessSupplementary(AnotherIntHeader.self, forKind: UICollectionElementKindSectionHeader)
         controller.mappingSelectableBlock = { mappings, model in
             return mappings.last
         }
@@ -86,8 +86,8 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
     }
     
     func testMappingCustomizableAllowsSelectingAnotherFooterMapping() {
-        controller.manager.registerNiblessSupplementaryClass(IntHeader.self, forKind: UICollectionElementKindSectionFooter)
-        controller.manager.registerNiblessSupplementaryClass(AnotherIntHeader.self, forKind: UICollectionElementKindSectionFooter)
+        controller.manager.registerNiblessSupplementary(IntHeader.self, forKind: UICollectionElementKindSectionFooter)
+        controller.manager.registerNiblessSupplementary(AnotherIntHeader.self, forKind: UICollectionElementKindSectionFooter)
         controller.mappingSelectableBlock = { mappings, model in
             return mappings.last
         }

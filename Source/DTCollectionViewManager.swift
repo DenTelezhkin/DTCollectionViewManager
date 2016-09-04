@@ -139,7 +139,7 @@ open class DTCollectionViewManager : NSObject {
     /// Call this method before calling any of `DTCollectionViewManager` methods.
     /// - Precondition: UICollectionView instance on `delegate` should not be nil.
     /// - Parameter delegate: Object, that has UICollectionView, that will be managed by `DTCollectionViewManager`.
-    open func startManagingWithDelegate(_ delegate : DTCollectionViewManageable)
+    open func startManaging(withDelegate delegate : DTCollectionViewManageable)
     {
         guard let collectionView = delegate.collectionView else {
             preconditionFailure("Call startManagingWithDelegate: method only when UICollectionView has been created")
@@ -208,7 +208,7 @@ extension DTCollectionViewManager
     /// Register mapping from model class to custom cell class. Method will automatically check for nib with the same name as `cellClass`. If it exists - nib will be registered instead of class.
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
     /// - Parameter cellClass: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
-    open func registerCellClass<T:ModelTransfer>(_ cellClass:T.Type) where T: UICollectionViewCell
+    open func register<T:ModelTransfer>(_ cellClass:T.Type) where T: UICollectionViewCell
     {
         self.viewFactory.registerCellClass(cellClass)
     }
@@ -216,7 +216,7 @@ extension DTCollectionViewManager
     /// Register mapping from model class to custom cell class. This method should be used, when you don't have cell interface created in XIB or storyboard, and you need cell, created from code.
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
     /// - Parameter cellClass: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
-    open func registerNiblessCellClass<T:ModelTransfer>(_ cellClass:T.Type) where T: UICollectionViewCell
+    open func registerNibless<T:ModelTransfer>(_ cellClass:T.Type) where T: UICollectionViewCell
     {
         viewFactory.registerNiblessCellClass(cellClass)
     }
@@ -225,7 +225,7 @@ extension DTCollectionViewManager
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
     /// - Parameter nibName: Name of xib file to use
     /// - Parameter cellClass: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
-    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forCellClass cellClass: T.Type) where T: UICollectionViewCell
+    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, for cellClass: T.Type) where T: UICollectionViewCell
     {
         viewFactory.registerNibNamed(nibName, forCellClass: cellClass)
     }
@@ -233,7 +233,7 @@ extension DTCollectionViewManager
     /// Register mapping from model class to custom header view class. Method will automatically check for nib with the same name as `headerClass`. If it exists - nib will be registered instead of class.
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
     /// - Parameter headerClass: Type of UICollectionViewCell subclass, that is being registered for using by `DTCollectionViewManager`
-    open func registerHeaderClass<T:ModelTransfer>(_ headerClass : T.Type) where T: UICollectionReusableView
+    open func registerHeader<T:ModelTransfer>(_ headerClass : T.Type) where T: UICollectionReusableView
     {
         viewFactory.registerSupplementaryClass(T.self, forKind: UICollectionElementKindSectionHeader)
     }
@@ -241,7 +241,7 @@ extension DTCollectionViewManager
     /// Register mapping from model class to custom footer view class. Method will automatically check for nib with the same name as `footerClass`. If it exists - nib will be registered instead of class.
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
     /// - Parameter footerClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
-    open func registerFooterClass<T:ModelTransfer>(_ footerClass: T.Type) where T:UICollectionReusableView
+    open func registerFooter<T:ModelTransfer>(_ footerClass: T.Type) where T:UICollectionReusableView
     {
         viewFactory.registerSupplementaryClass(T.self, forKind: UICollectionElementKindSectionFooter)
     }
@@ -250,7 +250,7 @@ extension DTCollectionViewManager
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
     /// - Parameter nibName: Name of xib file to use
     /// - Parameter headerClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
-    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forHeaderClass headerClass: T.Type) where T:UICollectionReusableView
+    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forHeader headerClass: T.Type) where T:UICollectionReusableView
     {
         viewFactory.registerNibNamed(nibName, forSupplementaryClass: T.self, forKind: UICollectionElementKindSectionHeader)
     }
@@ -259,7 +259,7 @@ extension DTCollectionViewManager
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
     /// - Parameter nibName: Name of xib file to use
     /// - Parameter footerClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
-    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forFooterClass footerClass: T.Type) where T:UICollectionReusableView
+    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forFooter footerClass: T.Type) where T:UICollectionReusableView
     {
         viewFactory.registerNibNamed(nibName, forSupplementaryClass: T.self, forKind: UICollectionElementKindSectionFooter)
     }
@@ -268,7 +268,7 @@ extension DTCollectionViewManager
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
     /// - Parameter supplementaryClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
     /// - Parameter kind: Supplementary kind
-    open func registerSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView
+    open func registerSupplementary<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView
     {
         viewFactory.registerSupplementaryClass(T.self, forKind: kind)
     }
@@ -278,32 +278,32 @@ extension DTCollectionViewManager
     /// - Parameter nibName: Name of xib file to use
     /// - Parameter supplementaryClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
     /// - Parameter kind: Supplementary kind
-    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView
+    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forSupplementary klass: T.Type, ofKind kind: String) where T:UICollectionReusableView
     {
-        viewFactory.registerNibNamed(nibName, forSupplementaryClass: supplementaryClass, forKind: kind)
+        viewFactory.registerNibNamed(nibName, forSupplementaryClass: klass, forKind: kind)
     }
     
     /// Register mapping from model class to custom supplementary view class. This method should be used, when you don't have supplementary interface created in XIB or storyboard, and you need view, created from code.
     /// - Note: Model type is automatically gathered from `ModelTransfer`.`ModelType` associated type.
     /// - Parameter supplementaryClass: Type of UICollectionReusableView subclass, that is being registered for using by `DTCollectionViewManager`
     /// - Parameter kind: Supplementary kind
-    open func registerNiblessSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView {
+    open func registerNiblessSupplementary<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView {
         viewFactory.registerNiblessSupplementaryClass(supplementaryClass, forKind: kind)
     }
     
-    open func unregisterCellClass<T:ModelTransfer>(_ cellClass: T.Type) where T: UICollectionViewCell {
+    open func unregister<T:ModelTransfer>(_ cellClass: T.Type) where T: UICollectionViewCell {
         viewFactory.unregisterCellClass(T.self)
     }
     
-    open func unregisterHeaderClass<T:ModelTransfer>(_ headerClass: T.Type) where T:UICollectionReusableView {
-        unregisterSupplementaryClass(T.self, forKind: UICollectionElementKindSectionHeader)
+    open func unregisterHeader<T:ModelTransfer>(_ headerClass: T.Type) where T:UICollectionReusableView {
+        unregisterSupplementary(T.self, forKind: UICollectionElementKindSectionHeader)
     }
     
-    open func unregisterFooterClass<T:ModelTransfer>(_ headerClass: T.Type) where T:UICollectionReusableView {
-        unregisterSupplementaryClass(T.self, forKind: UICollectionElementKindSectionFooter)
+    open func unregisterFooter<T:ModelTransfer>(_ headerClass: T.Type) where T:UICollectionReusableView {
+        unregisterSupplementary(T.self, forKind: UICollectionElementKindSectionFooter)
     }
     
-    open func unregisterSupplementaryClass<T:ModelTransfer>(_ klass: T.Type, forKind kind: String) where T:UICollectionReusableView {
+    open func unregisterSupplementary<T:ModelTransfer>(_ klass: T.Type, forKind kind: String) where T:UICollectionReusableView {
         viewFactory.unregisterSupplementaryClass(T.self, forKind: kind)
     }
 }
@@ -542,17 +542,17 @@ extension DTCollectionViewManager
         appendReaction(for: T.self, signature: EventMethodSignature.canFocusItemAtIndexPath, closure: closure)
     }
     
-    open func size<T>(_ forItemType: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
+    open func sizeOfCell<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
         appendReaction(for: T.self, signature: EventMethodSignature.sizeForItemAtIndexPath, closure: closure)
     }
     
-    open func referenceSizeForHeaderView<T>(_ withItemType: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
+    open func referenceSizeForHeaderView<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
         appendReaction(forSupplementaryKind: UICollectionElementKindSectionHeader, modelClass: T.self, signature: EventMethodSignature.referenceSizeForHeaderInSection, closure: closure)
     }
     
-    open func referenceSizeForFooterView<T>(_ withItemType: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
+    open func referenceSizeForFooterView<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
         appendReaction(forSupplementaryKind: UICollectionElementKindSectionFooter, modelClass: T.self, signature: EventMethodSignature.referenceSizeForFooterInSection, closure: closure)
     }
@@ -566,7 +566,7 @@ extension DTCollectionViewManager {
             handler(error)
         } else {
             print(error.description)
-            fatalError(error.description)
+            assertionFailure(error.description)
         }
     }
 }
@@ -625,7 +625,7 @@ extension DTCollectionViewManager : UICollectionViewDataSource
             return view
         }
         handleCollectionViewFactoryError(.nilSupplementaryModel(kind: kind, indexPath: indexPath))
-        fatalError()
+        return UICollectionReusableView()
     }
     
     @available(iOS 9.0, tvOS 9.0, *)
@@ -804,5 +804,72 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
     fileprivate func performSupplementaryReaction(forKind kind: String, signature: EventMethodSignature, location: IndexPath, view: UICollectionReusableView?) -> Any? {
         guard let model = (storage as? SupplementaryStorage)?.supplementaryModel(ofKind: kind, forSectionAt: location) else { return nil }
         return collectionViewReactions.performReaction(ofType: .supplementary(kind: kind), signature: signature.rawValue, view: view, model: model, location: location)
+    }
+}
+
+extension DTCollectionViewManager {
+    @available(*,unavailable,renamed:"startManaging(withDelegate:)")
+    open func startManagingWithDelegate(_ delegate : DTCollectionViewManageable)
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"register(_:)")
+    open func registerCellClass<T:ModelTransfer>(_ cellClass:T.Type) where T: UICollectionViewCell
+    {
+        fatalError("UNAVAILABLE")
+    }
+
+    @available(*,unavailable,renamed:"registerNibless(_:)")
+    open func registerNiblessCellClass<T:ModelTransfer>(_ cellClass:T.Type) where T: UICollectionViewCell
+    {
+        fatalError("UNAVAILABLE")
+    }
+
+    @available(*,unavailable,renamed:"registerNibNamed(_:for:)")
+    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forCellClass cellClass: T.Type) where T: UICollectionViewCell
+    {
+        fatalError("UNAVAILABLE")
+    }
+
+    @available(*,unavailable,renamed:"registerHeader(_:)")
+    open func registerHeaderClass<T:ModelTransfer>(_ headerClass : T.Type) where T: UICollectionReusableView
+    {
+        fatalError("UNAVAILABLE")
+    }
+
+    @available(*,unavailable,renamed:"registerFooter(_:)")
+    open func registerFooterClass<T:ModelTransfer>(_ footerClass: T.Type) where T:UICollectionReusableView
+    {
+        fatalError("UNAVAILABLE")
+    }
+
+    @available(*,unavailable,renamed:"registerNibNamed(_:forHeader:)")
+    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forHeaderClass headerClass: T.Type) where T:UICollectionReusableView
+    {
+        fatalError("UNAVAILABLE")
+    }
+
+    @available(*,unavailable,renamed:"registerNibNamed(_:forFooter:)")
+    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forFooterClass footerClass: T.Type) where T:UICollectionReusableView
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"registerSupplementary(_:forKind:)")
+    open func registerSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"registerNibNamed(_:forSupplementary:ofKind:)")
+    open func registerNibNamed<T:ModelTransfer>(_ nibName: String, supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView
+    {
+        fatalError("UNAVAILABLE")
+    }
+    
+    @available(*,unavailable,renamed:"registerNiblessSupplementary(_:forKind:)")
+    open func registerNiblessSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView {
+        fatalError("UNAVAILABLE")
     }
 }

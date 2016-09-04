@@ -14,8 +14,8 @@ class ComplexLayoutViewController: UICollectionViewController, DTCollectionViewM
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        manager.startManagingWithDelegate(self)
-        manager.registerCellClass(CollectionContainingCell.self)
+        manager.startManaging(withDelegate: self)
+        manager.register(CollectionContainingCell.self)
         manager.memoryStorage.addItems([1,3,8,15])
     }
     

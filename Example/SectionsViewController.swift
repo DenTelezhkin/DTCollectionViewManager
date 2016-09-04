@@ -28,11 +28,11 @@ class SectionsViewController: UIViewController, DTCollectionViewManageable, UICo
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        manager.startManagingWithDelegate(self)
+        manager.startManaging(withDelegate: self)
         
-        manager.registerCellClass(SolidColorCollectionCell.self)
-        manager.registerHeaderClass(SimpleTextCollectionReusableView.self)
-        manager.registerFooterClass(SimpleTextCollectionReusableView.self)
+        manager.register(SolidColorCollectionCell.self)
+        manager.registerHeader(SimpleTextCollectionReusableView.self)
+        manager.registerFooter(SimpleTextCollectionReusableView.self)
         (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
         (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize = CGSize(width: 320, height: 50)
         

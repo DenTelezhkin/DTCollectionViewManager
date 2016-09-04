@@ -36,7 +36,7 @@ class CollectionViewFactoryTestCase: XCTestCase {
         super.setUp()
         controller = DTSupplementaryTestCollectionController()
         let _ = controller.view
-        controller.manager.startManagingWithDelegate(controller)
+        controller.manager.startManaging(withDelegate: controller)
         controller.manager.storage = MemoryStorage()
     }
     
@@ -74,7 +74,7 @@ class CollectionViewFactoryTestCase: XCTestCase {
     }
     
     func testUpdateCellAtIndexPath() {
-        controller.manager.registerNiblessCellClass(UpdatableCell.self)
+        controller.manager.registerNibless(UpdatableCell.self)
         let model = UpdatableModel()
         controller.manager.memoryStorage.addItem(model)
         

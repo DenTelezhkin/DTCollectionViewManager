@@ -41,13 +41,13 @@ class SupplementaryEventsTestCase: XCTestCase {
         super.setUp()
         controller = ReactingSupplementaryCollectionController()
         let _ = controller.view
-        controller.manager.startManagingWithDelegate(controller)
+        controller.manager.startManaging(withDelegate: controller)
         controller.manager.memoryStorage.configureForCollectionViewFlowLayoutUsage()
     }
     
     func testHeaderMappingFromHeaderFooterView()
     {
-        controller.manager.registerHeaderClass(ReactingHeaderFooterView.self)
+        controller.manager.registerHeader(ReactingHeaderFooterView.self)
         (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
         controller.manager.configureHeader(ReactingHeaderFooterView.self) { header, model, index in
             header.model = "FooBar"
@@ -63,7 +63,7 @@ class SupplementaryEventsTestCase: XCTestCase {
     
     func testFooterMappingFromHeaderFooterView()
     {
-        controller.manager.registerFooterClass(ReactingHeaderFooterView.self)
+        controller.manager.registerFooter(ReactingHeaderFooterView.self)
         (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize = CGSize(width: 320, height: 50)
         controller.manager.configureFooter(ReactingHeaderFooterView.self) { footer, model, index in
             footer.model = "FooBar"

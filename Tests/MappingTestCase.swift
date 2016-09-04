@@ -18,13 +18,13 @@ class MappingTestCase: XCTestCase {
     override func setUp() {
         super.setUp()
         let _ = controller.view
-        controller.manager.startManagingWithDelegate(controller)
+        controller.manager.startManaging(withDelegate: controller)
         controller.manager.storage = MemoryStorage()
     }
     
     func testRegistrationWithDifferentNibName()
     {
-        controller.manager.registerNibNamed("RandomNibNameCell", forCellClass: NibCell.self)
+        controller.manager.registerNibNamed("RandomNibNameCell", for: NibCell.self)
         
         controller.manager.memoryStorage.addItem(3)
         
@@ -33,7 +33,7 @@ class MappingTestCase: XCTestCase {
     
     func testOptionalUnwrapping()
     {
-        controller.manager.registerCellClass(NibCell.self)
+        controller.manager.register(NibCell.self)
         
         let intOptional : Int? = 3
         controller.manager.memoryStorage.addItem(intOptional, toSection: 0)
@@ -43,7 +43,7 @@ class MappingTestCase: XCTestCase {
     
     func testSeveralLevelsOfOptionalUnwrapping()
     {
-        controller.manager.registerCellClass(NibCell.self)
+        controller.manager.register(NibCell.self)
         
         let intOptional : Int?? = 3
         controller.manager.memoryStorage.addItem(intOptional, toSection: 0)
@@ -53,45 +53,45 @@ class MappingTestCase: XCTestCase {
     
     func testNiblessMapping()
     {
-        controller.manager.registerNiblessCellClass(StringCell.self)
+        controller.manager.registerNibless(StringCell.self)
         controller.manager.memoryStorage.addItem("foo")
         
         expect(self.controller.manager.memoryStorage.item(at: indexPath(0, 0)) as? String) == "foo"
     }
     
     func testUnregisterCellClass() {
-        controller.manager.registerCellClass(NibCell.self)
-        controller.manager.unregisterCellClass(NibCell.self)
+        controller.manager.register(NibCell.self)
+        controller.manager.unregister(NibCell.self)
         
         expect(self.controller.manager.viewFactory.mappings.count) == 0
     }
     
     func testUnregisterHeaderClass() {
-        controller.manager.registerHeaderClass(NibHeaderFooterView.self)
-        controller.manager.unregisterHeaderClass(NibHeaderFooterView.self)
+        controller.manager.registerHeader(NibHeaderFooterView.self)
+        controller.manager.unregisterHeader(NibHeaderFooterView.self)
         
         expect(self.controller.manager.viewFactory.mappings.count) == 0
     }
     
     func testUnregisterFooterClass() {
-        controller.manager.registerFooterClass(NibHeaderFooterView.self)
-        controller.manager.unregisterFooterClass(NibHeaderFooterView.self)
+        controller.manager.registerFooter(NibHeaderFooterView.self)
+        controller.manager.unregisterFooter(NibHeaderFooterView.self)
         
         expect(self.controller.manager.viewFactory.mappings.count) == 0
     }
     
     func testUnregisterHeaderClassDoesNotUnregisterCell() {
-        controller.manager.registerCellClass(NibCell.self)
-        controller.manager.registerHeaderClass(NibHeaderFooterView.self)
-        controller.manager.unregisterHeaderClass(NibCell.self)
+        controller.manager.register(NibCell.self)
+        controller.manager.registerHeader(NibHeaderFooterView.self)
+        controller.manager.unregisterHeader(NibCell.self)
         
         expect(self.controller.manager.viewFactory.mappings.count) == 2
     }
     
     func testUnregisteringHeaderDoesNotUnregisterFooter() {
-        controller.manager.registerFooterClass(NibHeaderFooterView.self)
-        controller.manager.registerHeaderClass(NibHeaderFooterView.self)
-        controller.manager.unregisterHeaderClass(NibHeaderFooterView.self)
+        controller.manager.registerFooter(NibHeaderFooterView.self)
+        controller.manager.registerHeader(NibHeaderFooterView.self)
+        controller.manager.unregisterHeader(NibHeaderFooterView.self)
         
         expect(self.controller.manager.viewFactory.mappings.count) == 1
     }

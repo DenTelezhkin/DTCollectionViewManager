@@ -41,7 +41,7 @@ class DelegateForwardingTestCase: XCTestCase {
     override func setUp() {
         super.setUp()
         controller = DelegateCollectionViewController()
-        controller.manager.startManagingWithDelegate(controller)
+        controller.manager.startManaging(withDelegate: controller)
     }
     
     func testHeaderHeightIsRequested() {
@@ -57,9 +57,9 @@ class DelegateForwardingTestCase: XCTestCase {
     }
     
     func testDelegateMethodIsCalled() {
-        controller.manager.registerNiblessCellClass(NiblessCell.self)
-        controller.manager.registerNiblessSupplementaryClass(NiblessHeaderFooterView.self, forKind: UICollectionElementKindSectionHeader)
-        controller.manager.registerNiblessSupplementaryClass(NiblessHeaderFooterView.self, forKind: UICollectionElementKindSectionFooter)
+        controller.manager.registerNibless(NiblessCell.self)
+        controller.manager.registerNiblessSupplementary(NiblessHeaderFooterView.self, forKind: UICollectionElementKindSectionHeader)
+        controller.manager.registerNiblessSupplementary(NiblessHeaderFooterView.self, forKind: UICollectionElementKindSectionFooter)
         let section = SectionModel()
         section.collectionHeaderModel = 1
         section.collectionFooterModel = 2

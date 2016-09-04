@@ -43,13 +43,13 @@ class ReactingToEventsTestCase: XCTestCase {
         super.setUp()
         controller = ReactingTestCollectionViewController()
         let _ = controller.view
-        controller.manager.startManagingWithDelegate(controller)
+        controller.manager.startManaging(withDelegate: controller)
         controller.manager.storage = MemoryStorage()
     }
     
     func testCellSelectionClosure()
     {
-        controller.manager.registerCellClass(SelectionReactingCollectionCell.self)
+        controller.manager.register(SelectionReactingCollectionCell.self)
         var reactingCell : SelectionReactingCollectionCell?
         controller.manager.didSelect(SelectionReactingCollectionCell.self) { (cell, model, indexPath) in
             cell.indexPath = indexPath
@@ -66,7 +66,7 @@ class ReactingToEventsTestCase: XCTestCase {
     
     func testCellConfigurationClosure()
     {
-        controller.manager.registerCellClass(SelectionReactingCollectionCell.self)
+        controller.manager.register(SelectionReactingCollectionCell.self)
         
         var reactingCell : SelectionReactingCollectionCell?
         
@@ -129,11 +129,11 @@ class ReactingToEventsFastTestCase : XCTestCase {
         super.setUp()
         sut = DTCellTestCollectionController()
         let _ = sut.view
-        sut.manager.startManagingWithDelegate(sut)
+        sut.manager.startManaging(withDelegate: sut)
         sut.manager.storage = MemoryStorage()
-        sut.manager.registerCellClass(NibCell.self)
-        sut.manager.registerHeaderClass(NibHeaderFooterView.self)
-        sut.manager.registerFooterClass(NibHeaderFooterView.self)
+        sut.manager.register(NibCell.self)
+        sut.manager.registerHeader(NibHeaderFooterView.self)
+        sut.manager.registerFooter(NibHeaderFooterView.self)
     }
     
     @available(iOS 9.0, tvOS 9.0, *)
@@ -360,7 +360,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     func testSizeForItemAtIndexPath() {
         let exp = expectation(description: "sizeForItemAtIndexPath")
-        sut.manager.size(Int.self, { (model, indexPath) -> CGSize in
+        sut.manager.sizeOfCell(withItem: Int.self, { (model, indexPath) -> CGSize in
             exp.fulfill()
             return .zero
         })
@@ -371,7 +371,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     func testSizeForHeaderInSection() {
         let exp = expectation(description: "sizeForHeaderInSection")
-        sut.manager.referenceSizeForHeaderView(Int.self, { (model, indexPath) -> CGSize in
+        sut.manager.referenceSizeForHeaderView(withItem: Int.self, { (model, indexPath) -> CGSize in
             exp.fulfill()
             return .zero
         })
@@ -382,7 +382,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     func testSizeForFooterInSection() {
         let exp = expectation(description: "sizeForFooterInSection")
-        sut.manager.referenceSizeForFooterView(Int.self, { (model, indexPath) -> CGSize in
+        sut.manager.referenceSizeForFooterView(withItem: Int.self, { (model, indexPath) -> CGSize in
             exp.fulfill()
             return .zero
         })
@@ -422,5 +422,33 @@ class ReactingToEventsFastTestCase : XCTestCase {
         // These methods are not equal on purpose - DTCollectionViewManager implements custom logic in them, and they are always implemented, even though they can act as events
         expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderInSection:)))) != EventMethodSignature.referenceSizeForHeaderInSection.rawValue
         expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterInSection:)))) != EventMethodSignature.referenceSizeForFooterInSection.rawValue
+    }
+    
+    func testEventRegistrationPerfomance() {
+        let manager = sut.manager
+        
+        measure {
+            manager.shouldSelect(NibCell.self, { _ in return true })
+            manager.didSelect(NibCell.self, { _ in })
+            manager.shouldDeselect(NibCell.self, { _ in return true })
+            manager.didDeselect(NibCell.self, { _ in })
+            manager.shouldHighlight(NibCell.self, { _ in return true })
+            manager.didHighlight(NibCell.self, { _ in })
+            manager.didUnhighlight(NibCell.self, { _ in })
+            manager.willDisplay(NibCell.self, { _ in})
+            manager.willDisplayHeaderView(NibHeaderFooterView.self, { _ in })
+            manager.willDisplayFooterView(NibHeaderFooterView.self, { _ in })
+            manager.willDisplaySupplementaryView(NibHeaderFooterView.self, forElementKind: "foo", {_ in })
+            manager.didEndDisplaying(NibCell.self, { _ in })
+            manager.didEndDisplayingHeaderView(NibHeaderFooterView.self, { _ in })
+            manager.didEndDisplayingFooterView(NibHeaderFooterView.self, { _ in })
+            manager.didEndDisplayingSupplementaryView(NibHeaderFooterView.self, forElementKind: "foo", { _ in })
+            manager.shouldShowMenu(for: NibCell.self, { _ in return true })
+            manager.canPerformAction(for: NibCell.self, { _ in return true })
+            manager.performAction(for: NibCell.self, { _ in })
+            manager.sizeOfCell(withItem: Int.self, { _ in return .zero })
+            manager.referenceSizeForHeaderView(withItem: Int.self, { _ in return .zero })
+            manager.referenceSizeForFooterView(withItem: Int.self, { _ in return .zero })
+        }
     }
 }

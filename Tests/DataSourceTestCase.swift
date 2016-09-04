@@ -18,10 +18,10 @@ class DataSourceTestCase: XCTestCase {
     override func setUp() {
         super.setUp()
         let _ = controller.view
-        controller.manager.startManagingWithDelegate(controller)
+        controller.manager.startManaging(withDelegate: controller)
         controller.manager.storage = MemoryStorage()
         
-        controller.manager.registerCellClass(NibCell.self)
+        controller.manager.register(NibCell.self)
     }
     
     func testCollectionItemAtIndexPath()
