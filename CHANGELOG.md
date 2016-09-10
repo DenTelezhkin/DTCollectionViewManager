@@ -1,7 +1,7 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Master
+## [4.8.0](https://github.com/DenHeadless/DTTableViewManager/releases/tag/4.8.0)
 
 ### Changed
 
