@@ -126,7 +126,7 @@ open func didSelect<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping 
 
 
 // Signature for sizeForCell event
-// When UICollectionView calls `collectionView(_:sizeForItemAt:)` method, cell is not created yet, so closure contains two arguments instead of three, and there are no guarantees made about cell type, only model type
+// When UICollectionView calls `collectionView(_:layout:sizeForItemAt:)` method, cell is not created yet, so closure contains two arguments instead of three, and there are no guarantees made about cell type, only model type
 open func sizeForCell<T>(withItem itemType: T.Type, _ closure: @escaping (T, IndexPath) -> CGFloat)
 ```
 
@@ -135,7 +135,7 @@ It's also important to understand, that event system is implemented using `respo
 * If `DTCollectionViewManageable` is implementing delegate method, `responds(to:)` returns true
 * If `DTCollectionViewManager` has events tied to selector being called, `responds(to:)` also returns true
 
-What this approach allows us to do, is configuring UICollectionView knowledge about what delegate method is implemented and what is not. For example, `DTCollectionViewManager` is implementing `collectionView(_:sizeForItemAt:)` method, however if you don't call `sizeForCell(withItem:_:)` method, you are safe to use self-sizing cells in UICollectionView. While **27** delegate methods are implemented, only those that have events or are implemented by delegate will be called by `UICollectionView`.
+What this approach allows us to do, is configuring UICollectionView knowledge about what delegate method is implemented and what is not. For example, `DTCollectionViewManager` is implementing `collectionView(_:layout:sizeForItemAt:)` method, however if you don't call `sizeForCell(withItem:_:)` method, you are safe to use self-sizing cells in UICollectionView. While **27** delegate methods are implemented, only those that have events or are implemented by delegate will be called by `UICollectionView`.
 
 `DTCollectionViewManager` has the same approach for handling each delegate and datasource method:
 

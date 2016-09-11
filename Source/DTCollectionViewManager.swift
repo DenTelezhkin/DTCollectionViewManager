@@ -283,6 +283,16 @@ extension DTCollectionViewManager
         viewFactory.registerNiblessSupplementaryClass(supplementaryClass, forKind: kind)
     }
     
+    /// Registers mapping from model class to header view of `headerClass` type for `UICollectionElementKindSectionHeader`.
+    open func registerNiblessHeader<T:ModelTransfer>(_ headerClass: T.Type) where T:UICollectionReusableView {
+        registerSupplementary(T.self, forKind: UICollectionElementKindSectionHeader)
+    }
+    
+    /// Registers mapping from model class to footer view of `footerClass` type for `UICollectionElementKindSectionFooter`.
+    open func registerNiblessFooter<T:ModelTransfer>(_ footerClass: T.Type) where T:UICollectionReusableView {
+        registerSupplementary(T.self, forKind: UICollectionElementKindSectionFooter)
+    }
+    
     /// Unregisters `cellClass` from `DTCollectionViewManager` and `UICollectionView`.
     open func unregister<T:ModelTransfer>(_ cellClass: T.Type) where T: UICollectionViewCell {
         viewFactory.unregisterCellClass(T.self)
