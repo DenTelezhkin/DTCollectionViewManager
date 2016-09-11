@@ -70,7 +70,7 @@ class ReactingToEventsTestCase: XCTestCase {
         
         var reactingCell : SelectionReactingCollectionCell?
         
-        controller.manager.configureCell(SelectionReactingCollectionCell.self, { (cell, model, indexPath) in
+        controller.manager.configure(SelectionReactingCollectionCell.self, { (cell, model, indexPath) in
             cell.indexPath = indexPath
             cell.model = model
             cell.textLabel?.text = "Foo"
@@ -360,7 +360,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     func testSizeForItemAtIndexPath() {
         let exp = expectation(description: "sizeForItemAtIndexPath")
-        sut.manager.sizeOfCell(withItem: Int.self, { (model, indexPath) -> CGSize in
+        sut.manager.sizeForCell(withItem: Int.self, { (model, indexPath) -> CGSize in
             exp.fulfill()
             return .zero
         })
@@ -446,7 +446,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             manager.shouldShowMenu(for: NibCell.self, { _ in return true })
             manager.canPerformAction(for: NibCell.self, { _ in return true })
             manager.performAction(for: NibCell.self, { _ in })
-            manager.sizeOfCell(withItem: Int.self, { _ in return .zero })
+            manager.sizeForCell(withItem: Int.self, { _ in return .zero })
             manager.referenceSizeForHeaderView(withItem: Int.self, { _ in return .zero })
             manager.referenceSizeForFooterView(withItem: Int.self, { _ in return .zero })
         }

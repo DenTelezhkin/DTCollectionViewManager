@@ -378,7 +378,7 @@ extension DTCollectionViewManager
     /// Registers `closure` to be executed, when `UICollectionView` requests `cellClass` in `UICollectionViewDataSource.collectionView(_:cellForItemAt:)` method and cell is being configured.
     ///
     /// This closure will be performed *after* cell is created and `update(with:)` method is called.
-    open func configureCell<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
+    open func configure<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
     {
         appendReaction(for: T.self, signature: .configureCell, closure: closure)
     }
@@ -550,7 +550,7 @@ extension DTCollectionViewManager
     // MARK: - UICollectionViewDelegateFlowLayout
     
     /// Registers `closure` to be executed to determine cell size in `UICollectionViewDelegateFlowLayout.collectionView(_:sizeForItemAt:)` method, when it's called for cell which model is of `itemType`.
-    open func sizeOfCell<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
+    open func sizeForCell<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
         appendReaction(for: T.self, signature: EventMethodSignature.sizeForItemAtIndexPath, closure: closure)
     }
