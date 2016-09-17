@@ -30,23 +30,23 @@ import DTModelStorage
 /// Convenience getters and setters for collection view header and footer models, used in UICollectionViewFlowLayout
 public extension SectionModel
 {
-    /// UICollectionView header model for current section
+    /// Returns UICollectionView header model for current section
     var collectionHeaderModel : Any? {
         get {
-           return self.supplementaryModelOfKind(UICollectionElementKindSectionHeader)
+            return self.supplementaryModel(ofKind: UICollectionElementKindSectionHeader, atIndex: 0)
         }
         set {
-            self.setSupplementaryModel(newValue, forKind: UICollectionElementKindSectionHeader)
+            self.setSupplementaryModel(newValue, forKind: UICollectionElementKindSectionHeader, atIndex: 0)
         }
     }
     
-    /// UICollectionView footer model for current section
+    /// Returns UICollectionView footer model for current section
     var collectionFooterModel : Any? {
         get {
-            return self.supplementaryModelOfKind(UICollectionElementKindSectionFooter)
+            return self.supplementaryModel(ofKind: UICollectionElementKindSectionFooter, atIndex: 0)
         }
         set {
-            self.setSupplementaryModel(newValue, forKind: UICollectionElementKindSectionFooter)
+            self.setSupplementaryModel(newValue, forKind: UICollectionElementKindSectionFooter, atIndex: 0)
         }
     }
 }

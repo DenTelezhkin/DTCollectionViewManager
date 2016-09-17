@@ -11,7 +11,7 @@ import DTModelStorage
 
 class NibHeaderFooterView: UICollectionReusableView, ModelTransfer {
 
-    func updateWithModel(model: Int) {
+    func update(with model: Int) {
         
     }
     

@@ -16,7 +16,7 @@ class BaseTestCell : UICollectionViewCell, ModelTransfer, ModelRetrievable
     var awakedFromNib = false
     var inittedWithStyle = false
     
-    func updateWithModel(model: Int) {
+    func update(with model: Int) {
         self.model = model
     }
 }
@@ -27,14 +27,14 @@ class NibCell: BaseTestCell {}
 
 class StringCell : UICollectionViewCell, ModelTransfer
 {
-    func updateWithModel(model: String) {
+    func update(with model: String) {
         
     }
 }
 
 class ReactingCollectionCell: UICollectionViewCell, ModelTransfer {
     
-    func updateWithModel(model: Int) {
+    func update(with model: Int) {
         
     }
     
@@ -43,7 +43,7 @@ class ReactingCollectionCell: UICollectionViewCell, ModelTransfer {
 class SelectionReactingCollectionCell: ReactingCollectionCell
 {
     @IBOutlet weak var textLabel: UILabel!
-    var indexPath: NSIndexPath?
+    var indexPath: IndexPath?
     var cell: SelectionReactingCollectionCell?
     var model : Int?
 }

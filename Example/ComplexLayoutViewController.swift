@@ -14,29 +14,29 @@ class ComplexLayoutViewController: UICollectionViewController, DTCollectionViewM
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.manager.startManagingWithDelegate(self)
-        self.manager.registerCellClass(CollectionContainingCell)
-        self.manager.memoryStorage.addItems([1,3,8,15])
+        manager.startManaging(withDelegate: self)
+        manager.register(CollectionContainingCell.self)
+        manager.memoryStorage.addItems([1,3,8,15])
     }
     
     override func viewDidLayoutSubviews() {
         super.viewDidLayoutSubviews()
         let layout = self.collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: self.view.frame.width, height: layout.itemSize.height)
+        layout.itemSize = CGSize(width: view.frame.width, height: layout.itemSize.height)
     }
     
-    @IBAction func plusTapped(sender: AnyObject)
+    @IBAction func plusTapped(_ sender: AnyObject)
     {
-        let controller = UIAlertController(title: nil, message: "How much cells do you need in collection view?", preferredStyle: .Alert)
-        controller.addTextFieldWithConfigurationHandler(nil)
-        let cancelAction = UIAlertAction(title: "Cancel", style: .Cancel, handler: nil)
-        let addAction = UIAlertAction(title: "OK", style: .Default) { _ in
+        let controller = UIAlertController(title: nil, message: "How much cells do you need in collection view?", preferredStyle: .alert)
+        controller.addTextField(configurationHandler: nil)
+        let cancelAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
+        let addAction = UIAlertAction(title: "OK", style: .default) { [weak self] _ in
             if let number = Int(controller.textFields!.first!.text!) {
-                self.manager.memoryStorage.addItem(number)
+                self?.manager.memoryStorage.addItem(number)
             }
         }
         controller.addAction(cancelAction)
         controller.addAction(addAction)
-        self.presentViewController(controller, animated: true, completion: nil)
+        present(controller, animated: true, completion: nil)
     }
 }

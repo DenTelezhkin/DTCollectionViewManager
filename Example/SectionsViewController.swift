@@ -27,16 +27,17 @@ class SectionsViewController: UIViewController, DTCollectionViewManageable, UICo
     
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        self.manager.startManagingWithDelegate(self)
-        self.manager.registerCellClass(SolidColorCollectionCell)
-        self.manager.registerHeaderClass(SimpleTextCollectionReusableView)
-        self.manager.registerFooterClass(SimpleTextCollectionReusableView)
-        (self.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
-        (self.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize = CGSize(width: 320, height: 50)
+    
+        manager.startManaging(withDelegate: self)
         
-        self.addSection()
-        self.addSection()
+        manager.register(SolidColorCollectionCell.self)
+        manager.registerHeader(SimpleTextCollectionReusableView.self)
+        manager.registerFooter(SimpleTextCollectionReusableView.self)
+        (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
+        (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize = CGSize(width: 320, height: 50)
+        
+        addSection()
+        addSection()
     }
     
     @IBAction func addSection()
@@ -51,14 +52,14 @@ class SectionsViewController: UIViewController, DTCollectionViewManageable, UICo
         manager.memoryStorage.insertSection(section, atIndex: nextSection)
     }
 
-    @IBAction func removeSection(sender: AnyObject) {
-        if self.manager.memoryStorage.sections.count > 0 {
-            self.manager.memoryStorage.deleteSections(NSIndexSet(index: manager.memoryStorage.sections.count - 1))
+    @IBAction func removeSection(_ sender: AnyObject) {
+        if manager.memoryStorage.sections.count > 0 {
+            manager.memoryStorage.deleteSections(IndexSet(integer: manager.memoryStorage.sections.count - 1))
         }
     }
-    @IBAction func moveSection(sender: AnyObject) {
-        if self.manager.memoryStorage.sections.count > 0 {
-            self.manager.memoryStorage.moveSection(self.manager.memoryStorage.sections.count - 1, toSection:0)
+    @IBAction func moveSection(_ sender: AnyObject) {
+        if manager.memoryStorage.sections.count > 0 {
+            manager.memoryStorage.moveSection(manager.memoryStorage.sections.count - 1, toSection:0)
         }
     }
 }

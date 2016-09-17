@@ -11,6 +11,23 @@ import XCTest
 import DTModelStorage
 import Nimble
 
+fileprivate class UpdatableModel {
+    var value: Bool = false
+}
+
+fileprivate class UpdatableCell : UICollectionViewCell, ModelTransfer {
+    var model : UpdatableModel?
+    
+    func update(with model: UpdatableModel) {
+        self.model = model
+    }
+    
+    fileprivate override func prepareForReuse() {
+        super.prepareForReuse()
+        XCTFail()
+    }
+}
+
 class CollectionViewFactoryTestCase: XCTestCase {
     
     var controller : DTSupplementaryTestCollectionController!
@@ -19,25 +36,14 @@ class CollectionViewFactoryTestCase: XCTestCase {
         super.setUp()
         controller = DTSupplementaryTestCollectionController()
         let _ = controller.view
-        controller.manager.startManagingWithDelegate(controller)
+        controller.manager.startManaging(withDelegate: controller)
         controller.manager.storage = MemoryStorage()
-    }
-    
-    func testCellForModelNilModelError() {
-        let model: Int? = nil
-        do {
-            try controller.manager.viewFactory.cellForModel(model, atIndexPath: indexPath(0, 0))
-        } catch DTCollectionViewFactoryError.NilCellModel(let indexPath) {
-            expect(indexPath) == NSIndexPath(forItem: 0, inSection: 0)
-        } catch {
-            XCTFail()
-        }
     }
     
     func testNoMappingsFound() {
         do {
-            try controller.manager.viewFactory.cellForModel(1, atIndexPath: indexPath(0, 0))
-        } catch DTCollectionViewFactoryError.NoCellMappings(let model) {
+            try _ = controller.manager.viewFactory.cellForModel(1, atIndexPath: indexPath(0, 0))
+        } catch DTCollectionViewFactoryError.noCellMappings(let model) {
             expect(model as? Int) == 1
         } catch {
             XCTFail()
@@ -47,10 +53,10 @@ class CollectionViewFactoryTestCase: XCTestCase {
     func testNilHeaderFooterModel() {
         let model: Int? = nil
         do {
-            try controller.manager.viewFactory.supplementaryViewOfKind("Foo", forModel: model, atIndexPath: indexPath(0, 0))
-        } catch DTCollectionViewFactoryError.NilSupplementaryModel(let kind, let indexPath) {
+            try _ = controller.manager.viewFactory.supplementaryViewOfKind("Foo", forModel: model, atIndexPath: indexPath(0, 0))
+        } catch DTCollectionViewFactoryError.nilSupplementaryModel(let kind, let indexPath) {
             expect(kind) == "Foo"
-            expect(indexPath) == NSIndexPath(forItem: 0, inSection: 0)
+            expect(indexPath) == IndexPath(item: 0, section: 0)
         } catch {
             XCTFail()
         }
@@ -58,8 +64,8 @@ class CollectionViewFactoryTestCase: XCTestCase {
     
     func testNoSupplementaryViewMapping() {
         do {
-            try controller.manager.viewFactory.supplementaryViewOfKind("Foo", forModel: "Bar", atIndexPath: indexPath(0, 0))
-        } catch DTCollectionViewFactoryError.NoSupplementaryViewMapping(let kind, let model) {
+            try _ = controller.manager.viewFactory.supplementaryViewOfKind("Foo", forModel: "Bar", atIndexPath: indexPath(0, 0))
+        } catch DTCollectionViewFactoryError.noSupplementaryViewMapping(let kind, let model) {
             expect(kind) == "Foo"
             expect(model as? String) == "Bar"
         } catch {
@@ -67,4 +73,15 @@ class CollectionViewFactoryTestCase: XCTestCase {
         }
     }
     
+    func testUpdateCellAtIndexPath() {
+        controller.manager.registerNibless(UpdatableCell.self)
+        let model = UpdatableModel()
+        controller.manager.memoryStorage.addItem(model)
+        
+        controller.manager.collectionViewUpdater = controller.manager.coreDataUpdater()
+        model.value = true
+        controller.manager.updateCellClosure()(indexPath(0, 0))
+        expect((self.controller.collectionView?.cellForItem(at: indexPath(0, 0)) as? UpdatableCell)?.model?.value).to(beTrue())
+    }
+
 }

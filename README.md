@@ -4,21 +4,40 @@
 ![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTCollectionViewManager/badge.svg) &nbsp;
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)]()
-DTCollectionViewManager 4
-=======================
 
+DTCollectionViewManager 5
+================
 > This is a sister-project for [DTTableViewManager](https://github.com/DenHeadless/DTTableViewManager) - great tool for UITableView management, built on the same principles.
 
-Powerful protocol-oriented UICollectionView management framework, written in Swift 2.
+Powerful generic-based UICollectionView management framework, written in Swift 3.
+
+- [Features](#features)
+- [Requirements](#requirements)
+- [Installation](#installation)
+- [Quick start](#quick-start)
+- [Usage](#usage)
+    - **Intro -** [Mapping and Registration](#mapping-and-registration), [Data Models](#data-models)
+    - **Storage classes -** [Memory Storage](#memorystorage), [CoreDataStorage](#coredatastorage), [RealmStorage](#realmstorage)
+    - **Reacting to events -** [Event types](#event-types), [Events list](#events-list)
+- [Advanced Usage](#advanced-usage)
+	- [Reacting to content updates](#reacting-to-content-updates)
+	- [Customizing UICollectionView updates](#customizing-uicollectionview-updates)
+  - [Customizing mapping resolution](#customizing-mapping-resolution)
+  - [Unregistering mappings](#unregistering-mappings)
+  - [Error reporting](#error-reporting)
+- [ObjectiveC support](#objectivec-support)
+- [Documentation](#documentation)
+- [Running example project](#running-example-project)
+- [Thanks](#thanks)
 
 ## Features
 
 - [x] Powerful mapping system between data models and cells, headers and footers
 - [x] Support for all Swift types - classes, structs, enums, tuples
 - [x] Support for protocols and subclasses as data models
+- [x] Powerful events system, that covers most of UICollectionView delegate methods
 - [x] Views created from code, XIB, or storyboard
-- [x] Flexible Memory/CoreData/Custom storage options
-- [x] Support for Realm.io databases
+- [x] Flexible Memory/CoreData/Realm.io storage options
 - [x] Automatic datasource and interface synchronization.
 - [x] Automatic XIB registration and dequeue
 - [x] No type casts required
@@ -27,19 +46,19 @@ Powerful protocol-oriented UICollectionView management framework, written in Swi
 
 ## Requirements
 
-* Xcode 7 and higher
-* iOS 8 and higher / tvOS 9.0 and higher
-* Swift 2
+* Xcode 8 and higher
+* iOS 8.0 and higher / tvOS 9.0 and higher
+* Swift 3
 
 ## Installation
 
 [CocoaPods](http://www.cocoapods.org):
 
-    pod 'DTCollectionViewManager', '~> 4.5.0'
+    pod 'DTCollectionViewManager', '~> 5.0.0-beta.1'
 
 [Carthage](https://github.com/Carthage/Carthage):
 
-    github "DenHeadless/DTCollectionViewManager"  ~> 4.5.0
+    github "DenHeadless/DTCollectionViewManager" ~> 5.0.0-beta.1
 
 After running `carthage update` drop DTCollectionViewManager.framework and DTModelStorage.framework to Xcode project embedded binaries.
 
@@ -54,18 +73,10 @@ import DTModelStorage
 
 The core object of a framework is `DTCollectionViewManager`. Declare your class as `DTCollectionViewManageable`, and it will be automatically injected with `manager` property, that will hold an instance of `DTCollectionViewManager`.
 
-First, make sure your UICollectionView outlet is wired to your class.
-
-**Important** Your UICollectionView outlet should be declared as optional:
+Make sure your UICollectionView outlet is wired to your class and call in viewDidLoad:
 
 ```swift
-  @IBOutlet weak var collectionView: UICollectionView?
-```
-
-Call `startManagingWithDelegate:` to initiate UICollectionView management:
-
-```swift
-    manager.startManagingWithDelegate(self)
+	manager.startManaging(withDelegate:self)
 ```
 
 Let's say you have an array of Posts you want to display in UICollectionView. To quickly show them using DTCollectionViewManager, here's what you need to do:
@@ -73,10 +84,8 @@ Let's say you have an array of Posts you want to display in UICollectionView. To
 * Create UICollectionViewCell subclass, let's say PostCell. Adopt ModelTransfer protocol
 
 ```swift
-class PostCell : UICollectionViewCell, ModelTransfer
-{
-	func updateWithModel(model: Post)
-	{
+class PostCell : UICollectionViewCell, ModelTransfer {
+	func update(with model: Post) {
 		// Fill your cell with actual data
 	}
 }
@@ -85,7 +94,7 @@ class PostCell : UICollectionViewCell, ModelTransfer
 * Call registration methods on your `DTCollectionViewManageable` instance
 
 ```swift
-	manager.registerCellClass(PostCell)
+	manager.register(PostCell.self)
 ```
 
 ModelType will be automatically gathered from your `PostCell`. If you have a PostCell.xib file, it will be automatically registered for PostCell. If you have a storyboard with PostCell, set it's reuseIdentifier to be identical to class - "PostCell".
@@ -98,23 +107,31 @@ ModelType will be automatically gathered from your `PostCell`. If you have a Pos
 
 That's it! It's that easy!
 
-## Mapping and registration
+## Usage
 
-* `registerCellClass:`
-* `registerNibNamed:forCellClass:`
-* `registerHeaderClass:`
-* `registerNibNamed:forHeaderClass:`
-* `registerFooterClass:`
-* `registerNibNamed:forFooterClass:`
-* `registerSupplementaryClass:forKind:`
-* `registerNibNamed:forSupplementaryClass:forKind:`
-* `registerNiblessSupplementaryClass:forKind:`
+### Mapping and registration
 
-For more detailed look at mapping in DTCollectionViewManager, check out dedicated *[Mapping wiki page](https://github.com/DenHeadless/DTCollectionViewManager/wiki/Mapping-and-registration)*.
+Cells:
+* `register(_:)`
+* `registerNibNamed(_:for:)`
+* `registerNibless(_:)`
 
-## Data models
+Headers and footers:
+* `registerHeader(_:)`
+* `registerNibNamed(_:forHeader:)`
+* `registerNiblessHeader(_:)`
+* `registerFooter(_:)`
+* `registerNibNamed(_:forFooter:)`
+* `registerNiblessFooter(_:)`
 
-Starting from [4.4.0 release](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.4.0), `DTCollectionViewManager` supports all Swift and Objective-C types as data models. This also includes protocols and subclasses. So now this works:
+Supplementaries:
+* `registerSupplementary(_:forKind:)`
+* `registerNibNamed(_:forSupplementary:ofKind:)`
+* `registerNiblessSupplementary(_:forKind:)`
+
+### Data models
+
+`DTCollectionViewManager` supports all Swift and Objective-C types as data models. This also includes protocols and subclasses.
 
 ```swift
 protocol Food {}
@@ -122,61 +139,46 @@ class Apple : Food {}
 class Carrot: Food {}
 
 class FoodCollectionViewCell : UICollectionViewCell, ModelTransfer {
-    func updateWithModel(model: Food) {
+    func update(with model: Food) {
         // Display food in a cell
     }
 }
-manager.registerCellClass(FoodCollectionViewCell)
+manager.register(FoodCollectionViewCell.self)
 manager.memoryStorage.addItems([Apple(),Carrot()])
 ```
 
 Mappings are resolved simply by calling `is` type-check. In our example Apple is Food and Carrot is Food, so mapping will work.
 
-### Customizing mapping resolution
+## Storage classes
 
-There can be cases, where you might want to customize mappings based on some criteria. For example, you might want to display model in several kinds of cells:
-
-```swift
-class FoodTextCell: UICollectionViewCell, ModelTransfer {
-    func updateWithModel(model: Food) {
-        // Text representation
-    }
-}
-
-class FoodImageCell: UICollectionViewCell, ModelTransfer {
-    func updateWithModel(model: Food) {
-        // Photo representation
-    }
-}
-
-manager.registerCellClass(FoodTextCell)
-manager.registerCellClass(FoodImageCell)
-```
-
-If you don't do anything, FoodTextCell mapping will be selected as first mapping, however you can adopt `DTViewModelMappingCustomizable` protocol to adjust your mappings:
-
-```swift
-extension PostViewController : DTViewModelMappingCustomizable {
-    func viewModelMappingFromCandidates(candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping? {
-        if let foodModel = model as? Food where foodModel.hasPhoto {
-            return candidates.last
-        }
-        return candidates.first
-    }
-}
-```
-
-## DTModelStorage
-
-[DTModelStorage](https://github.com/DenHeadless/DTModelStorage/) is a framework, that provides storage classes for `DTCollectionViewManager`. By default, `storage` property on `DTCollectionViewManager` holds a `MemoryStorage` instance.
+[DTModelStorage](https://github.com/DenHeadless/DTModelStorage/) is a framework, that provides storage classes for `DTCollectionViewManager`. By default, storage property on `DTCollectionViewManager` holds a `MemoryStorage` instance.
 
 ### MemoryStorage
 
-`MemoryStorage` is a class, that manages UICollectionView models in memory. It has methods for adding, removing, replacing, reordering collection view models etc. You can read all about them in [DTModelStorage repo](https://github.com/DenHeadless/DTModelStorage#memorystorage). Basically, every section in `MemoryStorage` is an array of `SectionModel` objects, which itself is an object, that contains optional header and footer models, and array of collection items.
+`MemoryStorage` is a class, that manages UICollectionView models in memory. It has methods for adding, removing, replacing, reordering table view models etc. You can read all about them in [DTModelStorage repo](https://github.com/DenHeadless/DTModelStorage#memorystorage). Basically, every section in `MemoryStorage` is an array of `SectionModel` objects, which itself is an object, that contains optional header and footer models, and array of table items.
 
-### NSFetchedResultsController and CoreDataStorage
+### CoreDataStorage
 
-`CoreDataStorage` is meant to be used with NSFetchedResultsController. It automatically monitors all NSFetchedResultsControllerDelegate methods and updates UI accordingly to it's changes. All you need to do to display CoreData models in your UICollectionView, is create CoreDataStorage object and set it on your `storage` property of `DTCollectionViewManager`.
+`CoreDataStorage` is meant to be used with `NSFetchedResultsController`. It automatically monitors all NSFetchedResultsControllerDelegate methods and updates UI accordingly to it's changes. All you need to do to display CoreData models in your UICollectionView, is create CoreDataStorage object and set it on your `storage` property of `DTCollectionViewManager`.
+
+It also recommended to use built-in CoreData updater to properly update UICollectionView:
+
+```swift
+manager.collectionViewUpdater = manager.coreDataUpdater()
+```
+
+Standard flow for creating `CoreDataStorage` can be something like this:
+
+```swift
+let request = NSFetchRequest<Post>()
+request.entity = NSEntityDescription.entity(forEntityName: String(Post.self), in: context)
+request.fetchBatchSize = 20
+request.sortDescriptors = [NSSortDescriptor(key: "id", ascending: true)]
+let fetchResultsController = NSFetchedResultsController(fetchRequest: request, managedObjectContext: context, sectionNameKeyPath: nil, cacheName: nil)
+_ = try? fetchResultsController.performFetch()
+
+manager.storage = CoreDataStorage(fetchedResultsController: fetchResultsController)
+```
 
 Keep in mind, that MemoryStorage is not limited to objects in memory. For example, if you have CoreData database, and you now for sure, that number of items is not big, you can choose not to use CoreDataStorage and NSFetchedResultsController. You can fetch all required models, and store them in MemoryStorage.
 
@@ -190,115 +192,185 @@ Keep in mind, that MemoryStorage is not limited to objects in memory. For exampl
 
 If you are using Carthage, `RealmStorage` will be automatically built along with `DTModelStorage`.
 
-## Subclassing storage classes
-
-For in-depth look at how subclassing storage classes can improve your code base, read [this article](https://github.com/DenHeadless/DTTableViewManager/wiki/Extracting-logic-into-storage-subclasses) on wiki.
-
 ## Reacting to events
 
-### Method pointers
-
-There are two types of events reaction. The first and recommended one is to pass method pointers to `DTCollectionViewManager`. For example, selection:
+Event system in DTCollectionViewManager 5 allows you to react to `UICollectionViewDelegate`, `UICollectionViewDataSource` and `UICollectionViewDelegateFlowLayout` events based on view and model types, completely bypassing any switches or ifs when working with UICollectionView API. For example:
 
 ```swift
-manager.cellSelection(PostViewController.selectedPost)
-
-func selectedPost(cell: PostCell, post: Post, indexPath: NSIndexPath) {
-  // Do something with Post
+manager.didSelect(PostCell.self) { cell,model,indexPath in
+  print("Selected PostCell with \(model) at \(indexPath)")
 }
 ```
-
-`DTCollectionViewManager` automatically breaks retain cycles, that can happen when you pass method pointers around. There's no need to worry about [weak self] stuff.
-
-There are also methods for configuring cells, headers and footers:
-
-```swift
-manager.cellConfiguration(PostViewController.configurePostCell)
-manager.headerConfiguration(PostViewController.configurePostsHeader)
-manager.footerConfiguration(PostViewController.configurePostsFooter)
-manager.supplementaryConfiguration(kind: UICollectionElementKindSectionHeader, PostViewController.configurePostsSupplementary)
-```
-
-And of course, you can always use dynamicType instead of directly referencing type name:
-
-```swift
-manager.cellSelection(self.dynamicType.selectedPost)
-```
-
-Another way of dealing with events, is registrating closures.
 
 **Important**
 
-Unlike methods with method pointers, all events with closures are stored on `DTCollectionViewManager` instance, so be sure to declare [weak self] in capture lists to prevent retain cycles.
+All events with closures are stored on `DTCollectionViewManager` instance, so be sure to declare [weak self] in capture lists to prevent retain cycles.
 
-### Selection
+### Event types
 
- Instead of reacting to cell selection at UICollectionView NSIndexPath, `DTCollectionViewManager` allows you to react when user selects concrete model:
+There are two types of events:
+
+1. Event where we have underlying view at runtime
+1. Event where we have only data model, because view has not been created yet.
+
+In the first case, we are able to check view and model types, and pass them into closure. In the second case, however, if there's no view, we can't make any guarantees of which type it will be, therefore it loses view generic type and is not passed to closure. These two types of events have different signature, for example:
 
 ```swift
-  manager.whenSelected(PostCell.self) { postCell, post, indexPath in
-      print("Selected \(post) in \(postCell) at \(indexPath)")
-  }
+// Signature for didSelect event
+// We do have a cell, when UICollectionView calls "collectionView(_:didSelectItemAt:)" method
+open func didSelect<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping (T,T.ModelType, IndexPath) -> Void) where T:UICollectionViewCell
+
+
+// Signature for sizeForCell(withItem:) event
+// When UICollectionView calls "collectionView(_:layout:sizeForItemAt:)" method, cell is not created yet, so closure contains two arguments instead of three, and there are no guarantees made about cell type, only model type
+open func sizeForCell<T>(withItem itemType: T.Type, _ closure: @escaping (T, IndexPath) -> CGFloat)
 ```
 
-Thanks to generics, `postCell` and `post` are already a concrete type, there's no need to check types and cast. There' also a shortcut to registration and selection method:
+It's also important to understand, that event system is implemented using `responds(to:)` method override and is working on the following rules:
+
+* If `DTCollectionViewManageable` is implementing delegate method, `responds(to:)` returns true
+* If `DTCollectionViewManager` has events tied to selector being called, `responds(to:)` also returns true
+
+What this approach allows us to do, is configuring UICollectionView knowledge about what delegate method is implemented and what is not. For example, `DTCollectionViewManager` is implementing `collectionView(_:layout:sizeForItemAt:)` method, however if you don't call `sizeForCell(withItem:_:)` method, you are safe to use self-sizing cells in UICollectionView. While **27** delegate methods are implemented, only those that have events or are implemented by delegate will be called by `UICollectionView`.
+
+`DTCollectionViewManager` has the same approach for handling each delegate and datasource method:
+
+* Try to execute event, if cell and model type satisfy requirements
+* Try to call delegate or datasource method on `DTCollectionViewManageable` instance
+* If two previous scenarios fail, fallback to whatever default `UICollectionView` has for this delegate or datasource method
+
+### Events list
+
+Here's full list of all delegate and datasource methods implemented:
+
+**UICollectionViewDataSource**
+
+| DataSource method | Event method | Comment |
+| ----------------- | ------------ | ------- |
+|  cellForItemAt: | configure(_:_:) | Called after `update(with:)` method was called |
+|  viewForSupplementaryElementOfKind:at: | configureSupplementary(_:ofKind:_:) | Called after `update(with:)` method was called |
+|  viewForSupplementaryElementOfKind:at: | configureHeader(_:_:) | Called after `update(with:)` method was called |
+|  viewForSupplementaryElementOfKind:at: | configureFooter(_:_:) | Called after `update(with:)` method was called |
+|  canMoveItemAt: | canMove(_:_:) | - |
+
+**UICollectionViewDelegate**
+
+| Delegate method | Event method | Comment |
+| ----------------- | ------------ | ------ |
+|  shouldSelectItemAt: | shouldSelect(_:_:) | - |
+|  didSelectItemAt: | didSelect(_:_:) | - |
+|  shouldDeselectItemAt: | shouldDeselect(_:_:) | - |
+|  didDeselectItemAt: | didDeselect(_:_:) | - |
+|  shouldHighlightItemAt: | shouldHighlight(_:_:) | - |
+|  didHighlightItemAt: | didHighlight(_:_:) | - |
+|  didUnhighlightItemAt: | didUnhighlight(_:_:) | - |
+|  willDisplay:forItemAt: | willDisplay(_:_:) | - |
+|  willDisplaySupplementaryView:forElementOfKind:at: | willDisplaySupplementaryView(_:forElementKind:_:) | - |
+|  willDisplaySupplementaryView:forElementOfKind:at: | willDisplayHeaderView(_:_:) | - |
+|  willDisplaySupplementaryView:forElementOfKind:at: | willDisplayFooterView(_:_:) | - |
+|  didEndDisplaying:forItemAt: | didEndDisplaying(_:_:) | - |
+|  didEndDisplayingSupplementaryView:forElementOfKind:at: | didEndDisplayingSupplementaryView(_:forElementKind:_:) | - |
+|  didEndDisplayingSupplementaryView:forElementOfKind:at: | didEndDisplayingHeaderView(_:_:) | - |
+|  didEndDisplayingSupplementaryView:forElementOfKind:at: | didEndDisplayingFooterView(_:_:) | - |
+|  shouldShowMenuForItemAt: | shouldShowMenu(for:_:) | - |
+|  canPerformAction:forItemAt:withSender: | canPerformAction(for:_:) | - |
+|  performAction:forItemAt:withSender: | performAction(for:_:) | - |
+|  canFocusItemAt: | canFocus(_:_:) | iOS/tvOS 9+ |
+
+**UICollectionViewDelegateFlowLayout**
+
+| Delegate method | Event method | Comment |
+| ----------------- | ------------ | ------ |
+|  layout:sizeForItemAt: | sizeForCell(withItem:_:) | - |
+|  layout:referenceSizeForHeaderInSection: | referenceSizeForHeaderView(withItem:_:) | - |
+|  layout:referenceSizeForFooterInSection: | referenceSizeForFooterView(withItem:_:) | - |
+
+## Advanced usage
+
+### Reacting to content updates
+
+Sometimes it's convenient to know, when data is updated, for example to hide UICollectionView, if there's no data. `CollectionViewUpdater` has `willUpdateContent` and `didUpdateContent` properties, that can help:
 
 ```swift
-  manager.registerCellClass(PostCell.self, whenSelected: { postCell, post, indexPath in })
-```
+updater.willUpdateContent = { update in
+  print("UI update is about to begin")
+}
 
-### Configuration
-
-Although in most cases your cell can update it's UI with model inside `updateWithModel:` method, sometimes you may need to additionally configure it from controller. There are four events you can react to:
-
-```swift
-  manager.configureCell(PostCell.self) { postCell, post, indexPath in }
-  manager.configureHeader(PostHeader.self) { postHeader, postHeaderModel, sectionIndex in }
-  manager.configureFooter(PostFooter.self) { postFooter, postFooterModel, sectionIndex in }
-  manager.configureSupplementary(PostSupplementary.self) { postSupplementary, postSupplementaryModel, sectionIndex in}
-```
-
-Headers are supplementary views of type `UICollectionElementKindSectionHeader`, and footers are supplementary views of type `UICollectionElementKindSectionFooter`.
-
-### Content updates
-
-Sometimes it's convenient to know, when data is updated, for example to hide UICollectionView, if there's no data. Conform to `DTCollectionViewContentUpdatable` protocol and implement one of the following methods:
-
-```swift
-extension PostsViewController: DTCollectionViewContentUpdatable {
-  func beforeContentUpdate() {
-
-  }
-
-  func afterContentUpdate() {
-
-  }
+updater.didUpdateContent = { update in
+  print("UI update finished")
 }
 ```
 
-## UICollectionViewDelegate and UICollectionViewDatasource
+### Customizing UICollectionView updates
 
-`DTCollectionViewManager` serves as a datasource and the delegate to `UICollectionView`. However, it implements only some of UICollectionViewDelegate and UICollectionViewDatasource methods, other methods will be redirected to your controller, if it implements it.
+`DTCollectionViewManager` uses `CollectionViewUpdater` class by default. However for `CoreData` you might want to tweak UI updating code. For example, when reloading cell, you might want animation to occur, or you might want to silently update your cell. This is actually how [Apple's guide](https://developer.apple.com/library/mac/documentation/Cocoa/Conceptual/CoreData/nsfetchedresultscontroller.html) for `NSFetchedResultsController` suggests you should do. Another interesting thing it suggests that .Move event reported by NSFetchedResultsController should be animated not as a move, but as deletion of old index path and insertion of new one.
 
-## Convenience model getters
-
-There are several convenience model getters, that will allow you to get data model from storage classes. Those include cell, header or footer class types to gather type information and being able to return model of correct type. Again, no need for type casts.
+If you want to work with CoreData and NSFetchedResultsController, just call:
 
 ```swift
-  let post = manager.itemForCellClass(PostCell.self, atIndexPath: indexPath)
-  let postHeaderModel = manager.itemForHeaderClass(PostHeaderClass.self, atSectionIndex: sectionIndex)
-  let postFooterModel = manager.itemForFooterClass(PostFooterClass.self, atSectionIndex: sectionIndex)
+manager.collectionViewUpdater = manager.coreDataUpdater()
 ```
 
-There's also convenience getter, that will allow you to get model from visible `UICollectionViewCell`.
+`CollectionViewUpdater` constructor allows customizing it's basic behaviour:
 
 ```swift
-  let post = manager.itemForVisibleCell(postCell)
+let updater = CollectionViewUpdater(collectionView: collectionView, reloadRow: { indexPath in
+  // Reload row
+}, animateMoveAsDeleteAndInsert: false)
 ```
 
-## Error reporting
+These are all default options, however you might implement your own implementation of `CollectionViewUpdater`, the only requirement is that object needs to conform to `StorageUpdating` protocol. This gives you full control on how and when `DTCollectionViewManager` will update `UICollectionView`.
 
-In some cases `DTCollectionViewManager` will not be able to create cell or supplementary view. This can happen when passed model is nil, or mapping is not set. By default, 'fatalError' method will be called and application will crash. You can improve crash logs by setting your own error handler via closure:
+### Customizing mapping resolution
+
+There can be cases, where you might want to customize mappings based on some criteria. For example, you might want to display model in several kinds of cells:
+
+```swift
+class FoodTextCell: UICollectionViewCell, ModelTransfer {
+    func update(with model: Food) {
+        // Text representation
+    }
+}
+
+class FoodImageCell: UICollectionViewCell, ModelTransfer {
+    func update(with model: Food) {
+        // Photo representation
+    }
+}
+
+manager.register(FoodTextCell.self)
+manager.register(FoodImageCell.self)
+```
+
+If you don't do anything, FoodTextCell mapping will be selected as first mapping, however you can adopt `ViewModelMappingCustomizing` protocol to adjust your mappings:
+
+```swift
+extension PostViewController : ViewModelMappingCustomizing {
+    func viewModelMapping(fromCandidates candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping? {
+        if let foodModel = model as? Food where foodModel.hasPhoto {
+            return candidates.last
+        }
+        return candidates.first
+    }
+}
+```
+
+### Unregistering mappings
+
+You can unregister cells, headers and footers from `DTCollectionViewManager` and `UICollectionView` by calling:
+
+```swift
+manager.unregister(FooCell.self)
+manager.unregisterHeader(HeaderView.self)
+manager.unregisterFooter(FooterView.self)
+manager.unregisterSupplementary(SupplementaryView.self, forKind: "foo")
+```
+
+This is equivalent to calling collection view register methods with nil class or nil nib.
+
+### Error reporting
+
+In some cases `DTCollectionViewManager` will not be able to create cell, header or footer view. This can happen when passed model is nil, or mapping is not set. By default, 'fatalError' method will be called and application will crash. You can improve crash logs by setting your own error handler via closure:
 
 ```swift
 manager.viewFactoryErrorHandler = { error in
@@ -307,24 +379,23 @@ manager.viewFactoryErrorHandler = { error in
 }
 ```
 
-## ObjectiveC
+## ObjectiveC support
 
-`DTCollectionViewManager` is heavily relying on Swift 2 protocol extensions, generics and associated types. Enabling this stuff to work on objective-c right now is not possible. Because of this DTCollectionViewManager 4 does not support usage in objective-c. If you need to use objective-c, you can use [latest compatible version of `DTCollectionViewManager`](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/3.2.0).
+`DTCollectionViewManager` is heavily relying on Swift protocol extensions, generics and associated types. Enabling this stuff to work on Objective-c right now is not possible. Because of this DTCollectionViewManager 4 and greater only supports building from Swift. If you need to use Objective-C, you can use [latest Objective-C compatible version of `DTCollectionViewManager`](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/3.3.0).
 
 ## Documentation
 
 You can view documentation online or you can install it locally using [cocoadocs](http://cocoadocs.org/docsets/DTCollectionViewManager)!
 
-Also check out [wiki page](https://github.com/DenHeadless/DTCollectionViewManager/wiki) for some information on DTCollectionViewManager internals.
-
 ## Running example project
 
-```
+```bash
 pod try DTCollectionViewManager
 ```
 
 ## Thanks
 
-* [Ash Furrow](https://github.com/AshFurrow) for his amazing investigative [work on UICollectionView updates](https://github.com/AshFurrow/UICollectionView-NSFetchedResultsController).
-* [Alexey Belkevich](https://github.com/belkevich) for continuous testing and contributing to the project.
+* [Alexey Belkevich](https://github.com/belkevich) for providing initial implementation of CellFactory.
+* [Michael Fey](https://github.com/MrRooni) for providing insight into NSFetchedResultsController updates done right.
+* [Nickolay Sheika](https://github.com/hawk-ukr) for great feedback, that helped shaping 3.0 release.
 * [Artem Antihevich](https://github.com/sinarionn) for great discussions about Swift generics and type capturing.

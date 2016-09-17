@@ -1,6 +1,34 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [5.0.0-beta.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.0.0-beta.1)
+
+This is a major release, written in Swift 3. Read [Migration guide](Documentation/DTCollectionViewManager 5 migration guide.md) with descriptions of all features and changes.
+
+Dependency changelog -> [DTModelStorage 3.0.0 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
+
+### Added
+
+* New events system that covers almost all available `UICollectionViewDelegate`, `UICollectionViewDataSource` and `UICollectionViewDelegateFlowLayout` delegate methods.
+* New class - `CollectionViewUpdater`, that is calling all animation methods for `UICollectionView` when required by underlying storage.
+* `updateCellClosure` method on `DTCollectionViewManager`, that manually updates visible cell instead of calling `collectionView.reloadItemsAt(_:)` method.
+* `coreDataUpdater` property on `DTCollectionViewManager`, that creates `CollectionViewUpdater` object, that follows Apple's guide for updating `UICollectionView` from `NSFetchedResultsControllerDelegate` events.
+* `isManagingCollectionView` property on `DTCollectionViewManager`.
+* `unregisterCellClass(_:)`, `unregisterHeaderClass(_:)`, `unregisterFooterClass(_:)`, `unregisterSupplementaryClass(_:forKind:)` methods to unregister mappings from `DTCollectionViewManager` and `UICollectionView`
+
+### Changed
+
+* Swift 3 API Design guidelines have been applied to all public API.
+* Event system is migrated to new `EventReaction` class from `DTModelStorage`
+* Now all view registration methods use `NSBundle(forClass:)` constructor, instead of falling back on `DTCollectionViewManager` `viewBundle` property. This allows having cells from separate bundles or frameworks to be used with single `DTCollectionViewManager` instance.
+
+### Removals
+
+* `viewBundle` property on `DTCollectionViewManager`
+* `itemForVisibleCell`, `itemForCellClass:atIndexPath:`, `itemForHeaderClass:atSectionIndex:`, `itemForFooterClass:atSectionIndex:` were removed - they were not particularly useful and can be replaced with much shorter Swift conditional typecasts.
+* All events methods with method pointer semantics. Please use block based methods instead.
+* `registerCellClass:whenSelected` method, that was tightly coupling something that did not need coupling.
+
 ## [4.8.0](https://github.com/DenHeadless/DTTableViewManager/releases/tag/4.8.0)
 
 ### Changed

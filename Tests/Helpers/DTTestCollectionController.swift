@@ -12,7 +12,7 @@ import DTCollectionViewManager
 
 class DTCellTestCollectionController: UIViewController, DTCollectionViewManageable {
 
-    var collectionView: UICollectionView? = UICollectionView(frame: CGRectZero, collectionViewLayout: UICollectionViewFlowLayout())
+    var collectionView: UICollectionView? = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
 
 }
 
