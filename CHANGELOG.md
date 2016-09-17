@@ -1,7 +1,11 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Master
+## [5.0.0-beta.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.0.0-beta.1)
+
+This is a major release, written in Swift 3. Read [Migration guide](Documentation/DTCollectionViewManager 5 migration guide.md) with descriptions of all features and changes.
+
+Dependency changelog -> [DTModelStorage 3.0.0 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
 
 ### Added
 

@@ -130,7 +130,7 @@ extension CollectionViewFactory
         mappings.addMapping(for: .supplementaryView(kind: kind), viewClass: T.self, xibName: nibName)
     }
     
-    open func unregisterCellClass<T:ModelTransfer>(_ cellClass: T.Type) where T: UICollectionViewCell {
+    func unregisterCellClass<T:ModelTransfer>(_ cellClass: T.Type) where T: UICollectionViewCell {
         mappings = mappings.filter({ mapping in
             if mapping.viewClass is T.Type && mapping.viewType == .cell { return false }
             return true
@@ -141,7 +141,7 @@ extension CollectionViewFactory
         collectionView.register(nilNib, forCellWithReuseIdentifier: String(describing: T.self))
     }
     
-    open func unregisterSupplementaryClass<T:ModelTransfer>(_ klass: T.Type, forKind kind: String) where T:UICollectionReusableView {
+    func unregisterSupplementaryClass<T:ModelTransfer>(_ klass: T.Type, forKind kind: String) where T:UICollectionReusableView {
         mappings = mappings.filter({ mapping in
             if mapping.viewClass is T.Type && mapping.viewType == .supplementaryView(kind: kind) { return false }
             return true
