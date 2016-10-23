@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [5.0.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.0.0)
+
+No changes
+
 ## [5.0.0-beta.2](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.0.0-beta.2)
 
 * Enables `RealmStorage` from `DTModelStorage` dependency.

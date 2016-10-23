@@ -54,11 +54,11 @@ Powerful generic-based UICollectionView management framework, written in Swift 3
 
 [CocoaPods](http://www.cocoapods.org):
 
-    pod 'DTCollectionViewManager', '~> 5.0.0-beta.1'
+    pod 'DTCollectionViewManager', '~> 5.0.0'
 
 [Carthage](https://github.com/Carthage/Carthage):
 
-    github "DenHeadless/DTCollectionViewManager" ~> 5.0.0-beta.1
+    github "DenHeadless/DTCollectionViewManager" ~> 5.0.0
 
 After running `carthage update` drop DTCollectionViewManager.framework and DTModelStorage.framework to Xcode project embedded binaries.
 
