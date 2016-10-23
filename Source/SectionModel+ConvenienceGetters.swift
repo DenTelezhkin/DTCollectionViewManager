@@ -31,7 +31,7 @@ import DTModelStorage
 public extension SectionModel
 {
     /// Returns UICollectionView header model for current section
-    var collectionHeaderModel : Any? {
+    public var collectionHeaderModel : Any? {
         get {
             return self.supplementaryModel(ofKind: UICollectionElementKindSectionHeader, atIndex: 0)
         }
@@ -41,7 +41,7 @@ public extension SectionModel
     }
     
     /// Returns UICollectionView footer model for current section
-    var collectionFooterModel : Any? {
+    public var collectionFooterModel : Any? {
         get {
             return self.supplementaryModel(ofKind: UICollectionElementKindSectionFooter, atIndex: 0)
         }

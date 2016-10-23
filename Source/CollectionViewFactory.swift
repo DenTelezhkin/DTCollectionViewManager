@@ -156,12 +156,12 @@ extension CollectionViewFactory
 // MARK: View creation
 extension CollectionViewFactory
 {
-    func viewModelMappingForViewType(_ viewType: ViewType, model: Any) -> ViewModelMapping?
+    func viewModelMapping(for viewType: ViewType, model: Any) -> ViewModelMapping?
     {
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
             return nil
         }
-        let mappingCandidates = mappings.mappingCandidates(forViewType: viewType, withModel: unwrappedModel)
+        let mappingCandidates = mappings.mappingCandidates(for: viewType, withModel: unwrappedModel)
         
         if let customizedMapping = mappingCustomizableDelegate?.viewModelMapping(fromCandidates: mappingCandidates, forModel: unwrappedModel) {
             return customizedMapping
@@ -177,7 +177,7 @@ extension CollectionViewFactory
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
             throw DTCollectionViewFactoryError.nilCellModel(indexPath)
         }
-        if let mapping = viewModelMappingForViewType(.cell, model: unwrappedModel)
+        if let mapping = viewModelMapping(for: .cell, model: unwrappedModel)
         {
             let cellClassName = String(describing: mapping.viewClass)
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellClassName, for: indexPath)
@@ -190,7 +190,7 @@ extension CollectionViewFactory
     func updateCellAt(_ indexPath : IndexPath, with model: Any) {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return }
-        if let mapping = viewModelMappingForViewType(.cell, model: unwrappedModel) {
+        if let mapping = viewModelMapping(for: .cell, model: unwrappedModel) {
             mapping.updateBlock(cell, unwrappedModel)
         }
     }
@@ -201,7 +201,7 @@ extension CollectionViewFactory
             throw DTCollectionViewFactoryError.nilSupplementaryModel(kind: kind, indexPath: indexPath)
         }
         
-        let mappingCandidates = mappings.mappingCandidates(forViewType: .supplementaryView(kind: kind), withModel: unwrappedModel)
+        let mappingCandidates = mappings.mappingCandidates(for: .supplementaryView(kind: kind), withModel: unwrappedModel)
         let mapping : ViewModelMapping?
         
         if let customizedMapping = mappingCustomizableDelegate?.viewModelMapping(fromCandidates: mappingCandidates, forModel: unwrappedModel) {
