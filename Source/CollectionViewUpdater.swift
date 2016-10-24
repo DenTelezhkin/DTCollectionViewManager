@@ -46,48 +46,69 @@ open class CollectionViewUpdater : StorageUpdating {
     open func storageDidPerformUpdate(_ update : StorageUpdate)
     {
         willUpdateContent?(update)
-        
         collectionView?.performBatchUpdates({ [weak self] in
-            if update.insertedRowIndexPaths.count > 0 { self?.collectionView?.insertItems(at: Array(update.insertedRowIndexPaths)) }
-            if update.deletedRowIndexPaths.count > 0 { self?.collectionView?.deleteItems(at: Array(update.deletedRowIndexPaths)) }
-            if update.updatedRowIndexPaths.count > 0 {
-                if let closure = self?.reloadItemClosure {
-                    update.updatedRowIndexPaths.forEach(closure)
-                } else {
-                    self?.collectionView?.reloadItems(at: Array(update.updatedRowIndexPaths))
+            self?.applyObjectChanges(from: update)
+            self?.applySectionChanges(from: update)
+            }, completion: { [weak self] _ in
+                if update.sectionChanges.count > 0 {
+                    self?.collectionView?.reloadData()
                 }
-            }
-            if update.movedRowIndexPaths.count > 0 {
-                for moveAction in update.movedRowIndexPaths {
-                    if let from = moveAction.first, let to = moveAction.last {
-                        if self?.animateMoveAsDeleteAndInsert ?? false {
-                            self?.collectionView?.deleteItems(at: [from])
-                            self?.collectionView?.insertItems(at: [to])
-                        } else {
-                            self?.collectionView?.moveItem(at: from, to: to)
-                        }
-                    }
-                }
-            }
-            
-            if update.insertedSectionIndexes.count > 0 { self?.collectionView?.insertSections(IndexSet(update.insertedSectionIndexes)) }
-            if update.deletedSectionIndexes.count > 0 { self?.collectionView?.deleteSections(IndexSet(update.deletedSectionIndexes)) }
-            if update.updatedSectionIndexes.count > 0 { self?.collectionView?.reloadSections(IndexSet(update.updatedSectionIndexes))}
-            if update.movedSectionIndexes.count > 0 {
-                for moveAction in update.movedSectionIndexes {
-                    if let from = moveAction.first, let to = moveAction.last {
-                        self?.collectionView?.moveSection(from, toSection: to)
-                    }
-                }
-            }
-        }) { [weak self] finished in
-            if update.insertedSectionIndexes.count + update.deletedSectionIndexes.count + update.updatedSectionIndexes.count > 0 {
-                self?.collectionView?.reloadData()
-            }
-            self?.batchUpdatesInProgress = false
-        }
-        
+        })
         didUpdateContent?(update)
+    }
+    
+    private func applyObjectChanges(from update: StorageUpdate) {
+        for (change,indexPaths) in update.objectChanges {
+            switch change {
+            case .insert:
+                if let indexPath = indexPaths.first {
+                    collectionView?.insertItems(at: [indexPath])
+                }
+            case .delete:
+                if let indexPath = indexPaths.first {
+                    collectionView?.deleteItems(at: [indexPath])
+                }
+            case .update:
+                if let indexPath = indexPaths.first {
+                    if let closure = reloadItemClosure {
+                        closure(indexPath)
+                    } else {
+                        collectionView?.reloadItems(at: [indexPath])
+                    }
+                }
+            case .move:
+                if let source = indexPaths.first, let destination = indexPaths.last {
+                    if animateMoveAsDeleteAndInsert {
+                        collectionView?.moveItem(at: source, to: destination)
+                    } else {
+                        collectionView?.deleteItems(at: [source])
+                        collectionView?.insertItems(at: [destination])                    }
+                }
+            }
+        }
+    }
+    
+    private func applySectionChanges(from update: StorageUpdate) {
+        for (change,indices) in update.sectionChanges {
+            switch change {
+            case .delete:
+                if let index = indices.first {
+                    collectionView?.deleteSections([index])
+                }
+            case .insert:
+                if let index = indices.first {
+                    collectionView?.insertSections([index])
+                }
+            case .update:
+                if let index = indices.first {
+                    collectionView?.reloadSections([index])
+                }
+            case .move:
+                if let source = indices.first, let destination = indices.last {
+                    collectionView?.moveSection(source, toSection: destination)
+                }
+            }
+        }
     }
     
     /// Call this method, if you want UITableView to be reloaded, and beforeContentUpdate: and afterContentUpdate: closures to be called.
