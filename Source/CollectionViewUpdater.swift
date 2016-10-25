@@ -25,7 +25,7 @@ open class CollectionViewUpdater : StorageUpdating {
     /// Closure to be executed, when reloading an item.
     ///
     /// - SeeAlso: `DTCollectionViewManager.updateCellClosure()` method and `DTCollectionViewManager.coreDataUpdater()` method.
-    open var reloadItemClosure : ((IndexPath) -> Void)?
+    open var reloadItemClosure : ((IndexPath,Any) -> Void)?
     
     /// When this property is true, move events will be animated as delete event and insert event.
     open var animateMoveAsDeleteAndInsert: Bool
@@ -36,7 +36,7 @@ open class CollectionViewUpdater : StorageUpdating {
     
     /// Creates updater.
     public init(collectionView: UICollectionView,
-                reloadItem: ((IndexPath) -> Void)? = nil,
+                reloadItem: ((IndexPath,Any) -> Void)? = nil,
                 animateMoveAsDeleteAndInsert: Bool = false) {
         self.collectionView = collectionView
         self.reloadItemClosure = reloadItem
@@ -70,8 +70,8 @@ open class CollectionViewUpdater : StorageUpdating {
                 }
             case .update:
                 if let indexPath = indexPaths.first {
-                    if let closure = reloadItemClosure {
-                        closure(indexPath)
+                    if let closure = reloadItemClosure, let model = update.updatedObjects[indexPath] {
+                        closure(indexPath,model)
                     } else {
                         collectionView?.reloadItems(at: [indexPath])
                     }

@@ -80,7 +80,7 @@ class CollectionViewFactoryTestCase: XCTestCase {
         
         controller.manager.collectionViewUpdater = controller.manager.coreDataUpdater()
         model.value = true
-        controller.manager.updateCellClosure()(indexPath(0, 0))
+        controller.manager.updateCellClosure()(indexPath(0, 0),model)
         expect((self.controller.collectionView?.cellForItem(at: indexPath(0, 0)) as? UpdatableCell)?.model?.value).to(beTrue())
     }
 
