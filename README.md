@@ -5,7 +5,7 @@
 [![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)]()
 
-DTCollectionViewManager 5
+DTCollectionViewManager
 ================
 > This is a sister-project for [DTTableViewManager](https://github.com/DenHeadless/DTTableViewManager) - great tool for UITableView management, built on the same principles.
 
@@ -54,11 +54,11 @@ Powerful generic-based UICollectionView management framework, written in Swift 3
 
 [CocoaPods](http://www.cocoapods.org):
 
-    pod 'DTCollectionViewManager', '~> 5.0.0'
+    pod 'DTCollectionViewManager', '~> 5.1'
 
 [Carthage](https://github.com/Carthage/Carthage):
 
-    github "DenHeadless/DTCollectionViewManager" ~> 5.0.0
+    github "DenHeadless/DTCollectionViewManager" ~> 5.1.0
 
 After running `carthage update` drop DTCollectionViewManager.framework and DTModelStorage.framework to Xcode project embedded binaries.
 

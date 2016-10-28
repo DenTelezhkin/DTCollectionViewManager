@@ -53,7 +53,7 @@ class CollectionViewFactoryTestCase: XCTestCase {
     func testNilHeaderFooterModel() {
         let model: Int? = nil
         do {
-            try _ = controller.manager.viewFactory.supplementaryViewOfKind("Foo", forModel: model, atIndexPath: indexPath(0, 0))
+            try _ = controller.manager.viewFactory.supplementaryViewOfKind("Foo", forModel: model as Any, atIndexPath: indexPath(0, 0))
         } catch DTCollectionViewFactoryError.nilSupplementaryModel(let kind, let indexPath) {
             expect(kind) == "Foo"
             expect(indexPath) == IndexPath(item: 0, section: 0)

@@ -1,7 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Next
+## [5.1.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.1.0)
+
+Dependency changelog -> [DTModelStorage 4.0.0 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
 
 * `CollectionViewUpdater` has been rewritten to use new `StorageUpdate` properties that track changes in order of their occurence.
 * `CollectionViewUpdater` `reloadItemClosure` and `DTCollectionViewManager` `updateCellClosure` now accept indexPath and model instead of just indexPath. This is done because update may happen after insertions and deletions and object that needs to be updated may exist on different indexPath.
