@@ -133,6 +133,7 @@ open class DTCollectionViewManager : NSObject {
     open var collectionViewUpdater : StorageUpdating? {
         didSet {
             storage.delegate = collectionViewUpdater
+            (collectionViewUpdater as? CollectionViewUpdater)?.didUpdateContent?(nil)
         }
     }
     
