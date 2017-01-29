@@ -1,9 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-## Next
+## [5.2.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.2.0)
 
-* Setting `CollectionViewUpdater` instance to `collectionViewUpdater` property on `DTCollectionViewManager` now triggers `didUpdateContent` closure on `CollectionViewUpdater`. 
+* Setting `CollectionViewUpdater` instance to `collectionViewUpdater` property on `DTCollectionViewManager` now triggers `didUpdateContent` closure on `CollectionViewUpdater`.
 
 ## [5.1.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.1.0)
 
