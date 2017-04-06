@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
+## [5.3.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.3.0)
+
+* Use new events system from `DTModelStorage`, that allows events to be properly called for cells, that are created using `ViewModelMappingCustomizing` protocol.
+
 ## [5.2.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.2.0)
 
 * Setting `CollectionViewUpdater` instance to `collectionViewUpdater` property on `DTCollectionViewManager` now triggers `didUpdateContent` closure on `CollectionViewUpdater`.

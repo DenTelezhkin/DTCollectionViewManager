@@ -355,27 +355,27 @@ extension DTCollectionViewManager
 {
     fileprivate func appendReaction<T,U>(for cellClass: T.Type, signature: EventMethodSignature, closure: @escaping (T,T.ModelType, IndexPath) -> U) where T: ModelTransfer, T:UICollectionViewCell
     {
-        let reaction = EventReaction(signature: signature.rawValue)
-        reaction.makeCellReaction(closure)
+        let reaction = EventReaction(signature: signature.rawValue, viewType: .cell, viewClass: T.self)
+        reaction.makeReaction(closure)
         collectionViewReactions.append(reaction)
     }
     
     fileprivate func appendReaction<T,U>(for modelClass: T.Type, signature: EventMethodSignature, closure: @escaping (T, IndexPath) -> U)
     {
-        let reaction = EventReaction(signature: signature.rawValue)
-        reaction.makeCellReaction(closure)
+        let reaction = EventReaction(signature: signature.rawValue, viewType: .cell, modelType: T.self)
+        reaction.makeReaction(closure)
         collectionViewReactions.append(reaction)
     }
     
     fileprivate func appendReaction<T,U>(forSupplementaryKind kind: String, supplementaryClass: T.Type, signature: EventMethodSignature, closure: @escaping (T, T.ModelType, IndexPath) -> U) where T: ModelTransfer, T: UICollectionReusableView {
-        let reaction = EventReaction(signature: signature.rawValue)
-        reaction.makeSupplementaryReaction(forKind: kind, block: closure)
+        let reaction = EventReaction(signature: signature.rawValue, viewType: .supplementaryView(kind: kind), viewClass: T.self)
+        reaction.makeReaction(closure)
         collectionViewReactions.append(reaction)
     }
     
     fileprivate func appendReaction<T,U>(forSupplementaryKind kind: String, modelClass: T.Type, signature: EventMethodSignature, closure: @escaping (T, IndexPath) -> U) {
-        let reaction = EventReaction(signature: signature.rawValue)
-        reaction.makeSupplementaryReaction(for: kind, block: closure)
+        let reaction = EventReaction(signature: signature.rawValue, viewType: .supplementaryView(kind: kind), modelType: T.self)
+        reaction.makeReaction(closure)
         collectionViewReactions.append(reaction)
     }
     
@@ -522,8 +522,9 @@ extension DTCollectionViewManager
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canPerformAction:forItemAt:withSender:)` method is called for `cellClass`.
     open func canPerformAction<T:ModelTransfer>(for cellClass: T.Type, _ closure: @escaping (Selector, Any?, T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell {
-        let reaction = FiveArgumentsEventReaction(signature: EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue)
-        reaction.modelTypeCheckingBlock = { $0 is T.ModelType }
+        let reaction = FiveArgumentsEventReaction(signature: EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue,
+                                                  viewType: .cell,
+                                                  viewClass: T.self)
         reaction.reaction5Arguments = { selector, sender, cell, model, indexPath -> Any in
             guard let selector = selector as? Selector,
                 let cell = cell as? T,
@@ -537,8 +538,9 @@ extension DTCollectionViewManager
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:performAction:forItemAt:withSender:)` method is called for `cellClass`.
     open func performAction<T:ModelTransfer>(for cellClass: T.Type, _ closure: @escaping (Selector, Any?, T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell {
-        let reaction = FiveArgumentsEventReaction(signature: EventMethodSignature.performActionForItemAtIndexPath.rawValue)
-        reaction.modelTypeCheckingBlock = { $0 is T.ModelType }
+        let reaction = FiveArgumentsEventReaction(signature: EventMethodSignature.performActionForItemAtIndexPath.rawValue,
+                                                  viewType: .cell,
+                                                  viewClass: T.self)
         reaction.reaction5Arguments = { selector, sender, cell, model, indexPath  in
             guard let selector = selector as? Selector,
                 let cell = cell as? T,
@@ -791,7 +793,7 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
         guard let item = storage.item(at: indexPath), let model = RuntimeHelper.recursivelyUnwrapAnyValue(item),
             let cell = collectionView.cellForItem(at: indexPath)
             else { return false }
-        if let reaction = collectionViewReactions.reaction(of: .cell, signature: EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue, forModel: model) as? FiveArgumentsEventReaction {
+        if let reaction = collectionViewReactions.reaction(of: .cell, signature: EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue, forModel: model, view: cell) as? FiveArgumentsEventReaction {
             return reaction.performWithArguments((action,sender as Any,cell,model,indexPath)) as? Bool ?? false
         }
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, canPerformAction: action, forItemAt: indexPath, withSender: sender) ?? false
@@ -802,7 +804,7 @@ extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
         guard let item = storage.item(at: indexPath), let model = RuntimeHelper.recursivelyUnwrapAnyValue(item),
             let cell = collectionView.cellForItem(at: indexPath)
             else { return }
-        if let reaction = collectionViewReactions.reaction(of: .cell, signature: EventMethodSignature.performActionForItemAtIndexPath.rawValue, forModel: model) as? FiveArgumentsEventReaction {
+        if let reaction = collectionViewReactions.reaction(of: .cell, signature: EventMethodSignature.performActionForItemAtIndexPath.rawValue, forModel: model, view: cell) as? FiveArgumentsEventReaction {
             _ = reaction.performWithArguments((action,sender as Any,cell,model,indexPath))
         }
     }
