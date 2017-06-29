@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Initial support for Swift 3.2 (Xcode 9 beta-1).
+* Fixed `registerNiblessHeader` and `registerNiblessFooter` to properly call nibless supplementary methods.
+
 ## [5.3.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.3.0)
 
 * Use new events system from `DTModelStorage`, that allows events to be properly called for cells, that are created using `ViewModelMappingCustomizing` protocol.

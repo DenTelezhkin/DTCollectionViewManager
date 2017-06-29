@@ -89,4 +89,26 @@ class SupplementaryMappingTestCase: XCTestCase {
         let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at:  indexPath(0, 0))
         expect(view).to(beAKindOf(NiblessHeaderFooterView.self))
     }
+    
+    func testRegisterNiblessHeader() {
+        controller.manager.registerNiblessHeader(NiblessHeaderFooterView.self)
+        (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
+        controller.manager.memoryStorage.setSectionHeaderModels([1])
+        
+        controller.collectionView?.performBatchUpdates(nil, completion: nil)
+        
+        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at:  indexPath(0, 0))
+        expect(view).to(beAKindOf(NiblessHeaderFooterView.self))
+    }
+    
+    func testRegisterNiblessFooter() {
+        controller.manager.registerNiblessFooter(NiblessHeaderFooterView.self)
+        (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize = CGSize(width: 320, height: 50)
+        controller.manager.memoryStorage.setSectionFooterModels([1])
+        
+        controller.collectionView?.performBatchUpdates(nil, completion: nil)
+        
+        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, at:  indexPath(0, 0))
+        expect(view).to(beAKindOf(NiblessHeaderFooterView.self))
+    }
 }
