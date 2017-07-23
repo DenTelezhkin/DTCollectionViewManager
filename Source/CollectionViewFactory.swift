@@ -75,59 +75,59 @@ final class CollectionViewFactory
 // MARK: Registration
 extension CollectionViewFactory
 {
-    func registerCellClass<T:ModelTransfer>(_ cellClass: T.Type) where T: UICollectionViewCell
+    func registerCellClass<T:ModelTransfer>(_ cellClass: T.Type, mappingBlock: ((ViewModelMapping) -> Void)?) where T: UICollectionViewCell
     {
-        let reuseIdentifier = String(describing: T.self)
-        if UINib.nibExists(withNibName: reuseIdentifier, inBundle: Bundle(for: T.self)) {
-            collectionView.register(UINib(nibName: reuseIdentifier, bundle: Bundle(for: T.self)), forCellWithReuseIdentifier: reuseIdentifier)
-            mappings.addMapping(for: .cell, viewClass: T.self, xibName: reuseIdentifier)
+        let mapping : ViewModelMapping
+        if UINib.nibExists(withNibName: String(describing: T.self), inBundle: Bundle(for: T.self)) {
+            mapping = ViewModelMapping(viewType: .cell, viewClass: T.self, xibName: String(describing: T.self), mappingBlock: mappingBlock)
+            collectionView.register(UINib(nibName: String(describing: T.self), bundle: Bundle(for: T.self)), forCellWithReuseIdentifier: mapping.reuseIdentifier)
         }
         else {
-            mappings.addMapping(for: .cell, viewClass: T.self)
+            mapping = ViewModelMapping(viewType: .cell, viewClass: T.self, mappingBlock: mappingBlock)
         }
-        
+        mappings.append(mapping)
     }
     
-    func registerNiblessCellClass<T:ModelTransfer>(_ cellClass: T.Type) where T:UICollectionViewCell
+    func registerNiblessCellClass<T:ModelTransfer>(_ cellClass: T.Type, mappingBlock: ((ViewModelMapping) -> Void)?) where T:UICollectionViewCell
     {
-        let reuseIdentifier = String(describing: T.self)
-        collectionView.register(cellClass, forCellWithReuseIdentifier: reuseIdentifier)
-        mappings.addMapping(for: .cell, viewClass: T.self)
+        let mapping = ViewModelMapping(viewType: .cell, viewClass: T.self, mappingBlock: mappingBlock)
+        collectionView.register(cellClass, forCellWithReuseIdentifier: mapping.reuseIdentifier)
+        mappings.append(mapping)
     }
     
-    func registerNibNamed<T:ModelTransfer>(_ nibName: String, forCellClass cellClass: T.Type) where T: UICollectionViewCell
+    func registerNibNamed<T:ModelTransfer>(_ nibName: String, forCellClass cellClass: T.Type, mappingBlock: ((ViewModelMapping) -> Void)?) where T: UICollectionViewCell
     {
-        let reuseIdentifier = String(describing: T.self)
-        assert(UINib.nibExists(withNibName: reuseIdentifier, inBundle: Bundle(for: T.self)))
-        collectionView.register(UINib(nibName: reuseIdentifier, bundle: Bundle(for: T.self)), forCellWithReuseIdentifier: reuseIdentifier)
-        mappings.addMapping(for: .cell, viewClass: T.self, xibName: nibName)
-    }
-    
-    func registerNiblessSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T: UICollectionReusableView
-    {
-        let reuseIdentifier = String(describing: T.self)
-        collectionView.register(supplementaryClass, forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
-        mappings.addMapping(for: .supplementaryView(kind: kind), viewClass: T.self)
-    }
-    
-    func registerSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView
-    {
-        let reuseIdentifier = String(describing: T.self)
-        if UINib.nibExists(withNibName: reuseIdentifier, inBundle: Bundle(for: T.self)) {
-            self.collectionView.register(UINib(nibName: reuseIdentifier, bundle: Bundle(for: T.self)), forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
-            mappings.addMapping(for: .supplementaryView(kind: kind), viewClass: T.self, xibName: reuseIdentifier)
-        }
-        else {
-            mappings.addMapping(for: .supplementaryView(kind: kind), viewClass: T.self)
-        }
-    }
-    
-    func registerNibNamed<T:ModelTransfer>(_ nibName: String, forSupplementaryClass supplementaryClass: T.Type, forKind kind: String) where T:UICollectionReusableView
-    {
-        let reuseIdentifier = String(describing: T.self)
+        let mapping = ViewModelMapping(viewType: .cell, viewClass: T.self, xibName: nibName, mappingBlock: mappingBlock)
         assert(UINib.nibExists(withNibName: nibName, inBundle: Bundle(for: T.self)))
-        self.collectionView.register(UINib(nibName: nibName, bundle: Bundle(for: T.self)), forSupplementaryViewOfKind: kind, withReuseIdentifier: reuseIdentifier)
-        mappings.addMapping(for: .supplementaryView(kind: kind), viewClass: T.self, xibName: nibName)
+        collectionView.register(UINib(nibName: nibName, bundle: Bundle(for: T.self)), forCellWithReuseIdentifier: mapping.reuseIdentifier)
+        mappings.append(mapping)
+    }
+    
+    func registerNiblessSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String, mappingBlock: ((ViewModelMapping) -> Void)?) where T: UICollectionReusableView
+    {
+        let mapping = ViewModelMapping(viewType: .supplementaryView(kind: kind), viewClass: T.self, mappingBlock: mappingBlock)
+        collectionView.register(supplementaryClass, forSupplementaryViewOfKind: kind, withReuseIdentifier: mapping.reuseIdentifier)
+        mappings.append(mapping)
+    }
+    
+    func registerSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String, mappingBlock: ((ViewModelMapping) -> Void)?) where T:UICollectionReusableView
+    {
+        let mapping : ViewModelMapping
+        if UINib.nibExists(withNibName: String(describing: T.self), inBundle: Bundle(for: T.self)) {
+            mapping = ViewModelMapping(viewType: .supplementaryView(kind: kind), viewClass: T.self, xibName: String(describing: T.self), mappingBlock: mappingBlock)
+            self.collectionView.register(UINib(nibName: String(describing: T.self), bundle: Bundle(for: T.self)), forSupplementaryViewOfKind: kind, withReuseIdentifier: mapping.reuseIdentifier)
+        } else {
+            mapping = ViewModelMapping(viewType: .supplementaryView(kind: kind), viewClass: T.self, mappingBlock: mappingBlock)
+        }
+        mappings.append(mapping)
+    }
+    
+    func registerNibNamed<T:ModelTransfer>(_ nibName: String, forSupplementaryClass supplementaryClass: T.Type, forKind kind: String, mappingBlock: ((ViewModelMapping) -> Void)?) where T:UICollectionReusableView
+    {
+        let mapping = ViewModelMapping(viewType: .supplementaryView(kind: kind), viewClass: T.self, xibName: nibName, mappingBlock: mappingBlock)
+        assert(UINib.nibExists(withNibName: nibName, inBundle: Bundle(for: T.self)))
+        self.collectionView.register(UINib(nibName: nibName, bundle: Bundle(for: T.self)), forSupplementaryViewOfKind: kind, withReuseIdentifier: mapping.reuseIdentifier)
+        mappings.append(mapping)
     }
     
     func unregisterCellClass<T:ModelTransfer>(_ cellClass: T.Type) where T: UICollectionViewCell {
@@ -156,12 +156,12 @@ extension CollectionViewFactory
 // MARK: View creation
 extension CollectionViewFactory
 {
-    func viewModelMapping(for viewType: ViewType, model: Any) -> ViewModelMapping?
+    func viewModelMapping(for viewType: ViewType, model: Any, at indexPath: IndexPath) -> ViewModelMapping?
     {
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
             return nil
         }
-        let mappingCandidates = mappings.mappingCandidates(for: viewType, withModel: unwrappedModel)
+        let mappingCandidates = mappings.mappingCandidates(for: viewType, withModel: unwrappedModel, at: indexPath)
         
         if let customizedMapping = mappingCustomizableDelegate?.viewModelMapping(fromCandidates: mappingCandidates, forModel: unwrappedModel) {
             return customizedMapping
@@ -177,10 +177,9 @@ extension CollectionViewFactory
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
             throw DTCollectionViewFactoryError.nilCellModel(indexPath)
         }
-        if let mapping = viewModelMapping(for: .cell, model: unwrappedModel)
+        if let mapping = viewModelMapping(for: .cell, model: unwrappedModel, at: indexPath)
         {
-            let cellClassName = String(describing: mapping.viewClass)
-            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: cellClassName, for: indexPath)
+            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: mapping.reuseIdentifier, for: indexPath)
             mapping.updateBlock(cell, model)
             return cell
         }
@@ -190,7 +189,7 @@ extension CollectionViewFactory
     func updateCellAt(_ indexPath : IndexPath, with model: Any) {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return }
-        if let mapping = viewModelMapping(for: .cell, model: unwrappedModel) {
+        if let mapping = viewModelMapping(for: .cell, model: unwrappedModel, at: indexPath) {
             mapping.updateBlock(cell, unwrappedModel)
         }
     }
@@ -201,7 +200,7 @@ extension CollectionViewFactory
             throw DTCollectionViewFactoryError.nilSupplementaryModel(kind: kind, indexPath: indexPath)
         }
         
-        let mappingCandidates = mappings.mappingCandidates(for: .supplementaryView(kind: kind), withModel: unwrappedModel)
+        let mappingCandidates = mappings.mappingCandidates(for: .supplementaryView(kind: kind), withModel: unwrappedModel, at: indexPath)
         let mapping : ViewModelMapping?
         
         if let customizedMapping = mappingCustomizableDelegate?.viewModelMapping(fromCandidates: mappingCandidates, forModel: unwrappedModel) {

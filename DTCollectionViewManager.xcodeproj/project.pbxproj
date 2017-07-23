@@ -33,6 +33,10 @@
 		9A1B886A1CE1E4CB005B6F07 /* SectionModel+ConvenienceGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A1B88641CE1E4CB005B6F07 /* SectionModel+ConvenienceGetters.swift */; };
 		9A2109E31B9C58E20036D151 /* ComplexLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */; };
 		9A2109E71B9C5A020036D151 /* CollectionContainingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */; };
+		9A2B84211F24DC9400F19C14 /* MappingConditionsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2B84201F24DC9400F19C14 /* MappingConditionsTestCase.swift */; };
+		9A2B84221F24DC9400F19C14 /* MappingConditionsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2B84201F24DC9400F19C14 /* MappingConditionsTestCase.swift */; };
+		9A2B842B1F24DD3500F19C14 /* CustomNibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A2B842A1F24DD3500F19C14 /* CustomNibCell.xib */; };
+		9A2B842E1F24DD7700F19C14 /* CustomNibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A2B842D1F24DD7700F19C14 /* CustomNibCell.xib */; };
 		9A2C6E431BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */; };
 		9A3243951CE34D5800C32A5B /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3243791CE34D4D00C32A5B /* DTModelStorage.framework */; };
 		9A3243981CE34D5E00C32A5B /* DTModelStorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9A3243791CE34D4D00C32A5B /* DTModelStorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -288,6 +292,9 @@
 		9A1B88641CE1E4CB005B6F07 /* SectionModel+ConvenienceGetters.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "SectionModel+ConvenienceGetters.swift"; path = "Source/SectionModel+ConvenienceGetters.swift"; sourceTree = "<group>"; };
 		9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexLayoutViewController.swift; sourceTree = "<group>"; };
 		9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionContainingCell.swift; path = Cells/CollectionContainingCell.swift; sourceTree = "<group>"; };
+		9A2B84201F24DC9400F19C14 /* MappingConditionsTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MappingConditionsTestCase.swift; sourceTree = "<group>"; };
+		9A2B842A1F24DD3500F19C14 /* CustomNibCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = CustomNibCell.xib; sourceTree = "<group>"; };
+		9A2B842D1F24DD7700F19C14 /* CustomNibCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = CustomNibCell.xib; path = Fixtures/tvOS/CustomNibCell.xib; sourceTree = "<group>"; };
 		9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplementaryMappingTestCase.swift; sourceTree = "<group>"; };
 		9A32436F1CE34D4D00C32A5B /* DTModelStorage.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = DTModelStorage.xcodeproj; path = Carthage/Checkouts/DTModelStorage/DTModelStorage.xcodeproj; sourceTree = "<group>"; };
 		9A3243801CE34D5200C32A5B /* Nimble.xcodeproj */ = {isa = PBXFileReference; lastKnownFileType = "wrapper.pb-project"; name = Nimble.xcodeproj; path = Carthage/Checkouts/Nimble/Nimble.xcodeproj; sourceTree = "<group>"; };
@@ -470,6 +477,7 @@
 				9A1B88161CE1E1F0005B6F07 /* ReactingHeaderFooterView.xib */,
 				9A1B88171CE1E1F0005B6F07 /* SelectionReactingCollectionCell.xib */,
 				9A1B88181CE1E1F0005B6F07 /* XibCollectionViewController.xib */,
+				9A2B842A1F24DD3500F19C14 /* CustomNibCell.xib */,
 			);
 			name = iOS;
 			path = ../Tests/Fixtures/iOS;
@@ -506,6 +514,7 @@
 				9A4C3BFE1BE55F87000931BA /* DelegateForwardingTestCase.swift */,
 				9AF938A41C0C966F0051E8E8 /* VIewModelMappingCustomizableTestCase.swift */,
 				9AF938A71C0C9E0D0051E8E8 /* CollectionViewFactoryTestCase.swift */,
+				9A2B84201F24DC9400F19C14 /* MappingConditionsTestCase.swift */,
 			);
 			path = Tests;
 			sourceTree = "<group>";
@@ -531,6 +540,7 @@
 				9A1B87F21CE1E19D005B6F07 /* ReactingHeaderFooterView.xib */,
 				9A1B87F31CE1E19D005B6F07 /* SelectionReactingCollectionCell.xib */,
 				9A1B87F41CE1E19D005B6F07 /* XibCollectionViewController.xib */,
+				9A2B842D1F24DD7700F19C14 /* CustomNibCell.xib */,
 			);
 			name = tvOS;
 			sourceTree = "<group>";
@@ -828,6 +838,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A2B842B1F24DD3500F19C14 /* CustomNibCell.xib in Resources */,
 				9A1B88211CE1E1F0005B6F07 /* XibCollectionViewController.xib in Resources */,
 				9A1B881B1CE1E1F0005B6F07 /* NibHeaderFooterView.xib in Resources */,
 				9A1B881D1CE1E1F0005B6F07 /* RandomNameHeaderFooterView.xib in Resources */,
@@ -853,6 +864,7 @@
 				9A1B880E1CE1E1E1005B6F07 /* SelectionReactingCollectionCell.xib in Resources */,
 				9A1B880D1CE1E1E1005B6F07 /* ReactingHeaderFooterView.xib in Resources */,
 				9A1B880C1CE1E1E1005B6F07 /* RandomNibNameCell.xib in Resources */,
+				9A2B842E1F24DD7700F19C14 /* CustomNibCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -877,6 +889,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A2B84211F24DC9400F19C14 /* MappingConditionsTestCase.swift in Sources */,
 				9A2C6E431BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift in Sources */,
 				9A4C3BFD1BE557D8000931BA /* SupplementaryEventsTestCase.swift in Sources */,
 				9ADFC8E01B8B595800AB4CD9 /* NibHeaderFooterView.swift in Sources */,
@@ -916,6 +929,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9A2B84221F24DC9400F19C14 /* MappingConditionsTestCase.swift in Sources */,
 				9AC532171BE5F77F006CB18A /* SupplementaryMappingTestCase.swift in Sources */,
 				9AC532181BE5F77F006CB18A /* SupplementaryEventsTestCase.swift in Sources */,
 				9AC532191BE5F77F006CB18A /* NibHeaderFooterView.swift in Sources */,

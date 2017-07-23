@@ -23,7 +23,9 @@ class BaseTestCell : UICollectionViewCell, ModelTransfer, ModelRetrievable
 
 class NiblessCell: BaseTestCell {}
 
-class NibCell: BaseTestCell {}
+class NibCell: BaseTestCell {
+    @IBOutlet weak var customLabel: UILabel?
+}
 
 class StringCell : UICollectionViewCell, ModelTransfer
 {

@@ -107,25 +107,25 @@ class NibNameViewModelMappingTestCase : XCTestCase {
     }
     
     func testRegisterCellWithoutNibYieldsNoXibName() {
-        factory.registerCellClass(NiblessCell.self)
+        factory.registerCellClass(NiblessCell.self, mappingBlock: nil)
         
         expect(self.factory.mappings.first?.xibName).to(beNil())
     }
     
     func testCellWithXibHasXibNameInMapping() {
-        factory.registerCellClass(NibCell.self)
+        factory.registerCellClass(NibCell.self, mappingBlock: nil)
         
         expect(self.factory.mappings.first?.xibName) == "NibCell"
     }
     
     func testHeaderHasXibInMapping() {
-        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionElementKindSectionHeader)
+        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionElementKindSectionHeader, mappingBlock: nil)
         
         expect(self.factory.mappings.first?.xibName) == "NibHeaderFooterView"
     }
     
     func testFooterHasXibInMapping() {
-        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionElementKindSectionFooter)
+        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionElementKindSectionFooter, mappingBlock: nil)
         
         expect(self.factory.mappings.first?.xibName) == "NibHeaderFooterView"
     }
