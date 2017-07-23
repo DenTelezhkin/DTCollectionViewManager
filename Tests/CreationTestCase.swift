@@ -18,7 +18,19 @@ class FooCell : UICollectionViewCell, ModelTransfer
     }
 }
 
+class NonOptionalCollectionViewController : UIViewController, DTCollectionViewNonOptionalManageable {
+    var collectionView: UICollectionView!
+}
+
 class CreationTestCase: XCTestCase {
+    
+    func testManagingWithNonOptionalCollectionViewWorks() {
+        let controller = NonOptionalCollectionViewController()
+        controller.collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+        controller.manager.startManaging(withDelegate: controller)
+        
+        expect(controller.manager.isManagingCollectionView).to(beTrue())
+    }
     
     func testDelegateIsNotNil() {
         let controller = DTCellTestCollectionController()

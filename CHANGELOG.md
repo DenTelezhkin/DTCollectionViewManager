@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Added `DTCollectionViewNonOptionalManageable` protocol, that can be used with non-optional `UICollectionView` properties on your managed instance.
+
 ## [5.3.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.3.1)
 
 * Initial support for Swift 3.2 (Xcode 9 beta-1).

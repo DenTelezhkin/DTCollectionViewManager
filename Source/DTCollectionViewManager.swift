@@ -35,6 +35,11 @@ public protocol DTCollectionViewManageable : class, NSObjectProtocol
     var collectionView : UICollectionView? { get }
 }
 
+/// This protocol is similar to `DTCollectionViewManageable`, but allows using optional `UITableView` property.
+public protocol DTCollectionViewNonOptionalManageable : class, NSObjectProtocol {
+    var collectionView : UICollectionView! { get }
+}
+
 private var DTCollectionViewManagerAssociatedKey = "DTCollectionView Manager Associated Key"
 
 /// Default implementation for `DTCollectionViewManageable` protocol, that will inject `manager` property to any object, that declares itself `DTCollectionViewManageable`.
@@ -58,15 +63,38 @@ extension DTCollectionViewManageable
     }
 }
 
+/// Default implementation for `DTCollectionViewManageable` protocol, that will inject `manager` property to any object, that declares itself `DTCollectionViewManageable`.
+extension DTCollectionViewNonOptionalManageable
+{
+    /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call `startManaging(withDelegate:)` method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
+    /// - SeeAlso: `startManaging(withDelegate:)`
+    public var manager : DTCollectionViewManager
+    {
+        get {
+            if let manager = objc_getAssociatedObject(self, &DTCollectionViewManagerAssociatedKey) as? DTCollectionViewManager {
+                return manager
+            }
+            let manager = DTCollectionViewManager()
+            objc_setAssociatedObject(self, &DTCollectionViewManagerAssociatedKey, manager, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+            return manager
+        }
+        set {
+            objc_setAssociatedObject(self, &DTCollectionViewManagerAssociatedKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
+        }
+    }
+}
+
 /// `DTCollectionViewManager` manages most of `UICollectionView` datasource and delegate methods and provides API for managing your data models in the collection view. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
 /// - SeeAlso: `startManagingWithDelegate:`
 open class DTCollectionViewManager : NSObject {
     
     fileprivate var collectionView : UICollectionView? {
-        return self.delegate?.collectionView
+        if let delegate = delegate as? DTCollectionViewManageable { return delegate.collectionView }
+        if let delegate = delegate as? DTCollectionViewNonOptionalManageable { return delegate.collectionView }
+        return nil
     }
     
-    fileprivate weak var delegate : DTCollectionViewManageable?
+    fileprivate weak var delegate : AnyObject?
     
     /// Bool property, that will be true, after `startManagingWithDelegate` method is called on `DTCollectionViewManager`.
     open var isManagingCollectionView : Bool {
@@ -147,6 +175,22 @@ open class DTCollectionViewManager : NSObject {
         }
         
         self.delegate = delegate
+        startManaging(with: collectionView)
+    }
+    
+    /// Call this method before calling any of `DTCollectionViewManager` methods.
+    /// - Precondition: UICollectionView instance on `delegate` should not be nil.
+    /// - Parameter delegate: Object, that has UICollectionView, that will be managed by `DTCollectionViewManager`.
+    open func startManaging(withDelegate delegate : DTCollectionViewNonOptionalManageable)
+    {
+        guard let collectionView = delegate.collectionView else {
+            preconditionFailure("Call startManagingWithDelegate: method only when UICollectionView has been created")
+        }
+        self.delegate = delegate
+        startManaging(with: collectionView)
+    }
+    
+    fileprivate func startManaging(with collectionView: UICollectionView) {
         collectionView.delegate = self
         collectionView.dataSource = self
         
@@ -158,10 +202,11 @@ open class DTCollectionViewManager : NSObject {
         
         // Workaround, that prevents UICollectionView from being confused about it's own number of sections
         // This happens mostly on UICollectionView creation, before any delegate methods have been called and is not reproducible after it was fully initialized.
-        // This is rare, and is not documented anywhere, but since workaround is small and harmless, we are including it 
+        // This is rare, and is not documented anywhere, but since workaround is small and harmless, we are including it
         // as a part of DTCollectionViewManager framework.
         _ = collectionView.numberOfSections
     }
+    
     
     /// Returns closure, that updates cell at provided indexPath.
     ///
@@ -176,7 +221,7 @@ open class DTCollectionViewManager : NSObject {
     ///
     /// - Precondition: UICollectionView instance on `delegate` should not be nil.
     open func coreDataUpdater() -> CollectionViewUpdater {
-        guard let collectionView = delegate?.collectionView else {
+        guard let collectionView = self.collectionView else {
             preconditionFailure("Call startManagingWithDelegate: method only when UICollectionView has been created")
         }
         return CollectionViewUpdater(collectionView: collectionView,
