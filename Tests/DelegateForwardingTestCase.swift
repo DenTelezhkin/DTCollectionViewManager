@@ -46,13 +46,13 @@ class DelegateForwardingTestCase: XCTestCase {
     
     func testHeaderHeightIsRequested() {
         controller.manager.memoryStorage.setSectionHeaderModels(["Foo"])
-        let _ = controller.manager.collectionView(controller.collectionView!, layout: controller.collectionView!.collectionViewLayout, referenceSizeForHeaderInSection:0)
+        let _ = controller.manager.collectionDelegate?.collectionView(controller.collectionView!, layout: controller.collectionView!.collectionViewLayout, referenceSizeForHeaderInSection:0)
         expect(self.controller.headerHeightRequested).to(beTrue())
     }
     
     func testFooterHeightIsRequested() {
         controller.manager.memoryStorage.setSectionFooterModels(["Foo"])
-        let _ = controller.manager.collectionView(controller.collectionView!, layout: controller.collectionView!.collectionViewLayout, referenceSizeForFooterInSection:0)
+        let _ = controller.manager.collectionDelegate?.collectionView(controller.collectionView!, layout: controller.collectionView!.collectionViewLayout, referenceSizeForFooterInSection:0)
         expect(self.controller.footerHeightRequested).to(beTrue())
     }
     

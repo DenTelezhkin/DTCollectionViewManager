@@ -58,7 +58,7 @@ class ReactingToEventsTestCase: XCTestCase {
         }
         
         controller.manager.memoryStorage.addItems([1,2], toSection: 0)
-        controller.manager.collectionView(controller.collectionView!, didSelectItemAt: indexPath(1, 0))
+        controller.manager.collectionDelegate?.collectionView(controller.collectionView!, didSelectItemAt: indexPath(1, 0))
         
         expect(reactingCell?.indexPath) == indexPath(1, 0)
         expect(reactingCell?.model) == 2
@@ -78,7 +78,7 @@ class ReactingToEventsTestCase: XCTestCase {
         })
         
         controller.manager.memoryStorage.addItem(2, toSection: 0)
-        _ = controller.manager.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0))
+        _ = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0))
         
         expect(reactingCell?.indexPath) == indexPath(0, 0)
         expect(reactingCell?.model) == 2
@@ -145,7 +145,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         })
         sut.manager.memoryStorage.addItem(3)
         
-        _ = sut.manager.collectionView(sut.collectionView!, canMoveItemAt: indexPath(0,0))
+        _ = sut.manager.collectionDataSource?.collectionView(sut.collectionView!, canMoveItemAt: indexPath(0,0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -157,7 +157,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         })
         sut.manager.memoryStorage.addItem(3)
         
-        _ = sut.manager.collectionView(sut.collectionView!, shouldSelectItemAt: indexPath(0,0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, shouldSelectItemAt: indexPath(0,0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -169,7 +169,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         })
         sut.manager.memoryStorage.addItem(3)
         
-        _ = sut.manager.collectionView(sut.collectionView!, shouldDeselectItemAt: indexPath(0,0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, shouldDeselectItemAt: indexPath(0,0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -181,7 +181,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         })
         sut.manager.memoryStorage.addItem(3)
         
-        _ = sut.manager.collectionView(sut.collectionView!, didDeselectItemAt: indexPath(0,0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didDeselectItemAt: indexPath(0,0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -193,7 +193,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         })
         sut.manager.memoryStorage.addItem(3)
         
-        _ = sut.manager.collectionView(sut.collectionView!, shouldHighlightItemAt: indexPath(0,0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, shouldHighlightItemAt: indexPath(0,0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -205,7 +205,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         })
         sut.manager.memoryStorage.addItem(3)
         
-        _ = sut.manager.collectionView(sut.collectionView!, didHighlightItemAt: indexPath(0,0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didHighlightItemAt: indexPath(0,0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -217,7 +217,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         })
         sut.manager.memoryStorage.addItem(3)
         
-        _ = sut.manager.collectionView(sut.collectionView!, didUnhighlightItemAt: indexPath(0,0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didUnhighlightItemAt: indexPath(0,0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -240,7 +240,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return
         })
         sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionElementKindSectionHeader, at: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionElementKindSectionHeader, at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -251,7 +251,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return
         })
         sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionElementKindSectionHeader, at: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionElementKindSectionHeader, at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -262,7 +262,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return
         })
         sut.manager.memoryStorage.setSectionFooterModels([5])
-        _ = sut.manager.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionElementKindSectionFooter, at: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionElementKindSectionFooter, at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -275,7 +275,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return
         })
         sut.manager.memoryStorage.addItem(3)
-        _ = sut.manager.collectionView(sut.collectionView!, didEndDisplaying: NibCell(), forItemAt: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplaying: NibCell(), forItemAt: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -286,7 +286,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return
         })
         sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionElementKindSectionHeader, at: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionElementKindSectionHeader, at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -297,7 +297,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return
         })
         sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionElementKindSectionHeader, at: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionElementKindSectionHeader, at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -308,7 +308,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return
         })
         sut.manager.memoryStorage.setSectionFooterModels([5])
-        _ = sut.manager.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionElementKindSectionFooter, at: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionElementKindSectionFooter, at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -320,7 +320,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         })
         sut.manager.memoryStorage.addItem(3)
         
-        _ = sut.manager.collectionView(sut.collectionView!, shouldShowMenuForItemAt: indexPath(0,0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, shouldShowMenuForItemAt: indexPath(0,0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -331,7 +331,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return true
         })
         sut.manager.memoryStorage.addItem(3)
-        _ = sut.manager.collectionView(sut.collectionView!, canPerformAction: #selector(testShouldShowMenuForItemAtIndexPath), forItemAt: indexPath(0, 0), withSender: exp)
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, canPerformAction: #selector(testShouldShowMenuForItemAtIndexPath), forItemAt: indexPath(0, 0), withSender: exp)
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -342,7 +342,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return
         })
         sut.manager.memoryStorage.addItem(3)
-        _ = sut.manager.collectionView(sut.collectionView!, performAction: #selector(testShouldShowMenuForItemAtIndexPath), forItemAt: indexPath(0, 0), withSender: exp)
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, performAction: #selector(testShouldShowMenuForItemAtIndexPath), forItemAt: indexPath(0, 0), withSender: exp)
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -354,7 +354,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return true
         })
         sut.manager.memoryStorage.addItem(3)
-        _ = sut.manager.collectionView(sut.collectionView!, canFocusItemAt: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, canFocusItemAt: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -365,7 +365,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return .zero
         })
         sut.manager.memoryStorage.addItem(3)
-        _ = sut.manager.collectionView(sut.collectionView!, layout: UICollectionViewFlowLayout(), sizeForItemAt: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, layout: UICollectionViewFlowLayout(), sizeForItemAt: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -376,7 +376,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return .zero
         })
         sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionView(sut.collectionView!, layout: UICollectionViewFlowLayout(), referenceSizeForHeaderInSection: 0)
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, layout: UICollectionViewFlowLayout(), referenceSizeForHeaderInSection: 0)
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -387,7 +387,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return .zero
         })
         sut.manager.memoryStorage.setSectionFooterModels([5])
-        _ = sut.manager.collectionView(sut.collectionView!, layout: UICollectionViewFlowLayout(), referenceSizeForFooterInSection: 0)
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, layout: UICollectionViewFlowLayout(), referenceSizeForFooterInSection: 0)
         waitForExpectations(timeout: 1, handler: nil)
     }
     

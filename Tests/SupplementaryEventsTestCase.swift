@@ -56,7 +56,7 @@ class SupplementaryEventsTestCase: XCTestCase {
 
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at:  indexPath(0, 0))
+        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at:  indexPath(0, 0))
         
         expect((view as? ReactingHeaderFooterView)?.model) == "FooBar"
     }
@@ -72,7 +72,7 @@ class SupplementaryEventsTestCase: XCTestCase {
         
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        let view = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, at:  indexPath(0, 0))
+        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, at:  indexPath(0, 0))
         
         expect((view as? ReactingHeaderFooterView)?.model) == "FooBar"
     }

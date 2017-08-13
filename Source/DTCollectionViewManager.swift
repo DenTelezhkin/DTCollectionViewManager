@@ -35,7 +35,7 @@ public protocol DTCollectionViewManageable : class, NSObjectProtocol
     var collectionView : UICollectionView? { get }
 }
 
-/// This protocol is similar to `DTCollectionViewManageable`, but allows using optional `UITableView` property.
+/// This protocol is similar to `DTCollectionViewManageable`, but allows using non-optional `UICollectionView` property.
 public protocol DTCollectionViewNonOptionalManageable : class, NSObjectProtocol {
     var collectionView : UICollectionView! { get }
 }
@@ -47,8 +47,7 @@ extension DTCollectionViewManageable
 {
     /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call `startManaging(withDelegate:)` method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
     /// - SeeAlso: `startManaging(withDelegate:)`
-    public var manager : DTCollectionViewManager
-        {
+    public var manager : DTCollectionViewManager {
         get {
             if let manager = objc_getAssociatedObject(self, &DTCollectionViewManagerAssociatedKey) as? DTCollectionViewManager {
                 return manager
@@ -68,8 +67,7 @@ extension DTCollectionViewNonOptionalManageable
 {
     /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call `startManaging(withDelegate:)` method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
     /// - SeeAlso: `startManaging(withDelegate:)`
-    public var manager : DTCollectionViewManager
-    {
+    public var manager : DTCollectionViewManager {
         get {
             if let manager = objc_getAssociatedObject(self, &DTCollectionViewManagerAssociatedKey) as? DTCollectionViewManager {
                 return manager
@@ -88,7 +86,7 @@ extension DTCollectionViewNonOptionalManageable
 /// - SeeAlso: `startManagingWithDelegate:`
 open class DTCollectionViewManager : NSObject {
     
-    fileprivate var collectionView : UICollectionView? {
+    var collectionView : UICollectionView? {
         if let delegate = delegate as? DTCollectionViewManageable { return delegate.collectionView }
         if let delegate = delegate as? DTCollectionViewNonOptionalManageable { return delegate.collectionView }
         return nil
@@ -106,23 +104,6 @@ open class DTCollectionViewManager : NSObject {
         precondition(self.isManagingCollectionView, "Please call manager.startManagingWithDelegate(self) before calling any other DTCollectionViewManager methods")
         return CollectionViewFactory(collectionView: self.collectionView!)
     }()
-    
-    /// Array of reactions for `DTCollectionViewManager`.
-    /// - SeeAlso: `CollectionViewReaction`.
-    fileprivate var collectionViewReactions = ContiguousArray<EventReaction>() {
-        didSet {
-            // Resetting delegate and dataSource are needed, because UICollectionView caches results of `respondsToSelector` call, and never calls it again until `setDelegate` method is called.
-            // We force UICollectionView to flush that cache and query us again, because with new event we might have new delegate or datasource method to respond to.
-            collectionView?.delegate = nil
-            collectionView?.delegate = self
-            
-            // Workaround with number of sections prevents UICollectionView from crash on following lines, because it tries to find out number of sections and fails.
-            collectionView?.dataSource = nil
-            _ = collectionView?.numberOfSections
-            collectionView?.dataSource = self
-            _ = collectionView?.numberOfSections
-        }
-    }
     
     /// Error handler ot be executed when critical error happens with `CollectionViewFactory`.
     /// This can be useful to provide more debug information for crash logs, since preconditionFailure Swift method provides little to zero insight about what happened and when.
@@ -165,6 +146,20 @@ open class DTCollectionViewManager : NSObject {
         }
     }
     
+    // Object, that is responsible for implementing `UICollectionViewDataSource` protocol
+    open var collectionDataSource: DTCollectionViewDataSource? {
+        didSet {
+            collectionView?.dataSource = collectionDataSource
+        }
+    }
+    
+    // Object, that is responsible for implementing `UICollectionViewDelegate` and `UICollectionViewDelegateFlowLayout` protocols
+    open var collectionDelegate : DTCollectionViewDelegate? {
+        didSet {
+            collectionView?.delegate = collectionDelegate
+        }
+    }
+    
     /// Call this method before calling any of `DTCollectionViewManager` methods.
     /// - Precondition: UICollectionView instance on `delegate` should not be nil.
     /// - Parameter delegate: Object, that has UICollectionView, that will be managed by `DTCollectionViewManager`.
@@ -191,14 +186,12 @@ open class DTCollectionViewManager : NSObject {
     }
     
     fileprivate func startManaging(with collectionView: UICollectionView) {
-        collectionView.delegate = self
-        collectionView.dataSource = self
-        
         if let mappingDelegate = delegate as? ViewModelMappingCustomizing {
             viewFactory.mappingCustomizableDelegate = mappingDelegate
         }
         collectionViewUpdater = CollectionViewUpdater(collectionView: collectionView)
-        storage.delegate = collectionViewUpdater
+        collectionDataSource = DTCollectionViewDataSource(delegate: delegate, collectionViewManager: self)
+        collectionDelegate = DTCollectionViewDelegate(delegate: delegate, collectionViewManager: self)
         
         // Workaround, that prevents UICollectionView from being confused about it's own number of sections
         // This happens mostly on UICollectionView creation, before any delegate methods have been called and is not reproducible after it was fully initialized.
@@ -227,33 +220,6 @@ open class DTCollectionViewManager : NSObject {
         return CollectionViewUpdater(collectionView: collectionView,
                                      reloadItem: updateCellClosure(),
                                      animateMoveAsDeleteAndInsert: true)
-    }
-}
-
-// MARK: - Runtime forwarding
-extension DTCollectionViewManager
-{
-    /// Forwards `aSelector`, that is not implemented by `DTCollectionViewManager` to delegate, if it implements it.
-    ///
-    /// - Returns: `DTTableViewManager` delegate
-    open override func forwardingTarget(for aSelector: Selector) -> Any? {
-        return delegate
-    }
-    
-    /// Returns true, if `DTCollectionViewManageable` implements `aSelector`, or `DTCollectionViewManager` has an event, associated with this selector.
-    ///
-    /// - SeeAlso: `EventMethodSignature`
-    open override func responds(to aSelector: Selector) -> Bool {
-        if self.delegate?.responds(to: aSelector) ?? false {
-            return true
-        }
-        if super.responds(to: aSelector) {
-            if let eventSelector = EventMethodSignature(rawValue: String(describing: aSelector)) {
-                return collectionViewReactions.contains(where: { $0.methodSignature == eventSelector.rawValue })
-            }
-            return true
-        }
-        return false
     }
 }
 
@@ -398,36 +364,10 @@ internal enum EventMethodSignature: String {
 // MARK: - Collection view reactions
 extension DTCollectionViewManager
 {
-    fileprivate func appendReaction<T,U>(for cellClass: T.Type, signature: EventMethodSignature, closure: @escaping (T,T.ModelType, IndexPath) -> U) where T: ModelTransfer, T:UICollectionViewCell
-    {
-        let reaction = EventReaction(signature: signature.rawValue, viewType: .cell, viewClass: T.self)
-        reaction.makeReaction(closure)
-        collectionViewReactions.append(reaction)
-    }
-    
-    fileprivate func appendReaction<T,U>(for modelClass: T.Type, signature: EventMethodSignature, closure: @escaping (T, IndexPath) -> U)
-    {
-        let reaction = EventReaction(signature: signature.rawValue, viewType: .cell, modelType: T.self)
-        reaction.makeReaction(closure)
-        collectionViewReactions.append(reaction)
-    }
-    
-    fileprivate func appendReaction<T,U>(forSupplementaryKind kind: String, supplementaryClass: T.Type, signature: EventMethodSignature, closure: @escaping (T, T.ModelType, IndexPath) -> U) where T: ModelTransfer, T: UICollectionReusableView {
-        let reaction = EventReaction(signature: signature.rawValue, viewType: .supplementaryView(kind: kind), viewClass: T.self)
-        reaction.makeReaction(closure)
-        collectionViewReactions.append(reaction)
-    }
-    
-    fileprivate func appendReaction<T,U>(forSupplementaryKind kind: String, modelClass: T.Type, signature: EventMethodSignature, closure: @escaping (T, IndexPath) -> U) {
-        let reaction = EventReaction(signature: signature.rawValue, viewType: .supplementaryView(kind: kind), modelType: T.self)
-        reaction.makeReaction(closure)
-        collectionViewReactions.append(reaction)
-    }
-    
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didSelectItemAt:)` method is called for `cellClass`.
     open func didSelect<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping (T,T.ModelType, IndexPath) -> Void) where T:UICollectionViewCell
     {
-        appendReaction(for: T.self, signature: .didSelectItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: T.self, signature: .didSelectItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionView` requests `cellClass` in `UICollectionViewDataSource.collectionView(_:cellForItemAt:)` method and cell is being configured.
@@ -435,7 +375,7 @@ extension DTCollectionViewManager
     /// This closure will be performed *after* cell is created and `update(with:)` method is called.
     open func configure<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
     {
-        appendReaction(for: T.self, signature: .configureCell, closure: closure)
+        collectionDataSource?.appendReaction(for: T.self, signature: .configureCell, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionView` requests `headerClass` in `UICollectionViewDataSource.collectionView(_:viewForSupplementaryElementOf:at:)` method and header is being configured.
@@ -446,7 +386,7 @@ extension DTCollectionViewManager
         let indexPathClosure : (T,T.ModelType, IndexPath) -> Void = { view, model, indexPath in
             closure(view,model, indexPath.section)
         }
-        self.configureSupplementary(T.self, ofKind: UICollectionElementKindSectionHeader, indexPathClosure)
+        configureSupplementary(T.self, ofKind: UICollectionElementKindSectionHeader, indexPathClosure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionView` requests `footerClass` in `UICollectionViewDataSource.collectionView(_:viewForSupplementaryElementOf:at:)` method and footer is being configured.
@@ -465,62 +405,62 @@ extension DTCollectionViewManager
     /// This closure will be performed *after* supplementary view is created and `update(with:)` method is called.
     open func configureSupplementary<T:ModelTransfer>(_ supplementaryClass: T.Type, ofKind kind: String, _ closure: @escaping (T,T.ModelType,IndexPath) -> Void) where T: UICollectionReusableView
     {
-        appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: .configureSupplementary, closure: closure)
+        collectionDataSource?.appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: .configureSupplementary, closure: closure)
     }
     
     @available(iOS 9.0, tvOS 9.0, *)
     /// Registers `closure` to be executed, when `UICollectionViewDataSource.collectionView(_:canMoveItemAt:)` method is called for `cellClass`.
     open func canMove<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
-        appendReaction(for: T.self, signature: EventMethodSignature.canMoveItemAtIndexPath, closure: closure)
+        collectionDataSource?.appendReaction(for: T.self, signature: EventMethodSignature.canMoveItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldSelectItemAt:)` method is called for `cellClass`.
     open func shouldSelect<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
-        appendReaction(for: T.self, signature: EventMethodSignature.shouldSelectItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.shouldSelectItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldDeselectItemAt:)` method is called for `cellClass`.
     open func shouldDeselect<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
-        appendReaction(for: T.self, signature: EventMethodSignature.shouldDeselectItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.shouldDeselectItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didDeselectItemAt:)` method is called for `cellClass`.
     open func didDeselect<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping (T,T.ModelType, IndexPath) -> Void) where T:UICollectionViewCell
     {
-        appendReaction(for: T.self, signature: .didDeselectItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: T.self, signature: .didDeselectItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldHighlightItemAt:)` method is called for `cellClass`.
     open func shouldHighlight<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
-        appendReaction(for: T.self, signature: EventMethodSignature.shouldHighlightItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.shouldHighlightItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didHighlightItemAt:)` method is called for `cellClass`.
     open func didHighlight<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
     {
-        appendReaction(for: T.self, signature: EventMethodSignature.didHighlightItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.didHighlightItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didUnhighlightItemAt:)` method is called for `cellClass`.
     open func didUnhighlight<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
     {
-        appendReaction(for: T.self, signature: EventMethodSignature.didUnhighlightItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.didUnhighlightItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplayCell:forItemAt:)` method is called for `cellClass`.
     open func willDisplay<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
     {
-        appendReaction(for: T.self, signature: EventMethodSignature.willDisplayCellForItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.willDisplayCellForItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `kind`.
     open func willDisplaySupplementaryView<T:ModelTransfer>(_ supplementaryClass:T.Type, forElementKind kind: String,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
-        appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: EventMethodSignature.willDisplaySupplementaryViewForElementKindAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: EventMethodSignature.willDisplaySupplementaryViewForElementKindAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `UICollectionElementKindSectionHeader`.
@@ -538,13 +478,13 @@ extension DTCollectionViewManager
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplaying:forItemAt:)` method is called for `cellClass`.
     open func didEndDisplaying<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
     {
-        appendReaction(for: T.self, signature: EventMethodSignature.didEndDisplayingCellForItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.didEndDisplayingCellForItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `kind`.
     open func didEndDisplayingSupplementaryView<T:ModelTransfer>(_ supplementaryClass:T.Type, forElementKind kind: String,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
-        appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `headerClass` of `UICollectionElementKindSectionHeader`.
@@ -562,7 +502,7 @@ extension DTCollectionViewManager
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldShowMenuForItemAt:)` method is called for `cellClass`.
     open func shouldShowMenu<T:ModelTransfer>(for cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
-        appendReaction(for: T.self, signature: EventMethodSignature.shouldShowMenuForItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.shouldShowMenuForItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canPerformAction:forItemAt:withSender:)` method is called for `cellClass`.
@@ -578,7 +518,7 @@ extension DTCollectionViewManager
                 else { return false }
             return closure(selector, sender, cell, model, indexPath)
         }
-        collectionViewReactions.append(reaction)
+        collectionDelegate?.collectionViewReactions.append(reaction)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:performAction:forItemAt:withSender:)` method is called for `cellClass`.
@@ -594,14 +534,14 @@ extension DTCollectionViewManager
                 else { return false }
             return closure(selector, sender, cell, model, indexPath)
         }
-        collectionViewReactions.append(reaction)
+        collectionDelegate?.collectionViewReactions.append(reaction)
     }
     
     @available(iOS 9, tvOS 9, *)
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canFocusItemAt:)` method is called for `cellClass`.
     open func canFocus<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
-        appendReaction(for: T.self, signature: EventMethodSignature.canFocusItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.canFocusItemAtIndexPath, closure: closure)
     }
     
     // MARK: - UICollectionViewDelegateFlowLayout
@@ -609,268 +549,18 @@ extension DTCollectionViewManager
     /// Registers `closure` to be executed to determine cell size in `UICollectionViewDelegateFlowLayout.collectionView(_:sizeForItemAt:)` method, when it's called for cell which model is of `itemType`.
     open func sizeForCell<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
-        appendReaction(for: T.self, signature: EventMethodSignature.sizeForItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.sizeForItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed to determine header size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderViewInSection:)` method, when it's called for header which model is of `itemType`.
     open func referenceSizeForHeaderView<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
-        appendReaction(forSupplementaryKind: UICollectionElementKindSectionHeader, modelClass: T.self, signature: EventMethodSignature.referenceSizeForHeaderInSection, closure: closure)
+        collectionDelegate?.appendReaction(forSupplementaryKind: UICollectionElementKindSectionHeader, modelClass: T.self, signature: EventMethodSignature.referenceSizeForHeaderInSection, closure: closure)
     }
     
     /// Registers `closure` to be executed to determine footer size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterViewInSection:)` method, when it's called for footer which model is of `itemType`.
     open func referenceSizeForFooterView<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
-        appendReaction(forSupplementaryKind: UICollectionElementKindSectionFooter, modelClass: T.self, signature: EventMethodSignature.referenceSizeForFooterInSection, closure: closure)
-    }
-}
-
-// MARK : - error handling
-
-/// Calls `viewFactoryErrorHandler` with `error`. If it's nil, prints error into console and asserts.
-extension DTCollectionViewManager {
-    @nonobjc final func handleCollectionViewFactoryError(_ error: DTCollectionViewFactoryError) {
-        if let handler = viewFactoryErrorHandler {
-            handler(error)
-        } else {
-            print(error.description)
-            assertionFailure(error.description)
-        }
-    }
-}
-
-// MARK : - UICollectionViewDataSource
-extension DTCollectionViewManager : UICollectionViewDataSource
-{
-    open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return storage.sections[section].numberOfItems
-    }
-    
-    open func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return storage.sections.count
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let item = storage.item(at: indexPath), let model = RuntimeHelper.recursivelyUnwrapAnyValue(item) else {
-            handleCollectionViewFactoryError(DTCollectionViewFactoryError.nilCellModel(indexPath))
-            return UICollectionViewCell()
-        }
-        
-        let cell : UICollectionViewCell
-        do {
-            cell = try viewFactory.cellForModel(model, atIndexPath: indexPath)
-        } catch let error as DTCollectionViewFactoryError {
-            handleCollectionViewFactoryError(error)
-            cell = UICollectionViewCell()
-        } catch {
-            cell = UICollectionViewCell()
-        }
-        _ = collectionViewReactions.performReaction(of: .cell,
-                                                    signature: EventMethodSignature.configureCell.rawValue,
-                                                    view: cell,
-                                                    model: model,
-                                                    location: indexPath)
-        return cell
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
-    {
-        if let model = (self.storage as? SupplementaryStorage)?.supplementaryModel(ofKind: kind, forSectionAt: indexPath) {
-            let view : UICollectionReusableView
-            do {
-                view = try viewFactory.supplementaryViewOfKind(kind, forModel: model, atIndexPath: indexPath)
-            } catch let error as DTCollectionViewFactoryError {
-                handleCollectionViewFactoryError(error)
-                view = UICollectionReusableView()
-            } catch {
-                view = UICollectionReusableView()
-            }
-            _ = collectionViewReactions.performReaction(of: .supplementaryView(kind: kind),
-                                                        signature: EventMethodSignature.configureSupplementary.rawValue,
-                                                        view: view,
-                                                        model: model,
-                                                        location: indexPath)
-            return view
-        }
-        handleCollectionViewFactoryError(.nilSupplementaryModel(kind: kind, indexPath: indexPath))
-        return UICollectionReusableView()
-    }
-    
-    @available(iOS 9.0, tvOS 9.0, *)
-    open func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
-        if let can = performCellReaction(.canMoveItemAtIndexPath, location: indexPath, provideCell: true) as? Bool {
-            return can
-        }
-        return (delegate as? UICollectionViewDataSource)?.collectionView?(collectionView, canMoveItemAt: indexPath) ?? true
-    }
-    
-    @available(iOS 9.0, tvOS 9.0, *)
-    open func collectionView(_ collectionView: UICollectionView, moveItemAt source: IndexPath, to destination: IndexPath) {
-        if (delegate as? UICollectionViewDataSource)?.collectionView?(collectionView, moveItemAt: source, to: destination) != nil {
-            return
-        }
-        if let storage = self.storage as? MemoryStorage
-        {
-            if let from = storage.sections[source.section] as? SectionModel,
-                let to = storage.sections[destination.section] as? SectionModel
-            {
-                let item = from.items[source.row]
-                from.items.remove(at: source.row)
-                to.items.insert(item, at: destination.row)
-            }
-        }
-    }
-}
-
-// MARK : - UICollectionViewDelegateFlowLayout
-extension DTCollectionViewManager : UICollectionViewDelegateFlowLayout
-{
-    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if let size = performCellReaction(.sizeForItemAtIndexPath, location: indexPath, provideCell: false) as? CGSize {
-            return size
-        }
-        return (delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? (collectionViewLayout as? UICollectionViewFlowLayout)?.itemSize ?? .zero
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize
-    {
-        if let size = performSupplementaryReaction(forKind: UICollectionElementKindSectionHeader, signature: .referenceSizeForHeaderInSection, location: IndexPath(item:0, section:section), view: nil) as? CGSize {
-            return size
-        }
-        if let size = (self.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, referenceSizeForHeaderInSection: section) {
-            return size
-        }
-        if let _ = (storage as? HeaderFooterStorage)?.headerModel(forSection: section) {
-            return (collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize ?? .zero
-        }
-        return CGSize.zero
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if let size = performSupplementaryReaction(forKind: UICollectionElementKindSectionFooter, signature: .referenceSizeForFooterInSection, location: IndexPath(item:0, section:section), view: nil) as? CGSize {
-            return size
-        }
-        if let size = (self.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, referenceSizeForFooterInSection: section) {
-            return size
-        }
-        if let _ = (storage as? HeaderFooterStorage)?.footerModel(forSection: section) {
-            return (collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize ?? .zero
-        }
-        return CGSize.zero
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, shouldSelectItemAt indexPath: IndexPath) -> Bool {
-        if let can = performCellReaction(.shouldSelectItemAtIndexPath, location: indexPath, provideCell: true) as? Bool {
-            return can
-        }
-        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, shouldSelectItemAt: indexPath) ?? true
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath)
-    {
-        _ = performCellReaction(.didSelectItemAtIndexPath, location: indexPath, provideCell: true)
-        (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didSelectItemAt: indexPath)
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, shouldDeselectItemAt indexPath: IndexPath) -> Bool {
-        if let can = performCellReaction(.shouldDeselectItemAtIndexPath, location: indexPath, provideCell: true) as? Bool {
-            return can
-        }
-        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, shouldDeselectItemAt: indexPath) ?? true
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, didDeselectItemAt indexPath: IndexPath)
-    {
-        _ = performCellReaction(.didDeselectItemAtIndexPath, location: indexPath, provideCell: true)
-        (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didDeselectItemAt: indexPath)
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, didHighlightItemAt indexPath: IndexPath)
-    {
-        _ = performCellReaction(.didHighlightItemAtIndexPath, location: indexPath, provideCell: true)
-        (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didHighlightItemAt: indexPath)
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, didUnhighlightItemAt indexPath: IndexPath)
-    {
-        _ = performCellReaction(.didUnhighlightItemAtIndexPath, location: indexPath, provideCell: true)
-        (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didUnhighlightItemAt: indexPath)
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, shouldHighlightItemAt indexPath: IndexPath) -> Bool {
-        if let can = performCellReaction(.shouldHighlightItemAtIndexPath, location: indexPath, provideCell: true) as? Bool {
-            return can
-        }
-        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, shouldHighlightItemAt: indexPath) ?? true
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, willDisplay: cell, forItemAt: indexPath) }
-        guard let model = storage.item(at: indexPath) else { return }
-        _ = collectionViewReactions.performReaction(of: .cell, signature: EventMethodSignature.willDisplayCellForItemAtIndexPath.rawValue, view: cell, model: model, location: indexPath)
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, willDisplaySupplementaryView view: UICollectionReusableView, forElementKind elementKind: String, at indexPath: IndexPath) {
-        _ = performSupplementaryReaction(forKind: elementKind, signature: .willDisplaySupplementaryViewForElementKindAtIndexPath, location: indexPath, view: view)
-        (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, willDisplaySupplementaryView: view, forElementKind: elementKind, at: indexPath)
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
-        defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didEndDisplaying: cell, forItemAt: indexPath) }
-        guard let model = storage.item(at: indexPath) else { return }
-        _ = collectionViewReactions.performReaction(of: .cell, signature: EventMethodSignature.didEndDisplayingCellForItemAtIndexPath.rawValue, view: cell, model: model, location: indexPath)
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
-        defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didEndDisplayingSupplementaryView: view, forElementOfKind: elementKind, at: indexPath) }
-        guard let model = (storage as? SupplementaryStorage)?.supplementaryModel(ofKind: elementKind, forSectionAt: indexPath) else { return }
-        _ = collectionViewReactions.performReaction(of: .supplementaryView(kind: elementKind), signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue, view: view, model: model, location: indexPath)
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
-        if let can = performCellReaction(.shouldShowMenuForItemAtIndexPath, location: indexPath, provideCell: true) as? Bool {
-            return can
-        }
-        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, shouldShowMenuForItemAt: indexPath) ?? false
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        guard let item = storage.item(at: indexPath), let model = RuntimeHelper.recursivelyUnwrapAnyValue(item),
-            let cell = collectionView.cellForItem(at: indexPath)
-            else { return false }
-        if let reaction = collectionViewReactions.reaction(of: .cell, signature: EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue, forModel: model, view: cell) as? FiveArgumentsEventReaction {
-            return reaction.performWithArguments((action,sender as Any,cell,model,indexPath)) as? Bool ?? false
-        }
-        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, canPerformAction: action, forItemAt: indexPath, withSender: sender) ?? false
-    }
-    
-    open func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-        defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, performAction: action, forItemAt: indexPath, withSender: sender) }
-        guard let item = storage.item(at: indexPath), let model = RuntimeHelper.recursivelyUnwrapAnyValue(item),
-            let cell = collectionView.cellForItem(at: indexPath)
-            else { return }
-        if let reaction = collectionViewReactions.reaction(of: .cell, signature: EventMethodSignature.performActionForItemAtIndexPath.rawValue, forModel: model, view: cell) as? FiveArgumentsEventReaction {
-            _ = reaction.performWithArguments((action,sender as Any,cell,model,indexPath))
-        }
-    }
-    
-    @available(iOS 9, tvOS 9, *)
-    open func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
-        if let should = performCellReaction(.canFocusItemAtIndexPath, location: indexPath, provideCell: true) as? Bool {
-            return should
-        }
-        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, canFocusItemAt: indexPath) ?? collectionView.cellForItem(at: indexPath)?.canBecomeFocused ?? true
-    }
-
-    fileprivate func performCellReaction(_ signature: EventMethodSignature, location: IndexPath, provideCell: Bool) -> Any? {
-        var cell : UICollectionViewCell?
-        if provideCell { cell = collectionView?.cellForItem(at:location) }
-        guard let model = storage.item(at: location) else { return nil }
-        return collectionViewReactions.performReaction(of: .cell, signature: signature.rawValue, view: cell, model: model, location: location)
-    }
-    
-    fileprivate func performSupplementaryReaction(forKind kind: String, signature: EventMethodSignature, location: IndexPath, view: UICollectionReusableView?) -> Any? {
-        guard let model = (storage as? SupplementaryStorage)?.supplementaryModel(ofKind: kind, forSectionAt: location) else { return nil }
-        return collectionViewReactions.performReaction(of: .supplementaryView(kind: kind), signature: signature.rawValue, view: view, model: model, location: location)
+        collectionDelegate?.appendReaction(forSupplementaryKind: UICollectionElementKindSectionFooter, modelClass: T.self, signature: EventMethodSignature.referenceSizeForFooterInSection, closure: closure)
     }
 }

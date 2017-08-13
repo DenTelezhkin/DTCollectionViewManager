@@ -16,13 +16,11 @@ class ComplexLayoutViewController: UICollectionViewController, DTCollectionViewM
         
         manager.startManaging(withDelegate: self)
         manager.register(CollectionContainingCell.self)
+        manager.sizeForCell(withItem: Int.self) { [weak self] _, _ in
+            guard let layout = self?.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
+            return CGSize(width: self?.collectionView?.frame.width ?? 0, height: layout.itemSize.height)
+        }
         manager.memoryStorage.addItems([1,3,8,15])
-    }
-    
-    override func viewDidLayoutSubviews() {
-        super.viewDidLayoutSubviews()
-        let layout = self.collectionView!.collectionViewLayout as! UICollectionViewFlowLayout
-        layout.itemSize = CGSize(width: view.frame.width, height: layout.itemSize.height)
     }
     
     @IBAction func plusTapped(_ sender: AnyObject)

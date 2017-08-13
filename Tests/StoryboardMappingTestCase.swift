@@ -28,7 +28,7 @@ class StoryboardMappingTestCase: XCTestCase {
         controller.manager.register(StoryboardCollectionViewCell.self)
         controller.manager.memoryStorage.addItem(3)
         
-        let cell = controller.manager.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0)) as? StoryboardCollectionViewCell
+        let cell = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0)) as? StoryboardCollectionViewCell
         
         expect(cell?.storyboardLabel).toNot(beNil())
     }
@@ -44,9 +44,9 @@ class StoryboardMappingTestCase: XCTestCase {
         if #available(iOS 9, *) {
             controller.collectionView?.performBatchUpdates(nil, completion: nil)
             
-            let headerView = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at:  indexPath(0, 0)) as? StoryboardCollectionReusableHeaderView
+            let headerView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at:  indexPath(0, 0)) as? StoryboardCollectionReusableHeaderView
             
-            let footerView = controller.manager.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, at:  indexPath(0, 0)) as? StoryboardCollectionReusableFooterView
+            let footerView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, at:  indexPath(0, 0)) as? StoryboardCollectionReusableFooterView
             
             expect(headerView?.storyboardLabel.text) == "Header"
             expect(footerView?.storyboardLabel.text) == "Footer"

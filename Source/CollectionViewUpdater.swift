@@ -111,7 +111,7 @@ open class CollectionViewUpdater : StorageUpdating {
         }
     }
     
-    /// Call this method, if you want UITableView to be reloaded, and beforeContentUpdate: and afterContentUpdate: closures to be called.
+    /// Call this method, if you want UICollectionView to be reloaded, and beforeContentUpdate: and afterContentUpdate: closures to be called.
     open func storageNeedsReloading()
     {
         willUpdateContent?(nil)

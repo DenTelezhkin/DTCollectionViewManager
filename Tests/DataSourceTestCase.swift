@@ -39,8 +39,8 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItems([1,1,1,1], toSection: 0)
         controller.manager.memoryStorage.addItems([2,2,2], toSection: 1)
         let collectionView = controller.collectionView
-        expect(self.controller.manager.collectionView(collectionView!, numberOfItemsInSection: 0)) == 4
-        expect(self.controller.manager.collectionView(collectionView!, numberOfItemsInSection: 1)) == 3
+        expect(self.controller.manager.collectionDataSource?.collectionView(collectionView!, numberOfItemsInSection: 0)) == 4
+        expect(self.controller.manager.collectionDataSource?.collectionView(collectionView!, numberOfItemsInSection: 1)) == 3
     }
     
     func testShouldReturnCorrectNumberOfSections()
@@ -49,7 +49,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItem(4, toSection: 3)
         controller.manager.memoryStorage.addItem(2, toSection: 2)
         
-        expect(self.controller.manager.numberOfSections(in: self.controller.collectionView!)) == 4
+        expect(self.controller.manager.collectionDataSource?.numberOfSections(in: self.controller.collectionView!)) == 4
     }
     
     func testShouldAddTableItems()

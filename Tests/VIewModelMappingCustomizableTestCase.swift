@@ -66,7 +66,7 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
         
         controller.manager.memoryStorage.addItem(3)
         
-        let cell = controller.manager.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0))
+        let cell = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0))
         
         expect(cell is AnotherIntCell).to(beTrue())
     }
@@ -82,7 +82,7 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
         
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        expect(self.controller.manager.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at: indexPath(0, 0))).to(beAKindOf(AnotherIntHeader.self))
+        expect(self.controller.manager.collectionDataSource?.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at: indexPath(0, 0))).to(beAKindOf(AnotherIntHeader.self))
     }
     
     func testMappingCustomizableAllowsSelectingAnotherFooterMapping() {
@@ -96,6 +96,6 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
         
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        expect(self.controller.manager.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, at: indexPath(0, 0))).to(beAKindOf(AnotherIntHeader.self))
+        expect(self.controller.manager.collectionDataSource?.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, at: indexPath(0, 0))).to(beAKindOf(AnotherIntHeader.self))
     }
 }

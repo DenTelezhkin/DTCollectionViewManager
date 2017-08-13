@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* `UICollectionViewDelegate` and `UICollectionViewDatasource` implementations have been refactored from `DTCollectionViewManager` to `DTCollectionViewDelegate` and `DTCollectionViewDataSource` classes.
 * Added `DTCollectionViewNonOptionalManageable` protocol, that can be used with non-optional `UICollectionView` properties on your managed instance.
 
 ## [5.3.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.3.1)

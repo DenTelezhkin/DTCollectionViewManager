@@ -33,20 +33,20 @@ public extension SectionModel
     /// Returns UICollectionView header model for current section
     public var collectionHeaderModel : Any? {
         get {
-            return self.supplementaryModel(ofKind: UICollectionElementKindSectionHeader, atIndex: 0)
+            return supplementaryModel(ofKind: UICollectionElementKindSectionHeader, atIndex: 0)
         }
         set {
-            self.setSupplementaryModel(newValue, forKind: UICollectionElementKindSectionHeader, atIndex: 0)
+            setSupplementaryModel(newValue, forKind: UICollectionElementKindSectionHeader, atIndex: 0)
         }
     }
     
     /// Returns UICollectionView footer model for current section
     public var collectionFooterModel : Any? {
         get {
-            return self.supplementaryModel(ofKind: UICollectionElementKindSectionFooter, atIndex: 0)
+            return supplementaryModel(ofKind: UICollectionElementKindSectionFooter, atIndex: 0)
         }
         set {
-            self.setSupplementaryModel(newValue, forKind: UICollectionElementKindSectionFooter, atIndex: 0)
+            setSupplementaryModel(newValue, forKind: UICollectionElementKindSectionFooter, atIndex: 0)
         }
     }
 }
