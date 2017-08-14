@@ -29,14 +29,14 @@ import DTModelStorage
 
 /// Adopting this protocol will automatically inject manager property to your object, that lazily instantiates DTCollectionViewManager object.
 /// Target is not required to be UICollectionViewController, and can be a regular UIViewController with UICollectionView, or even different object like UICollectionViewCell.
-public protocol DTCollectionViewManageable : class, NSObjectProtocol
+public protocol DTCollectionViewManageable : class
 {
     /// Collection view, that will be managed by DTCollectionViewManager
     var collectionView : UICollectionView? { get }
 }
 
 /// This protocol is similar to `DTCollectionViewManageable`, but allows using non-optional `UICollectionView` property.
-public protocol DTCollectionViewNonOptionalManageable : class, NSObjectProtocol {
+public protocol DTCollectionViewNonOptionalManageable : class {
     var collectionView : UICollectionView! { get }
 }
 
@@ -84,13 +84,15 @@ extension DTCollectionViewNonOptionalManageable
 
 /// `DTCollectionViewManager` manages most of `UICollectionView` datasource and delegate methods and provides API for managing your data models in the collection view. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
 /// - SeeAlso: `startManagingWithDelegate:`
-open class DTCollectionViewManager : NSObject {
+open class DTCollectionViewManager {
     
     var collectionView : UICollectionView? {
         if let delegate = delegate as? DTCollectionViewManageable { return delegate.collectionView }
         if let delegate = delegate as? DTCollectionViewNonOptionalManageable { return delegate.collectionView }
         return nil
     }
+    
+    public init() {}
     
     fileprivate weak var delegate : AnyObject?
     

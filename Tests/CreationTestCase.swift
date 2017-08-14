@@ -78,7 +78,7 @@ class CreationTestCase: XCTestCase {
         foo.manager.startManaging(withDelegate: foo)
         
         expect(foo.manager).toNot(beNil())
-        expect(foo.manager) == foo.manager // Test if lazily instantiating using associations works correctly
+        expect(foo.manager) === foo.manager // Test if lazily instantiating using associations works correctly
     }
     
     func testManagerSetter()
