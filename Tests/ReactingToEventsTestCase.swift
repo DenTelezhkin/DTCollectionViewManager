@@ -11,6 +11,20 @@ import DTModelStorage
 import Nimble
 @testable import DTCollectionViewManager
 
+#if os(iOS) && swift(>=3.2)
+    
+@available (iOS 11, *)
+class SpringLoadedContextMock : NSObject, UISpringLoadedInteractionContext {
+    var state: UISpringLoadedInteractionEffectState = .activated
+    
+    var targetView: UIView?
+    var targetItem: Any?
+    func location(in view: UIView?) -> CGPoint {
+        return .zero
+    }
+}
+#endif
+
 class ReactingTestCollectionViewController: DTCellTestCollectionController
 {
     var indexPath : IndexPath?
@@ -402,7 +416,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    
     @available (iOS 10.3, *)
     func testIndexTitlesForCollectionView() {
         let exp = expectation(description: "indexTitles for collectionView")
@@ -427,6 +440,107 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    func testTransitionOldLayoutToNewLayout() {
+        let exp = expectation(description: "transitionOldLayoutToNewLayout")
+        sut.manager.transitionLayout { old, new in
+            exp.fulfill()
+            return UICollectionViewTransitionLayout(currentLayout: old, nextLayout: new)
+        }
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
+                                                           transitionLayoutForOldLayout: UICollectionViewLayout(),
+                                                           newLayout: UICollectionViewLayout())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    @available (iOS 9, * )
+    func testIndexPathForPreferredFocusView() {
+        let exp = expectation(description: "indexPathForPreferredFocusedView")
+        sut.manager.indexPathForPreferredFocusedView {
+            exp.fulfill()
+            return nil
+        }
+        _ = sut.manager.collectionDelegate?.indexPathForPreferredFocusedView(in: sut.collectionView!)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    @available (iOS 9, *)
+    func testTargetIndexPathForMove() {
+        let exp = expectation(description: "TargetIndexPathForMove")
+        sut.manager.targetIndexPathForMovingItem(NibCell.self) { _, _, _, _ in
+            exp.fulfill()
+            return IndexPath(item: 0, section: 0)
+        }
+        sut.manager.memoryStorage.addItems([3,4])
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
+                                                           targetIndexPathForMoveFromItemAt: indexPath(0, 0),
+                                                           toProposedIndexPath: indexPath(1, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    @available (iOS 9, * )
+    func testTargetContentOffsetForProposedContentOffset() {
+        let exp = expectation(description: "targetContentOffsetForProposedContentOffset")
+        sut.manager.targetContentOffsetForProposedContentOffset { _ in
+            exp.fulfill()
+            return .zero
+        }
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
+                                                           targetContentOffsetForProposedContentOffset: .zero)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    #if os(iOS) && swift(>=3.2)
+    @available (iOS 11, *)
+    func testShouldSpringLoadItem() {
+        let exp = expectation(description: "shouldSpringLoadItem")
+        sut.manager.shouldSpringLoad(NibCell.self) { _, _, _, _ in
+            exp.fulfill()
+            return true
+        }
+        sut.manager.memoryStorage.addItems([3,4])
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
+                                                           shouldSpringLoadItemAt: indexPath(0, 0),
+                                                           with: SpringLoadedContextMock())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    #endif
+    
+    func testInsetForSectionAtIndex() {
+        let exp = expectation(description: "insetForSectionAtIndex")
+        sut.manager.insetForSectionAtIndex { _,_ in
+            exp.fulfill()
+            return .zero
+        }
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
+                                                           layout: UICollectionViewLayout(),
+                                                           insetForSectionAt: 0)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testMinimumLineSpacingForSectionAtIndex() {
+        let exp = expectation(description: "minimumLineSpacingForSectionAtIndex")
+        sut.manager.minimumLineSpacingForSectionAtIndex { _,_ in
+            exp.fulfill()
+            return 0
+        }
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
+                                                           layout: UICollectionViewLayout(),
+                                                           minimumLineSpacingForSectionAt: 0)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testMinimumInteritemSpacingForSectionAtIndex() {
+        let exp = expectation(description: "minimumInteritemSpacingForSectionAtIndex")
+        sut.manager.minimumInteritemSpacingForSectionAtIndex { _,_ in
+            exp.fulfill()
+            return 0
+        }
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
+                                                           layout: UICollectionViewLayout(),
+                                                           minimumInteritemSpacingForSectionAt: 0)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
     func testAllDelegateMethodSignatures() {
         if #available(iOS 9, tvOS 9, *) {
             expect(String(describing: #selector(UICollectionViewDataSource.collectionView(_:canMoveItemAt:)))) == EventMethodSignature.canMoveItemAtIndexPath.rawValue
@@ -448,12 +562,27 @@ class ReactingToEventsFastTestCase : XCTestCase {
         expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldShowMenuForItemAt:)))) == EventMethodSignature.shouldShowMenuForItemAtIndexPath.rawValue
         expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canPerformAction:forItemAt:withSender:)))) == EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue
         expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:performAction:forItemAt:withSender:)))) == EventMethodSignature.performActionForItemAtIndexPath.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:transitionLayoutForOldLayout:newLayout:)))) == EventMethodSignature.transitionLayoutForOldLayoutNewLayout.rawValue
         
         if #available(iOS 9, tvOS 9, *) {
             expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canFocusItemAt:)))) == EventMethodSignature.canFocusItemAtIndexPath.rawValue
+            expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldUpdateFocusIn:)))) == EventMethodSignature.shouldUpdateFocusInContext.rawValue
+            expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didUpdateFocusIn:with:)))) == EventMethodSignature.didUpdateFocusInContext.rawValue
+            expect(String(describing: #selector(UICollectionViewDelegate.indexPathForPreferredFocusedView(in:)))) == EventMethodSignature.indexPathForPreferredFocusedView.rawValue
+            expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:targetIndexPathForMoveFromItemAt:toProposedIndexPath:)))) == EventMethodSignature.targetIndexPathForMoveFromItemAtTo.rawValue
+            expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:targetContentOffsetForProposedContentOffset:)))) == EventMethodSignature.targetContentOffsetForProposedContentOffset.rawValue
         }
         
+        #if os(iOS) && swift(>=3.2)
+        if #available(iOS 11, *) {
+            expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:with:)))) == EventMethodSignature.shouldSpringLoadItem.rawValue
+        }
+        #endif
+        
         expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:sizeForItemAt:)))) == EventMethodSignature.sizeForItemAtIndexPath.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:insetForSectionAt:)))) == EventMethodSignature.insetForSectionAtIndex.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:minimumLineSpacingForSectionAt:)))) == EventMethodSignature.minimumLineSpacingForSectionAtIndex.rawValue
+        expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:minimumInteritemSpacingForSectionAt:)))) == EventMethodSignature.minimumInteritemSpacingForSectionAtIndex.rawValue
         
         // These methods are not equal on purpose - DTCollectionViewManager implements custom logic in them, and they are always implemented, even though they can act as events
         expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderInSection:)))) != EventMethodSignature.referenceSizeForHeaderInSection.rawValue

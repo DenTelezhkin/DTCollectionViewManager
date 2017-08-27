@@ -138,12 +138,51 @@ extension DTCollectionViewManager {
                                                     closure: closure)
     }
     
-    @available(iOS 9, tvOS 9, *)
+    @available(iOS 9, *)
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canFocusItemAt:)` method is called for `cellClass`.
     open func canFocus<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
         collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.canFocusItemAtIndexPath, closure: closure)
     }
+    
+    @available (iOS 9, *)
+    open func shouldUpdateFocus(_ closure: @escaping (UICollectionViewFocusUpdateContext) -> Bool) {
+        collectionDelegate?.appendNonCellReaction(.shouldUpdateFocusInContext, closure: closure)
+    }
+    
+    @available (iOS 9, *)
+    open func didUpdateFocus(_ closure: @escaping (UICollectionViewFocusUpdateContext, UIFocusAnimationCoordinator) -> Void) {
+        collectionDelegate?.appendNonCellReaction(.didUpdateFocusInContext, closure: closure)
+    }
+    
+    @available (iOS 9, *)
+    open func indexPathForPreferredFocusedView(_ closure: @escaping () -> IndexPath?) {
+        collectionDelegate?.appendNonCellReaction(.indexPathForPreferredFocusedView, closure: closure)
+    }
+    
+    @available (iOS 9, *)
+    open func targetIndexPathForMovingItem<T:ModelTransfer>(_ cellClass: T.Type, _ closure: @escaping (IndexPath, T, T.ModelType, IndexPath) -> IndexPath) where T: UICollectionViewCell {
+        collectionDelegate?.append4ArgumentReaction(for: T.self,
+                                                    signature: .targetIndexPathForMoveFromItemAtTo,
+                                                    closure: closure)
+    }
+    
+    @available (iOS 9, *)
+    open func targetContentOffsetForProposedContentOffset(_ closure: @escaping (CGPoint) -> CGPoint) {
+        collectionDelegate?.appendNonCellReaction(.targetContentOffsetForProposedContentOffset,
+                                                  closure: closure)
+    }
+    
+    #if os(iOS) && swift(>=3.2)
+    @available (iOS 11, *)
+    open func shouldSpringLoad<T:ModelTransfer>(_ cellClass: T.Type, _ closure: @escaping (UISpringLoadedInteractionContext, T, T.ModelType, IndexPath) -> Bool)
+        where T: UICollectionViewCell
+    {
+        collectionDelegate?.append4ArgumentReaction(for: T.self,
+                                                    signature: .shouldSpringLoadItem,
+                                                    closure: closure)
+    }
+    #endif
     
     // MARK: - UICollectionViewDelegateFlowLayout
     
@@ -163,5 +202,22 @@ extension DTCollectionViewManager {
     open func referenceSizeForFooterView<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
         collectionDelegate?.appendReaction(forSupplementaryKind: UICollectionElementKindSectionFooter, modelClass: T.self, signature: EventMethodSignature.referenceSizeForFooterInSection, closure: closure)
+    }
+    
+    open func transitionLayout(_ closure: @escaping (_ oldLayout: UICollectionViewLayout, _ newLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout) {
+        collectionDelegate?.appendNonCellReaction(.transitionLayoutForOldLayoutNewLayout,
+                                                  closure: closure)
+    }
+    
+    open func insetForSectionAtIndex(_ closure: @escaping (UICollectionViewLayout,Int) -> UIEdgeInsets) {
+        collectionDelegate?.appendNonCellReaction(.insetForSectionAtIndex, closure: closure)
+    }
+    
+    open func minimumLineSpacingForSectionAtIndex(_ closure: @escaping (UICollectionViewLayout,Int) -> CGFloat) {
+        collectionDelegate?.appendNonCellReaction(.minimumLineSpacingForSectionAtIndex, closure: closure)
+    }
+    
+    open func minimumInteritemSpacingForSectionAtIndex(_ closure: @escaping (UICollectionViewLayout,Int) -> CGFloat) {
+        collectionDelegate?.appendNonCellReaction(.minimumInteritemSpacingForSectionAtIndex, closure: closure)
     }
 }

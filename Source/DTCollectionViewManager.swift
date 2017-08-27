@@ -256,10 +256,20 @@ internal enum EventMethodSignature: String {
     case canPerformActionForItemAtIndexPath = "collectionView:canPerformAction:forItemAtIndexPath:withSender:"
     case performActionForItemAtIndexPath = "collectionView:performAction:forItemAtIndexPath:withSender:"
     
+    case transitionLayoutForOldLayoutNewLayout = "collectionView:transitionLayoutForOldLayout:newLayout:"
     case canFocusItemAtIndexPath = "collectionView:canFocusItemAtIndexPath:"
+    case shouldUpdateFocusInContext = "collectionView:shouldUpdateFocusInContext:"
+    case didUpdateFocusInContext = "collectionView:didUpdateFocusInContext:withAnimationCoordinator:"
+    case indexPathForPreferredFocusedView = "indexPathForPreferredFocusedViewInCollectionView:"
+    case targetIndexPathForMoveFromItemAtTo = "collectionView:targetIndexPathForMoveFromItemAtIndexPath:toProposedIndexPath:"
+    case targetContentOffsetForProposedContentOffset = "collectionView:targetContentOffsetForProposedContentOffset:"
+    case shouldSpringLoadItem = "collectionView:shouldSpringLoadItemAtIndexPath:withContext:"
     
     // UICollectionViewDelegateFlowLayout
     case sizeForItemAtIndexPath = "collectionView:layout:sizeForItemAtIndexPath:"
     case referenceSizeForHeaderInSection = "collectionView:layout:referenceSizeForHeaderInSection:_imaginarySelector"
     case referenceSizeForFooterInSection = "collectionView:layout:referenceSizeForFooterInSection:_imaginarySelector"
+    case insetForSectionAtIndex = "collectionView:layout:insetForSectionAtIndex:"
+    case minimumLineSpacingForSectionAtIndex = "collectionView:layout:minimumLineSpacingForSectionAtIndex:"
+    case minimumInteritemSpacingForSectionAtIndex = "collectionView:layout:minimumInteritemSpacingForSectionAtIndex:"
 }

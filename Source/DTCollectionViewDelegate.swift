@@ -161,4 +161,112 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         }
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, canFocusItemAt: indexPath) ?? collectionView.cellForItem(at: indexPath)?.canBecomeFocused ?? true
     }
+    
+    open func collectionView(_ collectionView: UICollectionView, transitionLayoutForOldLayout fromLayout: UICollectionViewLayout, newLayout toLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout {
+        if let layout = performNonCellReaction(.transitionLayoutForOldLayoutNewLayout,
+                                               argumentOne: fromLayout,
+                                               argumentTwo: toLayout) as? UICollectionViewTransitionLayout {
+            return layout
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView,
+                                                                        transitionLayoutForOldLayout: fromLayout,
+                                                                        newLayout: toLayout) ??   UICollectionViewTransitionLayout(currentLayout: fromLayout, nextLayout: toLayout)
+    }
+    
+    @available (iOS 9, tvOS 9, *)
+    open func collectionView(_ collectionView: UICollectionView, shouldUpdateFocusIn context: UICollectionViewFocusUpdateContext) -> Bool {
+        if let should = performNonCellReaction(.shouldUpdateFocusInContext, argument: context) as? Bool {
+            return should
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, shouldUpdateFocusIn: context) ?? true
+    }
+    
+    @available (iOS 9, tvOS 9, *)
+    open func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
+        _ = performNonCellReaction(.didUpdateFocusInContext, argumentOne: context, argumentTwo: coordinator)
+        (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView,
+                                                                 didUpdateFocusIn: context,
+                                                                 with: coordinator)
+    }
+    
+    @available (iOS 9, tvOS 9, *)
+    open func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
+        if let reaction = collectionViewReactions.filter({ $0.methodSignature == EventMethodSignature.indexPathForPreferredFocusedView.rawValue}).first {
+            return reaction.performWithArguments((0,0,0)) as? IndexPath
+        }
+        return (delegate as? UICollectionViewDelegate)?.indexPathForPreferredFocusedView?(in: collectionView)
+    }
+    
+    @available (iOS 9, tvOS 9, *)
+    open func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
+        if let indexPath = perform4ArgumentCellReaction(.targetIndexPathForMoveFromItemAtTo,
+                                                        argument: proposedIndexPath,
+                                                        location: originalIndexPath,
+                                                        provideCell: true) as? IndexPath {
+            return indexPath
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView,
+                                                                       targetIndexPathForMoveFromItemAt: originalIndexPath,
+                                                                       toProposedIndexPath: proposedIndexPath) ?? IndexPath(item: 0, section: 0)
+    }
+    
+    @available (iOS 9, tvOS 9, *)
+    open func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
+        if let point = performNonCellReaction(.targetContentOffsetForProposedContentOffset, argument: proposedContentOffset) as? CGPoint {
+            return point
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView,
+                                                                targetContentOffsetForProposedContentOffset: proposedContentOffset) ?? .zero
+    }
+    
+    #if os(iOS) && swift(>=3.2)
+    @available (iOS 11, *)
+    open func collectionView(_ collectionView: UICollectionView, shouldSpringLoadItemAt indexPath: IndexPath, with context: UISpringLoadedInteractionContext) -> Bool {
+        if let shouldSpringLoad = perform4ArgumentCellReaction(.shouldSpringLoadItem,
+                                                               argument: context,
+                                                               location: indexPath,
+                                                               provideCell: true) as? Bool {
+            return shouldSpringLoad
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView,
+                                                                shouldSpringLoadItemAt: indexPath,
+                                                                with: context) ?? true
+    }
+    #endif
+    
+    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
+        if let insets = performNonCellReaction(.insetForSectionAtIndex,
+                                               argumentOne: collectionViewLayout,
+                                               argumentTwo: section) as? UIEdgeInsets {
+            return insets
+        }
+        let defaultInset = (collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset
+        return (delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView,
+                                                                          layout: collectionViewLayout,
+                                                                          insetForSectionAt: section) ?? defaultInset ?? .zero
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumLineSpacingForSectionAt section: Int) -> CGFloat {
+        if let lineSpacing = performNonCellReaction(.minimumLineSpacingForSectionAtIndex,
+                                               argumentOne: collectionViewLayout,
+                                               argumentTwo: section) as? CGFloat {
+            return lineSpacing
+        }
+        let defaultLineSpacing = (collectionViewLayout as? UICollectionViewFlowLayout)?.minimumLineSpacing
+        return (delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView,
+                                                                                  layout: collectionViewLayout,
+                                                                                  minimumLineSpacingForSectionAt: section) ?? defaultLineSpacing ?? 0
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, minimumInteritemSpacingForSectionAt section: Int) -> CGFloat {
+        if let interItemSpacing = performNonCellReaction(.minimumInteritemSpacingForSectionAtIndex,
+                                                    argumentOne: collectionViewLayout,
+                                                    argumentTwo: section) as? CGFloat {
+            return interItemSpacing
+        }
+        let defaultInterItemSpacing = (collectionViewLayout as? UICollectionViewFlowLayout)?.minimumInteritemSpacing
+        return (delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView,
+                                                                                  layout: collectionViewLayout,
+                                                                                  minimumInteritemSpacingForSectionAt: section) ?? defaultInterItemSpacing ?? 0
+    }
 }

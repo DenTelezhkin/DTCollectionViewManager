@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Added 10 more `UICollectionViewDelegate` and `UICollectionViewDelegateFlowLayout` events.
 * Added missing events for `UICollectionViewDatasource` protocol: `collectionView:moveItemAt:to:`, `indexTitlesFor:`, `collectionView:indexPathForIndexTitle:at:`
 * Implemented conditional mappings
 * `UICollectionViewDelegate` and `UICollectionViewDatasource` implementations have been refactored from `DTCollectionViewManager` to `DTCollectionViewDelegate` and `DTCollectionViewDataSource` classes.
