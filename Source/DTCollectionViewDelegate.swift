@@ -143,23 +143,15 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     }
     
     open func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
-        guard let item = storage.item(at: indexPath), let model = RuntimeHelper.recursivelyUnwrapAnyValue(item),
-            let cell = collectionView.cellForItem(at: indexPath)
-            else { return false }
-        if let reaction = collectionViewReactions.reaction(of: .cell, signature: EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue, forModel: model, view: cell) as? FiveArgumentsEventReaction {
-            return reaction.performWithArguments((action,sender as Any,cell,model,indexPath)) as? Bool ?? false
+        if let perform = perform5ArgumentCellReaction(.canPerformActionForItemAtIndexPath, argumentOne: action, argumentTwo: sender as Any, location: indexPath, provideCell: true) as? Bool {
+            return perform
         }
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, canPerformAction: action, forItemAt: indexPath, withSender: sender) ?? false
     }
     
     open func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
-        defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, performAction: action, forItemAt: indexPath, withSender: sender) }
-        guard let item = storage.item(at: indexPath), let model = RuntimeHelper.recursivelyUnwrapAnyValue(item),
-            let cell = collectionView.cellForItem(at: indexPath)
-            else { return }
-        if let reaction = collectionViewReactions.reaction(of: .cell, signature: EventMethodSignature.performActionForItemAtIndexPath.rawValue, forModel: model, view: cell) as? FiveArgumentsEventReaction {
-            _ = reaction.performWithArguments((action,sender as Any,cell,model,indexPath))
-        }
+        _ = perform5ArgumentCellReaction(.performActionForItemAtIndexPath, argumentOne: action, argumentTwo: sender as Any, location: indexPath, provideCell: true)
+        (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, performAction: action, forItemAt: indexPath, withSender: sender)
     }
     
     @available(iOS 9, tvOS 9, *)

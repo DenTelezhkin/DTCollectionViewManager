@@ -104,18 +104,30 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
     
     @available(iOS 9.0, tvOS 9.0, *)
     open func collectionView(_ collectionView: UICollectionView, moveItemAt source: IndexPath, to destination: IndexPath) {
-        if (delegate as? UICollectionViewDataSource)?.collectionView?(collectionView, moveItemAt: source, to: destination) != nil {
-            return
+        _ = perform4ArgumentCellReaction(.moveItemAtIndexPathToIndexPath,
+                                         argument: destination,
+                                         location: source,
+                                         provideCell: true)
+        (delegate as? UICollectionViewDataSource)?.collectionView?(collectionView,
+                                                                  moveItemAt: source,
+                                                                  to: destination)
+    }
+    
+    @available(tvOS 10.2, *)
+    open func indexTitles(for collectionView: UICollectionView) -> [String]? {
+        if let reaction = collectionViewReactions.filter({ $0.methodSignature == EventMethodSignature.indexTitlesForCollectionView.rawValue }).first {
+            return reaction.performWithArguments((0,0,0)) as? [String]
         }
-        if let storage = self.storage as? MemoryStorage
-        {
-            if let from = storage.sections[source.section] as? SectionModel,
-                let to = storage.sections[destination.section] as? SectionModel
-            {
-                let item = from.items[source.row]
-                from.items.remove(at: source.row)
-                to.items.insert(item, at: destination.row)
-            }
+        return (delegate as? UICollectionViewDataSource)?.indexTitles?(for: collectionView)
+    }
+    
+    @available(tvOS 10.2, *)
+    open func collectionView(_ collectionView: UICollectionView, indexPathForIndexTitle title: String, at index: Int) -> IndexPath {
+        if let indexPath = performNonCellReaction(.indexPathForIndexTitleAtIndex, argumentOne: title, argumentTwo: index) as? IndexPath {
+            return indexPath
         }
+        return (delegate as? UICollectionViewDataSource)?.collectionView?(collectionView,
+                                                                          indexPathForIndexTitle: title,
+                                                                          at: index) ?? IndexPath(item: 0, section: 0)
     }
 }

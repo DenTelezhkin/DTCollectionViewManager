@@ -391,6 +391,42 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    @available (iOS 9, *)
+    func testMoveItemAtIndexPath() {
+        let exp = expectation(description: "Move item at indexPath")
+        sut.manager.move(NibCell.self) { _,_,_,_ in
+            exp.fulfill()
+        }
+        sut.manager.memoryStorage.addItems([3,4])
+        _ = sut.manager.collectionDataSource?.collectionView(sut.collectionView!, moveItemAt: indexPath(0, 0), to: indexPath(1, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    
+    @available (iOS 10.3, *)
+    func testIndexTitlesForCollectionView() {
+        let exp = expectation(description: "indexTitles for collectionView")
+        sut.manager.indexTitles {
+            exp.fulfill()
+            return []
+        }
+        _ = sut.manager.collectionDataSource?.indexTitles(for: sut.collectionView!)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    @available (iOS 10.3, *)
+    func testIndexPathForIndexTitle() {
+        let exp = expectation(description: "indexPathForIndexTitle")
+        sut.manager.indexPathForIndexTitle { _, _ in
+            exp.fulfill()
+            return indexPath(0, 0)
+        }
+        _ = sut.manager.collectionDataSource?.collectionView(sut.collectionView!,
+                                                             indexPathForIndexTitle: "",
+                                                             at: 4)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
     func testAllDelegateMethodSignatures() {
         if #available(iOS 9, tvOS 9, *) {
             expect(String(describing: #selector(UICollectionViewDataSource.collectionView(_:canMoveItemAt:)))) == EventMethodSignature.canMoveItemAtIndexPath.rawValue

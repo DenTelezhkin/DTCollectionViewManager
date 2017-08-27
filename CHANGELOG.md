@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Added missing events for `UICollectionViewDatasource` protocol: `collectionView:moveItemAt:to:`, `indexTitlesFor:`, `collectionView:indexPathForIndexTitle:at:`
+* Implemented conditional mappings
 * `UICollectionViewDelegate` and `UICollectionViewDatasource` implementations have been refactored from `DTCollectionViewManager` to `DTCollectionViewDelegate` and `DTCollectionViewDataSource` classes.
 * Added `DTCollectionViewNonOptionalManageable` protocol, that can be used with non-optional `UICollectionView` properties on your managed instance.
 

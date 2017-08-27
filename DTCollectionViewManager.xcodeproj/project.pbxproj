@@ -7,6 +7,16 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		9A0889881F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0889871F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift */; };
+		9A0889891F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0889871F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift */; };
+		9A0889921F53213A00A1AA54 /* DTCollectionViewManager+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0889911F53213A00A1AA54 /* DTCollectionViewManager+DataSource.swift */; };
+		9A0889931F53213A00A1AA54 /* DTCollectionViewManager+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0889911F53213A00A1AA54 /* DTCollectionViewManager+DataSource.swift */; };
+		9A0889951F53214D00A1AA54 /* DTCollectionViewManager+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0889941F53214D00A1AA54 /* DTCollectionViewManager+Delegate.swift */; };
+		9A0889961F53214D00A1AA54 /* DTCollectionViewManager+Delegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0889941F53214D00A1AA54 /* DTCollectionViewManager+Delegate.swift */; };
+		9A0889981F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0889971F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift */; };
+		9A0889991F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0889971F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift */; };
+		9A08899B1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A08899A1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift */; };
+		9A08899C1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A08899A1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift */; };
 		9A08A9C91B8A249300877C62 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
 		9A0B9E371F40AF4A0041E73B /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0B9E361F40AF4A0041E73B /* RealmSwift.framework */; };
 		9A0B9E381F40AF4A0041E73B /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0B9E361F40AF4A0041E73B /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -276,6 +286,11 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		9A0889871F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DTCollectionViewManager+Registration.swift"; path = "Source/DTCollectionViewManager+Registration.swift"; sourceTree = "<group>"; };
+		9A0889911F53213A00A1AA54 /* DTCollectionViewManager+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DTCollectionViewManager+DataSource.swift"; path = "Source/DTCollectionViewManager+DataSource.swift"; sourceTree = "<group>"; };
+		9A0889941F53214D00A1AA54 /* DTCollectionViewManager+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DTCollectionViewManager+Delegate.swift"; path = "Source/DTCollectionViewManager+Delegate.swift"; sourceTree = "<group>"; };
+		9A0889971F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DTCollectionViewManager+Drag.swift"; path = "Source/DTCollectionViewManager+Drag.swift"; sourceTree = "<group>"; };
+		9A08899A1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DTCollectionViewManager+Drop.swift"; path = "Source/DTCollectionViewManager+Drop.swift"; sourceTree = "<group>"; };
 		9A0B9E361F40AF4A0041E73B /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0B9E391F40AF600041E73B /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A0B9E3C1F40AF700041E73B /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -439,6 +454,11 @@
 			children = (
 				9A1B88621CE1E4CB005B6F07 /* CollectionViewFactory.swift */,
 				9A1B88631CE1E4CB005B6F07 /* DTCollectionViewManager.swift */,
+				9A0889871F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift */,
+				9A0889911F53213A00A1AA54 /* DTCollectionViewManager+DataSource.swift */,
+				9A0889941F53214D00A1AA54 /* DTCollectionViewManager+Delegate.swift */,
+				9A0889971F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift */,
+				9A08899A1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift */,
 				9AB666D31D7B13E300A6CEED /* CollectionViewUpdater.swift */,
 				9A1B88641CE1E4CB005B6F07 /* SectionModel+ConvenienceGetters.swift */,
 				9A4610E51F40A59100480052 /* DTCollectionViewDelegateWrapper.swift */,
@@ -946,12 +966,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A4610F41F40A6A400480052 /* DTCollectionViewDelegate.swift in Sources */,
+				9A0889961F53214D00A1AA54 /* DTCollectionViewManager+Delegate.swift in Sources */,
 				9A4610E71F40A59100480052 /* DTCollectionViewDelegateWrapper.swift in Sources */,
+				9A0889931F53213A00A1AA54 /* DTCollectionViewManager+DataSource.swift in Sources */,
 				9A1B886A1CE1E4CB005B6F07 /* SectionModel+ConvenienceGetters.swift in Sources */,
 				9A4610F11F40A69500480052 /* DTCollectionViewDataSource.swift in Sources */,
 				9A1B88661CE1E4CB005B6F07 /* CollectionViewFactory.swift in Sources */,
+				9A0889991F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift in Sources */,
+				9A0889891F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift in Sources */,
 				9AB666D51D7B13E300A6CEED /* CollectionViewUpdater.swift in Sources */,
 				9A1B88681CE1E4CB005B6F07 /* DTCollectionViewManager.swift in Sources */,
+				9A08899C1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -989,12 +1014,17 @@
 			buildActionMask = 2147483647;
 			files = (
 				9A4610F31F40A6A400480052 /* DTCollectionViewDelegate.swift in Sources */,
+				9A0889951F53214D00A1AA54 /* DTCollectionViewManager+Delegate.swift in Sources */,
 				9A4610E61F40A59100480052 /* DTCollectionViewDelegateWrapper.swift in Sources */,
+				9A0889921F53213A00A1AA54 /* DTCollectionViewManager+DataSource.swift in Sources */,
 				9A1B88691CE1E4CB005B6F07 /* SectionModel+ConvenienceGetters.swift in Sources */,
 				9A4610F01F40A69500480052 /* DTCollectionViewDataSource.swift in Sources */,
 				9A1B88651CE1E4CB005B6F07 /* CollectionViewFactory.swift in Sources */,
+				9A0889981F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift in Sources */,
+				9A0889881F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift in Sources */,
 				9AB666D41D7B13E300A6CEED /* CollectionViewUpdater.swift in Sources */,
 				9A1B88671CE1E4CB005B6F07 /* DTCollectionViewManager.swift in Sources */,
+				9A08899B1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
