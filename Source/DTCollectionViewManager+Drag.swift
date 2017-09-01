@@ -28,5 +28,50 @@ import UIKit
 import DTModelStorage
 
 extension DTCollectionViewManager {
+    #if os(iOS) && swift(>=3.2)
     
+    // MARK: - Drag
+    @available(iOS 11, *)
+    open func itemsForBeginningDragSession<T:ModelTransfer>(from cellClass: T.Type, _ closure: @escaping (UIDragSession, T,T.ModelType, IndexPath) -> [UIDragItem]) where T:UICollectionViewCell
+    {
+        collectionDragDelegate?.append4ArgumentReaction(for: T.self,
+                                                   signature: .itemsForBeginningDragSessionAtIndexPath,
+                                                   closure: closure)
+    }
+    
+    @available(iOS 11, *)
+    open func itemsForAddingToDragSession<T:ModelTransfer>(from cellClass: T.Type, _ closure: @escaping (UIDragSession, CGPoint, T, T.ModelType, IndexPath) -> [UIDragItem]) where T: UICollectionViewCell
+    {
+        collectionDragDelegate?.append5ArgumentReaction(for: T.self,
+                                                   signature: .itemsForAddingToDragSessionAtIndexPath,
+                                                   closure: closure)
+    }
+    
+    @available(iOS 11, *)
+    open func dragPreviewParameters<T:ModelTransfer>(for cellClass: T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> UIDragPreviewParameters?) where T:UICollectionViewCell {
+        collectionDragDelegate?.appendReaction(for: T.self,
+                                          signature: .dragPreviewParametersForItemAtIndexPath,
+                                          closure: closure)
+    }
+    
+    @available(iOS 11, *)
+    open func dragSessionWillBegin(_ closure: @escaping (UIDragSession) -> Void) {
+        collectionDragDelegate?.appendNonCellReaction(.dragSessionWillBegin, closure: closure)
+    }
+    
+    @available(iOS 11, *)
+    open func dragSessionDidEnd(_ closure: @escaping (UIDragSession) -> Void) {
+        collectionDragDelegate?.appendNonCellReaction(.dragSessionDidEnd, closure: closure)
+    }
+    
+    @available(iOS 11, *)
+    open func dragSessionAllowsMoveOperation(_ closure: @escaping (UIDragSession) -> Bool) {
+        collectionDragDelegate?.appendNonCellReaction(.dragSessionAllowsMoveOperation, closure: closure)
+    }
+    
+    @available(iOS 11, *)
+    open func dragSessionIsRestrictedToDraggingApplication(_ closure: @escaping (UIDragSession) -> Bool) {
+        collectionDragDelegate?.appendNonCellReaction(.dragSessionIsRestrictedToDraggingApplication, closure: closure)
+    }
+    #endif
 }

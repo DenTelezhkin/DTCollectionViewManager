@@ -23,6 +23,94 @@ class SpringLoadedContextMock : NSObject, UISpringLoadedInteractionContext {
         return .zero
     }
 }
+
+@available (iOS 11, *)
+class DragAndDropMock : NSObject, UIDragSession, UIDropSession {
+    var progress: Progress = Progress()
+    
+    var localDragSession: UIDragSession?
+    
+    var progressIndicatorStyle: UIDropSessionProgressIndicatorStyle = .default
+    
+    func canLoadObjects(ofClass aClass: NSItemProviderReading.Type) -> Bool {
+        return false
+    }
+    
+    func loadObjects(ofClass aClass: NSItemProviderReading.Type, completion: @escaping ([NSItemProviderReading]) -> Void) -> Progress {
+        return Progress()
+    }
+    
+    var items: [UIDragItem] = []
+    
+    func location(in view: UIView) -> CGPoint {
+        return CGPoint()
+    }
+    
+    var allowsMoveOperation: Bool = true
+    
+    var isRestrictedToDraggingApplication: Bool = false
+    
+    func hasItemsConforming(toTypeIdentifiers typeIdentifiers: [String]) -> Bool {
+        return false
+    }
+    
+    var localContext: Any?
+}
+
+@available (iOS 11, *)
+class DropPlaceholderContextMock : NSObject, UICollectionViewDropPlaceholderContext {
+    func setNeedsCellUpdate() {
+        
+    }
+    
+    var dragItem: UIDragItem = UIDragItem(itemProvider: NSItemProvider(contentsOf: URL(fileURLWithPath: ""))!)
+    func commitInsertion(dataSourceUpdates: (IndexPath) -> Void) -> Bool {
+        return true
+    }
+    
+    func deletePlaceholder() -> Bool {
+        return true
+    }
+    
+    func addAnimations(_ animations: @escaping () -> Void) {
+        
+    }
+    
+    func addCompletion(_ completion: @escaping (UIViewAnimatingPosition) -> Void) {
+        
+    }
+}
+    
+@available (iOS 11, *)
+class DropCoordinatorMock: NSObject, UICollectionViewDropCoordinator{
+    var items: [UICollectionViewDropItem] = []
+    
+    var destinationIndexPath: IndexPath?
+    var proposal: UICollectionViewDropProposal = .init(operation: .copy, intent: .insertAtDestinationIndexPath)
+    
+    var session: UIDropSession = DragAndDropMock()
+    
+    override init() {
+        super.init()
+    }
+    
+    func drop(_ dragItem: UIDragItem, toItemAt indexPath: IndexPath) -> UIDragAnimating {
+        return DropPlaceholderContextMock()
+    }
+    
+    func drop(_ dragItem: UIDragItem, to placeholder: UICollectionViewDropPlaceholder) -> UICollectionViewDropPlaceholderContext {
+        return DropPlaceholderContextMock()
+    }
+    
+    func drop(_ dragItem: UIDragItem, intoItemAt indexPath: IndexPath, rect: CGRect) -> UIDragAnimating {
+        return DropPlaceholderContextMock()
+    }
+    
+    func drop(_ dragItem: UIDragItem, to target: UIDragPreviewTarget) -> UIDragAnimating {
+        return DropPlaceholderContextMock()
+    }
+}
+    
 #endif
 
 class ReactingTestCollectionViewController: DTCellTestCollectionController
@@ -110,7 +198,7 @@ class ReactingToEventsTestCase: XCTestCase {
 //            header.sectionIndex = sectionIndex
 //        }
 //        controller.manager.memoryStorage.setSectionHeaderModels(["Foo"])
-//        reactingHeader = controller.manager.tableView(controller.tableView, viewForHeaderInSection: 0) as? ReactingHeaderFooterView
+//        reactingHeader = controller.manager.tableView(sut.collectionView!, viewForHeaderInSection: 0) as? ReactingHeaderFooterView
 //        
 //        expect(reactingHeader?.sectionIndex) == 0
 //        expect(reactingHeader?.model) == "Bar"
@@ -127,7 +215,7 @@ class ReactingToEventsTestCase: XCTestCase {
 //            footer.sectionIndex = sectionIndex
 //        }
 //        controller.manager.memoryStorage.setSectionFooterModels(["Foo"])
-//        reactingFooter = controller.manager.tableView(controller.tableView, viewForFooterInSection: 0) as? ReactingHeaderFooterView
+//        reactingFooter = controller.manager.tableView(sut.collectionView!, viewForFooterInSection: 0) as? ReactingHeaderFooterView
 //        
 //        expect(reactingFooter?.sectionIndex) == 0
 //        expect(reactingFooter?.model) == "Bar"
@@ -541,6 +629,89 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    // MARK - UICollectionViewDragDelegate
+    
+    #if os(iOS) && swift(>=3.2)
+    func testItemsForBeginningInDragSession() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "ItemsForBeginningInDragSession")
+        sut.manager.itemsForBeginningDragSession(from: NibCell.self) { session, cell, model, _ in
+            exp.fulfill()
+            return []
+        }
+        sut.manager.memoryStorage.addItem(1)
+        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, itemsForBeginning: DragAndDropMock(), at: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testItemsForAddingToDragSession() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "ItemsForAddingToDragSession")
+        sut.manager.itemsForAddingToDragSession(from: NibCell.self) { session, point, cell, model, _ in
+            exp.fulfill()
+            return []
+        }
+        sut.manager.memoryStorage.addItem(1)
+        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, itemsForAddingTo: DragAndDropMock(), at: indexPath(0,0), point: .zero)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDragPreviewParametersForRowAtIndexPath() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "dragPreviewParametersForRowAtIndexPath")
+        sut.manager.dragPreviewParameters(for: NibCell.self) { cell, model, indexPath in
+            exp.fulfill()
+            return nil
+        }
+        sut.manager.memoryStorage.addItem(1)
+        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, dragPreviewParametersForItemAt: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDragSessionWillBegin() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "dragSessionWillBegin")
+        sut.manager.dragSessionWillBegin { _ in
+            exp.fulfill()
+        }
+        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, dragSessionWillBegin: DragAndDropMock())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDragSessionDidEnd() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "dragSessionDidEnd")
+        sut.manager.dragSessionDidEnd { _ in
+            exp.fulfill()
+        }
+        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, dragSessionDidEnd: DragAndDropMock())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDragSessionAllowsMoveOperation() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "dragSessionAllowsMoveOperation")
+        sut.manager.dragSessionAllowsMoveOperation{ _  in
+            exp.fulfill()
+            return true
+        }
+        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, dragSessionAllowsMoveOperation: DragAndDropMock())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDragSessionIsRestrictedToDraggingApplication() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "dragSessionRestrictedToDraggingApplication")
+        sut.manager.dragSessionIsRestrictedToDraggingApplication{ _  in
+            exp.fulfill()
+            return true
+        }
+        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, dragSessionIsRestrictedToDraggingApplication: DragAndDropMock())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    #endif
+    
     func testAllDelegateMethodSignatures() {
         if #available(iOS 9, tvOS 9, *) {
             expect(String(describing: #selector(UICollectionViewDataSource.collectionView(_:canMoveItemAt:)))) == EventMethodSignature.canMoveItemAtIndexPath.rawValue
@@ -576,6 +747,14 @@ class ReactingToEventsFastTestCase : XCTestCase {
         #if os(iOS) && swift(>=3.2)
         if #available(iOS 11, *) {
             expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:with:)))) == EventMethodSignature.shouldSpringLoadItem.rawValue
+            
+            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:itemsForBeginning:at:)))) == EventMethodSignature.itemsForBeginningDragSessionAtIndexPath.rawValue
+            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:itemsForAddingTo:at:point:)))) == EventMethodSignature.itemsForAddingToDragSessionAtIndexPath.rawValue
+            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragPreviewParametersForItemAt:)))) == EventMethodSignature.dragPreviewParametersForItemAtIndexPath.rawValue
+            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionWillBegin:)))) == EventMethodSignature.dragSessionWillBegin.rawValue
+            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionDidEnd:)))) == EventMethodSignature.dragSessionDidEnd.rawValue
+            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionAllowsMoveOperation:)))) == EventMethodSignature.dragSessionAllowsMoveOperation.rawValue
+            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionIsRestrictedToDraggingApplication:)))) == EventMethodSignature.dragSessionIsRestrictedToDraggingApplication.rawValue
         }
         #endif
         

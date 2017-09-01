@@ -7,6 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		3E646B4D1F599F6D00135998 /* DTCollectionViewDragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E646B4C1F599F6D00135998 /* DTCollectionViewDragDelegate.swift */; };
+		3E646B4E1F599F6D00135998 /* DTCollectionViewDragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E646B4C1F599F6D00135998 /* DTCollectionViewDragDelegate.swift */; };
+		3E646B571F599F8100135998 /* DTCollectionViewDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E646B561F599F8100135998 /* DTCollectionViewDropDelegate.swift */; };
+		3E646B581F599F8100135998 /* DTCollectionViewDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E646B561F599F8100135998 /* DTCollectionViewDropDelegate.swift */; };
 		9A0889881F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0889871F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift */; };
 		9A0889891F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0889871F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift */; };
 		9A0889921F53213A00A1AA54 /* DTCollectionViewManager+DataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0889911F53213A00A1AA54 /* DTCollectionViewManager+DataSource.swift */; };
@@ -286,6 +290,8 @@
 /* End PBXCopyFilesBuildPhase section */
 
 /* Begin PBXFileReference section */
+		3E646B4C1F599F6D00135998 /* DTCollectionViewDragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DTCollectionViewDragDelegate.swift; path = Source/DTCollectionViewDragDelegate.swift; sourceTree = "<group>"; };
+		3E646B561F599F8100135998 /* DTCollectionViewDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DTCollectionViewDropDelegate.swift; path = Source/DTCollectionViewDropDelegate.swift; sourceTree = "<group>"; };
 		9A0889871F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DTCollectionViewManager+Registration.swift"; path = "Source/DTCollectionViewManager+Registration.swift"; sourceTree = "<group>"; };
 		9A0889911F53213A00A1AA54 /* DTCollectionViewManager+DataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DTCollectionViewManager+DataSource.swift"; path = "Source/DTCollectionViewManager+DataSource.swift"; sourceTree = "<group>"; };
 		9A0889941F53214D00A1AA54 /* DTCollectionViewManager+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DTCollectionViewManager+Delegate.swift"; path = "Source/DTCollectionViewManager+Delegate.swift"; sourceTree = "<group>"; };
@@ -464,6 +470,8 @@
 				9A4610E51F40A59100480052 /* DTCollectionViewDelegateWrapper.swift */,
 				9A4610EF1F40A69500480052 /* DTCollectionViewDataSource.swift */,
 				9A4610F21F40A6A400480052 /* DTCollectionViewDelegate.swift */,
+				3E646B4C1F599F6D00135998 /* DTCollectionViewDragDelegate.swift */,
+				3E646B561F599F8100135998 /* DTCollectionViewDropDelegate.swift */,
 			);
 			name = Source;
 			sourceTree = "<group>";
@@ -968,8 +976,10 @@
 				9A4610F41F40A6A400480052 /* DTCollectionViewDelegate.swift in Sources */,
 				9A0889961F53214D00A1AA54 /* DTCollectionViewManager+Delegate.swift in Sources */,
 				9A4610E71F40A59100480052 /* DTCollectionViewDelegateWrapper.swift in Sources */,
+				3E646B4E1F599F6D00135998 /* DTCollectionViewDragDelegate.swift in Sources */,
 				9A0889931F53213A00A1AA54 /* DTCollectionViewManager+DataSource.swift in Sources */,
 				9A1B886A1CE1E4CB005B6F07 /* SectionModel+ConvenienceGetters.swift in Sources */,
+				3E646B581F599F8100135998 /* DTCollectionViewDropDelegate.swift in Sources */,
 				9A4610F11F40A69500480052 /* DTCollectionViewDataSource.swift in Sources */,
 				9A1B88661CE1E4CB005B6F07 /* CollectionViewFactory.swift in Sources */,
 				9A0889991F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift in Sources */,
@@ -1016,8 +1026,10 @@
 				9A4610F31F40A6A400480052 /* DTCollectionViewDelegate.swift in Sources */,
 				9A0889951F53214D00A1AA54 /* DTCollectionViewManager+Delegate.swift in Sources */,
 				9A4610E61F40A59100480052 /* DTCollectionViewDelegateWrapper.swift in Sources */,
+				3E646B4D1F599F6D00135998 /* DTCollectionViewDragDelegate.swift in Sources */,
 				9A0889921F53213A00A1AA54 /* DTCollectionViewManager+DataSource.swift in Sources */,
 				9A1B88691CE1E4CB005B6F07 /* SectionModel+ConvenienceGetters.swift in Sources */,
+				3E646B571F599F8100135998 /* DTCollectionViewDropDelegate.swift in Sources */,
 				9A4610F01F40A69500480052 /* DTCollectionViewDataSource.swift in Sources */,
 				9A1B88651CE1E4CB005B6F07 /* CollectionViewFactory.swift in Sources */,
 				9A0889981F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift in Sources */,

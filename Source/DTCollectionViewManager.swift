@@ -162,6 +162,36 @@ open class DTCollectionViewManager {
         }
     }
     
+    #if os(iOS) && swift(>=3.2)
+    // Yeah, @availability macros does not work on stored properties ¯\_(ツ)_/¯
+    private var _collectionDragDelegatePrivate : AnyObject?
+    @available(iOS 11, *)
+    // Object, that is responsible for implementing `UICollectionViewDragDelegate` protocol
+    open var collectionDragDelegate : DTCollectionViewDragDelegate? {
+        get {
+            return _collectionDragDelegatePrivate as? DTCollectionViewDragDelegate
+        }
+        set {
+            _collectionDragDelegatePrivate = newValue
+            collectionView?.dragDelegate = newValue
+        }
+    }
+    
+    // Yeah, @availability macros does not work on stored properties ¯\_(ツ)_/¯
+    private var _collectionDropDelegatePrivate : AnyObject?
+    @available(iOS 11, *)
+    // Object, that is responsible for implementing `UICOllectionViewDropDelegate` protocol
+    open var collectionDropDelegate : DTCollectionViewDropDelegate? {
+        get {
+            return _collectionDropDelegatePrivate as? DTCollectionViewDropDelegate
+        }
+        set {
+            _collectionDropDelegatePrivate = newValue
+            collectionView?.dropDelegate = newValue
+        }
+    }
+    #endif
+    
     /// Call this method before calling any of `DTCollectionViewManager` methods.
     /// - Precondition: UICollectionView instance on `delegate` should not be nil.
     /// - Parameter delegate: Object, that has UICollectionView, that will be managed by `DTCollectionViewManager`.
@@ -194,6 +224,13 @@ open class DTCollectionViewManager {
         collectionViewUpdater = CollectionViewUpdater(collectionView: collectionView)
         collectionDataSource = DTCollectionViewDataSource(delegate: delegate, collectionViewManager: self)
         collectionDelegate = DTCollectionViewDelegate(delegate: delegate, collectionViewManager: self)
+        
+        #if os(iOS) && swift(>=3.2)
+        if #available(iOS 11.0, *) {
+            collectionDragDelegate = DTCollectionViewDragDelegate(delegate: delegate, collectionViewManager: self)
+            collectionDropDelegate = DTCollectionViewDropDelegate(delegate: delegate, collectionViewManager: self)
+        }
+        #endif
         
         // Workaround, that prevents UICollectionView from being confused about it's own number of sections
         // This happens mostly on UICollectionView creation, before any delegate methods have been called and is not reproducible after it was fully initialized.
@@ -272,4 +309,14 @@ internal enum EventMethodSignature: String {
     case insetForSectionAtIndex = "collectionView:layout:insetForSectionAtIndex:"
     case minimumLineSpacingForSectionAtIndex = "collectionView:layout:minimumLineSpacingForSectionAtIndex:"
     case minimumInteritemSpacingForSectionAtIndex = "collectionView:layout:minimumInteritemSpacingForSectionAtIndex:"
+    
+    // UICollectionViewDragDelegate
+    
+    case itemsForBeginningDragSessionAtIndexPath = "collectionView:itemsForBeginningDragSession:atIndexPath:"
+    case itemsForAddingToDragSessionAtIndexPath = "collectionView:itemsForAddingToDragSession:atIndexPath:point:"
+    case dragPreviewParametersForItemAtIndexPath = "collectionView:dragPreviewParametersForItemAtIndexPath:"
+    case dragSessionWillBegin = "collectionView:dragSessionWillBegin:"
+    case dragSessionDidEnd = "collectionView:dragSessionDidEnd:"
+    case dragSessionAllowsMoveOperation = "collectionView:dragSessionAllowsMoveOperation:"
+    case dragSessionIsRestrictedToDraggingApplication = "collectionView:dragSessionIsRestrictedToDraggingApplication:"
 }
