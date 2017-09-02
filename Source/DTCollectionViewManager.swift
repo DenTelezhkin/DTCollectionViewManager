@@ -319,4 +319,14 @@ internal enum EventMethodSignature: String {
     case dragSessionDidEnd = "collectionView:dragSessionDidEnd:"
     case dragSessionAllowsMoveOperation = "collectionView:dragSessionAllowsMoveOperation:"
     case dragSessionIsRestrictedToDraggingApplication = "collectionView:dragSessionIsRestrictedToDraggingApplication:"
+    
+    // UICollectionViewDropDelegate
+    
+    case performDropWithCoordinator = "collectionView:performDropWithCoordinator:"
+    case canHandleDropSession = "collectionView:canHandleDropSession:"
+    case dropSessionDidEnter = "collectionView:dropSessionDidEnter:"
+    case dropSessionDidUpdate = "collectionView:dropSessionDidUpdate:withDestinationIndexPath:"
+    case dropSessionDidExit = "collectionView:dropSessionDidExit:"
+    case dropSessionDidEnd = "collectionView:dropSessionDidEnd:"
+    case dropPreviewParametersForItemAtIndexPath = "collectionView:dropPreviewParametersForItemAtIndexPath:"
 }

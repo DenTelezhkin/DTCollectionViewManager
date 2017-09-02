@@ -36,8 +36,50 @@ open class DTCollectionViewDropDelegate : DTCollectionViewDelegateWrapper, UICol
         collectionView?.dropDelegate = self
     }
     
-    public func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
-        
+    open func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
+        _ = performNonCellReaction(.performDropWithCoordinator, argument: coordinator)
+        (delegate as? UICollectionViewDropDelegate)?.collectionView(collectionView, performDropWith: coordinator)
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, canHandle session: UIDropSession) -> Bool {
+        if let canHandle = performNonCellReaction(.canHandleDropSession, argument: session) as? Bool {
+            return canHandle
+        }
+        return (delegate as? UICollectionViewDropDelegate)?.collectionView?(collectionView, canHandle: session) ?? true
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, dropSessionDidEnter session: UIDropSession) {
+        _ = performNonCellReaction(.dropSessionDidEnter, argument: session)
+        (delegate as? UICollectionViewDropDelegate)?.collectionView?(collectionView, dropSessionDidEnter: session)
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, dropSessionDidUpdate session: UIDropSession, withDestinationIndexPath destinationIndexPath: IndexPath?) -> UICollectionViewDropProposal {
+        if let proposal = performNonCellReaction(.dropSessionDidUpdate,
+                                                 argumentOne: session,
+                                                 argumentTwo: destinationIndexPath) as? UICollectionViewDropProposal {
+            return proposal
+        }
+        return (delegate as? UICollectionViewDropDelegate)?.collectionView?(collectionView,
+                                                                  dropSessionDidUpdate: session,
+                                                                  withDestinationIndexPath: destinationIndexPath) ?? UICollectionViewDropProposal(operation: .cancel)
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, dropSessionDidExit session: UIDropSession) {
+        _ = performNonCellReaction(.dropSessionDidExit, argument: session)
+        (delegate as? UICollectionViewDropDelegate)?.collectionView?(collectionView, dropSessionDidExit: session)
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, dropSessionDidEnd session: UIDropSession) {
+        _ = performNonCellReaction(.dropSessionDidEnd, argument: session)
+        (delegate as? UICollectionViewDropDelegate)?.collectionView?(collectionView, dropSessionDidEnd: session)
+    }
+    
+    open func collectionView(_ collectionView: UICollectionView, dropPreviewParametersForItemAt indexPath: IndexPath) -> UIDragPreviewParameters? {
+        if let reaction = collectionViewReactions.filter({ $0.methodSignature == EventMethodSignature.dropPreviewParametersForItemAtIndexPath.rawValue }).first {
+            return reaction.performWithArguments((indexPath,0,0)) as? UIDragPreviewParameters
+        }
+        return (delegate as? UICollectionViewDropDelegate)?.collectionView?(collectionView,
+                                                                  dropPreviewParametersForItemAt: indexPath)
     }
 }
     

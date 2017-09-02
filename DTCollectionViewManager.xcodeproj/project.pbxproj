@@ -74,6 +74,8 @@
 		9A4C3BFB1BE5567A000931BA /* NiblessHeaderFooterView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4C3BFA1BE5567A000931BA /* NiblessHeaderFooterView.swift */; };
 		9A4C3BFD1BE557D8000931BA /* SupplementaryEventsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4C3BFC1BE557D8000931BA /* SupplementaryEventsTestCase.swift */; };
 		9A4C3BFF1BE55F87000931BA /* DelegateForwardingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4C3BFE1BE55F87000931BA /* DelegateForwardingTestCase.swift */; };
+		9A5503B01F5B233E000577F1 /* DTCollectionViewDropPlaceholderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5503AF1F5B233E000577F1 /* DTCollectionViewDropPlaceholderContext.swift */; };
+		9A5503B11F5B233E000577F1 /* DTCollectionViewDropPlaceholderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A5503AF1F5B233E000577F1 /* DTCollectionViewDropPlaceholderContext.swift */; };
 		9A7576F31BB951A100180D46 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
 		9A7576F71BB951B500180D46 /* DTCollectionViewManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A99AA7F1B8A219300428802 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A99AA7E1B8A219300428802 /* AppDelegate.swift */; };
@@ -340,6 +342,7 @@
 		9A4C3BFA1BE5567A000931BA /* NiblessHeaderFooterView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = NiblessHeaderFooterView.swift; path = Fixtures/NiblessHeaderFooterView.swift; sourceTree = "<group>"; };
 		9A4C3BFC1BE557D8000931BA /* SupplementaryEventsTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SupplementaryEventsTestCase.swift; sourceTree = "<group>"; };
 		9A4C3BFE1BE55F87000931BA /* DelegateForwardingTestCase.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = DelegateForwardingTestCase.swift; sourceTree = "<group>"; };
+		9A5503AF1F5B233E000577F1 /* DTCollectionViewDropPlaceholderContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DTCollectionViewDropPlaceholderContext.swift; path = Source/DTCollectionViewDropPlaceholderContext.swift; sourceTree = "<group>"; };
 		9A99AA7C1B8A219300428802 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A99AA7E1B8A219300428802 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		9A99AA801B8A219300428802 /* MasterViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MasterViewController.swift; sourceTree = "<group>"; };
@@ -465,6 +468,7 @@
 				9A0889941F53214D00A1AA54 /* DTCollectionViewManager+Delegate.swift */,
 				9A0889971F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift */,
 				9A08899A1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift */,
+				9A5503AF1F5B233E000577F1 /* DTCollectionViewDropPlaceholderContext.swift */,
 				9AB666D31D7B13E300A6CEED /* CollectionViewUpdater.swift */,
 				9A1B88641CE1E4CB005B6F07 /* SectionModel+ConvenienceGetters.swift */,
 				9A4610E51F40A59100480052 /* DTCollectionViewDelegateWrapper.swift */,
@@ -984,6 +988,7 @@
 				9A1B88661CE1E4CB005B6F07 /* CollectionViewFactory.swift in Sources */,
 				9A0889991F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift in Sources */,
 				9A0889891F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift in Sources */,
+				9A5503B11F5B233E000577F1 /* DTCollectionViewDropPlaceholderContext.swift in Sources */,
 				9AB666D51D7B13E300A6CEED /* CollectionViewUpdater.swift in Sources */,
 				9A1B88681CE1E4CB005B6F07 /* DTCollectionViewManager.swift in Sources */,
 				9A08899C1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift in Sources */,
@@ -1034,6 +1039,7 @@
 				9A1B88651CE1E4CB005B6F07 /* CollectionViewFactory.swift in Sources */,
 				9A0889981F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift in Sources */,
 				9A0889881F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift in Sources */,
+				9A5503B01F5B233E000577F1 /* DTCollectionViewDropPlaceholderContext.swift in Sources */,
 				9AB666D41D7B13E300A6CEED /* CollectionViewUpdater.swift in Sources */,
 				9A1B88671CE1E4CB005B6F07 /* DTCollectionViewManager.swift in Sources */,
 				9A08899B1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift in Sources */,

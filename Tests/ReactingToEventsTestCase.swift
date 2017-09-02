@@ -710,6 +710,81 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    /// MARK: - UITableViewDropDelegate
+    
+    func testPerformDropWithCoordinator() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "performDropWithCoordinator")
+        sut.manager.performDropWithCoordinator { _ in
+            exp.fulfill()
+        }
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, performDropWith: DropCoordinatorMock())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testCanHandleDropSession() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "canHandleDropSession")
+        sut.manager.canHandleDropSession { _ in
+            exp.fulfill()
+            return true
+        }
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, canHandle: DragAndDropMock())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDropSessionDidEnter() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "dropSessionDidEnter")
+        sut.manager.dropSessionDidEnter { _ in
+            exp.fulfill()
+        }
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, dropSessionDidEnter: DragAndDropMock())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDropSessionDidUpdate() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "dropSessionDidUpdate")
+        sut.manager.dropSessionDidUpdate { _, _ in
+            exp.fulfill()
+            return UICollectionViewDropProposal(operation: .cancel)
+        }
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, dropSessionDidUpdate: DragAndDropMock(), withDestinationIndexPath: nil)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDropSessionDidExit() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "dropSessionDidExit")
+        sut.manager.dropSessionDidExit { _ in
+            exp.fulfill()
+        }
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, dropSessionDidExit: DragAndDropMock())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDropSessionDidEnd() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "dropSessionDidEnd")
+        sut.manager.dropSessionDidEnd { _ in
+            exp.fulfill()
+        }
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, dropSessionDidEnd: DragAndDropMock())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDropPreviewParametersForRowAtIndexPath() {
+        guard #available(iOS 11, *) else { return }
+        let exp = expectation(description: "dropPreviewParametersForRowAtIndexPath")
+        sut.manager.dropPreviewParameters { _ in
+            exp.fulfill()
+            return nil
+        }
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, dropPreviewParametersForItemAt: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
     #endif
     
     func testAllDelegateMethodSignatures() {
@@ -755,6 +830,14 @@ class ReactingToEventsFastTestCase : XCTestCase {
             expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionDidEnd:)))) == EventMethodSignature.dragSessionDidEnd.rawValue
             expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionAllowsMoveOperation:)))) == EventMethodSignature.dragSessionAllowsMoveOperation.rawValue
             expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionIsRestrictedToDraggingApplication:)))) == EventMethodSignature.dragSessionIsRestrictedToDraggingApplication.rawValue
+            
+            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:performDropWith:)))) == EventMethodSignature.performDropWithCoordinator.rawValue
+            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:canHandle:)))) == EventMethodSignature.canHandleDropSession.rawValue
+            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnter:)))) == EventMethodSignature.dropSessionDidEnter.rawValue
+            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidUpdate:withDestinationIndexPath:)))) == EventMethodSignature.dropSessionDidUpdate.rawValue
+            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidExit:)))) == EventMethodSignature.dropSessionDidExit.rawValue
+            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnd:)))) == EventMethodSignature.dropSessionDidEnd.rawValue
+            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropPreviewParametersForItemAt:)))) == EventMethodSignature.dropPreviewParametersForItemAtIndexPath.rawValue
         }
         #endif
         

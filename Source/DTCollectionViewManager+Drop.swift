@@ -28,5 +28,49 @@ import UIKit
 import DTModelStorage
 
 extension DTCollectionViewManager {
+    #if os(iOS) && swift(>=3.2)
     
+    // MARK: - Drop
+    @available(iOS 11, *)
+    open func performDropWithCoordinator(_ closure: @escaping (UICollectionViewDropCoordinator) -> Void) {
+        collectionDropDelegate?.appendNonCellReaction(.performDropWithCoordinator, closure: closure)
+    }
+    
+    @available(iOS 11, *)
+    open func canHandleDropSession(_ closure: @escaping (UIDropSession) -> Bool) {
+        collectionDropDelegate?.appendNonCellReaction(.canHandleDropSession, closure: closure)
+    }
+    
+    @available(iOS 11, *)
+    open func dropSessionDidEnter(_ closure: @escaping (UIDropSession) -> Void) {
+        collectionDropDelegate?.appendNonCellReaction(.dropSessionDidEnter, closure: closure)
+    }
+    
+    @available(iOS 11, *)
+    open func dropSessionDidUpdate(_ closure: @escaping (UIDropSession, IndexPath?) -> UICollectionViewDropProposal) {
+        collectionDropDelegate?.appendNonCellReaction(.dropSessionDidUpdate, closure: closure)
+    }
+    
+    @available(iOS 11, *)
+    open func dropSessionDidExit(_ closure: @escaping (UIDropSession) -> Void) {
+        collectionDropDelegate?.appendNonCellReaction(.dropSessionDidExit, closure: closure)
+    }
+    
+    @available(iOS 11, *)
+    open func dropSessionDidEnd(_ closure: @escaping (UIDropSession) -> Void) {
+        collectionDropDelegate?.appendNonCellReaction(.dropSessionDidEnd, closure: closure)
+    }
+    
+    @available(iOS 11, *)
+    open func dropPreviewParameters(_ closure: @escaping (IndexPath) -> UIDragPreviewParameters?) {
+        collectionDropDelegate?.appendNonCellReaction(.dropPreviewParametersForItemAtIndexPath, closure: closure)
+    }
+    @available(iOS 11, *)
+    open func drop(_ item: UIDragItem, to placeholder: UICollectionViewDropPlaceholder,
+                   with coordinator: UICollectionViewDropCoordinator) -> DTCollectionViewDropPlaceholderContext {
+        let context = coordinator.drop(item, to: placeholder)
+        return DTCollectionViewDropPlaceholderContext(context: context, storage: storage)
+    }
+    
+    #endif
 }

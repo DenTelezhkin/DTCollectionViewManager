@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Added `DTCollectionViewDropPlaceholderContext` wrapper with convenience support for UICollectionView placeholders.
+* Implemented `UICollectionViewDragDelegate` and `UICollectionViewDropDelegate` events.
 * Added 10 more `UICollectionViewDelegate` and `UICollectionViewDelegateFlowLayout` events.
 * Added missing events for `UICollectionViewDatasource` protocol: `collectionView:moveItemAt:to:`, `indexTitlesFor:`, `collectionView:indexPathForIndexTitle:at:`
 * Implemented conditional mappings
