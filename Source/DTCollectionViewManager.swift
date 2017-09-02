@@ -260,6 +260,10 @@ open class DTCollectionViewManager {
                                      reloadItem: updateCellClosure(),
                                      animateMoveAsDeleteAndInsert: true)
     }
+    
+    open func configureEvents<T:ModelTransfer>(for klass: T.Type, _ closure: (T.Type, T.ModelType.Type) -> Void) {
+        closure(T.self, T.ModelType.self)
+    }
 }
 
 /// All supported Objective-C method signatures.

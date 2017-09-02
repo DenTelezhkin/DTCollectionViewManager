@@ -15,11 +15,15 @@ class ComplexLayoutViewController: UICollectionViewController, DTCollectionViewM
         super.viewDidLoad()
         
         manager.startManaging(withDelegate: self)
-        manager.register(CollectionContainingCell.self)
-        manager.sizeForCell(withItem: Int.self) { [weak self] _, _ in
-            guard let layout = self?.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
-            return CGSize(width: self?.collectionView?.frame.width ?? 0, height: layout.itemSize.height)
+        
+        manager.configureEvents(for: CollectionContainingCell.self) { cellType, modelType in
+            manager.register(cellType)
+            manager.sizeForCell(withItem: modelType) { [weak self] _, _ in
+                guard let layout = self?.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout else { return .zero }
+                return CGSize(width: self?.collectionView?.frame.width ?? 0, height: layout.itemSize.height)
+            }
         }
+        
         manager.memoryStorage.addItems([1,3,8,15])
     }
     
