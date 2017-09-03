@@ -249,6 +249,16 @@ open class DTCollectionViewManager {
         }
     }
     
+    open func updateVisibleCells(_ closure: ((UICollectionViewCell) -> Void)? = nil) {
+        (collectionView?.indexPathsForVisibleItems ?? []).forEach { indexPath in
+            guard let model = storage.item(at: indexPath),
+                let visibleCell = collectionView?.cellForItem(at: indexPath)
+                else { return }
+            updateCellClosure()(indexPath,model)
+            closure?(visibleCell)
+        }
+    }
+    
     /// Returns `CollectionViewUpdater`, configured to work with `CoreDataStorage` and `NSFetchedResultsController` updates.
     ///
     /// - Precondition: UICollectionView instance on `delegate` should not be nil.
