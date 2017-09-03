@@ -32,8 +32,10 @@ import DTModelStorage
 @available(iOS 11.0, *)
 open class DTCollectionViewDropDelegate : DTCollectionViewDelegateWrapper, UICollectionViewDropDelegate {
     override func delegateWasReset() {
-        collectionView?.dropDelegate = nil
-        collectionView?.dropDelegate = self
+        // Currently, in Xcode beta 6 seed, this resetting of the delegate is unnecessary and causes super weird interactions with UICollectionViewDropDelegate methods such as invalidating UICollectionView layouts all the time while drop session is in progress.
+        
+//        collectionView?.dropDelegate = nil
+//        collectionView?.dropDelegate = self
     }
     
     open func collectionView(_ collectionView: UICollectionView, performDropWith coordinator: UICollectionViewDropCoordinator) {
