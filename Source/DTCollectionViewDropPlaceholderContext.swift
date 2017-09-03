@@ -28,34 +28,35 @@ import UIKit
 import DTModelStorage
 
 #if os(iOS) && swift(>=3.2)
-    @available(iOS 11, *)
-    open class DTCollectionViewDropPlaceholderContext {
-        
-        open let context : UICollectionViewDropPlaceholderContext
-        weak var storage: Storage?
-        
-        public init(context: UICollectionViewDropPlaceholderContext, storage: Storage) {
-            self.context = context
-            self.storage = storage
-        }
-        
-        open func commitInsertion<T>(ofItem item: T, _ insertionIndexPathClosure: ((IndexPath) -> Void)? = nil) {
-            DispatchQueue.main.async { [weak self] in
-                self?.context.commitInsertion { insertionIndexPath in
-                    guard let storage = self?.storage else { return }
-                    if let storage = storage as? MemoryStorage,
-                        let section = storage.section(atIndex: insertionIndexPath.section),
-                        section.items.count >= insertionIndexPath.item
-                    {
-                        section.items.insert(item, at: insertionIndexPath.row)
-                    }
-                    insertionIndexPathClosure?(insertionIndexPath)
+@available(iOS 11, *)
+open class DTCollectionViewDropPlaceholderContext {
+    
+    open let context : UICollectionViewDropPlaceholderContext
+    weak var storage: Storage?
+    
+    public init(context: UICollectionViewDropPlaceholderContext, storage: Storage) {
+        self.context = context
+        self.storage = storage
+    }
+    
+    open func commitInsertion<T>(ofItem item: T, _ insertionIndexPathClosure: ((IndexPath) -> Void)? = nil) {
+        DispatchQueue.main.async { [weak self] in
+            self?.context.commitInsertion { insertionIndexPath in
+                guard let storage = self?.storage else { return }
+                if let storage = storage as? MemoryStorage,
+                    let section = storage.section(atIndex: insertionIndexPath.section),
+                    section.items.count >= insertionIndexPath.item
+                {
+                    section.items.insert(item, at: insertionIndexPath.row)
                 }
+                insertionIndexPathClosure?(insertionIndexPath)
             }
         }
-        
-        open func deletePlaceholder() -> Bool {
-            return context.deletePlaceholder()
-        }
     }
+    
+    @discardableResult
+    open func deletePlaceholder() -> Bool {
+        return context.deletePlaceholder()
+    }
+}
 #endif
