@@ -22,10 +22,6 @@
 		9A08899B1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A08899A1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift */; };
 		9A08899C1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A08899A1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift */; };
 		9A08A9C91B8A249300877C62 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
-		9A0B9E371F40AF4A0041E73B /* RealmSwift.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0B9E361F40AF4A0041E73B /* RealmSwift.framework */; };
-		9A0B9E381F40AF4A0041E73B /* RealmSwift.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0B9E361F40AF4A0041E73B /* RealmSwift.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
-		9A0B9E3D1F40AF700041E73B /* Realm.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0B9E3C1F40AF700041E73B /* Realm.framework */; };
-		9A0B9E3E1F40AF700041E73B /* Realm.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9A0B9E3C1F40AF700041E73B /* Realm.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A1B88081CE1E1E1005B6F07 /* NibCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A1B87ED1CE1E19D005B6F07 /* NibCell.xib */; };
 		9A1B88091CE1E1E1005B6F07 /* NibHeaderFooterView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A1B87EE1CE1E19D005B6F07 /* NibHeaderFooterView.xib */; };
 		9A1B880A1CE1E1E1005B6F07 /* NibView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9A1B87EF1CE1E19D005B6F07 /* NibView.xib */; };
@@ -281,10 +277,8 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9A0B9E3E1F40AF700041E73B /* Realm.framework in Embed Frameworks */,
 				9A3243981CE34D5E00C32A5B /* DTModelStorage.framework in Embed Frameworks */,
 				9A7576F71BB951B500180D46 /* DTCollectionViewManager.framework in Embed Frameworks */,
-				9A0B9E381F40AF4A0041E73B /* RealmSwift.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
 			runOnlyForDeploymentPostprocessing = 0;
@@ -299,9 +293,6 @@
 		9A0889941F53214D00A1AA54 /* DTCollectionViewManager+Delegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DTCollectionViewManager+Delegate.swift"; path = "Source/DTCollectionViewManager+Delegate.swift"; sourceTree = "<group>"; };
 		9A0889971F53215F00A1AA54 /* DTCollectionViewManager+Drag.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DTCollectionViewManager+Drag.swift"; path = "Source/DTCollectionViewManager+Drag.swift"; sourceTree = "<group>"; };
 		9A08899A1F53218200A1AA54 /* DTCollectionViewManager+Drop.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DTCollectionViewManager+Drop.swift"; path = "Source/DTCollectionViewManager+Drop.swift"; sourceTree = "<group>"; };
-		9A0B9E361F40AF4A0041E73B /* RealmSwift.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = RealmSwift.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A0B9E391F40AF600041E73B /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
-		9A0B9E3C1F40AF700041E73B /* Realm.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; path = Realm.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A1B87EC1CE1E19D005B6F07 /* FixtureStoryboard.storyboard */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.storyboard; name = FixtureStoryboard.storyboard; path = ../Tests/Fixtures/tvOS/FixtureStoryboard.storyboard; sourceTree = "<group>"; };
 		9A1B87ED1CE1E19D005B6F07 /* NibCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NibCell.xib; path = ../Tests/Fixtures/tvOS/NibCell.xib; sourceTree = "<group>"; };
 		9A1B87EE1CE1E19D005B6F07 /* NibHeaderFooterView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = NibHeaderFooterView.xib; path = ../Tests/Fixtures/tvOS/NibHeaderFooterView.xib; sourceTree = "<group>"; };
@@ -384,10 +375,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A0B9E3D1F40AF700041E73B /* Realm.framework in Frameworks */,
 				9A3243951CE34D5800C32A5B /* DTModelStorage.framework in Frameworks */,
 				9A7576F31BB951A100180D46 /* DTCollectionViewManager.framework in Frameworks */,
-				9A0B9E371F40AF4A0041E73B /* RealmSwift.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -433,9 +422,6 @@
 		955F8579179ACAF000A38EAD = {
 			isa = PBXGroup;
 			children = (
-				9A0B9E3C1F40AF700041E73B /* Realm.framework */,
-				9A0B9E391F40AF600041E73B /* Realm.framework */,
-				9A0B9E361F40AF4A0041E73B /* RealmSwift.framework */,
 				9A423E751BE6054700A81045 /* Frameworks */,
 				9ABF870B1BE3DF32000B9905 /* Documentation */,
 				955F85AE179ACB7300A38EAD /* Source */,
