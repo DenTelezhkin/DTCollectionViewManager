@@ -55,7 +55,7 @@ extension DTCollectionViewManager {
         let indexPathClosure : (T,T.ModelType, IndexPath) -> Void = { view, model, indexPath in
             closure(view,model, indexPath.section)
         }
-        self.configureSupplementary(T.self, ofKind: UICollectionElementKindSectionFooter, indexPathClosure)
+        configureSupplementary(T.self, ofKind: UICollectionElementKindSectionFooter, indexPathClosure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionView` requests `supplementaryClass` of `kind` in `UICollectionViewDataSource.collectionView(_:viewForSupplementaryElementOf:at:)` method and supplementary view is being configured.
@@ -74,7 +74,10 @@ extension DTCollectionViewManager {
     }
     
     @available(iOS 9.0, tvOS 9.0, *)
-    open func move<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (IndexPath,T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
+    /// Registers `closure` to be executed, when `UICollectionViewDataSrouce.(_:moveItemAt:to:)` method is called for `cellClass`.
+    /// - warning: This method requires items to be moved without animations, since animation has already happened when user moved those cells. If you use `MemoryStorage`, it's appropriate to call `memoryStorage.moveItemWithoutAnimation(from:to:)` method to achieve desired behavior.
+    /// - SeeAlso: 'collectionView:moveRowAt:to:' method
+    open func move<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (_ destinationIndexPath: IndexPath,T, T.ModelType, _ sourceIndexPath: IndexPath) -> Void) where T: UICollectionViewCell
     {
         collectionDataSource?.append4ArgumentReaction(for: T.self,
                                                       signature: .moveItemAtIndexPathToIndexPath,
@@ -82,11 +85,13 @@ extension DTCollectionViewManager {
     }
     
     @available (iOS 10.3, tvOS 10.2, *)
+    /// Registers `closure` to be executed, when `UICollectionViewDataSource.indexTitlesForCollectionView(_:)` method is called.
     open func indexTitles(_ closure: @escaping () -> [String]?) {
         collectionDataSource?.appendNonCellReaction(.indexTitlesForCollectionView, closure: closure)
     }
     
     @available (iOS 10.3, tvOS 10.2, *)
+    /// Registers `closure` to be executed when `UICollectionViewDataSource.collectionView(_:indexPathForIndexTitle:)` method is called.
     open func indexPathForIndexTitle(_ closure: @escaping (String, Int) -> IndexPath) {
         collectionDataSource?.appendNonCellReaction(.indexPathForIndexTitleAtIndex, closure: closure)
     }

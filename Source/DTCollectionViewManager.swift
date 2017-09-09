@@ -110,6 +110,7 @@ open class DTCollectionViewManager {
     /// Error handler ot be executed when critical error happens with `CollectionViewFactory`.
     /// This can be useful to provide more debug information for crash logs, since preconditionFailure Swift method provides little to zero insight about what happened and when.
     /// This closure will be called prior to calling preconditionFailure in `handleCollectionViewFactoryError` method.
+    @available(*, deprecated, message: "Error handling system is deprecated and may be removed in future versions of the framework")
     @nonobjc open var viewFactoryErrorHandler : ((DTCollectionViewFactoryError) -> Void)?
     
     /// Implicitly unwrap storage property to `MemoryStorage`.
@@ -249,6 +250,9 @@ open class DTCollectionViewManager {
         }
     }
     
+    /// Updates visible cells, using `collectionView.indexPathsForVisibleItems`, and update block. This may be more efficient than running `reloadData`, if number of your data models does not change, and the change you want to reflect is completely within models state.
+    ///
+    /// - Parameter closure: closure to run for each cell after update has been completed.
     open func updateVisibleCells(_ closure: ((UICollectionViewCell) -> Void)? = nil) {
         (collectionView?.indexPathsForVisibleItems ?? []).forEach { indexPath in
             guard let model = storage.item(at: indexPath),
@@ -271,6 +275,12 @@ open class DTCollectionViewManager {
                                      animateMoveAsDeleteAndInsert: true)
     }
     
+    /// Immediately runs closure to provide access to both T and T.ModelType for `klass`.
+    ///
+    /// - Discussion: This is particularly useful for registering events, because near 1/3 of events don't have cell or view before they are getting run, which prevents view type from being known, and required developer to remember, which model is mapped to which cell. By using this container closure you will be able to provide compile-time safety for all events.
+    /// - Parameters:
+    ///   - klass: Class of reusable view to be used in configuration container
+    ///   - closure: closure to run with view types.
     open func configureEvents<T:ModelTransfer>(for klass: T.Type, _ closure: (T.Type, T.ModelType.Type) -> Void) {
         closure(T.self, T.ModelType.self)
     }

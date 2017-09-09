@@ -30,6 +30,7 @@ import DTModelStorage
 #if os(iOS) && swift(>=3.2)
     
 @available(iOS 11.0, *)
+/// Object, that implements `UICollectionViewDragDelegate` methods for `DTCollectionViewManager`.
 open class DTCollectionViewDragDelegate : DTCollectionViewDelegateWrapper, UICollectionViewDragDelegate {
     override func delegateWasReset() {
         collectionView?.dragDelegate = nil

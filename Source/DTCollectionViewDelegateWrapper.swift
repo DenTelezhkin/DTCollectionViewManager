@@ -27,14 +27,17 @@ import UIKit
 import DTModelStorage
 
 open class DTCollectionViewDelegateWrapper : NSObject {
+    
+    /// Weak reference to `DTCollectionViewManageable` instance. It is used to dispatch `UICollectionView` delegate events in case `delegate` implements them.
     weak var delegate: AnyObject?
     weak var collectionView: UICollectionView? { return manager.collectionView }
     var viewFactory: CollectionViewFactory { return manager.viewFactory }
     var storage: Storage { return manager.storage }
+    @available(*, deprecated, message: "Error handling system is deprecated and may be removed in future versions of the framework")
     var viewFactoryErrorHandler: ((DTCollectionViewFactoryError) -> Void)? { return manager.viewFactoryErrorHandler }
     private unowned let manager: DTCollectionViewManager
     
-    init(delegate: AnyObject?, collectionViewManager: DTCollectionViewManager) {
+    public init(delegate: AnyObject?, collectionViewManager: DTCollectionViewManager) {
         self.delegate = delegate
         manager = collectionViewManager
     }
@@ -53,7 +56,7 @@ open class DTCollectionViewDelegateWrapper : NSObject {
         // We force UICollectionView to flush that cache and query us again, because with new event we might have new delegate or datasource method to respond to.
     }
     
-    
+    @available(*, deprecated, message: "Error handling system is deprecated and may be removed in future versions of the framework")
     /// Calls `viewFactoryErrorHandler` with `error`. If it's nil, prints error into console and asserts.
     @nonobjc final func handleCollectionViewFactoryError(_ error: DTCollectionViewFactoryError) {
         if let handler = viewFactoryErrorHandler {

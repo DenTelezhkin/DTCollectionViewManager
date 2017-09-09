@@ -28,10 +28,11 @@ import UIKit
 import DTModelStorage
 
 extension DTCollectionViewManager {
+    
     #if os(iOS) && swift(>=3.2)
     
-    // MARK: - Drag
     @available(iOS 11, *)
+    /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:itemsForBeginning:at:)` method is called for `cellClass`.
     open func itemsForBeginningDragSession<T:ModelTransfer>(from cellClass: T.Type, _ closure: @escaping (UIDragSession, T,T.ModelType, IndexPath) -> [UIDragItem]) where T:UICollectionViewCell
     {
         collectionDragDelegate?.append4ArgumentReaction(for: T.self,
@@ -40,6 +41,7 @@ extension DTCollectionViewManager {
     }
     
     @available(iOS 11, *)
+    /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:itemsForAddingTo:at:point:)` method is called for `cellClass`
     open func itemsForAddingToDragSession<T:ModelTransfer>(from cellClass: T.Type, _ closure: @escaping (UIDragSession, CGPoint, T, T.ModelType, IndexPath) -> [UIDragItem]) where T: UICollectionViewCell
     {
         collectionDragDelegate?.append5ArgumentReaction(for: T.self,
@@ -48,6 +50,7 @@ extension DTCollectionViewManager {
     }
     
     @available(iOS 11, *)
+    /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:dragPreviewParametersForRowAt:)` method is called for `cellClass`
     open func dragPreviewParameters<T:ModelTransfer>(for cellClass: T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> UIDragPreviewParameters?) where T:UICollectionViewCell {
         collectionDragDelegate?.appendReaction(for: T.self,
                                           signature: .dragPreviewParametersForItemAtIndexPath,
@@ -55,21 +58,25 @@ extension DTCollectionViewManager {
     }
     
     @available(iOS 11, *)
+    /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:dragSessionWillBegin:)` method is called.
     open func dragSessionWillBegin(_ closure: @escaping (UIDragSession) -> Void) {
         collectionDragDelegate?.appendNonCellReaction(.dragSessionWillBegin, closure: closure)
     }
     
     @available(iOS 11, *)
+    /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:dragSessionDidEnd:)` method is called.
     open func dragSessionDidEnd(_ closure: @escaping (UIDragSession) -> Void) {
         collectionDragDelegate?.appendNonCellReaction(.dragSessionDidEnd, closure: closure)
     }
     
     @available(iOS 11, *)
+    /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:dragSessionAllowsMoveOperation)` method is called.
     open func dragSessionAllowsMoveOperation(_ closure: @escaping (UIDragSession) -> Bool) {
         collectionDragDelegate?.appendNonCellReaction(.dragSessionAllowsMoveOperation, closure: closure)
     }
     
     @available(iOS 11, *)
+    /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:dragSessionIsRestrictedToDraggingApplication:)` method is called.
     open func dragSessionIsRestrictedToDraggingApplication(_ closure: @escaping (UIDragSession) -> Bool) {
         collectionDragDelegate?.appendNonCellReaction(.dragSessionIsRestrictedToDraggingApplication, closure: closure)
     }

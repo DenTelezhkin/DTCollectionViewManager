@@ -26,6 +26,7 @@
 import UIKit
 import DTModelStorage
 
+/// Object, that implements `UICollectionViewDataSource` methods for `DTCollectionViewManager`.
 open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollectionViewDataSource {
     override func delegateWasReset() {
         // _ = collectionView?.numberOfSections is a

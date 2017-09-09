@@ -29,6 +29,7 @@ import DTModelStorage
 
 /// Errors, that can be thrown by `CollectionViewFactory` if it fails to create a cell or supplementary view because of various reasons. 
 /// These errors are handled by `DTCollectionViewManager` class.
+@available(*, deprecated, message: "Error handling system is deprecated and may be removed in future versions of the framework")
 public enum DTCollectionViewFactoryError : Error, CustomStringConvertible
 {
     /// `UICollectionView` requested a cell, however model at indexPath is nil.

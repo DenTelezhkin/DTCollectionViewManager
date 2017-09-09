@@ -146,21 +146,25 @@ extension DTCollectionViewManager {
     }
     
     @available (iOS 9, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldUpdateFocusInContext:)` method is called.
     open func shouldUpdateFocus(_ closure: @escaping (UICollectionViewFocusUpdateContext) -> Bool) {
         collectionDelegate?.appendNonCellReaction(.shouldUpdateFocusInContext, closure: closure)
     }
     
     @available (iOS 9, *)
+    /// Registers `closure` tp be executed when `UICollectionViewDelegate.collectionView(_:didUpdateFocusIn:with:)` method is called.
     open func didUpdateFocus(_ closure: @escaping (UICollectionViewFocusUpdateContext, UIFocusAnimationCoordinator) -> Void) {
         collectionDelegate?.appendNonCellReaction(.didUpdateFocusInContext, closure: closure)
     }
     
     @available (iOS 9, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.indexPathForPreferredFocusedView(in:)` method is called
     open func indexPathForPreferredFocusedView(_ closure: @escaping () -> IndexPath?) {
         collectionDelegate?.appendNonCellReaction(.indexPathForPreferredFocusedView, closure: closure)
     }
     
     @available (iOS 9, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.targetIndexPathForMoveFromItemAt(_:toProposed:)` method is called for `cellClass`
     open func targetIndexPathForMovingItem<T:ModelTransfer>(_ cellClass: T.Type, _ closure: @escaping (IndexPath, T, T.ModelType, IndexPath) -> IndexPath) where T: UICollectionViewCell {
         collectionDelegate?.append4ArgumentReaction(for: T.self,
                                                     signature: .targetIndexPathForMoveFromItemAtTo,
@@ -168,6 +172,7 @@ extension DTCollectionViewManager {
     }
     
     @available (iOS 9, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:targetContentOffsetForProposedContentOffset:)` method is called.
     open func targetContentOffsetForProposedContentOffset(_ closure: @escaping (CGPoint) -> CGPoint) {
         collectionDelegate?.appendNonCellReaction(.targetContentOffsetForProposedContentOffset,
                                                   closure: closure)
@@ -175,6 +180,7 @@ extension DTCollectionViewManager {
     
     #if os(iOS) && swift(>=3.2)
     @available (iOS 11, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:)` method is called for `cellClass`.
     open func shouldSpringLoad<T:ModelTransfer>(_ cellClass: T.Type, _ closure: @escaping (UISpringLoadedInteractionContext, T, T.ModelType, IndexPath) -> Bool)
         where T: UICollectionViewCell
     {
@@ -204,19 +210,23 @@ extension DTCollectionViewManager {
         collectionDelegate?.appendReaction(forSupplementaryKind: UICollectionElementKindSectionFooter, modelClass: T.self, signature: EventMethodSignature.referenceSizeForFooterInSection, closure: closure)
     }
     
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:transitionLayoutForOldLayout:toNewLayout:`) method is called
     open func transitionLayout(_ closure: @escaping (_ oldLayout: UICollectionViewLayout, _ newLayout: UICollectionViewLayout) -> UICollectionViewTransitionLayout) {
         collectionDelegate?.appendNonCellReaction(.transitionLayoutForOldLayoutNewLayout,
                                                   closure: closure)
     }
     
+    /// Registers `closure` to be executed when `UICollectionViewDelegateFlowLayout.collectionView(_:layout:insetForSectionAt:)` method is called.
     open func insetForSectionAtIndex(_ closure: @escaping (UICollectionViewLayout,Int) -> UIEdgeInsets) {
         collectionDelegate?.appendNonCellReaction(.insetForSectionAtIndex, closure: closure)
     }
     
+    /// Registers `closure` to be executed when `UICollectionViewDelegateFlowLayout.collectionView(_:layout:minimumLineSpacingForSectionAt:)` method is called.
     open func minimumLineSpacingForSectionAtIndex(_ closure: @escaping (UICollectionViewLayout,Int) -> CGFloat) {
         collectionDelegate?.appendNonCellReaction(.minimumLineSpacingForSectionAtIndex, closure: closure)
     }
     
+    /// Registers `closure` to be executed when `UICollectionViewDelegateFlowLayout.collectionView(_:layout:insetForSectionAt:)` method is called.
     open func minimumInteritemSpacingForSectionAtIndex(_ closure: @escaping (UICollectionViewLayout,Int) -> CGFloat) {
         collectionDelegate?.appendNonCellReaction(.minimumInteritemSpacingForSectionAtIndex, closure: closure)
     }

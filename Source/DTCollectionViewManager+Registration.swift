@@ -33,7 +33,7 @@ extension DTCollectionViewManager {
     /// - Note: If you need to create cell interface from code, use `registerNibless(_:)` method
     open func register<T:ModelTransfer>(_ cellClass:T.Type, mappingBlock: ((ViewModelMapping) -> Void)? = nil) where T: UICollectionViewCell
     {
-        self.viewFactory.registerCellClass(cellClass, mappingBlock: mappingBlock)
+        viewFactory.registerCellClass(cellClass, mappingBlock: mappingBlock)
     }
     
     /// Registers mapping from model class to `cellClass`.

@@ -27,6 +27,7 @@ import Foundation
 import UIKit
 import DTModelStorage
 
+/// Object, that implements `UICollectionViewDelegate` and `UICollectionViewDelegateFlowLayout` methods for `DTCollectionViewManager`.
 open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollectionViewDelegateFlowLayout {
     override func delegateWasReset() {
         collectionView?.delegate = nil
