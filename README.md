@@ -9,7 +9,7 @@ DTCollectionViewManager
 ================
 > This is a sister-project for [DTTableViewManager](https://github.com/DenHeadless/DTTableViewManager) - great tool for UITableView management, built on the same principles.
 
-Powerful generic-based UICollectionView management framework, written in Swift 3.
+Powerful generic-based UICollectionView management framework, written in Swift.
 
 - [Features](#features)
 - [Requirements](#requirements)
@@ -18,47 +18,45 @@ Powerful generic-based UICollectionView management framework, written in Swift 3
 - [Usage](#usage)
     - **Intro -** [Mapping and Registration](#mapping-and-registration), [Data Models](#data-models)
     - **Storage classes -** [Memory Storage](#memorystorage), [CoreDataStorage](#coredatastorage), [RealmStorage](#realmstorage)
-    - **Reacting to events -** [Event types](#event-types), [Events list](#events-list)
+    - **Reacting to events -** [Event types](#event-types), [Events configuration](#events-configuration)
 - [Advanced Usage](#advanced-usage)
+  - [Drag and Drop in iOS 11](#drag-and-drop-in-ios-11)
 	- [Reacting to content updates](#reacting-to-content-updates)
 	- [Customizing UICollectionView updates](#customizing-uicollectionview-updates)
-  - [Customizing mapping resolution](#customizing-mapping-resolution)
+  - [Conditional mappings](#conditional-mappings)
   - [Unregistering mappings](#unregistering-mappings)
-  - [Error reporting](#error-reporting)
 - [ObjectiveC support](#objectivec-support)
-- [Documentation](#documentation)
-- [Running example project](#running-example-project)
 - [Thanks](#thanks)
 
 ## Features
 
 - [x] Powerful mapping system between data models and cells, headers and footers
-- [x] Support for all Swift types - classes, structs, enums, tuples
-- [x] Support for protocols and subclasses as data models
-- [x] Powerful events system, that covers most of UICollectionView delegate methods
+- [x] Support for all Swift types as data models
+- [x] Powerful events system, that covers all of UICollectionView delegate and datasource methods
 - [x] Views created from code, XIB, or storyboard
 - [x] Flexible Memory/CoreData/Realm.io storage options
 - [x] Automatic datasource and interface synchronization.
 - [x] Automatic XIB registration and dequeue
 - [x] No type casts required
 - [x] No need to subclass
+- [x] Support for Drag&Drop in iOS 11
 - [x] Can be used with UICollectionViewController, or UIViewController with UICollectionView, or any other class, that contains UICollectionView
 
 ## Requirements
 
-* Xcode 8 and higher
+* Xcode 8 / Xcode 9
 * iOS 8.0 and higher / tvOS 9.0 and higher
-* Swift 3
+* Swift 3 / Swift 4
 
 ## Installation
 
 [CocoaPods](http://www.cocoapods.org):
 
-    pod 'DTCollectionViewManager', '~> 5.2'
+    pod 'DTCollectionViewManager', '~> 6.0'
 
 [Carthage](https://github.com/Carthage/Carthage):
 
-    github "DenHeadless/DTCollectionViewManager" ~> 5.2.0
+    github "DenHeadless/DTCollectionViewManager" ~> 6.0
 
 After running `carthage update` drop DTCollectionViewManager.framework and DTModelStorage.framework to Xcode project embedded binaries.
 
@@ -76,7 +74,7 @@ The core object of a framework is `DTCollectionViewManager`. Declare your class 
 Make sure your UICollectionView outlet is wired to your class and call in viewDidLoad:
 
 ```swift
-	manager.startManaging(withDelegate:self)
+	manager.startManaging(withDelegate: self)
 ```
 
 Let's say you have an array of Posts you want to display in UICollectionView. To quickly show them using DTCollectionViewManager, here's what you need to do:
@@ -231,7 +229,7 @@ It's also important to understand, that event system is implemented using `respo
 * If `DTCollectionViewManageable` is implementing delegate method, `responds(to:)` returns true
 * If `DTCollectionViewManager` has events tied to selector being called, `responds(to:)` also returns true
 
-What this approach allows us to do, is configuring UICollectionView knowledge about what delegate method is implemented and what is not. For example, `DTCollectionViewManager` is implementing `collectionView(_:layout:sizeForItemAt:)` method, however if you don't call `sizeForCell(withItem:_:)` method, you are safe to use self-sizing cells in UICollectionView. While **27** delegate methods are implemented, only those that have events or are implemented by delegate will be called by `UICollectionView`.
+What this approach allows us to do, is configuring UICollectionView knowledge about what delegate method is implemented and what is not. For example, `DTCollectionViewManager` is implementing `collectionView(_:layout:sizeForItemAt:)` method, however if you don't call `sizeForCell(withItem:_:)` method, you are safe to use self-sizing cells in UICollectionView. While a lot of delegate methods are implemented, only those that have events or are implemented by delegate will be called by `UICollectionView`.
 
 `DTCollectionViewManager` has the same approach for handling each delegate and datasource method:
 
@@ -239,53 +237,24 @@ What this approach allows us to do, is configuring UICollectionView knowledge ab
 * Try to call delegate or datasource method on `DTCollectionViewManageable` instance
 * If two previous scenarios fail, fallback to whatever default `UICollectionView` has for this delegate or datasource method
 
-### Events list
+### Events configuration
 
-Here's full list of all delegate and datasource methods implemented:
+To have compile safety when registering events, you can use `configureEvents` method:
 
-**UICollectionViewDataSource**
-
-| DataSource method | Event method | Comment |
-| ----------------- | ------------ | ------- |
-|  cellForItemAt: | configure(_:_:) | Called after `update(with:)` method was called |
-|  viewForSupplementaryElementOfKind:at: | configureSupplementary(_:ofKind:_:) | Called after `update(with:)` method was called |
-|  viewForSupplementaryElementOfKind:at: | configureHeader(_:_:) | Called after `update(with:)` method was called |
-|  viewForSupplementaryElementOfKind:at: | configureFooter(_:_:) | Called after `update(with:)` method was called |
-|  canMoveItemAt: | canMove(_:_:) | - |
-
-**UICollectionViewDelegate**
-
-| Delegate method | Event method | Comment |
-| ----------------- | ------------ | ------ |
-|  shouldSelectItemAt: | shouldSelect(_:_:) | - |
-|  didSelectItemAt: | didSelect(_:_:) | - |
-|  shouldDeselectItemAt: | shouldDeselect(_:_:) | - |
-|  didDeselectItemAt: | didDeselect(_:_:) | - |
-|  shouldHighlightItemAt: | shouldHighlight(_:_:) | - |
-|  didHighlightItemAt: | didHighlight(_:_:) | - |
-|  didUnhighlightItemAt: | didUnhighlight(_:_:) | - |
-|  willDisplay:forItemAt: | willDisplay(_:_:) | - |
-|  willDisplaySupplementaryView:forElementOfKind:at: | willDisplaySupplementaryView(_:forElementKind:_:) | - |
-|  willDisplaySupplementaryView:forElementOfKind:at: | willDisplayHeaderView(_:_:) | - |
-|  willDisplaySupplementaryView:forElementOfKind:at: | willDisplayFooterView(_:_:) | - |
-|  didEndDisplaying:forItemAt: | didEndDisplaying(_:_:) | - |
-|  didEndDisplayingSupplementaryView:forElementOfKind:at: | didEndDisplayingSupplementaryView(_:forElementKind:_:) | - |
-|  didEndDisplayingSupplementaryView:forElementOfKind:at: | didEndDisplayingHeaderView(_:_:) | - |
-|  didEndDisplayingSupplementaryView:forElementOfKind:at: | didEndDisplayingFooterView(_:_:) | - |
-|  shouldShowMenuForItemAt: | shouldShowMenu(for:_:) | - |
-|  canPerformAction:forItemAt:withSender: | canPerformAction(for:_:) | - |
-|  performAction:forItemAt:withSender: | performAction(for:_:) | - |
-|  canFocusItemAt: | canFocus(_:_:) | iOS/tvOS 9+ |
-
-**UICollectionViewDelegateFlowLayout**
-
-| Delegate method | Event method | Comment |
-| ----------------- | ------------ | ------ |
-|  layout:sizeForItemAt: | sizeForCell(withItem:_:) | - |
-|  layout:referenceSizeForHeaderInSection: | referenceSizeForHeaderView(withItem:_:) | - |
-|  layout:referenceSizeForFooterInSection: | referenceSizeForFooterView(withItem:_:) | - |
+```swift
+manager.configureEvents(for: IntCell.self) { cellType, modelType in
+  manager.register(cellType)
+  manager.estimatedHeight(for: modelType) { _,_ in
+    return 44
+  }
+}
+```
 
 ## Advanced usage
+
+### Drag and Drop in iOS 11
+
+There is a [dedicated repo](https://github.com/DenHeadless/DTDragAndDropExample), containing Apple's sample on Drag&Drop, enhanced with `DTTableViewManager` and `DTCollectionViewManager`. Most of the stuff is just usual drop and drag delegate events, but there is also special support for UITableView and UICollectionView placeholders, that makes sure calls are dispatched to main thread, and if you use `MemoryStorage`, performs datasource updates automatically.
 
 ### Reacting to content updates
 
@@ -321,9 +290,9 @@ let updater = CollectionViewUpdater(collectionView: collectionView, reloadRow: {
 
 These are all default options, however you might implement your own implementation of `CollectionViewUpdater`, the only requirement is that object needs to conform to `StorageUpdating` protocol. This gives you full control on how and when `DTCollectionViewManager` will update `UICollectionView`.
 
-### Customizing mapping resolution
+### Conditional mappings
 
-There can be cases, where you might want to customize mappings based on some criteria. For example, you might want to display model in several kinds of cells:
+There can be cases, where you might want to customize mappings based on some criteria. For example, you might want to display model in several kinds of cells for different sections:
 
 ```swift
 class FoodTextCell: UICollectionViewCell, ModelTransfer {
@@ -338,20 +307,31 @@ class FoodImageCell: UICollectionViewCell, ModelTransfer {
     }
 }
 
-manager.register(FoodTextCell.self)
-manager.register(FoodImageCell.self)
+manager.register(FoodTextCell.self) { mapping in mapping.condition = .section(0) }
+manager.register(FoodImageCell.self) { mapping in mapping.condition = .section(1) }
 ```
 
-If you don't do anything, FoodTextCell mapping will be selected as first mapping, however you can adopt `ViewModelMappingCustomizing` protocol to adjust your mappings:
+Or you may implement completely custom conditions:
 
 ```swift
-extension PostViewController : ViewModelMappingCustomizing {
-    func viewModelMapping(fromCandidates candidates: [ViewModelMapping], forModel model: Any) -> ViewModelMapping? {
-        if let foodModel = model as? Food where foodModel.hasPhoto {
-            return candidates.last
-        }
-        return candidates.first
-    }
+manager.register(FooCell.self) { mapping in
+  mapping.condition = .custom({ indexPath, model in
+    guard let model = model as? Int else { return false }
+    return model > 2
+  })
+}
+```
+
+You can also change reuseIdentifier to be used:
+
+```swift
+manager.register(NibCell.self) { mapping in
+    mapping.condition = .section(0)
+    mapping.reuseIdentifier = "NibCell One"
+}
+controller.manager.registerNibNamed("CustomNibCell", for: NibCell.self) { mapping in
+    mapping.condition = .section(1)
+    mapping.reuseIdentifier = "NibCell Two"
 }
 ```
 
@@ -368,30 +348,9 @@ manager.unregisterSupplementary(SupplementaryView.self, forKind: "foo")
 
 This is equivalent to calling collection view register methods with nil class or nil nib.
 
-### Error reporting
-
-In some cases `DTCollectionViewManager` will not be able to create cell, header or footer view. This can happen when passed model is nil, or mapping is not set. By default, 'fatalError' method will be called and application will crash. You can improve crash logs by setting your own error handler via closure:
-
-```swift
-manager.viewFactoryErrorHandler = { error in
-    // DTCollectionViewFactoryError type
-    print(error.description)
-}
-```
-
 ## ObjectiveC support
 
 `DTCollectionViewManager` is heavily relying on Swift protocol extensions, generics and associated types. Enabling this stuff to work on Objective-c right now is not possible. Because of this DTCollectionViewManager 4 and greater only supports building from Swift. If you need to use Objective-C, you can use [latest Objective-C compatible version of `DTCollectionViewManager`](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/3.3.0).
-
-## Documentation
-
-You can view documentation online or you can install it locally using [cocoadocs](http://cocoadocs.org/docsets/DTCollectionViewManager)!
-
-## Running example project
-
-```bash
-pod try DTCollectionViewManager
-```
 
 ## Thanks
 
