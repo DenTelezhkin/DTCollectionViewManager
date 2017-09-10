@@ -16,21 +16,7 @@
                BuildableIdentifier = "primary"
                BlueprintIdentifier = "9AE671481AEE61F800B25A5F"
                BuildableName = "DTCollectionViewManager.framework"
-               BlueprintName = "DTCollectionViewManager-iOS"
-               ReferencedContainer = "container:DTCollectionViewManager.xcodeproj">
-            </BuildableReference>
-         </BuildActionEntry>
-         <BuildActionEntry
-            buildForTesting = "YES"
-            buildForRunning = "NO"
-            buildForProfiling = "NO"
-            buildForArchiving = "NO"
-            buildForAnalyzing = "NO">
-            <BuildableReference
-               BuildableIdentifier = "primary"
-               BlueprintIdentifier = "9A99AA901B8A219300428802"
-               BuildableName = "Tests-iOS.xctest"
-               BlueprintName = "Tests-iOS"
+               BlueprintName = "DTCollectionViewManager"
                ReferencedContainer = "container:DTCollectionViewManager.xcodeproj">
             </BuildableReference>
          </BuildActionEntry>
@@ -41,8 +27,7 @@
       selectedDebuggerIdentifier = "Xcode.DebuggerFoundation.Debugger.LLDB"
       selectedLauncherIdentifier = "Xcode.DebuggerFoundation.Launcher.LLDB"
       language = ""
-      shouldUseLaunchSchemeArgsEnv = "YES"
-      codeCoverageEnabled = "YES">
+      shouldUseLaunchSchemeArgsEnv = "YES">
       <Testables>
          <TestableReference
             skipped = "NO">
@@ -60,7 +45,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9AE671481AEE61F800B25A5F"
             BuildableName = "DTCollectionViewManager.framework"
-            BlueprintName = "DTCollectionViewManager-iOS"
+            BlueprintName = "DTCollectionViewManager"
             ReferencedContainer = "container:DTCollectionViewManager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -83,7 +68,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9AE671481AEE61F800B25A5F"
             BuildableName = "DTCollectionViewManager.framework"
-            BlueprintName = "DTCollectionViewManager-iOS"
+            BlueprintName = "DTCollectionViewManager"
             ReferencedContainer = "container:DTCollectionViewManager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>
@@ -101,7 +86,7 @@
             BuildableIdentifier = "primary"
             BlueprintIdentifier = "9AE671481AEE61F800B25A5F"
             BuildableName = "DTCollectionViewManager.framework"
-            BlueprintName = "DTCollectionViewManager-iOS"
+            BlueprintName = "DTCollectionViewManager"
             ReferencedContainer = "container:DTCollectionViewManager.xcodeproj">
          </BuildableReference>
       </MacroExpansion>

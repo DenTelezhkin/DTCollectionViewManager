@@ -13,21 +13,22 @@ matrix:
     - os: osx
       env: ACTION=test_tvos10
     - os: osx
-      osx_image: xcode8.3
-      env: ACTION=test_ios10_legacy
+      env: ACTION=test_ios_swift3
     - os: osx
-      osx_image: xcode8.3
-      env: ACTION=test_tvos10_legacy
-    # - os: osx
-    #   env: ACTION=pod_lint
-    # - os: osx
-    #   env: ACTION=carthage_build
-    # - os: osx
-    #   env: ACTION=spm_macos
+      env: ACTION=test_tvos_swift3
+    - os: osx
+      env: ACTION=pod_lint
+    - os: osx
+      env: ACTION=carthage_build
 
 before_script:
   - brew update
   - brew outdated carthage || brew upgrade carthage
+  - carthage bootstrap --cache-builds
 
 script:
   - bundle exec fastlane $ACTION
+
+env:
+  global:
+    secure: AFszIbBJIhT73In7hDE3IEAR39w2+lva0Jra/gFXnIP6oF4GNmPJljztDZ0If8wE+KQ7HTJ514lpjsIP+6maSXOBX72Xh04jBtIRlmXuLBbc0W3FmkQl6JU8QZmY/aYwO2X6WyEyzuOzl2vW465mBpGu1VM+hwHyDbDGbLln0is=
