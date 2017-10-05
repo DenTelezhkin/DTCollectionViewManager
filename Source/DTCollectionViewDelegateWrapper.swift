@@ -30,12 +30,12 @@ open class DTCollectionViewDelegateWrapper : NSObject {
     
     /// Weak reference to `DTCollectionViewManageable` instance. It is used to dispatch `UICollectionView` delegate events in case `delegate` implements them.
     weak var delegate: AnyObject?
-    weak var collectionView: UICollectionView? { return manager.collectionView }
-    var viewFactory: CollectionViewFactory { return manager.viewFactory }
-    var storage: Storage { return manager.storage }
+    weak var collectionView: UICollectionView? { return manager?.collectionView }
+    var viewFactory: CollectionViewFactory? { return manager?.viewFactory }
+    var storage: Storage? { return manager?.storage }
     @available(*, deprecated, message: "Error handling system is deprecated and may be removed in future versions of the framework")
-    var viewFactoryErrorHandler: ((DTCollectionViewFactoryError) -> Void)? { return manager.viewFactoryErrorHandler }
-    private unowned let manager: DTCollectionViewManager
+    var viewFactoryErrorHandler: ((DTCollectionViewFactoryError) -> Void)? { return manager?.viewFactoryErrorHandler }
+    private weak var manager: DTCollectionViewManager?
     
     public init(delegate: AnyObject?, collectionViewManager: DTCollectionViewManager) {
         self.delegate = delegate
@@ -150,14 +150,14 @@ open class DTCollectionViewDelegateWrapper : NSObject {
     final func performCellReaction(_ signature: EventMethodSignature, location: IndexPath, provideCell: Bool) -> Any? {
         var cell : UICollectionViewCell?
         if provideCell { cell = collectionView?.cellForItem(at: location) }
-        guard let model = storage.item(at: location) else { return nil }
+        guard let model = storage?.item(at: location) else { return nil }
         return collectionViewReactions.performReaction(of: .cell, signature: signature.rawValue, view: cell, model: model, location: location)
     }
     
     final func perform4ArgumentCellReaction(_ signature: EventMethodSignature, argument: Any, location: IndexPath, provideCell: Bool) -> Any? {
         var cell : UICollectionViewCell?
         if provideCell { cell = collectionView?.cellForItem(at: location) }
-        guard let model = storage.item(at: location) else { return nil }
+        guard let model = storage?.item(at: location) else { return nil }
         return collectionViewReactions.perform4ArgumentsReaction(of: .cell,
                                                                  signature: signature.rawValue,
                                                                  argument: argument,
@@ -173,7 +173,7 @@ open class DTCollectionViewDelegateWrapper : NSObject {
                                             provideCell: Bool) -> Any? {
         var cell : UICollectionViewCell?
         if provideCell { cell = collectionView?.cellForItem(at: location) }
-        guard let model = storage.item(at: location) else { return nil }
+        guard let model = storage?.item(at: location) else { return nil }
         return collectionViewReactions.perform5ArgumentsReaction(of: .cell,
                                                                  signature: signature.rawValue,
                                                                  firstArgument: argumentOne,
@@ -186,12 +186,12 @@ open class DTCollectionViewDelegateWrapper : NSObject {
     final func performNillableCellReaction(_ reaction: EventReaction, location: IndexPath, provideCell: Bool) -> Any? {
         var cell : UICollectionViewCell?
         if provideCell { cell = collectionView?.cellForItem(at: location) }
-        guard let model = storage.item(at: location) else { return nil }
+        guard let model = storage?.item(at: location) else { return nil }
         return reaction.performWithArguments((cell as Any,model,location))
     }
     
     final func cellReaction(_ signature: EventMethodSignature, location: IndexPath) -> EventReaction? {
-        guard let model = storage.item(at: location) else { return nil }
+        guard let model = storage?.item(at: location) else { return nil }
         return collectionViewReactions.reaction(of: .cell, signature: signature.rawValue, forModel: model, view: nil)
     }
     

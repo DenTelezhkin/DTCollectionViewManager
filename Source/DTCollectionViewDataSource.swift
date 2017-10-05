@@ -42,22 +42,22 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
     }
     
     open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return storage.sections[section].numberOfItems
+        return storage?.sections[section].numberOfItems ?? 0
     }
     
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return storage.sections.count
+        return storage?.sections.count ?? 0
     }
     
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let item = storage.item(at: indexPath), let model = RuntimeHelper.recursivelyUnwrapAnyValue(item) else {
+        guard let item = storage?.item(at: indexPath), let model = RuntimeHelper.recursivelyUnwrapAnyValue(item) else {
             handleCollectionViewFactoryError(DTCollectionViewFactoryError.nilCellModel(indexPath))
             return UICollectionViewCell()
         }
         
         let cell : UICollectionViewCell
         do {
-            cell = try viewFactory.cellForModel(model, atIndexPath: indexPath)
+            cell = try viewFactory?.cellForModel(model, atIndexPath: indexPath) ?? UICollectionViewCell()
         } catch let error as DTCollectionViewFactoryError {
             handleCollectionViewFactoryError(error)
             cell = UICollectionViewCell()
@@ -77,7 +77,7 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
         if let model = (self.storage as? SupplementaryStorage)?.supplementaryModel(ofKind: kind, forSectionAt: indexPath) {
             let view : UICollectionReusableView
             do {
-                view = try viewFactory.supplementaryViewOfKind(kind, forModel: model, atIndexPath: indexPath)
+                view = try viewFactory?.supplementaryViewOfKind(kind, forModel: model, atIndexPath: indexPath) ?? UICollectionReusableView()
             } catch let error as DTCollectionViewFactoryError {
                 handleCollectionViewFactoryError(error)
                 view = UICollectionReusableView()
