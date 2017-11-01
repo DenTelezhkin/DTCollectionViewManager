@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [6.0.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.0.0)
+
+* Updated for Xcode 9.1 / Swift 4.0.2
+
 ## [6.0.0-beta.3](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.0.0-beta.3)
 
 * Makes `DTCollectionViewManager` property weak instead of unowned to prevent iOS 10-specific memory issues/crashes.
