@@ -29,7 +29,7 @@ import UIKit
 
 extension DTCollectionViewManager {
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didSelectItemAt:)` method is called for `cellClass`.
-    open func didSelect<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping (T,T.ModelType, IndexPath) -> Void) where T:UICollectionViewCell
+    open func didSelect<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T:UICollectionViewCell
     {
         collectionDelegate?.appendReaction(for: T.self, signature: .didSelectItemAtIndexPath, closure: closure)
     }
@@ -47,7 +47,7 @@ extension DTCollectionViewManager {
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didDeselectItemAt:)` method is called for `cellClass`.
-    open func didDeselect<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping (T,T.ModelType, IndexPath) -> Void) where T:UICollectionViewCell
+    open func didDeselect<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T:UICollectionViewCell
     {
         collectionDelegate?.appendReaction(for: T.self, signature: .didDeselectItemAtIndexPath, closure: closure)
     }
@@ -77,19 +77,19 @@ extension DTCollectionViewManager {
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `kind`.
-    open func willDisplaySupplementaryView<T:ModelTransfer>(_ supplementaryClass:T.Type, forElementKind kind: String,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    open func willDisplaySupplementaryView<T:ModelTransfer>(_ supplementaryClass:T.Type, forElementKind kind: String, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
         collectionDelegate?.appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: EventMethodSignature.willDisplaySupplementaryViewForElementKindAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `UICollectionElementKindSectionHeader`.
-    open func willDisplayHeaderView<T:ModelTransfer>(_ headerClass:T.Type,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    open func willDisplayHeaderView<T:ModelTransfer>(_ headerClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
         willDisplaySupplementaryView(T.self, forElementKind: UICollectionElementKindSectionHeader, closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `UICollectionElementKindSectionFooter`.
-    open func willDisplayFooterView<T:ModelTransfer>(_ footerClass:T.Type,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    open func willDisplayFooterView<T:ModelTransfer>(_ footerClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
         willDisplaySupplementaryView(T.self, forElementKind: UICollectionElementKindSectionFooter, closure)
     }
@@ -101,19 +101,19 @@ extension DTCollectionViewManager {
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `kind`.
-    open func didEndDisplayingSupplementaryView<T:ModelTransfer>(_ supplementaryClass:T.Type, forElementKind kind: String,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    open func didEndDisplayingSupplementaryView<T:ModelTransfer>(_ supplementaryClass:T.Type, forElementKind kind: String, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
         collectionDelegate?.appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `headerClass` of `UICollectionElementKindSectionHeader`.
-    open func didEndDisplayingHeaderView<T:ModelTransfer>(_ headerClass:T.Type,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    open func didEndDisplayingHeaderView<T:ModelTransfer>(_ headerClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
         didEndDisplayingSupplementaryView(T.self, forElementKind: UICollectionElementKindSectionHeader, closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `footerClass` of `UICollectionElementKindSectionFooter`.
-    open func didEndDisplayingFooterView<T:ModelTransfer>(_ footerClass:T.Type,_ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    open func didEndDisplayingFooterView<T:ModelTransfer>(_ footerClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
         didEndDisplayingSupplementaryView(T.self, forElementKind: UICollectionElementKindSectionFooter, closure)
     }
@@ -217,17 +217,17 @@ extension DTCollectionViewManager {
     }
     
     /// Registers `closure` to be executed when `UICollectionViewDelegateFlowLayout.collectionView(_:layout:insetForSectionAt:)` method is called.
-    open func insetForSectionAtIndex(_ closure: @escaping (UICollectionViewLayout,Int) -> UIEdgeInsets) {
+    open func insetForSectionAtIndex(_ closure: @escaping (UICollectionViewLayout, Int) -> UIEdgeInsets) {
         collectionDelegate?.appendNonCellReaction(.insetForSectionAtIndex, closure: closure)
     }
     
     /// Registers `closure` to be executed when `UICollectionViewDelegateFlowLayout.collectionView(_:layout:minimumLineSpacingForSectionAt:)` method is called.
-    open func minimumLineSpacingForSectionAtIndex(_ closure: @escaping (UICollectionViewLayout,Int) -> CGFloat) {
+    open func minimumLineSpacingForSectionAtIndex(_ closure: @escaping (UICollectionViewLayout, Int) -> CGFloat) {
         collectionDelegate?.appendNonCellReaction(.minimumLineSpacingForSectionAtIndex, closure: closure)
     }
     
     /// Registers `closure` to be executed when `UICollectionViewDelegateFlowLayout.collectionView(_:layout:insetForSectionAt:)` method is called.
-    open func minimumInteritemSpacingForSectionAtIndex(_ closure: @escaping (UICollectionViewLayout,Int) -> CGFloat) {
+    open func minimumInteritemSpacingForSectionAtIndex(_ closure: @escaping (UICollectionViewLayout, Int) -> CGFloat) {
         collectionDelegate?.appendNonCellReaction(.minimumInteritemSpacingForSectionAtIndex, closure: closure)
     }
 }

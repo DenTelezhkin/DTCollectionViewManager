@@ -27,9 +27,9 @@ import Foundation
 import UIKit
 import DTModelStorage
 
-/// Errors, that can be thrown by `CollectionViewFactory` if it fails to create a cell or supplementary view because of various reasons. 
-/// These errors are handled by `DTCollectionViewManager` class.
 @available(*, deprecated, message: "Error handling system is deprecated and may be removed in future versions of the framework")
+/// Errors, that can be thrown by `CollectionViewFactory` if it fails to create a cell or supplementary view because of various reasons.
+/// These errors are handled by `DTCollectionViewManager` class.
 public enum DTCollectionViewFactoryError : Error, CustomStringConvertible
 {
     /// `UICollectionView` requested a cell, however model at indexPath is nil.
@@ -44,6 +44,7 @@ public enum DTCollectionViewFactoryError : Error, CustomStringConvertible
     /// `UICollectionView` requested a supplementary for `model` of `kind`, however `DTCollectionViewManager` does not have mapping for it
     case noSupplementaryViewMapping(kind: String, model: Any)
     
+    /// Prints description of error.
     public var description : String {
         switch self {
         case .nilCellModel(let indexPath):
@@ -82,8 +83,7 @@ extension CollectionViewFactory
         if UINib.nibExists(withNibName: String(describing: T.self), inBundle: Bundle(for: T.self)) {
             mapping = ViewModelMapping(viewType: .cell, viewClass: T.self, xibName: String(describing: T.self), mappingBlock: mappingBlock)
             collectionView.register(UINib(nibName: String(describing: T.self), bundle: Bundle(for: T.self)), forCellWithReuseIdentifier: mapping.reuseIdentifier)
-        }
-        else {
+        } else {
             mapping = ViewModelMapping(viewType: .cell, viewClass: T.self, mappingBlock: mappingBlock)
         }
         mappings.append(mapping)

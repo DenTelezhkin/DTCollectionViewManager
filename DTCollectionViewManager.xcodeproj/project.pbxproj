@@ -523,6 +523,7 @@
 			isa = PBXNativeTarget;
 			buildConfigurationList = 9AE671601AEE61F800B25A5F /* Build configuration list for PBXNativeTarget "DTCollectionViewManager" */;
 			buildPhases = (
+				9A5DE7921FD3576B000FE218 /* SwiftLint */,
 				9AE671441AEE61F800B25A5F /* Sources */,
 				9AE671451AEE61F800B25A5F /* Frameworks */,
 				9A73E0981F6585FD00BF80F8 /* Copy Carthage Frameworks */,
@@ -632,6 +633,20 @@
 /* End PBXResourcesBuildPhase section */
 
 /* Begin PBXShellScriptBuildPhase section */
+		9A5DE7921FD3576B000FE218 /* SwiftLint */ = {
+			isa = PBXShellScriptBuildPhase;
+			buildActionMask = 2147483647;
+			files = (
+			);
+			inputPaths = (
+			);
+			name = SwiftLint;
+			outputPaths = (
+			);
+			runOnlyForDeploymentPostprocessing = 0;
+			shellPath = /bin/sh;
+			shellScript = "if [ \\\"${CONFIGURATION}\\\" = \\\"Debug\\\" ]; then\n  if which swiftlint > /dev/null; then\n    swiftlint autocorrect --config \"${SRCROOT}/.swiftlint.yml\"\n    swiftlint lint --config \"${SRCROOT}/.swiftlint.yml\"\n  else\n    echo \\\"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\\\"\n  fi\nfi";
+		};
 		9A73E0981F6585FD00BF80F8 /* Copy Carthage Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
 			buildActionMask = 2147483647;

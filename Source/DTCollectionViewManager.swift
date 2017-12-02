@@ -45,7 +45,8 @@ private var DTCollectionViewManagerAssociatedKey = "DTCollectionView Manager Ass
 /// Default implementation for `DTCollectionViewManageable` protocol, that will inject `manager` property to any object, that declares itself `DTCollectionViewManageable`.
 extension DTCollectionViewManageable
 {
-    /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call `startManaging(withDelegate:)` method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
+    /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call `startManaging(withDelegate:)` method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate.
+    /// Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
     /// - SeeAlso: `startManaging(withDelegate:)`
     public var manager : DTCollectionViewManager {
         get {
@@ -65,7 +66,8 @@ extension DTCollectionViewManageable
 /// Default implementation for `DTCollectionViewManageable` protocol, that will inject `manager` property to any object, that declares itself `DTCollectionViewManageable`.
 extension DTCollectionViewNonOptionalManageable
 {
-    /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call `startManaging(withDelegate:)` method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
+    /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call `startManaging(withDelegate:)` method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate.
+    /// Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
     /// - SeeAlso: `startManaging(withDelegate:)`
     public var manager : DTCollectionViewManager {
         get {
@@ -92,6 +94,7 @@ open class DTCollectionViewManager {
         return nil
     }
     
+    /// Creates `DTCollectionViewManager`. Usually you don't need to call this method directly, as `manager` property on `DTCOllectionViewManageable` instance is filled automatically.
     public init() {}
     
     fileprivate weak var delegate : AnyObject?
@@ -104,19 +107,21 @@ open class DTCollectionViewManager {
     ///  Factory for creating cells and reusable views for UICollectionView
     final lazy var viewFactory: CollectionViewFactory = {
         precondition(self.isManagingCollectionView, "Please call manager.startManagingWithDelegate(self) before calling any other DTCollectionViewManager methods")
+        //swiftlint:disable:next force_unwrapping
         return CollectionViewFactory(collectionView: self.collectionView!)
     }()
     
+    @available(*, deprecated, message: "Error handling system is deprecated and may be removed in future versions of the framework")
     /// Error handler ot be executed when critical error happens with `CollectionViewFactory`.
     /// This can be useful to provide more debug information for crash logs, since preconditionFailure Swift method provides little to zero insight about what happened and when.
     /// This closure will be called prior to calling preconditionFailure in `handleCollectionViewFactoryError` method.
-    @available(*, deprecated, message: "Error handling system is deprecated and may be removed in future versions of the framework")
     @nonobjc open var viewFactoryErrorHandler : ((DTCollectionViewFactoryError) -> Void)?
     
     /// Implicitly unwrap storage property to `MemoryStorage`.
     /// - Warning: if storage is not MemoryStorage, will throw an exception.
     open var memoryStorage : MemoryStorage! {
         precondition(storage is MemoryStorage, "DTCollectionViewManager memoryStorage method should be called only if you are using MemoryStorage")
+        //swiftlint:disable:next force_cast
         return storage as! MemoryStorage
     }
     
@@ -149,14 +154,14 @@ open class DTCollectionViewManager {
         }
     }
     
-    // Object, that is responsible for implementing `UICollectionViewDataSource` protocol
+    /// Object, that is responsible for implementing `UICollectionViewDataSource` protocol
     open var collectionDataSource: DTCollectionViewDataSource? {
         didSet {
             collectionView?.dataSource = collectionDataSource
         }
     }
     
-    // Object, that is responsible for implementing `UICollectionViewDelegate` and `UICollectionViewDelegateFlowLayout` protocols
+    /// Object, that is responsible for implementing `UICollectionViewDelegate` and `UICollectionViewDelegateFlowLayout` protocols
     open var collectionDelegate : DTCollectionViewDelegate? {
         didSet {
             collectionView?.delegate = collectionDelegate
@@ -167,7 +172,7 @@ open class DTCollectionViewManager {
     // Yeah, @availability macros does not work on stored properties ¯\_(ツ)_/¯
     private var _collectionDragDelegatePrivate : AnyObject?
     @available(iOS 11, *)
-    // Object, that is responsible for implementing `UICollectionViewDragDelegate` protocol
+    /// Object, that is responsible for implementing `UICollectionViewDragDelegate` protocol
     open var collectionDragDelegate : DTCollectionViewDragDelegate? {
         get {
             return _collectionDragDelegatePrivate as? DTCollectionViewDragDelegate
@@ -181,7 +186,7 @@ open class DTCollectionViewManager {
     // Yeah, @availability macros does not work on stored properties ¯\_(ツ)_/¯
     private var _collectionDropDelegatePrivate : AnyObject?
     @available(iOS 11, *)
-    // Object, that is responsible for implementing `UICOllectionViewDropDelegate` protocol
+    /// Object, that is responsible for implementing `UICOllectionViewDropDelegate` protocol
     open var collectionDropDelegate : DTCollectionViewDropDelegate? {
         get {
             return _collectionDropDelegatePrivate as? DTCollectionViewDropDelegate
@@ -244,7 +249,7 @@ open class DTCollectionViewManager {
     /// Returns closure, that updates cell at provided indexPath.
     ///
     /// This is used by `coreDataUpdater` method and can be used to silently update a cell without animation.
-    open func updateCellClosure() -> (IndexPath,Any) -> Void {
+    open func updateCellClosure() -> (IndexPath, Any) -> Void {
         return { [weak self] indexPath, model in
             self?.viewFactory.updateCellAt(indexPath, with: model)
         }
@@ -258,7 +263,7 @@ open class DTCollectionViewManager {
             guard let model = storage.item(at: indexPath),
                 let visibleCell = collectionView?.cellForItem(at: indexPath)
                 else { return }
-            updateCellClosure()(indexPath,model)
+            updateCellClosure()(indexPath, model)
             closure?(visibleCell)
         }
     }
@@ -277,7 +282,8 @@ open class DTCollectionViewManager {
     
     /// Immediately runs closure to provide access to both T and T.ModelType for `klass`.
     ///
-    /// - Discussion: This is particularly useful for registering events, because near 1/3 of events don't have cell or view before they are getting run, which prevents view type from being known, and required developer to remember, which model is mapped to which cell. By using this container closure you will be able to provide compile-time safety for all events.
+    /// - Discussion: This is particularly useful for registering events, because near 1/3 of events don't have cell or view before they are getting run, which prevents view type from being known, and required developer to remember, which model is mapped to which cell.
+    /// By using this container closure you will be able to provide compile-time safety for all events.
     /// - Parameters:
     ///   - klass: Class of reusable view to be used in configuration container
     ///   - closure: closure to run with view types.

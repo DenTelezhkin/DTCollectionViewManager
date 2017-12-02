@@ -33,7 +33,7 @@ extension DTCollectionViewManager {
     
     @available(iOS 11, *)
     /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:itemsForBeginning:at:)` method is called for `cellClass`.
-    open func itemsForBeginningDragSession<T:ModelTransfer>(from cellClass: T.Type, _ closure: @escaping (UIDragSession, T,T.ModelType, IndexPath) -> [UIDragItem]) where T:UICollectionViewCell
+    open func itemsForBeginningDragSession<T:ModelTransfer>(from cellClass: T.Type, _ closure: @escaping (UIDragSession, T, T.ModelType, IndexPath) -> [UIDragItem]) where T:UICollectionViewCell
     {
         collectionDragDelegate?.append4ArgumentReaction(for: T.self,
                                                    signature: .itemsForBeginningDragSessionAtIndexPath,

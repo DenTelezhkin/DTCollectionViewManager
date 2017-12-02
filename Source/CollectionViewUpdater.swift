@@ -17,15 +17,15 @@ open class CollectionViewUpdater : StorageUpdating {
     weak var collectionView: UICollectionView?
     
     /// closure to be executed before content is updated
-    open var willUpdateContent: ((StorageUpdate?) -> Void)? = nil
+    open var willUpdateContent: ((StorageUpdate?) -> Void)?
     
     /// closure to be executed after content is updated
-    open var didUpdateContent: ((StorageUpdate?) -> Void)? = nil
+    open var didUpdateContent: ((StorageUpdate?) -> Void)?
     
     /// Closure to be executed, when reloading an item.
     ///
     /// - SeeAlso: `DTCollectionViewManager.updateCellClosure()` method and `DTCollectionViewManager.coreDataUpdater()` method.
-    open var reloadItemClosure : ((IndexPath,Any) -> Void)?
+    open var reloadItemClosure : ((IndexPath, Any) -> Void)?
     
     /// When this property is true, move events will be animated as delete event and insert event.
     open var animateMoveAsDeleteAndInsert: Bool
@@ -36,13 +36,14 @@ open class CollectionViewUpdater : StorageUpdating {
     
     /// Creates updater.
     public init(collectionView: UICollectionView,
-                reloadItem: ((IndexPath,Any) -> Void)? = nil,
+                reloadItem: ((IndexPath, Any) -> Void)? = nil,
                 animateMoveAsDeleteAndInsert: Bool = false) {
         self.collectionView = collectionView
         self.reloadItemClosure = reloadItem
         self.animateMoveAsDeleteAndInsert = animateMoveAsDeleteAndInsert
     }
     
+    /// Updates `UICollectionView` with received `update`. This method applies object and section changes in `performBatchUpdates` method.
     open func storageDidPerformUpdate(_ update : StorageUpdate)
     {
         willUpdateContent?(update)
@@ -61,7 +62,7 @@ open class CollectionViewUpdater : StorageUpdating {
     }
     
     private func applyObjectChanges(from update: StorageUpdate) {
-        for (change,indexPaths) in update.objectChanges {
+        for (change, indexPaths) in update.objectChanges {
             switch change {
             case .insert:
                 if let indexPath = indexPaths.first {
@@ -74,7 +75,7 @@ open class CollectionViewUpdater : StorageUpdating {
             case .update:
                 if let indexPath = indexPaths.first {
                     if let closure = reloadItemClosure, let model = update.updatedObjects[indexPath] {
-                        closure(indexPath,model)
+                        closure(indexPath, model)
                     } else {
                         collectionView?.reloadItems(at: [indexPath])
                     }
@@ -92,7 +93,7 @@ open class CollectionViewUpdater : StorageUpdating {
     }
     
     private func applySectionChanges(from update: StorageUpdate) {
-        for (change,indices) in update.sectionChanges {
+        for (change, indices) in update.sectionChanges {
             switch change {
             case .delete:
                 if let index = indices.first {

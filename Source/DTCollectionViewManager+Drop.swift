@@ -74,7 +74,8 @@ extension DTCollectionViewManager {
     }
     
     @available(iOS 11, *)
-    /// Convenience method for dropping `item` into `placeholder`. Returns `DTCollectionViewDropPlaceholderContext`, which is a replacement for `UICollectionViewDropPlaceholderContext`, that automatically handles drop if you are using `MemoryStorage`. It also automatically dispatches insertion to `DispatchQueue.main`.
+    /// Convenience method for dropping `item` into `placeholder`.
+    /// Returns `DTCollectionViewDropPlaceholderContext`, which is a replacement for `UICollectionViewDropPlaceholderContext`, that automatically handles drop if you are using `MemoryStorage`. It also automatically dispatches insertion to `DispatchQueue.main`.
     open func drop(_ item: UIDragItem, to placeholder: UICollectionViewDropPlaceholder,
                    with coordinator: UICollectionViewDropCoordinator) -> DTCollectionViewDropPlaceholderContext {
         let context = coordinator.drop(item, to: placeholder)
