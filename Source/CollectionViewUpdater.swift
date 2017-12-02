@@ -47,6 +47,9 @@ open class CollectionViewUpdater : StorageUpdating {
     {
         willUpdateContent?(update)
         collectionView?.performBatchUpdates({ [weak self] in
+            if update.containsDeferredDatasourceUpdates {
+                update.applyDeferredDatasourceUpdates()
+            }
             self?.applyObjectChanges(from: update)
             self?.applySectionChanges(from: update)
             }, completion: { [weak self] _ in

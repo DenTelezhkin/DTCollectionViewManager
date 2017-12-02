@@ -3,6 +3,13 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Implemented new system for deferring datasource updates until `performBatchUpdates` block. This system is intended to fight crash, that might happen when `performBatchUpdates` method is called after `UICollectionView.reloadData` method(for example after calling `memoryStorage.setItems`, and then immediately `memoryStorage.addItems`). This issue is detailed in https://github.com/DenHeadless/DTCollectionViewManager/issues/27 and https://github.com/DenHeadless/DTCollectionViewManager/issues/23.
+This feature is experimental and is turned off by default. However, it might be enabled by default in the future, if there will be no problems found. To turn new system on, set a flag on `MemoryStorage` instance:
+
+```swift
+manager.memoryStorage.defersDatasourceUpdates = true
+```
+
 ## [6.0.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.0.0)
 
 * Updated for Xcode 9.1 / Swift 4.0.2
