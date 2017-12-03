@@ -10,6 +10,8 @@ This feature is experimental and is turned off by default. However, it might be 
 manager.memoryStorage.defersDatasourceUpdates = true
 ```
 
+* `collectionViewUpdater` property on `DTCollectionViewManager` is now of `CollectionViewUpdater` type instead of opaque `StorageUpdating` type. This should ease use of this object and prevent type unneccessary type casts.
+
 ## [6.0.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.0.0)
 
 * Updated for Xcode 9.1 / Swift 4.0.2

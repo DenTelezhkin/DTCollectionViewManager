@@ -94,7 +94,7 @@ open class DTCollectionViewManager {
         return nil
     }
     
-    /// Creates `DTCollectionViewManager`. Usually you don't need to call this method directly, as `manager` property on `DTCOllectionViewManageable` instance is filled automatically.
+    /// Creates `DTCollectionViewManager`. Usually you don't need to call this method directly, as `manager` property on `DTCollectionViewManageable` instance is filled automatically.
     public init() {}
     
     fileprivate weak var delegate : AnyObject?
@@ -147,10 +147,10 @@ open class DTCollectionViewManager {
     }
     
     /// Object, that is responsible for updating `UICollectionView`, when received update from `Storage`
-    open var collectionViewUpdater : StorageUpdating? {
+    open var collectionViewUpdater : CollectionViewUpdater? {
         didSet {
             storage.delegate = collectionViewUpdater
-            (collectionViewUpdater as? CollectionViewUpdater)?.didUpdateContent?(nil)
+            collectionViewUpdater?.didUpdateContent?(nil)
         }
     }
     
