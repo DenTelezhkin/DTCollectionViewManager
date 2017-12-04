@@ -29,16 +29,8 @@ import DTModelStorage
 /// Object, that implements `UICollectionViewDataSource` methods for `DTCollectionViewManager`.
 open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollectionViewDataSource {
     override func delegateWasReset() {
-        // _ = collectionView?.numberOfSections is a
-        // workaround, that prevents UICollectionView from being confused about it's own number of sections
-        // This happens mostly on UICollectionView creation, before any delegate methods have been called and is not reproducible after it was fully initialized.
-        // This is rare, and is not documented anywhere, but since workaround is small and harmless, we are including it
-        // as a part of DTCollectionViewManager framework.
-        
         collectionView?.dataSource = nil
-        _ = collectionView?.numberOfSections
         collectionView?.dataSource = self
-        _ = collectionView?.numberOfSections
     }
     
     /// Implementation of `UICollectionViewDataSource` protocol.

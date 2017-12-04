@@ -3,12 +3,13 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
-* Implemented new system for deferring datasource updates until `performBatchUpdates` block. This system is intended to fight crash, that might happen when `performBatchUpdates` method is called after `UICollectionView.reloadData` method(for example after calling `memoryStorage.setItems`, and then immediately `memoryStorage.addItems`). This issue is detailed in https://github.com/DenHeadless/DTCollectionViewManager/issues/27 and https://github.com/DenHeadless/DTCollectionViewManager/issues/23.
-This feature is experimental and is turned off by default. However, it might be enabled by default in the future, if there will be no problems found. To turn new system on, set a flag on `MemoryStorage` instance:
+* Implemented new system for deferring datasource updates until `performBatchUpdates` block. This system is intended to fight crash, that might happen when `performBatchUpdates` method is called after `UITableView.reloadData` method(for example after calling `memoryStorage.setItems`, and then immediately `memoryStorage.addItems`). This issue is detailed in https://github.com/DenHeadless/DTCollectionViewManager/issues/27 and https://github.com/DenHeadless/DTCollectionViewManager/issues/23. This crash can also happen, if iOS 11 API `UITableView.performBatchUpdates` is used. This system is turned on by default. If, for some reason, you want to disable it and have old behavior, call:
 
 ```swift
-manager.memoryStorage.defersDatasourceUpdates = true
+manager.memoryStorage.defersDatasourceUpdates = false
 ```
+
+Please note, though, that new default behavior is recommended, because it is more stable and works the same on both UITableView and UICollectionView.
 
 * `collectionViewUpdater` property on `DTCollectionViewManager` is now of `CollectionViewUpdater` type instead of opaque `StorageUpdating` type. This should ease use of this object and prevent type unneccessary type casts.
 
