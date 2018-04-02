@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [6.1.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.1.1)
+
 ## [6.1.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.1.0)
 
 ## [6.1.0-beta.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.1.0-beta.1)
