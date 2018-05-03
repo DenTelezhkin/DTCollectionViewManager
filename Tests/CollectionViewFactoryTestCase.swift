@@ -40,39 +40,6 @@ class CollectionViewFactoryTestCase: XCTestCase {
         controller.manager.storage = MemoryStorage()
     }
     
-    func testNoMappingsFound() {
-        do {
-            try _ = controller.manager.viewFactory.cellForModel(1, atIndexPath: indexPath(0, 0))
-        } catch DTCollectionViewFactoryError.noCellMappings(let model) {
-            expect(model as? Int) == 1
-        } catch {
-            XCTFail()
-        }
-    }
-    
-    func testNilHeaderFooterModel() {
-        let model: Int? = nil
-        do {
-            try _ = controller.manager.viewFactory.supplementaryViewOfKind("Foo", forModel: model as Any, atIndexPath: indexPath(0, 0))
-        } catch DTCollectionViewFactoryError.nilSupplementaryModel(let kind, let indexPath) {
-            expect(kind) == "Foo"
-            expect(indexPath) == IndexPath(item: 0, section: 0)
-        } catch {
-            XCTFail()
-        }
-    }
-    
-    func testNoSupplementaryViewMapping() {
-        do {
-            try _ = controller.manager.viewFactory.supplementaryViewOfKind("Foo", forModel: "Bar", atIndexPath: indexPath(0, 0))
-        } catch DTCollectionViewFactoryError.noSupplementaryViewMapping(let kind, let model) {
-            expect(kind) == "Foo"
-            expect(model as? String) == "Bar"
-        } catch {
-            XCTFail()
-        }
-    }
-    
     func testUpdateCellAtIndexPath() {
         controller.manager.registerNibless(UpdatableCell.self)
         let model = UpdatableModel()

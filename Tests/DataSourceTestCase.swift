@@ -196,5 +196,51 @@ class DataSourceTestCase: XCTestCase {
         waitForExpectations(timeout: 0.5, handler: nil)
     }
 
+#if swift(>=4.1)
+    func testNilModelInStorageLeadsToNilModelAnomaly() {
+        let exp = expectation(description: "Nil model in storage")
+        exp.assertForOverFulfill = false
+        let model: Int?? = nil
+        let anomaly = DTCollectionViewManagerAnomaly.nilCellModel(indexPath(0, 0))
+        controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        controller.manager.memoryStorage.addItem(model)
+        waitForExpectations(timeout: 0.1)
+        XCTAssertEqual(anomaly.debugDescription, "❗️[DTCollectionViewManager] UICollectionView requested a cell at [0, 0], however the model at that indexPath was nil.")
+    }
     
+    func testNilSupplementaryModelLeadsToAnomaly() {
+        let exp = expectation(description: "Nil header model in storage")
+        let model: Int?? = nil
+        let anomaly = DTCollectionViewManagerAnomaly.nilSupplementaryModel(kind: UICollectionElementKindSectionHeader, indexPath: indexPath(0, 0))
+        controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        controller.manager.registerHeader(NibHeaderFooterView.self)
+        controller.manager.memoryStorage.setSectionHeaderModel(model, forSection: 0)
+        let _ = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at: indexPath(0, 0))
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "❗️[DTCollectionViewManager] UICollectionView requested a supplementary view of kind: UICollectionElementKindSectionHeader at [0, 0], however the model was nil.")
+    }
+    
+    func testNoCellMappingsTriggerAnomaly() {
+        let exp = expectation(description: "No cell mappings found for model")
+        exp.assertForOverFulfill = false
+        let anomaly = DTCollectionViewManagerAnomaly.noCellMappingFound(modelDescription: "3", indexPath: indexPath(0, 0))
+        controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        controller.manager.memoryStorage.addItem("3")
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "❗️[DTCollectionViewManager] UICollectionView requested a cell for model at [0, 0], but view model mapping for it was not found, model description: 3")
+    }
+    
+    func testNoSupplementaryMappingTriggersToAnomaly() {
+        let exp = expectation(description: "No supplementary mapping found")
+        let anomaly = DTCollectionViewManagerAnomaly.noSupplementaryMappingFound(modelDescription: "0", kind: UICollectionElementKindSectionHeader, indexPath: indexPath(0, 0))
+        controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        controller.manager.memoryStorage.setSectionHeaderModel(0, forSection: 0)
+        let _ = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at: indexPath(0, 0))
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "❗️[DTCollectionViewManager] UICollectionView requested a supplementary view of kind: UICollectionElementKindSectionHeader for model ar [0, 0], but view model mapping for it was not found, model description: 0")
+    }
+#endif
 }

@@ -27,38 +27,6 @@ import Foundation
 import UIKit
 import DTModelStorage
 
-@available(*, deprecated, message: "Error handling system is deprecated and may be removed in future versions of the framework")
-/// Errors, that can be thrown by `CollectionViewFactory` if it fails to create a cell or supplementary view because of various reasons.
-/// These errors are handled by `DTCollectionViewManager` class.
-public enum DTCollectionViewFactoryError : Error, CustomStringConvertible
-{
-    /// `UICollectionView` requested a cell, however model at indexPath is nil.
-    case nilCellModel(IndexPath)
-    
-    /// `UICollectionView` requested a supplementary of `kind`, however supplementary at `indexPath` is nil.
-    case nilSupplementaryModel(kind: String, indexPath: IndexPath)
-    
-    /// `UICollectionView` requested a cell for `model`, however `DTCollectionViewManager` does not have mapping for it
-    case noCellMappings(model: Any)
-    
-    /// `UICollectionView` requested a supplementary for `model` of `kind`, however `DTCollectionViewManager` does not have mapping for it
-    case noSupplementaryViewMapping(kind: String, model: Any)
-    
-    /// Prints description of error.
-    public var description : String {
-        switch self {
-        case .nilCellModel(let indexPath):
-            return "Received nil model for cell at index path: \(indexPath)"
-        case .nilSupplementaryModel(let kind, let indexPath):
-            return "Received nil model for supplementary view of kind: \(kind) at index path: \(indexPath)"
-        case .noCellMappings(let model):
-            return "Cell mapping is missing for model: \(model)"
-        case .noSupplementaryViewMapping(let kind, let model):
-            return "Supplementary mapping of kind: \(kind) is missing for model: \(model)"
-        }
-    }
-}
-
 /// Internal class, that is used to create collection view cells and supplementary views.
 final class CollectionViewFactory
 {
@@ -67,6 +35,9 @@ final class CollectionViewFactory
     var mappings = [ViewModelMapping]()
     
     weak var mappingCustomizableDelegate : ViewModelMappingCustomizing?
+    #if swift(>=4.1)
+    weak var anomalyHandler : DTCollectionViewManagerAnomalyHandler?
+    #endif
     
     init(collectionView: UICollectionView)
     {
@@ -173,18 +144,18 @@ extension CollectionViewFactory
         }
     }
     
-    func cellForModel(_ model: Any, atIndexPath indexPath:IndexPath) throws -> UICollectionViewCell
+    func cellForModel(_ model: Any, atIndexPath indexPath:IndexPath) -> UICollectionViewCell?
     {
-        guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
-            throw DTCollectionViewFactoryError.nilCellModel(indexPath)
-        }
-        if let mapping = viewModelMapping(for: .cell, model: unwrappedModel, at: indexPath)
+        if let mapping = viewModelMapping(for: .cell, model: model, at: indexPath)
         {
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: mapping.reuseIdentifier, for: indexPath)
             mapping.updateBlock(cell, model)
             return cell
         }
-        throw DTCollectionViewFactoryError.noCellMappings(model: model)
+#if swift(>=4.1)
+        anomalyHandler?.reportAnomaly(.noCellMappingFound(modelDescription: String(describing: model), indexPath: indexPath))
+#endif
+        return nil
     }
     
     func updateCellAt(_ indexPath : IndexPath, with model: Any) {
@@ -195,16 +166,12 @@ extension CollectionViewFactory
         }
     }
 
-    func supplementaryViewOfKind(_ kind: String, forModel model: Any, atIndexPath indexPath: IndexPath) throws -> UICollectionReusableView
+    func supplementaryViewOfKind(_ kind: String, forModel model: Any, atIndexPath indexPath: IndexPath) -> UICollectionReusableView?
     {
-        guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
-            throw DTCollectionViewFactoryError.nilSupplementaryModel(kind: kind, indexPath: indexPath)
-        }
-        
-        let mappingCandidates = mappings.mappingCandidates(for: .supplementaryView(kind: kind), withModel: unwrappedModel, at: indexPath)
+        let mappingCandidates = mappings.mappingCandidates(for: .supplementaryView(kind: kind), withModel: model, at: indexPath)
         let mapping : ViewModelMapping?
         
-        if let customizedMapping = mappingCustomizableDelegate?.viewModelMapping(fromCandidates: mappingCandidates, forModel: unwrappedModel) {
+        if let customizedMapping = mappingCustomizableDelegate?.viewModelMapping(fromCandidates: mappingCandidates, forModel: model) {
             mapping = customizedMapping
         } else if let defaultMapping = mappingCandidates.first {
             mapping = defaultMapping
@@ -214,10 +181,12 @@ extension CollectionViewFactory
         {
             let viewClassName = String(describing: mapping.viewClass)
             let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: viewClassName, for: indexPath)
-            mapping.updateBlock(reusableView, unwrappedModel)
+            mapping.updateBlock(reusableView, model)
             return reusableView
         }
-        
-        throw DTCollectionViewFactoryError.noSupplementaryViewMapping(kind: kind, model: unwrappedModel)
+        #if swift(>=4.1)
+        anomalyHandler?.reportAnomaly(.noSupplementaryMappingFound(modelDescription: String(describing: model), kind: kind, indexPath: indexPath))
+        #endif
+        return nil
     }
 }

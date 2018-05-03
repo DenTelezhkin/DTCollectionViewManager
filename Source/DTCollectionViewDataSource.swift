@@ -26,11 +26,21 @@
 import UIKit
 import DTModelStorage
 
+//swiftlint:disable:next type_name
+private class DummyCollectionViewCellThatPreventsAppFromCrashing: UICollectionViewCell {}
+
 /// Object, that implements `UICollectionViewDataSource` methods for `DTCollectionViewManager`.
 open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollectionViewDataSource {
     override func delegateWasReset() {
         collectionView?.dataSource = nil
         collectionView?.dataSource = self
+    }
+    
+    private func dummyCell(for indexPath: IndexPath) -> UICollectionViewCell {
+        let identifier =  String(describing: type(of: DummyCollectionViewCellThatPreventsAppFromCrashing.self))
+        collectionView?.register(DummyCollectionViewCellThatPreventsAppFromCrashing.self,
+                                 forCellWithReuseIdentifier: identifier)
+        return collectionView?.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) ?? UICollectionViewCell()
     }
     
     /// Implementation of `UICollectionViewDataSource` protocol.
@@ -45,19 +55,14 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
     
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
-        guard let item = storage?.item(at: indexPath), let model = RuntimeHelper.recursivelyUnwrapAnyValue(item) else {
-            handleCollectionViewFactoryError(DTCollectionViewFactoryError.nilCellModel(indexPath))
-            return UICollectionViewCell()
+        guard let model = RuntimeHelper.recursivelyUnwrapAnyValue(storage?.item(at: indexPath) as Any) else {
+            #if swift(>=4.1)
+            manager?.anomalyHandler.reportAnomaly(.nilCellModel(indexPath))
+            #endif
+            return dummyCell(for: indexPath)
         }
-        
-        let cell : UICollectionViewCell
-        do {
-            cell = try viewFactory?.cellForModel(model, atIndexPath: indexPath) ?? UICollectionViewCell()
-        } catch let error as DTCollectionViewFactoryError {
-            handleCollectionViewFactoryError(error)
-            cell = UICollectionViewCell()
-        } catch {
-            cell = UICollectionViewCell()
+        guard let cell = viewFactory?.cellForModel(model, atIndexPath: indexPath) else {
+            return dummyCell(for: indexPath)
         }
         _ = collectionViewReactions.performReaction(of: .cell,
                                                     signature: EventMethodSignature.configureCell.rawValue,
@@ -70,25 +75,21 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
     {
-        if let model = (self.storage as? SupplementaryStorage)?.supplementaryModel(ofKind: kind, forSectionAt: indexPath) {
-            let view : UICollectionReusableView
-            do {
-                view = try viewFactory?.supplementaryViewOfKind(kind, forModel: model, atIndexPath: indexPath) ?? UICollectionReusableView()
-            } catch let error as DTCollectionViewFactoryError {
-                handleCollectionViewFactoryError(error)
-                view = UICollectionReusableView()
-            } catch {
-                view = UICollectionReusableView()
-            }
-            _ = collectionViewReactions.performReaction(of: .supplementaryView(kind: kind),
-                                                        signature: EventMethodSignature.configureSupplementary.rawValue,
-                                                        view: view,
-                                                        model: model,
-                                                        location: indexPath)
-            return view
+        guard let model = RuntimeHelper.recursivelyUnwrapAnyValue((storage as? SupplementaryStorage)?.supplementaryModel(ofKind: kind, forSectionAt: indexPath) as Any) else {
+            #if swift(>=4.1)
+            manager?.anomalyHandler.reportAnomaly(DTCollectionViewManagerAnomaly.nilSupplementaryModel(kind: kind, indexPath: indexPath))
+            #endif
+            return UICollectionReusableView()
         }
-        handleCollectionViewFactoryError(.nilSupplementaryModel(kind: kind, indexPath: indexPath))
-        return UICollectionReusableView()
+        guard let view = viewFactory?.supplementaryViewOfKind(kind, forModel: model, atIndexPath: indexPath) else {
+            return UICollectionReusableView()
+        }
+        _ = collectionViewReactions.performReaction(of: .supplementaryView(kind: kind),
+                                                    signature: EventMethodSignature.configureSupplementary.rawValue,
+                                                    view: view,
+                                                    model: model,
+                                                    location: indexPath)
+        return view
     }
     
     @available(iOS 9.0, tvOS 9.0, *)

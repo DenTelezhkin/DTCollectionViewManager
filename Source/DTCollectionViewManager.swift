@@ -108,14 +108,12 @@ open class DTCollectionViewManager {
     final lazy var viewFactory: CollectionViewFactory = {
         precondition(self.isManagingCollectionView, "Please call manager.startManagingWithDelegate(self) before calling any other DTCollectionViewManager methods")
         //swiftlint:disable:next force_unwrapping
-        return CollectionViewFactory(collectionView: self.collectionView!)
+        let factory = CollectionViewFactory(collectionView: self.collectionView!)
+        #if swift(>=4.1)
+        factory.anomalyHandler = anomalyHandler
+        #endif
+        return factory
     }()
-    
-    @available(*, deprecated, message: "Error handling system is deprecated and may be removed in future versions of the framework")
-    /// Error handler ot be executed when critical error happens with `CollectionViewFactory`.
-    /// This can be useful to provide more debug information for crash logs, since preconditionFailure Swift method provides little to zero insight about what happened and when.
-    /// This closure will be called prior to calling preconditionFailure in `handleCollectionViewFactoryError` method.
-    @nonobjc open var viewFactoryErrorHandler : ((DTCollectionViewFactoryError) -> Void)?
     
     /// Implicitly unwrap storage property to `MemoryStorage`.
     /// - Warning: if storage is not MemoryStorage, will throw an exception.
@@ -124,6 +122,10 @@ open class DTCollectionViewManager {
         //swiftlint:disable:next force_cast
         return storage as! MemoryStorage
     }
+    
+#if swift(>=4.1)
+    open var anomalyHandler : DTCollectionViewManagerAnomalyHandler = .init()
+#endif
     
     /// Storage, that holds your UICollectionView models. By default, it's `MemoryStorage` instance.
     /// - Note: When setting custom storage for this property, it will be automatically configured for using with UICollectionViewFlowLayout and it's delegate will be set to `DTCollectionViewManager` instance.

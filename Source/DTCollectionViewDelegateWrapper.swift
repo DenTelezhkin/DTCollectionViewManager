@@ -34,9 +34,7 @@ open class DTCollectionViewDelegateWrapper : NSObject {
     weak var collectionView: UICollectionView? { return manager?.collectionView }
     var viewFactory: CollectionViewFactory? { return manager?.viewFactory }
     var storage: Storage? { return manager?.storage }
-    @available(*, deprecated, message: "Error handling system is deprecated and may be removed in future versions of the framework")
-    var viewFactoryErrorHandler: ((DTCollectionViewFactoryError) -> Void)? { return manager?.viewFactoryErrorHandler }
-    private weak var manager: DTCollectionViewManager?
+    weak var manager: DTCollectionViewManager?
     
     /// Creates delegate wrapper with `delegate` and `collectionViewManager`
     public init(delegate: AnyObject?, collectionViewManager: DTCollectionViewManager) {
@@ -56,17 +54,6 @@ open class DTCollectionViewDelegateWrapper : NSObject {
         // Subclasses need to override this method, resetting `UICollectionView` delegate or datasource.
         // Resetting delegate and dataSource are needed, because UICollectionView caches results of `respondsToSelector` call, and never calls it again until `setDelegate` method is called.
         // We force UICollectionView to flush that cache and query us again, because with new event we might have new delegate or datasource method to respond to.
-    }
-    
-    @available(*, deprecated, message: "Error handling system is deprecated and may be removed in future versions of the framework")
-    /// Calls `viewFactoryErrorHandler` with `error`. If it's nil, prints error into console and asserts.
-    @nonobjc final func handleCollectionViewFactoryError(_ error: DTCollectionViewFactoryError) {
-        if let handler = viewFactoryErrorHandler {
-            handler(error)
-        } else {
-            print(error.description)
-            assertionFailure(error.description)
-        }
     }
     
     final internal func appendReaction<T, U>(for cellClass: T.Type, signature: EventMethodSignature, closure: @escaping (T, T.ModelType, IndexPath) -> U) where T: ModelTransfer, T:UICollectionViewCell

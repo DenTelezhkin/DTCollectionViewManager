@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Added
+
+* Anomaly-detecting and reporting system for `DTCollectionViewManager`.
+
+### Breaking
+
+* `viewFactoryErrorHandler` property on `DTCollectionViewManager` was removed, all supported errors and warnings are now a part of anomaly reporting system
+
 ## [6.1.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.1.1)
 
 ## [6.1.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.1.0)
