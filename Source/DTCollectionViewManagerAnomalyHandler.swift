@@ -39,6 +39,7 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomDebugStringConverti
     case differentSupplementaryClass(xibName: String, viewClass: String, expectedViewClass: String)
     case emptyXibFile(xibName: String, expectedViewClass: String)
     case modelEventCalledWithCellClass(modelType: String, methodName: String, subclassOf: String)
+    case unusedEventDetected(viewType: String, methodName: String)
     
     public var debugDescription: String {
         switch self {
@@ -79,6 +80,8 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomDebugStringConverti
                 }
             
             """
+        case .unusedEventDetected(viewType: let view, methodName: let methodName):
+            return "⚠️[DTCollectionViewManager] \(methodName) event registered for \(view), but there were no view mappings registered for \(view) type. This event will never be called."
         }
     }
 }

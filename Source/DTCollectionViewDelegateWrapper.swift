@@ -56,16 +56,21 @@ open class DTCollectionViewDelegateWrapper : NSObject {
         // We force UICollectionView to flush that cache and query us again, because with new event we might have new delegate or datasource method to respond to.
     }
     
-    final internal func appendReaction<T, U>(for cellClass: T.Type, signature: EventMethodSignature, closure: @escaping (T, T.ModelType, IndexPath) -> U) where T: ModelTransfer, T:UICollectionViewCell
+    final internal func appendReaction<T, U>(for cellClass: T.Type, signature: EventMethodSignature,
+                                             methodName: String = #function,
+                                             closure: @escaping (T, T.ModelType, IndexPath) -> U)
+        where T: ModelTransfer, T:UICollectionViewCell
     {
         let reaction = EventReaction(signature: signature.rawValue, viewType: .cell, viewClass: T.self)
         reaction.makeReaction(closure)
         collectionViewReactions.append(reaction)
+        manager?.verifyViewEvent(for: T.self, methodName: methodName)
     }
     
     final internal func append4ArgumentReaction<CellClass, Argument, Result>
         (for cellClass: CellClass.Type,
          signature: EventMethodSignature,
+         methodName: String = #function,
          closure: @escaping (Argument, CellClass, CellClass.ModelType, IndexPath) -> Result)
         where CellClass: ModelTransfer, CellClass: UICollectionViewCell
     {
@@ -74,11 +79,13 @@ open class DTCollectionViewDelegateWrapper : NSObject {
                                                   viewClass: CellClass.self)
         reaction.make4ArgumentsReaction(closure)
         collectionViewReactions.append(reaction)
+        manager?.verifyViewEvent(for: CellClass.self, methodName: methodName)
     }
     
     final internal func append5ArgumentReaction<CellClass, ArgumentOne, ArgumentTwo, Result>
         (for cellClass: CellClass.Type,
          signature: EventMethodSignature,
+         methodName: String = #function,
          closure: @escaping (ArgumentOne, ArgumentTwo, CellClass, CellClass.ModelType, IndexPath) -> Result)
         where CellClass: ModelTransfer, CellClass: UICollectionViewCell
     {
@@ -87,25 +94,40 @@ open class DTCollectionViewDelegateWrapper : NSObject {
                                                   viewClass: CellClass.self)
         reaction.make5ArgumentsReaction(closure)
         collectionViewReactions.append(reaction)
+        manager?.verifyViewEvent(for: CellClass.self, methodName: methodName)
     }
     
-    final internal func appendReaction<T, U>(for modelClass: T.Type, signature: EventMethodSignature, closure: @escaping (T, IndexPath) -> U)
+    final internal func appendReaction<T, U>(for modelClass: T.Type,
+                                             signature: EventMethodSignature,
+                                             methodName: String = #function,
+                                             closure: @escaping (T, IndexPath) -> U)
     {
         let reaction = EventReaction(signature: signature.rawValue, viewType: .cell, modelType: T.self)
         reaction.makeReaction(closure)
         collectionViewReactions.append(reaction)
+        manager?.verifyItemEvent(for: T.self, methodName: methodName)
     }
     
-    final func appendReaction<T, U>(forSupplementaryKind kind: String, supplementaryClass: T.Type, signature: EventMethodSignature, closure: @escaping (T, T.ModelType, IndexPath) -> U) where T: ModelTransfer, T: UICollectionReusableView {
+    final func appendReaction<T, U>(forSupplementaryKind kind: String,
+                                    supplementaryClass: T.Type,
+                                    signature: EventMethodSignature,
+                                    methodName: String = #function,
+                                    closure: @escaping (T, T.ModelType, IndexPath) -> U) where T: ModelTransfer, T: UICollectionReusableView {
         let reaction = EventReaction(signature: signature.rawValue, viewType: .supplementaryView(kind: kind), viewClass: T.self)
         reaction.makeReaction(closure)
         collectionViewReactions.append(reaction)
+        manager?.verifyViewEvent(for: T.self, methodName: methodName)
     }
     
-    final func appendReaction<T, U>(forSupplementaryKind kind: String, modelClass: T.Type, signature: EventMethodSignature, closure: @escaping (T, IndexPath) -> U) {
+    final func appendReaction<T, U>(forSupplementaryKind kind: String,
+                                    modelClass: T.Type,
+                                    signature: EventMethodSignature,
+                                    methodName: String = #function,
+                                    closure: @escaping (T, IndexPath) -> U) {
         let reaction = EventReaction(signature: signature.rawValue, viewType: .supplementaryView(kind: kind), modelType: T.self)
         reaction.makeReaction(closure)
         collectionViewReactions.append(reaction)
+        manager?.verifyItemEvent(for: T.self, methodName: methodName)
     }
     
     final func appendNonCellReaction(_ signature: EventMethodSignature, closure: @escaping () -> Any) {
