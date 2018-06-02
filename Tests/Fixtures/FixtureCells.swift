@@ -49,3 +49,5 @@ class SelectionReactingCollectionCell: ReactingCollectionCell
     var cell: SelectionReactingCollectionCell?
     var model : Int?
 }
+
+class WrongReuseIdentifierCell : BaseTestCell {}

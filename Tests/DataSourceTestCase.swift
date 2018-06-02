@@ -242,5 +242,19 @@ class DataSourceTestCase: XCTestCase {
         
         XCTAssertEqual(anomaly.debugDescription, "❗️[DTCollectionViewManager] UICollectionView requested a supplementary view of kind: UICollectionElementKindSectionHeader for model ar [0, 0], but view model mapping for it was not found, model description: 0")
     }
+    
+    func testWrongReuseIdentifierLeadsToAnomaly() {
+        let exp = expectation(description: "Wrong reuse identifier")
+        let anomaly = DTCollectionViewManagerAnomaly.differentCellReuseIdentifier(mappingReuseIdentifier: "WrongReuseIdentifierCell",
+                                                                             cellReuseIdentifier: "Foo")
+        controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        controller.manager.register(WrongReuseIdentifierCell.self)
+        
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "❗️[DTCollectionViewManager] Reuse identifier specified in InterfaceBuilder: Foo does not match reuseIdentifier used to register with UICollectionView: WrongReuseIdentifierCell. \n" +
+            "If you are using XIB, please remove reuseIdentifier from XIB file, or change it to name of UICollectionViewCell subclass. If you are using Storyboards, please change UICollectionViewCell identifier to name of the class. \n" +
+            "If you need different reuseIdentifier for any reason, you can change reuseIdentifier when registering mapping.")
+    }
 #endif
 }

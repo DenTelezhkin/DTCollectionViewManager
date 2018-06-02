@@ -54,6 +54,14 @@ extension CollectionViewFactory
         if UINib.nibExists(withNibName: String(describing: T.self), inBundle: Bundle(for: T.self)) {
             mapping = ViewModelMapping(viewType: .cell, viewClass: T.self, xibName: String(describing: T.self), mappingBlock: mappingBlock)
             collectionView.register(UINib(nibName: String(describing: T.self), bundle: Bundle(for: T.self)), forCellWithReuseIdentifier: mapping.reuseIdentifier)
+//            let cell = collectionView.dequeueReusableCell(withReuseIdentifier: mapping.reuseIdentifier,
+//                                                          for: IndexPath(item: 0, section: 0))
+//#if swift(>=4.1)
+//            if let cellReuseIdentifier = cell.reuseIdentifier, cellReuseIdentifier != mapping.reuseIdentifier {
+//                anomalyHandler?.reportAnomaly(.differentCellReuseIdentifier(mappingReuseIdentifier: mapping.reuseIdentifier, cellReuseIdentifier: cellReuseIdentifier))
+//            }
+//#endif
+            
         } else {
             mapping = ViewModelMapping(viewType: .cell, viewClass: T.self, mappingBlock: mappingBlock)
         }
@@ -74,6 +82,32 @@ extension CollectionViewFactory
         collectionView.register(UINib(nibName: nibName, bundle: Bundle(for: T.self)), forCellWithReuseIdentifier: mapping.reuseIdentifier)
         mappings.append(mapping)
     }
+    
+//    func verifyCell<T:UICollectionViewCell>(_ cell: T.Type, nibName: String?, withReuseIdentifier reuseIdentifier: String) {
+//        var cell = T(frame: .zero)
+//        if let nibName = nibName, UINib.nibExists(withNibName: nibName, inBundle: Bundle(for: T.self)) {
+//            let nib = UINib(nibName: nibName, bundle: Bundle(for: T.self))
+//            let objects = nib.instantiate(withOwner: cell, options: nil)
+//            if let instantiatedCell = objects.first as? T {
+//                cell = instantiatedCell
+//            } else {
+//                #if swift(>=4.1)
+//                if let first = objects.first {
+//                    anomalyHandler?.reportAnomaly(.differentCellClass(xibName: nibName,
+//                                                                      cellClass: String(describing: type(of: first)),
+//                                                                      expectedCellClass: String(describing: T.self)))
+//                } else {
+////                    anomalyHandler?.reportAnomaly(.emptyXibFile(xibName: nibName, expectedViewClass: String(describing: T.self)))
+//                }
+//                #endif
+//            }
+//        }
+//        #if swift(>=4.1)
+//        if let cellReuseIdentifier = cell.reuseIdentifier, cellReuseIdentifier != reuseIdentifier {
+//            anomalyHandler?.reportAnomaly(.differentCellReuseIdentifier(mappingReuseIdentifier: reuseIdentifier, cellReuseIdentifier: cellReuseIdentifier))
+//        }
+//        #endif
+//    }
     
     func registerNiblessSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String, mappingBlock: ((ViewModelMapping) -> Void)?) where T: UICollectionReusableView
     {

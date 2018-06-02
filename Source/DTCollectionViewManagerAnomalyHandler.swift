@@ -33,6 +33,7 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomDebugStringConverti
     case nilSupplementaryModel(kind: String, indexPath: IndexPath)
     case noCellMappingFound(modelDescription: String, indexPath: IndexPath)
     case noSupplementaryMappingFound(modelDescription: String, kind: String, indexPath: IndexPath)
+    case differentCellReuseIdentifier(mappingReuseIdentifier: String, cellReuseIdentifier: String)
     
     public var debugDescription: String {
         switch self {
@@ -41,6 +42,11 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomDebugStringConverti
         case .noCellMappingFound(modelDescription: let description, indexPath: let indexPath): return "❗️[DTCollectionViewManager] UICollectionView requested a cell for model at \(indexPath), but view model mapping for it was not found, model description: \(description)"
         case .noSupplementaryMappingFound(modelDescription: let description, kind: let kind, let indexPath):
             return "❗️[DTCollectionViewManager] UICollectionView requested a supplementary view of kind: \(kind) for model ar \(indexPath), but view model mapping for it was not found, model description: \(description)"
+        case .differentCellReuseIdentifier(mappingReuseIdentifier: let mappingReuseIdentifier,
+                                           cellReuseIdentifier: let cellReuseIdentifier):
+            return "❗️[DTCollectionViewManager] Reuse identifier specified in InterfaceBuilder: \(cellReuseIdentifier) does not match reuseIdentifier used to register with UICollectionView: \(mappingReuseIdentifier). \n" +
+                "If you are using XIB, please remove reuseIdentifier from XIB file, or change it to name of UICollectionViewCell subclass. If you are using Storyboards, please change UICollectionViewCell identifier to name of the class. \n" +
+            "If you need different reuseIdentifier for any reason, you can change reuseIdentifier when registering mapping."
         }
     }
 }

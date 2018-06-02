@@ -9,6 +9,8 @@
 /* Begin PBXBuildFile section */
 		3E646B4D1F599F6D00135998 /* DTCollectionViewDragDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E646B4C1F599F6D00135998 /* DTCollectionViewDragDelegate.swift */; };
 		3E646B571F599F8100135998 /* DTCollectionViewDropDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E646B561F599F8100135998 /* DTCollectionViewDropDelegate.swift */; };
+		3EBAA07920AC8F6F0033E5FA /* WrongReuseIdentifierCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EBAA07820AC8F6F0033E5FA /* WrongReuseIdentifierCell.xib */; };
+		3EBAA07D20AC8FC80033E5FA /* WrongReuseIdentifierCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3EBAA07C20AC8FC80033E5FA /* WrongReuseIdentifierCell.xib */; };
 		9A033833209B3EEC003CC364 /* DTCollectionViewManagerAnomalyHandler.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A033832209B3EEC003CC364 /* DTCollectionViewManagerAnomalyHandler.swift */; };
 		9A033835209B3F68003CC364 /* AnomaliesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A033834209B3F68003CC364 /* AnomaliesTestCase.swift */; };
 		9A033836209B3F68003CC364 /* AnomaliesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A033834209B3F68003CC364 /* AnomaliesTestCase.swift */; };
@@ -153,6 +155,8 @@
 /* Begin PBXFileReference section */
 		3E646B4C1F599F6D00135998 /* DTCollectionViewDragDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DTCollectionViewDragDelegate.swift; path = Source/DTCollectionViewDragDelegate.swift; sourceTree = "<group>"; };
 		3E646B561F599F8100135998 /* DTCollectionViewDropDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DTCollectionViewDropDelegate.swift; path = Source/DTCollectionViewDropDelegate.swift; sourceTree = "<group>"; };
+		3EBAA07820AC8F6F0033E5FA /* WrongReuseIdentifierCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = WrongReuseIdentifierCell.xib; sourceTree = "<group>"; };
+		3EBAA07C20AC8FC80033E5FA /* WrongReuseIdentifierCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = WrongReuseIdentifierCell.xib; path = Fixtures/tvOS/WrongReuseIdentifierCell.xib; sourceTree = "<group>"; };
 		9A033832209B3EEC003CC364 /* DTCollectionViewManagerAnomalyHandler.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = DTCollectionViewManagerAnomalyHandler.swift; path = Source/DTCollectionViewManagerAnomalyHandler.swift; sourceTree = "<group>"; };
 		9A033834209B3F68003CC364 /* AnomaliesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AnomaliesTestCase.swift; sourceTree = "<group>"; };
 		9A0889871F53211C00A1AA54 /* DTCollectionViewManager+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; name = "DTCollectionViewManager+Registration.swift"; path = "Source/DTCollectionViewManager+Registration.swift"; sourceTree = "<group>"; };
@@ -342,6 +346,7 @@
 				9A1B88171CE1E1F0005B6F07 /* SelectionReactingCollectionCell.xib */,
 				9A1B88181CE1E1F0005B6F07 /* XibCollectionViewController.xib */,
 				9A2B842A1F24DD3500F19C14 /* CustomNibCell.xib */,
+				3EBAA07820AC8F6F0033E5FA /* WrongReuseIdentifierCell.xib */,
 			);
 			name = iOS;
 			path = ../Tests/Fixtures/iOS;
@@ -415,6 +420,7 @@
 				9A1B87F31CE1E19D005B6F07 /* SelectionReactingCollectionCell.xib */,
 				9A1B87F41CE1E19D005B6F07 /* XibCollectionViewController.xib */,
 				9A2B842D1F24DD7700F19C14 /* CustomNibCell.xib */,
+				3EBAA07C20AC8FC80033E5FA /* WrongReuseIdentifierCell.xib */,
 			);
 			name = tvOS;
 			sourceTree = "<group>";
@@ -609,6 +615,7 @@
 			files = (
 				9A2B842B1F24DD3500F19C14 /* CustomNibCell.xib in Resources */,
 				9A1B88211CE1E1F0005B6F07 /* XibCollectionViewController.xib in Resources */,
+				3EBAA07920AC8F6F0033E5FA /* WrongReuseIdentifierCell.xib in Resources */,
 				9A1B881B1CE1E1F0005B6F07 /* NibHeaderFooterView.xib in Resources */,
 				9A1B881D1CE1E1F0005B6F07 /* RandomNameHeaderFooterView.xib in Resources */,
 				9A1B881A1CE1E1F0005B6F07 /* NibCell.xib in Resources */,
@@ -626,6 +633,7 @@
 			files = (
 				9A1B880F1CE1E1E1005B6F07 /* XibCollectionViewController.xib in Resources */,
 				9A1B88091CE1E1E1005B6F07 /* NibHeaderFooterView.xib in Resources */,
+				3EBAA07D20AC8FC80033E5FA /* WrongReuseIdentifierCell.xib in Resources */,
 				9AFD89101C42C80C00254257 /* FixtureStoryboard.storyboard in Resources */,
 				9A1B880B1CE1E1E1005B6F07 /* RandomNameHeaderFooterView.xib in Resources */,
 				9A1B88081CE1E1E1005B6F07 /* NibCell.xib in Resources */,
