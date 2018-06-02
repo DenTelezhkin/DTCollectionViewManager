@@ -7,6 +7,10 @@ All notable changes to this project will be documented in this file.
 
 * Anomaly-detecting and reporting system for `DTCollectionViewManager`.
 
+### Changed
+
+* Calling `startManaging(withDelegate:_)` method is no longer required.
+
 ### Breaking
 
 * `viewFactoryErrorHandler` property on `DTCollectionViewManager` was removed, all supported errors and warnings are now a part of anomaly reporting system

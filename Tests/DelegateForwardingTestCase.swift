@@ -41,7 +41,6 @@ class DelegateForwardingTestCase: XCTestCase {
     override func setUp() {
         super.setUp()
         controller = DelegateCollectionViewController()
-        controller.manager.startManaging(withDelegate: controller)
     }
     
     func testHeaderHeightIsRequested() {

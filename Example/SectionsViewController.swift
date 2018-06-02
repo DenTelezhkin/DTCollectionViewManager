@@ -28,8 +28,6 @@ class SectionsViewController: UIViewController, DTCollectionViewManageable, UICo
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        manager.startManaging(withDelegate: self)
-        
         manager.register(SolidColorCollectionCell.self)
         manager.registerHeader(SimpleTextCollectionReusableView.self)
         manager.registerFooter(SimpleTextCollectionReusableView.self)

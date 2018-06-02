@@ -36,8 +36,6 @@ class CollectionViewFactoryTestCase: XCTestCase {
         super.setUp()
         controller = DTSupplementaryTestCollectionController()
         let _ = controller.view
-        controller.manager.startManaging(withDelegate: controller)
-        controller.manager.storage = MemoryStorage()
     }
     
     func testUpdateCellAtIndexPath() {

@@ -41,7 +41,6 @@ class SupplementaryEventsTestCase: XCTestCase {
         super.setUp()
         controller = ReactingSupplementaryCollectionController()
         let _ = controller.view
-        controller.manager.startManaging(withDelegate: controller)
         controller.manager.memoryStorage.configureForCollectionViewFlowLayoutUsage()
     }
     

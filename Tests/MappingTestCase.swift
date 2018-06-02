@@ -18,8 +18,6 @@ class MappingTestCase: XCTestCase {
     override func setUp() {
         super.setUp()
         let _ = controller.view
-        controller.manager.startManaging(withDelegate: controller)
-        controller.manager.storage = MemoryStorage()
     }
     
     func testRegistrationWithDifferentNibName()

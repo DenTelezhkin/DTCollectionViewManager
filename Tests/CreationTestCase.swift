@@ -27,20 +27,16 @@ class CreationTestCase: XCTestCase {
     func testManagingWithNonOptionalCollectionViewWorks() {
         let controller = NonOptionalCollectionViewController()
         controller.collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
-        controller.manager.startManaging(withDelegate: controller)
-        
         expect(controller.manager.isManagingCollectionView).to(beTrue())
     }
     
     func testDelegateIsNotNil() {
         let controller = DTCellTestCollectionController()
-        controller.manager.startManaging(withDelegate: controller)
         expect(controller.manager.storage.delegate != nil).to(beTrue())
     }
     
     func testDelegateIsNotNilForMemoryStorage() {
         let controller = DTCellTestCollectionController()
-        controller.manager.startManaging(withDelegate: controller)
         expect(controller.manager.memoryStorage.delegate != nil).to(beTrue())
     }
     
@@ -60,7 +56,6 @@ class CreationTestCase: XCTestCase {
     func testCreatingCollectionControllerFromCode()
     {
         let controller = DTCellTestCollectionController()
-        controller.manager.startManaging(withDelegate: controller)
         controller.manager.register(FooCell.self)
     }
     
@@ -68,14 +63,12 @@ class CreationTestCase: XCTestCase {
     {
         let controller = XibCollectionViewController(nibName: "XibCollectionViewController", bundle: Bundle(for: type(of: self)))
         let _ = controller.view
-        controller.manager.startManaging(withDelegate: controller)
         controller.manager.register(FooCell.self)
     }
     
     func testConfigurationAssociation()
     {
         let foo = DTCellTestCollectionController(nibName: nil, bundle: nil)
-        foo.manager.startManaging(withDelegate: foo)
         
         expect(foo.manager).toNot(beNil())
         expect(foo.manager) === foo.manager // Test if lazily instantiating using associations works correctly
@@ -86,8 +79,11 @@ class CreationTestCase: XCTestCase {
         let manager = DTCollectionViewManager()
         let foo = DTCellTestCollectionController(nibName: nil, bundle: nil)
         foo.manager = manager
-        foo.manager.startManaging(withDelegate: foo)
-        
         expect(foo.manager === manager).to(beTruthy())
+    }
+    
+    func testStartManagingWithDelegateIsNotRequired() {
+        let controller = DTCellTestCollectionController()
+        controller.manager.register(FooCell.self)
     }
 }

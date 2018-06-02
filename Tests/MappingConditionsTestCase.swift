@@ -19,8 +19,6 @@ class MappingConditionsTestCase: XCTestCase {
         super.setUp()
         controller = DTCellTestCollectionController()
         let _ = controller.view
-        controller.manager.startManaging(withDelegate: controller)
-        controller.manager.storage = MemoryStorage()
     }
     
     func testMappingCanBeSwitchedBetweenSections() {

@@ -18,9 +18,6 @@ class DataSourceTestCase: XCTestCase {
     override func setUp() {
         super.setUp()
         let _ = controller.view
-        controller.manager.startManaging(withDelegate: controller)
-        controller.manager.storage = MemoryStorage()
-        
         controller.manager.register(NibCell.self)
     }
     

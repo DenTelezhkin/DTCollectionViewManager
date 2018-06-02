@@ -20,7 +20,6 @@ class CollectionContainingCell: UICollectionViewCell, DTCollectionViewManageable
     }
     
     override func awakeFromNib() {
-        self.manager.startManaging(withDelegate: self)
         self.manager.register(SolidColorCollectionCell.self)
     }
 }

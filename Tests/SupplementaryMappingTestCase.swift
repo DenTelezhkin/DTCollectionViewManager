@@ -19,7 +19,6 @@ class SupplementaryMappingTestCase: XCTestCase {
         super.setUp()
         controller = DTSupplementaryTestCollectionController()
         let _ = controller.view
-        controller.manager.startManaging(withDelegate: controller)
         controller.manager.memoryStorage.configureForCollectionViewFlowLayoutUsage()
     }
     

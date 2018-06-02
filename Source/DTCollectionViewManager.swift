@@ -47,13 +47,20 @@ extension DTCollectionViewManageable
 {
     /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call `startManaging(withDelegate:)` method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate.
     /// Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
+    /// If this property is accessed when UICollectionView is loaded, and DTCollectionViewManager is not configured yet, startManaging(withDelegate:_) method will automatically be called once to initialize DTCollectionViewManager.
     /// - SeeAlso: `startManaging(withDelegate:)`
     public var manager : DTCollectionViewManager {
         get {
             if let manager = objc_getAssociatedObject(self, &DTCollectionViewManagerAssociatedKey) as? DTCollectionViewManager {
+                if !manager.isConfigured && collectionView != nil {
+                    manager.startManaging(withDelegate: self)
+                }
                 return manager
             }
             let manager = DTCollectionViewManager()
+            if collectionView != nil {
+                manager.startManaging(withDelegate: self)
+            }
             objc_setAssociatedObject(self, &DTCollectionViewManagerAssociatedKey, manager, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return manager
         }
@@ -72,9 +79,15 @@ extension DTCollectionViewNonOptionalManageable
     public var manager : DTCollectionViewManager {
         get {
             if let manager = objc_getAssociatedObject(self, &DTCollectionViewManagerAssociatedKey) as? DTCollectionViewManager {
+                if !manager.isConfigured && collectionView != nil {
+                    manager.startManaging(withDelegate: self)
+                }
                 return manager
             }
             let manager = DTCollectionViewManager()
+            if collectionView != nil {
+                manager.startManaging(withDelegate: self)
+            }
             objc_setAssociatedObject(self, &DTCollectionViewManagerAssociatedKey, manager, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
             return manager
         }
@@ -205,10 +218,10 @@ open class DTCollectionViewManager {
     /// - Parameter delegate: Object, that has UICollectionView, that will be managed by `DTCollectionViewManager`.
     open func startManaging(withDelegate delegate : DTCollectionViewManageable)
     {
+        guard !isConfigured else { return }
         guard let collectionView = delegate.collectionView else {
             preconditionFailure("Call startManagingWithDelegate: method only when UICollectionView has been created")
         }
-        
         self.delegate = delegate
         startManaging(with: collectionView)
     }
@@ -218,6 +231,7 @@ open class DTCollectionViewManager {
     /// - Parameter delegate: Object, that has UICollectionView, that will be managed by `DTCollectionViewManager`.
     open func startManaging(withDelegate delegate : DTCollectionViewNonOptionalManageable)
     {
+        guard !isConfigured else { return }
         guard let collectionView = delegate.collectionView else {
             preconditionFailure("Call startManagingWithDelegate: method only when UICollectionView has been created")
         }
@@ -225,7 +239,11 @@ open class DTCollectionViewManager {
         startManaging(with: collectionView)
     }
     
+    fileprivate var isConfigured = false
+    
     fileprivate func startManaging(with collectionView: UICollectionView) {
+        guard !isConfigured else { return }
+        defer { isConfigured = true }
         if let mappingDelegate = delegate as? ViewModelMappingCustomizing {
             viewFactory.mappingCustomizableDelegate = mappingDelegate
         }

@@ -145,8 +145,6 @@ class ReactingToEventsTestCase: XCTestCase {
         super.setUp()
         controller = ReactingTestCollectionViewController()
         let _ = controller.view
-        controller.manager.startManaging(withDelegate: controller)
-        controller.manager.storage = MemoryStorage()
     }
     
     func testCellSelectionClosure()
@@ -231,8 +229,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
         super.setUp()
         sut = DTCellTestCollectionController()
         let _ = sut.view
-        sut.manager.startManaging(withDelegate: sut)
-        sut.manager.storage = MemoryStorage()
         sut.manager.register(NibCell.self)
         sut.manager.registerHeader(NibHeaderFooterView.self)
         sut.manager.registerFooter(NibHeaderFooterView.self)

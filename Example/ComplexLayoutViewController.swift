@@ -14,8 +14,6 @@ class ComplexLayoutViewController: UICollectionViewController, DTCollectionViewM
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        manager.startManaging(withDelegate: self)
-        
         manager.configureEvents(for: CollectionContainingCell.self) { cellType, modelType in
             manager.register(cellType)
             manager.sizeForCell(withItem: modelType) { [weak self] _, _ in

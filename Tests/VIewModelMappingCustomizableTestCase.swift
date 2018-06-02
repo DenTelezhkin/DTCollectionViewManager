@@ -52,7 +52,6 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
         super.setUp()
         controller = CustomizableViewController()
         let _ = controller.view
-        controller.manager.startManaging(withDelegate: controller)
         controller.manager.storage = MemoryStorage()
         controller.manager.memoryStorage.configureForCollectionViewFlowLayoutUsage()
     }

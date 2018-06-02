@@ -69,14 +69,6 @@ import DTCollectionViewManager
 import DTModelStorage
 ```
 
-The core object of a framework is `DTCollectionViewManager`. Declare your class as `DTCollectionViewManageable`, and it will be automatically injected with `manager` property, that will hold an instance of `DTCollectionViewManager`.
-
-Make sure your UICollectionView outlet is wired to your class and call in viewDidLoad:
-
-```swift
-	manager.startManaging(withDelegate: self)
-```
-
 Let's say you have an array of Posts you want to display in UICollectionView. To quickly show them using DTCollectionViewManager, here's what you need to do:
 
 * Create UICollectionViewCell subclass, let's say PostCell. Adopt ModelTransfer protocol
@@ -89,7 +81,9 @@ class PostCell : UICollectionViewCell, ModelTransfer {
 }
 ```
 
-* Call registration methods on your `DTCollectionViewManageable` instance
+* Declare your class as `DTCollectionViewManageable`, and it will be automatically injected with `manager` property, that will hold an instance of `DTCollectionViewManager`.
+
+* Make sure your UICollectionView outlet is wired to your class and call registration methods (typically in viewDidLoad method):
 
 ```swift
 	manager.register(PostCell.self)
