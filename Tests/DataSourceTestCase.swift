@@ -52,14 +52,14 @@ class DataSourceTestCase: XCTestCase {
         expect(self.controller.manager.collectionDataSource?.numberOfSections(in: self.controller.collectionView!)) == 4
     }
     
-    func testShouldAddTableItems()
+    func testShouldAddItems()
     {
         controller.manager.memoryStorage.addItems([3,2], toSection: 0)
         
         expect(self.controller.manager.memoryStorage.items(inSection: 0)?.count) == 2
     }
     
-    func testShouldInsertTableItem()
+    func testShouldInsertItem()
     {
         controller.manager.memoryStorage.addItems([2,4,6], toSection: 0)
         try! controller.manager.memoryStorage.insertItem(1, to: indexPath(2, 0))
@@ -252,9 +252,67 @@ class DataSourceTestCase: XCTestCase {
         
         waitForExpectations(timeout: 0.1)
         
-        XCTAssertEqual(anomaly.debugDescription, "❗️[DTCollectionViewManager] Reuse identifier specified in InterfaceBuilder: Foo does not match reuseIdentifier used to register with UICollectionView: WrongReuseIdentifierCell. \n" +
+        XCTAssertEqual(anomaly.debugDescription, "❗️[DTCollectionViewManager] Reuse identifier of UICollectionViewCell: Foo does not match reuseIdentifier used to register with UICollectionView: WrongReuseIdentifierCell. \n" +
             "If you are using XIB, please remove reuseIdentifier from XIB file, or change it to name of UICollectionViewCell subclass. If you are using Storyboards, please change UICollectionViewCell identifier to name of the class. \n" +
             "If you need different reuseIdentifier for any reason, you can change reuseIdentifier when registering mapping.")
+    }
+    
+    func testSupplementaryWithDifferentReuseIdentifierTriggersAnomaly() {
+        let exp = expectation(description: "Wrong reuse identifier leads to anomaly")
+        let anomaly = DTCollectionViewManagerAnomaly.differentSupplementaryReuseIdentifier(mappingReuseIdentifier: "WrongReuseIdentifierReusableView", supplementaryReuseIdentifier: "Bar")
+        controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        controller.manager.registerHeader(WrongReuseIdentifierReusableView.self)
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "❗️[DTCollectionViewManager] Reuse identifier of UICollectionReusableView: Bar does not match reuseIdentifier used to register with UICollectionView: WrongReuseIdentifierReusableView. \n" +
+            "If you are using XIB, please remove reuseIdentifier from XIB file, or change it to name of UICollectionReusableView subclass. If you are using Storyboards, please change UICollectionReusableView identifier to name of the class. \n" +
+            "If you need different reuseIdentifier for any reason, you can change reuseIdentifier when registering mapping.")
+    }
+    
+    func testWrongCellClassComingFromXibLeadsToAnomaly() {
+        let exp = expectation(description: "Wrong cell class")
+        let anomaly = DTCollectionViewManagerAnomaly.differentCellClass(xibName: "RandomNibNameCell",
+                                                                   cellClass: "NibCell",
+                                                                   expectedCellClass: "StringCell")
+        controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        controller.manager.registerNibNamed("RandomNibNameCell", for: StringCell.self)
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] Attempted to register xib RandomNibNameCell, but view found in a xib was of type NibCell, while expected type is StringCell. This can prevent cells from being updated with models and react to events.")
+    }
+    
+    func testEmptyXibCellLeadsToAnomaly() {
+        let exp = expectation(description: "Empty xib cell")
+        let anomaly = DTCollectionViewManagerAnomaly.emptyXibFile(xibName: "EmptyXib",
+                                                             expectedViewClass: "StringCell")
+        controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        controller.manager.registerNibNamed("EmptyXib", for: StringCell.self)
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] Attempted to register xib EmptyXib for StringCell, but this xib does not contain any views.")
+    }
+    
+    func testEmptySupplementaryXibLeadsToAnomaly() {
+        let exp = expectation(description: "Empty supplementary xib")
+        let anomaly = DTCollectionViewManagerAnomaly.emptyXibFile(xibName: "EmptyXib",
+                                                                  expectedViewClass: "NibHeaderFooterView")
+        controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        controller.manager.registerNibNamed("EmptyXib", forHeader: NibHeaderFooterView.self)
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] Attempted to register xib EmptyXib for NibHeaderFooterView, but this xib does not contain any views.")
+    }
+    
+    func testWrongHeaderClassComingFromXibLeadsToAnomaly() {
+        let exp = expectation(description: "Wrong header class")
+        let anomaly = DTCollectionViewManagerAnomaly.differentSupplementaryClass(xibName: "NibView",
+                                                                           viewClass: "NibHeaderFooterView",
+                                                                           expectedViewClass: "ReactingHeaderFooterView")
+        controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        controller.manager.registerNibNamed("NibView", forHeader: ReactingHeaderFooterView.self)
+        waitForExpectations(timeout: 0.1)
+        
+        XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] Attempted to register xib NibView, but view found in a xib was of type NibHeaderFooterView, while expected type is ReactingHeaderFooterView. This can prevent supplementary views from being updated with models and react to events.")
     }
 #endif
 }

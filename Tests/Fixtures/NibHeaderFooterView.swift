@@ -16,3 +16,7 @@ class NibHeaderFooterView: UICollectionReusableView, ModelTransfer {
     }
     
 }
+
+class WrongReuseIdentifierReusableView : NibHeaderFooterView {
+    override var reuseIdentifier: String? { return "Bar" }
+}

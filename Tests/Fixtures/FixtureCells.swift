@@ -50,4 +50,6 @@ class SelectionReactingCollectionCell: ReactingCollectionCell
     var model : Int?
 }
 
-class WrongReuseIdentifierCell : BaseTestCell {}
+class WrongReuseIdentifierCell : BaseTestCell {
+    override var reuseIdentifier: String? { return "Foo" }
+}

@@ -66,6 +66,8 @@
 		9A99AA861B8A219300428802 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA841B8A219300428802 /* Main.storyboard */; };
 		9A99AA881B8A219300428802 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA871B8A219300428802 /* Assets.xcassets */; };
 		9A99AA8B1B8A219300428802 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA891B8A219300428802 /* LaunchScreen.storyboard */; };
+		9AB0F05E20C2B47E006CF900 /* EmptyXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AB0F05D20C2B47E006CF900 /* EmptyXib.xib */; };
+		9AB0F06020C2B494006CF900 /* EmptyXib.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9AB0F05F20C2B494006CF900 /* EmptyXib.xib */; };
 		9AB666D41D7B13E300A6CEED /* CollectionViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AB666D31D7B13E300A6CEED /* CollectionViewUpdater.swift */; };
 		9AC532171BE5F77F006CB18A /* SupplementaryMappingTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2C6E421BE3ED4C001D25DB /* SupplementaryMappingTestCase.swift */; };
 		9AC532181BE5F77F006CB18A /* SupplementaryEventsTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A4C3BFC1BE557D8000931BA /* SupplementaryEventsTestCase.swift */; };
@@ -212,6 +214,8 @@
 		9A99AA871B8A219300428802 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A99AA8A1B8A219300428802 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A99AA911B8A219300428802 /* Tests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AB0F05D20C2B47E006CF900 /* EmptyXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = EmptyXib.xib; sourceTree = "<group>"; };
+		9AB0F05F20C2B494006CF900 /* EmptyXib.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; name = EmptyXib.xib; path = Fixtures/tvOS/EmptyXib.xib; sourceTree = "<group>"; };
 		9AB666D31D7B13E300A6CEED /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionViewUpdater.swift; path = Source/CollectionViewUpdater.swift; sourceTree = "<group>"; };
 		9AC532381BE5F77F006CB18A /* Tests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ADFC8C71B8B4A3D00AB4CD9 /* CollectionViewManager+UnitTests.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = "CollectionViewManager+UnitTests.swift"; path = "Helpers/CollectionViewManager+UnitTests.swift"; sourceTree = "<group>"; };
@@ -342,6 +346,7 @@
 				9A1B88131CE1E1F0005B6F07 /* NibView.xib */,
 				9A1B88141CE1E1F0005B6F07 /* RandomNameHeaderFooterView.xib */,
 				9A1B88151CE1E1F0005B6F07 /* RandomNibNameCell.xib */,
+				9AB0F05D20C2B47E006CF900 /* EmptyXib.xib */,
 				9A1B88161CE1E1F0005B6F07 /* ReactingHeaderFooterView.xib */,
 				9A1B88171CE1E1F0005B6F07 /* SelectionReactingCollectionCell.xib */,
 				9A1B88181CE1E1F0005B6F07 /* XibCollectionViewController.xib */,
@@ -413,6 +418,7 @@
 				9A1B87EC1CE1E19D005B6F07 /* FixtureStoryboard.storyboard */,
 				9A1B87ED1CE1E19D005B6F07 /* NibCell.xib */,
 				9A1B87EE1CE1E19D005B6F07 /* NibHeaderFooterView.xib */,
+				9AB0F05F20C2B494006CF900 /* EmptyXib.xib */,
 				9A1B87EF1CE1E19D005B6F07 /* NibView.xib */,
 				9A1B87F01CE1E19D005B6F07 /* RandomNameHeaderFooterView.xib */,
 				9A1B87F11CE1E19D005B6F07 /* RandomNibNameCell.xib */,
@@ -620,6 +626,7 @@
 				9A1B881D1CE1E1F0005B6F07 /* RandomNameHeaderFooterView.xib in Resources */,
 				9A1B881A1CE1E1F0005B6F07 /* NibCell.xib in Resources */,
 				9A1B881C1CE1E1F0005B6F07 /* NibView.xib in Resources */,
+				9AB0F05E20C2B47E006CF900 /* EmptyXib.xib in Resources */,
 				9A1B88201CE1E1F0005B6F07 /* SelectionReactingCollectionCell.xib in Resources */,
 				9A1B881F1CE1E1F0005B6F07 /* ReactingHeaderFooterView.xib in Resources */,
 				9A1B88191CE1E1F0005B6F07 /* FixtureStoryboard.storyboard in Resources */,
@@ -638,6 +645,7 @@
 				9A1B880B1CE1E1E1005B6F07 /* RandomNameHeaderFooterView.xib in Resources */,
 				9A1B88081CE1E1E1005B6F07 /* NibCell.xib in Resources */,
 				9A1B880A1CE1E1E1005B6F07 /* NibView.xib in Resources */,
+				9AB0F06020C2B494006CF900 /* EmptyXib.xib in Resources */,
 				9A1B880E1CE1E1E1005B6F07 /* SelectionReactingCollectionCell.xib in Resources */,
 				9A1B880D1CE1E1E1005B6F07 /* ReactingHeaderFooterView.xib in Resources */,
 				9A1B880C1CE1E1E1005B6F07 /* RandomNibNameCell.xib in Resources */,
