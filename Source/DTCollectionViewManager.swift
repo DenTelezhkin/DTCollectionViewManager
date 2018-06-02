@@ -137,6 +137,7 @@ open class DTCollectionViewManager {
     }
     
 #if swift(>=4.1)
+    /// Anomaly handler, that handles reported by `DTCollectionViewManager` anomalies.
     open var anomalyHandler : DTCollectionViewManagerAnomalyHandler = .init()
 #endif
     

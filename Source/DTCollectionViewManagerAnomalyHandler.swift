@@ -27,7 +27,9 @@ import Foundation
 import DTModelStorage
 
 #if swift(>=4.1)
-public enum DTCollectionViewManagerAnomaly: Equatable, CustomDebugStringConvertible {
+/// `DTCollectionViewManagerAnomaly` represents various errors and unwanted behaviors that can happen when using `DTTableViewManager` class.
+/// - SeeAlso: `MemoryStorageAnomaly`, `DTTableViewManagerAnomaly`.
+public enum DTCollectionViewManagerAnomaly: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
     
     case nilCellModel(IndexPath)
     case nilSupplementaryModel(kind: String, indexPath: IndexPath)
@@ -41,6 +43,7 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomDebugStringConverti
     case modelEventCalledWithCellClass(modelType: String, methodName: String, subclassOf: String)
     case unusedEventDetected(viewType: String, methodName: String)
     
+    /// Debug information for happened anomaly
     public var debugDescription: String {
         switch self {
         case .nilCellModel(let indexPath): return "❗️[DTCollectionViewManager] UICollectionView requested a cell at \(indexPath), however the model at that indexPath was nil."
@@ -84,14 +87,35 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomDebugStringConverti
             return "⚠️[DTCollectionViewManager] \(methodName) event registered for \(view), but there were no view mappings registered for \(view) type. This event will never be called."
         }
     }
+    
+    /// Short description for `DTCollectionViewManagerAnomaly`. Useful for sending to analytics, which might have character limit.
+    public var description: String {
+        switch self {
+        case .nilCellModel(let indexPath): return "DTCollectionViewManagerAnomaly.nilCellModel(\(indexPath))"
+        case .nilSupplementaryModel(let indexPath): return "DTCollectionViewManagerAnomaly.nilSupplementaryModel(\(indexPath))"
+        case .noCellMappingFound(modelDescription: let description, indexPath: let indexPath): return "DTCollectionViewManagerAnomaly.noCellMappingFound(\(description), \(indexPath))"
+        case .noSupplementaryMappingFound(modelDescription: let description, kind: let kind, indexPath: let indexPath): return "DTCollectionViewManagerAnomaly.noSupplementaryMappingFound(\(description), \(kind), \(indexPath))"
+        case .differentCellReuseIdentifier(mappingReuseIdentifier: let mappingIdentifier, cellReuseIdentifier: let cellIdentifier): return "DTCollectionViewManagerAnomaly.differentCellReuseIdentifier(\(mappingIdentifier), \(cellIdentifier))"
+        case .differentCellClass(xibName: let xibName, cellClass: let cellClass, expectedCellClass: let expected): return "DTCollectionViewManagerAnomaly.differentCellClass(\(xibName), \(cellClass), \(expected))"
+        case .differentSupplementaryClass(xibName: let xibName, viewClass: let viewClass, expectedViewClass: let expected): return "DTCollectionViewManagerAnomaly.differentSupplementaryClass(\(xibName), \(viewClass), \(expected))"
+        case .emptyXibFile(xibName: let xibName, expectedViewClass: let expected): return "DTCollectionViewManagerAnomaly.emptyXibFile(\(xibName), \(expected))"
+        case .modelEventCalledWithCellClass(modelType: let model, methodName: let method, subclassOf: let subclass): return "DTCollectionViewManagerAnomaly.modelEventCalledWithCellClass(\(model), \(method), \(subclass))"
+        case .unusedEventDetected(viewType: let view, methodName: let method): return "DTCollectionViewManagerAnomaly.unusedEventDetected(\(view), \(method))"
+        case .differentSupplementaryReuseIdentifier(let mappingReuseIdentifier, let supplementaryReuseIdentifier): return "DTCollectionViewManagerAnomaly.differentSupplementaryReuseIdentifier(\(mappingReuseIdentifier), \(supplementaryReuseIdentifier))"
+        }
+    }
 }
 
-
+/// `DTCollectionViewManagerAnomalyHandler` handles anomalies from `DTTableViewManager`.
 open class DTCollectionViewManagerAnomalyHandler : AnomalyHandler {
+    
+    /// Default action to perform when anomaly is detected. Prints debugDescription of anomaly by default.
     open static var defaultAction : (DTCollectionViewManagerAnomaly) -> Void = { print($0.debugDescription) }
     
+    /// Action to perform when anomaly is detected. Defaults to `defaultAction`.
     open var anomalyAction: (DTCollectionViewManagerAnomaly) -> Void = DTCollectionViewManagerAnomalyHandler.defaultAction
     
+    /// Creates `DTCollectionViewManagerAnomalyHandler`.
     public init() {}
 }
 #endif
