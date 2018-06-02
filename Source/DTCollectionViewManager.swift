@@ -285,6 +285,19 @@ open class DTCollectionViewManager {
     open func configureEvents<T:ModelTransfer>(for klass: T.Type, _ closure: (T.Type, T.ModelType.Type) -> Void) {
         closure(T.self, T.ModelType.self)
     }
+    
+    func verifyItemEvent<T>(for itemType: T.Type, eventMethod: String = #function) {
+        #if swift(>=4.1)
+        switch itemType {
+        case is UICollectionReusableView.Type:
+            anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: eventMethod, subclassOf: "UICollectionReusableView"))
+        case is UITableViewCell.Type:
+            anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: eventMethod, subclassOf: "UITableViewCell"))
+        case is UITableViewHeaderFooterView.Type: anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: eventMethod, subclassOf: "UITableViewHeaderFooterView"))
+        default: ()
+        }
+        #endif
+    }
 }
 
 /// All supported Objective-C method signatures.

@@ -38,6 +38,7 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomDebugStringConverti
     case differentCellClass(xibName: String, cellClass: String, expectedCellClass: String)
     case differentSupplementaryClass(xibName: String, viewClass: String, expectedViewClass: String)
     case emptyXibFile(xibName: String, expectedViewClass: String)
+    case modelEventCalledWithCellClass(modelType: String, methodName: String, subclassOf: String)
     
     public var debugDescription: String {
         switch self {
@@ -61,6 +62,23 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomDebugStringConverti
             return "❗️[DTCollectionViewManager] Reuse identifier of UICollectionReusableView: \(supplementaryIdentifier) does not match reuseIdentifier used to register with UICollectionView: \(mappingIdentifier). \n" +
                 "If you are using XIB, please remove reuseIdentifier from XIB file, or change it to name of UICollectionReusableView subclass. If you are using Storyboards, please change UICollectionReusableView identifier to name of the class. \n" +
             "If you need different reuseIdentifier for any reason, you can change reuseIdentifier when registering mapping."
+        case .modelEventCalledWithCellClass(modelType: let modelType, methodName: let methodName, subclassOf: let subclassOf):
+            return """
+            
+                ⚠️[DTCollectionViewManager] Event \(methodName) registered with model type, that happens to be a subclass of \(subclassOf): \(modelType).
+            
+                This is likely not what you want, because this event expects to receive model type used for current indexPath instead of cell/view.
+                Reasoning behind it is the fact that for some events views have not yet been created(for example: func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath)).
+                Because they are not created yet, this event cannot be called with cell/view object, and even it's type is unknown at this point, as the mapping resolution will happen later.
+            
+                Most likely you need to use model type, that will be passed to this cell/view through ModelTransfer protocol.
+                For example, for size of cell that expects to receive model Int, event would look like so:
+            
+                manager.sizeForCell(withItem: Int.self) { model, indexPath in
+                    return CGSize(height: 44, width: 44)
+                }
+            
+            """
         }
     }
 }
