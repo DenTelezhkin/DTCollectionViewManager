@@ -5,7 +5,8 @@ All notable changes to this project will be documented in this file.
 
 ### Added
 
-* Anomaly-detecting and reporting system for `DTCollectionViewManager`.
+* Anomaly-detecting and reporting system for `DTCollectionViewManager`. Read more about it in [Anomaly Handler Readme section](https://github.com/DenHeadless/DTCollectionViewManager#anomaly-handler). Anomaly handler system **requires Swift 4.1 and higher**.
+* Support for Swift 4.2 in Xcode 10 (beta 1).
 
 ### Changed
 

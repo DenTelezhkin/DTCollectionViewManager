@@ -132,8 +132,7 @@ open class DTCollectionViewManager {
     /// - Warning: if storage is not MemoryStorage, will throw an exception.
     open var memoryStorage : MemoryStorage! {
         precondition(storage is MemoryStorage, "DTCollectionViewManager memoryStorage method should be called only if you are using MemoryStorage")
-        //swiftlint:disable:next force_cast
-        return storage as! MemoryStorage
+        return storage as? MemoryStorage
     }
     
 #if swift(>=4.1)

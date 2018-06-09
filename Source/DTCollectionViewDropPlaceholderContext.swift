@@ -35,7 +35,7 @@ import DTModelStorage
 open class DTCollectionViewDropPlaceholderContext {
     
     /// Drop context
-    open let context : UICollectionViewDropPlaceholderContext
+    public let context : UICollectionViewDropPlaceholderContext
     
     /// Storage, on which drop operation is performed
     weak var storage: Storage?

@@ -57,8 +57,8 @@ class DelegateForwardingTestCase: XCTestCase {
     
     func testDelegateMethodIsCalled() {
         controller.manager.registerNibless(NiblessCell.self)
-        controller.manager.registerNiblessSupplementary(NiblessHeaderFooterView.self, forKind: UICollectionElementKindSectionHeader)
-        controller.manager.registerNiblessSupplementary(NiblessHeaderFooterView.self, forKind: UICollectionElementKindSectionFooter)
+        controller.manager.registerNiblessSupplementary(NiblessHeaderFooterView.self, forKind: DTCollectionViewElementSectionHeader)
+        controller.manager.registerNiblessSupplementary(NiblessHeaderFooterView.self, forKind: DTCollectionViewElementSectionFooter)
         let section = SectionModel()
         section.collectionHeaderModel = 1
         section.collectionFooterModel = 2

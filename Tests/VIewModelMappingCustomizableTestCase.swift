@@ -71,8 +71,8 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
     }
     
     func testMappingCustomizableAllowsSelectingAnotherHeaderMapping() {
-        controller.manager.registerNiblessSupplementary(IntHeader.self, forKind: UICollectionElementKindSectionHeader)
-        controller.manager.registerNiblessSupplementary(AnotherIntHeader.self, forKind: UICollectionElementKindSectionHeader)
+        controller.manager.registerNiblessSupplementary(IntHeader.self, forKind: DTCollectionViewElementSectionHeader)
+        controller.manager.registerNiblessSupplementary(AnotherIntHeader.self, forKind: DTCollectionViewElementSectionHeader)
         controller.mappingSelectableBlock = { mappings, model in
             return mappings.last
         }
@@ -81,12 +81,12 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
         
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        expect(self.controller.manager.collectionDataSource?.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at: indexPath(0, 0))).to(beAKindOf(AnotherIntHeader.self))
+        expect(self.controller.manager.collectionDataSource?.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at: indexPath(0, 0))).to(beAKindOf(AnotherIntHeader.self))
     }
     
     func testMappingCustomizableAllowsSelectingAnotherFooterMapping() {
-        controller.manager.registerNiblessSupplementary(IntHeader.self, forKind: UICollectionElementKindSectionFooter)
-        controller.manager.registerNiblessSupplementary(AnotherIntHeader.self, forKind: UICollectionElementKindSectionFooter)
+        controller.manager.registerNiblessSupplementary(IntHeader.self, forKind: DTCollectionViewElementSectionFooter)
+        controller.manager.registerNiblessSupplementary(AnotherIntHeader.self, forKind: DTCollectionViewElementSectionFooter)
         controller.mappingSelectableBlock = { mappings, model in
             return mappings.last
         }
@@ -95,6 +95,6 @@ class ViewModelMappingCustomizableTestCase: XCTestCase {
         
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        expect(self.controller.manager.collectionDataSource?.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, at: indexPath(0, 0))).to(beAKindOf(AnotherIntHeader.self))
+        expect(self.controller.manager.collectionDataSource?.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter, at: indexPath(0, 0))).to(beAKindOf(AnotherIntHeader.self))
     }
 }

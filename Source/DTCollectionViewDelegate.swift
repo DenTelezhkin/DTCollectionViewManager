@@ -45,7 +45,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize
     {
-        if let size = performSupplementaryReaction(forKind: UICollectionElementKindSectionHeader, signature: .referenceSizeForHeaderInSection, location: IndexPath(item:0, section:section), view: nil) as? CGSize {
+        if let size = performSupplementaryReaction(forKind: DTCollectionViewElementSectionHeader, signature: .referenceSizeForHeaderInSection, location: IndexPath(item:0, section:section), view: nil) as? CGSize {
             return size
         }
         if let size = (self.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, referenceSizeForHeaderInSection: section) {
@@ -59,7 +59,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if let size = performSupplementaryReaction(forKind: UICollectionElementKindSectionFooter, signature: .referenceSizeForFooterInSection, location: IndexPath(item:0, section:section), view: nil) as? CGSize {
+        if let size = performSupplementaryReaction(forKind: DTCollectionViewElementSectionFooter, signature: .referenceSizeForFooterInSection, location: IndexPath(item:0, section:section), view: nil) as? CGSize {
             return size
         }
         if let size = (self.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, referenceSizeForFooterInSection: section) {
@@ -268,9 +268,10 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
             return insets
         }
         let defaultInset = (collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset
+        // UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)  is a workaround for Xcode 10 beta 1: https://bugs.swift.org/browse/SR-7879
         return (delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView,
                                                                           layout: collectionViewLayout,
-                                                                          insetForSectionAt: section) ?? defaultInset ?? .zero
+                                                                          insetForSectionAt: section) ?? defaultInset ?? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
     }
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.

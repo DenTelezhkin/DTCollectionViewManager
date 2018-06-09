@@ -53,7 +53,7 @@ extension DTCollectionViewManager {
     /// Method will automatically check for nib with the same name as `headerClass`. If it exists - nib will be registered instead of class.
     open func registerHeader<T:ModelTransfer>(_ headerClass : T.Type, mappingBlock: ((ViewModelMapping) -> Void)? = nil) where T: UICollectionReusableView
     {
-        viewFactory.registerSupplementaryClass(T.self, forKind: UICollectionElementKindSectionHeader, mappingBlock: mappingBlock)
+        viewFactory.registerSupplementaryClass(T.self, forKind: DTCollectionViewElementSectionHeader, mappingBlock: mappingBlock)
     }
     
     /// Registers mapping from model class to suppplementary view of `footerClass` type for UICollectionElementKindSectionFooter.
@@ -61,19 +61,19 @@ extension DTCollectionViewManager {
     /// Method will automatically check for nib with the same name as `footerClass`. If it exists - nib will be registered instead of class.
     open func registerFooter<T:ModelTransfer>(_ footerClass: T.Type, mappingBlock: ((ViewModelMapping) -> Void)? = nil) where T:UICollectionReusableView
     {
-        viewFactory.registerSupplementaryClass(T.self, forKind: UICollectionElementKindSectionFooter, mappingBlock: mappingBlock)
+        viewFactory.registerSupplementaryClass(T.self, forKind: DTCollectionViewElementSectionFooter, mappingBlock: mappingBlock)
     }
     
     /// Registers mapping from model class to supplementary view of `headerClass` type with `nibName` for UICollectionElementKindSectionHeader.
     open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forHeader headerClass: T.Type, mappingBlock: ((ViewModelMapping) -> Void)? = nil) where T:UICollectionReusableView
     {
-        viewFactory.registerNibNamed(nibName, forSupplementaryClass: T.self, forKind: UICollectionElementKindSectionHeader, mappingBlock: mappingBlock)
+        viewFactory.registerNibNamed(nibName, forSupplementaryClass: T.self, forKind: DTCollectionViewElementSectionHeader, mappingBlock: mappingBlock)
     }
     
     /// Registers mapping from model class to supplementary view of `footerClass` type with `nibName` for UICollectionElementKindSectionFooter.
     open func registerNibNamed<T:ModelTransfer>(_ nibName: String, forFooter footerClass: T.Type, mappingBlock: ((ViewModelMapping) -> Void)? = nil) where T:UICollectionReusableView
     {
-        viewFactory.registerNibNamed(nibName, forSupplementaryClass: T.self, forKind: UICollectionElementKindSectionFooter, mappingBlock: mappingBlock)
+        viewFactory.registerNibNamed(nibName, forSupplementaryClass: T.self, forKind: DTCollectionViewElementSectionFooter, mappingBlock: mappingBlock)
     }
     
     /// Registers mapping from model class to suppplementary view of `supplementaryClass` type for supplementary `kind`.
@@ -97,12 +97,12 @@ extension DTCollectionViewManager {
     
     /// Registers mapping from model class to header view of `headerClass` type for `UICollectionElementKindSectionHeader`.
     open func registerNiblessHeader<T:ModelTransfer>(_ headerClass: T.Type, mappingBlock: ((ViewModelMapping) -> Void)? = nil) where T:UICollectionReusableView {
-        registerNiblessSupplementary(T.self, forKind: UICollectionElementKindSectionHeader)
+        registerNiblessSupplementary(T.self, forKind: DTCollectionViewElementSectionHeader)
     }
     
     /// Registers mapping from model class to footer view of `footerClass` type for `UICollectionElementKindSectionFooter`.
     open func registerNiblessFooter<T:ModelTransfer>(_ footerClass: T.Type, mappingBlock: ((ViewModelMapping) -> Void)? = nil) where T:UICollectionReusableView {
-        registerNiblessSupplementary(T.self, forKind: UICollectionElementKindSectionFooter)
+        registerNiblessSupplementary(T.self, forKind: DTCollectionViewElementSectionFooter)
     }
     
     /// Unregisters `cellClass` from `DTCollectionViewManager` and `UICollectionView`.
@@ -112,12 +112,12 @@ extension DTCollectionViewManager {
     
     /// Unregisters `headerClass` from `DTCollectionViewManager` and `UICollectionView`.
     open func unregisterHeader<T:ModelTransfer>(_ headerClass: T.Type) where T:UICollectionReusableView {
-        unregisterSupplementary(T.self, forKind: UICollectionElementKindSectionHeader)
+        unregisterSupplementary(T.self, forKind: DTCollectionViewElementSectionHeader)
     }
     
     /// Unregisters `footerClass` from `DTCollectionViewManager` and `UICollectionView`.
     open func unregisterFooter<T:ModelTransfer>(_ headerClass: T.Type) where T:UICollectionReusableView {
-        unregisterSupplementary(T.self, forKind: UICollectionElementKindSectionFooter)
+        unregisterSupplementary(T.self, forKind: DTCollectionViewElementSectionFooter)
     }
     
     /// Unregisters `supplementaryClass` of `kind` from `DTCollectionViewManager` and `UICollectionView`.

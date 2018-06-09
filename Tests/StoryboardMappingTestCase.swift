@@ -15,11 +15,10 @@ class StoryboardMappingTestCase: XCTestCase {
     
     var controller : StoryboardViewController!
     
-    
     override func setUp() {
         super.setUp()
         let storyboard = UIStoryboard(name: "FixtureStoryboard", bundle: Bundle(for: type(of: self)))
-        controller = storyboard.instantiateInitialViewController() as! StoryboardViewController
+        controller = storyboard.instantiateInitialViewController() as? StoryboardViewController
         _ = controller.view
     }
     
@@ -43,9 +42,9 @@ class StoryboardMappingTestCase: XCTestCase {
         if #available(iOS 9, *) {
             controller.collectionView?.performBatchUpdates(nil, completion: nil)
             
-            let headerView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, at:  indexPath(0, 0)) as? StoryboardCollectionReusableHeaderView
+            let headerView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at:  indexPath(0, 0)) as? StoryboardCollectionReusableHeaderView
             
-            let footerView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, at:  indexPath(0, 0)) as? StoryboardCollectionReusableFooterView
+            let footerView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter, at:  indexPath(0, 0)) as? StoryboardCollectionReusableFooterView
             
             expect(headerView?.storyboardLabel.text) == "Header"
             expect(footerView?.storyboardLabel.text) == "Footer"
