@@ -1,9 +1,9 @@
 # Change Log
 All notable changes to this project will be documented in this file.
 
-# Next
-
 ## [6.4.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.4.1)
+
+* Fix infinite recursion bug with UICollectionView.canFocusItemAt(:) method(thanks, @skydivedan!)
 
 ## [6.4.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.4.0)
 
