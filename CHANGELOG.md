@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [6.4.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.4.1)
+
 ## [6.4.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.4.0)
 
 * Support for Xcode 10 and Swift 4.2
