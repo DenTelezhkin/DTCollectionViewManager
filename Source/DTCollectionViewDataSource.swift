@@ -104,10 +104,7 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
     @available(iOS 9.0, tvOS 9.0, *)
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func collectionView(_ collectionView: UICollectionView, moveItemAt source: IndexPath, to destination: IndexPath) {
-        _ = perform4ArgumentCellReaction(.moveItemAtIndexPathToIndexPath,
-                                         argument: destination,
-                                         location: source,
-                                         provideCell: true)
+        _ = performNonCellReaction(.moveItemAtIndexPathToIndexPath, argumentOne: source, argumentTwo: destination)
         (delegate as? UICollectionViewDataSource)?.collectionView?(collectionView,
                                                                   moveItemAt: source,
                                                                   to: destination)

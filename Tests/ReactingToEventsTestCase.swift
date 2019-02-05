@@ -492,7 +492,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     @available (iOS 9, *)
     func testMoveItemAtIndexPath() {
         let exp = expectation(description: "Move item at indexPath")
-        sut.manager.move(NibCell.self) { _,_,_,_ in
+        sut.manager.moveItemAtTo { _,_ in
             exp.fulfill()
         }
         sut.manager.memoryStorage.addItems([3,4])

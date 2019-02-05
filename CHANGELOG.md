@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [6.4.2](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.4.2)
+
+* `move(:_,:_)` method was deprecated and no longer works due to a logic bug, that can prevent this method from being called if sourceIndexPath is off screen when this event was called by `UICollectionView`. Please use new method `moveItemAtTo(:_)` to subscribe to move events in the datasource.
+
 ## [6.4.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.4.1)
 
 * Fix infinite recursion bug with UICollectionView.canFocusItemAt(:) method(thanks, @skydivedan!)
@@ -40,7 +44,7 @@ manager.memoryStorage.defersDatasourceUpdates = false
 
 Please note, though, that new default behavior is recommended, because it is more stable and works the same on both UITableView and UICollectionView.
 
-* `collectionViewUpdater` property on `DTCollectionViewManager` is now of `CollectionViewUpdater` type instead of opaque `StorageUpdating` type. This should ease use of this object and prevent type unneccessary type casts.
+* `collectionViewUpdater` property on `DTCollectionViewManager` is now of `CollectionViewUpdater` type instead of opaque `StorageUpdating` type. This should ease use of this object and prevent unneccessary type casts.
 
 ## [6.0.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.0.0)
 
