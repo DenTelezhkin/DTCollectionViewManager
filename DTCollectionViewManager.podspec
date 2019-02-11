@@ -3,7 +3,7 @@ Pod::Spec.new do |s|
   s.version      = "6.4.2"
   s.license  = 'MIT'
   s.summary  = 'Protocol-oriented UICollectionView management, powered by generics and associated types.'
-  s.homepage = 'https://github.com/DenHeadless/DTCollectionViewManager'
+  s.homepage = 'https://github.com/DenTelezhkin/DTCollectionViewManager'
   s.authors  = { 'Denys Telezhkin' => 'denys.telezhkin.oss@gmail.com' }
   s.social_media_url = 'https://twitter.com/DenTelezhkin'
   s.source   = { :git => 'https://github.com/DenTelezhkin/DTCollectionViewManager.git', :tag => s.version.to_s }
