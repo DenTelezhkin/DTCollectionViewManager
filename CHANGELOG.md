@@ -3,23 +3,23 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
-## [6.4.2](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.4.2)
+## [6.4.2](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.4.2)
 
 * `move(:_,:_)` method was deprecated and no longer works due to a logic bug, that can prevent this method from being called if sourceIndexPath is off screen when this event was called by `UICollectionView`. Please use new method `moveItemAtTo(:_)` to subscribe to move events in the datasource.
 
-## [6.4.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.4.1)
+## [6.4.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.4.1)
 
 * Fix infinite recursion bug with UICollectionView.canFocusItemAt(:) method(thanks, @skydivedan!)
 
-## [6.4.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.4.0)
+## [6.4.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.4.0)
 
 * Support for Xcode 10 and Swift 4.2
 
-## [6.3.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.3.0)
+## [6.3.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.3.0)
 
 ### Added
 
-* Anomaly-detecting and reporting system for `DTCollectionViewManager`. Read more about it in [Anomaly Handler Readme section](https://github.com/DenHeadless/DTCollectionViewManager#anomaly-handler). Anomaly handler system **requires Swift 4.1 and higher**.
+* Anomaly-detecting and reporting system for `DTCollectionViewManager`. Read more about it in [Anomaly Handler Readme section](https://github.com/DenTelezhkin/DTCollectionViewManager#anomaly-handler). Anomaly handler system **requires Swift 4.1 and higher**.
 * Support for Swift 4.2 in Xcode 10 (beta 1).
 
 ### Changed
@@ -30,13 +30,13 @@ All notable changes to this project will be documented in this file.
 
 * `viewFactoryErrorHandler` property on `DTCollectionViewManager` was removed, all supported errors and warnings are now a part of anomaly reporting system
 
-## [6.1.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.1.1)
+## [6.1.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.1.1)
 
-## [6.1.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.1.0)
+## [6.1.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.1.0)
 
-## [6.1.0-beta.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.1.0-beta.1)
+## [6.1.0-beta.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.1.0-beta.1)
 
-* Implemented new system for deferring datasource updates until `performBatchUpdates` block. This system is intended to fight crash, that might happen when `performBatchUpdates` method is called after `UITableView.reloadData` method(for example after calling `memoryStorage.setItems`, and then immediately `memoryStorage.addItems`). This issue is detailed in https://github.com/DenHeadless/DTCollectionViewManager/issues/27 and https://github.com/DenHeadless/DTCollectionViewManager/issues/23. This crash can also happen, if iOS 11 API `UITableView.performBatchUpdates` is used. This system is turned on by default. If, for some reason, you want to disable it and have old behavior, call:
+* Implemented new system for deferring datasource updates until `performBatchUpdates` block. This system is intended to fight crash, that might happen when `performBatchUpdates` method is called after `UITableView.reloadData` method(for example after calling `memoryStorage.setItems`, and then immediately `memoryStorage.addItems`). This issue is detailed in https://github.com/DenTelezhkin/DTCollectionViewManager/issues/27 and https://github.com/DenTelezhkin/DTCollectionViewManager/issues/23. This crash can also happen, if iOS 11 API `UITableView.performBatchUpdates` is used. This system is turned on by default. If, for some reason, you want to disable it and have old behavior, call:
 
 ```swift
 manager.memoryStorage.defersDatasourceUpdates = false
@@ -46,22 +46,22 @@ Please note, though, that new default behavior is recommended, because it is mor
 
 * `collectionViewUpdater` property on `DTCollectionViewManager` is now of `CollectionViewUpdater` type instead of opaque `StorageUpdating` type. This should ease use of this object and prevent unneccessary type casts.
 
-## [6.0.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.0.0)
+## [6.0.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.0.0)
 
 * Updated for Xcode 9.1 / Swift 4.0.2
 
-## [6.0.0-beta.3](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.0.0-beta.3)
+## [6.0.0-beta.3](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.0.0-beta.3)
 
 * Makes `DTCollectionViewManager` property weak instead of unowned to prevent iOS 10-specific memory issues/crashes.
 
-## [6.0.0-beta.2](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.0.0-beta.2)
+## [6.0.0-beta.2](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.0.0-beta.2)
 
 * Build with Xcode 9.0 final release.
 * Fixed partial-availability warnings.
 
-## [6.0.0-beta.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/6.0.0-beta.1)
+## [6.0.0-beta.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.0.0-beta.1)
 
-**This is a major release with some breaking changes, please read [DTTableViewManager 6.0 Migration Guide](https://github.com/DenHeadless/DTTableViewManager/blob/master/Documentation/DTTableViewManager%206.0%20Migration%20Guide.md)**
+**This is a major release with some breaking changes, please read [DTTableViewManager 6.0 Migration Guide](https://github.com/DenTelezhkin/DTTableViewManager/blob/master/Documentation/DTTableViewManager%206.0%20Migration%20Guide.md)**
 
 * Added `updateVisibleCells(_:) method`, that allows updating cell data for visible cells with callback on each cell. This is more efficient than calling `reloadData` when number of elements in `UICollectionView` does not change, and only contents of items change.
 * Implement `configureEvents(for:_:)` method, that allows batching in several cell events to avoid using T.ModelType for events, that do not have cell created.
@@ -73,39 +73,39 @@ Please note, though, that new default behavior is recommended, because it is mor
 * `UICollectionViewDelegate` and `UICollectionViewDatasource` implementations have been refactored from `DTCollectionViewManager` to `DTCollectionViewDelegate` and `DTCollectionViewDataSource` classes.
 * Added `DTCollectionViewNonOptionalManageable` protocol, that can be used with non-optional `UICollectionView` properties on your managed instance.
 
-## [5.3.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.3.1)
+## [5.3.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/5.3.1)
 
 * Initial support for Swift 3.2 (Xcode 9 beta-1).
 * Fixed `registerNiblessHeader` and `registerNiblessFooter` to properly call nibless supplementary methods.
 
-## [5.3.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.3.0)
+## [5.3.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/5.3.0)
 
 * Use new events system from `DTModelStorage`, that allows events to be properly called for cells, that are created using `ViewModelMappingCustomizing` protocol.
 
-## [5.2.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.2.0)
+## [5.2.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/5.2.0)
 
 * Setting `CollectionViewUpdater` instance to `collectionViewUpdater` property on `DTCollectionViewManager` now triggers `didUpdateContent` closure on `CollectionViewUpdater`.
 
-## [5.1.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.1.0)
+## [5.1.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/5.1.0)
 
-Dependency changelog -> [DTModelStorage 4.0.0 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
+Dependency changelog -> [DTModelStorage 4.0.0 and higher](https://github.com/DenTelezhkin/DTModelStorage/releases)
 
 * `CollectionViewUpdater` has been rewritten to use new `StorageUpdate` properties that track changes in order of their occurence.
 * `CollectionViewUpdater` `reloadItemClosure` and `DTCollectionViewManager` `updateCellClosure` now accept indexPath and model instead of just indexPath. This is done because update may happen after insertions and deletions and object that needs to be updated may exist on different indexPath.
 
-## [5.0.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.0.0)
+## [5.0.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/5.0.0)
 
 No changes
 
-## [5.0.0-beta.2](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.0.0-beta.2)
+## [5.0.0-beta.2](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/5.0.0-beta.2)
 
 * Enables `RealmStorage` from `DTModelStorage` dependency.
 
-## [5.0.0-beta.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/5.0.0-beta.1)
+## [5.0.0-beta.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/5.0.0-beta.1)
 
 This is a major release, written in Swift 3. Read [Migration guide](Documentation/DTCollectionViewManager 5 migration guide.md) with descriptions of all features and changes.
 
-Dependency changelog -> [DTModelStorage 3.0.0 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
+Dependency changelog -> [DTModelStorage 3.0.0 and higher](https://github.com/DenTelezhkin/DTModelStorage/releases)
 
 ### Added
 
@@ -129,7 +129,7 @@ Dependency changelog -> [DTModelStorage 3.0.0 and higher](https://github.com/Den
 * All events methods with method pointer semantics. Please use block based methods instead.
 * `registerCellClass:whenSelected` method, that was tightly coupling something that did not need coupling.
 
-## [4.8.0](https://github.com/DenHeadless/DTTableViewManager/releases/tag/4.8.0)
+## [4.8.0](https://github.com/DenTelezhkin/DTTableViewManager/releases/tag/4.8.0)
 
 ### Changed
 
@@ -139,13 +139,13 @@ Dependency changelog -> [DTModelStorage 3.0.0 and higher](https://github.com/Den
 
 * `viewBundle` property on `DTCollectionViewManager`
 
-## [4.7.0](https://github.com/DenHeadless/DTTableViewManager/releases/tag/4.7.0)
+## [4.7.0](https://github.com/DenTelezhkin/DTTableViewManager/releases/tag/4.7.0)
 
-Dependency changelog -> [DTModelStorage 2.6.0 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
+Dependency changelog -> [DTModelStorage 2.6.0 and higher](https://github.com/DenTelezhkin/DTModelStorage/releases)
 
-## [4.6.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.6.0)
+## [4.6.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/4.6.0)
 
-Dependency changelog -> [DTModelStorage 2.5 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
+Dependency changelog -> [DTModelStorage 2.5 and higher](https://github.com/DenTelezhkin/DTModelStorage/releases)
 
 ### Breaking
 
@@ -155,9 +155,9 @@ Dependency changelog -> [DTModelStorage 2.5 and higher](https://github.com/DenHe
 
 * Require Only-App-Extension-Safe API is set to YES in framework targets.
 
-## [4.5.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.5.0)
+## [4.5.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/4.5.0)
 
-Dependency changelog -> [DTModelStorage 2.4 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
+Dependency changelog -> [DTModelStorage 2.4 and higher](https://github.com/DenTelezhkin/DTModelStorage/releases)
 
 ## Added
 
@@ -168,38 +168,38 @@ Dependency changelog -> [DTModelStorage 2.4 and higher](https://github.com/DenHe
 
 * UIReactions now properly unwrap data models, even for cases when model contains double optional value.
 
-## [4.4.2](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.4.2)
+## [4.4.2](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/4.4.2)
 
 ## Fixed
 
 * Fixed a rare crash, that could happen when new items are being added to UICollectionView prior to UICollectionView calling any delegate methods
 
-## [4.4.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.4.1)
+## [4.4.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/4.4.1)
 
 ## Fixed
 
 * Issue with Swift 2.1.1 (XCode 7.2) where storage.delegate was not set during initialization
 
-## [4.4.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.4.0)
+## [4.4.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/4.4.0)
 
-Dependency changelog -> [DTModelStorage 2.3 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
+Dependency changelog -> [DTModelStorage 2.3 and higher](https://github.com/DenTelezhkin/DTModelStorage/releases)
 
 This release aims to improve mapping system and error reporting.
 
 ## Added
 
-* [New mapping system](https://github.com/DenHeadless/DTCollectionViewManager#data-models) with support for protocols and subclasses
-* Mappings can now be [customized](https://github.com/DenHeadless/DTCollectionViewManager#customizing-mapping-resolution) using `DTViewModelMappingCustomizable` protocol.
-* [Custom error handler](https://github.com/DenHeadless/DTCollectionViewManager#error-reporting) for `DTTableViewFactoryError` errors.
+* [New mapping system](https://github.com/DenTelezhkin/DTCollectionViewManager#data-models) with support for protocols and subclasses
+* Mappings can now be [customized](https://github.com/DenTelezhkin/DTCollectionViewManager#customizing-mapping-resolution) using `DTViewModelMappingCustomizable` protocol.
+* [Custom error handler](https://github.com/DenTelezhkin/DTCollectionViewManager#error-reporting) for `DTTableViewFactoryError` errors.
 
 ## Changed
 
 * preconditionFailures have been replaced with `DTCollectionViewFactoryError` ErrorType
 * Internal `CollectionViewReaction` class have been replaced by `UIReaction` class from DTModelStorage.
 
-## [4.3.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.3.0)
+## [4.3.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/4.3.0)
 
-Dependency changelog -> [DTModelStorage 2.2 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
+Dependency changelog -> [DTModelStorage 2.2 and higher](https://github.com/DenTelezhkin/DTModelStorage/releases)
 
 ## Changed
 
@@ -213,17 +213,17 @@ Dependency changelog -> [DTModelStorage 2.2 and higher](https://github.com/DenHe
 
 * Improved failure cases for situations where cell or supplementary mappings were not found
 
-## [4.2.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.2.1)
+## [4.2.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/4.2.1)
 
 ### Updated
 
 * Improved stability by treating UICollectionView as optional
 
-## [4.2.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.2.0)
+## [4.2.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/4.2.0)
 
-Dependency changelog -> [DTModelStorage 2.1 and higher](https://github.com/DenHeadless/DTModelStorage/releases)
+Dependency changelog -> [DTModelStorage 2.1 and higher](https://github.com/DenTelezhkin/DTModelStorage/releases)
 
-This release aims to improve storage updates and UI animation with UICollectionView. To make this happen, `DTModelStorage` classes were rewritten and rearchitectured, allowing finally to remove truly [historic workaround](https://github.com/DenHeadless/DTCollectionViewManager/commit/19ae8337b1f6442d1bd588b482d24395e99a2259#diff-7a0b0d0332a60e359c3b8e67a4034f09L674). This code was initially written to fix first item insertion and deletion of items in UICollectionView. Somewhere between iOS 6 and iOS 8 Apple has fixed bugs, that caused this behaviour to happen. This is not documented, and was not mentioned anywhere, and i was very lucky to find this out by accident. So finally, I was able to remove these workarounds(which by the way are almost [two years old](https://github.com/DenHeadless/DTCollectionViewManager/commit/0a4a33ba69a8a9752e84ffbf8f2d5c84ed8cd2aa)), and UICollectionView UI updates code is as clean as UITableView UI updates code.
+This release aims to improve storage updates and UI animation with UICollectionView. To make this happen, `DTModelStorage` classes were rewritten and rearchitectured, allowing finally to remove truly [historic workaround](https://github.com/DenTelezhkin/DTCollectionViewManager/commit/19ae8337b1f6442d1bd588b482d24395e99a2259#diff-7a0b0d0332a60e359c3b8e67a4034f09L674). This code was initially written to fix first item insertion and deletion of items in UICollectionView. Somewhere between iOS 6 and iOS 8 Apple has fixed bugs, that caused this behaviour to happen. This is not documented, and was not mentioned anywhere, and i was very lucky to find this out by accident. So finally, I was able to remove these workarounds(which by the way are almost [two years old](https://github.com/DenTelezhkin/DTCollectionViewManager/commit/0a4a33ba69a8a9752e84ffbf8f2d5c84ed8cd2aa)), and UICollectionView UI updates code is as clean as UITableView UI updates code.
 
 There are some backwards-incompatible changes in this release, however Xcode quick-fix tips should guide you through what needs to be changed.
 
@@ -236,7 +236,7 @@ There are some backwards-incompatible changes in this release, however Xcode qui
 * Fixed `cellConfiguration` method, that was working incorrectly
 * Fixed retain cycles in event blocks
 
-## [4.1.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.1.0)
+## [4.1.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/4.1.0)
 
 ## Features
 
@@ -276,11 +276,11 @@ extension PostsViewController: DTCollectionViewContentUpdatable {
 }
 ```
 
-## [4.0.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/4.0.0)
+## [4.0.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/4.0.0)
 
 4.0 is a next major release of `DTCollectionViewManager`. It was rewritten from scratch in Swift 2 and is not backwards-compatible with previous releases.
 
-Read  [4.0 Migration guide](https://github.com/DenHeadless/DTCollectionViewManager/wiki/4.0-Migration-Guide).
+Read  [4.0 Migration guide](https://github.com/DenTelezhkin/DTCollectionViewManager/wiki/4.0-Migration-Guide).
 
 [Blog post](http://digginginswift.com/2015/09/13/dttableviewmanager-4-protocol-oriented-uitableview-management-in-swift/)
 
@@ -294,37 +294,37 @@ Read  [4.0 Migration guide](https://github.com/DenHeadless/DTCollectionViewManag
 * Support for Swift types - classes, structs, enums, tuples.
 
 
-## [3.2.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/3.2.0)
+## [3.2.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/3.2.0)
 
 ### Bugfixes
 
 * Fixed an issue, where storageDidPerformUpdate method could be called without any updates.
 
-## [3.1.1](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/3.1.1)
+## [3.1.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/3.1.1)
 
 * Added support for installation using [Carthage](https://github.com/Carthage/Carthage) :beers:
 
-## [3.1.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/3.1.0)
+## [3.1.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/3.1.0)
 
 ## Changes
 
 * Added nullability annotations for XCode 6.3 and Swift 1.2
 
-## [3.0.5](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/3.0.5)
+## [3.0.5](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/3.0.5)
 
 ## Bugfixes
 
 Fixed issue, that could lead to wrong collection items being removed, when using memory storage  removeItemsAtIndexPaths: method.
 
-## [3.0.2](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/3.0.2)
+## [3.0.2](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/3.0.2)
 
 ## Features
 
 Added support for installation as a framework via CocoaPods - requires iOS 8 and higher deployment target.
 
-## [3.0.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/3.0.0)
+## [3.0.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/3.0.0)
 
-3.0 is a next major release of DTCollectionViewManager. Read all about changes in detail on a [wiki page](https://github.com/DenHeadless/DTCollectionViewManager/wiki/DTCollectionViewManager-3.0.-What's-new%3F).
+3.0 is a next major release of DTCollectionViewManager. Read all about changes in detail on a [wiki page](https://github.com/DenTelezhkin/DTCollectionViewManager/wiki/DTCollectionViewManager-3.0.-What's-new%3F).
 
 ### Features
 * Full Swift support, including swift model classes
@@ -337,7 +337,7 @@ Added support for installation as a framework via CocoaPods - requires iOS 8 and
 
 * `DTStorage` protocol was renamed to `DTStorageProtocol`.
 
-## [2.7.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/2.7.0)
+## [2.7.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/2.7.0)
 
 This is a release, that is targeted at improving code readability, and reducing number of classes and protocols inside DTCollectionViewManager architecture.
 
@@ -351,13 +351,13 @@ This is a release, that is targeted at improving code readability, and reducing 
 * When using `DTCoreDataStorage`, section titles are displayed as headers by default(UICollectionElementKindSectionHeader), if NSFetchedController was created with sectionNameKeyPath property.
 
 
-## [2.6.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/2.6.0)
+## [2.6.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/2.6.0)
 
 ## Features
 
 Add ability to use custom xibs for collection view cells and supplementary views.
 
-## [2.5.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/2.5.0)
+## [2.5.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/2.5.0)
 
 ### Changes
 
@@ -365,43 +365,43 @@ Preliminary support for Swift.
 
 If you use cells or supplementary views inside storyboards from Swift, implement optional reuseIdentifier method to return real Swift class name instead of the mangled one. This name should also be set as reuseIdentifier in storyboard.
 
-## [2.4.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/2.4.0)
+## [2.4.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/2.4.0)
 
 ### Breaking changes
 
 Reuse identifier now needs to be identical to cell, header or footer class names. For example, UserTableCell should now have "UserTableCell" reuse identifier.
 
-## [2.3.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/2.3.0)
+## [2.3.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/2.3.0)
 
 ### Deprecations
 
 Removed `DTModelSearching` protocol, please use `DTMemoryStorage` `setSearchingBlock:forModelClass:` method instead.
 
-## [2.2.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/2.2.0)
+## [2.2.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/2.2.0)
 
 * `DTModelSearching` protocol is deprecated and is replaced by memoryStorage method setSearchingBlock:forModelClass:
 * UICollectionViewDatasource and UICollectionViewDelegate properties for UITableView are now filled automatically.
 * Added more assertions, programmer errors should be more easily captured.
 
-## [2.0.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/2.0.0)
+## [2.0.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/2.0.0)
 
 * DTModelTransfer and DTModelSearching protocols are now moved to DTModelStorage repo.
 * Implemented searching in UICollectionView
 
-## [2.0.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/2.0.0)
+## [2.0.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/2.0.0)
 
 - Added support for custom storage classes
 - Current storage classes moved to separate repo(DTModelStorage)
 - Complete rewrite of internal architecture
 
-## [1.1.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/1.1.0)
+## [1.1.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/1.1.0)
 
 ### Features
 
 * Added support for storyboard cell, header and footer prototyping
 * Dropped support for creating cells, headers and footers from code
 
-## [1.0.0](https://github.com/DenHeadless/DTCollectionViewManager/releases/tag/1.0.0)
+## [1.0.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/1.0.0)
 
 First release of DTCollectionViewManager, woohoo!
 

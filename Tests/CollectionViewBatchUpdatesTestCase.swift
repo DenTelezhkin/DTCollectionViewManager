@@ -11,7 +11,7 @@ import XCTest
 import DTCollectionViewManager
 import DTModelStorage
 
-// This unit test shows problem, described in https://github.com/DenHeadless/DTCollectionViewManager/issues/23 and https://github.com/DenHeadless/DTCollectionViewManager/issues/27
+// This unit test shows problem, described in https://github.com/DenTelezhkin/DTCollectionViewManager/issues/23 and https://github.com/DenTelezhkin/DTCollectionViewManager/issues/27
 
 private class Cell: UICollectionViewCell, ModelTransfer {
     func update(with model: Model) { }
