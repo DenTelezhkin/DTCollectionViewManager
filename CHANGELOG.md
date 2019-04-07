@@ -3,6 +3,7 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Added [documentation](https://dentelezhkin.github.io/DTCollectionViewManager)
 * Added support fort Xcode 10.2 and Swift 5
 * Dropped support for Xcode 9 and Swift 3
 

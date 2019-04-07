@@ -42,6 +42,7 @@ Powerful generic-based UICollectionView management framework, written in Swift.
 - [x] No need to subclass
 - [x] Support for Drag&Drop in iOS 11
 - [x] Can be used with UICollectionViewController, or UIViewController with UICollectionView, or any other class, that contains UICollectionView
+- [x] [Complete documentation](https://dentelezhkin.github.io/DTCollectionViewManager/)
 
 ## Requirements
 
