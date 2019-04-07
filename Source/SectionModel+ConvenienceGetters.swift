@@ -28,7 +28,7 @@ import UIKit
 import DTModelStorage
 
 /// Convenience getters and setters for collection view header and footer models, used in UICollectionViewFlowLayout
-public extension SectionModel
+extension SectionModel
 {
     /// Returns UICollectionView header model for current section
     public var collectionHeaderModel : Any? {

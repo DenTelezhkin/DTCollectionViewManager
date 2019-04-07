@@ -29,7 +29,7 @@ import DTModelStorage
 
 extension DTCollectionViewManager {
     
-    #if os(iOS) && swift(>=3.2)
+    #if os(iOS)
     
     @available(iOS 11, *)
     /// Registers `closure` to be executed when `UICollectionViewDropDelegate.collectionView(_:performDropWith:)` method is called.

@@ -11,7 +11,7 @@ import DTModelStorage
 import Nimble
 @testable import DTCollectionViewManager
 
-#if os(iOS) && swift(>=3.2)
+#if os(iOS)
     
 @available (iOS 11, *)
 class SpringLoadedContextMock : NSObject, UISpringLoadedInteractionContext {
@@ -573,7 +573,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    #if os(iOS) && swift(>=3.2)
+    #if os(iOS)
     @available (iOS 11, *)
     func testShouldSpringLoadItem() {
         let exp = expectation(description: "shouldSpringLoadItem")
@@ -627,7 +627,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     // MARK - UICollectionViewDragDelegate
     
-    #if os(iOS) && swift(>=3.2)
+    #if os(iOS)
     func testItemsForBeginningInDragSession() {
         guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "ItemsForBeginningInDragSession")
@@ -815,7 +815,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:targetContentOffsetForProposedContentOffset:)))) == EventMethodSignature.targetContentOffsetForProposedContentOffset.rawValue
         }
         
-        #if os(iOS) && swift(>=3.2)
+        #if os(iOS)
         if #available(iOS 11, *) {
             expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:with:)))) == EventMethodSignature.shouldSpringLoadItem.rawValue
             
@@ -849,9 +849,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     func testEventRegistrationPerfomance() {
         let manager = sut.manager
-        #if swift(>=4.1)
         manager.anomalyHandler.anomalyAction = { _ in }
-        #endif
         measure {
             manager.shouldSelect(NibCell.self, { _,_,_ in return true })
             manager.didSelect(NibCell.self, { _,_,_ in })
@@ -877,7 +875,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
         }
     }
     
-    #if swift(>=4.1)
     func testModelEventCalledWithCellTypeLeadsToAnomaly() {
         let exp = expectation(description: "Model event called with cell")
         let anomaly = DTCollectionViewManagerAnomaly.modelEventCalledWithCellClass(modelType: "NibCell", methodName: "sizeForCell(withItem:_:)", subclassOf: "UICollectionReusableView")
@@ -890,12 +887,11 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     func testUnusedEventLeadsToAnomaly() {
         let exp = expectation(description: "Unused event")
-        let anomaly = DTCollectionViewManagerAnomaly.unusedEventDetected(viewType: "StringCell", methodName: "didSelect")
+        let anomaly = DTCollectionViewManagerAnomaly.unusedEventDetected(viewType: "StringCell", methodName: "didSelect(_:_:)")
         sut.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
         sut.manager.didSelect(StringCell.self) { _, _, _ in }
         waitForExpectations(timeout: 1.1)
         
-        XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] didSelect event registered for StringCell, but there were no view mappings registered for StringCell type. This event will never be called.")
+        XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] didSelect(_:_:) event registered for StringCell, but there were no view mappings registered for StringCell type. This event will never be called.")
     }
-    #endif
 }

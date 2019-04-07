@@ -3,6 +3,9 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+* Added support fort Xcode 10.2 and Swift 5
+* Dropped support for Xcode 9 and Swift 3
+
 ## [6.4.2](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.4.2)
 
 * `move(:_,:_)` method was deprecated and no longer works due to a logic bug, that can prevent this method from being called if sourceIndexPath is off screen when this event was called by `UICollectionView`. Please use new method `moveItemAtTo(:_)` to subscribe to move events in the datasource.

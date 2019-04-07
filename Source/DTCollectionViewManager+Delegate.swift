@@ -178,7 +178,7 @@ extension DTCollectionViewManager {
                                                   closure: closure)
     }
     
-    #if os(iOS) && swift(>=3.2)
+    #if os(iOS)
     @available (iOS 11, *)
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:)` method is called for `cellClass`.
     open func shouldSpringLoad<T:ModelTransfer>(_ cellClass: T.Type, _ closure: @escaping (UISpringLoadedInteractionContext, T, T.ModelType, IndexPath) -> Bool)

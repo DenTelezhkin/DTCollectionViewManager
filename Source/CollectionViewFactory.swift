@@ -35,9 +35,8 @@ final class CollectionViewFactory
     var mappings = [ViewModelMapping]()
     
     weak var mappingCustomizableDelegate : ViewModelMappingCustomizing?
-    #if swift(>=4.1)
+    
     weak var anomalyHandler : DTCollectionViewManagerAnomalyHandler?
-    #endif
     
     init(collectionView: UICollectionView)
     {
@@ -86,7 +85,6 @@ extension CollectionViewFactory
             if let instantiatedCell = objects.first as? T {
                 cell = instantiatedCell
             } else {
-                #if swift(>=4.1)
                 if let first = objects.first {
                     anomalyHandler?.reportAnomaly(.differentCellClass(xibName: nibName,
                                                                       cellClass: String(describing: type(of: first)),
@@ -94,14 +92,11 @@ extension CollectionViewFactory
                 } else {
                     anomalyHandler?.reportAnomaly(.emptyXibFile(xibName: nibName, expectedViewClass: String(describing: T.self)))
                 }
-                #endif
             }
         }
-        #if swift(>=4.1)
         if let cellReuseIdentifier = cell.reuseIdentifier, cellReuseIdentifier != reuseIdentifier {
             anomalyHandler?.reportAnomaly(.differentCellReuseIdentifier(mappingReuseIdentifier: reuseIdentifier, cellReuseIdentifier: cellReuseIdentifier))
         }
-        #endif
     }
     
     func registerNiblessSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String, mappingBlock: ((ViewModelMapping) -> Void)?) where T: UICollectionReusableView
@@ -144,7 +139,6 @@ extension CollectionViewFactory
             if let instantiatedView = objects.first as? T {
                 view = instantiatedView
             } else {
-                #if swift(>=4.1)
                 if let first = objects.first {
                     anomalyHandler?.reportAnomaly(DTCollectionViewManagerAnomaly.differentSupplementaryClass(xibName: nibName,
                                                                               viewClass: String(describing: type(of: first)),
@@ -152,14 +146,11 @@ extension CollectionViewFactory
                 } else {
                     anomalyHandler?.reportAnomaly(.emptyXibFile(xibName: nibName, expectedViewClass: String(describing: T.self)))
                 }
-                #endif
             }
         }
-        #if swift(>=4.1)
         if let supplementaryReuseIdentifier = view.reuseIdentifier, supplementaryReuseIdentifier != reuseIdentifier {
             anomalyHandler?.reportAnomaly(DTCollectionViewManagerAnomaly.differentSupplementaryReuseIdentifier(mappingReuseIdentifier: reuseIdentifier, supplementaryReuseIdentifier: supplementaryReuseIdentifier))
         }
-        #endif
     }
     
     func unregisterCellClass<T:ModelTransfer>(_ cellClass: T.Type) where T: UICollectionViewCell {
@@ -212,9 +203,7 @@ extension CollectionViewFactory
             mapping.updateBlock(cell, model)
             return cell
         }
-#if swift(>=4.1)
         anomalyHandler?.reportAnomaly(.noCellMappingFound(modelDescription: String(describing: model), indexPath: indexPath))
-#endif
         return nil
     }
     
@@ -244,9 +233,7 @@ extension CollectionViewFactory
             mapping.updateBlock(reusableView, model)
             return reusableView
         }
-        #if swift(>=4.1)
         anomalyHandler?.reportAnomaly(.noSupplementaryMappingFound(modelDescription: String(describing: model), kind: kind, indexPath: indexPath))
-        #endif
         return nil
     }
 }

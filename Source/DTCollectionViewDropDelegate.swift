@@ -27,7 +27,7 @@ import Foundation
 import UIKit
 import DTModelStorage
 
-#if os(iOS) && swift(>=3.2)
+#if os(iOS)
     
 @available(iOS 11.0, *)
 /// Object, that implements `UICollectionViewDropDelegate` methods for `DTCollectionViewManager`.
@@ -92,7 +92,7 @@ open class DTCollectionViewDropDelegate : DTCollectionViewDelegateWrapper, UICol
     @available(iOS 11.0, *)
     /// Implementation of `UICollectionViewDropDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, dropPreviewParametersForItemAt indexPath: IndexPath) -> UIDragPreviewParameters? {
-        if let reaction = collectionViewReactions.filter({ $0.methodSignature == EventMethodSignature.dropPreviewParametersForItemAtIndexPath.rawValue }).first {
+        if let reaction = collectionViewReactions.first(where: { $0.methodSignature == EventMethodSignature.dropPreviewParametersForItemAtIndexPath.rawValue }) {
             return reaction.performWithArguments((indexPath, 0, 0)) as? UIDragPreviewParameters
         }
         return (delegate as? UICollectionViewDropDelegate)?.collectionView?(collectionView,

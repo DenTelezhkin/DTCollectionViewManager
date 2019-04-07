@@ -193,7 +193,6 @@ class DataSourceTestCase: XCTestCase {
         waitForExpectations(timeout: 0.5, handler: nil)
     }
 
-#if swift(>=4.1)
     func testNilModelInStorageLeadsToNilModelAnomaly() {
         let exp = expectation(description: "Nil model in storage")
         exp.assertForOverFulfill = false
@@ -311,5 +310,4 @@ class DataSourceTestCase: XCTestCase {
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] Attempted to register xib NibView, but view found in a xib was of type NibHeaderFooterView, while expected type is ReactingHeaderFooterView. This can prevent supplementary views from being updated with models and react to events.")
     }
-#endif
 }

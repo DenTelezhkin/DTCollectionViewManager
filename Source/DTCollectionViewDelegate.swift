@@ -244,7 +244,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
                                                                 targetContentOffsetForProposedContentOffset: proposedContentOffset) ?? .zero
     }
     
-    #if os(iOS) && swift(>=3.2)
+    #if os(iOS)
     @available (iOS 11, *)
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, shouldSpringLoadItemAt indexPath: IndexPath, with context: UISpringLoadedInteractionContext) -> Bool {

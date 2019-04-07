@@ -27,7 +27,7 @@ import Foundation
 import UIKit
 import DTModelStorage
 
-#if os(iOS) && swift(>=3.2)
+#if os(iOS)
     
 @available(iOS 11.0, *)
 /// Object, that implements `UICollectionViewDragDelegate` methods for `DTCollectionViewManager`.

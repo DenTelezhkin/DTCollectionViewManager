@@ -122,9 +122,7 @@ open class DTCollectionViewManager {
         precondition(self.isManagingCollectionView, "Please call manager.startManagingWithDelegate(self) before calling any other DTCollectionViewManager methods")
         //swiftlint:disable:next force_unwrapping
         let factory = CollectionViewFactory(collectionView: self.collectionView!)
-        #if swift(>=4.1)
         factory.anomalyHandler = anomalyHandler
-        #endif
         return factory
     }()
     
@@ -135,10 +133,8 @@ open class DTCollectionViewManager {
         return storage as? MemoryStorage
     }
     
-#if swift(>=4.1)
     /// Anomaly handler, that handles reported by `DTCollectionViewManager` anomalies.
     open var anomalyHandler : DTCollectionViewManagerAnomalyHandler = .init()
-#endif
     
     /// Storage, that holds your UICollectionView models. By default, it's `MemoryStorage` instance.
     /// - Note: When setting custom storage for this property, it will be automatically configured for using with UICollectionViewFlowLayout and it's delegate will be set to `DTCollectionViewManager` instance.
@@ -183,7 +179,7 @@ open class DTCollectionViewManager {
         }
     }
     
-    #if os(iOS) && swift(>=3.2)
+    #if os(iOS)
     // Yeah, @availability macros does not work on stored properties ¯\_(ツ)_/¯
     private var _collectionDragDelegatePrivate : AnyObject?
     @available(iOS 11, *)
@@ -251,7 +247,7 @@ open class DTCollectionViewManager {
         collectionDataSource = DTCollectionViewDataSource(delegate: delegate, collectionViewManager: self)
         collectionDelegate = DTCollectionViewDelegate(delegate: delegate, collectionViewManager: self)
         
-        #if os(iOS) && swift(>=3.2)
+        #if os(iOS)
         if #available(iOS 11.0, *) {
             collectionDragDelegate = DTCollectionViewDragDelegate(delegate: delegate, collectionViewManager: self)
             collectionDropDelegate = DTCollectionViewDropDelegate(delegate: delegate, collectionViewManager: self)
@@ -305,7 +301,6 @@ open class DTCollectionViewManager {
     }
     
     func verifyItemEvent<T>(for itemType: T.Type, methodName: String) {
-        #if swift(>=4.1)
         switch itemType {
         case is UICollectionReusableView.Type:
             anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: methodName, subclassOf: "UICollectionReusableView"))
@@ -314,17 +309,14 @@ open class DTCollectionViewManager {
         case is UITableViewHeaderFooterView.Type: anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: methodName, subclassOf: "UITableViewHeaderFooterView"))
         default: ()
         }
-        #endif
     }
     
     func verifyViewEvent<T:ModelTransfer>(for viewType: T.Type, methodName: String) {
-        #if swift(>=4.1)
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
             if self?.viewFactory.mappings.filter({ $0.viewClass == T.self }).count == 0 {
                 self?.anomalyHandler.reportAnomaly(DTCollectionViewManagerAnomaly.unusedEventDetected(viewType: String(describing: T.self), methodName: methodName))
             }
         }
-        #endif
     }
 }
 
