@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [6.5.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.5.0)
+
 ### Added
 
 * Convenience constructor for `DTCollectionViewManager` object: `init(storage:)` that allows to create it's instance without initializing `MemoryStorage`.

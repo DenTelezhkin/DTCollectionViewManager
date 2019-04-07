@@ -394,14 +394,14 @@
     },
     {
       "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager.swift",
-      "line": 187,
+      "line": 179,
       "symbol": "DTCollectionViewManager.collectionDragDelegate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager.swift",
-      "line": 201,
+      "line": 193,
       "symbol": "DTCollectionViewManager.collectionDropDelegate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"

@@ -97,5 +97,6 @@ lane :release do |params|
     puts "Attaching Carthage prebuilt binary to release."
     releases = client.releases('DenTelezhkin/DTCollectionViewManager')
     client.upload_asset(releases[0].url, 'DTCollectionViewManager.framework.zip')
+    sh "rm -rf DTCollectionViewManager.framework.zip"
   end
 end
