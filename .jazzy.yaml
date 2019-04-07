@@ -1,0 +1,8 @@
+author: Denys Telezhkin
+author_url: https://github.com/DenTelezhkin
+github_url: https://github.com/DenTelezhkin/DTCollectionViewManager
+root_url: https://dentelezhkin.github.io/DTCollectionViewManager/
+module: DTCollectionViewManager
+xcodebuild_arguments: [-scheme, DTCollectionViewManager]
+output: docs
+theme: fullwidth

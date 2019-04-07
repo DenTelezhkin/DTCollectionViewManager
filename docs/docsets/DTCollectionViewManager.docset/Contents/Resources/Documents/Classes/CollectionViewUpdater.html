@@ -1,0 +1,381 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>CollectionViewUpdater Class Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Class/CollectionViewUpdater" class="dashAnchor"></a>
+
+    <a title="CollectionViewUpdater Class Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          DTCollectionViewManager Docs
+        </a>
+         (64% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/DenTelezhkin/DTCollectionViewManager">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fdentelezhkin%2Egithub%2Eio%2FDTCollectionViewManager%2Fdocsets%2FDTCollectionViewManager%2Exml">
+            <img class="header-icon" src="../img/dash.png"/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">DTCollectionViewManager Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      CollectionViewUpdater Class Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CollectionViewUpdater.html">CollectionViewUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewDataSource.html">DTCollectionViewDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewDelegate.html">DTCollectionViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewDelegateWrapper.html">DTCollectionViewDelegateWrapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewDragDelegate.html">DTCollectionViewDragDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewDropDelegate.html">DTCollectionViewDropDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewDropPlaceholderContext.html">DTCollectionViewDropPlaceholderContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewManager.html">DTCollectionViewManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewManagerAnomalyHandler.html">DTCollectionViewManagerAnomalyHandler</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/DTCollectionViewManagerAnomaly.html">DTCollectionViewManagerAnomaly</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/SectionModel.html">SectionModel</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/DTCollectionViewManageable.html">DTCollectionViewManageable</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/DTCollectionViewNonOptionalManageable.html">DTCollectionViewNonOptionalManageable</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content">
+            <h1>CollectionViewUpdater</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">CollectionViewUpdater</span> <span class="p">:</span> <span class="kt">StorageUpdating</span></code></pre>
+
+                </div>
+              </div>
+            <p><code>CollectionViewUpdater</code> is responsible for updating <code>UICollectionView</code>, when it receives storage updates.</p>
+
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:23DTCollectionViewManager010CollectionB7UpdaterC17willUpdateContenty14DTModelStorage0jG0CSgcSgvp"></a>
+                    <a name="//apple_ref/swift/Property/willUpdateContent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:23DTCollectionViewManager010CollectionB7UpdaterC17willUpdateContenty14DTModelStorage0jG0CSgcSgvp">willUpdateContent</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>closure to be executed before content is updated</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">willUpdateContent</span><span class="p">:</span> <span class="p">((</span><span class="kt">StorageUpdate</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:23DTCollectionViewManager010CollectionB7UpdaterC16didUpdateContenty14DTModelStorage0jG0CSgcSgvp"></a>
+                    <a name="//apple_ref/swift/Property/didUpdateContent" class="dashAnchor"></a>
+                    <a class="token" href="#/s:23DTCollectionViewManager010CollectionB7UpdaterC16didUpdateContenty14DTModelStorage0jG0CSgcSgvp">didUpdateContent</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>closure to be executed after content is updated</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">didUpdateContent</span><span class="p">:</span> <span class="p">((</span><span class="kt">StorageUpdate</span><span class="p">?)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:23DTCollectionViewManager010CollectionB7UpdaterC17reloadItemClosurey10Foundation9IndexPathV_yptcSgvp"></a>
+                    <a name="//apple_ref/swift/Property/reloadItemClosure" class="dashAnchor"></a>
+                    <a class="token" href="#/s:23DTCollectionViewManager010CollectionB7UpdaterC17reloadItemClosurey10Foundation9IndexPathV_yptcSgvp">reloadItemClosure</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Closure to be executed, when reloading an item.</p>
+<div class="aside aside-see-also">
+    <p class="aside-title">See also</p>
+    <code><a href="../Classes/DTCollectionViewManager.html#/s:23DTCollectionViewManagerAAC17updateCellClosurey10Foundation9IndexPathV_yptcyF">DTCollectionViewManager.updateCellClosure()</a></code> method and <code><a href="../Classes/DTCollectionViewManager.html#/s:23DTCollectionViewManagerAAC15coreDataUpdaterAA010CollectionbF0CyF">DTCollectionViewManager.coreDataUpdater()</a></code> method.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">reloadItemClosure</span><span class="p">:</span> <span class="p">((</span><span class="kt">IndexPath</span><span class="p">,</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:23DTCollectionViewManager010CollectionB7UpdaterC28animateMoveAsDeleteAndInsertSbvp"></a>
+                    <a name="//apple_ref/swift/Property/animateMoveAsDeleteAndInsert" class="dashAnchor"></a>
+                    <a class="token" href="#/s:23DTCollectionViewManager010CollectionB7UpdaterC28animateMoveAsDeleteAndInsertSbvp">animateMoveAsDeleteAndInsert</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>When this property is true, move events will be animated as delete event and insert event.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">animateMoveAsDeleteAndInsert</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:23DTCollectionViewManager010CollectionB7UpdaterC22batchUpdatesInProgressSbvp"></a>
+                    <a name="//apple_ref/swift/Property/batchUpdatesInProgress" class="dashAnchor"></a>
+                    <a class="token" href="#/s:23DTCollectionViewManager010CollectionB7UpdaterC22batchUpdatesInProgressSbvp">batchUpdatesInProgress</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Boolean property, that indicates whether batch updates are completed.</p>
+<div class="aside aside-note">
+    <p class="aside-title">Note</p>
+    this can be useful if you are deciding whether to run another batch of animations - insertion, deletions etc. UICollectionView is not very tolerant to multiple performBatchUpdates, executed at once.
+
+</div>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="k">var</span> <span class="nv">batchUpdatesInProgress</span><span class="p">:</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:23DTCollectionViewManager010CollectionB7UpdaterC010collectionB010reloadItem28animateMoveAsDeleteAndInsertACSo012UICollectionB0C_y10Foundation9IndexPathV_yptcSgSbtcfc"></a>
+                    <a name="//apple_ref/swift/Method/init(collectionView:reloadItem:animateMoveAsDeleteAndInsert:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:23DTCollectionViewManager010CollectionB7UpdaterC010collectionB010reloadItem28animateMoveAsDeleteAndInsertACSo012UICollectionB0C_y10Foundation9IndexPathV_yptcSgSbtcfc">init(collectionView:reloadItem:animateMoveAsDeleteAndInsert:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Creates updater.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span>
+            <span class="nv">reloadItem</span><span class="p">:</span> <span class="p">((</span><span class="kt">IndexPath</span><span class="p">,</span> <span class="kt">Any</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">,</span>
+            <span class="nv">animateMoveAsDeleteAndInsert</span><span class="p">:</span> <span class="kt">Bool</span> <span class="o">=</span> <span class="kc">false</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:23DTCollectionViewManager010CollectionB7UpdaterC23storageDidPerformUpdateyy14DTModelStorage0kI0CF"></a>
+                    <a name="//apple_ref/swift/Method/storageDidPerformUpdate(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:23DTCollectionViewManager010CollectionB7UpdaterC23storageDidPerformUpdateyy14DTModelStorage0kI0CF">storageDidPerformUpdate(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Updates <code>UICollectionView</code> with received <code>update</code>. This method applies object and section changes in <code>performBatchUpdates</code> method.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">storageDidPerformUpdate</span><span class="p">(</span><span class="n">_</span> <span class="nv">update</span><span class="p">:</span> <span class="kt">StorageUpdate</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:23DTCollectionViewManager010CollectionB7UpdaterC21storageNeedsReloadingyyF"></a>
+                    <a name="//apple_ref/swift/Method/storageNeedsReloading()" class="dashAnchor"></a>
+                    <a class="token" href="#/s:23DTCollectionViewManager010CollectionB7UpdaterC21storageNeedsReloadingyyF">storageNeedsReloading()</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Call this method, if you want UICollectionView to be reloaded, and beforeContentUpdate: and afterContentUpdate: closures to be called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">storageNeedsReloading</span><span class="p">()</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2019 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2019-04-07)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.9.4</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>
