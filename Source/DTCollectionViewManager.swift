@@ -107,9 +107,6 @@ open class DTCollectionViewManager {
         return nil
     }
     
-    /// Creates `DTCollectionViewManager`. Usually you don't need to call this method directly, as `manager` property on `DTCollectionViewManageable` instance is filled automatically.
-    public init() {}
-    
     fileprivate weak var delegate : AnyObject?
     
     /// Bool property, that will be true, after `startManagingWithDelegate` method is called on `DTCollectionViewManager`.
@@ -140,12 +137,7 @@ open class DTCollectionViewManager {
     /// - Note: When setting custom storage for this property, it will be automatically configured for using with UICollectionViewFlowLayout and it's delegate will be set to `DTCollectionViewManager` instance.
     /// - Note: Previous storage `delegate` property will be nilled out to avoid collisions.
     /// - SeeAlso: `MemoryStorage`, `CoreDataStorage`.
-    open var storage : Storage = {
-        let storage = MemoryStorage()
-        storage.configureForCollectionViewFlowLayoutUsage()
-        return storage
-        }()
-        {
+    open var storage : Storage {
         willSet {
             storage.delegate = nil
         }
@@ -208,6 +200,17 @@ open class DTCollectionViewManager {
         }
     }
     #endif
+    
+    /// Storage construction block, used by `DTCollectionViewManager` when it's created. Returns `MemoryStorage` by default.
+    public static var defaultStorage: () -> Storage = { MemoryStorage() }
+    
+    /// Creates `DTCollectionViewManager`. Usually you don't need to call this method directly, as `manager` property on `DTCollectionViewManageable` instance is filled automatically. `DTCollectionViewManager.defaultStorage` closure is used to determine which `Storage` would be used by default.
+    ///
+    /// - Parameter storage: storage class to be used
+    public init(storage: Storage = DTCollectionViewManager.defaultStorage()) {
+        (storage as? BaseStorage)?.configureForCollectionViewFlowLayoutUsage()
+        self.storage = storage
+    }
     
     /// Call this method before calling any of `DTCollectionViewManager` methods.
     /// - Precondition: UICollectionView instance on `delegate` should not be nil.
