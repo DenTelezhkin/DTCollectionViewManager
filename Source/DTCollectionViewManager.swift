@@ -285,7 +285,7 @@ open class DTCollectionViewManager {
     /// - Precondition: UICollectionView instance on `delegate` should not be nil.
     open func coreDataUpdater() -> CollectionViewUpdater {
         guard let collectionView = self.collectionView else {
-            preconditionFailure("Call startManagingWithDelegate: method only when UICollectionView has been created")
+            preconditionFailure("Call coreDataUpdater() method only when UICollectionView is created and passed to `DTCollectionViewManager` via startManaging(with:) method.")
         }
         return CollectionViewUpdater(collectionView: collectionView,
                                      reloadItem: updateCellClosure(),
