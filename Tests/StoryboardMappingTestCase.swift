@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import Nimble
 import DTModelStorage
 @testable import DTCollectionViewManager
 
@@ -28,7 +27,7 @@ class StoryboardMappingTestCase: XCTestCase {
         
         let cell = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0)) as? StoryboardCollectionViewCell
         
-        expect(cell?.storyboardLabel).toNot(beNil())
+        XCTAssertNotNil(cell?.storyboardLabel)
     }
     
     func testSupplementaryHeadersAreRegisteredAndOutletsAreWired() {
@@ -46,8 +45,8 @@ class StoryboardMappingTestCase: XCTestCase {
             
             let footerView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter, at:  indexPath(0, 0)) as? StoryboardCollectionReusableFooterView
             
-            expect(headerView?.storyboardLabel.text) == "Header"
-            expect(footerView?.storyboardLabel.text) == "Footer"
+            XCTAssertEqual(headerView?.storyboardLabel.text, "Header")
+            XCTAssertEqual(footerView?.storyboardLabel.text, "Footer")
         }
         
     }

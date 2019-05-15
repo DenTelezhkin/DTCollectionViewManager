@@ -10,7 +10,6 @@ import UIKit
 import XCTest
 import DTModelStorage
 @testable import DTCollectionViewManager
-import Nimble
 
 class DelegateCollectionViewController: DTSupplementaryTestCollectionController, UICollectionViewDelegateFlowLayout {
     var headerHeightRequested = false
@@ -46,13 +45,13 @@ class DelegateForwardingTestCase: XCTestCase {
     func testHeaderHeightIsRequested() {
         controller.manager.memoryStorage.setSectionHeaderModels(["Foo"])
         let _ = controller.manager.collectionDelegate?.collectionView(controller.collectionView!, layout: controller.collectionView!.collectionViewLayout, referenceSizeForHeaderInSection:0)
-        expect(self.controller.headerHeightRequested).to(beTrue())
+        XCTAssert(controller.headerHeightRequested)
     }
     
     func testFooterHeightIsRequested() {
         controller.manager.memoryStorage.setSectionFooterModels(["Foo"])
         let _ = controller.manager.collectionDelegate?.collectionView(controller.collectionView!, layout: controller.collectionView!.collectionViewLayout, referenceSizeForFooterInSection:0)
-        expect(self.controller.footerHeightRequested).to(beTrue())
+        XCTAssert(controller.footerHeightRequested)
     }
     
     func testDelegateMethodIsCalled() {
@@ -67,6 +66,6 @@ class DelegateForwardingTestCase: XCTestCase {
         
         controller.collectionView!.performBatchUpdates(nil, completion: nil)
         
-        expect(self.controller.delegateMethodCalled).to(beTrue())
+        XCTAssert(controller.delegateMethodCalled)
     }
 }

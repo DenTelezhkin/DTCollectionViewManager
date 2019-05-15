@@ -691,7 +691,6 @@
 			files = (
 			);
 			inputPaths = (
-				Nimble.framework,
 				DTModelStorage.framework,
 			);
 			name = "Copy Carthage Frameworks";
@@ -699,7 +698,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exec \"${SRCROOT}/scripts/copy-carthage-frameworks.sh\"";
+			shellScript = "exec \"${SRCROOT}/scripts/copy-carthage-frameworks.sh\"\n";
 		};
 		9A73E09A1F65866300BF80F8 /* Copy Carthage Frameworks */ = {
 			isa = PBXShellScriptBuildPhase;
@@ -707,7 +706,6 @@
 			files = (
 			);
 			inputPaths = (
-				Nimble.framework,
 				DTModelStorage.framework,
 			);
 			name = "Copy Carthage Frameworks";
@@ -715,7 +713,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "exec \"${SRCROOT}/scripts/copy-carthage-frameworks.sh\"";
+			shellScript = "exec \"${SRCROOT}/scripts/copy-carthage-frameworks.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 

@@ -9,7 +9,6 @@
 import XCTest
 import DTModelStorage
 import DTCollectionViewManager
-import Nimble
 
 class DataSourceTestCase: XCTestCase {
     
@@ -26,9 +25,9 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItem(3)
         controller.manager.memoryStorage.addItems([2,1,6,4], toSection: 0)
         
-        expect(self.controller.verifyItem(6, atIndexPath: indexPath(3, 0))) == true
-        expect(self.controller.verifyItem(3, atIndexPath: indexPath(0, 0))) == true
-        expect(self.controller.manager.memoryStorage.item(at: indexPath(56, 0))).to(beNil())
+        XCTAssert(self.controller.verifyItem(6, atIndexPath: indexPath(3, 0)))
+        XCTAssert(self.controller.verifyItem(3, atIndexPath: indexPath(0, 0)))
+        XCTAssertNil(controller.manager.memoryStorage.item(at: indexPath(56, 0)))
     }
     
     func testShouldReturnCorrectNumberOfCollectionItems()
@@ -36,8 +35,8 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItems([1,1,1,1], toSection: 0)
         controller.manager.memoryStorage.addItems([2,2,2], toSection: 1)
         let collectionView = controller.collectionView
-        expect(self.controller.manager.collectionDataSource?.collectionView(collectionView!, numberOfItemsInSection: 0)) == 4
-        expect(self.controller.manager.collectionDataSource?.collectionView(collectionView!, numberOfItemsInSection: 1)) == 3
+        XCTAssertEqual(controller.manager.collectionDataSource?.collectionView(collectionView!, numberOfItemsInSection: 0), 4)
+        XCTAssertEqual(controller.manager.collectionDataSource?.collectionView(collectionView!, numberOfItemsInSection: 1), 3)
     }
     
     func testShouldReturnCorrectNumberOfSections()
@@ -46,14 +45,14 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItem(4, toSection: 3)
         controller.manager.memoryStorage.addItem(2, toSection: 2)
         
-        expect(self.controller.manager.collectionDataSource?.numberOfSections(in: self.controller.collectionView!)) == 4
+        XCTAssertEqual(controller.manager.collectionDataSource?.numberOfSections(in: controller.collectionView!), 4)
     }
     
     func testShouldAddItems()
     {
         controller.manager.memoryStorage.addItems([3,2], toSection: 0)
         
-        expect(self.controller.manager.memoryStorage.items(inSection: 0)?.count) == 2
+        XCTAssertEqual(controller.manager.memoryStorage.items(inSection: 0)?.count, 2)
     }
     
     func testShouldInsertItem()
@@ -61,9 +60,9 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItems([2,4,6], toSection: 0)
         try! controller.manager.memoryStorage.insertItem(1, to: indexPath(2, 0))
         
-        expect(self.controller.manager.memoryStorage.items(inSection: 0)?.count) == 4
-        expect(self.controller.verifyItem(1, atIndexPath: indexPath(2, 0))) == true
-        expect(self.controller.verifyItem(6, atIndexPath: indexPath(3, 0))) == true
+        XCTAssertEqual(controller.manager.memoryStorage.items(inSection: 0)?.count, 4)
+        XCTAssert(controller.verifyItem(1, atIndexPath: indexPath(2, 0)))
+        XCTAssert(self.controller.verifyItem(6, atIndexPath: indexPath(3, 0)))
     }
     
     func testReplaceItem()
@@ -73,10 +72,10 @@ class DataSourceTestCase: XCTestCase {
         try! controller.manager.memoryStorage.replaceItem(3, with: 2)
         try! controller.manager.memoryStorage.replaceItem(4, with: 5)
         
-        expect(self.controller.manager.memoryStorage.items(inSection: 0)?.count) == 2
-        expect(self.controller.manager.memoryStorage.items(inSection: 1)?.count) == 2
-        expect(self.controller.verifyItem(2, atIndexPath: indexPath(1, 0))) == true
-        expect(self.controller.verifyItem(5, atIndexPath: indexPath(0, 1))) == true
+        XCTAssertEqual(controller.manager.memoryStorage.items(inSection: 0)?.count, 2)
+        XCTAssertEqual(controller.manager.memoryStorage.items(inSection: 1)?.count, 2)
+        XCTAssert(controller.verifyItem(2, atIndexPath: indexPath(1, 0)))
+        XCTAssert(controller.verifyItem(5, atIndexPath: indexPath(0, 1)))
     }
     
     func testRemoveItem()
@@ -84,8 +83,8 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItems([1,3,2,4], toSection: 0)
         controller.manager.memoryStorage.removeItems([1,4,3,5])
         
-        expect(self.controller.manager.memoryStorage.items(inSection: 0)?.count) == 1
-        expect(self.controller.verifyItem(2, atIndexPath: indexPath(0, 0))) == true
+        XCTAssertEqual(controller.manager.memoryStorage.items(inSection: 0)?.count, 1)
+        XCTAssert(controller.verifyItem(2, atIndexPath: indexPath(0, 0)))
     }
     
     func testRemoveItems()
@@ -93,7 +92,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItems([1,2,3], toSection: 0)
         controller.manager.memoryStorage.setItems([Int](), forSection: 0)
         
-        expect(self.controller.manager.memoryStorage.items(inSection: 0)?.count) == 0
+        XCTAssertEqual(controller.manager.memoryStorage.items(inSection: 0)?.count, 0)
     }
     
     func testMovingItems()
@@ -101,7 +100,7 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.addItems([1,2,3], toSection: 0)
         controller.manager.memoryStorage.moveItem(at: indexPath(0, 0), to: indexPath(2, 0))
         
-        expect(self.controller.verifySection([2,3,1], withSectionNumber: 0)) == true
+        XCTAssert(controller.verifySection([2,3,1], withSectionNumber: 0))
     }
     
     func testShouldNotCrashWhenMovingToBadRow()
@@ -125,9 +124,9 @@ class DataSourceTestCase: XCTestCase {
         
         controller.manager.memoryStorage.moveSection(0, toSection: 1)
         
-        expect(self.controller.verifySection([2], withSectionNumber: 0)) == true
-        expect(self.controller.verifySection([1], withSectionNumber: 1)) == true
-        expect(self.controller.verifySection([3], withSectionNumber: 2)) == true
+        XCTAssert(controller.verifySection([2], withSectionNumber: 0))
+        XCTAssert(controller.verifySection([1], withSectionNumber: 1))
+        XCTAssert(controller.verifySection([3], withSectionNumber: 2))
     }
     
     func testShouldDeleteSections()
@@ -138,47 +137,16 @@ class DataSourceTestCase: XCTestCase {
         
         controller.manager.memoryStorage.deleteSections(IndexSet(integer: 1))
         
-        expect(self.controller.manager.memoryStorage.sections.count) == 2
-        expect(self.controller.verifySection([2], withSectionNumber: 1)).to(beTruthy())
+        XCTAssertEqual(controller.manager.memoryStorage.sections.count, 2)
+        XCTAssert(controller.verifySection([2], withSectionNumber: 1))
     }
     
     
     func testSupplementaryKindsShouldBeSet()
     {
-        expect(self.controller.manager.memoryStorage.supplementaryHeaderKind) == DTCollectionViewElementSectionHeader
-        expect(self.controller.manager.memoryStorage.supplementaryFooterKind) == DTCollectionViewElementSectionFooter
+        XCTAssertEqual(controller.manager.memoryStorage.supplementaryHeaderKind, DTCollectionViewElementSectionHeader)
+        XCTAssertEqual(controller.manager.memoryStorage.supplementaryFooterKind, DTCollectionViewElementSectionFooter)
     }
-
-    // TODO: Figure out way to test supplementaries
-    
-//    func testHeaderViewShouldBeCreated()
-//    {
-//        controller.manager.registerCellClass(NibCell)
-//        controller.manager.registerHeaderClass(NibHeaderFooterView)
-//        controller.manager.memoryStorage.updateWithoutAnimations {
-//            self.controller.manager.memoryStorage.setSupplementaries([1], forKind: UICollectionElementKindSectionHeader)
-//        }
-//    
-//        controller.collectionView?.reloadData()
-//        controller.collectionView?.performBatchUpdates(nil, completion: nil)
-//        
-//        expect(self.controller.manager.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionHeader, atIndexPath: indexPath(0, 0))).to(beAKindOf(NibHeaderFooterView))
-//    }
-    
-//    func testFooterViewShouldBeCreated()
-//    {
-//        controller.manager.registerFooterClass(NibHeaderFooterView)
-//        let section = SectionModel()
-//        section.collectionFooterModel = 1
-//        section.setItems([3,4])
-//        controller.manager.memoryStorage.setSection(section, forSectionIndex: 0)
-//        if #available(iOS 9.0, *) {
-//            expect(self.controller.collectionView?.supplementaryViewForElementKind(UICollectionElementKindSectionFooter, atIndexPath: indexPath(0, 0))).to(beAKindOf(NibHeaderFooterView))
-//        } else {
-//            // Fallback on earlier versions
-//        }
-//        expect(self.controller.manager.collectionView(self.controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionElementKindSectionFooter, atIndexPath: indexPath(0, 0))).to(beAKindOf(NibHeaderFooterView))
-//    }
     
     func testReloadRowsClosure() {
         let exp = expectation(description: "Reload row closure")

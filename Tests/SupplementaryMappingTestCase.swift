@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import Nimble
 import DTModelStorage
 import DTCollectionViewManager
 
@@ -29,7 +28,7 @@ class SupplementaryMappingTestCase: XCTestCase {
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
         let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at:  indexPath(0, 0))
-        expect(view).to(beAKindOf(NibHeaderFooterView.self))
+        XCTAssertTrue(view is NibHeaderFooterView)
     }
     
     func verifyFooter() {
@@ -39,7 +38,7 @@ class SupplementaryMappingTestCase: XCTestCase {
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
         let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter, at:  indexPath(0, 0))
-        expect(view).to(beAKindOf(NibHeaderFooterView.self))
+        XCTAssertTrue(view is NibHeaderFooterView)
     }
     
     func testHeaderMappingFromHeaderFooterView()
@@ -86,7 +85,7 @@ class SupplementaryMappingTestCase: XCTestCase {
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
         let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at:  indexPath(0, 0))
-        expect(view).to(beAKindOf(NiblessHeaderFooterView.self))
+        XCTAssertTrue(view is NiblessHeaderFooterView)
     }
     
     func testRegisterNiblessHeader() {
@@ -97,7 +96,7 @@ class SupplementaryMappingTestCase: XCTestCase {
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
         let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at:  indexPath(0, 0))
-        expect(view).to(beAKindOf(NiblessHeaderFooterView.self))
+        XCTAssertTrue(view is NiblessHeaderFooterView)
     }
     
     func testRegisterNiblessFooter() {
@@ -108,6 +107,6 @@ class SupplementaryMappingTestCase: XCTestCase {
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
         let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter, at:  indexPath(0, 0))
-        expect(view).to(beAKindOf(NiblessHeaderFooterView.self))
+        XCTAssertTrue(view is NiblessHeaderFooterView)
     }
 }

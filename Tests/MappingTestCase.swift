@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import Nimble
 import DTModelStorage
 @testable import DTCollectionViewManager
 
@@ -26,7 +25,7 @@ class MappingTestCase: XCTestCase {
         
         controller.manager.memoryStorage.addItem(3)
         
-        expect(self.controller.verifyItem(3, atIndexPath: indexPath(0,0))) == true
+        XCTAssert(controller.verifyItem(3, atIndexPath: indexPath(0,0)))
     }
     
     func testOptionalUnwrapping()
@@ -36,7 +35,7 @@ class MappingTestCase: XCTestCase {
         let intOptional : Int? = 3
         controller.manager.memoryStorage.addItem(intOptional, toSection: 0)
         
-        expect(self.controller.verifyItem(3, atIndexPath: indexPath(0, 0))) == true
+        XCTAssert(controller.verifyItem(3, atIndexPath: indexPath(0, 0)))
     }
     
     func testSeveralLevelsOfOptionalUnwrapping()
@@ -46,7 +45,7 @@ class MappingTestCase: XCTestCase {
         let intOptional : Int?? = 3
         controller.manager.memoryStorage.addItem(intOptional, toSection: 0)
         
-        expect(self.controller.verifyItem(3, atIndexPath: indexPath(0, 0))) == true
+        XCTAssert(controller.verifyItem(3, atIndexPath: indexPath(0, 0)))
     }
     
     func testNiblessMapping()
@@ -54,28 +53,28 @@ class MappingTestCase: XCTestCase {
         controller.manager.registerNibless(StringCell.self)
         controller.manager.memoryStorage.addItem("foo")
         
-        expect(self.controller.manager.memoryStorage.item(at: indexPath(0, 0)) as? String) == "foo"
+        XCTAssertEqual(controller.manager.memoryStorage.item(at: indexPath(0, 0)) as? String, "foo")
     }
     
     func testUnregisterCellClass() {
         controller.manager.register(NibCell.self)
         controller.manager.unregister(NibCell.self)
         
-        expect(self.controller.manager.viewFactory.mappings.count) == 0
+        XCTAssertEqual(controller.manager.viewFactory.mappings.count, 0)
     }
     
     func testUnregisterHeaderClass() {
         controller.manager.registerHeader(NibHeaderFooterView.self)
         controller.manager.unregisterHeader(NibHeaderFooterView.self)
         
-        expect(self.controller.manager.viewFactory.mappings.count) == 0
+        XCTAssertEqual(controller.manager.viewFactory.mappings.count, 0)
     }
     
     func testUnregisterFooterClass() {
         controller.manager.registerFooter(NibHeaderFooterView.self)
         controller.manager.unregisterFooter(NibHeaderFooterView.self)
         
-        expect(self.controller.manager.viewFactory.mappings.count) == 0
+        XCTAssertEqual(controller.manager.viewFactory.mappings.count, 0)
     }
     
     func testUnregisterHeaderClassDoesNotUnregisterCell() {
@@ -83,7 +82,7 @@ class MappingTestCase: XCTestCase {
         controller.manager.registerHeader(NibHeaderFooterView.self)
         controller.manager.unregisterHeader(NibCell.self)
         
-        expect(self.controller.manager.viewFactory.mappings.count) == 2
+        XCTAssertEqual(controller.manager.viewFactory.mappings.count, 2)
     }
     
     func testUnregisteringHeaderDoesNotUnregisterFooter() {
@@ -91,7 +90,7 @@ class MappingTestCase: XCTestCase {
         controller.manager.registerHeader(NibHeaderFooterView.self)
         controller.manager.unregisterHeader(NibHeaderFooterView.self)
         
-        expect(self.controller.manager.viewFactory.mappings.count) == 1
+        XCTAssertEqual(controller.manager.viewFactory.mappings.count, 1)
     }
 
 }
@@ -107,24 +106,24 @@ class NibNameViewModelMappingTestCase : XCTestCase {
     func testRegisterCellWithoutNibYieldsNoXibName() {
         factory.registerCellClass(NiblessCell.self, mappingBlock: nil)
         
-        expect(self.factory.mappings.first?.xibName).to(beNil())
+        XCTAssertNil(factory.mappings.first?.xibName)
     }
     
     func testCellWithXibHasXibNameInMapping() {
         factory.registerCellClass(NibCell.self, mappingBlock: nil)
         
-        expect(self.factory.mappings.first?.xibName) == "NibCell"
+        XCTAssertEqual(factory.mappings.first?.xibName, "NibCell")
     }
     
     func testHeaderHasXibInMapping() {
         factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: DTCollectionViewElementSectionHeader, mappingBlock: nil)
         
-        expect(self.factory.mappings.first?.xibName) == "NibHeaderFooterView"
+        XCTAssertEqual(factory.mappings.first?.xibName, "NibHeaderFooterView")
     }
     
     func testFooterHasXibInMapping() {
         factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: DTCollectionViewElementSectionFooter, mappingBlock: nil)
         
-        expect(self.factory.mappings.first?.xibName) == "NibHeaderFooterView"
+        XCTAssertEqual(factory.mappings.first?.xibName, "NibHeaderFooterView")
     }
 }

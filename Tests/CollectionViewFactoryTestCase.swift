@@ -9,7 +9,6 @@
 import XCTest
 @testable import DTCollectionViewManager
 import DTModelStorage
-import Nimble
 
 fileprivate class UpdatableModel {
     var value: Bool = false
@@ -46,7 +45,7 @@ class CollectionViewFactoryTestCase: XCTestCase {
         controller.manager.collectionViewUpdater = controller.manager.coreDataUpdater()
         model.value = true
         controller.manager.updateCellClosure()(indexPath(0, 0),model)
-        expect((self.controller.collectionView?.cellForItem(at: indexPath(0, 0)) as? UpdatableCell)?.model?.value).to(beTrue())
+        XCTAssert((controller.collectionView?.cellForItem(at: indexPath(0, 0)) as? UpdatableCell)?.model?.value ?? false)
     }
 
 }

@@ -8,7 +8,6 @@
 
 import XCTest
 import DTModelStorage
-import Nimble
 import DTCollectionViewManager
 
 class ReactingSupplementaryCollectionController: DTSupplementaryTestCollectionController
@@ -57,7 +56,7 @@ class SupplementaryEventsTestCase: XCTestCase {
         
         let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at:  indexPath(0, 0))
         
-        expect((view as? ReactingHeaderFooterView)?.model) == "FooBar"
+        XCTAssertEqual((view as? ReactingHeaderFooterView)?.model, "FooBar")
     }
     
     func testFooterMappingFromHeaderFooterView()
@@ -73,6 +72,6 @@ class SupplementaryEventsTestCase: XCTestCase {
         
         let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter, at:  indexPath(0, 0))
         
-        expect((view as? ReactingHeaderFooterView)?.model) == "FooBar"
+        XCTAssertEqual((view as? ReactingHeaderFooterView)?.model, "FooBar")
     }
 }

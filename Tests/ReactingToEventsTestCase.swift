@@ -8,7 +8,6 @@
 
 import XCTest
 import DTModelStorage
-import Nimble
 @testable import DTCollectionViewManager
 
 #if os(iOS)
@@ -160,8 +159,8 @@ class ReactingToEventsTestCase: XCTestCase {
         controller.manager.memoryStorage.addItems([1,2], toSection: 0)
         controller.manager.collectionDelegate?.collectionView(controller.collectionView!, didSelectItemAt: indexPath(1, 0))
         
-        expect(reactingCell?.indexPath) == indexPath(1, 0)
-        expect(reactingCell?.model) == 2
+        XCTAssertEqual(reactingCell?.indexPath, indexPath(1, 0))
+        XCTAssertEqual(reactingCell?.model, 2)
     }
     
     func testCellConfigurationClosure()
@@ -180,45 +179,10 @@ class ReactingToEventsTestCase: XCTestCase {
         controller.manager.memoryStorage.addItem(2, toSection: 0)
         _ = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0))
         
-        expect(reactingCell?.indexPath) == indexPath(0, 0)
-        expect(reactingCell?.model) == 2
-        expect(reactingCell?.textLabel?.text) == "Foo"
+        XCTAssertEqual(reactingCell?.indexPath, indexPath(0, 0))
+        XCTAssertEqual(reactingCell?.model, 2)
+        XCTAssertEqual(reactingCell?.textLabel?.text, "Foo")
     }
-    
-//    func testHeaderConfigurationClosure()
-//    {
-//        controller.manager.registerHeaderClass(ReactingHeaderFooterView)
-//        
-//        var reactingHeader : ReactingHeaderFooterView?
-//        
-//        controller.manager.configureHeader(ReactingHeaderFooterView.self) { (header, model, sectionIndex) in
-//            header.model = "Bar"
-//            header.sectionIndex = sectionIndex
-//        }
-//        controller.manager.memoryStorage.setSectionHeaderModels(["Foo"])
-//        reactingHeader = controller.manager.tableView(sut.collectionView!, viewForHeaderInSection: 0) as? ReactingHeaderFooterView
-//        
-//        expect(reactingHeader?.sectionIndex) == 0
-//        expect(reactingHeader?.model) == "Bar"
-//    }
-//    
-//    func testFooterConfigurationClosure()
-//    {
-//        controller.manager.registerFooterClass(ReactingHeaderFooterView)
-//        
-//        var reactingFooter : ReactingHeaderFooterView?
-//        
-//        controller.manager.configureFooter(ReactingHeaderFooterView.self) { (footer, model, sectionIndex) in
-//            footer.model = "Bar"
-//            footer.sectionIndex = sectionIndex
-//        }
-//        controller.manager.memoryStorage.setSectionFooterModels(["Foo"])
-//        reactingFooter = controller.manager.tableView(sut.collectionView!, viewForFooterInSection: 0) as? ReactingHeaderFooterView
-//        
-//        expect(reactingFooter?.sectionIndex) == 0
-//        expect(reactingFooter?.model) == "Bar"
-//    }
-    
     
 }
 
@@ -785,66 +749,66 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     func testAllDelegateMethodSignatures() {
         if #available(iOS 9, tvOS 9, *) {
-            expect(String(describing: #selector(UICollectionViewDataSource.collectionView(_:canMoveItemAt:)))) == EventMethodSignature.canMoveItemAtIndexPath.rawValue
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDataSource.collectionView(_:canMoveItemAt:))), EventMethodSignature.canMoveItemAtIndexPath.rawValue)
         }
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldSelectItemAt:)))) == EventMethodSignature.shouldSelectItemAtIndexPath.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didSelectItemAt:)))) == EventMethodSignature.didSelectItemAtIndexPath.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldDeselectItemAt:)))) == EventMethodSignature.shouldDeselectItemAtIndexPath.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didDeselectItemAt:)))) == EventMethodSignature.didDeselectItemAtIndexPath.rawValue
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldSelectItemAt:))), EventMethodSignature.shouldSelectItemAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didSelectItemAt:))), EventMethodSignature.didSelectItemAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldDeselectItemAt:))), EventMethodSignature.shouldDeselectItemAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didDeselectItemAt:))), EventMethodSignature.didDeselectItemAtIndexPath.rawValue)
         
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldHighlightItemAt:)))) == EventMethodSignature.shouldHighlightItemAtIndexPath.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didHighlightItemAt:)))) == EventMethodSignature.didHighlightItemAtIndexPath.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didUnhighlightItemAt:)))) == EventMethodSignature.didUnhighlightItemAtIndexPath.rawValue
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldHighlightItemAt:))), EventMethodSignature.shouldHighlightItemAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didHighlightItemAt:))), EventMethodSignature.didHighlightItemAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didUnhighlightItemAt:))), EventMethodSignature.didUnhighlightItemAtIndexPath.rawValue)
         
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:willDisplay:forItemAt:)))) == EventMethodSignature.willDisplayCellForItemAtIndexPath.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)))) == EventMethodSignature.willDisplaySupplementaryViewForElementKindAtIndexPath.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didEndDisplaying:forItemAt:)))) == EventMethodSignature.didEndDisplayingCellForItemAtIndexPath.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementOfKind:at:)))) == EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:willDisplay:forItemAt:))), EventMethodSignature.willDisplayCellForItemAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:))), EventMethodSignature.willDisplaySupplementaryViewForElementKindAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didEndDisplaying:forItemAt:))), EventMethodSignature.didEndDisplayingCellForItemAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementOfKind:at:))), EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue)
         
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldShowMenuForItemAt:)))) == EventMethodSignature.shouldShowMenuForItemAtIndexPath.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canPerformAction:forItemAt:withSender:)))) == EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:performAction:forItemAt:withSender:)))) == EventMethodSignature.performActionForItemAtIndexPath.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:transitionLayoutForOldLayout:newLayout:)))) == EventMethodSignature.transitionLayoutForOldLayoutNewLayout.rawValue
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldShowMenuForItemAt:))), EventMethodSignature.shouldShowMenuForItemAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canPerformAction:forItemAt:withSender:))), EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:performAction:forItemAt:withSender:))), EventMethodSignature.performActionForItemAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:transitionLayoutForOldLayout:newLayout:))), EventMethodSignature.transitionLayoutForOldLayoutNewLayout.rawValue)
         
         if #available(iOS 9, tvOS 9, *) {
-            expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canFocusItemAt:)))) == EventMethodSignature.canFocusItemAtIndexPath.rawValue
-            expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldUpdateFocusIn:)))) == EventMethodSignature.shouldUpdateFocusInContext.rawValue
-            expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didUpdateFocusIn:with:)))) == EventMethodSignature.didUpdateFocusInContext.rawValue
-            expect(String(describing: #selector(UICollectionViewDelegate.indexPathForPreferredFocusedView(in:)))) == EventMethodSignature.indexPathForPreferredFocusedView.rawValue
-            expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:targetIndexPathForMoveFromItemAt:toProposedIndexPath:)))) == EventMethodSignature.targetIndexPathForMoveFromItemAtTo.rawValue
-            expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:targetContentOffsetForProposedContentOffset:)))) == EventMethodSignature.targetContentOffsetForProposedContentOffset.rawValue
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canFocusItemAt:))), EventMethodSignature.canFocusItemAtIndexPath.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldUpdateFocusIn:))), EventMethodSignature.shouldUpdateFocusInContext.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didUpdateFocusIn:with:))), EventMethodSignature.didUpdateFocusInContext.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.indexPathForPreferredFocusedView(in:))), EventMethodSignature.indexPathForPreferredFocusedView.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:targetIndexPathForMoveFromItemAt:toProposedIndexPath:))), EventMethodSignature.targetIndexPathForMoveFromItemAtTo.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:targetContentOffsetForProposedContentOffset:))), EventMethodSignature.targetContentOffsetForProposedContentOffset.rawValue)
         }
         
         #if os(iOS)
         if #available(iOS 11, *) {
-            expect(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:with:)))) == EventMethodSignature.shouldSpringLoadItem.rawValue
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:with:))), EventMethodSignature.shouldSpringLoadItem.rawValue)
             
-            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:itemsForBeginning:at:)))) == EventMethodSignature.itemsForBeginningDragSessionAtIndexPath.rawValue
-            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:itemsForAddingTo:at:point:)))) == EventMethodSignature.itemsForAddingToDragSessionAtIndexPath.rawValue
-            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragPreviewParametersForItemAt:)))) == EventMethodSignature.dragPreviewParametersForItemAtIndexPath.rawValue
-            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionWillBegin:)))) == EventMethodSignature.dragSessionWillBegin.rawValue
-            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionDidEnd:)))) == EventMethodSignature.dragSessionDidEnd.rawValue
-            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionAllowsMoveOperation:)))) == EventMethodSignature.dragSessionAllowsMoveOperation.rawValue
-            expect(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionIsRestrictedToDraggingApplication:)))) == EventMethodSignature.dragSessionIsRestrictedToDraggingApplication.rawValue
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:itemsForBeginning:at:))), EventMethodSignature.itemsForBeginningDragSessionAtIndexPath.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:itemsForAddingTo:at:point:))), EventMethodSignature.itemsForAddingToDragSessionAtIndexPath.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragPreviewParametersForItemAt:))), EventMethodSignature.dragPreviewParametersForItemAtIndexPath.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionWillBegin:))), EventMethodSignature.dragSessionWillBegin.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionDidEnd:))), EventMethodSignature.dragSessionDidEnd.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionAllowsMoveOperation:))), EventMethodSignature.dragSessionAllowsMoveOperation.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionIsRestrictedToDraggingApplication:))), EventMethodSignature.dragSessionIsRestrictedToDraggingApplication.rawValue)
             
-            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:performDropWith:)))) == EventMethodSignature.performDropWithCoordinator.rawValue
-            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:canHandle:)))) == EventMethodSignature.canHandleDropSession.rawValue
-            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnter:)))) == EventMethodSignature.dropSessionDidEnter.rawValue
-            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidUpdate:withDestinationIndexPath:)))) == EventMethodSignature.dropSessionDidUpdate.rawValue
-            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidExit:)))) == EventMethodSignature.dropSessionDidExit.rawValue
-            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnd:)))) == EventMethodSignature.dropSessionDidEnd.rawValue
-            expect(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropPreviewParametersForItemAt:)))) == EventMethodSignature.dropPreviewParametersForItemAtIndexPath.rawValue
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:performDropWith:))), EventMethodSignature.performDropWithCoordinator.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:canHandle:))), EventMethodSignature.canHandleDropSession.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnter:))), EventMethodSignature.dropSessionDidEnter.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidUpdate:withDestinationIndexPath:))), EventMethodSignature.dropSessionDidUpdate.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidExit:))), EventMethodSignature.dropSessionDidExit.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnd:))), EventMethodSignature.dropSessionDidEnd.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropPreviewParametersForItemAt:))), EventMethodSignature.dropPreviewParametersForItemAtIndexPath.rawValue)
         }
         #endif
         
-        expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:sizeForItemAt:)))) == EventMethodSignature.sizeForItemAtIndexPath.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:insetForSectionAt:)))) == EventMethodSignature.insetForSectionAtIndex.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:minimumLineSpacingForSectionAt:)))) == EventMethodSignature.minimumLineSpacingForSectionAtIndex.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:minimumInteritemSpacingForSectionAt:)))) == EventMethodSignature.minimumInteritemSpacingForSectionAtIndex.rawValue
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:sizeForItemAt:))), EventMethodSignature.sizeForItemAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:insetForSectionAt:))), EventMethodSignature.insetForSectionAtIndex.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:minimumLineSpacingForSectionAt:))), EventMethodSignature.minimumLineSpacingForSectionAtIndex.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:minimumInteritemSpacingForSectionAt:))), EventMethodSignature.minimumInteritemSpacingForSectionAtIndex.rawValue)
         
         // These methods are not equal on purpose - DTCollectionViewManager implements custom logic in them, and they are always implemented, even though they can act as events
-        expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderInSection:)))) != EventMethodSignature.referenceSizeForHeaderInSection.rawValue
-        expect(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterInSection:)))) != EventMethodSignature.referenceSizeForFooterInSection.rawValue
+        XCTAssertNotEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderInSection:))), EventMethodSignature.referenceSizeForHeaderInSection.rawValue)
+        XCTAssertNotEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterInSection:))), EventMethodSignature.referenceSizeForFooterInSection.rawValue)
     }
     
     func testEventRegistrationPerfomance() {

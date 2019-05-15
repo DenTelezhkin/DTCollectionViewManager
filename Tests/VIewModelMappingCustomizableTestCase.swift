@@ -9,7 +9,6 @@
 import XCTest
 import DTCollectionViewManager
 import DTModelStorage
-import Nimble
 
 class IntCell : UICollectionViewCell, ModelTransfer {
     func update(with model: Int) {

@@ -8,8 +8,6 @@
 
 import XCTest
 import DTCollectionViewManager
-import DTModelStorage
-import Nimble
 
 class MappingConditionsTestCase: XCTestCase {
     
@@ -32,11 +30,11 @@ class MappingConditionsTestCase: XCTestCase {
         controller.manager.memoryStorage.addItem(1)
         controller.manager.memoryStorage.addItem(2, toSection: 1)
         let nibCell = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, cellForItemAt: indexPath(0,0))
-        expect(nibCell is NibCell) == true
+        XCTAssert(nibCell is NibCell)
         
         let cell = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, cellForItemAt: indexPath(0,1))
         
-        expect(cell is AnotherIntCell).to(beTrue())
+        XCTAssert(cell is AnotherIntCell)
     }
     
     func testCustomMappingIsRevolvableForTheSameModel() {
@@ -55,11 +53,11 @@ class MappingConditionsTestCase: XCTestCase {
         
         controller.manager.memoryStorage.addItem(3)
         let cell = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, cellForItemAt: indexPath(0,0))
-        expect(cell is NibCell) == true
+        XCTAssert(cell is NibCell)
         
         controller.manager.memoryStorage.addItem(1)
         let anotherCell = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, cellForItemAt: indexPath(1,0))
-        expect(anotherCell is AnotherIntCell) == true
+        XCTAssert(anotherCell is AnotherIntCell)
     }
     
     func testMappingCanBeSwitchedForNibNames() {
