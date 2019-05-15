@@ -31,7 +31,7 @@ open class DTCollectionViewDelegateWrapper : NSObject {
     
     /// Weak reference to `DTCollectionViewManageable` instance. It is used to dispatch `UICollectionView` delegate events in case `delegate` implements them.
     weak var delegate: AnyObject?
-    weak var collectionView: UICollectionView? { return manager?.collectionView }
+    var collectionView: UICollectionView? { return manager?.collectionView }
     var viewFactory: CollectionViewFactory? { return manager?.viewFactory }
     var storage: Storage? { return manager?.storage }
     weak var manager: DTCollectionViewManager?

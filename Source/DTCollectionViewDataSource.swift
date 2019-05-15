@@ -88,7 +88,7 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
         return view
     }
     
-    @available(iOS 9.0, tvOS 9.0, *)
+    @available(iOS 9.0, *)
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func collectionView(_ collectionView: UICollectionView, canMoveItemAt indexPath: IndexPath) -> Bool {
         if let can = performCellReaction(.canMoveItemAtIndexPath, location: indexPath, provideCell: true) as? Bool {
@@ -97,7 +97,7 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
         return (delegate as? UICollectionViewDataSource)?.collectionView?(collectionView, canMoveItemAt: indexPath) ?? true
     }
     
-    @available(iOS 9.0, tvOS 9.0, *)
+    @available(iOS 9.0, *)
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func collectionView(_ collectionView: UICollectionView, moveItemAt source: IndexPath, to destination: IndexPath) {
         _ = performNonCellReaction(.moveItemAtIndexPathToIndexPath, argumentOne: source, argumentTwo: destination)
