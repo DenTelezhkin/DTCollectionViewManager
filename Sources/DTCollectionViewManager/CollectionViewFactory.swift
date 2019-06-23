@@ -49,13 +49,13 @@ extension CollectionViewFactory
 {
     func registerCellClass<T:ModelTransfer>(_ cellClass: T.Type, mappingBlock: ((ViewModelMapping) -> Void)?) where T: UICollectionViewCell
     {
-        let mapping : ViewModelMapping
-        if UINib.nibExists(withNibName: String(describing: T.self), inBundle: Bundle(for: T.self)) {
-            mapping = ViewModelMapping(viewType: .cell, viewClass: T.self, xibName: String(describing: T.self), mappingBlock: mappingBlock)
-            collectionView.register(UINib(nibName: String(describing: T.self), bundle: Bundle(for: T.self)), forCellWithReuseIdentifier: mapping.reuseIdentifier)
-            verifyCell(T.self, nibName: String(describing: T.self), withReuseIdentifier: mapping.reuseIdentifier)
+        let mapping : ViewModelMapping = ViewModelMapping(viewType: .cell, viewClass: T.self, xibName: String(describing: T.self), mappingBlock: mappingBlock)
+        if let xibName = mapping.xibName, UINib.nibExists(withNibName: xibName, inBundle: mapping.bundle) {
+            collectionView.register(UINib(nibName: xibName, bundle: mapping.bundle),
+                                    forCellWithReuseIdentifier: mapping.reuseIdentifier)
+            verifyCell(T.self, nibName: xibName, withReuseIdentifier: mapping.reuseIdentifier, in: mapping.bundle)
         } else {
-            mapping = ViewModelMapping(viewType: .cell, viewClass: T.self, mappingBlock: mappingBlock)
+            mapping.xibName = nil
         }
         mappings.append(mapping)
     }
@@ -65,22 +65,23 @@ extension CollectionViewFactory
         let mapping = ViewModelMapping(viewType: .cell, viewClass: T.self, mappingBlock: mappingBlock)
         collectionView.register(cellClass, forCellWithReuseIdentifier: mapping.reuseIdentifier)
         mappings.append(mapping)
-        verifyCell(T.self, nibName: nil, withReuseIdentifier: mapping.reuseIdentifier)
+        verifyCell(T.self, nibName: nil, withReuseIdentifier: mapping.reuseIdentifier, in: mapping.bundle)
     }
     
     func registerNibNamed<T:ModelTransfer>(_ nibName: String, forCellClass cellClass: T.Type, mappingBlock: ((ViewModelMapping) -> Void)?) where T: UICollectionViewCell
     {
         let mapping = ViewModelMapping(viewType: .cell, viewClass: T.self, xibName: nibName, mappingBlock: mappingBlock)
-        assert(UINib.nibExists(withNibName: nibName, inBundle: Bundle(for: T.self)))
-        collectionView.register(UINib(nibName: nibName, bundle: Bundle(for: T.self)), forCellWithReuseIdentifier: mapping.reuseIdentifier)
+        assert(UINib.nibExists(withNibName: nibName, inBundle: mapping.bundle))
+        collectionView.register(UINib(nibName: nibName, bundle: mapping.bundle), forCellWithReuseIdentifier: mapping.reuseIdentifier)
         mappings.append(mapping)
-        verifyCell(T.self, nibName: nibName, withReuseIdentifier: mapping.reuseIdentifier)
+        verifyCell(T.self, nibName: nibName, withReuseIdentifier: mapping.reuseIdentifier, in: mapping.bundle)
     }
     
-    func verifyCell<T:UICollectionViewCell>(_ cell: T.Type, nibName: String?, withReuseIdentifier reuseIdentifier: String) {
+    func verifyCell<T:UICollectionViewCell>(_ cell: T.Type, nibName: String?,
+                                            withReuseIdentifier reuseIdentifier: String, in bundle: Bundle) {
         var cell = T(frame: .zero)
-        if let nibName = nibName, UINib.nibExists(withNibName: nibName, inBundle: Bundle(for: T.self)) {
-            let nib = UINib(nibName: nibName, bundle: Bundle(for: T.self))
+        if let nibName = nibName, UINib.nibExists(withNibName: nibName, inBundle: bundle) {
+            let nib = UINib(nibName: nibName, bundle: bundle)
             let objects = nib.instantiate(withOwner: cell, options: nil)
             if let instantiatedCell = objects.first as? T {
                 cell = instantiatedCell
@@ -104,20 +105,19 @@ extension CollectionViewFactory
         let mapping = ViewModelMapping(viewType: .supplementaryView(kind: kind), viewClass: T.self, mappingBlock: mappingBlock)
         collectionView.register(supplementaryClass, forSupplementaryViewOfKind: kind, withReuseIdentifier: mapping.reuseIdentifier)
         mappings.append(mapping)
-        verifySupplementaryView(T.self, nibName: nil, reuseIdentifier: mapping.reuseIdentifier)
+        verifySupplementaryView(T.self, nibName: nil, reuseIdentifier: mapping.reuseIdentifier, in: mapping.bundle)
     }
     
     func registerSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String, mappingBlock: ((ViewModelMapping) -> Void)?) where T:UICollectionReusableView
     {
-        let mapping : ViewModelMapping
-        let nibName = String(describing: T.self)
-        if UINib.nibExists(withNibName: nibName, inBundle: Bundle(for: T.self)) {
-            mapping = ViewModelMapping(viewType: .supplementaryView(kind: kind), viewClass: T.self, xibName: nibName, mappingBlock: mappingBlock)
-            self.collectionView.register(UINib(nibName: nibName, bundle: Bundle(for: T.self)), forSupplementaryViewOfKind: kind, withReuseIdentifier: mapping.reuseIdentifier)
-            verifySupplementaryView(T.self, nibName: nibName, reuseIdentifier: mapping.reuseIdentifier)
+        let mapping = ViewModelMapping(viewType: .supplementaryView(kind: kind), viewClass: T.self,
+                                       xibName: String(describing: T.self), mappingBlock: mappingBlock)
+        if let nibName = mapping.xibName, UINib.nibExists(withNibName: nibName, inBundle: mapping.bundle) {
+            collectionView.register(UINib(nibName: nibName, bundle: mapping.bundle), forSupplementaryViewOfKind: kind, withReuseIdentifier: mapping.reuseIdentifier)
+            verifySupplementaryView(T.self, nibName: nibName, reuseIdentifier: mapping.reuseIdentifier, in: mapping.bundle)
         } else {
-            mapping = ViewModelMapping(viewType: .supplementaryView(kind: kind), viewClass: T.self, mappingBlock: mappingBlock)
-            verifySupplementaryView(T.self, nibName: nil, reuseIdentifier: mapping.reuseIdentifier)
+            mapping.xibName = nil
+            verifySupplementaryView(T.self, nibName: nil, reuseIdentifier: mapping.reuseIdentifier, in: mapping.bundle)
         }
         mappings.append(mapping)
     }
@@ -125,16 +125,17 @@ extension CollectionViewFactory
     func registerNibNamed<T:ModelTransfer>(_ nibName: String, forSupplementaryClass supplementaryClass: T.Type, forKind kind: String, mappingBlock: ((ViewModelMapping) -> Void)?) where T:UICollectionReusableView
     {
         let mapping = ViewModelMapping(viewType: .supplementaryView(kind: kind), viewClass: T.self, xibName: nibName, mappingBlock: mappingBlock)
-        assert(UINib.nibExists(withNibName: nibName, inBundle: Bundle(for: T.self)))
-        self.collectionView.register(UINib(nibName: nibName, bundle: Bundle(for: T.self)), forSupplementaryViewOfKind: kind, withReuseIdentifier: mapping.reuseIdentifier)
+        assert(UINib.nibExists(withNibName: nibName, inBundle: mapping.bundle))
+        collectionView.register(UINib(nibName: nibName, bundle: mapping.bundle), forSupplementaryViewOfKind: kind, withReuseIdentifier: mapping.reuseIdentifier)
         mappings.append(mapping)
-        verifySupplementaryView(T.self, nibName: nibName, reuseIdentifier: mapping.reuseIdentifier)
+        verifySupplementaryView(T.self, nibName: nibName, reuseIdentifier: mapping.reuseIdentifier, in: mapping.bundle)
     }
     
-    func verifySupplementaryView<T:UICollectionReusableView>(_ view: T.Type, nibName: String?, reuseIdentifier: String) {
+    func verifySupplementaryView<T:UICollectionReusableView>(_ view: T.Type, nibName: String?,
+                                                             reuseIdentifier: String, in bundle: Bundle) {
         var view = T(frame: .zero)
-        if let nibName = nibName, UINib.nibExists(withNibName: nibName, inBundle: Bundle(for: T.self)) {
-            let nib = UINib(nibName: nibName, bundle: Bundle(for: T.self))
+        if let nibName = nibName, UINib.nibExists(withNibName: nibName, inBundle: bundle) {
+            let nib = UINib(nibName: nibName, bundle: bundle)
             let objects = nib.instantiate(withOwner: view, options: nil)
             if let instantiatedView = objects.first as? T {
                 view = instantiatedView
