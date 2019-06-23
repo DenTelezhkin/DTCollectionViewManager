@@ -194,9 +194,7 @@ manager.didSelect(PostCell.self) { cell,model,indexPath in
 }
 ```
 
-**Important**
-
-**Important**
+**Important!**
 
 While it's possible to register multiple closures for a single event, only first closure will be called once event is fired. This means that if the same event has two closures for the same view/model type, last one will be ignored. You can still register multiple event handlers for a single event and different view/model types. You can see how reactions are being searched for in [DTModelStorage EventReaction extension](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Sources/DTModelStorage/EventReactions.swift#L155-L166).
 
