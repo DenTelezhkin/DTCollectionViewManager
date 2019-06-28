@@ -7,6 +7,10 @@ All notable changes to this project will be documented in this file.
 
 * Ability to customize bundle, from which xib files are loaded from by setting `bundle` property on `ViewModelMapping` in `mappingBlock`. As before, `bundle` defaults to `Bundle(for: ViewClass.self)`.
 
+### Removed
+
+* Usage of previously deprecated and now removed from `DTModelStorage` `ViewModelMappingCustomizing` protocol.
+
 ### Breaking
 
 * `DTCollectionViewNonOptionalManageable` protocol was removed and replaced by `collectionView` property on `DTCollectionViewManageable` protocol. One of `collectionView`/`optionalCollectionView` properties must be implemented by `DTCollectionViewManageable` instance to work with `DTCollectionViewManager`.

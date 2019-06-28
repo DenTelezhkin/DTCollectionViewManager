@@ -207,9 +207,6 @@ open class DTCollectionViewManager {
     fileprivate func startManaging(with collectionView: UICollectionView) {
         guard !isConfigured else { return }
         defer { isConfigured = true }
-        if let mappingDelegate = delegate as? ViewModelMappingCustomizing {
-            viewFactory.mappingCustomizableDelegate = mappingDelegate
-        }
         collectionViewUpdater = CollectionViewUpdater(collectionView: collectionView)
         collectionDataSource = DTCollectionViewDataSource(delegate: delegate, collectionViewManager: self)
         collectionDelegate = DTCollectionViewDelegate(delegate: delegate, collectionViewManager: self)
