@@ -11,6 +11,6 @@ import DTCollectionViewManager
 
 class StoryboardViewController: UIViewController, DTCollectionViewManageable {
 
-    @IBOutlet weak var collectionView: UICollectionView?
+    @IBOutlet weak var collectionView: UICollectionView!
 
 }

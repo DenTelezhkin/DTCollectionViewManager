@@ -31,13 +31,17 @@ import DTModelStorage
 /// Target is not required to be UICollectionViewController, and can be a regular UIViewController with UICollectionView, or even different object like UICollectionViewCell.
 public protocol DTCollectionViewManageable : class
 {
-    /// Collection view, that will be managed by DTCollectionViewManager
-    var collectionView : UICollectionView? { get }
+    /// Collection view, that will be managed by DTCollectionViewManager. This property or `optionalCollectionView` property must be implemented in order for `DTCollectionViewManager` to work.
+    var collectionView : UICollectionView! { get }
+    
+    /// Collection view, that will be managed by DTCollectionViewManager. This property or `collectionView` property must be implemented in order for `DTCollectionViewManager` to work.
+    var optionalCollectionView: UICollectionView? { get }
 }
 
-/// This protocol is similar to `DTCollectionViewManageable`, but allows using non-optional `UICollectionView` property.
-public protocol DTCollectionViewNonOptionalManageable : class {
-    var collectionView : UICollectionView! { get }
+/// Extension for `DTCollectionViewManageable` that provides default implementations for `collectionView` and `optionalCollectionView` properties. One of those properties must be implemented in `DTCollectionViewManageable` implementation.
+public extension DTCollectionViewManageable {
+    var collectionView: UICollectionView! { return nil }
+    var optionalCollectionView: UICollectionView? { return nil }
 }
 
 private var DTCollectionViewManagerAssociatedKey = "DTCollectionView Manager Associated Key"
@@ -52,13 +56,13 @@ extension DTCollectionViewManageable
     public var manager : DTCollectionViewManager {
         get {
             if let manager = objc_getAssociatedObject(self, &DTCollectionViewManagerAssociatedKey) as? DTCollectionViewManager {
-                if !manager.isConfigured && collectionView != nil {
+                if !manager.isConfigured && (optionalCollectionView != nil || collectionView != nil) {
                     manager.startManaging(withDelegate: self)
                 }
                 return manager
             }
             let manager = DTCollectionViewManager()
-            if collectionView != nil {
+            if  optionalCollectionView != nil || collectionView != nil {
                 manager.startManaging(withDelegate: self)
             }
             objc_setAssociatedObject(self, &DTCollectionViewManagerAssociatedKey, manager, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -70,40 +74,13 @@ extension DTCollectionViewManageable
     }
 }
 
-/// Default implementation for `DTCollectionViewManageable` protocol, that will inject `manager` property to any object, that declares itself `DTCollectionViewManageable`.
-extension DTCollectionViewNonOptionalManageable
-{
-    /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call `startManaging(withDelegate:)` method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate.
-    /// Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
-    /// - SeeAlso: `startManaging(withDelegate:)`
-    public var manager : DTCollectionViewManager {
-        get {
-            if let manager = objc_getAssociatedObject(self, &DTCollectionViewManagerAssociatedKey) as? DTCollectionViewManager {
-                if !manager.isConfigured && collectionView != nil {
-                    manager.startManaging(withDelegate: self)
-                }
-                return manager
-            }
-            let manager = DTCollectionViewManager()
-            if collectionView != nil {
-                manager.startManaging(withDelegate: self)
-            }
-            objc_setAssociatedObject(self, &DTCollectionViewManagerAssociatedKey, manager, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            return manager
-        }
-        set {
-            objc_setAssociatedObject(self, &DTCollectionViewManagerAssociatedKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-}
 
 /// `DTCollectionViewManager` manages most of `UICollectionView` datasource and delegate methods and provides API for managing your data models in the collection view. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
 /// - SeeAlso: `startManagingWithDelegate:`
 open class DTCollectionViewManager {
     
     var collectionView : UICollectionView? {
-        if let delegate = delegate as? DTCollectionViewManageable { return delegate.collectionView }
-        if let delegate = delegate as? DTCollectionViewNonOptionalManageable { return delegate.collectionView }
+        if let delegate = delegate as? DTCollectionViewManageable { return delegate.optionalCollectionView ?? delegate.collectionView }
         return nil
     }
     
@@ -218,20 +195,7 @@ open class DTCollectionViewManager {
     open func startManaging(withDelegate delegate : DTCollectionViewManageable)
     {
         guard !isConfigured else { return }
-        guard let collectionView = delegate.collectionView else {
-            preconditionFailure("Call startManagingWithDelegate: method only when UICollectionView has been created")
-        }
-        self.delegate = delegate
-        startManaging(with: collectionView)
-    }
-    
-    /// Call this method before calling any of `DTCollectionViewManager` methods.
-    /// - Precondition: UICollectionView instance on `delegate` should not be nil.
-    /// - Parameter delegate: Object, that has UICollectionView, that will be managed by `DTCollectionViewManager`.
-    open func startManaging(withDelegate delegate : DTCollectionViewNonOptionalManageable)
-    {
-        guard !isConfigured else { return }
-        guard let collectionView = delegate.collectionView else {
+        guard let collectionView = delegate.collectionView ?? delegate.optionalCollectionView else {
             preconditionFailure("Call startManagingWithDelegate: method only when UICollectionView has been created")
         }
         self.delegate = delegate

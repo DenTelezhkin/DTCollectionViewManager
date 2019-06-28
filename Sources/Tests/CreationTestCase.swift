@@ -17,15 +17,15 @@ class FooCell : UICollectionViewCell, ModelTransfer
     }
 }
 
-class NonOptionalCollectionViewController : UIViewController, DTCollectionViewNonOptionalManageable {
-    var collectionView: UICollectionView!
+class OptionalCollectionViewController : UIViewController, DTCollectionViewManageable {
+    var optionalCollectionView: UICollectionView?
 }
 
 class CreationTestCase: XCTestCase {
     
-    func testManagingWithNonOptionalCollectionViewWorks() {
-        let controller = NonOptionalCollectionViewController()
-        controller.collectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
+    func testManagingWithOptionalCollectionViewWorks() {
+        let controller = OptionalCollectionViewController()
+        controller.optionalCollectionView = UICollectionView(frame: .zero, collectionViewLayout: UICollectionViewLayout())
         XCTAssertTrue(controller.manager.isManagingCollectionView)
     }
     

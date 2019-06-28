@@ -12,11 +12,11 @@ import DTCollectionViewManager
 
 class DTCellTestCollectionController: UIViewController, DTCollectionViewManageable {
 
-    var collectionView: UICollectionView? = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
+    var collectionView: UICollectionView! = UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout())
 
 }
 
 class DTSupplementaryTestCollectionController: UIViewController, DTCollectionViewManageable {
     
-    var collectionView : UICollectionView? = UICollectionView(frame: CGRect(x: 0, y: 0, width: 1024, height: 768), collectionViewLayout: UICollectionViewFlowLayout())
+    var collectionView : UICollectionView! = UICollectionView(frame: CGRect(x: 0, y: 0, width: 1024, height: 768), collectionViewLayout: UICollectionViewFlowLayout())
 }

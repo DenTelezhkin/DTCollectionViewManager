@@ -7,6 +7,21 @@ All notable changes to this project will be documented in this file.
 
 * Ability to customize bundle, from which xib files are loaded from by setting `bundle` property on `ViewModelMapping` in `mappingBlock`. As before, `bundle` defaults to `Bundle(for: ViewClass.self)`.
 
+### Breaking
+
+* `DTCollectionViewNonOptionalManageable` protocol was removed and replaced by `collectionView` property on `DTCollectionViewManageable` protocol. One of `collectionView`/`optionalCollectionView` properties must be implemented by `DTCollectionViewManageable` instance to work with `DTCollectionViewManager`.
+* `collectionView` property in `DTCollectionVIewManageable` protocol is now `ImplicitlyUnwrappedOptional` instead of `Optional`. This change is done to unify API with `UICollectionViewController` change and `DTTableViewManager` API for consistency. 
+
+**WARNING**  Because of default implementations for new property this will not show as a compile error, instead crashing in runtime. Please make sure to update all definitions of 
+
+`var collectionView: UICollectionView?` 
+
+to 
+
+`var collectionView: UICollectionView!`.
+
+If you need optional collection view, use `optionalCollectionView` property instead.
+
 ## [6.6.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.6.0)
 
 * Added support for Swift Package Manager in Xcode 11

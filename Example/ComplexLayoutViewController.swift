@@ -9,7 +9,7 @@
 import UIKit
 import DTCollectionViewManager
 
-class ComplexLayoutViewController: UICollectionViewController, DTCollectionViewNonOptionalManageable {
+class ComplexLayoutViewController: UICollectionViewController, DTCollectionViewManageable {
 
     override func viewDidLoad() {
         super.viewDidLoad()

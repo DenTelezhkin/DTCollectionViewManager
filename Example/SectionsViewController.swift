@@ -22,7 +22,7 @@ func randomColor() -> UIColor {
 
 class SectionsViewController: UIViewController, DTCollectionViewManageable, UICollectionViewDelegateFlowLayout {
 
-    @IBOutlet weak var collectionView: UICollectionView?
+    @IBOutlet weak var collectionView: UICollectionView!
     var sectionNumber = 0
     
     override func viewDidLoad() {

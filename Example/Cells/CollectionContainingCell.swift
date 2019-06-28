@@ -12,7 +12,7 @@ import DTModelStorage
 
 class CollectionContainingCell: UICollectionViewCell, DTCollectionViewManageable, ModelTransfer {
     
-    @IBOutlet weak var collectionView: UICollectionView?
+    @IBOutlet weak var collectionView: UICollectionView!
     
     func update(with model: Int) {
         let itemsArray = (1...model).map { _ in return randomColor() }

@@ -20,7 +20,7 @@ private class Cell: UICollectionViewCell, ModelTransfer {
 private class Model { }
 
 class CollectionViewCrashTest: XCTestCase, DTCollectionViewManageable {
-    var collectionView: UICollectionView?
+    var collectionView: UICollectionView!
     
     override func setUp() {
         collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), collectionViewLayout: UICollectionViewFlowLayout())
