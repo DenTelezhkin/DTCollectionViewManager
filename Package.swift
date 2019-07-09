@@ -1,4 +1,4 @@
-// swift-tools-version:5.0
+// swift-tools-version:5.1
 //
 //  Package.swift
 //  DTCollectionViewManager
@@ -40,7 +40,7 @@ let package = Package(
     ],
     targets: [
         .target(name: "DTCollectionViewManager", dependencies: ["DTModelStorage"]),
-        .testTarget(name: "Tests-iOS", dependencies: ["DTCollectionViewManager", "DTModelStorage"], path: "Sources/Tests")
+        // .testTarget(name: "Tests-iOS", dependencies: ["DTCollectionViewManager", "DTModelStorage"], path: "Sources/Tests")
     ],
     swiftLanguageVersions: [.v5, .v4_2]
 )

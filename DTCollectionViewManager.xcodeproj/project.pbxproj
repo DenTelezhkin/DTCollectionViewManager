@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 46;
+	objectVersion = 52;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -98,8 +98,6 @@
 		9A08A9C91B8A249300877C62 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
 		9A2109E31B9C58E20036D151 /* ComplexLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */; };
 		9A2109E71B9C5A020036D151 /* CollectionContainingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */; };
-		9A5DE7901FD35483000FE218 /* DTModelStorage.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9A5DE78F1FD35482000FE218 /* DTModelStorage.framework */; };
-		9A5DE7911FD35483000FE218 /* DTModelStorage.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9A5DE78F1FD35482000FE218 /* DTModelStorage.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
 		9A73E09E1F6586A000BF80F8 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
 		9A7576F31BB951A100180D46 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
 		9A7576F71BB951B500180D46 /* DTCollectionViewManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -108,6 +106,7 @@
 		9A99AA861B8A219300428802 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA841B8A219300428802 /* Main.storyboard */; };
 		9A99AA881B8A219300428802 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA871B8A219300428802 /* Assets.xcassets */; };
 		9A99AA8B1B8A219300428802 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA891B8A219300428802 /* LaunchScreen.storyboard */; };
+		9AA83F1C22D4D77700C20E87 /* DTModelStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9AA83F1B22D4D77700C20E87 /* DTModelStorage */; };
 		9ADFC8EF1B8B73A300AB4CD9 /* SectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8EE1B8B73A300AB4CD9 /* SectionsViewController.swift */; };
 		9ADFC8F41B8B76A000AB4CD9 /* SolidColorCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8F21B8B76A000AB4CD9 /* SolidColorCollectionCell.swift */; };
 		9ADFC8F51B8B76A000AB4CD9 /* SolidColorCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8F31B8B76A000AB4CD9 /* SolidColorCollectionCell.xib */; };
@@ -146,7 +145,6 @@
 			dstPath = "";
 			dstSubfolderSpec = 10;
 			files = (
-				9A5DE7911FD35483000FE218 /* DTModelStorage.framework in Embed Frameworks */,
 				9A7576F71BB951B500180D46 /* DTCollectionViewManager.framework in Embed Frameworks */,
 			);
 			name = "Embed Frameworks";
@@ -248,7 +246,6 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				9A5DE7901FD35483000FE218 /* DTModelStorage.framework in Frameworks */,
 				9A7576F31BB951A100180D46 /* DTCollectionViewManager.framework in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -273,6 +270,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				9AA83F1C22D4D77700C20E87 /* DTModelStorage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -512,7 +510,6 @@
 				9A99AA8D1B8A219300428802 /* Sources */,
 				9A99AA8E1B8A219300428802 /* Frameworks */,
 				9A99AA8F1B8A219300428802 /* Resources */,
-				9A73E0991F65862700BF80F8 /* Copy Carthage Frameworks */,
 			);
 			buildRules = (
 			);
@@ -531,7 +528,6 @@
 				9AC532151BE5F77F006CB18A /* Sources */,
 				9AC532261BE5F77F006CB18A /* Frameworks */,
 				9AC5322A1BE5F77F006CB18A /* Resources */,
-				9A73E09A1F65866300BF80F8 /* Copy Carthage Frameworks */,
 			);
 			buildRules = (
 			);
@@ -550,13 +546,15 @@
 				9A5DE7921FD3576B000FE218 /* SwiftLint */,
 				9AE671441AEE61F800B25A5F /* Sources */,
 				9AE671451AEE61F800B25A5F /* Frameworks */,
-				9A73E0981F6585FD00BF80F8 /* Copy Carthage Frameworks */,
 			);
 			buildRules = (
 			);
 			dependencies = (
 			);
 			name = DTCollectionViewManager;
+			packageProductDependencies = (
+				9AA83F1B22D4D77700C20E87 /* DTModelStorage */,
+			);
 			productName = DTCollectionViewManager;
 			productReference = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */;
 			productType = "com.apple.product-type.framework";
@@ -595,6 +593,9 @@
 				Base,
 			);
 			mainGroup = 955F8579179ACAF000A38EAD;
+			packageReferences = (
+				9AA83F1A22D4D77700C20E87 /* XCRemoteSwiftPackageReference "DTModelStorage" */,
+			);
 			productRefGroup = 955F8583179ACAF000A38EAD /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -674,51 +675,6 @@
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
 			shellScript = "if [ \\\"${CONFIGURATION}\\\" = \\\"Debug\\\" ]; then\n  if which swiftlint > /dev/null; then\n    swiftlint autocorrect --config \"${SRCROOT}/.swiftlint.yml\"\n    swiftlint lint --config \"${SRCROOT}/.swiftlint.yml\"\n  else\n    echo \\\"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\\\"\n  fi\nfi";
-		};
-		9A73E0981F6585FD00BF80F8 /* Copy Carthage Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				DTModelStorage.framework,
-			);
-			name = "Copy Carthage Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "exec \"${SRCROOT}/scripts/copy-carthage-frameworks.sh\"";
-		};
-		9A73E0991F65862700BF80F8 /* Copy Carthage Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				DTModelStorage.framework,
-			);
-			name = "Copy Carthage Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "exec \"${SRCROOT}/scripts/copy-carthage-frameworks.sh\"\n";
-		};
-		9A73E09A1F65866300BF80F8 /* Copy Carthage Frameworks */ = {
-			isa = PBXShellScriptBuildPhase;
-			buildActionMask = 2147483647;
-			files = (
-			);
-			inputPaths = (
-				DTModelStorage.framework,
-			);
-			name = "Copy Carthage Frameworks";
-			outputPaths = (
-			);
-			runOnlyForDeploymentPostprocessing = 0;
-			shellPath = /bin/sh;
-			shellScript = "exec \"${SRCROOT}/scripts/copy-carthage-frameworks.sh\"\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
@@ -896,14 +852,6 @@
 				"DEBUG_INFORMATION_FORMAT[sdk=iphonesimulator*]" = dwarf;
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"FRAMEWORK_SEARCH_PATHS[sdk=appletv*]" = (
-					"$(SRCROOT)/Carthage/Build/tvOS/",
-					"$(inherited)",
-				);
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphone*]" = (
-					"$(SRCROOT)/Carthage/Build/iOS/",
-					"$(inherited)",
-				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_OPTIMIZATION_LEVEL = 0;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
@@ -952,14 +900,6 @@
 				"CODE_SIGN_IDENTITY[sdk=iphoneos*]" = "iPhone Developer";
 				ENABLE_STRICT_OBJC_MSGSEND = YES;
 				ENABLE_TESTABILITY = YES;
-				"FRAMEWORK_SEARCH_PATHS[sdk=appletv*]" = (
-					"$(SRCROOT)/Carthage/Build/tvOS/",
-					"$(inherited)",
-				);
-				"FRAMEWORK_SEARCH_PATHS[sdk=iphone*]" = (
-					"$(SRCROOT)/Carthage/Build/iOS/",
-					"$(inherited)",
-				);
 				GCC_NO_COMMON_BLOCKS = YES;
 				GCC_WARN_64_TO_32_BIT_CONVERSION = YES;
 				GCC_WARN_ABOUT_RETURN_TYPE = YES;
@@ -987,14 +927,13 @@
 				CLANG_WARN_DIRECT_OBJC_ISA_USAGE = YES_ERROR;
 				CLANG_WARN_OBJC_ROOT_CLASS = YES_ERROR;
 				DEVELOPMENT_TEAM = L94VC9ZZXC;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting files/Example.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = MLSDev.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1011,14 +950,13 @@
 				COPY_PHASE_STRIP = NO;
 				DEVELOPMENT_TEAM = L94VC9ZZXC;
 				ENABLE_NS_ASSERTIONS = NO;
-				FRAMEWORK_SEARCH_PATHS = (
-					"$(inherited)",
-					"$(PROJECT_DIR)/Carthage/Build/iOS",
-				);
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting files/Example.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = MLSDev.Example;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				TARGETED_DEVICE_FAMILY = 2;
@@ -1035,7 +973,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Supporting files/Tests.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = MLSDev.ExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1053,7 +995,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Supporting files/Tests.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = MLSDev.ExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 			};
@@ -1070,7 +1016,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				GENERATE_PROFILING_CODE = YES;
 				INFOPLIST_FILE = "Supporting files/Tests.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = MLSDev.ExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -1089,7 +1039,11 @@
 				GCC_WARN_ABOUT_RETURN_TYPE = YES_ERROR;
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Supporting files/Tests.plist";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = MLSDev.ExampleTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SDKROOT = appletvos;
@@ -1111,7 +1065,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Supporting files/Framework.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mlsdev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = DTCollectionViewManager;
 				SKIP_INSTALL = YES;
@@ -1137,7 +1095,11 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "Supporting files/Framework.plist";
 				INSTALL_PATH = "$(LOCAL_LIBRARY_DIR)/Frameworks";
-				LD_RUNPATH_SEARCH_PATHS = "$(inherited) @executable_path/Frameworks @loader_path/Frameworks";
+				LD_RUNPATH_SEARCH_PATHS = (
+					"$(inherited)",
+					"@executable_path/Frameworks",
+					"@loader_path/Frameworks",
+				);
 				PRODUCT_BUNDLE_IDENTIFIER = "com.mlsdev.$(PRODUCT_NAME:rfc1034identifier)";
 				PRODUCT_NAME = DTCollectionViewManager;
 				SKIP_INSTALL = YES;
@@ -1195,6 +1157,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		9AA83F1A22D4D77700C20E87 /* XCRemoteSwiftPackageReference "DTModelStorage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/DenTelezhkin/DTModelStorage";
+			requirement = {
+				branch = next;
+				kind = branch;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		9AA83F1B22D4D77700C20E87 /* DTModelStorage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 9AA83F1A22D4D77700C20E87 /* XCRemoteSwiftPackageReference "DTModelStorage" */;
+			productName = DTModelStorage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 955F857A179ACAF000A38EAD /* Project object */;
 }
