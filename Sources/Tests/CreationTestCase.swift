@@ -61,7 +61,6 @@ class CreationTestCase: XCTestCase {
     func testCreatingCollectionControllerFromXIB()
     {
         let controller = XibCollectionViewController(nibName: "XibCollectionViewController", bundle: Bundle(for: type(of: self)))
-        let _ = controller.view
         controller.manager.register(FooCell.self)
     }
     
