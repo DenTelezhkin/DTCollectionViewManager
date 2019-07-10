@@ -9,9 +9,7 @@ matrix:
     - env: ACTION=test_ios12 PLATFORM=iOS
     - env: ACTION=test_tvos13 PLATFORM=tvOS
     - env: ACTION=test_tvos12 PLATFORM=tvOS
-    - env: ACTION=test_ios_swift4 PLATFORM=iOS
     - env: ACTION=test_ios_swift4_2 PLATFORM=iOS
-    - env: ACTION=test_tvos_swift4 PLATFORM=tvOS
     - env: ACTION=test_tvos_swift4_2 PLATFORM=tvOS
     - env: ACTION=pod_lint PLATFORM="iOS,tvOS"
     - env: ACTION=carthage_build PLATFORM="iOS,tvOS"

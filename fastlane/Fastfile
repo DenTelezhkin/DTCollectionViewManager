@@ -22,16 +22,8 @@ lane :pod_lint do
   pod_lib_lint(allow_warnings: true, verbose: true)
 end
 
-lane :test_ios_swift4 do
-  scan(devices: ["iPhone Xs (13.0)"], xcargs: "SWIFT_VERSION=4.0", scheme: 'Tests-iOS')
-end
-
 lane :test_ios_swift4_2 do
   scan(devices: ["iPhone Xs (13.0)"], xcargs: "SWIFT_VERSION=4.2", scheme: 'Tests-iOS')
-end
-
-lane :test_tvos_swift4 do
-  scan(devices: ["Apple TV 4K (13.0)"], xcargs: "SWIFT_VERSION=4.0", scheme: 'Tests-tvOS')
 end
 
 lane :test_tvos_swift4_2 do
