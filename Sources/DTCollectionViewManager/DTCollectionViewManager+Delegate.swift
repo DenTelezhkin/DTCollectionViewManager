@@ -194,6 +194,20 @@ extension DTCollectionViewManager {
                                                     signature: .shouldSpringLoadItem,
                                                     closure: closure)
     }
+    
+    @available(iOS 13, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldBeginMultipleSelectionInteractionAt:)`method is called for `cellClass`.
+    /// - Parameter Type: cell class to react for event
+    /// - Parameter closure: closure to run.
+    open func shouldBeginMultipleSelectionInteraction<T:ModelTransfer>(for cellClass: T.Type,
+                                                                       _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool)
+        where T: UICollectionViewCell
+    {
+        collectionDelegate?.appendReaction(for: T.self,
+                                      signature: .shouldBeginMultipleSelectionInteractionAtIndexPath,
+                                      closure: closure)
+    }
+    
     #endif
     
     // MARK: - UICollectionViewDelegateFlowLayout

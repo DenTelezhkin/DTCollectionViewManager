@@ -324,6 +324,8 @@ internal enum EventMethodSignature: String {
     case targetContentOffsetForProposedContentOffset = "collectionView:targetContentOffsetForProposedContentOffset:"
     case shouldSpringLoadItem = "collectionView:shouldSpringLoadItemAtIndexPath:withContext:"
     
+    case shouldBeginMultipleSelectionInteractionAtIndexPath = "collectionView:shouldBeginMultipleSelectionInteractionAtIndexPath:"
+    
     // UICollectionViewDelegateFlowLayout
     case sizeForItemAtIndexPath = "collectionView:layout:sizeForItemAtIndexPath:"
     case referenceSizeForHeaderInSection = "collectionView:layout:referenceSizeForHeaderInSection:_imaginarySelector"

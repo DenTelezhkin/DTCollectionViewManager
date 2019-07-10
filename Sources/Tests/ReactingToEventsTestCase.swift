@@ -745,6 +745,18 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    func testShouldBeginMultipleSelectionInteraction() {
+        guard #available(iOS 13, *) else { return }
+        let exp = expectation(description: "shouldBeginMultipleSelectionInteractionAT")
+        sut.manager.shouldBeginMultipleSelectionInteraction(for: NibCell.self) { _,_,_ in
+            exp.fulfill()
+            return false
+        }
+        sut.manager.memoryStorage.addItem(1)
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, shouldBeginMultipleSelectionInteractionAt: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
     #endif
     
     func testAllDelegateMethodSignatures() {
@@ -798,6 +810,10 @@ class ReactingToEventsFastTestCase : XCTestCase {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidExit:))), EventMethodSignature.dropSessionDidExit.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnd:))), EventMethodSignature.dropSessionDidEnd.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropPreviewParametersForItemAt:))), EventMethodSignature.dropPreviewParametersForItemAtIndexPath.rawValue)
+        }
+        
+        if #available(iOS 13, *) {
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldBeginMultipleSelectionInteractionAt:))), EventMethodSignature.shouldBeginMultipleSelectionInteractionAtIndexPath.rawValue)
         }
         #endif
         

@@ -264,6 +264,16 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
                                                                 shouldSpringLoadItemAt: indexPath,
                                                                 with: context) ?? true
     }
+    
+    @available(iOS 13.0, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    open func collectionView(_ collectionView: UICollectionView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
+        if let should = performCellReaction(.shouldBeginMultipleSelectionInteractionAtIndexPath, location: indexPath, provideCell: true) as? Bool {
+            return should
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView,
+                                                                        shouldBeginMultipleSelectionInteractionAt: indexPath) ?? false
+    }
     #endif
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
