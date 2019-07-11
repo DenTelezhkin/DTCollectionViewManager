@@ -11,6 +11,16 @@ All notable changes to this project will be documented in this file.
 
 * Ability to customize bundle, from which xib files are loaded from by setting `bundle` property on `ViewModelMapping` in `mappingBlock`. As before, `bundle` defaults to `Bundle(for: ViewClass.self)`.
 
+New method wrappers for iOS 13 API
+
+* `shouldBeginMultipleSelectionInteraction`
+* `didBeginMultipleSelectionInteraction`
+* `didEndMultipleSelectionInteraction`
+* `contextMenuConfiguration(for:)`
+* `previewForHighlightingContextMenu`
+* `previewForDismissingContextMenu`
+* `willCommitMenuWithAnimator`
+
 ### Removed
 
 * Usage of previously deprecated and now removed from `DTModelStorage` `ViewModelMappingCustomizing` protocol.
@@ -29,6 +39,14 @@ to
 `var collectionView: UICollectionView!`.
 
 If you need optional collection view, use `optionalCollectionView` property instead.
+
+### Deprecated 
+
+Following methods have been deprecated due to their delegate methods being deprecated in iOS 13:
+
+* `shouldShowMenuForItemAt`
+* `canPerformAction`
+* `performAction`
 
 ## [6.6.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.6.0)
 
