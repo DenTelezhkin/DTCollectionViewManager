@@ -302,6 +302,31 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
                                                               contextMenuConfigurationForItemAt: indexPath,
                                                               point: point)
     }
+    
+    @available(iOS 13.0, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    open func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWith configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        if let preview = performNonCellReaction(.previewForHighlightingContextMenu, argument: configuration) as? UITargetedPreview {
+            return preview
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForHighlightingContextMenuWith: configuration)
+    }
+    
+    @available(iOS 13.0, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    open func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWith configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        if let preview = performNonCellReaction(.previewForDismissingContextMenu, argument: configuration) as? UITargetedPreview {
+            return preview
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForDismissingContextMenuWith: configuration)
+    }
+    
+    @available(iOS 13.0, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    open func collectionView(_ collectionView: UICollectionView, willCommitMenuWithAnimator animator: UIContextMenuInteractionCommitAnimating) {
+        _ = performNonCellReaction(.willCommitMenuWithAnimator, argument: animator)
+        (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, willCommitMenuWithAnimator: animator)
+    }
     #endif
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.

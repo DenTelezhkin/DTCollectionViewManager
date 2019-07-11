@@ -328,6 +328,9 @@ internal enum EventMethodSignature: String {
     case didBeginMultipleSelectionInteractionAtIndexPath = "collectionView:didBeginMultipleSelectionInteractionAtIndexPath:"
     case didEndMultipleSelectionInteraction = "collectionViewDidEndMultipleSelectionInteraction:"
     case contextMenuConfigurationForItemAtIndexPath = "collectionView:contextMenuConfigurationForItemAtIndexPath:point:"
+    case previewForHighlightingContextMenu = "collectionView:previewForHighlightingContextMenuWithConfiguration:"
+    case previewForDismissingContextMenu = "collectionView:previewForDismissingContextMenuWithConfiguration:"
+    case willCommitMenuWithAnimator = "collectionView:willCommitMenuWithAnimator:"
     
     // UICollectionViewDelegateFlowLayout
     case sizeForItemAtIndexPath = "collectionView:layout:sizeForItemAtIndexPath:"

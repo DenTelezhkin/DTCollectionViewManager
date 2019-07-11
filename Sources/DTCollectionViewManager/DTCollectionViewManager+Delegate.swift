@@ -239,6 +239,28 @@ extension DTCollectionViewManager {
                                                signature: .contextMenuConfigurationForItemAtIndexPath,
                                                closure: closure)
     }
+    
+    @available(iOS 13.0, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:previewForHighlightingContextMenuWithConfiguration:)` method is called
+    open func previewForHighlightingContextMenu(_ closure: @escaping (UIContextMenuConfiguration) -> UITargetedPreview?)
+    {
+        collectionDelegate?.appendNonCellReaction(.previewForHighlightingContextMenu, closure: closure)
+    }
+    
+    @available(iOS 13.0, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:previewForDismissingContextMenuWithConfiguration:)` method is called
+    open func previewForDismissingContextMenu(_ closure: @escaping (UIContextMenuConfiguration) -> UITargetedPreview?)
+    {
+        collectionDelegate?.appendNonCellReaction(.previewForDismissingContextMenu, closure: closure)
+    }
+    
+    @available(iOS 13.0, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.tableView(_:willCommitMenuWithAnimator:)` method is called
+    open func willCommitMenuWithAnimator(_ closure: @escaping (UIContextMenuInteractionCommitAnimating) -> Void)
+    {
+        collectionDelegate?.appendNonCellReaction(.willCommitMenuWithAnimator, closure: closure)
+    }
+    
     #endif
     
     // MARK: - UICollectionViewDelegateFlowLayout
