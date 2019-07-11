@@ -221,6 +221,14 @@ extension DTCollectionViewManager {
                                       closure: closure)
     }
     
+    @available(iOS 13, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionViewDidEndMultipleSelectionInteraction(_:)`method is called.
+    /// - Parameter closure: closure to run.
+    open func didEndMultipleSelectionInteraction(_ closure: @escaping () -> Void)
+    {
+        collectionDelegate?.appendNonCellReaction(.didEndMultipleSelectionInteraction, closure: closure)
+    }
+    
     #endif
     
     // MARK: - UICollectionViewDelegateFlowLayout

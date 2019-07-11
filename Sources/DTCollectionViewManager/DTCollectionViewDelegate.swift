@@ -281,6 +281,13 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         _ = performCellReaction(.didBeginMultipleSelectionInteractionAtIndexPath, location: indexPath, provideCell: true)
         (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didBeginMultipleSelectionInteractionAt: indexPath)
     }
+    
+    @available(iOS 13.0, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    open func collectionViewDidEndMultipleSelectionInteraction(_ collectionView: UICollectionView) {
+        _ = performNonCellReaction(.didEndMultipleSelectionInteraction)
+        (delegate as? UICollectionViewDelegate)?.collectionViewDidEndMultipleSelectionInteraction?(collectionView)
+    }
     #endif
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.

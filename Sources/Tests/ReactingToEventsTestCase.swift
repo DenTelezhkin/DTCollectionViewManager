@@ -768,6 +768,17 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    func testDidEndMultipleSelectionInteraction() {
+        guard #available(iOS 13, *) else { return }
+        let exp = expectation(description: "didEndMultipleSelectionInteractionAT")
+        sut.manager.didEndMultipleSelectionInteraction {
+            exp.fulfill()
+        }
+        sut.manager.memoryStorage.addItem(1)
+        _ = sut.manager.collectionDelegate?.collectionViewDidEndMultipleSelectionInteraction(sut.collectionView)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
     #endif
     
     func testAllDelegateMethodSignatures() {
@@ -826,6 +837,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         if #available(iOS 13, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldBeginMultipleSelectionInteractionAt:))), EventMethodSignature.shouldBeginMultipleSelectionInteractionAtIndexPath.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didBeginMultipleSelectionInteractionAt:))), EventMethodSignature.didBeginMultipleSelectionInteractionAtIndexPath.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionViewDidEndMultipleSelectionInteraction(_:))), EventMethodSignature.didEndMultipleSelectionInteraction.rawValue)
         }
         #endif
         
