@@ -288,6 +288,20 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         _ = performNonCellReaction(.didEndMultipleSelectionInteraction)
         (delegate as? UICollectionViewDelegate)?.collectionViewDidEndMultipleSelectionInteraction?(collectionView)
     }
+    
+    @available(iOS 13.0, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    open func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        if let configuration = perform4ArgumentCellReaction(.contextMenuConfigurationForItemAtIndexPath,
+                                                            argument: point,
+                                                            location: indexPath,
+                                                            provideCell: true) as? UIContextMenuConfiguration {
+            return configuration
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView,
+                                                              contextMenuConfigurationForItemAt: indexPath,
+                                                              point: point)
+    }
     #endif
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.

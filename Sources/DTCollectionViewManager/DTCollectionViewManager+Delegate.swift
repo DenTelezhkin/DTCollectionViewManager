@@ -229,6 +229,16 @@ extension DTCollectionViewManager {
         collectionDelegate?.appendNonCellReaction(.didEndMultipleSelectionInteraction, closure: closure)
     }
     
+    @available(iOS 13.0, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.contextMenuConfigurationForItemAt(_:point:)` method is called
+    open func contextMenuConfiguration<T:ModelTransfer>(for cellClass: T.Type,
+                                                        _ closure: @escaping (CGPoint, T, T.ModelType, IndexPath) -> UIContextMenuConfiguration?)
+        where T: UICollectionViewCell
+    {
+        collectionDelegate?.append4ArgumentReaction(for: T.self,
+                                               signature: .contextMenuConfigurationForItemAtIndexPath,
+                                               closure: closure)
+    }
     #endif
     
     // MARK: - UICollectionViewDelegateFlowLayout

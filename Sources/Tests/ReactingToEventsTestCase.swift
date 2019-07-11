@@ -779,6 +779,19 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    func testContextMenuConfiguration() {
+        guard #available(iOS 13, *) else { return }
+        let exp = expectation(description: "contextMenuConfiguration")
+        sut.manager.contextMenuConfiguration(for: NibCell.self) { point, _, _, _ in
+            XCTAssertEqual(point, CGPoint(x: 1, y: 1))
+            exp.fulfill()
+            return nil
+        }
+        sut.manager.memoryStorage.addItem(1)
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, contextMenuConfigurationForItemAt: indexPath(0, 0), point: CGPoint(x: 1, y: 1))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
     #endif
     
     func testAllDelegateMethodSignatures() {
@@ -838,6 +851,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldBeginMultipleSelectionInteractionAt:))), EventMethodSignature.shouldBeginMultipleSelectionInteractionAtIndexPath.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didBeginMultipleSelectionInteractionAt:))), EventMethodSignature.didBeginMultipleSelectionInteractionAtIndexPath.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionViewDidEndMultipleSelectionInteraction(_:))), EventMethodSignature.didEndMultipleSelectionInteraction.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:contextMenuConfigurationForItemAt:point:))), EventMethodSignature.contextMenuConfigurationForItemAtIndexPath.rawValue)
         }
         #endif
         
