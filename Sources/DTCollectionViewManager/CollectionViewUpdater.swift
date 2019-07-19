@@ -34,6 +34,9 @@ open class CollectionViewUpdater : StorageUpdating {
     /// - Note: this can be useful if you are deciding whether to run another batch of animations - insertion, deletions etc. UICollectionView is not very tolerant to multiple performBatchUpdates, executed at once.
     open var batchUpdatesInProgress: Bool = false
     
+    /// If turned on, animates changes off screen, otherwise calls `collectionView.reloadData` when update come offscreen. To verify if tableView is onscreen, `CollectionViewUpdater` compares collectionView.window to nil. Defaults to true.
+    open var animateChangesOffScreen : Bool = true
+    
     /// Creates updater.
     public init(collectionView: UICollectionView,
                 reloadItem: ((IndexPath, Any) -> Void)? = nil,
@@ -47,6 +50,13 @@ open class CollectionViewUpdater : StorageUpdating {
     open func storageDidPerformUpdate(_ update : StorageUpdate)
     {
         willUpdateContent?(update)
+        
+        if !animateChangesOffScreen, collectionView?.window == nil {
+            collectionView?.reloadData()
+            didUpdateContent?(update)
+            return
+        }
+        
         collectionView?.performBatchUpdates({ [weak self] in
             if update.containsDeferredDatasourceUpdates {
                 update.applyDeferredDatasourceUpdates()
