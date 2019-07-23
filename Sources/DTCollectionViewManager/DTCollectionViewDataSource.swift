@@ -45,12 +45,12 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
     
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return storage?.sections[section].numberOfItems ?? 0
+        return storage?.numberOfItems(inSection: section) ?? 0
     }
     
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return storage?.sections.count ?? 0
+        return storage?.numberOfSections() ?? 0
     }
     
     /// Implementation of `UICollectionViewDataSource` protocol.
