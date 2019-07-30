@@ -1,0 +1,243 @@
+//
+//  DiffableDatasourcesTestCase.swift
+//  DTCollectionViewManager
+//
+//  Created by Denys Telezhkin on 7/30/19.
+//  Copyright © 2019 Denys Telezhkin. All rights reserved.
+//
+
+import XCTest
+@testable import DTCollectionViewManager
+import DTModelStorage
+
+@available(iOS 13, tvOS 13, *)
+extension NSDiffableDataSourceSnapshot {
+    static func snapshot(with block: (NSDiffableDataSourceSnapshot<SectionIdentifierType, ItemIdentifierType>) -> ()) -> NSDiffableDataSourceSnapshot {
+        let snapshot = NSDiffableDataSourceSnapshot<SectionIdentifierType, ItemIdentifierType>()
+        block(snapshot)
+        return snapshot
+    }
+}
+
+@available(iOS 13, tvOS 13, *)
+extension NSDiffableDataSourceSnapshotReference {
+    static func snapshot(with block: (NSDiffableDataSourceSnapshotReference) -> ()) -> NSDiffableDataSourceSnapshotReference {
+        let snapshot = NSDiffableDataSourceSnapshotReference()
+        block(snapshot)
+        return snapshot
+    }
+}
+
+@available(iOS 13, tvOS 13, *)
+class DiffableDatasourcesTestCase: XCTestCase {
+    enum Section {
+        case one
+        case two
+        case three
+    }
+    
+    var dataSource: UICollectionViewDiffableDataSource<Section, Int>!
+    var controller = DTCellTestCollectionController()
+    
+    func setItems(_ items: [Int]) {
+        dataSource.apply(.snapshot(with: { snapshot in
+            snapshot.appendSections([.one])
+            snapshot.appendItems(items)
+        }))
+    }
+    
+    override func setUp() {
+        super.setUp()
+        let _ = controller.view
+        controller.manager.register(NibCell.self)
+        dataSource = controller.manager.configureDiffableDataSource(modelProvider: { $1 })
+        controller.manager.register(NibCell.self)
+    }
+    
+    func testMultipleSectionsWorkWithDiffableDataSources() {
+        dataSource.apply(.snapshot(with: { snapshot in
+            snapshot.appendSections([.one, .two])
+            snapshot.appendItems([1,2], toSection: .one)
+            snapshot.appendItems([3,4], toSection: .two)
+        }))
+        
+        XCTAssert(controller.verifyItem(2, atIndexPath: indexPath(1, 0)))
+        XCTAssert(controller.verifyItem(3, atIndexPath: indexPath(0, 1)))
+        XCTAssertEqual(controller.manager.storage.numberOfSections(), 2)
+        XCTAssertEqual(controller.manager.storage.numberOfItems(inSection: 0), 2)
+        XCTAssertEqual(controller.manager.storage.numberOfItems(inSection: 1), 2)
+    }
+    
+    func testCellSelectionClosure()
+    {
+        controller = ReactingTestCollectionViewController()
+        let _ = controller.view
+        dataSource = controller.manager.configureDiffableDataSource(modelProvider: { $1 })
+        controller.manager.register(SelectionReactingCollectionCell.self)
+        var reactingCell : SelectionReactingCollectionCell?
+        controller.manager.didSelect(SelectionReactingCollectionCell.self) { (cell, model, indexPath) in
+            cell.indexPath = indexPath
+            cell.model = model
+            reactingCell = cell
+        }
+        
+        dataSource.apply(.snapshot(with: { snapshot in
+            snapshot.appendSections([.one])
+            snapshot.appendItems([1,2], toSection: .one)
+        }))
+        controller.manager.collectionDelegate?.collectionView(controller.collectionView, didSelectItemAt: indexPath(1, 0))
+        
+        XCTAssertEqual(reactingCell?.indexPath, indexPath(1, 0))
+        XCTAssertEqual(reactingCell?.model, 2)
+    }
+    
+    func testShouldShowViewHeaderOnEmptySEction()
+    {
+        controller.manager.registerHeader(NibHeaderFooterView.self)
+        controller.manager.supplementaryStorage?.setSectionHeaderModels([1])
+        setItems([])
+        XCTAssertNotNil(controller.manager.collectionDataSource?.collectionView(controller.collectionView,
+                                                                             viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader,
+                                                                             at: indexPath(0, 0)))
+    }
+    
+    func testShouldShowViewFooterOnEmptySection()
+    {
+        controller.manager.registerFooter(NibHeaderFooterView.self)
+        controller.manager.supplementaryStorage?.setSectionFooterModels([1])
+        setItems([])
+        XCTAssertNotNil(controller.manager.collectionDataSource?.collectionView(controller.collectionView,
+                                                                                     viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter,
+                                                                                     at: indexPath(0, 0)))
+    }
+    
+    func testSupplementaryKindsShouldBeSet()
+    {
+        XCTAssertEqual(controller.manager.supplementaryStorage?.supplementaryHeaderKind, DTCollectionViewElementSectionHeader)
+        XCTAssertEqual(controller.manager.supplementaryStorage?.supplementaryFooterKind, DTCollectionViewElementSectionFooter)
+    }
+    
+    func testHeaderViewShouldBeCreated()
+    {
+        controller.manager.registerHeader(NibHeaderFooterView.self)
+        controller.manager.supplementaryStorage?.setSectionHeaderModels([1])
+        setItems([1])
+        XCTAssert(controller.manager.collectionDataSource?.collectionView(controller.collectionView,
+                                                                                     viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader,
+                                                                                     at: indexPath(0, 0)) is NibHeaderFooterView)
+    }
+    
+    func testFooterViewShouldBeCreated()
+    {
+        controller.manager.registerFooter(NibHeaderFooterView.self)
+        controller.manager.supplementaryStorage?.setSectionFooterModels([1])
+        setItems([1])
+        XCTAssert(controller.manager.collectionDataSource?.collectionView(controller.collectionView,
+                                                                                     viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter,
+                                                                                     at: indexPath(0, 0)) is NibHeaderFooterView)
+    }
+    
+    func testHeaderViewShouldBeCreatedFromXib()
+    {
+        controller.manager.registerNibNamed("NibHeaderFooterView", forHeader: NibHeaderFooterView.self)
+        controller.manager.supplementaryStorage?.setSectionHeaderModels([1])
+        setItems([1])
+        XCTAssert(controller.manager.collectionDataSource?.collectionView(controller.collectionView,
+                                                                                             viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader,
+                                                                                             at: indexPath(0, 0)) is NibHeaderFooterView)
+    }
+    
+    func testFooterViewShouldBeCreatedFromXib()
+    {
+        controller.manager.registerNibNamed("NibHeaderFooterView", forFooter: NibHeaderFooterView.self)
+        controller.manager.supplementaryStorage?.setSectionFooterModels([1])
+        setItems([1])
+        XCTAssert(controller.manager.collectionDataSource?.collectionView(controller.collectionView,
+                                                                                             viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter,
+                                                                                             at: indexPath(0, 0)) is NibHeaderFooterView)
+    }
+    func testWillDisplayHeaderInSection() {
+        let exp = expectation(description: "willDisplayHeaderInSection")
+        controller.manager.willDisplayHeaderView(ReactingHeaderFooterView.self, { header, model, section  in
+            exp.fulfill()
+        })
+        controller.manager.supplementaryStorage?.setSectionHeaderModels(["Foo"])
+        setItems([])
+        _ = controller.manager.collectionDelegate?.collectionView(controller.collectionView,
+                                                                  willDisplaySupplementaryView: ReactingHeaderFooterView(),
+                                                                  forElementKind: DTCollectionViewElementSectionHeader,
+                                                                  at: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testWillDisplayFooterInSection() {
+        let exp = expectation(description: "willDisplayFooterInSection")
+        controller.manager.willDisplayFooterView(ReactingHeaderFooterView.self, { footer, model, section  in
+            exp.fulfill()
+        })
+        controller.manager.supplementaryStorage?.setSectionFooterModels(["Foo"])
+        setItems([])
+        _ = controller.manager.collectionDelegate?.collectionView(controller.collectionView,
+                                                                          willDisplaySupplementaryView: ReactingHeaderFooterView(),
+                                                                          forElementKind: DTCollectionViewElementSectionFooter,
+                                                                          at: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+}
+
+@available(iOS 13, tvOS 13, *)
+class DiffableDatasourceReferencesTestCase: XCTestCase {
+    enum Section {
+        case one
+        case two
+        case three
+    }
+    
+    var dataSourceReference: UICollectionViewDiffableDataSourceReference!
+    var controller = DTCellTestCollectionController()
+    
+    override func setUp() {
+        super.setUp()
+        let _ = controller.view
+        controller.manager.register(NibCell.self)
+        dataSourceReference = controller.manager.configureDiffableDataSource(modelProvider: { $1 })
+        controller.manager.register(NibCell.self)
+    }
+    
+    func testMultipleSectionsWorkWithDiffableDataSourceReferences() {
+        dataSourceReference.applySnapshot(.snapshot(with: { snapshot in
+            snapshot.appendSections(withIdentifiers: [Section.one, Section.two])
+            snapshot.appendItems(withIdentifiers: [1,2], intoSectionWithIdentifier: Section.one)
+            snapshot.appendItems(withIdentifiers: [3,4], intoSectionWithIdentifier: Section.two)
+        }), animatingDifferences: false)
+        
+        XCTAssert(controller.verifyItem(2, atIndexPath: indexPath(1, 0)))
+        XCTAssert(controller.verifyItem(3, atIndexPath: indexPath(0, 1)))
+        XCTAssertEqual(controller.manager.storage.numberOfSections(), 2)
+        XCTAssertEqual(controller.manager.storage.numberOfItems(inSection: 0), 2)
+        XCTAssertEqual(controller.manager.storage.numberOfItems(inSection: 1), 2)
+    }
+    
+    func testCellSelectionClosure()
+    {
+        controller = ReactingTestCollectionViewController()
+        let _ = controller.view
+        dataSourceReference = controller.manager.configureDiffableDataSource(modelProvider: { $1 })
+        controller.manager.register(SelectionReactingCollectionCell.self)
+        var reactingCell : SelectionReactingCollectionCell?
+        controller.manager.didSelect(SelectionReactingCollectionCell.self) { (cell, model, indexPath) in
+            cell.indexPath = indexPath
+            cell.model = model
+            reactingCell = cell
+        }
+        
+        dataSourceReference.applySnapshot(.snapshot(with: { snapshot in
+            snapshot.appendSections(withIdentifiers: [Section.one, Section.two])
+            snapshot.appendItems(withIdentifiers: [1,2], intoSectionWithIdentifier: Section.one)
+        }), animatingDifferences: true)
+        controller.manager.collectionDelegate?.collectionView(controller.collectionView, didSelectItemAt: indexPath(1, 0))
+        
+        XCTAssertEqual(reactingCell?.indexPath, indexPath(1, 0))
+        XCTAssertEqual(reactingCell?.model, 2)
+    }
+}

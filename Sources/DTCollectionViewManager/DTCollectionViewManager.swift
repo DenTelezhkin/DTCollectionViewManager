@@ -126,6 +126,11 @@ open class DTCollectionViewManager {
         }
     }
     
+    /// Current storage, conditionally casted to `SupplementaryStorage` protocol.
+    public var supplementaryStorage: SupplementaryStorage? {
+        return storage as? SupplementaryStorage
+    }
+    
     /// Object, that is responsible for updating `UICollectionView`, when received update from `Storage`
     open var collectionViewUpdater : CollectionViewUpdater? {
         didSet {
@@ -202,6 +207,54 @@ open class DTCollectionViewManager {
         startManaging(with: collectionView)
     }
     
+
+    @available(iOS 13.0, tvOS 13.0, *)
+    /// Configures `UICollectionViewDiffableDataSource` to be used with `DTCollectionViewManager`.
+    ///  Because `UICollectionViewDiffableDataSource` handles UICollectionView updates, `collectionViewUpdater` property on `DTCollectionViewManager` will be set to nil.
+    /// - Parameter modelProvider: closure that provides `DTCollectionViewManager` models.
+    /// This closure mirrors `cellProvider` property on `UICollectionViewDiffableDataSource`, but strips away collectionView, and asks for data model instead of a cell. Cell mapping is then executed in the same way as without diffable data sources.
+    open func configureDiffableDataSource<SectionIdentifier, ItemIdentifier>(modelProvider: @escaping (IndexPath, ItemIdentifier) -> Any)
+        -> UICollectionViewDiffableDataSource<SectionIdentifier, ItemIdentifier>
+    {
+        guard let collectionView = collectionView else {
+            fatalError("Attempt to configure diffable datasource before collectionView have been initialized")
+        }
+        // UICollectionViewDiffableDataSource will update UICollectionView instead of `CollectionViewUpdater` object.
+        collectionViewUpdater = nil
+        
+        // Cell is provided by `DTCollectionViewDataSource` without actually calling closure that is passed to `UICollectionViewDiffableDataSource`.
+        let dataSource = UICollectionViewDiffableDataSource<SectionIdentifier, ItemIdentifier>(collectionView: collectionView) { _, _, _ in nil }
+        storage = ProxyDiffableDataSourceStorage(collectionView: collectionView,
+                                                                 dataSource: dataSource,
+                                                                 modelProvider: modelProvider)
+        collectionView.dataSource = collectionDataSource
+        
+        return dataSource
+    }
+    
+    @available(iOS 13.0, tvOS 13.0, *)
+    /// Configures `UICollectionViewDiffableDataSourceReference` to be used with `DTCollectionViewManager`.
+    ///  Because `UICollectionViewDiffableDataSourceReference` handles UICollectionView updates, `collectionViewUpdater` property on `DTCollectionViewManager` will be set to nil.
+    /// - Parameter modelProvider: closure that provides `DTCollectionViewManager` models.
+    /// This closure mirrors `cellProvider` property on `UICollectionViewDiffableDataSourceReference`, but strips away collectionView, and asks for data model instead of a cell. Cell mapping is then executed in the same way as without diffable data sources.
+    open func configureDiffableDataSource(modelProvider: @escaping (IndexPath, Any) -> Any) -> UICollectionViewDiffableDataSourceReference
+    {
+        guard let collectionView = collectionView else {
+            fatalError("Attempt to configure diffable datasource before collectionView have been initialized")
+        }
+        // UICollectionViewDiffableDataSourceReference will update UICollectionView instead of `CollectionViewUpdater` object.
+        collectionViewUpdater = nil
+        
+        // Cell is provided by `DTCollectionViewDataSource` without actually calling closure that is passed to `UICollectionViewDiffableDataSourceReference`.
+        let dataSource = UICollectionViewDiffableDataSourceReference(collectionView: collectionView) { _, _, _ in nil }
+        storage = ProxyDiffableDataSourceStorage(collectionView: collectionView,
+                                                                 dataSource: dataSource,
+                                                                 modelProvider: modelProvider)
+        collectionView.dataSource = collectionDataSource
+        
+        return dataSource
+    }
+    
     fileprivate var isConfigured = false
     
     fileprivate func startManaging(with collectionView: UICollectionView) {
@@ -268,9 +321,8 @@ open class DTCollectionViewManager {
         switch itemType {
         case is UICollectionReusableView.Type:
             anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: methodName, subclassOf: "UICollectionReusableView"))
-        case is UITableViewCell.Type:
-            anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: methodName, subclassOf: "UITableViewCell"))
-        case is UITableViewHeaderFooterView.Type: anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: methodName, subclassOf: "UITableViewHeaderFooterView"))
+        case is UICollectionViewCell.Type:
+            anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: methodName, subclassOf: "UICollectionViewCell"))
         default: ()
         }
     }
