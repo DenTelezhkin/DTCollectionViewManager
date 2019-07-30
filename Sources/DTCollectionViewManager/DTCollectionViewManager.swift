@@ -116,20 +116,20 @@ open class DTCollectionViewManager {
     /// - SeeAlso: `MemoryStorage`, `CoreDataStorage`.
     open var storage : Storage {
         willSet {
-            storage.delegate = nil
+            (storage as? BaseUpdateDeliveringStorage)?.delegate = nil
         }
         didSet {
-            if let headerFooterCompatibleStorage = storage as? BaseStorage {
+            if let headerFooterCompatibleStorage = storage as? SupplementaryStorage {
                 headerFooterCompatibleStorage.configureForCollectionViewFlowLayoutUsage()
             }
-            storage.delegate = collectionViewUpdater
+            (storage as? BaseUpdateDeliveringStorage)?.delegate = collectionViewUpdater
         }
     }
     
     /// Object, that is responsible for updating `UICollectionView`, when received update from `Storage`
     open var collectionViewUpdater : CollectionViewUpdater? {
         didSet {
-            storage.delegate = collectionViewUpdater
+            (storage as? BaseUpdateDeliveringStorage)?.delegate = collectionViewUpdater
             collectionViewUpdater?.didUpdateContent?(nil)
         }
     }
@@ -185,7 +185,7 @@ open class DTCollectionViewManager {
     ///
     /// - Parameter storage: storage class to be used
     public init(storage: Storage = DTCollectionViewManager.defaultStorage()) {
-        (storage as? BaseStorage)?.configureForCollectionViewFlowLayoutUsage()
+        (storage as? SupplementaryStorage)?.configureForCollectionViewFlowLayoutUsage()
         self.storage = storage
     }
     

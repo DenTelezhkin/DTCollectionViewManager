@@ -51,7 +51,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         if let size = (self.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, referenceSizeForHeaderInSection: section) {
             return size
         }
-        if let _ = (storage as? HeaderFooterStorage)?.headerModel(forSection: section) {
+        if let _ = headerModel(forSection: section) {
             return (collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize ?? .zero
         }
         return CGSize.zero
@@ -65,7 +65,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         if let size = (self.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, referenceSizeForFooterInSection: section) {
             return size
         }
-        if let _ = (storage as? HeaderFooterStorage)?.footerModel(forSection: section) {
+        if let _ = footerModel(forSection: section) {
             return (collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize ?? .zero
         }
         return CGSize.zero
@@ -146,7 +146,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
         defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didEndDisplayingSupplementaryView: view, forElementOfKind: elementKind, at: indexPath) }
-        guard let model = (storage as? SupplementaryStorage)?.supplementaryModel(ofKind: elementKind, forSectionAt: indexPath) else { return }
+        guard let model = supplementaryModel(ofKind: elementKind, forSectionAt: indexPath) else { return }
         _ = collectionViewReactions.performReaction(of: .supplementaryView(kind: elementKind), signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue, view: view, model: model, location: indexPath)
     }
     

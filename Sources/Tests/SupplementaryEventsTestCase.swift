@@ -51,7 +51,7 @@ class SupplementaryEventsTestCase: XCTestCase {
             header.model = "FooBar"
         }
         controller.manager.memoryStorage.setSectionHeaderModels(["1"])
-
+        controller.manager.memoryStorage.setItems([1])
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
         let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at:  indexPath(0, 0))
@@ -67,6 +67,7 @@ class SupplementaryEventsTestCase: XCTestCase {
             footer.model = "FooBar"
         }
         controller.manager.memoryStorage.setSectionFooterModels(["1"])
+        controller.manager.memoryStorage.setItems([1])
         
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         

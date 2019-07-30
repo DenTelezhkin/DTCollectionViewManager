@@ -56,6 +56,22 @@ open class DTCollectionViewDelegateWrapper : NSObject {
         // We force UICollectionView to flush that cache and query us again, because with new event we might have new delegate or datasource method to respond to.
     }
     
+    /// Returns header model for section at `index`, or nil if it is not found.
+    final func headerModel(forSection index: Int) -> Any?
+    {
+        return RuntimeHelper.recursivelyUnwrapAnyValue((storage as? SupplementaryStorage)?.headerModel(forSection: index) as Any)
+    }
+    
+    /// Returns footer model for section at `index`, or nil if it is not found.
+    final func footerModel(forSection index: Int) -> Any?
+    {
+        return RuntimeHelper.recursivelyUnwrapAnyValue((storage as? SupplementaryStorage)?.footerModel(forSection: index) as Any)
+    }
+    
+    final func supplementaryModel(ofKind kind: String, forSectionAt indexPath: IndexPath) -> Any? {
+        return RuntimeHelper.recursivelyUnwrapAnyValue((storage as? SupplementaryStorage)?.supplementaryModel(ofKind: kind, forSectionAt: indexPath) as Any)
+    }
+    
     final internal func appendReaction<T, U>(for cellClass: T.Type, signature: EventMethodSignature,
                                              methodName: String = #function,
                                              closure: @escaping (T, T.ModelType, IndexPath) -> U)
@@ -222,7 +238,7 @@ open class DTCollectionViewDelegateWrapper : NSObject {
     }
     
     func performSupplementaryReaction(forKind kind: String, signature: EventMethodSignature, location: IndexPath, view: UICollectionReusableView?) -> Any? {
-        guard let model = (storage as? SupplementaryStorage)?.supplementaryModel(ofKind: kind, forSectionAt: location) else { return nil }
+        guard let model = supplementaryModel(ofKind: kind, forSectionAt: location) else { return nil }
         return collectionViewReactions.performReaction(of: .supplementaryView(kind: kind), signature: signature.rawValue, view: view, model: model, location: location)
     }
     

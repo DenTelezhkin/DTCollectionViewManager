@@ -27,6 +27,13 @@ New method wrappers for iOS 13 API
 
 ### Breaking
 
+DTModelStorage header, footer and supplementary model handling has been largely restructured to be a single closure-based API. Read more about changes in [DTModelStorage changelog](https://github.com/DenTelezhkin/DTModelStorage/blob/master/CHANGELOG.md). As a result of those changes, several breaking changes in DTCollectionViewManager include:
+
+* `SectionModel` extension with `collectionHeaderModel` and `collectionFooterModel` properties has been removed.
+* Because headers/footers are now a closure based API, `setSectionHeaderModels` and `setSectionFooterModels` do not create sections by default, and do not call collectionView.reloadData.
+
+Other breaking changes:
+
 * `DTCollectionViewNonOptionalManageable` protocol was removed and replaced by `collectionView` property on `DTCollectionViewManageable` protocol. One of `collectionView`/`optionalCollectionView` properties must be implemented by `DTCollectionViewManageable` instance to work with `DTCollectionViewManager`.
 * `collectionView` property in `DTCollectionVIewManageable` protocol is now `ImplicitlyUnwrappedOptional` instead of `Optional`. This change is done to unify API with `UICollectionViewController` change and `DTTableViewManager` API for consistency. 
 

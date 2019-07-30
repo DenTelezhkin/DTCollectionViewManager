@@ -20,7 +20,6 @@
 		3E33C73622B81BC4006FBB21 /* DTCollectionViewDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33C72622B81BB0006FBB21 /* DTCollectionViewDataSource.swift */; };
 		3E33C73722B81BC4006FBB21 /* DTCollectionViewDropPlaceholderContext.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33C72722B81BB0006FBB21 /* DTCollectionViewDropPlaceholderContext.swift */; };
 		3E33C73822B81BC4006FBB21 /* CollectionViewUpdater.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33C72822B81BB0006FBB21 /* CollectionViewUpdater.swift */; };
-		3E33C73922B81BC4006FBB21 /* SectionModel+ConvenienceGetters.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33C72922B81BB0006FBB21 /* SectionModel+ConvenienceGetters.swift */; };
 		3E33C73A22B81BC4006FBB21 /* DTCollectionViewManager+Registration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33C72A22B81BB0006FBB21 /* DTCollectionViewManager+Registration.swift */; };
 		3E33C73B22B81BC4006FBB21 /* DTCollectionViewDelegateWrapper.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33C72B22B81BB0006FBB21 /* DTCollectionViewDelegateWrapper.swift */; };
 		3E33C73C22B81BD1006FBB21 /* CollectionViewFactoryTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E33C6E722B81BB0006FBB21 /* CollectionViewFactoryTestCase.swift */; };
@@ -214,7 +213,6 @@
 		3E33C72622B81BB0006FBB21 /* DTCollectionViewDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCollectionViewDataSource.swift; sourceTree = "<group>"; };
 		3E33C72722B81BB0006FBB21 /* DTCollectionViewDropPlaceholderContext.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCollectionViewDropPlaceholderContext.swift; sourceTree = "<group>"; };
 		3E33C72822B81BB0006FBB21 /* CollectionViewUpdater.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewUpdater.swift; sourceTree = "<group>"; };
-		3E33C72922B81BB0006FBB21 /* SectionModel+ConvenienceGetters.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "SectionModel+ConvenienceGetters.swift"; sourceTree = "<group>"; };
 		3E33C72A22B81BB0006FBB21 /* DTCollectionViewManager+Registration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTCollectionViewManager+Registration.swift"; sourceTree = "<group>"; };
 		3E33C72B22B81BB0006FBB21 /* DTCollectionViewDelegateWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCollectionViewDelegateWrapper.swift; sourceTree = "<group>"; };
 		9A1B88351CE1E2E5005B6F07 /* Example.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Example.plist; path = "../Supporting files/Example.plist"; sourceTree = "<group>"; };
@@ -389,7 +387,6 @@
 				3E33C72622B81BB0006FBB21 /* DTCollectionViewDataSource.swift */,
 				3E33C72722B81BB0006FBB21 /* DTCollectionViewDropPlaceholderContext.swift */,
 				3E33C72822B81BB0006FBB21 /* CollectionViewUpdater.swift */,
-				3E33C72922B81BB0006FBB21 /* SectionModel+ConvenienceGetters.swift */,
 				3E33C72A22B81BB0006FBB21 /* DTCollectionViewManager+Registration.swift */,
 				3E33C72B22B81BB0006FBB21 /* DTCollectionViewDelegateWrapper.swift */,
 			);
@@ -773,7 +770,6 @@
 				3E33C73B22B81BC4006FBB21 /* DTCollectionViewDelegateWrapper.swift in Sources */,
 				3E33C73122B81BC4006FBB21 /* DTCollectionViewManager.swift in Sources */,
 				3E33C72F22B81BC4006FBB21 /* DTCollectionViewDelegate.swift in Sources */,
-				3E33C73922B81BC4006FBB21 /* SectionModel+ConvenienceGetters.swift in Sources */,
 				3E33C73722B81BC4006FBB21 /* DTCollectionViewDropPlaceholderContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -865,6 +861,7 @@
 				OTHER_SWIFT_FLAGS = "-Xfrontend -warn-long-expression-type-checking=100";
 				SDKROOT = iphoneos;
 				SUPPORTED_PLATFORMS = "iphonesimulator iphoneos appletvos appletvsimulator";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_SWIFT3_OBJC_INFERENCE = Off;
 				SWIFT_VERSION = 5.0;
 				TVOS_DEPLOYMENT_TARGET = 9.0;

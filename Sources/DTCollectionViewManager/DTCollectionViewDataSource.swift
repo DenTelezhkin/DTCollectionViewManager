@@ -73,7 +73,7 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
     {
-        guard let model = RuntimeHelper.recursivelyUnwrapAnyValue((storage as? SupplementaryStorage)?.supplementaryModel(ofKind: kind, forSectionAt: indexPath) as Any) else {
+        guard let model = supplementaryModel(ofKind: kind, forSectionAt: indexPath) else {
             manager?.anomalyHandler.reportAnomaly(DTCollectionViewManagerAnomaly.nilSupplementaryModel(kind: kind, indexPath: indexPath))
             return UICollectionReusableView()
         }
