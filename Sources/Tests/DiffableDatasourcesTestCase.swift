@@ -55,7 +55,8 @@ class DiffableDatasourcesTestCase: XCTestCase {
         guard #available(iOS 13, tvOS 13, *) else { return }
         let _ = controller.view
         controller.manager.register(NibCell.self)
-        diffableDataSource = controller.manager.configureDiffableDataSource(modelProvider: { $1 })
+        let temp : UICollectionViewDiffableDataSource<Section, Int> =  controller.manager.configureDiffableDataSource(modelProvider: { $1 })
+        diffableDataSource = temp
         controller.manager.register(NibCell.self)
     }
     
@@ -79,7 +80,8 @@ class DiffableDatasourcesTestCase: XCTestCase {
         guard #available(iOS 13, tvOS 13, *) else { return }
         controller = ReactingTestCollectionViewController()
         let _ = controller.view
-        diffableDataSource = controller.manager.configureDiffableDataSource(modelProvider: { $1 })
+        let temp: UICollectionViewDiffableDataSource<Section, Int> = controller.manager.configureDiffableDataSource(modelProvider: { $1 })
+        diffableDataSource = temp
         controller.manager.register(SelectionReactingCollectionCell.self)
         var reactingCell : SelectionReactingCollectionCell?
         controller.manager.didSelect(SelectionReactingCollectionCell.self) { (cell, model, indexPath) in
