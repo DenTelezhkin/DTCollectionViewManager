@@ -305,20 +305,20 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     
     @available(iOS 13.0, *)
     /// Implementation for `UICollectionViewDelegate` protocol
-    open func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWith configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+    open func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         if let preview = performNonCellReaction(.previewForHighlightingContextMenu, argument: configuration) as? UITargetedPreview {
             return preview
         }
-        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForHighlightingContextMenuWith: configuration)
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForHighlightingContextMenuWithConfiguration: configuration)
     }
     
     @available(iOS 13.0, *)
     /// Implementation for `UICollectionViewDelegate` protocol
-    open func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWith configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+    open func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         if let preview = performNonCellReaction(.previewForDismissingContextMenu, argument: configuration) as? UITargetedPreview {
             return preview
         }
-        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForDismissingContextMenuWith: configuration)
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForDismissingContextMenuWithConfiguration: configuration)
     }
     
     @available(iOS 13.0, *)

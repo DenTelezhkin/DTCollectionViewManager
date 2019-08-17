@@ -817,7 +817,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return nil
         }
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, previewForHighlightingContextMenuWith: .init())
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, previewForHighlightingContextMenuWithConfiguration: .init())
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -828,7 +828,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return nil
         }
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, previewForDismissingContextMenuWith: .init())
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, previewForDismissingContextMenuWithConfiguration: .init())
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -902,8 +902,8 @@ class ReactingToEventsFastTestCase : XCTestCase {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didBeginMultipleSelectionInteractionAt:))), EventMethodSignature.didBeginMultipleSelectionInteractionAtIndexPath.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionViewDidEndMultipleSelectionInteraction(_:))), EventMethodSignature.didEndMultipleSelectionInteraction.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:contextMenuConfigurationForItemAt:point:))), EventMethodSignature.contextMenuConfigurationForItemAtIndexPath.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:previewForHighlightingContextMenuWith:))), EventMethodSignature.previewForHighlightingContextMenu.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:previewForDismissingContextMenuWith:))), EventMethodSignature.previewForDismissingContextMenu.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:previewForHighlightingContextMenuWithConfiguration:))), EventMethodSignature.previewForHighlightingContextMenu.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:previewForDismissingContextMenuWithConfiguration:))), EventMethodSignature.previewForDismissingContextMenu.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:willCommitMenuWithAnimator:))), EventMethodSignature.willCommitMenuWithAnimator.rawValue)
         }
         #endif

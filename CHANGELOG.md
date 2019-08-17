@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Changed
 
 * DTCollectionViewManager now requires to be built with Swift 4.2 and later.
+* Anomaly event verification now allows subclasses to prevent false-positives.
 
 ### Added
 
