@@ -33,7 +33,8 @@ class SectionsViewController: UIViewController, DTCollectionViewManageable, UICo
         manager.registerFooter(SimpleTextCollectionReusableView.self)
         (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
         (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize = CGSize(width: 320, height: 50)
-        
+        manager.supplementaryStorage?.headerModelProvider = { index in "Section \(index) header" }
+        manager.supplementaryStorage?.footerModelProvider = { index in "Section \(index) footer"}
         addSection()
         addSection()
     }
@@ -44,8 +45,6 @@ class SectionsViewController: UIViewController, DTCollectionViewManageable, UICo
         let nextSection = manager.memoryStorage.sections.count > 0 ? manager.memoryStorage.sections.count : 0
         
         let section = SectionModel()
-        section.collectionHeaderModel = "Section \(sectionNumber) header"
-        section.collectionFooterModel = "Section \(sectionNumber) footer"
         section.items = [randomColor(), randomColor(), randomColor()]
         manager.memoryStorage.insertSection(section, atIndex: nextSection)
     }
