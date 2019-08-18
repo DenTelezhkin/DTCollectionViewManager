@@ -109,7 +109,11 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomStringConvertible, 
 open class DTCollectionViewManagerAnomalyHandler : AnomalyHandler {
     
     /// Default action to perform when anomaly is detected. Prints debugDescription of anomaly by default.
-    public static var defaultAction : (DTCollectionViewManagerAnomaly) -> Void = { print($0.debugDescription) }
+    public static var defaultAction : (DTCollectionViewManagerAnomaly) -> Void = {
+        #if DEBUG
+            print($0.debugDescription)
+        #endif
+    }
     
     /// Action to perform when anomaly is detected. Defaults to `defaultAction`.
     open var anomalyAction: (DTCollectionViewManagerAnomaly) -> Void = DTCollectionViewManagerAnomalyHandler.defaultAction
