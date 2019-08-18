@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+**This is a major release with some breaking changes, please read [DTCollectionViewManager 7.0 Migration Guide](https://github.com/DenTelezhkin/DTCollectionViewManager/blob/master/Guides/7.0%20Migration%20Guide.md)**
+
 ### Changed
 
 * DTCollectionViewManager now requires to be built with Swift 4.2 and later.
@@ -11,7 +13,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 * `configureDiffableDataSource(modelProvider:)` method to enable `UICollectionViewDiffableDataSource` with `DTCollectionViewManager`.
-* `DTTableViewManager.supplementaryStorage` getter, that conditionally casts current storage to `SupplementaryStorage` protocol.
+* `DTCollectionViewManager.supplementaryStorage` getter, that conditionally casts current storage to `SupplementaryStorage` protocol.
 * Ability to customize bundle, from which xib files are loaded from by setting `bundle` property on `ViewModelMapping` in `mappingBlock`. As before, `bundle` defaults to `Bundle(for: ViewClass.self)`.
 
 New method wrappers for iOS 13 API
@@ -39,7 +41,7 @@ Other breaking changes:
 
 * `collectionViewUpdater` will contain nil if `DTCollectionViewManager` is configured to work with `UICollectionViewDiffableDataSource`.
 * `DTCollectionViewNonOptionalManageable` protocol was removed and replaced by `collectionView` property on `DTCollectionViewManageable` protocol. One of `collectionView`/`optionalCollectionView` properties must be implemented by `DTCollectionViewManageable` instance to work with `DTCollectionViewManager`.
-* `collectionView` property in `DTCollectionVIewManageable` protocol is now `ImplicitlyUnwrappedOptional` instead of `Optional`. This change is done to unify API with `UICollectionViewController` change and `DTTableViewManager` API for consistency. 
+* `collectionView` property in `DTCollectionViewManageable` protocol is now `ImplicitlyUnwrappedOptional` instead of `Optional`. This change is done to unify API with `UICollectionViewController` change and `DTTableViewManager` API for consistency. 
 
 **WARNING**  Because of default implementations for new property this will not show as a compile error, instead crashing in runtime. Please make sure to update all definitions of 
 
