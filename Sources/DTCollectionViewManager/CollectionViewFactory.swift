@@ -34,8 +34,6 @@ final class CollectionViewFactory
     
     var mappings = [ViewModelMapping]()
     
-    weak var mappingCustomizableDelegate : ViewModelMappingCustomizing?
-    
     weak var anomalyHandler : DTCollectionViewManagerAnomalyHandler?
     
     init(collectionView: UICollectionView)
@@ -185,15 +183,7 @@ extension CollectionViewFactory
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else {
             return nil
         }
-        let mappingCandidates = mappings.mappingCandidates(for: viewType, withModel: unwrappedModel, at: indexPath)
-        
-        if let customizedMapping = mappingCustomizableDelegate?.viewModelMapping(fromCandidates: mappingCandidates, forModel: unwrappedModel) {
-            return customizedMapping
-        } else if let defaultMapping = mappingCandidates.first {
-            return defaultMapping
-        } else {
-            return nil
-        }
+        return mappings.mappingCandidates(for: viewType, withModel: unwrappedModel, at: indexPath).first
     }
     
     func cellForModel(_ model: Any, atIndexPath indexPath:IndexPath) -> UICollectionViewCell?
@@ -218,16 +208,7 @@ extension CollectionViewFactory
 
     func supplementaryViewOfKind(_ kind: String, forModel model: Any, atIndexPath indexPath: IndexPath) -> UICollectionReusableView?
     {
-        let mappingCandidates = mappings.mappingCandidates(for: .supplementaryView(kind: kind), withModel: model, at: indexPath)
-        let mapping : ViewModelMapping?
-        
-        if let customizedMapping = mappingCustomizableDelegate?.viewModelMapping(fromCandidates: mappingCandidates, forModel: model) {
-            mapping = customizedMapping
-        } else if let defaultMapping = mappingCandidates.first {
-            mapping = defaultMapping
-        } else { mapping = nil }
-        
-        if let mapping = mapping
+        if let mapping = mappings.mappingCandidates(for: .supplementaryView(kind: kind), withModel: model, at: indexPath).first
         {
             let viewClassName = String(describing: mapping.viewClass)
             let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: viewClassName, for: indexPath)

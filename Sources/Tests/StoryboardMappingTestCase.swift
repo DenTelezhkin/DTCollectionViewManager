@@ -37,6 +37,7 @@ class StoryboardMappingTestCase: XCTestCase {
         
         controller.manager.memoryStorage.setSectionHeaderModels(["1"])
         controller.manager.memoryStorage.setSectionFooterModels(["2"])
+        controller.manager.memoryStorage.setItems([1])
         
         if #available(iOS 9, *) {
             controller.collectionView?.performBatchUpdates(nil, completion: nil)

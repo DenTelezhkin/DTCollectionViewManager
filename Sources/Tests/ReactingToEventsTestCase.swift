@@ -109,6 +109,24 @@ class DropCoordinatorMock: NSObject, UICollectionViewDropCoordinator{
         return DropPlaceholderContextMock()
     }
 }
+
+@available(iOS 13, *)
+class ContextMenuInteractionAnimatorMock: NSObject, UIContextMenuInteractionCommitAnimating {
+    var preferredCommitStyle: UIContextMenuInteractionCommitStyle = .pop
+    
+    var previewViewController: UIViewController?
+    
+    func addAnimations(_ animations: @escaping () -> Void) {
+        
+    }
+    
+    func addCompletion(_ completion: @escaping () -> Void) {
+        
+    }
+    
+    
+}
+
     
 #endif
 
@@ -745,6 +763,85 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    func testShouldBeginMultipleSelectionInteraction() {
+        guard #available(iOS 13, *) else { return }
+        let exp = expectation(description: "shouldBeginMultipleSelectionInteractionAT")
+        sut.manager.shouldBeginMultipleSelectionInteraction(for: NibCell.self) { _,_,_ in
+            exp.fulfill()
+            return false
+        }
+        sut.manager.memoryStorage.addItem(1)
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, shouldBeginMultipleSelectionInteractionAt: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDidBeginMultipleSelectionInteraction() {
+        guard #available(iOS 13, *) else { return }
+        let exp = expectation(description: "didBeginMultipleSelectionInteractionAT")
+        sut.manager.didBeginMultipleSelectionInteraction(for: NibCell.self) { _,_,_ in
+            exp.fulfill()
+        }
+        sut.manager.memoryStorage.addItem(1)
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, didBeginMultipleSelectionInteractionAt: indexPath(0, 0))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testDidEndMultipleSelectionInteraction() {
+        guard #available(iOS 13, *) else { return }
+        let exp = expectation(description: "didEndMultipleSelectionInteractionAT")
+        sut.manager.didEndMultipleSelectionInteraction {
+            exp.fulfill()
+        }
+        sut.manager.memoryStorage.addItem(1)
+        _ = sut.manager.collectionDelegate?.collectionViewDidEndMultipleSelectionInteraction(sut.collectionView)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testContextMenuConfiguration() {
+        guard #available(iOS 13, *) else { return }
+        let exp = expectation(description: "contextMenuConfiguration")
+        sut.manager.contextMenuConfiguration(for: NibCell.self) { point, _, _, _ in
+            XCTAssertEqual(point, CGPoint(x: 1, y: 1))
+            exp.fulfill()
+            return nil
+        }
+        sut.manager.memoryStorage.addItem(1)
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, contextMenuConfigurationForItemAt: indexPath(0, 0), point: CGPoint(x: 1, y: 1))
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testPreviewForHighlightingContextMenu() {
+        guard #available(iOS 13, *) else { return }
+        let exp = expectation(description: "previewForHighlightingContextMenuWith")
+        sut.manager.previewForHighlightingContextMenu { configuration in
+            exp.fulfill()
+            return nil
+        }
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, previewForHighlightingContextMenuWithConfiguration: .init())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testPreviewForDismissingContextMenu() {
+        guard #available(iOS 13, *) else { return }
+        let exp = expectation(description: "previewForDismissingContextMenuWith")
+        sut.manager.previewForDismissingContextMenu { configuration in
+            exp.fulfill()
+            return nil
+        }
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, previewForDismissingContextMenuWithConfiguration: .init())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testWillCommitMenuWithAnimator() {
+        guard #available(iOS 13, *) else { return }
+        let exp = expectation(description: "willCommitMenuWithAnimator")
+        sut.manager.willCommitMenuWithAnimator { animator in
+            exp.fulfill()
+        }
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, willCommitMenuWithAnimator: ContextMenuInteractionAnimatorMock())
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
     #endif
     
     func testAllDelegateMethodSignatures() {
@@ -798,6 +895,16 @@ class ReactingToEventsFastTestCase : XCTestCase {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidExit:))), EventMethodSignature.dropSessionDidExit.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnd:))), EventMethodSignature.dropSessionDidEnd.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropPreviewParametersForItemAt:))), EventMethodSignature.dropPreviewParametersForItemAtIndexPath.rawValue)
+        }
+        
+        if #available(iOS 13, *) {
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldBeginMultipleSelectionInteractionAt:))), EventMethodSignature.shouldBeginMultipleSelectionInteractionAtIndexPath.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didBeginMultipleSelectionInteractionAt:))), EventMethodSignature.didBeginMultipleSelectionInteractionAtIndexPath.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionViewDidEndMultipleSelectionInteraction(_:))), EventMethodSignature.didEndMultipleSelectionInteraction.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:contextMenuConfigurationForItemAt:point:))), EventMethodSignature.contextMenuConfigurationForItemAtIndexPath.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:previewForHighlightingContextMenuWithConfiguration:))), EventMethodSignature.previewForHighlightingContextMenu.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:previewForDismissingContextMenuWithConfiguration:))), EventMethodSignature.previewForDismissingContextMenu.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:willCommitMenuWithAnimator:))), EventMethodSignature.willCommitMenuWithAnimator.rawValue)
         }
         #endif
         

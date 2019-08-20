@@ -8,8 +8,5 @@
 
 import UIKit
 import DTCollectionViewManager
-#if swift(>=4.2)
-class XibCollectionViewController: UICollectionViewController, DTCollectionViewNonOptionalManageable {}
-#else
+
 class XibCollectionViewController: UICollectionViewController, DTCollectionViewManageable {}
-#endif

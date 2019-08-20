@@ -118,12 +118,16 @@ extension DTCollectionViewManager {
         didEndDisplayingSupplementaryView(T.self, forElementKind: DTCollectionViewElementSectionFooter, closure)
     }
     
+    @available(iOS, deprecated: 13.0)
+    @available(tvOS, deprecated: 13.0)
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldShowMenuForItemAt:)` method is called for `cellClass`.
     open func shouldShowMenu<T:ModelTransfer>(for cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
         collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.shouldShowMenuForItemAtIndexPath, closure: closure)
     }
     
+    @available(iOS, deprecated: 13.0)
+    @available(tvOS, deprecated: 13.0)
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canPerformAction:forItemAt:withSender:)` method is called for `cellClass`.
     open func canPerformAction<T:ModelTransfer>(for cellClass: T.Type, _ closure: @escaping (Selector, Any?, T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell {
         collectionDelegate?.append5ArgumentReaction(for: T.self,
@@ -131,6 +135,8 @@ extension DTCollectionViewManager {
                                                     closure: closure)
     }
     
+    @available(iOS, deprecated: 13.0)
+    @available(tvOS, deprecated: 13.0)
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:performAction:forItemAt:withSender:)` method is called for `cellClass`.
     open func performAction<T:ModelTransfer>(for cellClass: T.Type, _ closure: @escaping (Selector, Any?, T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell {
         collectionDelegate?.append5ArgumentReaction(for: T.self,
@@ -188,6 +194,73 @@ extension DTCollectionViewManager {
                                                     signature: .shouldSpringLoadItem,
                                                     closure: closure)
     }
+    
+    @available(iOS 13, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldBeginMultipleSelectionInteractionAt:)`method is called for `cellClass`.
+    /// - Parameter Type: cell class to react for event
+    /// - Parameter closure: closure to run.
+    open func shouldBeginMultipleSelectionInteraction<T:ModelTransfer>(for cellClass: T.Type,
+                                                                       _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool)
+        where T: UICollectionViewCell
+    {
+        collectionDelegate?.appendReaction(for: T.self,
+                                      signature: .shouldBeginMultipleSelectionInteractionAtIndexPath,
+                                      closure: closure)
+    }
+    
+    @available(iOS 13, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:didBeginMultipleSelectionInteractionAt:)`method is called for `cellClass`.
+    /// - Parameter Type: cell class to react for event
+    /// - Parameter closure: closure to run.
+    open func didBeginMultipleSelectionInteraction<T:ModelTransfer>(for cellClass: T.Type,
+                                                                    _ closure: @escaping (T, T.ModelType, IndexPath) -> Void)
+        where T: UICollectionViewCell
+    {
+        collectionDelegate?.appendReaction(for: T.self,
+                                      signature: .didBeginMultipleSelectionInteractionAtIndexPath,
+                                      closure: closure)
+    }
+    
+    @available(iOS 13, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionViewDidEndMultipleSelectionInteraction(_:)`method is called.
+    /// - Parameter closure: closure to run.
+    open func didEndMultipleSelectionInteraction(_ closure: @escaping () -> Void)
+    {
+        collectionDelegate?.appendNonCellReaction(.didEndMultipleSelectionInteraction, closure: closure)
+    }
+    
+    @available(iOS 13.0, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.contextMenuConfigurationForItemAt(_:point:)` method is called
+    open func contextMenuConfiguration<T:ModelTransfer>(for cellClass: T.Type,
+                                                        _ closure: @escaping (CGPoint, T, T.ModelType, IndexPath) -> UIContextMenuConfiguration?)
+        where T: UICollectionViewCell
+    {
+        collectionDelegate?.append4ArgumentReaction(for: T.self,
+                                               signature: .contextMenuConfigurationForItemAtIndexPath,
+                                               closure: closure)
+    }
+    
+    @available(iOS 13.0, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:previewForHighlightingContextMenuWithConfiguration:)` method is called
+    open func previewForHighlightingContextMenu(_ closure: @escaping (UIContextMenuConfiguration) -> UITargetedPreview?)
+    {
+        collectionDelegate?.appendNonCellReaction(.previewForHighlightingContextMenu, closure: closure)
+    }
+    
+    @available(iOS 13.0, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:previewForDismissingContextMenuWithConfiguration:)` method is called
+    open func previewForDismissingContextMenu(_ closure: @escaping (UIContextMenuConfiguration) -> UITargetedPreview?)
+    {
+        collectionDelegate?.appendNonCellReaction(.previewForDismissingContextMenu, closure: closure)
+    }
+    
+    @available(iOS 13.0, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.tableView(_:willCommitMenuWithAnimator:)` method is called
+    open func willCommitMenuWithAnimator(_ closure: @escaping (UIContextMenuInteractionCommitAnimating) -> Void)
+    {
+        collectionDelegate?.appendNonCellReaction(.willCommitMenuWithAnimator, closure: closure)
+    }
+    
     #endif
     
     // MARK: - UICollectionViewDelegateFlowLayout

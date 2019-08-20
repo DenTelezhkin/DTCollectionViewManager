@@ -1,0 +1,16 @@
+{
+  "object": {
+    "pins": [
+      {
+        "package": "DTModelStorage",
+        "repositoryURL": "https://github.com/DenTelezhkin/DTModelStorage",
+        "state": {
+          "branch": "next",
+          "revision": "4af90c08b0a9e19c659956e5c1adeee20190fca2",
+          "version": null
+        }
+      }
+    ]
+  },
+  "version": 1
+}

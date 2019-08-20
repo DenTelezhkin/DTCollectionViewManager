@@ -53,19 +53,4 @@ class DelegateForwardingTestCase: XCTestCase {
         let _ = controller.manager.collectionDelegate?.collectionView(controller.collectionView!, layout: controller.collectionView!.collectionViewLayout, referenceSizeForFooterInSection:0)
         XCTAssert(controller.footerHeightRequested)
     }
-    
-    func testDelegateMethodIsCalled() {
-        controller.manager.registerNibless(NiblessCell.self)
-        controller.manager.registerNiblessSupplementary(NiblessHeaderFooterView.self, forKind: DTCollectionViewElementSectionHeader)
-        controller.manager.registerNiblessSupplementary(NiblessHeaderFooterView.self, forKind: DTCollectionViewElementSectionFooter)
-        let section = SectionModel()
-        section.collectionHeaderModel = 1
-        section.collectionFooterModel = 2
-        section.items = [1]
-        controller.manager.memoryStorage.setSection(section, forSection: 0)
-        
-        controller.collectionView!.performBatchUpdates(nil, completion: nil)
-        
-        XCTAssert(controller.delegateMethodCalled)
-    }
 }

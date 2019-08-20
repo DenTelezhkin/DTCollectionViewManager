@@ -178,7 +178,7 @@ class DataSourceTestCase: XCTestCase {
         let anomaly = DTCollectionViewManagerAnomaly.nilSupplementaryModel(kind: DTCollectionViewElementSectionHeader, indexPath: indexPath(0, 0))
         controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
         controller.manager.registerHeader(NibHeaderFooterView.self)
-        controller.manager.memoryStorage.setSectionHeaderModel(model, forSection: 0)
+        controller.manager.memoryStorage.setSectionHeaderModels([model])
         let _ = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at: indexPath(0, 0))
         waitForExpectations(timeout: 0.1)
         
@@ -200,7 +200,8 @@ class DataSourceTestCase: XCTestCase {
         let exp = expectation(description: "No supplementary mapping found")
         let anomaly = DTCollectionViewManagerAnomaly.noSupplementaryMappingFound(modelDescription: "0", kind: DTCollectionViewElementSectionHeader, indexPath: indexPath(0, 0))
         controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
-        controller.manager.memoryStorage.setSectionHeaderModel(0, forSection: 0)
+        controller.manager.memoryStorage.setSectionHeaderModels([0])
+        controller.manager.memoryStorage.setItems([1])
         let _ = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at: indexPath(0, 0))
         waitForExpectations(timeout: 0.1)
         

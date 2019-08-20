@@ -45,12 +45,12 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
     
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return storage?.sections[section].numberOfItems ?? 0
+        return storage?.numberOfItems(inSection: section) ?? 0
     }
     
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func numberOfSections(in collectionView: UICollectionView) -> Int {
-        return storage?.sections.count ?? 0
+        return storage?.numberOfSections() ?? 0
     }
     
     /// Implementation of `UICollectionViewDataSource` protocol.
@@ -73,7 +73,7 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView
     {
-        guard let model = RuntimeHelper.recursivelyUnwrapAnyValue((storage as? SupplementaryStorage)?.supplementaryModel(ofKind: kind, forSectionAt: indexPath) as Any) else {
+        guard let model = supplementaryModel(ofKind: kind, forSectionAt: indexPath) else {
             manager?.anomalyHandler.reportAnomaly(DTCollectionViewManagerAnomaly.nilSupplementaryModel(kind: kind, indexPath: indexPath))
             return UICollectionReusableView()
         }

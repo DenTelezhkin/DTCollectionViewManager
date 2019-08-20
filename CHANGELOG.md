@@ -3,10 +3,64 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+**This is a major release with some breaking changes, please read [DTCollectionViewManager 7.0 Migration Guide](https://github.com/DenTelezhkin/DTCollectionViewManager/blob/master/Guides/7.0%20Migration%20Guide.md)**
+
+### Changed
+
+* DTCollectionViewManager now requires to be built with Swift 4.2 and later.
+* Anomaly event verification now allows subclasses to prevent false-positives.
+* `animateChangesOffScreen` property on `CollectionViewUpdater` that allows to turn off animated updates for `UICollectionView` when it is not on screen.
+
 ### Added
 
-* `animateChangesOffScreen` property on `CollectionViewUpdater` that allows to turn off animated updates for `UICollectionView` when it is not on screen.
+* `configureDiffableDataSource(modelProvider:)` method to enable `UICollectionViewDiffableDataSource` with `DTCollectionViewManager`.
+* `DTCollectionViewManager.supplementaryStorage` getter, that conditionally casts current storage to `SupplementaryStorage` protocol.
 * Ability to customize bundle, from which xib files are loaded from by setting `bundle` property on `ViewModelMapping` in `mappingBlock`. As before, `bundle` defaults to `Bundle(for: ViewClass.self)`.
+
+New method wrappers for iOS 13 API
+
+* `shouldBeginMultipleSelectionInteraction`
+* `didBeginMultipleSelectionInteraction`
+* `didEndMultipleSelectionInteraction`
+* `contextMenuConfiguration(for:)`
+* `previewForHighlightingContextMenu`
+* `previewForDismissingContextMenu`
+* `willCommitMenuWithAnimator`
+
+### Removed
+
+* Usage of previously deprecated and now removed from `DTModelStorage` `ViewModelMappingCustomizing` protocol.
+
+### Breaking
+
+DTModelStorage header, footer and supplementary model handling has been largely restructured to be a single closure-based API. Read more about changes in [DTModelStorage changelog](https://github.com/DenTelezhkin/DTModelStorage/blob/master/CHANGELOG.md). As a result of those changes, several breaking changes in DTCollectionViewManager include:
+
+* `SectionModel` extension with `collectionHeaderModel` and `collectionFooterModel` properties has been removed.
+* Because headers/footers are now a closure based API, `setSectionHeaderModels` and `setSectionFooterModels` do not create sections by default, and do not call collectionView.reloadData.
+
+Other breaking changes:
+
+* `collectionViewUpdater` will contain nil if `DTCollectionViewManager` is configured to work with `UICollectionViewDiffableDataSource`.
+* `DTCollectionViewNonOptionalManageable` protocol was removed and replaced by `collectionView` property on `DTCollectionViewManageable` protocol. One of `collectionView`/`optionalCollectionView` properties must be implemented by `DTCollectionViewManageable` instance to work with `DTCollectionViewManager`.
+* `collectionView` property in `DTCollectionViewManageable` protocol is now `ImplicitlyUnwrappedOptional` instead of `Optional`. This change is done to unify API with `UICollectionViewController` change and `DTTableViewManager` API for consistency.
+
+**WARNING**  Because of default implementations for new property this will not show as a compile error, instead crashing in runtime. Please make sure to update all definitions of
+
+`var collectionView: UICollectionView?`
+
+to
+
+`var collectionView: UICollectionView!`.
+
+If you need optional collection view, use `optionalCollectionView` property instead.
+
+### Deprecated
+
+Following methods have been deprecated due to their delegate methods being deprecated in iOS 13:
+
+* `shouldShowMenuForItemAt`
+* `canPerformAction`
+* `performAction`
 
 ## [6.6.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.6.0)
 
@@ -58,7 +112,7 @@ All notable changes to this project will be documented in this file.
 
 ## [6.1.0-beta.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/6.1.0-beta.1)
 
-* Implemented new system for deferring datasource updates until `performBatchUpdates` block. This system is intended to fight crash, that might happen when `performBatchUpdates` method is called after `UITableView.reloadData` method(for example after calling `memoryStorage.setItems`, and then immediately `memoryStorage.addItems`). This issue is detailed in https://github.com/DenTelezhkin/DTCollectionViewManager/issues/27 and https://github.com/DenTelezhkin/DTCollectionViewManager/issues/23. This crash can also happen, if iOS 11 API `UITableView.performBatchUpdates` is used. This system is turned on by default. If, for some reason, you want to disable it and have old behavior, call:
+* Implemented new system for deferring datasource updates until `performBatchUpdates` block. This system is intended to fight crash, that might happen when `performBatchUpdates` method is called after `UICollectionView.reloadData` method(for example after calling `memoryStorage.setItems`, and then immediately `memoryStorage.addItems`). This issue is detailed in https://github.com/DenTelezhkin/DTCollectionViewManager/issues/27 and https://github.com/DenTelezhkin/DTCollectionViewManager/issues/23. This crash can also happen, if iOS 11 API `UITableView.performBatchUpdates` is used. This system is turned on by default. If, for some reason, you want to disable it and have old behavior, call:
 
 ```swift
 manager.memoryStorage.defersDatasourceUpdates = false
@@ -151,7 +205,7 @@ Dependency changelog -> [DTModelStorage 3.0.0 and higher](https://github.com/Den
 * All events methods with method pointer semantics. Please use block based methods instead.
 * `registerCellClass:whenSelected` method, that was tightly coupling something that did not need coupling.
 
-## [4.8.0](https://github.com/DenTelezhkin/DTTableViewManager/releases/tag/4.8.0)
+## [4.8.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/4.8.0)
 
 ### Changed
 
@@ -161,7 +215,7 @@ Dependency changelog -> [DTModelStorage 3.0.0 and higher](https://github.com/Den
 
 * `viewBundle` property on `DTCollectionViewManager`
 
-## [4.7.0](https://github.com/DenTelezhkin/DTTableViewManager/releases/tag/4.7.0)
+## [4.7.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/4.7.0)
 
 Dependency changelog -> [DTModelStorage 2.6.0 and higher](https://github.com/DenTelezhkin/DTModelStorage/releases)
 
@@ -212,7 +266,7 @@ This release aims to improve mapping system and error reporting.
 
 * [New mapping system](https://github.com/DenTelezhkin/DTCollectionViewManager#data-models) with support for protocols and subclasses
 * Mappings can now be [customized](https://github.com/DenTelezhkin/DTCollectionViewManager#customizing-mapping-resolution) using `DTViewModelMappingCustomizable` protocol.
-* [Custom error handler](https://github.com/DenTelezhkin/DTCollectionViewManager#error-reporting) for `DTTableViewFactoryError` errors.
+* [Custom error handler](https://github.com/DenTelezhkin/DTCollectionViewManager#error-reporting) for `DTCollectionViewFactoryError` errors.
 
 ## Changed
 
@@ -402,7 +456,7 @@ Removed `DTModelSearching` protocol, please use `DTMemoryStorage` `setSearchingB
 ## [2.2.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/2.2.0)
 
 * `DTModelSearching` protocol is deprecated and is replaced by memoryStorage method setSearchingBlock:forModelClass:
-* UICollectionViewDatasource and UICollectionViewDelegate properties for UITableView are now filled automatically.
+* UICollectionViewDatasource and UICollectionViewDelegate properties for UICollectionView are now filled automatically.
 * Added more assertions, programmer errors should be more easily captured.
 
 ## [2.0.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/2.0.0)

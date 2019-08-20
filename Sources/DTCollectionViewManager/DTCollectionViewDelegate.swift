@@ -51,7 +51,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         if let size = (self.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, referenceSizeForHeaderInSection: section) {
             return size
         }
-        if let _ = (storage as? HeaderFooterStorage)?.headerModel(forSection: section) {
+        if let _ = headerModel(forSection: section) {
             return (collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize ?? .zero
         }
         return CGSize.zero
@@ -65,7 +65,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         if let size = (self.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, referenceSizeForFooterInSection: section) {
             return size
         }
-        if let _ = (storage as? HeaderFooterStorage)?.footerModel(forSection: section) {
+        if let _ = footerModel(forSection: section) {
             return (collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize ?? .zero
         }
         return CGSize.zero
@@ -146,10 +146,12 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
         defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didEndDisplayingSupplementaryView: view, forElementOfKind: elementKind, at: indexPath) }
-        guard let model = (storage as? SupplementaryStorage)?.supplementaryModel(ofKind: elementKind, forSectionAt: indexPath) else { return }
+        guard let model = supplementaryModel(ofKind: elementKind, forSectionAt: indexPath) else { return }
         _ = collectionViewReactions.performReaction(of: .supplementaryView(kind: elementKind), signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue, view: view, model: model, location: indexPath)
     }
     
+    @available(iOS, deprecated: 13.0)
+    @available(tvOS, deprecated: 13.0)
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, shouldShowMenuForItemAt indexPath: IndexPath) -> Bool {
         if let can = performCellReaction(.shouldShowMenuForItemAtIndexPath, location: indexPath, provideCell: true) as? Bool {
@@ -158,6 +160,8 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, shouldShowMenuForItemAt: indexPath) ?? false
     }
     
+    @available(iOS, deprecated: 13.0)
+    @available(tvOS, deprecated: 13.0)
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, canPerformAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) -> Bool {
         if let perform = perform5ArgumentCellReaction(.canPerformActionForItemAtIndexPath, argumentOne: action, argumentTwo: sender as Any, location: indexPath, provideCell: true) as? Bool {
@@ -166,6 +170,8 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, canPerformAction: action, forItemAt: indexPath, withSender: sender) ?? false
     }
     
+    @available(iOS, deprecated: 13.0)
+    @available(tvOS, deprecated: 13.0)
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, performAction action: Selector, forItemAt indexPath: IndexPath, withSender sender: Any?) {
         _ = perform5ArgumentCellReaction(.performActionForItemAtIndexPath, argumentOne: action, argumentTwo: sender as Any, location: indexPath, provideCell: true)
@@ -257,6 +263,69 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView,
                                                                 shouldSpringLoadItemAt: indexPath,
                                                                 with: context) ?? true
+    }
+    
+    @available(iOS 13.0, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    open func collectionView(_ collectionView: UICollectionView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
+        if let should = performCellReaction(.shouldBeginMultipleSelectionInteractionAtIndexPath, location: indexPath, provideCell: true) as? Bool {
+            return should
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView,
+                                                                        shouldBeginMultipleSelectionInteractionAt: indexPath) ?? false
+    }
+    
+    @available(iOS 13.0, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    open func collectionView(_ collectionView: UICollectionView, didBeginMultipleSelectionInteractionAt indexPath: IndexPath) {
+        _ = performCellReaction(.didBeginMultipleSelectionInteractionAtIndexPath, location: indexPath, provideCell: true)
+        (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didBeginMultipleSelectionInteractionAt: indexPath)
+    }
+    
+    @available(iOS 13.0, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    open func collectionViewDidEndMultipleSelectionInteraction(_ collectionView: UICollectionView) {
+        _ = performNonCellReaction(.didEndMultipleSelectionInteraction)
+        (delegate as? UICollectionViewDelegate)?.collectionViewDidEndMultipleSelectionInteraction?(collectionView)
+    }
+    
+    @available(iOS 13.0, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    open func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
+        if let configuration = perform4ArgumentCellReaction(.contextMenuConfigurationForItemAtIndexPath,
+                                                            argument: point,
+                                                            location: indexPath,
+                                                            provideCell: true) as? UIContextMenuConfiguration {
+            return configuration
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView,
+                                                              contextMenuConfigurationForItemAt: indexPath,
+                                                              point: point)
+    }
+    
+    @available(iOS 13.0, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    open func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        if let preview = performNonCellReaction(.previewForHighlightingContextMenu, argument: configuration) as? UITargetedPreview {
+            return preview
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForHighlightingContextMenuWithConfiguration: configuration)
+    }
+    
+    @available(iOS 13.0, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    open func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
+        if let preview = performNonCellReaction(.previewForDismissingContextMenu, argument: configuration) as? UITargetedPreview {
+            return preview
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForDismissingContextMenuWithConfiguration: configuration)
+    }
+    
+    @available(iOS 13.0, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    open func collectionView(_ collectionView: UICollectionView, willCommitMenuWithAnimator animator: UIContextMenuInteractionCommitAnimating) {
+        _ = performNonCellReaction(.willCommitMenuWithAnimator, argument: animator)
+        (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, willCommitMenuWithAnimator: animator)
     }
     #endif
     

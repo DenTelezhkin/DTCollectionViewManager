@@ -31,13 +31,17 @@ import DTModelStorage
 /// Target is not required to be UICollectionViewController, and can be a regular UIViewController with UICollectionView, or even different object like UICollectionViewCell.
 public protocol DTCollectionViewManageable : class
 {
-    /// Collection view, that will be managed by DTCollectionViewManager
-    var collectionView : UICollectionView? { get }
+    /// Collection view, that will be managed by DTCollectionViewManager. This property or `optionalCollectionView` property must be implemented in order for `DTCollectionViewManager` to work.
+    var collectionView : UICollectionView! { get }
+    
+    /// Collection view, that will be managed by DTCollectionViewManager. This property or `collectionView` property must be implemented in order for `DTCollectionViewManager` to work.
+    var optionalCollectionView: UICollectionView? { get }
 }
 
-/// This protocol is similar to `DTCollectionViewManageable`, but allows using non-optional `UICollectionView` property.
-public protocol DTCollectionViewNonOptionalManageable : class {
-    var collectionView : UICollectionView! { get }
+/// Extension for `DTCollectionViewManageable` that provides default implementations for `collectionView` and `optionalCollectionView` properties. One of those properties must be implemented in `DTCollectionViewManageable` implementation.
+public extension DTCollectionViewManageable {
+    var collectionView: UICollectionView! { return nil }
+    var optionalCollectionView: UICollectionView? { return nil }
 }
 
 private var DTCollectionViewManagerAssociatedKey = "DTCollectionView Manager Associated Key"
@@ -52,13 +56,13 @@ extension DTCollectionViewManageable
     public var manager : DTCollectionViewManager {
         get {
             if let manager = objc_getAssociatedObject(self, &DTCollectionViewManagerAssociatedKey) as? DTCollectionViewManager {
-                if !manager.isConfigured && collectionView != nil {
+                if !manager.isConfigured && (optionalCollectionView != nil || collectionView != nil) {
                     manager.startManaging(withDelegate: self)
                 }
                 return manager
             }
             let manager = DTCollectionViewManager()
-            if collectionView != nil {
+            if  optionalCollectionView != nil || collectionView != nil {
                 manager.startManaging(withDelegate: self)
             }
             objc_setAssociatedObject(self, &DTCollectionViewManagerAssociatedKey, manager, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
@@ -70,40 +74,13 @@ extension DTCollectionViewManageable
     }
 }
 
-/// Default implementation for `DTCollectionViewManageable` protocol, that will inject `manager` property to any object, that declares itself `DTCollectionViewManageable`.
-extension DTCollectionViewNonOptionalManageable
-{
-    /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call `startManaging(withDelegate:)` method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate.
-    /// Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
-    /// - SeeAlso: `startManaging(withDelegate:)`
-    public var manager : DTCollectionViewManager {
-        get {
-            if let manager = objc_getAssociatedObject(self, &DTCollectionViewManagerAssociatedKey) as? DTCollectionViewManager {
-                if !manager.isConfigured && collectionView != nil {
-                    manager.startManaging(withDelegate: self)
-                }
-                return manager
-            }
-            let manager = DTCollectionViewManager()
-            if collectionView != nil {
-                manager.startManaging(withDelegate: self)
-            }
-            objc_setAssociatedObject(self, &DTCollectionViewManagerAssociatedKey, manager, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-            return manager
-        }
-        set {
-            objc_setAssociatedObject(self, &DTCollectionViewManagerAssociatedKey, newValue, objc_AssociationPolicy.OBJC_ASSOCIATION_RETAIN_NONATOMIC)
-        }
-    }
-}
 
 /// `DTCollectionViewManager` manages most of `UICollectionView` datasource and delegate methods and provides API for managing your data models in the collection view. Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
 /// - SeeAlso: `startManagingWithDelegate:`
 open class DTCollectionViewManager {
     
     var collectionView : UICollectionView? {
-        if let delegate = delegate as? DTCollectionViewManageable { return delegate.collectionView }
-        if let delegate = delegate as? DTCollectionViewNonOptionalManageable { return delegate.collectionView }
+        if let delegate = delegate as? DTCollectionViewManageable { return delegate.optionalCollectionView ?? delegate.collectionView }
         return nil
     }
     
@@ -139,20 +116,25 @@ open class DTCollectionViewManager {
     /// - SeeAlso: `MemoryStorage`, `CoreDataStorage`.
     open var storage : Storage {
         willSet {
-            storage.delegate = nil
+            (storage as? BaseUpdateDeliveringStorage)?.delegate = nil
         }
         didSet {
-            if let headerFooterCompatibleStorage = storage as? BaseStorage {
+            if let headerFooterCompatibleStorage = storage as? SupplementaryStorage {
                 headerFooterCompatibleStorage.configureForCollectionViewFlowLayoutUsage()
             }
-            storage.delegate = collectionViewUpdater
+            (storage as? BaseUpdateDeliveringStorage)?.delegate = collectionViewUpdater
         }
+    }
+    
+    /// Current storage, conditionally casted to `SupplementaryStorage` protocol.
+    public var supplementaryStorage: SupplementaryStorage? {
+        return storage as? SupplementaryStorage
     }
     
     /// Object, that is responsible for updating `UICollectionView`, when received update from `Storage`
     open var collectionViewUpdater : CollectionViewUpdater? {
         didSet {
-            storage.delegate = collectionViewUpdater
+            (storage as? BaseUpdateDeliveringStorage)?.delegate = collectionViewUpdater
             collectionViewUpdater?.didUpdateContent?(nil)
         }
     }
@@ -208,7 +190,7 @@ open class DTCollectionViewManager {
     ///
     /// - Parameter storage: storage class to be used
     public init(storage: Storage = DTCollectionViewManager.defaultStorage()) {
-        (storage as? BaseStorage)?.configureForCollectionViewFlowLayoutUsage()
+        (storage as? SupplementaryStorage)?.configureForCollectionViewFlowLayoutUsage()
         self.storage = storage
     }
     
@@ -218,24 +200,59 @@ open class DTCollectionViewManager {
     open func startManaging(withDelegate delegate : DTCollectionViewManageable)
     {
         guard !isConfigured else { return }
-        guard let collectionView = delegate.collectionView else {
+        guard let collectionView = delegate.collectionView ?? delegate.optionalCollectionView else {
             preconditionFailure("Call startManagingWithDelegate: method only when UICollectionView has been created")
         }
         self.delegate = delegate
         startManaging(with: collectionView)
     }
     
-    /// Call this method before calling any of `DTCollectionViewManager` methods.
-    /// - Precondition: UICollectionView instance on `delegate` should not be nil.
-    /// - Parameter delegate: Object, that has UICollectionView, that will be managed by `DTCollectionViewManager`.
-    open func startManaging(withDelegate delegate : DTCollectionViewNonOptionalManageable)
+
+    @available(iOS 13.0, tvOS 13.0, *)
+    /// Configures `UICollectionViewDiffableDataSource` to be used with `DTCollectionViewManager`.
+    ///  Because `UICollectionViewDiffableDataSource` handles UICollectionView updates, `collectionViewUpdater` property on `DTCollectionViewManager` will be set to nil.
+    /// - Parameter modelProvider: closure that provides `DTCollectionViewManager` models.
+    /// This closure mirrors `cellProvider` property on `UICollectionViewDiffableDataSource`, but strips away collectionView, and asks for data model instead of a cell. Cell mapping is then executed in the same way as without diffable data sources.
+    open func configureDiffableDataSource<SectionIdentifier, ItemIdentifier>(modelProvider: @escaping (IndexPath, ItemIdentifier) -> Any)
+        -> UICollectionViewDiffableDataSource<SectionIdentifier, ItemIdentifier>
     {
-        guard !isConfigured else { return }
-        guard let collectionView = delegate.collectionView else {
-            preconditionFailure("Call startManagingWithDelegate: method only when UICollectionView has been created")
+        guard let collectionView = collectionView else {
+            fatalError("Attempt to configure diffable datasource before collectionView have been initialized")
         }
-        self.delegate = delegate
-        startManaging(with: collectionView)
+        // UICollectionViewDiffableDataSource will update UICollectionView instead of `CollectionViewUpdater` object.
+        collectionViewUpdater = nil
+        
+        // Cell is provided by `DTCollectionViewDataSource` without actually calling closure that is passed to `UICollectionViewDiffableDataSource`.
+        let dataSource = UICollectionViewDiffableDataSource<SectionIdentifier, ItemIdentifier>(collectionView: collectionView) { _, _, _ in nil }
+        storage = ProxyDiffableDataSourceStorage(collectionView: collectionView,
+                                                                 dataSource: dataSource,
+                                                                 modelProvider: modelProvider)
+        collectionView.dataSource = collectionDataSource
+        
+        return dataSource
+    }
+    
+    @available(iOS 13.0, tvOS 13.0, *)
+    /// Configures `UICollectionViewDiffableDataSourceReference` to be used with `DTCollectionViewManager`.
+    ///  Because `UICollectionViewDiffableDataSourceReference` handles UICollectionView updates, `collectionViewUpdater` property on `DTCollectionViewManager` will be set to nil.
+    /// - Parameter modelProvider: closure that provides `DTCollectionViewManager` models.
+    /// This closure mirrors `cellProvider` property on `UICollectionViewDiffableDataSourceReference`, but strips away collectionView, and asks for data model instead of a cell. Cell mapping is then executed in the same way as without diffable data sources.
+    open func configureDiffableDataSource(modelProvider: @escaping (IndexPath, Any) -> Any) -> UICollectionViewDiffableDataSourceReference
+    {
+        guard let collectionView = collectionView else {
+            fatalError("Attempt to configure diffable datasource before collectionView have been initialized")
+        }
+        // UICollectionViewDiffableDataSourceReference will update UICollectionView instead of `CollectionViewUpdater` object.
+        collectionViewUpdater = nil
+        
+        // Cell is provided by `DTCollectionViewDataSource` without actually calling closure that is passed to `UICollectionViewDiffableDataSourceReference`.
+        let dataSource = UICollectionViewDiffableDataSourceReference(collectionView: collectionView) { _, _, _ in nil }
+        storage = ProxyDiffableDataSourceStorage(collectionView: collectionView,
+                                                                 dataSource: dataSource,
+                                                                 modelProvider: modelProvider)
+        collectionView.dataSource = collectionDataSource
+        
+        return dataSource
     }
     
     fileprivate var isConfigured = false
@@ -243,9 +260,6 @@ open class DTCollectionViewManager {
     fileprivate func startManaging(with collectionView: UICollectionView) {
         guard !isConfigured else { return }
         defer { isConfigured = true }
-        if let mappingDelegate = delegate as? ViewModelMappingCustomizing {
-            viewFactory.mappingCustomizableDelegate = mappingDelegate
-        }
         collectionViewUpdater = CollectionViewUpdater(collectionView: collectionView)
         collectionDataSource = DTCollectionViewDataSource(delegate: delegate, collectionViewManager: self)
         collectionDelegate = DTCollectionViewDelegate(delegate: delegate, collectionViewManager: self)
@@ -307,16 +321,15 @@ open class DTCollectionViewManager {
         switch itemType {
         case is UICollectionReusableView.Type:
             anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: methodName, subclassOf: "UICollectionReusableView"))
-        case is UITableViewCell.Type:
-            anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: methodName, subclassOf: "UITableViewCell"))
-        case is UITableViewHeaderFooterView.Type: anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: methodName, subclassOf: "UITableViewHeaderFooterView"))
+        case is UICollectionViewCell.Type:
+            anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: methodName, subclassOf: "UICollectionViewCell"))
         default: ()
         }
     }
     
     func verifyViewEvent<T:ModelTransfer>(for viewType: T.Type, methodName: String) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
-            if self?.viewFactory.mappings.filter({ $0.viewClass == T.self }).count == 0 {
+            if self?.viewFactory.mappings.filter({ $0.viewClass.isSubclass(of: viewType) }).count == 0 {
                 self?.anomalyHandler.reportAnomaly(DTCollectionViewManagerAnomaly.unusedEventDetected(viewType: String(describing: T.self), methodName: methodName))
             }
         }
@@ -362,6 +375,14 @@ internal enum EventMethodSignature: String {
     case targetIndexPathForMoveFromItemAtTo = "collectionView:targetIndexPathForMoveFromItemAtIndexPath:toProposedIndexPath:"
     case targetContentOffsetForProposedContentOffset = "collectionView:targetContentOffsetForProposedContentOffset:"
     case shouldSpringLoadItem = "collectionView:shouldSpringLoadItemAtIndexPath:withContext:"
+    
+    case shouldBeginMultipleSelectionInteractionAtIndexPath = "collectionView:shouldBeginMultipleSelectionInteractionAtIndexPath:"
+    case didBeginMultipleSelectionInteractionAtIndexPath = "collectionView:didBeginMultipleSelectionInteractionAtIndexPath:"
+    case didEndMultipleSelectionInteraction = "collectionViewDidEndMultipleSelectionInteraction:"
+    case contextMenuConfigurationForItemAtIndexPath = "collectionView:contextMenuConfigurationForItemAtIndexPath:point:"
+    case previewForHighlightingContextMenu = "collectionView:previewForHighlightingContextMenuWithConfiguration:"
+    case previewForDismissingContextMenu = "collectionView:previewForDismissingContextMenuWithConfiguration:"
+    case willCommitMenuWithAnimator = "collectionView:willCommitMenuWithAnimator:"
     
     // UICollectionViewDelegateFlowLayout
     case sizeForItemAtIndexPath = "collectionView:layout:sizeForItemAtIndexPath:"
