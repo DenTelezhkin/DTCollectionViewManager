@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [7.0.0-beta.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/7.0.0-beta.1)
+
 **This is a major release with some breaking changes, please read [DTCollectionViewManager 7.0 Migration Guide](https://github.com/DenTelezhkin/DTCollectionViewManager/blob/master/Guides/7.0%20Migration%20Guide.md)**
 
 ### Changed

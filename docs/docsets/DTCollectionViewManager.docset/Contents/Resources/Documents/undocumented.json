@@ -1,483 +1,483 @@
 {
   "warnings": [
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDataSource.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDataSource.swift",
       "line": 93,
       "symbol": "DTCollectionViewDataSource.collectionView(_:canMoveItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDataSource.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDataSource.swift",
       "line": 102,
       "symbol": "DTCollectionViewDataSource.collectionView(_:moveItemAt:to:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDataSource.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDataSource.swift",
       "line": 111,
       "symbol": "DTCollectionViewDataSource.indexTitles(for:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDataSource.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDataSource.swift",
       "line": 120,
       "symbol": "DTCollectionViewDataSource.collectionView(_:indexPathForIndexTitle:at:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDelegate.swift",
       "line": 177,
       "symbol": "DTCollectionViewDelegate.collectionView(_:canFocusItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDelegate.swift",
       "line": 198,
       "symbol": "DTCollectionViewDelegate.collectionView(_:shouldUpdateFocusIn:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDelegate.swift",
       "line": 207,
       "symbol": "DTCollectionViewDelegate.collectionView(_:didUpdateFocusIn:with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDelegate.swift",
       "line": 216,
       "symbol": "DTCollectionViewDelegate.indexPathForPreferredFocusedView(in:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDelegate.swift",
       "line": 225,
       "symbol": "DTCollectionViewDelegate.collectionView(_:targetIndexPathForMoveFromItemAt:toProposedIndexPath:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDelegate.swift",
       "line": 239,
       "symbol": "DTCollectionViewDelegate.collectionView(_:targetContentOffsetForProposedContentOffset:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDelegate.swift",
       "line": 250,
       "symbol": "DTCollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDragDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDragDelegate.swift",
       "line": 34,
       "symbol": "DTCollectionViewDragDelegate",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDragDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDragDelegate.swift",
       "line": 42,
       "symbol": "DTCollectionViewDragDelegate.collectionView(_:itemsForBeginning:at:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDragDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDragDelegate.swift",
       "line": 55,
       "symbol": "DTCollectionViewDragDelegate.collectionView(_:itemsForAddingTo:at:point:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDragDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDragDelegate.swift",
       "line": 68,
       "symbol": "DTCollectionViewDragDelegate.collectionView(_:dragPreviewParametersForItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDragDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDragDelegate.swift",
       "line": 77,
       "symbol": "DTCollectionViewDragDelegate.collectionView(_:dragSessionWillBegin:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDragDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDragDelegate.swift",
       "line": 84,
       "symbol": "DTCollectionViewDragDelegate.collectionView(_:dragSessionDidEnd:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDragDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDragDelegate.swift",
       "line": 91,
       "symbol": "DTCollectionViewDragDelegate.collectionView(_:dragSessionAllowsMoveOperation:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDragDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDragDelegate.swift",
       "line": 100,
       "symbol": "DTCollectionViewDragDelegate.collectionView(_:dragSessionIsRestrictedToDraggingApplication:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDropDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDropDelegate.swift",
       "line": 34,
       "symbol": "DTCollectionViewDropDelegate",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDropDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDropDelegate.swift",
       "line": 44,
       "symbol": "DTCollectionViewDropDelegate.collectionView(_:performDropWith:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDropDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDropDelegate.swift",
       "line": 51,
       "symbol": "DTCollectionViewDropDelegate.collectionView(_:canHandle:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDropDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDropDelegate.swift",
       "line": 60,
       "symbol": "DTCollectionViewDropDelegate.collectionView(_:dropSessionDidEnter:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDropDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDropDelegate.swift",
       "line": 67,
       "symbol": "DTCollectionViewDropDelegate.collectionView(_:dropSessionDidUpdate:withDestinationIndexPath:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDropDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDropDelegate.swift",
       "line": 80,
       "symbol": "DTCollectionViewDropDelegate.collectionView(_:dropSessionDidExit:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDropDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDropDelegate.swift",
       "line": 87,
       "symbol": "DTCollectionViewDropDelegate.collectionView(_:dropSessionDidEnd:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDropDelegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDropDelegate.swift",
       "line": 94,
       "symbol": "DTCollectionViewDropDelegate.collectionView(_:dropPreviewParametersForItemAt:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDropPlaceholderContext.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDropPlaceholderContext.swift",
       "line": 35,
       "symbol": "DTCollectionViewDropPlaceholderContext",
       "symbol_kind": "source.lang.swift.decl.class",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewDropPlaceholderContext.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDropPlaceholderContext.swift",
       "line": 68,
       "symbol": "DTCollectionViewDropPlaceholderContext.deletePlaceholder()",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+DataSource.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+DataSource.swift",
       "line": 71,
       "symbol": "DTCollectionViewManager.canMove(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+DataSource.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+DataSource.swift",
       "line": 80,
       "symbol": "DTCollectionViewManager.moveItemAtTo(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+DataSource.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+DataSource.swift",
       "line": 93,
       "symbol": "DTCollectionViewManager.indexTitles(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+DataSource.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+DataSource.swift",
       "line": 99,
       "symbol": "DTCollectionViewManager.indexPathForIndexTitle(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Delegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Delegate.swift",
       "line": 143,
       "symbol": "DTCollectionViewManager.canFocus(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Delegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Delegate.swift",
       "line": 150,
       "symbol": "DTCollectionViewManager.shouldUpdateFocus(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Delegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Delegate.swift",
       "line": 156,
       "symbol": "DTCollectionViewManager.didUpdateFocus(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Delegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Delegate.swift",
       "line": 162,
       "symbol": "DTCollectionViewManager.indexPathForPreferredFocusedView(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Delegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Delegate.swift",
       "line": 168,
       "symbol": "DTCollectionViewManager.targetIndexPathForMovingItem(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Delegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Delegate.swift",
       "line": 176,
       "symbol": "DTCollectionViewManager.targetContentOffsetForProposedContentOffset(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Delegate.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Delegate.swift",
       "line": 184,
       "symbol": "DTCollectionViewManager.shouldSpringLoad(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drag.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drag.swift",
       "line": 36,
       "symbol": "DTCollectionViewManager.itemsForBeginningDragSession(from:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drag.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drag.swift",
       "line": 45,
       "symbol": "DTCollectionViewManager.itemsForAddingToDragSession(from:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drag.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drag.swift",
       "line": 54,
       "symbol": "DTCollectionViewManager.dragPreviewParameters(for:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drag.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drag.swift",
       "line": 62,
       "symbol": "DTCollectionViewManager.dragSessionWillBegin(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drag.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drag.swift",
       "line": 68,
       "symbol": "DTCollectionViewManager.dragSessionDidEnd(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drag.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drag.swift",
       "line": 74,
       "symbol": "DTCollectionViewManager.dragSessionAllowsMoveOperation(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drag.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drag.swift",
       "line": 80,
       "symbol": "DTCollectionViewManager.dragSessionIsRestrictedToDraggingApplication(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drop.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drop.swift",
       "line": 36,
       "symbol": "DTCollectionViewManager.performDropWithCoordinator(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drop.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drop.swift",
       "line": 42,
       "symbol": "DTCollectionViewManager.canHandleDropSession(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drop.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drop.swift",
       "line": 48,
       "symbol": "DTCollectionViewManager.dropSessionDidEnter(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drop.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drop.swift",
       "line": 54,
       "symbol": "DTCollectionViewManager.dropSessionDidUpdate(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drop.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drop.swift",
       "line": 60,
       "symbol": "DTCollectionViewManager.dropSessionDidExit(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drop.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drop.swift",
       "line": 66,
       "symbol": "DTCollectionViewManager.dropSessionDidEnd(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drop.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drop.swift",
       "line": 72,
       "symbol": "DTCollectionViewManager.dropPreviewParameters(_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager+Drop.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+Drop.swift",
       "line": 79,
       "symbol": "DTCollectionViewManager.drop(_:to:with:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager.swift",
       "line": 40,
       "symbol": "DTCollectionViewNonOptionalManageable.collectionView",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager.swift",
       "line": 179,
       "symbol": "DTCollectionViewManager.collectionDragDelegate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManager.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager.swift",
       "line": 193,
       "symbol": "DTCollectionViewManager.collectionDropDelegate",
       "symbol_kind": "source.lang.swift.decl.var.instance",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManagerAnomalyHandler.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManagerAnomalyHandler.swift",
       "line": 33,
       "symbol": "DTCollectionViewManagerAnomaly.nilCellModel(_:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManagerAnomalyHandler.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManagerAnomalyHandler.swift",
       "line": 34,
       "symbol": "DTCollectionViewManagerAnomaly.nilSupplementaryModel(kind:indexPath:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManagerAnomalyHandler.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManagerAnomalyHandler.swift",
       "line": 35,
       "symbol": "DTCollectionViewManagerAnomaly.noCellMappingFound(modelDescription:indexPath:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManagerAnomalyHandler.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManagerAnomalyHandler.swift",
       "line": 36,
       "symbol": "DTCollectionViewManagerAnomaly.noSupplementaryMappingFound(modelDescription:kind:indexPath:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManagerAnomalyHandler.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManagerAnomalyHandler.swift",
       "line": 37,
       "symbol": "DTCollectionViewManagerAnomaly.differentCellReuseIdentifier(mappingReuseIdentifier:cellReuseIdentifier:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManagerAnomalyHandler.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManagerAnomalyHandler.swift",
       "line": 38,
       "symbol": "DTCollectionViewManagerAnomaly.differentSupplementaryReuseIdentifier(mappingReuseIdentifier:supplementaryReuseIdentifier:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManagerAnomalyHandler.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManagerAnomalyHandler.swift",
       "line": 39,
       "symbol": "DTCollectionViewManagerAnomaly.differentCellClass(xibName:cellClass:expectedCellClass:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManagerAnomalyHandler.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManagerAnomalyHandler.swift",
       "line": 40,
       "symbol": "DTCollectionViewManagerAnomaly.differentSupplementaryClass(xibName:viewClass:expectedViewClass:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManagerAnomalyHandler.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManagerAnomalyHandler.swift",
       "line": 41,
       "symbol": "DTCollectionViewManagerAnomaly.emptyXibFile(xibName:expectedViewClass:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManagerAnomalyHandler.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManagerAnomalyHandler.swift",
       "line": 42,
       "symbol": "DTCollectionViewManagerAnomaly.modelEventCalledWithCellClass(modelType:methodName:subclassOf:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
     },
     {
-      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Source/DTCollectionViewManagerAnomalyHandler.swift",
+      "file": "/Users/denystelezkin/Developer/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManagerAnomalyHandler.swift",
       "line": 43,
       "symbol": "DTCollectionViewManagerAnomaly.unusedEventDetected(viewType:methodName:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
