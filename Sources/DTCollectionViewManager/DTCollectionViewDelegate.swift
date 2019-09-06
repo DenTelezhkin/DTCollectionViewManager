@@ -264,7 +264,8 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
                                                                 shouldSpringLoadItemAt: indexPath,
                                                                 with: context) ?? true
     }
-    
+
+#if compiler(>=5.1)
     @available(iOS 13.0, *)
     /// Implementation for `UICollectionViewDelegate` protocol
     open func collectionView(_ collectionView: UICollectionView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
@@ -328,6 +329,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, willCommitMenuWithAnimator: animator)
     }
     #endif
+#endif
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
