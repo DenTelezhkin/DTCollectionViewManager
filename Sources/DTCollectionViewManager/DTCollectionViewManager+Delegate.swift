@@ -195,6 +195,7 @@ extension DTCollectionViewManager {
                                                     closure: closure)
     }
     
+#if compiler(>=5.1)
     @available(iOS 13, *)
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldBeginMultipleSelectionInteractionAt:)`method is called for `cellClass`.
     /// - Parameter Type: cell class to react for event
@@ -260,8 +261,8 @@ extension DTCollectionViewManager {
     {
         collectionDelegate?.appendNonCellReaction(.willCommitMenuWithAnimator, closure: closure)
     }
-    
     #endif
+#endif
     
     // MARK: - UICollectionViewDelegateFlowLayout
     
