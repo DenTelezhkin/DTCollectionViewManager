@@ -250,7 +250,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
                                                                 targetContentOffsetForProposedContentOffset: proposedContentOffset) ?? .zero
     }
     
-    #if os(iOS)
+#if os(iOS)
     @available (iOS 11, *)
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, shouldSpringLoadItemAt indexPath: IndexPath, with context: UISpringLoadedInteractionContext) -> Bool {
@@ -265,7 +265,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
                                                                 with: context) ?? true
     }
 
-#if compiler(>=5.1)
+    #if compiler(>=5.1)
     @available(iOS 13.0, *)
     /// Implementation for `UICollectionViewDelegate` protocol
     open func collectionView(_ collectionView: UICollectionView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
@@ -321,13 +321,14 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         }
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForDismissingContextMenuWithConfiguration: configuration)
     }
-    
+        #if compiler(<5.1.2)
     @available(iOS 13.0, *)
     /// Implementation for `UICollectionViewDelegate` protocol
     open func collectionView(_ collectionView: UICollectionView, willCommitMenuWithAnimator animator: UIContextMenuInteractionCommitAnimating) {
         _ = performNonCellReaction(.willCommitMenuWithAnimator, argument: animator)
         (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, willCommitMenuWithAnimator: animator)
     }
+        #endif
     #endif
 #endif
     
