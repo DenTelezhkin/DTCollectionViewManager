@@ -1,8 +1,8 @@
-![Build Status](https://travis-ci.org/DenTelezhkin/DTCollectionViewManager.svg?branch=master) &nbsp;
+![CI](https://github.com/DenTelezhkin/DTCollectionViewManager/workflows/CI/badge.svg)
 [![codecov.io](http://codecov.io/github/DenTelezhkin/DTCollectionViewManager/coverage.svg?branch=master)](http://codecov.io/github/DenTelezhkin/DTCollectionViewManager?branch=master)
 ![CocoaPod platform](https://cocoapod-badges.herokuapp.com/p/DTCollectionViewManager/badge.svg) &nbsp;
 ![CocoaPod version](https://cocoapod-badges.herokuapp.com/v/DTCollectionViewManager/badge.svg) &nbsp;
-[![Carthage compatible](https://img.shields.io/badge/Carthage-compatible-4BC51D.svg?style=flat)](https://github.com/Carthage/Carthage)
+[![Swift Package Manager compatible](https://img.shields.io/badge/Swift%20Package%20Manager-compatible-brightgreen.svg)](https://github.com/apple/swift-package-manager)
 [![Packagist](https://img.shields.io/packagist/l/doctrine/orm.svg)]()
 
 DTCollectionViewManager
@@ -57,12 +57,6 @@ Add package into Project settings -> Swift Packages
 ### [CocoaPods](http://www.cocoapods.org):
 
     pod 'DTCollectionViewManager'
-
-### [Carthage](https://github.com/Carthage/Carthage):
-
-    github "DenTelezhkin/DTCollectionViewManager"
-
-After running `carthage update` add DTCollectionViewManager.framework and DTModelStorage.framework to Xcode project embedded binaries.
 
 ## Quick start
 

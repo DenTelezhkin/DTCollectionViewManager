@@ -1,7 +1,7 @@
 fastlane_version "1.98.0"
 
 lane :test_ios13 do
-  scan(devices: ["iPhone 11 Pro (13.1)"], scheme: 'Tests-iOS')
+  scan(device: "iPad Pro (12.9-inch) (3rd generation) (13.3)", scheme: 'Tests-iOS')
   sh "bash ../codecov.sh"
 end
 
@@ -10,7 +10,7 @@ end
 # end
 
 lane :test_tvos13 do
-  scan(device: "Apple TV 4K (13.0)", scheme: 'Tests-tvOS')
+  scan(device: "Apple TV 4K (13.3)", scheme: 'Tests-tvOS')
 end
 
 # lane :test_tvos12 do
@@ -22,13 +22,13 @@ lane :pod_lint do
   pod_lib_lint(allow_warnings: true, verbose: true)
 end
 
-lane :test_ios_swift4_2 do
-  scan(devices: ["iPhone 11 Pro (13.1)"], xcargs: "SWIFT_VERSION=4.2", scheme: 'Tests-iOS')
-end
-
-lane :test_tvos_swift4_2 do
-  scan(devices: ["Apple TV 4K (13.0)"], xcargs: "SWIFT_VERSION=4.2", scheme: 'Tests-tvOS')
-end
+# lane :test_ios_swift4_2 do
+#   scan(devices: ["iPhone Xs (13.1)"], xcargs: "SWIFT_VERSION=4.2", scheme: 'Tests-iOS')
+# end
+#
+# lane :test_tvos_swift4_2 do
+#   scan(devices: ["Apple TV 4K (13.0)"], xcargs: "SWIFT_VERSION=4.2", scheme: 'Tests-tvOS')
+# end
 
 lane :carthage_build do
   carthage(command: "build", platform: "iOS,tvOS", no_skip_current: true, verbose: false)
@@ -74,9 +74,9 @@ lane :release do |params|
     puts "Pushing to CocoaPods trunk."
     sh "bundle exec pod trunk push DTCollectionViewManager.podspec --allow-warnings"
 
-    puts "Preparing Carthage binary framework."
-    sh "carthage build --no-skip-current --platform iOS,tvOS"
-    sh "carthage archive DTCollectionViewManager"
+    # puts "Preparing Carthage binary framework."
+    # sh "carthage build --no-skip-current --platform iOS,tvOS"
+    # sh "carthage archive DTCollectionViewManager"
 
     puts "Pushing as a GitHub Release."
     fastlane_require 'octokit'
@@ -87,9 +87,9 @@ lane :release do |params|
                      name: version,
                      body: stripped_changelog)
 
-    puts "Attaching Carthage prebuilt binary to release."
-    releases = client.releases('DenTelezhkin/DTCollectionViewManager')
-    client.upload_asset(releases[0].url, 'DTCollectionViewManager.framework.zip')
-    sh "rm -rf DTCollectionViewManager.framework.zip"
+    # puts "Attaching Carthage prebuilt binary to release."
+    # releases = client.releases('DenTelezhkin/DTCollectionViewManager')
+    # client.upload_asset(releases[0].url, 'DTCollectionViewManager.framework.zip')
+    # sh "rm -rf DTCollectionViewManager.framework.zip"
   end
 end
