@@ -8,7 +8,6 @@
 
 import XCTest
 @testable import DTCollectionViewManager
-import DTModelStorage
 
 @available(iOS 13, tvOS 13, *)
 extension NSDiffableDataSourceSnapshot {

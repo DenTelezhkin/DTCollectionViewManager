@@ -8,7 +8,6 @@
 
 import UIKit
 import DTCollectionViewManager
-import DTModelStorage
 
 class CollectionContainingCell: UICollectionViewCell, DTCollectionViewManageable, ModelTransfer {
     

@@ -8,7 +8,6 @@
 
 import XCTest
 @testable import DTCollectionViewManager
-import DTModelStorage
 
 fileprivate class UpdatableModel {
     var value: Bool = false

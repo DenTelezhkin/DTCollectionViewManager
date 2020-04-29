@@ -8,7 +8,6 @@
 
 import XCTest
 import DTCollectionViewManager
-import DTModelStorage
 
 class IntCell : UICollectionViewCell, ModelTransfer {
     func update(with model: Int) {

@@ -8,7 +8,6 @@
 
 import UIKit
 import DTCollectionViewManager
-import DTModelStorage
 
 func randomColor() -> UIColor {
         let randomRed:CGFloat = CGFloat(drand48())

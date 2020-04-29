@@ -9,7 +9,6 @@
 import Foundation
 import UIKit
 import DTCollectionViewManager
-import DTModelStorage
 
 class NiblessHeaderFooterView : UICollectionReusableView, ModelTransfer
 {

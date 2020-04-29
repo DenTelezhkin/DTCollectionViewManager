@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import DTModelStorage
 @testable import DTCollectionViewManager
 
 class StoryboardMappingTestCase: XCTestCase {

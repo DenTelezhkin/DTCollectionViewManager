@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import DTModelStorage
 import DTCollectionViewManager
 
 class DataSourceTestCase: XCTestCase {

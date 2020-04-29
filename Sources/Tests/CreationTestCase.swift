@@ -8,7 +8,6 @@
 
 import XCTest
 import DTCollectionViewManager
-import DTModelStorage
 
 class FooCell : UICollectionViewCell, ModelTransfer
 {

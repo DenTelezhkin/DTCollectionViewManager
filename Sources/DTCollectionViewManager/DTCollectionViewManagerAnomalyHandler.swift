@@ -91,7 +91,7 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomStringConvertible, 
     public var description: String {
         switch self {
         case .nilCellModel(let indexPath): return "DTCollectionViewManagerAnomaly.nilCellModel(\(indexPath))"
-        case .nilSupplementaryModel(let indexPath): return "DTCollectionViewManagerAnomaly.nilSupplementaryModel(\(indexPath))"
+        case .nilSupplementaryModel(let kind, let indexPath): return "DTCollectionViewManagerAnomaly.nilSupplementaryModel(\(indexPath)) for kind \(kind)"
         case .noCellMappingFound(modelDescription: let description, indexPath: let indexPath): return "DTCollectionViewManagerAnomaly.noCellMappingFound(\(description), \(indexPath))"
         case .noSupplementaryMappingFound(modelDescription: let description, kind: let kind, indexPath: let indexPath): return "DTCollectionViewManagerAnomaly.noSupplementaryMappingFound(\(description), \(kind), \(indexPath))"
         case .differentCellReuseIdentifier(mappingReuseIdentifier: let mappingIdentifier, cellReuseIdentifier: let cellIdentifier): return "DTCollectionViewManagerAnomaly.differentCellReuseIdentifier(\(mappingIdentifier), \(cellIdentifier))"

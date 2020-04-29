@@ -7,7 +7,6 @@
 //
 
 import XCTest
-import DTModelStorage
 @testable import DTCollectionViewManager
 
 #if os(iOS)

@@ -9,7 +9,6 @@
 import XCTest
 import XCTest
 import DTCollectionViewManager
-import DTModelStorage
 
 // This unit test shows problem, described in https://github.com/DenTelezhkin/DTCollectionViewManager/issues/23 and https://github.com/DenTelezhkin/DTCollectionViewManager/issues/27
 
