@@ -11,7 +11,6 @@ import XCTest
 
 #if os(iOS)
     
-@available (iOS 11, *)
 class SpringLoadedContextMock : NSObject, UISpringLoadedInteractionContext {
     var state: UISpringLoadedInteractionEffectState = .activated
     
@@ -22,7 +21,6 @@ class SpringLoadedContextMock : NSObject, UISpringLoadedInteractionContext {
     }
 }
 
-@available (iOS 11, *)
 class DragAndDropMock : NSObject, UIDragSession, UIDropSession {
     var progress: Progress = Progress()
     
@@ -55,7 +53,6 @@ class DragAndDropMock : NSObject, UIDragSession, UIDropSession {
     var localContext: Any?
 }
 
-@available (iOS 11, *)
 class DropPlaceholderContextMock : NSObject, UICollectionViewDropPlaceholderContext {
     func setNeedsCellUpdate() {
         
@@ -79,7 +76,6 @@ class DropPlaceholderContextMock : NSObject, UICollectionViewDropPlaceholderCont
     }
 }
     
-@available (iOS 11, *)
 class DropCoordinatorMock: NSObject, UICollectionViewDropCoordinator{
     var items: [UICollectionViewDropItem] = []
     
@@ -215,7 +211,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         sut.manager.registerFooter(NibHeaderFooterView.self)
     }
     
-    @available(iOS 9.0, tvOS 9.0, *)
+    @available(tvOS 9.0, *)
     func testCanMoveItemAtIndexPath() {
         let exp = expectation(description: "canMoveItemAtIndexPath")
         sut.manager.canMove(NibCell.self, { cell, model, indexPath -> Bool in
@@ -425,7 +421,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    @available(iOS 9.0, tvOS 9.0, *)
+    @available(tvOS 9.0, *)
     func testCanFocusItemAtIndexPath() {
         let exp = expectation(description: "canFocusRowAtIndexPath")
         sut.manager.canFocus(NibCell.self, { (cell, model, indexPath) -> Bool in
@@ -470,7 +466,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    @available (iOS 9, *)
     func testMoveItemAtIndexPath() {
         let exp = expectation(description: "Move item at indexPath")
         sut.manager.moveItemAtTo { _,_ in
@@ -481,7 +476,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    @available (iOS 10.3, tvOS 10.2, *)
+    @available (tvOS 10.2, *)
     func testIndexTitlesForCollectionView() {
         let exp = expectation(description: "indexTitles for collectionView")
         sut.manager.indexTitles {
@@ -492,7 +487,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    @available (iOS 10.3, tvOS 10.2, *)
+    @available (tvOS 10.2, *)
     func testIndexPathForIndexTitle() {
         let exp = expectation(description: "indexPathForIndexTitle")
         sut.manager.indexPathForIndexTitle { _, _ in
@@ -517,7 +512,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    @available (iOS 9, * )
     func testIndexPathForPreferredFocusView() {
         let exp = expectation(description: "indexPathForPreferredFocusedView")
         sut.manager.indexPathForPreferredFocusedView {
@@ -528,7 +522,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    @available (iOS 9, *)
     func testTargetIndexPathForMove() {
         let exp = expectation(description: "TargetIndexPathForMove")
         sut.manager.targetIndexPathForMovingItem(NibCell.self) { _, _, _, _ in
@@ -542,7 +535,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    @available (iOS 9, * )
     func testTargetContentOffsetForProposedContentOffset() {
         let exp = expectation(description: "targetContentOffsetForProposedContentOffset")
         sut.manager.targetContentOffsetForProposedContentOffset { _ in
@@ -555,7 +547,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     #if os(iOS)
-    @available (iOS 11, *)
     func testShouldSpringLoadItem() {
         let exp = expectation(description: "shouldSpringLoadItem")
         sut.manager.shouldSpringLoad(NibCell.self) { _, _, _, _ in
@@ -610,7 +601,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     #if os(iOS)
     func testItemsForBeginningInDragSession() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "ItemsForBeginningInDragSession")
         sut.manager.itemsForBeginningDragSession(from: NibCell.self) { session, cell, model, _ in
             exp.fulfill()
@@ -622,7 +612,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testItemsForAddingToDragSession() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "ItemsForAddingToDragSession")
         sut.manager.itemsForAddingToDragSession(from: NibCell.self) { session, point, cell, model, _ in
             exp.fulfill()
@@ -634,7 +623,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testDragPreviewParametersForRowAtIndexPath() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "dragPreviewParametersForRowAtIndexPath")
         sut.manager.dragPreviewParameters(for: NibCell.self) { cell, model, indexPath in
             exp.fulfill()
@@ -646,7 +634,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testDragSessionWillBegin() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "dragSessionWillBegin")
         sut.manager.dragSessionWillBegin { _ in
             exp.fulfill()
@@ -656,7 +643,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testDragSessionDidEnd() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "dragSessionDidEnd")
         sut.manager.dragSessionDidEnd { _ in
             exp.fulfill()
@@ -666,7 +652,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testDragSessionAllowsMoveOperation() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "dragSessionAllowsMoveOperation")
         sut.manager.dragSessionAllowsMoveOperation{ _  in
             exp.fulfill()
@@ -677,7 +662,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testDragSessionIsRestrictedToDraggingApplication() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "dragSessionRestrictedToDraggingApplication")
         sut.manager.dragSessionIsRestrictedToDraggingApplication{ _  in
             exp.fulfill()
@@ -690,7 +674,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     /// MARK: - UITableViewDropDelegate
     
     func testPerformDropWithCoordinator() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "performDropWithCoordinator")
         sut.manager.performDropWithCoordinator { _ in
             exp.fulfill()
@@ -700,7 +683,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testCanHandleDropSession() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "canHandleDropSession")
         sut.manager.canHandleDropSession { _ in
             exp.fulfill()
@@ -711,7 +693,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testDropSessionDidEnter() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "dropSessionDidEnter")
         sut.manager.dropSessionDidEnter { _ in
             exp.fulfill()
@@ -721,7 +702,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testDropSessionDidUpdate() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "dropSessionDidUpdate")
         sut.manager.dropSessionDidUpdate { _, _ in
             exp.fulfill()
@@ -732,7 +712,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testDropSessionDidExit() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "dropSessionDidExit")
         sut.manager.dropSessionDidExit { _ in
             exp.fulfill()
@@ -742,7 +721,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testDropSessionDidEnd() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "dropSessionDidEnd")
         sut.manager.dropSessionDidEnd { _ in
             exp.fulfill()
@@ -752,7 +730,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testDropPreviewParametersForRowAtIndexPath() {
-        guard #available(iOS 11, *) else { return }
         let exp = expectation(description: "dropPreviewParametersForRowAtIndexPath")
         sut.manager.dropPreviewParameters { _ in
             exp.fulfill()
@@ -844,7 +821,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     #endif
     
     func testAllDelegateMethodSignatures() {
-        if #available(iOS 9, tvOS 9, *) {
+        if #available(tvOS 9, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDataSource.collectionView(_:canMoveItemAt:))), EventMethodSignature.canMoveItemAtIndexPath.rawValue)
         }
         XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldSelectItemAt:))), EventMethodSignature.shouldSelectItemAtIndexPath.rawValue)
@@ -866,7 +843,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:performAction:forItemAt:withSender:))), EventMethodSignature.performActionForItemAtIndexPath.rawValue)
         XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:transitionLayoutForOldLayout:newLayout:))), EventMethodSignature.transitionLayoutForOldLayoutNewLayout.rawValue)
         
-        if #available(iOS 9, tvOS 9, *) {
+        if #available(tvOS 9, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canFocusItemAt:))), EventMethodSignature.canFocusItemAtIndexPath.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldUpdateFocusIn:))), EventMethodSignature.shouldUpdateFocusInContext.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didUpdateFocusIn:with:))), EventMethodSignature.didUpdateFocusInContext.rawValue)
@@ -876,25 +853,23 @@ class ReactingToEventsFastTestCase : XCTestCase {
         }
         
         #if os(iOS)
-        if #available(iOS 11, *) {
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:with:))), EventMethodSignature.shouldSpringLoadItem.rawValue)
-            
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:itemsForBeginning:at:))), EventMethodSignature.itemsForBeginningDragSessionAtIndexPath.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:itemsForAddingTo:at:point:))), EventMethodSignature.itemsForAddingToDragSessionAtIndexPath.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragPreviewParametersForItemAt:))), EventMethodSignature.dragPreviewParametersForItemAtIndexPath.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionWillBegin:))), EventMethodSignature.dragSessionWillBegin.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionDidEnd:))), EventMethodSignature.dragSessionDidEnd.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionAllowsMoveOperation:))), EventMethodSignature.dragSessionAllowsMoveOperation.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionIsRestrictedToDraggingApplication:))), EventMethodSignature.dragSessionIsRestrictedToDraggingApplication.rawValue)
-            
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:performDropWith:))), EventMethodSignature.performDropWithCoordinator.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:canHandle:))), EventMethodSignature.canHandleDropSession.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnter:))), EventMethodSignature.dropSessionDidEnter.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidUpdate:withDestinationIndexPath:))), EventMethodSignature.dropSessionDidUpdate.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidExit:))), EventMethodSignature.dropSessionDidExit.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnd:))), EventMethodSignature.dropSessionDidEnd.rawValue)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropPreviewParametersForItemAt:))), EventMethodSignature.dropPreviewParametersForItemAtIndexPath.rawValue)
-        }
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:with:))), EventMethodSignature.shouldSpringLoadItem.rawValue)
+        
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:itemsForBeginning:at:))), EventMethodSignature.itemsForBeginningDragSessionAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:itemsForAddingTo:at:point:))), EventMethodSignature.itemsForAddingToDragSessionAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragPreviewParametersForItemAt:))), EventMethodSignature.dragPreviewParametersForItemAtIndexPath.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionWillBegin:))), EventMethodSignature.dragSessionWillBegin.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionDidEnd:))), EventMethodSignature.dragSessionDidEnd.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionAllowsMoveOperation:))), EventMethodSignature.dragSessionAllowsMoveOperation.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDragDelegate.collectionView(_:dragSessionIsRestrictedToDraggingApplication:))), EventMethodSignature.dragSessionIsRestrictedToDraggingApplication.rawValue)
+        
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:performDropWith:))), EventMethodSignature.performDropWithCoordinator.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:canHandle:))), EventMethodSignature.canHandleDropSession.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnter:))), EventMethodSignature.dropSessionDidEnter.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidUpdate:withDestinationIndexPath:))), EventMethodSignature.dropSessionDidUpdate.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidExit:))), EventMethodSignature.dropSessionDidExit.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnd:))), EventMethodSignature.dropSessionDidEnd.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDropDelegate.collectionView(_:dropPreviewParametersForItemAt:))), EventMethodSignature.dropPreviewParametersForItemAtIndexPath.rawValue)
         
         if #available(iOS 13, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldBeginMultipleSelectionInteractionAt:))), EventMethodSignature.shouldBeginMultipleSelectionInteractionAtIndexPath.rawValue)

@@ -31,49 +31,41 @@ extension DTCollectionViewManager {
     
     #if os(iOS)
     
-    @available(iOS 11, *)
     /// Registers `closure` to be executed when `UICollectionViewDropDelegate.collectionView(_:performDropWith:)` method is called.
     open func performDropWithCoordinator(_ closure: @escaping (UICollectionViewDropCoordinator) -> Void) {
         collectionDropDelegate?.appendNonCellReaction(.performDropWithCoordinator, closure: closure)
     }
     
-    @available(iOS 11, *)
     /// Registers `closure` to be executed when `UICollectionViewDropDelegate.collectionView(_:canHandle:)` method is called.
     open func canHandleDropSession(_ closure: @escaping (UIDropSession) -> Bool) {
         collectionDropDelegate?.appendNonCellReaction(.canHandleDropSession, closure: closure)
     }
     
-    @available(iOS 11, *)
     /// Registers `closure` to be executed when `UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnter:)` method is called.
     open func dropSessionDidEnter(_ closure: @escaping (UIDropSession) -> Void) {
         collectionDropDelegate?.appendNonCellReaction(.dropSessionDidEnter, closure: closure)
     }
     
-    @available(iOS 11, *)
     /// Registers `closure` to be executed when `UICollectionViewDropDelegate.collectionView(_:dropSessionDidUpdate:withDestination:)` method is called.
     open func dropSessionDidUpdate(_ closure: @escaping (UIDropSession, IndexPath?) -> UICollectionViewDropProposal) {
         collectionDropDelegate?.appendNonCellReaction(.dropSessionDidUpdate, closure: closure)
     }
     
-    @available(iOS 11, *)
     /// Registers `closure` to be executed when `UICollectionViewDropDelegate.collectionView(_:dropSessionDidExit:)` method is called.
     open func dropSessionDidExit(_ closure: @escaping (UIDropSession) -> Void) {
         collectionDropDelegate?.appendNonCellReaction(.dropSessionDidExit, closure: closure)
     }
     
-    @available(iOS 11, *)
     /// Registers `closure` to be executed when `UICollectionViewDropDelegate.collectionView(_:dropSessionDidEnd:)` method is called.
     open func dropSessionDidEnd(_ closure: @escaping (UIDropSession) -> Void) {
         collectionDropDelegate?.appendNonCellReaction(.dropSessionDidEnd, closure: closure)
     }
     
-    @available(iOS 11, *)
     /// Registers `closure` to be executed when `UICollectionViewDropDelegate.collectionView(_:dropPreviewParametersForRowAt:)` method is called.
     open func dropPreviewParameters(_ closure: @escaping (IndexPath) -> UIDragPreviewParameters?) {
         collectionDropDelegate?.appendNonCellReaction(.dropPreviewParametersForItemAtIndexPath, closure: closure)
     }
     
-    @available(iOS 11, *)
     /// Convenience method for dropping `item` into `placeholder`.
     /// Returns `DTCollectionViewDropPlaceholderContext`, which is a replacement for `UICollectionViewDropPlaceholderContext`, that automatically handles drop if you are using `MemoryStorage`. It also automatically dispatches insertion to `DispatchQueue.main`.
     open func drop(_ item: UIDragItem, to placeholder: UICollectionViewDropPlaceholder,

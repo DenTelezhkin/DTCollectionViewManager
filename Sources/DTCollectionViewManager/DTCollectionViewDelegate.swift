@@ -178,7 +178,6 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, performAction: action, forItemAt: indexPath, withSender: sender)
     }
     
-    @available(iOS 9, *)
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, canFocusItemAt indexPath: IndexPath) -> Bool {
         if let should = performCellReaction(.canFocusItemAtIndexPath, location: indexPath, provideCell: true) as? Bool {
@@ -199,7 +198,6 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
                                                                         newLayout: toLayout) ??   UICollectionViewTransitionLayout(currentLayout: fromLayout, nextLayout: toLayout)
     }
     
-    @available (iOS 9, *)
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, shouldUpdateFocusIn context: UICollectionViewFocusUpdateContext) -> Bool {
         if let should = performNonCellReaction(.shouldUpdateFocusInContext, argument: context) as? Bool {
@@ -208,7 +206,6 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, shouldUpdateFocusIn: context) ?? true
     }
     
-    @available (iOS 9, *)
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, didUpdateFocusIn context: UICollectionViewFocusUpdateContext, with coordinator: UIFocusAnimationCoordinator) {
         _ = performNonCellReaction(.didUpdateFocusInContext, argumentOne: context, argumentTwo: coordinator)
@@ -217,7 +214,6 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
                                                                  with: coordinator)
     }
     
-    @available (iOS 9, *)
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
         if let reaction = collectionViewReactions.first(where: { $0.methodSignature == EventMethodSignature.indexPathForPreferredFocusedView.rawValue }) {
@@ -226,7 +222,6 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         return (delegate as? UICollectionViewDelegate)?.indexPathForPreferredFocusedView?(in: collectionView)
     }
     
-    @available (iOS 9, *)
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
         if let indexPath = perform4ArgumentCellReaction(.targetIndexPathForMoveFromItemAtTo,
@@ -240,7 +235,6 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
                                                                        toProposedIndexPath: proposedIndexPath) ?? IndexPath(item: 0, section: 0)
     }
     
-    @available (iOS 9, *)
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, targetContentOffsetForProposedContentOffset proposedContentOffset: CGPoint) -> CGPoint {
         if let point = performNonCellReaction(.targetContentOffsetForProposedContentOffset, argument: proposedContentOffset) as? CGPoint {
@@ -251,7 +245,6 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     }
     
 #if os(iOS)
-    @available (iOS 11, *)
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, shouldSpringLoadItemAt indexPath: IndexPath, with context: UISpringLoadedInteractionContext) -> Bool {
         if let shouldSpringLoad = perform4ArgumentCellReaction(.shouldSpringLoadItem,
