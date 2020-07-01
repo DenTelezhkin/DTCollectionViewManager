@@ -66,14 +66,12 @@ extension DTCollectionViewManager {
         collectionDataSource?.appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: .configureSupplementary, closure: closure)
     }
     
-    @available(iOS 9.0, *)
     /// Registers `closure` to be executed, when `UICollectionViewDataSource.collectionView(_:canMoveItemAt:)` method is called for `cellClass`.
     open func canMove<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
         collectionDataSource?.appendReaction(for: T.self, signature: EventMethodSignature.canMoveItemAtIndexPath, closure: closure)
     }
     
-    @available(iOS 9.0, *)
     /// Registers `closure` to be executed, when `UICollectionViewDataSrouce.(_:moveItemAt:to:)` method is called for `cellClass`.
     /// - warning: This method requires items to be moved without animations, since animation has already happened when user moved those cells. If you use `MemoryStorage`, it's appropriate to call `memoryStorage.moveItemWithoutAnimation(from:to:)` method to achieve desired behavior.
     /// - SeeAlso: 'collectionView:moveRowAt:to:' method
@@ -88,13 +86,13 @@ extension DTCollectionViewManager {
     
     }
     
-    @available (iOS 10.3, tvOS 10.2, *)
+    @available (tvOS 10.2, *)
     /// Registers `closure` to be executed, when `UICollectionViewDataSource.indexTitlesForCollectionView(_:)` method is called.
     open func indexTitles(_ closure: @escaping () -> [String]?) {
         collectionDataSource?.appendNonCellReaction(.indexTitlesForCollectionView, closure: closure)
     }
     
-    @available (iOS 10.3, tvOS 10.2, *)
+    @available (tvOS 10.2, *)
     /// Registers `closure` to be executed when `UICollectionViewDataSource.collectionView(_:indexPathForIndexTitle:)` method is called.
     open func indexPathForIndexTitle(_ closure: @escaping (String, Int) -> IndexPath) {
         collectionDataSource?.appendNonCellReaction(.indexPathForIndexTitleAtIndex, closure: closure)

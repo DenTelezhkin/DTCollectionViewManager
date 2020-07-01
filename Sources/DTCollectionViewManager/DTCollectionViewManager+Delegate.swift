@@ -144,32 +144,27 @@ extension DTCollectionViewManager {
                                                     closure: closure)
     }
     
-    @available(iOS 9, *)
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canFocusItemAt:)` method is called for `cellClass`.
     open func canFocus<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {
         collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.canFocusItemAtIndexPath, closure: closure)
     }
     
-    @available (iOS 9, *)
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldUpdateFocusInContext:)` method is called.
     open func shouldUpdateFocus(_ closure: @escaping (UICollectionViewFocusUpdateContext) -> Bool) {
         collectionDelegate?.appendNonCellReaction(.shouldUpdateFocusInContext, closure: closure)
     }
     
-    @available (iOS 9, *)
     /// Registers `closure` tp be executed when `UICollectionViewDelegate.collectionView(_:didUpdateFocusIn:with:)` method is called.
     open func didUpdateFocus(_ closure: @escaping (UICollectionViewFocusUpdateContext, UIFocusAnimationCoordinator) -> Void) {
         collectionDelegate?.appendNonCellReaction(.didUpdateFocusInContext, closure: closure)
     }
     
-    @available (iOS 9, *)
     /// Registers `closure` to be executed when `UICollectionViewDelegate.indexPathForPreferredFocusedView(in:)` method is called
     open func indexPathForPreferredFocusedView(_ closure: @escaping () -> IndexPath?) {
         collectionDelegate?.appendNonCellReaction(.indexPathForPreferredFocusedView, closure: closure)
     }
     
-    @available (iOS 9, *)
     /// Registers `closure` to be executed when `UICollectionViewDelegate.targetIndexPathForMoveFromItemAt(_:toProposed:)` method is called for `cellClass`
     open func targetIndexPathForMovingItem<T:ModelTransfer>(_ cellClass: T.Type, _ closure: @escaping (IndexPath, T, T.ModelType, IndexPath) -> IndexPath) where T: UICollectionViewCell {
         collectionDelegate?.append4ArgumentReaction(for: T.self,
@@ -177,7 +172,6 @@ extension DTCollectionViewManager {
                                                     closure: closure)
     }
     
-    @available (iOS 9, *)
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:targetContentOffsetForProposedContentOffset:)` method is called.
     open func targetContentOffsetForProposedContentOffset(_ closure: @escaping (CGPoint) -> CGPoint) {
         collectionDelegate?.appendNonCellReaction(.targetContentOffsetForProposedContentOffset,
@@ -185,7 +179,6 @@ extension DTCollectionViewManager {
     }
     
     #if os(iOS)
-    @available (iOS 11, *)
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:)` method is called for `cellClass`.
     open func shouldSpringLoad<T:ModelTransfer>(_ cellClass: T.Type, _ closure: @escaping (UISpringLoadedInteractionContext, T, T.ModelType, IndexPath) -> Bool)
         where T: UICollectionViewCell

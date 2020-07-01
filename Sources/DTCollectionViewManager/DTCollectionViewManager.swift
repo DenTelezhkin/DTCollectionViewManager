@@ -156,7 +156,7 @@ open class DTCollectionViewManager {
     #if os(iOS)
     // Yeah, @availability macros does not work on stored properties ¯\_(ツ)_/¯
     private var _collectionDragDelegatePrivate : AnyObject?
-    @available(iOS 11, *)
+
     /// Object, that is responsible for implementing `UICollectionViewDragDelegate` protocol
     open var collectionDragDelegate : DTCollectionViewDragDelegate? {
         get {
@@ -170,7 +170,7 @@ open class DTCollectionViewManager {
     
     // Yeah, @availability macros does not work on stored properties ¯\_(ツ)_/¯
     private var _collectionDropDelegatePrivate : AnyObject?
-    @available(iOS 11, *)
+
     /// Object, that is responsible for implementing `UICOllectionViewDropDelegate` protocol
     open var collectionDropDelegate : DTCollectionViewDropDelegate? {
         get {
@@ -266,10 +266,8 @@ open class DTCollectionViewManager {
         collectionDelegate = DTCollectionViewDelegate(delegate: delegate, collectionViewManager: self)
         
         #if os(iOS)
-        if #available(iOS 11.0, *) {
-            collectionDragDelegate = DTCollectionViewDragDelegate(delegate: delegate, collectionViewManager: self)
-            collectionDropDelegate = DTCollectionViewDropDelegate(delegate: delegate, collectionViewManager: self)
-        }
+        collectionDragDelegate = DTCollectionViewDragDelegate(delegate: delegate, collectionViewManager: self)
+        collectionDropDelegate = DTCollectionViewDropDelegate(delegate: delegate, collectionViewManager: self)
         #endif
     }
     

@@ -29,7 +29,6 @@ import DTModelStorage
 
 #if os(iOS)
     
-@available(iOS 11.0, *)
 /// Object, that implements `UICollectionViewDragDelegate` methods for `DTCollectionViewManager`.
 open class DTCollectionViewDragDelegate : DTCollectionViewDelegateWrapper, UICollectionViewDragDelegate {
     override func delegateWasReset() {
@@ -37,7 +36,6 @@ open class DTCollectionViewDragDelegate : DTCollectionViewDelegateWrapper, UICol
         collectionView?.dragDelegate = self
     }
     
-    @available(iOS 11.0, *)
     /// Implementation of `UICollectionViewDragDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, itemsForBeginning session: UIDragSession, at indexPath: IndexPath) -> [UIDragItem] {
         if let items = perform4ArgumentCellReaction(.itemsForBeginningDragSessionAtIndexPath,
@@ -50,7 +48,6 @@ open class DTCollectionViewDragDelegate : DTCollectionViewDelegateWrapper, UICol
         return (delegate as? UICollectionViewDragDelegate)?.collectionView(collectionView, itemsForBeginning: session, at:indexPath) ?? []
     }
     
-    @available(iOS 11.0, *)
     /// Implementation of `UICollectionViewDragDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, itemsForAddingTo session: UIDragSession, at indexPath: IndexPath, point: CGPoint) -> [UIDragItem] {
         if let items = perform5ArgumentCellReaction(.itemsForAddingToDragSessionAtIndexPath,
@@ -63,7 +60,6 @@ open class DTCollectionViewDragDelegate : DTCollectionViewDelegateWrapper, UICol
         return (delegate as? UICollectionViewDragDelegate)?.collectionView?(collectionView, itemsForAddingTo: session, at: indexPath, point: point) ?? []
     }
     
-    @available(iOS 11.0, *)
     /// Implementation of `UICollectionViewDragDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, dragPreviewParametersForItemAt indexPath: IndexPath) -> UIDragPreviewParameters? {
         if let reaction = cellReaction(.dragPreviewParametersForItemAtIndexPath, location: indexPath) {
@@ -72,21 +68,18 @@ open class DTCollectionViewDragDelegate : DTCollectionViewDelegateWrapper, UICol
         return (delegate as? UICollectionViewDragDelegate)?.collectionView?(collectionView, dragPreviewParametersForItemAt: indexPath)
     }
     
-    @available(iOS 11.0, *)
     /// Implementation of `UICollectionViewDragDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, dragSessionWillBegin session: UIDragSession) {
         _ = performNonCellReaction(.dragSessionWillBegin, argument: session)
         (delegate as? UICollectionViewDragDelegate)?.collectionView?(collectionView, dragSessionWillBegin: session)
     }
     
-    @available(iOS 11.0, *)
     /// Implementation of `UICollectionViewDragDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, dragSessionDidEnd session: UIDragSession) {
         _ = performNonCellReaction(.dragSessionDidEnd, argument: session)
         (delegate as? UICollectionViewDragDelegate)?.collectionView?(collectionView, dragSessionDidEnd: session)
     }
     
-    @available(iOS 11.0, *)
     /// Implementation of `UICollectionViewDragDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, dragSessionAllowsMoveOperation session: UIDragSession) -> Bool {
         if let allows = performNonCellReaction(.dragSessionAllowsMoveOperation, argument: session) as? Bool {
@@ -95,7 +88,6 @@ open class DTCollectionViewDragDelegate : DTCollectionViewDelegateWrapper, UICol
         return (delegate as? UICollectionViewDragDelegate)?.collectionView?(collectionView, dragSessionAllowsMoveOperation: session) ?? true
     }
     
-    @available(iOS 11.0, *)
     /// Implementation of `UICollectionViewDragDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, dragSessionIsRestrictedToDraggingApplication session: UIDragSession) -> Bool {
         if let allows = performNonCellReaction(.dragSessionIsRestrictedToDraggingApplication, argument: session) as? Bool {
