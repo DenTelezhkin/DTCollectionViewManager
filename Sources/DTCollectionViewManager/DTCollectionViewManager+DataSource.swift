@@ -86,13 +86,11 @@ extension DTCollectionViewManager {
     
     }
     
-    @available (tvOS 10.2, *)
     /// Registers `closure` to be executed, when `UICollectionViewDataSource.indexTitlesForCollectionView(_:)` method is called.
     open func indexTitles(_ closure: @escaping () -> [String]?) {
         collectionDataSource?.appendNonCellReaction(.indexTitlesForCollectionView, closure: closure)
     }
     
-    @available (tvOS 10.2, *)
     /// Registers `closure` to be executed when `UICollectionViewDataSource.collectionView(_:indexPathForIndexTitle:)` method is called.
     open func indexPathForIndexTitle(_ closure: @escaping (String, Int) -> IndexPath) {
         collectionDataSource?.appendNonCellReaction(.indexPathForIndexTitleAtIndex, closure: closure)

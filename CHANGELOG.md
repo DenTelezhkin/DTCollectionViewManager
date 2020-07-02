@@ -3,6 +3,14 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Changed
+
+* Deployment targets - iOS 11 / tvOS 11.
+* Minimum Swift version required: 5.0
+* Added support for DTModelStorage/Realm with Realm 5
+
+Please note, that this framework version source is identical to previous version, which supports iOS 8 / tvOS 9 / Swift 4.2 and higher. 
+
 ## [7.1.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/7.1.0)
 
 ### Changed
@@ -441,7 +449,6 @@ This is a release, that is targeted at improving code readability, and reducing 
 ### Features
 
 * When using `DTCoreDataStorage`, section titles are displayed as headers by default(UICollectionElementKindSectionHeader), if NSFetchedController was created with sectionNameKeyPath property.
-
 
 ## [2.6.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/2.6.0)
 
