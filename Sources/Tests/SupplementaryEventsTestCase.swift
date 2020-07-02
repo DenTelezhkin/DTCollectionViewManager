@@ -53,7 +53,7 @@ class SupplementaryEventsTestCase: XCTestCase {
         controller.manager.memoryStorage.setItems([1])
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at:  indexPath(0, 0))
+        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at:  indexPath(0, 0))
         
         XCTAssertEqual((view as? ReactingHeaderFooterView)?.model, "FooBar")
     }
@@ -70,7 +70,7 @@ class SupplementaryEventsTestCase: XCTestCase {
         
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter, at:  indexPath(0, 0))
+        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionFooter, at:  indexPath(0, 0))
         
         XCTAssertEqual((view as? ReactingHeaderFooterView)?.model, "FooBar")
     }

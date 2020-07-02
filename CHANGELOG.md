@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [7.2.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/7.2.0)
+
 ### Changed
 
 * Deployment targets - iOS 11 / tvOS 11.

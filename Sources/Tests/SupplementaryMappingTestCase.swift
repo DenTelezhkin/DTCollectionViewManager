@@ -26,7 +26,7 @@ class SupplementaryMappingTestCase: XCTestCase {
         controller.manager.memoryStorage.setItems([1])
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at:  indexPath(0, 0))
+        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at:  indexPath(0, 0))
         XCTAssertTrue(view is NibHeaderFooterView)
     }
     
@@ -36,7 +36,7 @@ class SupplementaryMappingTestCase: XCTestCase {
         controller.manager.memoryStorage.setItems([1])
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter, at:  indexPath(0, 0))
+        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionFooter, at:  indexPath(0, 0))
         XCTAssertTrue(view is NibHeaderFooterView)
     }
     
@@ -66,24 +66,24 @@ class SupplementaryMappingTestCase: XCTestCase {
     
     func testRegisterSupplementaryClassForKind()
     {
-        controller.manager.registerSupplementary(NibHeaderFooterView.self, forKind: DTCollectionViewElementSectionFooter)
+        controller.manager.registerSupplementary(NibHeaderFooterView.self, forKind: UICollectionView.elementKindSectionFooter)
         verifyFooter()
     }
     
     func testRegisterNibNamedForSupplementaryClass()
     {
-        controller.manager.registerNibNamed("RandomNameHeaderFooterView", forSupplementary: NibHeaderFooterView.self, ofKind: DTCollectionViewElementSectionFooter)
+        controller.manager.registerNibNamed("RandomNameHeaderFooterView", forSupplementary: NibHeaderFooterView.self, ofKind: UICollectionView.elementKindSectionFooter)
         verifyFooter()
     }
     
     func testRegisterNiblessSupplementaryClass() {
-        controller.manager.registerNiblessSupplementary(NiblessHeaderFooterView.self, forKind: DTCollectionViewElementSectionHeader)
+        controller.manager.registerNiblessSupplementary(NiblessHeaderFooterView.self, forKind: UICollectionView.elementKindSectionHeader)
         (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
         controller.manager.memoryStorage.setSectionHeaderModels([1])
         controller.manager.memoryStorage.setItems([1])
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at:  indexPath(0, 0))
+        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at:  indexPath(0, 0))
         XCTAssertTrue(view is NiblessHeaderFooterView)
     }
     
@@ -94,7 +94,7 @@ class SupplementaryMappingTestCase: XCTestCase {
         controller.manager.memoryStorage.setItems([1])
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at:  indexPath(0, 0))
+        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at:  indexPath(0, 0))
         XCTAssertTrue(view is NiblessHeaderFooterView)
     }
     
@@ -105,7 +105,7 @@ class SupplementaryMappingTestCase: XCTestCase {
         controller.manager.memoryStorage.setItems([1])
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter, at:  indexPath(0, 0))
+        let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionFooter, at:  indexPath(0, 0))
         XCTAssertTrue(view is NiblessHeaderFooterView)
     }
 }

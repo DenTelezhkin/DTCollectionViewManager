@@ -106,7 +106,7 @@ class DiffableDatasourcesTestCase: XCTestCase {
         controller.manager.supplementaryStorage?.setSectionHeaderModels([1])
         setItems([])
         XCTAssertNotNil(controller.manager.collectionDataSource?.collectionView(controller.collectionView,
-                                                                             viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader,
+                                                                             viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader,
                                                                              at: indexPath(0, 0)))
     }
     
@@ -117,14 +117,14 @@ class DiffableDatasourcesTestCase: XCTestCase {
         controller.manager.supplementaryStorage?.setSectionFooterModels([1])
         setItems([])
         XCTAssertNotNil(controller.manager.collectionDataSource?.collectionView(controller.collectionView,
-                                                                                     viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter,
+                                                                                     viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionFooter,
                                                                                      at: indexPath(0, 0)))
     }
     
     func testSupplementaryKindsShouldBeSet()
     {
-        XCTAssertEqual(controller.manager.supplementaryStorage?.supplementaryHeaderKind, DTCollectionViewElementSectionHeader)
-        XCTAssertEqual(controller.manager.supplementaryStorage?.supplementaryFooterKind, DTCollectionViewElementSectionFooter)
+        XCTAssertEqual(controller.manager.supplementaryStorage?.supplementaryHeaderKind, UICollectionView.elementKindSectionHeader)
+        XCTAssertEqual(controller.manager.supplementaryStorage?.supplementaryFooterKind, UICollectionView.elementKindSectionFooter)
     }
     
     func testHeaderViewShouldBeCreated()
@@ -134,7 +134,7 @@ class DiffableDatasourcesTestCase: XCTestCase {
         controller.manager.supplementaryStorage?.setSectionHeaderModels([1])
         setItems([1])
         XCTAssert(controller.manager.collectionDataSource?.collectionView(controller.collectionView,
-                                                                                     viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader,
+                                                                                     viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader,
                                                                                      at: indexPath(0, 0)) is NibHeaderFooterView)
     }
     
@@ -145,7 +145,7 @@ class DiffableDatasourcesTestCase: XCTestCase {
         controller.manager.supplementaryStorage?.setSectionFooterModels([1])
         setItems([1])
         XCTAssert(controller.manager.collectionDataSource?.collectionView(controller.collectionView,
-                                                                                     viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter,
+                                                                                     viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionFooter,
                                                                                      at: indexPath(0, 0)) is NibHeaderFooterView)
     }
     
@@ -156,7 +156,7 @@ class DiffableDatasourcesTestCase: XCTestCase {
         controller.manager.supplementaryStorage?.setSectionHeaderModels([1])
         setItems([1])
         XCTAssert(controller.manager.collectionDataSource?.collectionView(controller.collectionView,
-                                                                                             viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader,
+                                                                                             viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader,
                                                                                              at: indexPath(0, 0)) is NibHeaderFooterView)
     }
     
@@ -167,7 +167,7 @@ class DiffableDatasourcesTestCase: XCTestCase {
         controller.manager.supplementaryStorage?.setSectionFooterModels([1])
         setItems([1])
         XCTAssert(controller.manager.collectionDataSource?.collectionView(controller.collectionView,
-                                                                                             viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter,
+                                                                                             viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionFooter,
                                                                                              at: indexPath(0, 0)) is NibHeaderFooterView)
     }
     func testWillDisplayHeaderInSection() {
@@ -180,7 +180,7 @@ class DiffableDatasourcesTestCase: XCTestCase {
         setItems([])
         _ = controller.manager.collectionDelegate?.collectionView(controller.collectionView,
                                                                   willDisplaySupplementaryView: ReactingHeaderFooterView(),
-                                                                  forElementKind: DTCollectionViewElementSectionHeader,
+                                                                  forElementKind: UICollectionView.elementKindSectionHeader,
                                                                   at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
@@ -195,7 +195,7 @@ class DiffableDatasourcesTestCase: XCTestCase {
         setItems([])
         _ = controller.manager.collectionDelegate?.collectionView(controller.collectionView,
                                                                           willDisplaySupplementaryView: ReactingHeaderFooterView(),
-                                                                          forElementKind: DTCollectionViewElementSectionFooter,
+                                                                          forElementKind: UICollectionView.elementKindSectionFooter,
                                                                           at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }

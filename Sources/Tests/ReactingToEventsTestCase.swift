@@ -310,12 +310,12 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     func testWillDisplaySupplementaryViewAtIndexPath() {
         let exp = expectation(description: "willDisplaySupplementaryViewAtIndexPath")
-        sut.manager.willDisplaySupplementaryView(NibHeaderFooterView.self, forElementKind: DTCollectionViewElementSectionHeader, { view, model, section  in
+        sut.manager.willDisplaySupplementaryView(NibHeaderFooterView.self, forElementKind: UICollectionView.elementKindSectionHeader, { view, model, section  in
             exp.fulfill()
             return
         })
         sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:DTCollectionViewElementSectionHeader, at: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionView.elementKindSectionHeader, at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -326,7 +326,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return
         })
         sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:DTCollectionViewElementSectionHeader, at: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionView.elementKindSectionHeader, at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -337,7 +337,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return
         })
         sut.manager.memoryStorage.setSectionFooterModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:DTCollectionViewElementSectionFooter, at: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionView.elementKindSectionFooter, at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -356,12 +356,12 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     func testDidEndDisplayingSupplementaryViewAtIndexPath() {
         let exp = expectation(description: "didEndDisplayingSupplementaryViewAtIndexPath")
-        sut.manager.didEndDisplayingSupplementaryView(NibHeaderFooterView.self, forElementKind: DTCollectionViewElementSectionHeader, { view, model, section  in
+        sut.manager.didEndDisplayingSupplementaryView(NibHeaderFooterView.self, forElementKind: UICollectionView.elementKindSectionHeader, { view, model, section  in
             exp.fulfill()
             return
         })
         sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:DTCollectionViewElementSectionHeader, at: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionView.elementKindSectionHeader, at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -372,7 +372,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return
         })
         sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:DTCollectionViewElementSectionHeader, at: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionView.elementKindSectionHeader, at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -383,7 +383,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return
         })
         sut.manager.memoryStorage.setSectionFooterModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:DTCollectionViewElementSectionFooter, at: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionView.elementKindSectionFooter, at: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     

@@ -115,13 +115,13 @@ class NibNameViewModelMappingTestCase : XCTestCase {
     }
     
     func testHeaderHasXibInMapping() {
-        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: DTCollectionViewElementSectionHeader, mappingBlock: nil)
+        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionView.elementKindSectionHeader, mappingBlock: nil)
         
         XCTAssertEqual(factory.mappings.first?.xibName, "NibHeaderFooterView")
     }
     
     func testFooterHasXibInMapping() {
-        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: DTCollectionViewElementSectionFooter, mappingBlock: nil)
+        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionView.elementKindSectionFooter, mappingBlock: nil)
         
         XCTAssertEqual(factory.mappings.first?.xibName, "NibHeaderFooterView")
     }

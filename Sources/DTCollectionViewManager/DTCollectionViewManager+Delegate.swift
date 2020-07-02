@@ -85,13 +85,13 @@ extension DTCollectionViewManager {
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `UICollectionElementKindSectionHeader`.
     open func willDisplayHeaderView<T:ModelTransfer>(_ headerClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
-        willDisplaySupplementaryView(T.self, forElementKind: DTCollectionViewElementSectionHeader, closure)
+        willDisplaySupplementaryView(T.self, forElementKind: UICollectionView.elementKindSectionHeader, closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `UICollectionElementKindSectionFooter`.
     open func willDisplayFooterView<T:ModelTransfer>(_ footerClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
-        willDisplaySupplementaryView(T.self, forElementKind: DTCollectionViewElementSectionFooter, closure)
+        willDisplaySupplementaryView(T.self, forElementKind: UICollectionView.elementKindSectionFooter, closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplaying:forItemAt:)` method is called for `cellClass`.
@@ -109,13 +109,13 @@ extension DTCollectionViewManager {
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `headerClass` of `UICollectionElementKindSectionHeader`.
     open func didEndDisplayingHeaderView<T:ModelTransfer>(_ headerClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
-        didEndDisplayingSupplementaryView(T.self, forElementKind: DTCollectionViewElementSectionHeader, closure)
+        didEndDisplayingSupplementaryView(T.self, forElementKind: UICollectionView.elementKindSectionHeader, closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `footerClass` of `UICollectionElementKindSectionFooter`.
     open func didEndDisplayingFooterView<T:ModelTransfer>(_ footerClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
     {
-        didEndDisplayingSupplementaryView(T.self, forElementKind: DTCollectionViewElementSectionFooter, closure)
+        didEndDisplayingSupplementaryView(T.self, forElementKind: UICollectionView.elementKindSectionFooter, closure)
     }
     
     @available(iOS, deprecated: 13.0)
@@ -268,13 +268,13 @@ extension DTCollectionViewManager {
     /// Registers `closure` to be executed to determine header size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderViewInSection:)` method, when it's called for header which model is of `itemType`.
     open func referenceSizeForHeaderView<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
-        collectionDelegate?.appendReaction(forSupplementaryKind: DTCollectionViewElementSectionHeader, modelClass: T.self, signature: EventMethodSignature.referenceSizeForHeaderInSection, closure: closure)
+        collectionDelegate?.appendReaction(forSupplementaryKind: UICollectionView.elementKindSectionHeader, modelClass: T.self, signature: EventMethodSignature.referenceSizeForHeaderInSection, closure: closure)
     }
     
     /// Registers `closure` to be executed to determine footer size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterViewInSection:)` method, when it's called for footer which model is of `itemType`.
     open func referenceSizeForFooterView<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
-        collectionDelegate?.appendReaction(forSupplementaryKind: DTCollectionViewElementSectionFooter, modelClass: T.self, signature: EventMethodSignature.referenceSizeForFooterInSection, closure: closure)
+        collectionDelegate?.appendReaction(forSupplementaryKind: UICollectionView.elementKindSectionFooter, modelClass: T.self, signature: EventMethodSignature.referenceSizeForFooterInSection, closure: closure)
     }
     
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:transitionLayoutForOldLayout:toNewLayout:`) method is called

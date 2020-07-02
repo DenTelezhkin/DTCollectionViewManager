@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           DTCollectionViewManager Docs
         </a>
-         (53% documented)
+         (80% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -111,13 +111,8 @@
         <section class="section">
           <div class="section-content top-matter">
             <h1>DTCollectionViewDropPlaceholderContext</h1>
-              <div class="declaration">
-                <div class="language">
-                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">DTCollectionViewDropPlaceholderContext</span></code></pre>
-
-                </div>
-              </div>
-            <p>Undocumented</p>
+            <p>Thin wrapper around <code>UICollectionViewDropPlaceholderContext</code>, which automates insertion of <code>dragItems</code> if you are using <code>MemoryStorage</code>.
+Typically, you would not create this class directly, but use <code><a href="../Classes/DTCollectionViewManager.html#/drop(_:to:with:)">DTCollectionViewManager.drop(_:to:with:)</a></code> convenience method.</p>
 
           </div>
         </section>
@@ -129,9 +124,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:23DTCollectionViewManager0aB22DropPlaceholderContextC7contextSo012UICollectionbdeF0_pvp"></a>
+                    <a name="/"></a>
                     <a name="//apple_ref/swift/Property/context" class="dashAnchor"></a>
-                    <a class="token" href="#/s:23DTCollectionViewManager0aB22DropPlaceholderContextC7contextSo012UICollectionbdeF0_pvp">context</a>
+                    <a class="token" href="#/">context</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -142,23 +137,15 @@
                         <p>Drop context</p>
 
                       </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="k">let</span> <span class="nv">context</span><span class="p">:</span> <span class="kt">UICollectionViewDropPlaceholderContext</span></code></pre>
-
-                        </div>
-                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:23DTCollectionViewManager0aB22DropPlaceholderContextC7context7storageACSo012UICollectionbdeF0_p_14DTModelStorage0K0_ptcfc"></a>
+                    <a name="/"></a>
                     <a name="//apple_ref/swift/Method/init(context:storage:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:23DTCollectionViewManager0aB22DropPlaceholderContextC7context7storageACSo012UICollectionbdeF0_p_14DTModelStorage0K0_ptcfc">init(context:storage:)</a>
+                    <a class="token" href="#/">init(context:storage:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -166,16 +153,8 @@
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Creates <code>DTCollectionViewDropPlaceholderContext</code> with <code><a href="../Classes/DTCollectionViewDropPlaceholderContext.html#/s:23DTCollectionViewManager0aB22DropPlaceholderContextC7contextSo012UICollectionbdeF0_pvp">context</a></code> and <code>storage</code></p>
+                        <p>Creates <code>DTCollectionViewDropPlaceholderContext</code> with <code><a href="../Classes/DTCollectionViewDropPlaceholderContext.html#/context">context</a></code> and <code>storage</code></p>
 
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">public</span> <span class="nf">init</span><span class="p">(</span><span class="nv">context</span><span class="p">:</span> <span class="kt">UICollectionViewDropPlaceholderContext</span><span class="p">,</span> <span class="nv">storage</span><span class="p">:</span> <span class="kt">Storage</span><span class="p">)</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -183,9 +162,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:23DTCollectionViewManager0aB22DropPlaceholderContextC15commitInsertion6ofItem_yx_y10Foundation9IndexPathVcSgtlF"></a>
+                    <a name="/"></a>
                     <a name="//apple_ref/swift/Method/commitInsertion(ofItem:_:)" class="dashAnchor"></a>
-                    <a class="token" href="#/s:23DTCollectionViewManager0aB22DropPlaceholderContextC15commitInsertion6ofItem_yx_y10Foundation9IndexPathVcSgtlF">commitInsertion(ofItem:_:)</a>
+                    <a class="token" href="#/">commitInsertion(ofItem:_:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -197,23 +176,15 @@
 If you are using <code>MemoryStorage</code>, model will be automatically inserted, and no additional actions are required.</p>
 
                       </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="n">commitInsertion</span><span class="o">&lt;</span><span class="kt">T</span><span class="o">&gt;</span><span class="p">(</span><span class="n">ofItem</span> <span class="nv">item</span><span class="p">:</span> <span class="kt">T</span><span class="p">,</span> <span class="n">_</span> <span class="nv">insertionIndexPathClosure</span><span class="p">:</span> <span class="p">((</span><span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)?</span> <span class="o">=</span> <span class="kc">nil</span><span class="p">)</span></code></pre>
-
-                        </div>
-                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/s:23DTCollectionViewManager0aB22DropPlaceholderContextC06deleteE0SbyF"></a>
+                    <a name="/"></a>
                     <a name="//apple_ref/swift/Method/deletePlaceholder()" class="dashAnchor"></a>
-                    <a class="token" href="#/s:23DTCollectionViewManager0aB22DropPlaceholderContextC06deleteE0SbyF">deletePlaceholder()</a>
+                    <a class="token" href="#/">deletePlaceholder()</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -221,17 +192,8 @@ If you are using <code>MemoryStorage</code>, model will be automatically inserte
                     <section class="section">
                       <div class="pointer"></div>
                       <div class="abstract">
-                        <p>Undocumented</p>
+                        <p>Convenience method to call <code>context.deletePlaceholder</code>.</p>
 
-                      </div>
-                      <div class="declaration">
-                        <h4>Declaration</h4>
-                        <div class="language">
-                          <p class="aside-title">Swift</p>
-                          <pre class="highlight swift"><code><span class="kd">@discardableResult</span>
-<span class="kd">open</span> <span class="kd">func</span> <span class="nf">deletePlaceholder</span><span class="p">()</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
-
-                        </div>
                       </div>
                     </section>
                   </div>
@@ -244,7 +206,7 @@ If you are using <code>MemoryStorage</code>, model will be automatically inserte
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2020-04-29)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2020-07-02)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

@@ -1,6 +1,104 @@
 {
   "warnings": [
     {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 48,
+      "symbol": "CollectionViewFactory.registerCellClass(_:mappingBlock:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 61,
+      "symbol": "CollectionViewFactory.registerNiblessCellClass(_:mappingBlock:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 69,
+      "symbol": "CollectionViewFactory.registerNibNamed(_:forCellClass:mappingBlock:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 78,
+      "symbol": "CollectionViewFactory.verifyCell(_:nibName:withReuseIdentifier:in:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 101,
+      "symbol": "CollectionViewFactory.registerNiblessSupplementaryClass(_:forKind:mappingBlock:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 109,
+      "symbol": "CollectionViewFactory.registerSupplementaryClass(_:forKind:mappingBlock:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 123,
+      "symbol": "CollectionViewFactory.registerNibNamed(_:forSupplementaryClass:forKind:mappingBlock:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 132,
+      "symbol": "CollectionViewFactory.verifySupplementaryView(_:nibName:reuseIdentifier:in:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 155,
+      "symbol": "CollectionViewFactory.unregisterCellClass(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 166,
+      "symbol": "CollectionViewFactory.unregisterSupplementaryClass(_:forKind:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 181,
+      "symbol": "CollectionViewFactory.viewModelMapping(for:model:at:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 189,
+      "symbol": "CollectionViewFactory.cellForModel(_:atIndexPath:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 201,
+      "symbol": "CollectionViewFactory.updateCellAt(_:with:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/CollectionViewFactory.swift",
+      "line": 209,
+      "symbol": "CollectionViewFactory.supplementaryViewOfKind(_:forModel:atIndexPath:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
       "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDataSource.swift",
       "line": 93,
       "symbol": "DTCollectionViewDataSource.collectionView(_:canMoveItemAt:)",
@@ -277,6 +375,13 @@
       "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+DataSource.swift",
       "line": 80,
       "symbol": "DTCollectionViewManager.moveItemAtTo(_:)",
+      "symbol_kind": "source.lang.swift.decl.function.method.instance",
+      "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager+DataSource.swift",
+      "line": 86,
+      "symbol": "DTCollectionViewManager.move(_:_:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },

@@ -40,9 +40,9 @@ class StoryboardMappingTestCase: XCTestCase {
         
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
-        let headerView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at:  indexPath(0, 0)) as? StoryboardCollectionReusableHeaderView
+        let headerView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at:  indexPath(0, 0)) as? StoryboardCollectionReusableHeaderView
         
-        let footerView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionFooter, at:  indexPath(0, 0)) as? StoryboardCollectionReusableFooterView
+        let footerView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionFooter, at:  indexPath(0, 0)) as? StoryboardCollectionReusableFooterView
         
         XCTAssertEqual(headerView?.storyboardLabel.text, "Header")
         XCTAssertEqual(footerView?.storyboardLabel.text, "Footer")

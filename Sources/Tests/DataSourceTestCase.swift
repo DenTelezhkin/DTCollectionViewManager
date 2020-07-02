@@ -143,8 +143,8 @@ class DataSourceTestCase: XCTestCase {
     
     func testSupplementaryKindsShouldBeSet()
     {
-        XCTAssertEqual(controller.manager.memoryStorage.supplementaryHeaderKind, DTCollectionViewElementSectionHeader)
-        XCTAssertEqual(controller.manager.memoryStorage.supplementaryFooterKind, DTCollectionViewElementSectionFooter)
+        XCTAssertEqual(controller.manager.memoryStorage.supplementaryHeaderKind, UICollectionView.elementKindSectionHeader)
+        XCTAssertEqual(controller.manager.memoryStorage.supplementaryFooterKind, UICollectionView.elementKindSectionFooter)
     }
     
     func testReloadRowsClosure() {
@@ -174,11 +174,11 @@ class DataSourceTestCase: XCTestCase {
     func testNilSupplementaryModelLeadsToAnomaly() {
         let exp = expectation(description: "Nil header model in storage")
         let model: Int?? = nil
-        let anomaly = DTCollectionViewManagerAnomaly.nilSupplementaryModel(kind: DTCollectionViewElementSectionHeader, indexPath: indexPath(0, 0))
+        let anomaly = DTCollectionViewManagerAnomaly.nilSupplementaryModel(kind: UICollectionView.elementKindSectionHeader, indexPath: indexPath(0, 0))
         controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
         controller.manager.registerHeader(NibHeaderFooterView.self)
         controller.manager.memoryStorage.setSectionHeaderModels([model])
-        let _ = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at: indexPath(0, 0))
+        let _ = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath(0, 0))
         waitForExpectations(timeout: 0.1)
         
         XCTAssertEqual(anomaly.debugDescription, "❗️[DTCollectionViewManager] UICollectionView requested a supplementary view of kind: UICollectionElementKindSectionHeader at [0, 0], however the model was nil.")
@@ -197,11 +197,11 @@ class DataSourceTestCase: XCTestCase {
     
     func testNoSupplementaryMappingTriggersToAnomaly() {
         let exp = expectation(description: "No supplementary mapping found")
-        let anomaly = DTCollectionViewManagerAnomaly.noSupplementaryMappingFound(modelDescription: "0", kind: DTCollectionViewElementSectionHeader, indexPath: indexPath(0, 0))
+        let anomaly = DTCollectionViewManagerAnomaly.noSupplementaryMappingFound(modelDescription: "0", kind: UICollectionView.elementKindSectionHeader, indexPath: indexPath(0, 0))
         controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
         controller.manager.memoryStorage.setSectionHeaderModels([0])
         controller.manager.memoryStorage.setItems([1])
-        let _ = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: DTCollectionViewElementSectionHeader, at: indexPath(0, 0))
+        let _ = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath(0, 0))
         waitForExpectations(timeout: 0.1)
         
         XCTAssertEqual(anomaly.debugDescription, "❗️[DTCollectionViewManager] UICollectionView requested a supplementary view of kind: UICollectionElementKindSectionHeader for model ar [0, 0], but view model mapping for it was not found, model description: 0")

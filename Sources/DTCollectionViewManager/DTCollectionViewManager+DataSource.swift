@@ -44,7 +44,7 @@ extension DTCollectionViewManager {
         let indexPathClosure : (T, T.ModelType, IndexPath) -> Void = { view, model, indexPath in
             closure(view, model, indexPath.section)
         }
-        configureSupplementary(T.self, ofKind: DTCollectionViewElementSectionHeader, indexPathClosure)
+        configureSupplementary(T.self, ofKind: UICollectionView.elementKindSectionHeader, indexPathClosure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionView` requests `footerClass` in `UICollectionViewDataSource.collectionView(_:viewForSupplementaryElementOf:at:)` method and footer is being configured.
@@ -55,7 +55,7 @@ extension DTCollectionViewManager {
         let indexPathClosure : (T, T.ModelType, IndexPath) -> Void = { view, model, indexPath in
             closure(view, model, indexPath.section)
         }
-        configureSupplementary(T.self, ofKind: DTCollectionViewElementSectionFooter, indexPathClosure)
+        configureSupplementary(T.self, ofKind: UICollectionView.elementKindSectionFooter, indexPathClosure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionView` requests `supplementaryClass` of `kind` in `UICollectionViewDataSource.collectionView(_:viewForSupplementaryElementOf:at:)` method and supplementary view is being configured.
