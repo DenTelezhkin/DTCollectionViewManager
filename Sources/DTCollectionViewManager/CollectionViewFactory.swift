@@ -210,8 +210,7 @@ extension CollectionViewFactory
     {
         if let mapping = mappings.mappingCandidates(for: .supplementaryView(kind: kind), withModel: model, at: indexPath).first
         {
-            let viewClassName = String(describing: mapping.viewClass)
-            let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: viewClassName, for: indexPath)
+            let reusableView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: mapping.reuseIdentifier, for: indexPath)
             mapping.updateBlock(reusableView, model)
             return reusableView
         }

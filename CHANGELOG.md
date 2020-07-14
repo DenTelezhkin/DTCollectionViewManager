@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Fixed
+
+* Supplementary views now correctly use `ViewModelMapping.reuseIdentifier` instead of falling back to name of the view class.
+
 ## [7.2.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/7.2.0)
 
 ### Changed
