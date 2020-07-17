@@ -53,7 +53,6 @@ class DiffableDatasourcesTestCase: XCTestCase {
         super.setUp()
         guard #available(iOS 13, tvOS 13, *) else { return }
         let _ = controller.view
-        controller.manager.register(NibCell.self)
         let temp : UICollectionViewDiffableDataSource<Section, Int> =  controller.manager.configureDiffableDataSource(modelProvider: { $1 })
         diffableDataSource = temp
         controller.manager.register(NibCell.self)

@@ -77,7 +77,7 @@ class SupplementaryMappingTestCase: XCTestCase {
     }
     
     func testRegisterNiblessSupplementaryClass() {
-        controller.manager.registerNiblessSupplementary(NiblessHeaderFooterView.self, forKind: UICollectionView.elementKindSectionHeader)
+        controller.manager.registerSupplementary(NiblessHeaderFooterView.self, forKind: UICollectionView.elementKindSectionHeader)
         (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
         controller.manager.memoryStorage.setSectionHeaderModels([1])
         controller.manager.memoryStorage.setItems([1])
@@ -88,7 +88,7 @@ class SupplementaryMappingTestCase: XCTestCase {
     }
     
     func testRegisterNiblessHeader() {
-        controller.manager.registerNiblessHeader(NiblessHeaderFooterView.self)
+        controller.manager.registerHeader(NiblessHeaderFooterView.self)
         (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
         controller.manager.memoryStorage.setSectionHeaderModels([1])
         controller.manager.memoryStorage.setItems([1])
@@ -99,7 +99,7 @@ class SupplementaryMappingTestCase: XCTestCase {
     }
     
     func testRegisterNiblessFooter() {
-        controller.manager.registerNiblessFooter(NiblessHeaderFooterView.self)
+        controller.manager.registerFooter(NiblessHeaderFooterView.self)
         (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize = CGSize(width: 320, height: 50)
         controller.manager.memoryStorage.setSectionFooterModels([1])
         controller.manager.memoryStorage.setItems([1])

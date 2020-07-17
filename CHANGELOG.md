@@ -3,6 +3,47 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### New
+
+* It's now possible to register collection view cells, that don't conform to `DTModelTransfer` protocol:
+
+```swift
+manager.register(UICollectionViewCell.self, String.self) { cell, indexPath, model in
+    // configure cell with model which is of type String when passed into configuration closure.
+}
+```
+
+This is particularly useful on iOS / tvOS 14 and higher, where you can configure `UICollectionViewListCell` without needing to subclass it.
+Cells, registered in this way, can safely coexist with cells, that conform to `DTModelTransfer` protocol. Conditional mappings are also supported (multiple trailing closures syntax available in Swift 5.3):
+
+```swift
+manager.register(UICollectionViewCell.self, String.self) { cell, indexPath, model in
+    // configure cell with model which is of type String when passed into configuration closure.
+} mapping {
+    $0.condition = .section(0)
+}
+```
+
+### Changed
+
+* On iOS/tvOS 14 and higher, cell and supplementary views now use `UICollectionView.dequeueConfiguredReusableCell` and `UICollectionView.dequeueConfiguredReusableSupplementary` to be dequeued.
+* `DTModelTransfer` `update(with:)` method for such cells and supplementary views is called immediately after `dequeueConfiguredReusableCell` \ `dequeueConfiguredReusableSupplementary` return.
+
+### Breaking
+
+* Removed `registerNibless(_:mappingBlock:)`, `registerNiblessSupplementary(_:forKind:mappingBlock:)`,`registerNiblessFooter(_:mappingBlock:)`,`registerNiblessHeader(_:mappingBlock:)` methods. Please use `register(_:handler:mapping:)`, `registerHeader(_:handler:mapping:)`, `registerFooter(_:handler:mapping:)` and `registerSupplementary(_:forKind:handler:mapping:)` methods instead.
+* Cells, headers and footers created in storyboard now need to be explicitly configured in view mapping:
+
+```swift
+register(StoryboardCell.self) { mapping in
+    mapping.cellRegisteredByStoryboard = true
+}
+
+registerHeader(StoryboardHeader.self) { mapping in 
+    mapping.supplementaryRegisteredByStoryboard = true
+}
+```
+
 ### Fixed
 
 * Supplementary views now correctly use `ViewModelMapping.reuseIdentifier` instead of falling back to name of the view class.

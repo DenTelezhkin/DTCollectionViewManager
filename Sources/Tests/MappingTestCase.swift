@@ -49,7 +49,7 @@ class MappingTestCase: XCTestCase {
     
     func testNiblessMapping()
     {
-        controller.manager.registerNibless(StringCell.self)
+        controller.manager.register(StringCell.self)
         controller.manager.memoryStorage.addItem("foo")
         
         XCTAssertEqual(controller.manager.memoryStorage.item(at: indexPath(0, 0)) as? String, "foo")
@@ -102,26 +102,20 @@ class NibNameViewModelMappingTestCase : XCTestCase {
         factory = CollectionViewFactory(collectionView: UICollectionView(frame: CGRect.zero, collectionViewLayout: UICollectionViewFlowLayout()))
     }
     
-    func testRegisterCellWithoutNibYieldsNoXibName() {
-        factory.registerCellClass(NiblessCell.self, mappingBlock: nil)
-        
-        XCTAssertNil(factory.mappings.first?.xibName)
-    }
-    
     func testCellWithXibHasXibNameInMapping() {
-        factory.registerCellClass(NibCell.self, mappingBlock: nil)
+        factory.registerCellClass(NibCell.self, handler: { _,_,_ in }, mapping: nil)
         
         XCTAssertEqual(factory.mappings.first?.xibName, "NibCell")
     }
     
     func testHeaderHasXibInMapping() {
-        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionView.elementKindSectionHeader, mappingBlock: nil)
+        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionView.elementKindSectionHeader, handler: { _,_,_ in }, mapping: nil)
         
         XCTAssertEqual(factory.mappings.first?.xibName, "NibHeaderFooterView")
     }
     
     func testFooterHasXibInMapping() {
-        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionView.elementKindSectionFooter, mappingBlock: nil)
+        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionView.elementKindSectionFooter, handler: { _,_,_ in } , mapping: nil)
         
         XCTAssertEqual(factory.mappings.first?.xibName, "NibHeaderFooterView")
     }

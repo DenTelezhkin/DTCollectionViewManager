@@ -21,7 +21,9 @@ class StoryboardMappingTestCase: XCTestCase {
     }
     
     func testStoryboardCellIsCreatedAndOutletsAreWired() {
-        controller.manager.register(StoryboardCollectionViewCell.self)
+        controller.manager.register(StoryboardCollectionViewCell.self) {
+            $0.cellRegisteredByStoryboard = true
+        }
         controller.manager.memoryStorage.addItem(3)
         
         let cell = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, cellForItemAt: indexPath(0, 0)) as? StoryboardCollectionViewCell
@@ -30,8 +32,12 @@ class StoryboardMappingTestCase: XCTestCase {
     }
     
     func testSupplementaryHeadersAreRegisteredAndOutletsAreWired() {
-        controller.manager.registerHeader(StoryboardCollectionReusableHeaderView.self)
-        controller.manager.registerFooter(StoryboardCollectionReusableFooterView.self)
+        controller.manager.registerHeader(StoryboardCollectionReusableHeaderView.self) {
+            $0.supplementaryRegisteredByStoryboard = true
+        }
+        controller.manager.registerFooter(StoryboardCollectionReusableFooterView.self) {
+            $0.supplementaryRegisteredByStoryboard = true
+        }
         
         
         controller.manager.memoryStorage.setSectionHeaderModels(["1"])

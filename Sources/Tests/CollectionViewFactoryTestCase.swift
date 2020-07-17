@@ -37,7 +37,7 @@ class CollectionViewFactoryTestCase: XCTestCase {
     }
     
     func testUpdateCellAtIndexPath() {
-        controller.manager.registerNibless(UpdatableCell.self)
+        controller.manager.register(UpdatableCell.self)
         let model = UpdatableModel()
         controller.manager.memoryStorage.addItem(model)
         

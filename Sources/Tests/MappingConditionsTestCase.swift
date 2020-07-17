@@ -23,7 +23,7 @@ class MappingConditionsTestCase: XCTestCase {
         controller.manager.register(NibCell.self) { mapping in
             mapping.condition = .section(0)
         }
-        controller.manager.registerNibless(AnotherIntCell.self) { mapping in
+        controller.manager.register(AnotherIntCell.self) { mapping in
             mapping.condition = .section(1)
         }
         
@@ -44,7 +44,7 @@ class MappingConditionsTestCase: XCTestCase {
                 return model > 2
             })
         }
-        controller.manager.registerNibless(AnotherIntCell.self) { mapping in
+        controller.manager.register(AnotherIntCell.self) { mapping in
             mapping.condition = .custom({ indexPath, model -> Bool in
                 guard let model = model as? Int else { return false }
                 return model <= 2

@@ -23,15 +23,15 @@ class CollectionViewCrashTest: XCTestCase, DTCollectionViewManageable {
     
     override func setUp() {
         collectionView = UICollectionView(frame: CGRect(x: 0, y: 0, width: 100, height: 100), collectionViewLayout: UICollectionViewFlowLayout())
-        manager.registerNibless(Cell.self)
+        manager.register(Cell.self)
     }
     
-//    func testThisWillCrash() {
-//        manager.memoryStorage.setItems([Model(), Model()])
-//        manager.memoryStorage.addItems([Model(), Model(), Model()])
-//
-//        XCTAssertEqual(manager.memoryStorage.totalNumberOfItems, 5)
-//    }
+    func testThisShouldNotCrash() {
+        manager.memoryStorage.setItems([Model(), Model()])
+        manager.memoryStorage.addItems([Model(), Model(), Model()])
+
+        XCTAssertEqual(manager.memoryStorage.totalNumberOfItems, 5)
+    }
     
     func testSettingAndAddingItemsWithDeferredDatasourceUpdatesWorks() {
         manager.memoryStorage.defersDatasourceUpdates = true
