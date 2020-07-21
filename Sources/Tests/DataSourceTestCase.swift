@@ -239,7 +239,9 @@ class DataSourceTestCase: XCTestCase {
                                                                    cellClass: "NibCell",
                                                                    expectedCellClass: "StringCell")
         controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
-        controller.manager.registerNibNamed("RandomNibNameCell", for: StringCell.self)
+        controller.manager.register(StringCell.self) { mapping in
+            mapping.xibName = "RandomNibNameCell"
+        }
         waitForExpectations(timeout: 0.1)
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] Attempted to register xib RandomNibNameCell, but view found in a xib was of type NibCell, while expected type is StringCell. This can prevent cells from being updated with models and react to events.")
@@ -250,7 +252,9 @@ class DataSourceTestCase: XCTestCase {
         let anomaly = DTCollectionViewManagerAnomaly.emptyXibFile(xibName: "EmptyXib",
                                                              expectedViewClass: "StringCell")
         controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
-        controller.manager.registerNibNamed("EmptyXib", for: StringCell.self)
+        controller.manager.register(StringCell.self) { mapping in
+            mapping.xibName = "EmptyXib"
+        }
         waitForExpectations(timeout: 0.1)
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] Attempted to register xib EmptyXib for StringCell, but this xib does not contain any views.")
@@ -261,7 +265,9 @@ class DataSourceTestCase: XCTestCase {
         let anomaly = DTCollectionViewManagerAnomaly.emptyXibFile(xibName: "EmptyXib",
                                                                   expectedViewClass: "NibHeaderFooterView")
         controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
-        controller.manager.registerNibNamed("EmptyXib", forHeader: NibHeaderFooterView.self)
+        controller.manager.registerHeader(NibHeaderFooterView.self) { mapping in
+            mapping.xibName = "EmptyXib"
+        }
         waitForExpectations(timeout: 0.1)
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] Attempted to register xib EmptyXib for NibHeaderFooterView, but this xib does not contain any views.")
@@ -273,7 +279,9 @@ class DataSourceTestCase: XCTestCase {
                                                                            viewClass: "NibHeaderFooterView",
                                                                            expectedViewClass: "ReactingHeaderFooterView")
         controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
-        controller.manager.registerNibNamed("NibView", forHeader: ReactingHeaderFooterView.self)
+        controller.manager.registerHeader(ReactingHeaderFooterView.self) { mapping in
+            mapping.xibName = "NibView"
+        }
         waitForExpectations(timeout: 0.1)
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] Attempted to register xib NibView, but view found in a xib was of type NibHeaderFooterView, while expected type is ReactingHeaderFooterView. This can prevent supplementary views from being updated with models and react to events.")

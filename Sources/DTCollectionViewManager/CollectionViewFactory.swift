@@ -125,7 +125,7 @@ extension CollectionViewFactory
         }
     }
     
-    func registerSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String, handler: @escaping (T, String, IndexPath) -> Void, mapping: ((ViewModelMapping) -> Void)?) where T:UICollectionReusableView
+    func registerSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, ofKind kind: String, handler: @escaping (T, String, IndexPath) -> Void, mapping: ((ViewModelMapping) -> Void)?) where T:UICollectionReusableView
     {
         let mapping = ViewModelMapping(supplementaryClass: T.self, kind: kind, supplementaryConfiguration: handler, mapping: mapping)
         
@@ -156,7 +156,7 @@ extension CollectionViewFactory
         mappings.append(mapping)
     }
     
-    func registerSupplementaryClass<T:UICollectionReusableView, U>(_ supplementaryClass: T.Type, _ modelType: U, forKind kind: String, handler: @escaping (T, String, IndexPath) -> Void, mapping: ((ViewModelMapping) -> Void)?)
+    func registerSupplementaryClass<T:UICollectionReusableView, U>(_ supplementaryClass: T.Type, _ modelType: U, ofKind kind: String, handler: @escaping (T, String, IndexPath) -> Void, mapping: ((ViewModelMapping) -> Void)?)
     {
         let mapping = ViewModelMapping(supplementaryClass: T.self, modelType: U.self, kind: kind, supplementaryConfiguration: handler, mapping: mapping)
         
@@ -218,7 +218,7 @@ extension CollectionViewFactory
         collectionView.register(nilNib, forCellWithReuseIdentifier: String(describing: T.self))
     }
     
-    func unregisterSupplementaryClass<T:ModelTransfer>(_ klass: T.Type, forKind kind: String) where T:UICollectionReusableView {
+    func unregisterSupplementaryClass<T:ModelTransfer>(_ klass: T.Type, ofKind kind: String) where T:UICollectionReusableView {
         mappings = mappings.filter({ mapping in
             if mapping.viewClass is T.Type && mapping.viewType == .supplementaryView(kind: kind) { return false }
             return true

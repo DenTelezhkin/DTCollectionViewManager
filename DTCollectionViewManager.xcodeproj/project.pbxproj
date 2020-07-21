@@ -107,6 +107,7 @@
 		9A99AA861B8A219300428802 /* Main.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA841B8A219300428802 /* Main.storyboard */; };
 		9A99AA881B8A219300428802 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA871B8A219300428802 /* Assets.xcassets */; };
 		9A99AA8B1B8A219300428802 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA891B8A219300428802 /* LaunchScreen.storyboard */; };
+		9AA52DBB24C7A241002FFC89 /* DTCollectionViewManager+Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA52DBA24C7A241002FFC89 /* DTCollectionViewManager+Deprecated.swift */; };
 		9AA83F1C22D4D77700C20E87 /* DTModelStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9AA83F1B22D4D77700C20E87 /* DTModelStorage */; };
 		9ABE13FB24599CE2008874D2 /* Exports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE13FA24599CE2008874D2 /* Exports.swift */; };
 		9ADFC8EF1B8B73A300AB4CD9 /* SectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8EE1B8B73A300AB4CD9 /* SectionsViewController.swift */; };
@@ -238,6 +239,7 @@
 		9A99AA871B8A219300428802 /* Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = Assets.xcassets; sourceTree = "<group>"; };
 		9A99AA8A1B8A219300428802 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		9A99AA911B8A219300428802 /* Tests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
+		9AA52DBA24C7A241002FFC89 /* DTCollectionViewManager+Deprecated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTCollectionViewManager+Deprecated.swift"; sourceTree = "<group>"; };
 		9ABE13FA24599CE2008874D2 /* Exports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exports.swift; sourceTree = "<group>"; };
 		9AC532381BE5F77F006CB18A /* Tests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ADFC8EE1B8B73A300AB4CD9 /* SectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionsViewController.swift; sourceTree = "<group>"; };
@@ -400,6 +402,7 @@
 				3E33C72A22B81BB0006FBB21 /* DTCollectionViewManager+Registration.swift */,
 				3E33C72B22B81BB0006FBB21 /* DTCollectionViewDelegateWrapper.swift */,
 				9ABE13FA24599CE2008874D2 /* Exports.swift */,
+				9AA52DBA24C7A241002FFC89 /* DTCollectionViewManager+Deprecated.swift */,
 			);
 			path = DTCollectionViewManager;
 			sourceTree = "<group>";
@@ -789,6 +792,7 @@
 				3E33C73522B81BC4006FBB21 /* DTCollectionViewDropDelegate.swift in Sources */,
 				3E33C72E22B81BC4006FBB21 /* CollectionViewFactory.swift in Sources */,
 				3E33C73622B81BC4006FBB21 /* DTCollectionViewDataSource.swift in Sources */,
+				9AA52DBB24C7A241002FFC89 /* DTCollectionViewManager+Deprecated.swift in Sources */,
 				3E33C73A22B81BC4006FBB21 /* DTCollectionViewManager+Registration.swift in Sources */,
 				3E33C73422B81BC4006FBB21 /* DTCollectionViewManager+Drop.swift in Sources */,
 				3E33C72D22B81BC4006FBB21 /* DTCollectionViewManagerAnomalyHandler.swift in Sources */,

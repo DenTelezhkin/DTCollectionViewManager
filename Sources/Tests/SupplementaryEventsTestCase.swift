@@ -44,27 +44,27 @@ class SupplementaryEventsTestCase: XCTestCase {
     
     func testHeaderMappingFromHeaderFooterView()
     {
-        controller.manager.registerHeader(ReactingHeaderFooterView.self)
+        controller.manager.registerHeader(ReactingHeaderFooterView.self, handler: { header, kind, indexPath in
+            header.configureModel = "FooBar"
+        })
         (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
-        controller.manager.configureHeader(ReactingHeaderFooterView.self) { header, model, index in
-            header.model = "FooBar"
-        }
         controller.manager.memoryStorage.setSectionHeaderModels(["1"])
         controller.manager.memoryStorage.setItems([1])
         controller.collectionView?.performBatchUpdates(nil, completion: nil)
         
         let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at:  indexPath(0, 0))
         
-        XCTAssertEqual((view as? ReactingHeaderFooterView)?.model, "FooBar")
+        XCTAssertEqual((view as? ReactingHeaderFooterView)?.configureModel, "FooBar")
+        XCTAssertEqual((view as? ReactingHeaderFooterView)?.model, "1")
     }
     
     func testFooterMappingFromHeaderFooterView()
     {
-        controller.manager.registerFooter(ReactingHeaderFooterView.self)
+        controller.manager.registerFooter(ReactingHeaderFooterView.self, handler: { header, kind, indexPath in
+            header.configureModel = "FooBar"
+        })
         (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize = CGSize(width: 320, height: 50)
-        controller.manager.configureFooter(ReactingHeaderFooterView.self) { footer, model, index in
-            footer.model = "FooBar"
-        }
+
         controller.manager.memoryStorage.setSectionFooterModels(["1"])
         controller.manager.memoryStorage.setItems([1])
         
@@ -72,6 +72,7 @@ class SupplementaryEventsTestCase: XCTestCase {
         
         let view = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionFooter, at:  indexPath(0, 0))
         
-        XCTAssertEqual((view as? ReactingHeaderFooterView)?.model, "FooBar")
+        XCTAssertEqual((view as? ReactingHeaderFooterView)?.configureModel, "FooBar")
+        XCTAssertEqual((view as? ReactingHeaderFooterView)?.model, "1")
     }
 }

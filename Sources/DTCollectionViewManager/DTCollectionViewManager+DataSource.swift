@@ -27,45 +27,6 @@ import UIKit
 import DTModelStorage
 
 extension DTCollectionViewManager {
-    
-    /// Registers `closure` to be executed, when `UICollectionView` requests `cellClass` in `UICollectionViewDataSource.collectionView(_:cellForItemAt:)` method and cell is being configured.
-    ///
-    /// This closure will be performed *after* cell is created and `update(with:)` method is called.
-    open func configure<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
-    {
-        collectionDataSource?.appendReaction(for: T.self, signature: .configureCell, closure: closure)
-    }
-    
-    /// Registers `closure` to be executed, when `UICollectionView` requests `headerClass` in `UICollectionViewDataSource.collectionView(_:viewForSupplementaryElementOf:at:)` method and header is being configured.
-    ///
-    /// This closure will be performed *after* header is created and `update(with:)` method is called.
-    open func configureHeader<T:ModelTransfer>(_ headerClass: T.Type, _ closure: @escaping (T, T.ModelType, Int) -> Void) where T: UICollectionReusableView
-    {
-        let indexPathClosure : (T, T.ModelType, IndexPath) -> Void = { view, model, indexPath in
-            closure(view, model, indexPath.section)
-        }
-        configureSupplementary(T.self, ofKind: UICollectionView.elementKindSectionHeader, indexPathClosure)
-    }
-    
-    /// Registers `closure` to be executed, when `UICollectionView` requests `footerClass` in `UICollectionViewDataSource.collectionView(_:viewForSupplementaryElementOf:at:)` method and footer is being configured.
-    ///
-    /// This closure will be performed *after* footer is created and `update(with:)` method is called.
-    open func configureFooter<T:ModelTransfer>(_ footerClass: T.Type, _ closure: @escaping (T, T.ModelType, Int) -> Void) where T: UICollectionReusableView
-    {
-        let indexPathClosure : (T, T.ModelType, IndexPath) -> Void = { view, model, indexPath in
-            closure(view, model, indexPath.section)
-        }
-        configureSupplementary(T.self, ofKind: UICollectionView.elementKindSectionFooter, indexPathClosure)
-    }
-    
-    /// Registers `closure` to be executed, when `UICollectionView` requests `supplementaryClass` of `kind` in `UICollectionViewDataSource.collectionView(_:viewForSupplementaryElementOf:at:)` method and supplementary view is being configured.
-    ///
-    /// This closure will be performed *after* supplementary view is created and `update(with:)` method is called.
-    open func configureSupplementary<T:ModelTransfer>(_ supplementaryClass: T.Type, ofKind kind: String, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
-    {
-        collectionDataSource?.appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: .configureSupplementary, closure: closure)
-    }
-    
     /// Registers `closure` to be executed, when `UICollectionViewDataSource.collectionView(_:canMoveItemAt:)` method is called for `cellClass`.
     open func canMove<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
     {

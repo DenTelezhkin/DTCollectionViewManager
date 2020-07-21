@@ -65,7 +65,8 @@ class MappingConditionsTestCase: XCTestCase {
             mapping.condition = .section(0)
             mapping.reuseIdentifier = "NibCell One"
         }
-        controller.manager.registerNibNamed("CustomNibCell", for: NibCell.self) { mapping in
+        controller.manager.register(NibCell.self) { mapping in
+            mapping.xibName = "CustomNibCell"
             mapping.condition = .section(1)
             mapping.reuseIdentifier = "NibCell Two"
         }

@@ -20,7 +20,9 @@ class MappingTestCase: XCTestCase {
     
     func testRegistrationWithDifferentNibName()
     {
-        controller.manager.registerNibNamed("RandomNibNameCell", for: NibCell.self)
+        controller.manager.register(NibCell.self) { mapping in
+            mapping.xibName = "RandomNibNameCell"
+        }
         
         controller.manager.memoryStorage.addItem(3)
         
@@ -109,13 +111,13 @@ class NibNameViewModelMappingTestCase : XCTestCase {
     }
     
     func testHeaderHasXibInMapping() {
-        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionView.elementKindSectionHeader, handler: { _,_,_ in }, mapping: nil)
+        factory.registerSupplementaryClass(NibHeaderFooterView.self, ofKind: UICollectionView.elementKindSectionHeader, handler: { _,_,_ in }, mapping: nil)
         
         XCTAssertEqual(factory.mappings.first?.xibName, "NibHeaderFooterView")
     }
     
     func testFooterHasXibInMapping() {
-        factory.registerSupplementaryClass(NibHeaderFooterView.self, forKind: UICollectionView.elementKindSectionFooter, handler: { _,_,_ in } , mapping: nil)
+        factory.registerSupplementaryClass(NibHeaderFooterView.self, ofKind: UICollectionView.elementKindSectionFooter, handler: { _,_,_ in } , mapping: nil)
         
         XCTAssertEqual(factory.mappings.first?.xibName, "NibHeaderFooterView")
     }

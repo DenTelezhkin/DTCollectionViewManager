@@ -151,7 +151,9 @@ class DiffableDatasourcesTestCase: XCTestCase {
     func testHeaderViewShouldBeCreatedFromXib()
     {
         guard #available(iOS 13, tvOS 13, *) else { return }
-        controller.manager.registerNibNamed("NibHeaderFooterView", forHeader: NibHeaderFooterView.self)
+        controller.manager.registerHeader(NibHeaderFooterView.self) { mapping in
+            mapping.xibName = "NibHeaderFooterView"
+        }
         controller.manager.supplementaryStorage?.setSectionHeaderModels([1])
         setItems([1])
         XCTAssert(controller.manager.collectionDataSource?.collectionView(controller.collectionView,
@@ -162,7 +164,9 @@ class DiffableDatasourcesTestCase: XCTestCase {
     func testFooterViewShouldBeCreatedFromXib()
     {
         guard #available(iOS 13, tvOS 13, *) else { return }
-        controller.manager.registerNibNamed("NibHeaderFooterView", forFooter: NibHeaderFooterView.self)
+        controller.manager.registerFooter(NibHeaderFooterView.self) { mapping in
+            mapping.xibName = "NibHeaderFooterView"
+        }
         controller.manager.supplementaryStorage?.setSectionFooterModels([1])
         setItems([1])
         XCTAssert(controller.manager.collectionDataSource?.collectionView(controller.collectionView,

@@ -29,9 +29,12 @@ manager.register(UICollectionViewCell.self, String.self) { cell, indexPath, mode
 * On iOS/tvOS 14 and higher, cell and supplementary views now use `UICollectionView.dequeueConfiguredReusableCell` and `UICollectionView.dequeueConfiguredReusableSupplementary` to be dequeued.
 * `DTModelTransfer` `update(with:)` method for such cells and supplementary views is called immediately after `dequeueConfiguredReusableCell` \ `dequeueConfiguredReusableSupplementary` return.
 
+### Deprecations
+
+* Several cell/header/footer/supplementary view registration methods have been deprecated to unify registration logic. Please use `register(_:handler:mapping:)`, `registerHeader(_:handler:mapping:)`, `registerFooter(_:handler:mapping:)` and `registerSupplementary(_:forKind:handler:mapping:)` as a replacements for all of those methods. For more information on those changes, please read [migration guide LINK MISSING](link to migration guide)
+
 ### Breaking
 
-* Removed `registerNibless(_:mappingBlock:)`, `registerNiblessSupplementary(_:forKind:mappingBlock:)`,`registerNiblessFooter(_:mappingBlock:)`,`registerNiblessHeader(_:mappingBlock:)` methods. Please use `register(_:handler:mapping:)`, `registerHeader(_:handler:mapping:)`, `registerFooter(_:handler:mapping:)` and `registerSupplementary(_:forKind:handler:mapping:)` methods instead.
 * Cells, headers and footers created in storyboard now need to be explicitly configured in view mapping:
 
 ```swift
@@ -43,6 +46,9 @@ registerHeader(StoryboardHeader.self) { mapping in
     mapping.supplementaryRegisteredByStoryboard = true
 }
 ```
+
+* All non-deprecated registration methods now have an additional `handler` closure, that allows to configure cells/headers/footers/supplementary views that are dequeued from UICollectionView. This is a direct replacement for `configure(_:_:`, `configureHeader(_:_:)`, `configureFooter(_:_:)` and `configureSupplementary(_:ofKind:_:`, that are all now deprecated. 
+* On iOS / tvOS 14 / Xcode 12 and higher handler closure, that is passed to registration methods, is used to call new `dequeueConfiguredReusableCell(using:for:item:)` and `dequeueConfiguredReusableSupplementary(using:for:)` methods on UICollectionView. Please note, that handler closure is called before `DTModelTransfer.update(with:)` method because of how new UICollectionView dequeue API works.
 
 ### Fixed
 

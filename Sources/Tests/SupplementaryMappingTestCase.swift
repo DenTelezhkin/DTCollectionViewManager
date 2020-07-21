@@ -54,30 +54,36 @@ class SupplementaryMappingTestCase: XCTestCase {
     
     func testRegisterNibNamedForHeaderClass()
     {
-        controller.manager.registerNibNamed("RandomNameHeaderFooterView", forHeader: NibHeaderFooterView.self)
+        controller.manager.registerHeader(NibHeaderFooterView.self) { mapping in
+            mapping.xibName = "RandomNameHeaderFooterView"
+        }
         verifyHeader()
     }
     
     func testRegisterNibNamedForFooterClass()
     {
-        controller.manager.registerNibNamed("RandomNameHeaderFooterView", forFooter: NibHeaderFooterView.self)
+        controller.manager.registerFooter(NibHeaderFooterView.self) { mapping in
+            mapping.xibName = "RandomNameHeaderFooterView"
+        }
         verifyFooter()
     }
     
     func testRegisterSupplementaryClassForKind()
     {
-        controller.manager.registerSupplementary(NibHeaderFooterView.self, forKind: UICollectionView.elementKindSectionFooter)
+        controller.manager.registerSupplementary(NibHeaderFooterView.self, ofKind: UICollectionView.elementKindSectionFooter)
         verifyFooter()
     }
     
     func testRegisterNibNamedForSupplementaryClass()
     {
-        controller.manager.registerNibNamed("RandomNameHeaderFooterView", forSupplementary: NibHeaderFooterView.self, ofKind: UICollectionView.elementKindSectionFooter)
+        controller.manager.registerSupplementary(NibHeaderFooterView.self, ofKind: UICollectionView.elementKindSectionFooter) { mapping in
+            mapping.xibName = "RandomNameHeaderFooterView"
+        }
         verifyFooter()
     }
     
     func testRegisterNiblessSupplementaryClass() {
-        controller.manager.registerSupplementary(NiblessHeaderFooterView.self, forKind: UICollectionView.elementKindSectionHeader)
+        controller.manager.registerSupplementary(NiblessHeaderFooterView.self, ofKind: UICollectionView.elementKindSectionHeader)
         (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
         controller.manager.memoryStorage.setSectionHeaderModels([1])
         controller.manager.memoryStorage.setItems([1])
