@@ -9,7 +9,7 @@ on:
       - '*'
 
 jobs:
-  iOS:
+  iOS-Xcode-11:
     name: Test iOS
     runs-on: macOS-latest
     env:
@@ -25,7 +25,7 @@ jobs:
         run: instruments -s devices
       - name: iOS - ${{ matrix.destination }}
         run: bundle exec fastlane ${{ matrix.destination }}
-  tvOS:
+  tvOS-Xcode-11:
     name: Test tvOS
     runs-on: macOS-latest
     env:
@@ -33,6 +33,36 @@ jobs:
     strategy:
       matrix:
         destination: ["test_tvos13"] #,"test_tvos12"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install gems
+        run: bundle install
+      - name: tvOS - ${{ matrix.destination }}
+        run: bundle exec fastlane ${{ matrix.destination }}
+  iOS-Xcode-12:
+    name: Test iOS
+    runs-on: macOS-latest
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_12_beta.app/Contents/Developer
+    strategy:
+      matrix:
+        destination: ["test_ios14"] #,"test_ios12"]
+    steps:
+      - uses: actions/checkout@v2
+      - name: Install gems
+        run: bundle install
+      - name: List simulators
+        run: instruments -s devices
+      - name: iOS - ${{ matrix.destination }}
+        run: bundle exec fastlane ${{ matrix.destination }}
+  tvOS-Xcode-12:
+    name: Test tvOS
+    runs-on: macOS-latest
+    env:
+      DEVELOPER_DIR: /Applications/Xcode_12_beta.app/Contents/Developer
+    strategy:
+      matrix:
+        destination: ["test_tvos14"] #,"test_tvos12"]
     steps:
       - uses: actions/checkout@v2
       - name: Install gems
