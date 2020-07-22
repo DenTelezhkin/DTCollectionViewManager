@@ -6,7 +6,7 @@ lane :test_ios13 do
 end
 
 lane :test_ios14 do
-  scan(devices: ["iPhone 11 Pro (14.0)"])
+  scan(devices: ["iPhone 11 Pro (14.0)"], scheme: 'Tests-iOS')
 end
 
 # lane :test_ios12 do
@@ -18,7 +18,7 @@ lane :test_tvos13 do
 end
 
 lane :test_tvos14 do
-  scan(device: "Apple TV 4K (14.0)")
+  scan(device: "Apple TV 4K (14.0)", scheme: 'Tests-tvOS')
 end
 
 # lane :test_tvos12 do
