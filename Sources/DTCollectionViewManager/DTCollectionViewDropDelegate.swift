@@ -84,7 +84,7 @@ open class DTCollectionViewDropDelegate : DTCollectionViewDelegateWrapper, UICol
     
     /// Implementation of `UICollectionViewDropDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, dropPreviewParametersForItemAt indexPath: IndexPath) -> UIDragPreviewParameters? {
-        if let reaction = collectionViewReactions.first(where: { $0.methodSignature == EventMethodSignature.dropPreviewParametersForItemAtIndexPath.rawValue }) {
+        if let reaction = unmappedReactions.first(where: { $0.methodSignature == EventMethodSignature.dropPreviewParametersForItemAtIndexPath.rawValue }) {
             return reaction.performWithArguments((indexPath, 0, 0)) as? UIDragPreviewParameters
         }
         return (delegate as? UICollectionViewDropDelegate)?.collectionView?(collectionView,

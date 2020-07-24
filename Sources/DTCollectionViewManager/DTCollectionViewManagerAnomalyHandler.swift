@@ -41,6 +41,7 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomStringConvertible, 
     case emptyXibFile(xibName: String, expectedViewClass: String)
     case modelEventCalledWithCellClass(modelType: String, methodName: String, subclassOf: String)
     case unusedEventDetected(viewType: String, methodName: String)
+    case eventRegistrationForUnregisteredMapping(viewClass: String, signature: String)
     
     /// Debug information for happened anomaly
     public var debugDescription: String {
@@ -84,6 +85,8 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomStringConvertible, 
             """
         case .unusedEventDetected(viewType: let view, methodName: let methodName):
             return "⚠️[DTCollectionViewManager] \(methodName) event registered for \(view), but there were no view mappings registered for \(view) type. This event will never be called."
+        case .eventRegistrationForUnregisteredMapping(let viewClass, let signature):
+                return "⚠️[DTCollectionViewManager] While registering event reaction for \(signature), no view mapping was found for view: \(viewClass)"
         }
     }
     
@@ -101,6 +104,8 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomStringConvertible, 
         case .modelEventCalledWithCellClass(modelType: let model, methodName: let method, subclassOf: let subclass): return "DTCollectionViewManagerAnomaly.modelEventCalledWithCellClass(\(model), \(method), \(subclass))"
         case .unusedEventDetected(viewType: let view, methodName: let method): return "DTCollectionViewManagerAnomaly.unusedEventDetected(\(view), \(method))"
         case .differentSupplementaryReuseIdentifier(let mappingReuseIdentifier, let supplementaryReuseIdentifier): return "DTCollectionViewManagerAnomaly.differentSupplementaryReuseIdentifier(\(mappingReuseIdentifier), \(supplementaryReuseIdentifier))"
+        case .eventRegistrationForUnregisteredMapping(let viewClass, let signature):
+                return "DTCollectionViewManagerAnomaly.eventRegistrationForUnregisteredMapping(\(viewClass), \(signature)"
         }
     }
 }

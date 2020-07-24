@@ -127,7 +127,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     open func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, willDisplay: cell, forItemAt: indexPath) }
         guard let model = storage?.item(at: indexPath) else { return }
-        _ = EventReaction.performReaction(from: viewFactory?.mappings ?? [], of: .cell, signature: EventMethodSignature.willDisplayCellForItemAtIndexPath.rawValue, view: cell, model: model, location: indexPath)
+        _ = EventReaction.performReaction(from: viewFactory?.mappings ?? [], signature: EventMethodSignature.willDisplayCellForItemAtIndexPath.rawValue, view: cell, model: model, location: indexPath)
     }
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
@@ -140,14 +140,14 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     open func collectionView(_ collectionView: UICollectionView, didEndDisplaying cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didEndDisplaying: cell, forItemAt: indexPath) }
         guard let model = storage?.item(at: indexPath) else { return }
-        _ = EventReaction.performReaction(from: viewFactory?.mappings ?? [], of: .cell, signature: EventMethodSignature.didEndDisplayingCellForItemAtIndexPath.rawValue, view: cell, model: model, location: indexPath)
+        _ = EventReaction.performReaction(from: viewFactory?.mappings ?? [], signature: EventMethodSignature.didEndDisplayingCellForItemAtIndexPath.rawValue, view: cell, model: model, location: indexPath)
     }
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
         defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didEndDisplayingSupplementaryView: view, forElementOfKind: elementKind, at: indexPath) }
         guard let model = supplementaryModel(ofKind: elementKind, forSectionAt: indexPath) else { return }
-        _ = EventReaction.performReaction(from: viewFactory?.mappings ?? [], of: .supplementaryView(kind: elementKind), signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue, view: view, model: model, location: indexPath)
+        _ = EventReaction.performReaction(from: viewFactory?.mappings ?? [], signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue, view: view, model: model, location: indexPath)
     }
     
     @available(iOS, deprecated: 13.0)
@@ -216,7 +216,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func indexPathForPreferredFocusedView(in collectionView: UICollectionView) -> IndexPath? {
-        if let reaction = collectionViewReactions.first(where: { $0.methodSignature == EventMethodSignature.indexPathForPreferredFocusedView.rawValue }) {
+        if let reaction = unmappedReactions.first(where: { $0.methodSignature == EventMethodSignature.indexPathForPreferredFocusedView.rawValue }) {
             return reaction.performWithArguments((0, 0, 0)) as? IndexPath
         }
         return (delegate as? UICollectionViewDelegate)?.indexPathForPreferredFocusedView?(in: collectionView)

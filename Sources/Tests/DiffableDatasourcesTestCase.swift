@@ -245,6 +245,7 @@ class DiffableDatasourceReferencesTestCase: XCTestCase {
     func testCellSelectionClosure()
     {
         guard #available(iOS 13, tvOS 13, *) else { return }
+        let exp = expectation(description: "cell selection")
         controller = ReactingTestCollectionViewController()
         let _ = controller.view
         diffableDataSourceReference = controller.manager.configureDiffableDataSource(modelProvider: { $1 })
@@ -254,6 +255,7 @@ class DiffableDatasourceReferencesTestCase: XCTestCase {
             cell.indexPath = indexPath
             cell.model = model
             reactingCell = cell
+            exp.fulfill()
         }
         
         dataSourceReference.applySnapshot(.snapshot(with: { snapshot in
@@ -261,7 +263,7 @@ class DiffableDatasourceReferencesTestCase: XCTestCase {
             snapshot.appendItems(withIdentifiers: [1,2], intoSectionWithIdentifier: Section.one)
         }), animatingDifferences: true)
         controller.manager.collectionDelegate?.collectionView(controller.collectionView, didSelectItemAt: indexPath(1, 0))
-        
+        waitForExpectations(timeout: 1)
         XCTAssertEqual(reactingCell?.indexPath, indexPath(1, 0))
         XCTAssertEqual(reactingCell?.model, 2)
     }

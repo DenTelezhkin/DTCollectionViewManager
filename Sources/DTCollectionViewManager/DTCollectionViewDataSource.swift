@@ -63,7 +63,6 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
             return dummyCell(for: indexPath)
         }
         _ = EventReaction.performReaction(from: viewFactory?.mappings ?? [],
-                                          of: .cell,
                                                     signature: EventMethodSignature.configureCell.rawValue,
                                                     view: cell,
                                                     model: model,
@@ -81,7 +80,7 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
         guard let view = viewFactory?.supplementaryViewOfKind(kind, forModel: model, atIndexPath: indexPath) else {
             return UICollectionReusableView()
         }
-        _ = EventReaction.performReaction(from: viewFactory?.mappings ?? [], of: .supplementaryView(kind: kind),
+        _ = EventReaction.performReaction(from: viewFactory?.mappings ?? [],
                                                     signature: EventMethodSignature.configureSupplementary.rawValue,
                                                     view: view,
                                                     model: model,
@@ -107,7 +106,7 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
     
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func indexTitles(for collectionView: UICollectionView) -> [String]? {
-        if let reaction = collectionViewReactions.first(where: { $0.methodSignature == EventMethodSignature.indexTitlesForCollectionView.rawValue }) {
+        if let reaction = unmappedReactions.first(where: { $0.methodSignature == EventMethodSignature.indexTitlesForCollectionView.rawValue }) {
             return reaction.performWithArguments((0, 0, 0)) as? [String]
         }
         return (delegate as? UICollectionViewDataSource)?.indexTitles?(for: collectionView)

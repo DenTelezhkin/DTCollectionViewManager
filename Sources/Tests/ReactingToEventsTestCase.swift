@@ -194,6 +194,16 @@ class ReactingToEventsTestCase: XCTestCase {
         XCTAssertEqual(reactingCell?.textLabel?.text, "Foo")
     }
     
+    func testUnregisteredMappingCausesAnomalyWhenEventIsRegistered() {
+        let exp = expectation(description: "No mappings found")
+        let anomaly = DTCollectionViewManagerAnomaly.eventRegistrationForUnregisteredMapping(viewClass: "SelectionReactingCollectionCell", signature: EventMethodSignature.didSelectItemAtIndexPath.rawValue)
+        controller.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        controller.manager.didSelect(SelectionReactingCollectionCell.self) { _, _, _ in
+            
+        }
+        waitForExpectations(timeout: 0.1)
+        XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] While registering event reaction for collectionView:didSelectItemAtIndexPath:, no view mapping was found for view: SelectionReactingCollectionCell")
+    }
 }
 
 class ReactingToEventsFastTestCase : XCTestCase {
