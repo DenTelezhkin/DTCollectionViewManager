@@ -35,6 +35,10 @@ manager.register(UICollectionViewCell.self, String.self) { cell, indexPath, mode
 
 ### Breaking
 
+This release requires Swift 5.3. Minimum iOS / tvOS deployment targets are unchanged (iOS 11, tvOS 11).
+
+Some context: this release heavily relies on where clauses on contextually generic declarations, that are only available in Swift 5.3 - [SE-0267](https://github.com/apple/swift-evolution/blob/master/proposals/0267-where-on-contextually-generic.md).
+
 * Cells, headers and footers created in storyboard now need to be explicitly configured in view mapping:
 
 ```swift
@@ -49,6 +53,7 @@ registerHeader(StoryboardHeader.self) { mapping in
 
 * All non-deprecated registration methods now have an additional `handler` closure, that allows to configure cells/headers/footers/supplementary views that are dequeued from UICollectionView. This is a direct replacement for `configure(_:_:`, `configureHeader(_:_:)`, `configureFooter(_:_:)` and `configureSupplementary(_:ofKind:_:`, that are all now deprecated. 
 * On iOS / tvOS 14 / Xcode 12 and higher handler closure, that is passed to registration methods, is used to call new `dequeueConfiguredReusableCell(using:for:item:)` and `dequeueConfiguredReusableSupplementary(using:for:)` methods on UICollectionView. Please note, that handler closure is called before `DTModelTransfer.update(with:)` method because of how new UICollectionView dequeue API works.
+* `ViewModelMapping` is now a generic class, that captures view and model information(ViewModelMapping<T,U>).
 
 ### Fixed
 

@@ -62,7 +62,8 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
         guard let cell = viewFactory?.cellForModel(model, atIndexPath: indexPath) else {
             return dummyCell(for: indexPath)
         }
-        _ = collectionViewReactions.performReaction(of: .cell,
+        _ = EventReaction.performReaction(from: viewFactory?.mappings ?? [],
+                                          of: .cell,
                                                     signature: EventMethodSignature.configureCell.rawValue,
                                                     view: cell,
                                                     model: model,
@@ -80,7 +81,7 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
         guard let view = viewFactory?.supplementaryViewOfKind(kind, forModel: model, atIndexPath: indexPath) else {
             return UICollectionReusableView()
         }
-        _ = collectionViewReactions.performReaction(of: .supplementaryView(kind: kind),
+        _ = EventReaction.performReaction(from: viewFactory?.mappings ?? [], of: .supplementaryView(kind: kind),
                                                     signature: EventMethodSignature.configureSupplementary.rawValue,
                                                     view: view,
                                                     model: model,
