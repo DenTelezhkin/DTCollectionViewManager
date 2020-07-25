@@ -176,6 +176,7 @@ class DiffableDatasourcesTestCase: XCTestCase {
     func testWillDisplayHeaderInSection() {
         guard #available(iOS 13, tvOS 13, *) else { return }
         let exp = expectation(description: "willDisplayHeaderInSection")
+        controller.manager.registerHeader(ReactingHeaderFooterView.self)
         controller.manager.willDisplayHeaderView(ReactingHeaderFooterView.self, { header, model, section  in
             exp.fulfill()
         })
@@ -191,6 +192,7 @@ class DiffableDatasourcesTestCase: XCTestCase {
     func testWillDisplayFooterInSection() {
         guard #available(iOS 13, tvOS 13, *) else { return }
         let exp = expectation(description: "willDisplayFooterInSection")
+        controller.manager.registerFooter(ReactingHeaderFooterView.self)
         controller.manager.willDisplayFooterView(ReactingHeaderFooterView.self, { footer, model, section  in
             exp.fulfill()
         })

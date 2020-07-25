@@ -77,7 +77,7 @@ open class DTCollectionViewDelegateWrapper : NSObject {
                                              closure: @escaping (T, T.ModelType, IndexPath) -> U)
         where T: ModelTransfer, T:UICollectionViewCell
     {
-        let reaction = EventReaction(T.self, T.ModelType.self, signature: signature.rawValue, closure)
+        let reaction = EventReaction(viewType: T.self, modelType: T.ModelType.self, signature: signature.rawValue, closure)
         appendMappedReaction(type: T.self, reaction: reaction, signature: signature)
         manager?.verifyViewEvent(for: T.self, methodName: methodName)
     }
@@ -120,7 +120,7 @@ open class DTCollectionViewDelegateWrapper : NSObject {
                                              methodName: String = #function,
                                              closure: @escaping (T, IndexPath) -> U)
     {
-        let reaction = EventReaction(T.self, signature: signature.rawValue, closure)
+        let reaction = EventReaction(modelType: T.self, signature: signature.rawValue, closure)
         unmappedReactions.append(reaction)
         manager?.verifyItemEvent(for: T.self, methodName: methodName)
     }
@@ -131,7 +131,8 @@ open class DTCollectionViewDelegateWrapper : NSObject {
                                     methodName: String = #function,
                                     closure: @escaping (T, T.ModelType, IndexPath) -> U) where T: ModelTransfer, T: UICollectionReusableView
     {
-        let reaction = EventReaction(T.self, T.ModelType.self, signature: signature.rawValue,
+        let reaction = EventReaction(viewType: T.self, modelType: T.ModelType.self,
+                                     signature: signature.rawValue,
                                      closure)
         appendMappedReaction(type: T.self, reaction: reaction, signature: signature)
         manager?.verifyViewEvent(for: T.self, methodName: methodName)
@@ -149,6 +150,8 @@ open class DTCollectionViewDelegateWrapper : NSObject {
         compatibleMappings.forEach { mapping in
             mapping.reactions.append(reaction)
         }
+        
+        delegateWasReset()
     }
     
     final func appendReaction<T, U>(forSupplementaryKind kind: String,
@@ -156,34 +159,26 @@ open class DTCollectionViewDelegateWrapper : NSObject {
                                     signature: EventMethodSignature,
                                     methodName: String = #function,
                                     closure: @escaping (T, IndexPath) -> U) {
-        let reaction = EventReaction(T.self, signature: signature.rawValue, closure)
+        let reaction = EventReaction(modelType: T.self, signature: signature.rawValue, closure)
         unmappedReactions.append(reaction)
         manager?.verifyItemEvent(for: T.self, methodName: methodName)
     }
     
     final func appendNonCellReaction(_ signature: EventMethodSignature, closure: @escaping () -> Any) {
-        let reaction = EventReaction(Any.self, signature: signature.rawValue) { _, _ in
-            closure()
-        }
-        unmappedReactions.append(reaction)
+        unmappedReactions.append(EventReaction(signature: signature.rawValue, closure))
     }
     
     final func appendNonCellReaction<Arg>(_ signature: EventMethodSignature, closure: @escaping (Arg) -> Any) {
-        let reaction = EventReaction(Any.self, Any.self, signature: signature.rawValue) { (arg, _, _) -> Any in
-            guard let arg = arg as? Arg else { return nil as Any? as Any }
-            return closure(arg)
-        }
-        unmappedReactions.append(reaction)
+        unmappedReactions.append(EventReaction(argument: Arg.self, signature: signature.rawValue, closure))
     }
     
     final func appendNonCellReaction<Arg1, Arg2, Result>(_ signature: EventMethodSignature, closure: @escaping (Arg1, Arg2) -> Result) {
-        let reaction = EventReaction(Any.self, Any.self, signature: signature.rawValue) { (arg1, arg2, _) -> Any in
-            guard let arg1 = arg1 as? Arg1,
-                let arg2 = arg2 as? Arg2
-                else { return nil as Any? as Any }
-            return closure(arg1, arg2)
-        }
-        unmappedReactions.append(reaction)
+        unmappedReactions.append(EventReaction(argumentOne: Arg1.self, argumentTwo: Arg2.self, signature: signature.rawValue, closure))
+    }
+    
+    final func performModelReaction(_ signature: EventMethodSignature, location: IndexPath) -> Any? {
+        guard let model = storage?.item(at: location) else { return nil }
+        return EventReaction.performUnmappedReaction(from: unmappedReactions, signature.rawValue, argumentOne: model, argumentTwo: location)
     }
     
     final func performCellReaction(_ signature: EventMethodSignature, location: IndexPath, provideCell: Bool) -> Any? {
@@ -246,9 +241,14 @@ open class DTCollectionViewDelegateWrapper : NSObject {
         EventReaction.performUnmappedReaction(from: unmappedReactions, signature.rawValue, argumentOne: argumentOne, argumentTwo: argumentTwo)
     }
     
-    func performSupplementaryReaction(ofKind kind: String, signature: EventMethodSignature, location: IndexPath, view: UICollectionReusableView?) -> Any? {
+    func performSupplementaryReaction(ofKind kind: String, signature: EventMethodSignature, location: IndexPath, view: UICollectionReusableView) -> Any? {
         guard let model = supplementaryModel(ofKind: kind, forSectionAt: location) else { return nil }
         return EventReaction.performReaction(from: viewFactory?.mappings ?? [], signature: signature.rawValue, view: view, model: model, location: location)
+    }
+    
+    func performUnmappedSupplementaryReaction(of kind: String, signature: EventMethodSignature, location: IndexPath) -> Any? {
+        guard let model = supplementaryModel(ofKind: kind, forSectionAt: location) else { return nil }
+        return EventReaction.performUnmappedReaction(from: unmappedReactions, signature.rawValue, argumentOne: model, argumentTwo: location)
     }
     
     // MARK: - Target Forwarding
