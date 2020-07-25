@@ -84,7 +84,8 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
                                                     signature: EventMethodSignature.configureSupplementary.rawValue,
                                                     view: view,
                                                     model: model,
-                                                    location: indexPath)
+                                                    location: indexPath,
+                                                    supplementaryKind: kind)
         return view
     }
     

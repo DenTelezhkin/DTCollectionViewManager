@@ -133,6 +133,7 @@ open class DTCollectionViewDelegateWrapper : NSObject {
     {
         let reaction = EventReaction(viewType: T.self, modelType: T.ModelType.self,
                                      signature: signature.rawValue,
+                                     supplementaryKind: kind,
                                      closure)
         appendMappedReaction(type: T.self, reaction: reaction, signature: signature)
         manager?.verifyViewEvent(for: T.self, methodName: methodName)
@@ -159,7 +160,7 @@ open class DTCollectionViewDelegateWrapper : NSObject {
                                     signature: EventMethodSignature,
                                     methodName: String = #function,
                                     closure: @escaping (T, IndexPath) -> U) {
-        let reaction = EventReaction(modelType: T.self, signature: signature.rawValue, closure)
+        let reaction = EventReaction(modelType: T.self, signature: signature.rawValue, supplementaryKind: kind, closure)
         unmappedReactions.append(reaction)
         manager?.verifyItemEvent(for: T.self, methodName: methodName)
     }
@@ -243,12 +244,12 @@ open class DTCollectionViewDelegateWrapper : NSObject {
     
     func performSupplementaryReaction(ofKind kind: String, signature: EventMethodSignature, location: IndexPath, view: UICollectionReusableView) -> Any? {
         guard let model = supplementaryModel(ofKind: kind, forSectionAt: location) else { return nil }
-        return EventReaction.performReaction(from: viewFactory?.mappings ?? [], signature: signature.rawValue, view: view, model: model, location: location)
+        return EventReaction.performReaction(from: viewFactory?.mappings ?? [], signature: signature.rawValue, view: view, model: model, location: location, supplementaryKind: kind)
     }
     
     func performUnmappedSupplementaryReaction(of kind: String, signature: EventMethodSignature, location: IndexPath) -> Any? {
         guard let model = supplementaryModel(ofKind: kind, forSectionAt: location) else { return nil }
-        return EventReaction.performUnmappedReaction(from: unmappedReactions, signature.rawValue, argumentOne: model, argumentTwo: location)
+        return EventReaction.performUnmappedReaction(from: unmappedReactions, signature.rawValue, argumentOne: model, argumentTwo: location, supplementaryKind: kind)
     }
     
     // MARK: - Target Forwarding

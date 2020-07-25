@@ -147,7 +147,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     open func collectionView(_ collectionView: UICollectionView, didEndDisplayingSupplementaryView view: UICollectionReusableView, forElementOfKind elementKind: String, at indexPath: IndexPath) {
         defer { (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, didEndDisplayingSupplementaryView: view, forElementOfKind: elementKind, at: indexPath) }
         guard let model = supplementaryModel(ofKind: elementKind, forSectionAt: indexPath) else { return }
-        _ = EventReaction.performReaction(from: viewFactory?.mappings ?? [], signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue, view: view, model: model, location: indexPath)
+        _ = EventReaction.performReaction(from: viewFactory?.mappings ?? [], signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue, view: view, model: model, location: indexPath, supplementaryKind: elementKind)
     }
     
     @available(iOS, deprecated: 13.0)
