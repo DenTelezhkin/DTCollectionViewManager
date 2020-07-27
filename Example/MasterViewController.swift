@@ -31,12 +31,12 @@ class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDa
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
-        cell.textLabel?.text = controllers[(indexPath as NSIndexPath).row].0
+        cell.textLabel?.text = controllers[indexPath.row].0
         return cell
     }
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = controllers[(indexPath as NSIndexPath).row]
+        let model = controllers[indexPath.row]
         let controllerID = String(describing: model.1)
         let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: controllerID)
         let navigation = UINavigationController(rootViewController: controller)

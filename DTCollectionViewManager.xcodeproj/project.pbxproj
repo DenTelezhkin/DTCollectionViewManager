@@ -111,8 +111,6 @@
 		9AA83F1C22D4D77700C20E87 /* DTModelStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9AA83F1B22D4D77700C20E87 /* DTModelStorage */; };
 		9ABE13FB24599CE2008874D2 /* Exports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE13FA24599CE2008874D2 /* Exports.swift */; };
 		9ADFC8EF1B8B73A300AB4CD9 /* SectionsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8EE1B8B73A300AB4CD9 /* SectionsViewController.swift */; };
-		9ADFC8F41B8B76A000AB4CD9 /* SolidColorCollectionCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8F21B8B76A000AB4CD9 /* SolidColorCollectionCell.swift */; };
-		9ADFC8F51B8B76A000AB4CD9 /* SolidColorCollectionCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8F31B8B76A000AB4CD9 /* SolidColorCollectionCell.xib */; };
 		9ADFC8F81B8B771800AB4CD9 /* SimpleTextCollectionReusableView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ADFC8F61B8B771800AB4CD9 /* SimpleTextCollectionReusableView.swift */; };
 		9ADFC8F91B8B771800AB4CD9 /* SimpleTextCollectionReusableView.xib in Resources */ = {isa = PBXBuildFile; fileRef = 9ADFC8F71B8B771800AB4CD9 /* SimpleTextCollectionReusableView.xib */; };
 /* End PBXBuildFile section */
@@ -243,8 +241,6 @@
 		9ABE13FA24599CE2008874D2 /* Exports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exports.swift; sourceTree = "<group>"; };
 		9AC532381BE5F77F006CB18A /* Tests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9ADFC8EE1B8B73A300AB4CD9 /* SectionsViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = SectionsViewController.swift; sourceTree = "<group>"; };
-		9ADFC8F21B8B76A000AB4CD9 /* SolidColorCollectionCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SolidColorCollectionCell.swift; path = Cells/SolidColorCollectionCell.swift; sourceTree = "<group>"; };
-		9ADFC8F31B8B76A000AB4CD9 /* SolidColorCollectionCell.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SolidColorCollectionCell.xib; path = Cells/SolidColorCollectionCell.xib; sourceTree = "<group>"; };
 		9ADFC8F61B8B771800AB4CD9 /* SimpleTextCollectionReusableView.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = SimpleTextCollectionReusableView.swift; path = Views/SimpleTextCollectionReusableView.swift; sourceTree = "<group>"; };
 		9ADFC8F71B8B771800AB4CD9 /* SimpleTextCollectionReusableView.xib */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = file.xib; name = SimpleTextCollectionReusableView.xib; path = Views/SimpleTextCollectionReusableView.xib; sourceTree = "<group>"; };
 		9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = DTCollectionViewManager.framework; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -497,8 +493,6 @@
 		9ADFC8F11B8B766A00AB4CD9 /* Cells */ = {
 			isa = PBXGroup;
 			children = (
-				9ADFC8F21B8B76A000AB4CD9 /* SolidColorCollectionCell.swift */,
-				9ADFC8F31B8B76A000AB4CD9 /* SolidColorCollectionCell.xib */,
 				9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */,
 			);
 			name = Cells;
@@ -640,7 +634,6 @@
 				9A99AA881B8A219300428802 /* Assets.xcassets in Resources */,
 				9A99AA861B8A219300428802 /* Main.storyboard in Resources */,
 				9ADFC8F91B8B771800AB4CD9 /* SimpleTextCollectionReusableView.xib in Resources */,
-				9ADFC8F51B8B76A000AB4CD9 /* SolidColorCollectionCell.xib in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -712,7 +705,6 @@
 				9ADFC8EF1B8B73A300AB4CD9 /* SectionsViewController.swift in Sources */,
 				9A2109E31B9C58E20036D151 /* ComplexLayoutViewController.swift in Sources */,
 				9A99AA7F1B8A219300428802 /* AppDelegate.swift in Sources */,
-				9ADFC8F41B8B76A000AB4CD9 /* SolidColorCollectionCell.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

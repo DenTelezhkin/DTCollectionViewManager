@@ -19,6 +19,8 @@ class CollectionContainingCell: UICollectionViewCell, DTCollectionViewManageable
     }
     
     override func awakeFromNib() {
-        self.manager.register(SolidColorCollectionCell.self)
+        manager.register(UICollectionViewCell.self, for: UIColor.self, handler: { cell, model, _ in
+            cell.backgroundColor = model
+        })
     }
 }

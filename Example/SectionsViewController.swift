@@ -27,7 +27,9 @@ class SectionsViewController: UIViewController, DTCollectionViewManageable, UICo
     override func viewDidLoad() {
         super.viewDidLoad()
     
-        manager.register(SolidColorCollectionCell.self)
+        manager.register(UICollectionViewCell.self, for: UIColor.self, handler: { cell, model, _ in
+            cell.backgroundColor = model
+        })
         manager.registerHeader(SimpleTextCollectionReusableView.self)
         manager.registerFooter(SimpleTextCollectionReusableView.self)
         (collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
