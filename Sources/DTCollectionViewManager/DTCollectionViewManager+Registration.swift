@@ -56,12 +56,12 @@ extension DTCollectionViewManager {
     ///
     /// Method will automatically check for nib with the same name as `cellClass`. If it exists - nib will be registered instead of class. If not - it is assumed that cell is registered in storyboard.
     /// - Note: If you need to create cell interface from code, use `registerNibless(_:)` method
-    open func register<T:ModelTransfer>(_ cellClass:T.Type, handler: @escaping (T, IndexPath, T.ModelType) -> Void = { _, _, _ in }, mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)? = nil) where T: UICollectionViewCell
+    open func register<T:ModelTransfer>(_ cellClass:T.Type, handler: @escaping (T, T.ModelType, IndexPath) -> Void = { _, _, _ in }, mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)? = nil) where T: UICollectionViewCell
     {
         viewFactory.registerCellClass(T.self, handler: handler, mapping: mapping)
     }
     
-    open func register<T: UICollectionViewCell, U>(_ cellClass: T.Type, for modelType: U.Type, handler: @escaping (T, IndexPath, U) -> Void, mapping: ((ViewModelMapping<T, U>) -> Void)? = nil) {
+    open func register<T: UICollectionViewCell, U>(_ cellClass: T.Type, for modelType: U.Type, handler: @escaping (T, U, IndexPath) -> Void, mapping: ((ViewModelMapping<T, U>) -> Void)? = nil) {
         viewFactory.registerCellClass(cellClass, modelType, handler: handler, mapping: mapping)
     }
     
@@ -69,7 +69,7 @@ extension DTCollectionViewManager {
     ///
     /// Method will automatically check for nib with the same name as `headerClass`. If it exists - nib will be registered instead of class.
     open func registerHeader<T:ModelTransfer>(_ headerClass : T.Type,
-                                              handler: @escaping (T, String, IndexPath) -> Void = { _, _, _ in },
+                                              handler: @escaping (T, T.ModelType, IndexPath) -> Void = { _, _, _ in },
                                               mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)? = nil) where T: UICollectionReusableView
     {
         viewFactory.registerSupplementaryClass(T.self,
@@ -78,15 +78,15 @@ extension DTCollectionViewManager {
                                                mapping: mapping)
     }
     
-    open func registerHeader<T:UICollectionReusableView, U>(_ headerClass: T.Type, for modelType: U.Type, handler: @escaping (T, String, IndexPath) -> Void = { _, _, _ in }, mapping: ((ViewModelMapping<T, U>) -> Void)? = nil) {
-        viewFactory.registerSupplementaryClass(headerClass, modelType, ofKind: UICollectionView.elementKindSectionHeader, handler: handler, mapping: mapping)
+    open func registerHeader<T:UICollectionReusableView, U>(_ headerClass: T.Type, for modelType: U.Type, handler: @escaping (T, U, IndexPath) -> Void = { _, _, _ in }, mapping: ((ViewModelMapping<T, U>) -> Void)? = nil) {
+        registerSupplementary(T.self, for: U.self, ofKind: UICollectionView.elementKindSectionHeader, handler: handler, mapping: mapping)
     }
     
     /// Registers mapping from model class to suppplementary view of `footerClass` type for UICollectionElementKindSectionFooter.
     ///
     /// Method will automatically check for nib with the same name as `footerClass`. If it exists - nib will be registered instead of class.
     open func registerFooter<T:ModelTransfer>(_ footerClass: T.Type,
-                                              handler: @escaping (T, String, IndexPath) -> Void = { _, _, _ in },
+                                              handler: @escaping (T, T.ModelType, IndexPath) -> Void = { _, _, _ in },
                                               mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)? = nil) where T:UICollectionReusableView
     {
         viewFactory.registerSupplementaryClass(T.self,
@@ -95,8 +95,8 @@ extension DTCollectionViewManager {
                                                mapping: mapping)
     }
     
-    open func registerFooter<T:UICollectionReusableView, U>(_ footerClass: T.Type, for modelType: U.Type, handler: @escaping (T, String, IndexPath) -> Void = { _, _, _ in }, mapping: ((ViewModelMapping<T, U>) -> Void)? = nil) {
-        viewFactory.registerSupplementaryClass(footerClass, modelType, ofKind: UICollectionView.elementKindSectionFooter, handler: handler, mapping: mapping)
+    open func registerFooter<T:UICollectionReusableView, U>(_ footerClass: T.Type, for modelType: U.Type, handler: @escaping (T, U, IndexPath) -> Void = { _, _, _ in }, mapping: ((ViewModelMapping<T, U>) -> Void)? = nil) {
+        registerSupplementary(T.self, for: U.self, ofKind: UICollectionView.elementKindSectionFooter, handler: handler, mapping: mapping)
     }
     
     /// Registers mapping from model class to suppplementary view of `supplementaryClass` type for supplementary `kind`.
@@ -104,13 +104,13 @@ extension DTCollectionViewManager {
     /// Method will automatically check for nib with the same name as `supplementaryClass`. If it exists - nib will be registered instead of class.
     open func registerSupplementary<T:ModelTransfer>(_ supplementaryClass: T.Type,
                                                      ofKind kind: String,
-                                                     handler: @escaping (T, String, IndexPath) -> Void = { _, _, _ in },
+                                                     handler: @escaping (T, T.ModelType, IndexPath) -> Void = { _, _, _ in },
                                                      mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)? = nil) where T:UICollectionReusableView
     {
         viewFactory.registerSupplementaryClass(T.self, ofKind: kind, handler: handler, mapping: mapping)
     }
     
-    open func registerSupplementary<T:UICollectionReusableView, U>(_ supplementaryClass: T.Type, ofKind kind: String, for modelType: U.Type, handler: @escaping (T, String, IndexPath) -> Void = { _, _, _ in }, mapping: ((ViewModelMapping<T, U>) -> Void)? = nil) {
+    open func registerSupplementary<T:UICollectionReusableView, U>(_ supplementaryClass: T.Type, for modelType: U.Type, ofKind kind: String, handler: @escaping (T, U, IndexPath) -> Void = { _, _, _ in }, mapping: ((ViewModelMapping<T, U>) -> Void)? = nil) {
         viewFactory.registerSupplementaryClass(supplementaryClass, modelType, ofKind: kind, handler: handler, mapping: mapping)
     }
     

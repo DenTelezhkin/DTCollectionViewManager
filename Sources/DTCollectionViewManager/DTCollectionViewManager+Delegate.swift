@@ -247,13 +247,16 @@ extension DTCollectionViewManager {
     {
         collectionDelegate?.appendNonCellReaction(.previewForDismissingContextMenu, closure: closure)
     }
-    
+
+    #if compiler(<5.1.2)
     @available(iOS 13.0, *)
     /// Registers `closure` to be executed when `UICollectionViewDelegate.tableView(_:willCommitMenuWithAnimator:)` method is called
     open func willCommitMenuWithAnimator(_ closure: @escaping (UIContextMenuInteractionCommitAnimating) -> Void)
     {
         collectionDelegate?.appendNonCellReaction(.willCommitMenuWithAnimator, closure: closure)
     }
+    #endif
+
     #endif
 #endif
     

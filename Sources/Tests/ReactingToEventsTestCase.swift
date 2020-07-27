@@ -179,7 +179,7 @@ class ReactingToEventsTestCase: XCTestCase {
     func testCellConfigurationClosure()
     {
         var reactingCell : SelectionReactingCollectionCell?
-        controller.manager.register(SelectionReactingCollectionCell.self, handler: { cell, indexPath, model in
+        controller.manager.register(SelectionReactingCollectionCell.self, handler: { cell, model, indexPath in
             cell.indexPath = indexPath
             cell.model = model
             cell.textLabel?.text = "Foo"

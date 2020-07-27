@@ -333,10 +333,9 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
             return insets
         }
         let defaultInset = (collectionViewLayout as? UICollectionViewFlowLayout)?.sectionInset
-        // UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)  is a workaround for Xcode 10 beta 1: https://bugs.swift.org/browse/SR-7879
         return (delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView,
                                                                           layout: collectionViewLayout,
-                                                                          insetForSectionAt: section) ?? defaultInset ?? UIEdgeInsets(top: 0, left: 0, bottom: 0, right: 0)
+                                                                          insetForSectionAt: section) ?? defaultInset ?? .zero
     }
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.

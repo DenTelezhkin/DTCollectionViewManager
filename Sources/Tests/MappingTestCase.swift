@@ -93,7 +93,70 @@ class MappingTestCase: XCTestCase {
         
         XCTAssertEqual(controller.manager.viewFactory.mappings.count, 1)
     }
+    
+    
+    func testTwoKindsOfCellRegistrationsAreCombinable() {
+        controller.manager.register(NibCell.self)
+        controller.manager.register(UICollectionViewCell.self, for: String.self, handler: { cell, model, _ in
+            let label = UILabel()
+            label.text = model
+            cell.backgroundView = label
+        })
+        controller.manager.memoryStorage.addItem(1)
+        controller.manager.memoryStorage.addItem("Foo")
+        
+        XCTAssertEqual(controller.manager.collectionDataSource?.collectionView(controller.collectionView, numberOfItemsInSection: 0), 2)
+        _ = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, cellForItemAt: indexPath(0,0))
+        let cvCell = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, cellForItemAt: indexPath(1,0))
+        
+        XCTAssertEqual((cvCell?.backgroundView as? UILabel)?.text, "Foo")
+    }
 
+    func testTwoKindsOfHeaderRegistrationsAreCombinable() {
+        controller.manager.registerHeader(NibHeaderFooterView.self)
+        controller.manager.registerHeader(UICollectionReusableView.self, for: String.self, handler: { view, model, _ in
+            let label = UILabel()
+            label.text = model
+            view.addSubview(label)
+        })
+        (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.headerReferenceSize = CGSize(width: 320, height: 50)
+        controller.manager.memoryStorage.headerModelProvider = { section in
+            if section == 0 {
+                return 1
+            } else {
+                return "2"
+            }
+        }
+        controller.manager.memoryStorage.setItemsForAllSections([[1], [2]])
+        controller.collectionView?.performBatchUpdates(nil, completion: nil)
+        let nibView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at:  indexPath(0, 0))
+        let cvView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionHeader, at:  indexPath(0, 1))
+        XCTAssertTrue(nibView is NibHeaderFooterView)
+        XCTAssertEqual((cvView?.subviews.first as? UILabel)?.text, "2")
+    }
+    
+    func testTwoKindsOfFooterRegistrationsAreCombinable() {
+        controller.manager.registerFooter(NibHeaderFooterView.self)
+        controller.manager.registerFooter(UICollectionReusableView.self, for: String.self, handler: { view, model, _ in
+            let label = UILabel()
+            label.text = model
+            view.addSubview(label)
+        })
+        (controller.collectionView?.collectionViewLayout as? UICollectionViewFlowLayout)?.footerReferenceSize = CGSize(width: 320, height: 50)
+        controller.manager.memoryStorage.footerModelProvider = { section in
+            if section == 0 {
+                return 1
+            } else {
+                return "2"
+            }
+        }
+        controller.manager.memoryStorage.setItemsForAllSections([[1], [2]])
+        controller.collectionView?.performBatchUpdates(nil, completion: nil)
+        let nibView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionFooter, at:  indexPath(0, 0))
+        let cvView = controller.manager.collectionDataSource?.collectionView(controller.collectionView!, viewForSupplementaryElementOfKind: UICollectionView.elementKindSectionFooter, at:  indexPath(0, 1))
+        XCTAssertTrue(nibView is NibHeaderFooterView)
+        XCTAssertEqual((cvView?.subviews.first as? UILabel)?.text, "2")
+    }
 }
 
 class NibNameViewModelMappingTestCase : XCTestCase {

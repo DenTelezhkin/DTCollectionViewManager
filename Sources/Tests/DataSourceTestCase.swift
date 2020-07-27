@@ -159,6 +159,8 @@ class DataSourceTestCase: XCTestCase {
         controller.manager.memoryStorage.reloadItem(4)
         waitForExpectations(timeout: 0.5, handler: nil)
     }
+    
+    // Anomalies
 
     func testNilModelInStorageLeadsToNilModelAnomaly() {
         let exp = expectation(description: "Nil model in storage")

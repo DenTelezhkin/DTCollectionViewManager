@@ -45,7 +45,7 @@ final class CollectionViewFactory
 // MARK: Registration
 extension CollectionViewFactory
 {
-    func registerCellClass<T:ModelTransfer>(_ cellClass: T.Type, handler: @escaping (T, IndexPath, T.ModelType) -> Void, mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)?) where T: UICollectionViewCell
+    func registerCellClass<T:ModelTransfer>(_ cellClass: T.Type, handler: @escaping (T, T.ModelType, IndexPath) -> Void, mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)?) where T: UICollectionViewCell
     {
         let mapping = ViewModelMapping<T, T.ModelType>(cellConfiguration: handler, mapping: mapping)
         
@@ -74,7 +74,7 @@ extension CollectionViewFactory
         mappings.append(mapping)
     }
     
-    func registerCellClass<T: UICollectionViewCell, U>(_ cellType: T.Type, _ modelType: U.Type, handler: @escaping (T, IndexPath, U) -> Void, mapping: ((ViewModelMapping<T, U>) -> Void)? = nil)
+    func registerCellClass<T: UICollectionViewCell, U>(_ cellType: T.Type, _ modelType: U.Type, handler: @escaping (T, U, IndexPath) -> Void, mapping: ((ViewModelMapping<T, U>) -> Void)? = nil)
     {
         let mapping = ViewModelMapping<T, U>(cellConfiguration: handler, mapping: mapping)
         func registerCell() {
@@ -125,7 +125,7 @@ extension CollectionViewFactory
         }
     }
     
-    func registerSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, ofKind kind: String, handler: @escaping (T, String, IndexPath) -> Void, mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)?) where T:UICollectionReusableView
+    func registerSupplementaryClass<T:ModelTransfer>(_ supplementaryClass: T.Type, ofKind kind: String, handler: @escaping (T, T.ModelType, IndexPath) -> Void, mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)?) where T:UICollectionReusableView
     {
         let mapping = ViewModelMapping<T, T.ModelType>(kind: kind, supplementaryConfiguration: handler, mapping: mapping)
         
@@ -156,7 +156,7 @@ extension CollectionViewFactory
         mappings.append(mapping)
     }
     
-    func registerSupplementaryClass<T:UICollectionReusableView, U>(_ supplementaryClass: T.Type, _ modelType: U.Type, ofKind kind: String, handler: @escaping (T, String, IndexPath) -> Void, mapping: ((ViewModelMapping<T, U>) -> Void)?)
+    func registerSupplementaryClass<T:UICollectionReusableView, U>(_ supplementaryClass: T.Type, _ modelType: U.Type, ofKind kind: String, handler: @escaping (T, U, IndexPath) -> Void, mapping: ((ViewModelMapping<T, U>) -> Void)?)
     {
         let mapping = ViewModelMapping<T, U>(kind: kind, supplementaryConfiguration: handler, mapping: mapping)
         
