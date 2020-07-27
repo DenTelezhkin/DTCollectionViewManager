@@ -75,3 +75,30 @@ extension DTCollectionViewManager {
     }
     #endif
 }
+
+extension ViewModelMapping where T: UICollectionViewCell {
+    #if os(iOS)
+    /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:itemsForBeginning:at:)` method is called for `cellClass`.
+    open func itemsForBeginningDragSession(_ closure: @escaping (UIDragSession, T, U, IndexPath) -> [UIDragItem])
+    {
+        reactions.append(FourArgumentsEventReaction(T.self, modelType: U.self, argument: UIDragSession.self,
+                                                    signature: EventMethodSignature.itemsForBeginningDragSessionAtIndexPath.rawValue,
+                                                    closure))
+    }
+    
+    /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:itemsForAddingTo:at:point:)` method is called for `cellClass`
+    open func itemsForAddingToDragSession(_ closure: @escaping (UIDragSession, CGPoint, T, U, IndexPath) -> [UIDragItem])
+    {
+        reactions.append(FiveArgumentsEventReaction(T.self, modelType: U.self, argumentOne: UIDragSession.self, argumentTwo: CGPoint.self,
+                                                    signature: EventMethodSignature.itemsForAddingToDragSessionAtIndexPath.rawValue,
+                                                    closure))
+    }
+    
+    /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:dragPreviewParametersForRowAt:)` method is called for `cellClass`
+    open func dragPreviewParameters(_ closure: @escaping (T, U, IndexPath) -> UIDragPreviewParameters?) where T:UICollectionViewCell {
+        reactions.append(EventReaction(viewType: T.self, modelType: U.self,
+                                       signature: EventMethodSignature.dragPreviewParametersForItemAtIndexPath.rawValue,
+                                       closure))
+    }
+    #endif
+}

@@ -229,6 +229,20 @@ class ReactingToEventsFastTestCase : XCTestCase {
         }
     }
     
+    func fullfill<Cell,Model,Argument,ReturnValue>(_ expectation: XCTestExpectation, andReturn returnValue: ReturnValue) -> (Argument,Cell,Model,IndexPath) -> ReturnValue {
+        { argument,cell, model, indexPath in
+            expectation.fulfill()
+            return returnValue
+        }
+    }
+    
+    func fullfill<Cell,Model,ArgumentOne,ArgumentTwo,ReturnValue>(_ expectation: XCTestExpectation, andReturn returnValue: ReturnValue) -> (ArgumentOne,ArgumentTwo,Cell,Model,IndexPath) -> ReturnValue {
+        { argumentOne, argumentTwo, cell, model, indexPath in
+            expectation.fulfill()
+            return returnValue
+        }
+    }
+    
     func addIntItem(_ item: Int = 3) -> (DTCellTestCollectionController) -> Void {
         {
             $0.manager.memoryStorage.addItem(item)
@@ -239,8 +253,8 @@ class ReactingToEventsFastTestCase : XCTestCase {
                                                    registration: (DTCellTestCollectionController, XCTestExpectation) -> Void,
                                                    alternativeRegistration: (DTCellTestCollectionController, XCTestExpectation) -> Void,
                                                    preparation: (DTCellTestCollectionController) -> Void,
-                                                   action: (DTCellTestCollectionController) -> U,
-                                                   expectedResult: U? = nil) {
+                                                   action: (DTCellTestCollectionController) throws -> U,
+                                                   expectedResult: U? = nil) throws {
         guard let sut = sut else {
             XCTFail()
             return
@@ -250,7 +264,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         let exp = expectation(description: signature.rawValue)
         registration(sut,exp)
         preparation(sut)
-        let result = action(sut)
+        let result = try action(sut)
         if let expectedResult = expectedResult {
             XCTAssertEqual(result, expectedResult)
         }
@@ -261,16 +275,42 @@ class ReactingToEventsFastTestCase : XCTestCase {
         let altExp = expectation(description: signature.rawValue)
         alternativeRegistration(sut,altExp)
         preparation(sut)
-        let altResult = action(sut)
+        let altResult = try action(sut)
         if let expectedResult = expectedResult {
             XCTAssertEqual(altResult, expectedResult)
         }
         waitForExpectations(timeout: 1)
     }
     
+    func verifyEvent<U>(_ signature: EventMethodSignature,
+                                                   registration: (DTCellTestCollectionController, XCTestExpectation) -> Void,
+                                                   alternativeRegistration: (DTCellTestCollectionController, XCTestExpectation) -> Void,
+                                                   preparation: (DTCellTestCollectionController) -> Void,
+                                                   action: (DTCellTestCollectionController) throws -> U) throws {
+        guard let sut = sut else {
+            XCTFail()
+            return
+        }
+        unregisterAll()
+        
+        let exp = expectation(description: signature.rawValue)
+        registration(sut,exp)
+        preparation(sut)
+        _ = try action(sut)
+        waitForExpectations(timeout: 1)
+        
+        unregisterAll()
+        
+        let altExp = expectation(description: signature.rawValue)
+        alternativeRegistration(sut,altExp)
+        preparation(sut)
+        _ = try action(sut)
+        waitForExpectations(timeout: 1)
+    }
+    
     @available(tvOS 9.0, *)
-    func testCanMoveItemAtIndexPath() {
-        verifyEvent(.canMoveItemAtIndexPath, registration: { sut, exp in
+    func testCanMoveItemAtIndexPath() throws {
+        try verifyEvent(.canMoveItemAtIndexPath, registration: { sut, exp in
             sut.manager.register(NibCell.self)
             sut.manager.canMove(NibCell.self, fullfill(exp, andReturn: true))
         }, alternativeRegistration: { sut, exp in
@@ -660,37 +700,45 @@ class ReactingToEventsFastTestCase : XCTestCase {
     // MARK - UICollectionViewDragDelegate
     
     #if os(iOS)
-    func testItemsForBeginningInDragSession() {
-        let exp = expectation(description: "ItemsForBeginningInDragSession")
-        sut.manager.itemsForBeginningDragSession(from: NibCell.self) { session, cell, model, _ in
-            exp.fulfill()
-            return []
-        }
-        sut.manager.memoryStorage.addItem(1)
-        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, itemsForBeginning: DragAndDropMock(), at: indexPath(0, 0))
-        waitForExpectations(timeout: 1, handler: nil)
+    func testItemsForBeginningInDragSession() throws {
+        try verifyEvent(.itemsForBeginningDragSessionAtIndexPath, registration: { sut, exp in
+            sut.manager.register(NibCell.self)
+            sut.manager.itemsForBeginningDragSession(from: NibCell.self, fullfill(exp, andReturn: []))
+        }, alternativeRegistration: { sut, exp in
+            sut.manager.register(NibCell.self) { mapping in
+                mapping.itemsForBeginningDragSession(self.fullfill(exp, andReturn: []))
+            }
+        }, preparation: addIntItem(),
+        action: {
+            try XCTUnwrap($0.manager.collectionDragDelegate?.collectionView(sut.collectionView!, itemsForBeginning: DragAndDropMock(), at: indexPath(0, 0)))
+        }, expectedResult: [])
     }
     
-    func testItemsForAddingToDragSession() {
-        let exp = expectation(description: "ItemsForAddingToDragSession")
-        sut.manager.itemsForAddingToDragSession(from: NibCell.self) { session, point, cell, model, _ in
-            exp.fulfill()
-            return []
-        }
-        sut.manager.memoryStorage.addItem(1)
-        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, itemsForAddingTo: DragAndDropMock(), at: indexPath(0,0), point: .zero)
-        waitForExpectations(timeout: 1, handler: nil)
+    func testItemsForAddingToDragSession() throws {
+        try verifyEvent(.itemsForAddingToDragSessionAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.itemsForAddingToDragSession(from: NibCell.self, fullfill(exp, andReturn: []))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) {
+                $0.itemsForAddingToDragSession(self.fullfill(exp, andReturn: []))
+            }
+        }, preparation: addIntItem(),
+        action: {
+            try XCTUnwrap($0.manager.collectionDragDelegate?.collectionView(sut.collectionView!, itemsForAddingTo: DragAndDropMock(), at: indexPath(0,0), point: .zero))
+        }, expectedResult: [])
     }
     
-    func testDragPreviewParametersForRowAtIndexPath() {
-        let exp = expectation(description: "dragPreviewParametersForRowAtIndexPath")
-        sut.manager.dragPreviewParameters(for: NibCell.self) { cell, model, indexPath in
-            exp.fulfill()
-            return nil
-        }
-        sut.manager.memoryStorage.addItem(1)
-        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, dragPreviewParametersForItemAt: indexPath(0, 0))
-        waitForExpectations(timeout: 1, handler: nil)
+    func testDragPreviewParametersForRowAtIndexPath() throws {
+        try verifyEvent(.dragPreviewParametersForItemAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.dragPreviewParameters(for: NibCell.self, fullfill(exp, andReturn: nil))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { mapping in
+                mapping.dragPreviewParameters(self.fullfill(exp, andReturn: nil))
+            }
+        }, preparation: addIntItem(), action: {
+            $0.manager.collectionDragDelegate?.collectionView(sut.collectionView!, dragPreviewParametersForItemAt: indexPath(0, 0))
+        })
     }
     
     func testDragSessionWillBegin() {

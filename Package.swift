@@ -40,7 +40,6 @@ let package = Package(
     ],
     targets: [
         .target(name: "DTCollectionViewManager", dependencies: ["DTModelStorage"]),
-        // .testTarget(name: "Tests-iOS", dependencies: ["DTCollectionViewManager", "DTModelStorage"], path: "Sources/Tests")
     ],
     swiftLanguageVersions: [.v5]
 )
