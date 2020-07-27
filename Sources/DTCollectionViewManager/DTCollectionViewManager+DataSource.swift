@@ -41,12 +41,6 @@ extension DTCollectionViewManager {
         collectionDataSource?.appendNonCellReaction(.moveItemAtIndexPathToIndexPath, closure: closure)
     }
     
-    @available(*, deprecated, message: "This method does not register callback closure anymore. Please use `moveItemAtTo` method to register for move item events.")
-    func move<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (_ destinationIndexPath: IndexPath, T, T.ModelType, _ sourceIndexPath: IndexPath) -> Void) where T: UICollectionViewCell
-    {
-    
-    }
-    
     /// Registers `closure` to be executed, when `UICollectionViewDataSource.indexTitlesForCollectionView(_:)` method is called.
     open func indexTitles(_ closure: @escaping () -> [String]?) {
         collectionDataSource?.appendNonCellReaction(.indexTitlesForCollectionView, closure: closure)
@@ -55,5 +49,13 @@ extension DTCollectionViewManager {
     /// Registers `closure` to be executed when `UICollectionViewDataSource.collectionView(_:indexPathForIndexTitle:)` method is called.
     open func indexPathForIndexTitle(_ closure: @escaping (String, Int) -> IndexPath) {
         collectionDataSource?.appendNonCellReaction(.indexPathForIndexTitleAtIndex, closure: closure)
+    }
+}
+
+extension ViewModelMapping where T : UICollectionViewCell {
+    /// Registers `closure` to be executed, when `UICollectionViewDataSource.collectionView(_:canMoveItemAt:)` method is called for `cellClass`.
+    open func canMove(_ closure: @escaping (T, U, IndexPath) -> Bool)
+    {
+        reactions.append(EventReaction(viewType: T.self, modelType: U.self, signature: EventMethodSignature.canMoveItemAtIndexPath.rawValue, closure))
     }
 }

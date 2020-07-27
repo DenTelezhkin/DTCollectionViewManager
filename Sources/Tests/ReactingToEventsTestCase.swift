@@ -218,17 +218,70 @@ class ReactingToEventsFastTestCase : XCTestCase {
         sut.manager.registerFooter(NibHeaderFooterView.self)
     }
     
+    func unregisterAll() {
+        sut.manager.viewFactory.mappings.removeAll()
+    }
+    
+    func fullfill<Cell,Model,ReturnValue>(_ expectation: XCTestExpectation, andReturn returnValue: ReturnValue) -> (Cell,Model,IndexPath) -> ReturnValue {
+        { cell, model, indexPath in
+            expectation.fulfill()
+            return returnValue
+        }
+    }
+    
+    func addIntItem(_ item: Int = 3) -> (DTCellTestCollectionController) -> Void {
+        {
+            $0.manager.memoryStorage.addItem(item)
+        }
+    }
+    
+    func verifyEvent<U: Equatable>(_ signature: EventMethodSignature,
+                                                   registration: (DTCellTestCollectionController, XCTestExpectation) -> Void,
+                                                   alternativeRegistration: (DTCellTestCollectionController, XCTestExpectation) -> Void,
+                                                   preparation: (DTCellTestCollectionController) -> Void,
+                                                   action: (DTCellTestCollectionController) -> U,
+                                                   expectedResult: U? = nil) {
+        guard let sut = sut else {
+            XCTFail()
+            return
+        }
+        unregisterAll()
+        
+        let exp = expectation(description: signature.rawValue)
+        registration(sut,exp)
+        preparation(sut)
+        let result = action(sut)
+        if let expectedResult = expectedResult {
+            XCTAssertEqual(result, expectedResult)
+        }
+        waitForExpectations(timeout: 1)
+        
+        unregisterAll()
+        
+        let altExp = expectation(description: signature.rawValue)
+        alternativeRegistration(sut,altExp)
+        preparation(sut)
+        let altResult = action(sut)
+        if let expectedResult = expectedResult {
+            XCTAssertEqual(altResult, expectedResult)
+        }
+        waitForExpectations(timeout: 1)
+    }
+    
     @available(tvOS 9.0, *)
     func testCanMoveItemAtIndexPath() {
-        let exp = expectation(description: "canMoveItemAtIndexPath")
-        sut.manager.canMove(NibCell.self, { cell, model, indexPath -> Bool in
-            exp.fulfill()
-            return false
-        })
-        sut.manager.memoryStorage.addItem(3)
-        
-        _ = sut.manager.collectionDataSource?.collectionView(sut.collectionView!, canMoveItemAt: indexPath(0,0))
-        waitForExpectations(timeout: 1, handler: nil)
+        verifyEvent(.canMoveItemAtIndexPath, registration: { sut, exp in
+            sut.manager.register(NibCell.self)
+            sut.manager.canMove(NibCell.self, fullfill(exp, andReturn: true))
+        }, alternativeRegistration: { sut, exp in
+            sut.manager.register(NibCell.self) { mapping in
+                mapping.canMove(self.fullfill(exp, andReturn: true))
+            }
+        }, preparation: addIntItem(),
+        action: { sut in
+            sut.manager.collectionDataSource?.collectionView(sut.collectionView!, canMoveItemAt: indexPath(0,0)) ?? false
+        },
+        expectedResult: true)
     }
     
     func testShouldSelectItemAtIndexPath() {
