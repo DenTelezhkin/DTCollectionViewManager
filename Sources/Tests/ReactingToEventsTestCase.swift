@@ -249,6 +249,18 @@ class ReactingToEventsFastTestCase : XCTestCase {
         }
     }
     
+    func setHeaderIntModels(_ models: [Int] = [5]) -> (DTCellTestCollectionController) -> Void {
+        {
+            $0.manager.memoryStorage.setSectionHeaderModels(models)
+        }
+    }
+    
+    func setFooterIntModels(_ models: [Int] = [5]) -> (DTCellTestCollectionController) -> Void {
+        {
+            $0.manager.memoryStorage.setSectionFooterModels(models)
+        }
+    }
+    
     func verifyEvent<U: Equatable>(_ signature: EventMethodSignature,
                                                    registration: (DTCellTestCollectionController, XCTestExpectation) -> Void,
                                                    alternativeRegistration: (DTCellTestCollectionController, XCTestExpectation) -> Void,
@@ -319,172 +331,182 @@ class ReactingToEventsFastTestCase : XCTestCase {
             }
         }, preparation: addIntItem(),
         action: { sut in
-            sut.manager.collectionDataSource?.collectionView(sut.collectionView!, canMoveItemAt: indexPath(0,0)) ?? false
+            sut.manager.collectionDataSource?.collectionView(sut.collectionView, canMoveItemAt: indexPath(0,0)) ?? false
         },
         expectedResult: true)
     }
     
-    func testShouldSelectItemAtIndexPath() {
-        let exp = expectation(description: "shouldSelectItemAtIndexPath")
-        sut.manager.shouldSelect(NibCell.self, { cell, model, indexPath -> Bool in
-            exp.fulfill()
-            return false
+    func testCellSelectionClosure() throws {
+        try verifyEvent(.didSelectItemAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.didSelect(NibCell.self, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.didSelect(self.fullfill(exp, andReturn: ()))}
+        }, preparation: addIntItem(), action: {
+            $0.manager.collectionDelegate?.collectionView(sut.collectionView, didSelectItemAt: indexPath(0, 0))
         })
-        sut.manager.memoryStorage.addItem(3)
-        
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, shouldSelectItemAt: indexPath(0,0))
-        waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testShouldDeselectItemAtIndexPath() {
-        let exp = expectation(description: "shouldDeselectItemAtIndexPath")
-        sut.manager.shouldDeselect(NibCell.self, { cell, model, indexPath -> Bool in
-            exp.fulfill()
-            return false
-        })
-        sut.manager.memoryStorage.addItem(3)
-        
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, shouldDeselectItemAt: indexPath(0,0))
-        waitForExpectations(timeout: 1, handler: nil)
+    func testShouldSelectItemAtIndexPath() throws {
+        try verifyEvent(.shouldSelectItemAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.shouldSelect(NibCell.self, fullfill(exp, andReturn: true))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.shouldSelect(self.fullfill(exp, andReturn: true))}
+        }, preparation: addIntItem(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, shouldSelectItemAt: indexPath(0, 0)))
+        }, expectedResult: true)
     }
     
-    func testDidDeselectItemAtIndexPath() {
-        let exp = expectation(description: "didDeselectItemAtIndexPath")
-        sut.manager.didDeselect(NibCell.self, { cell, model, indexPath  in
-            exp.fulfill()
-            return
-        })
-        sut.manager.memoryStorage.addItem(3)
-        
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didDeselectItemAt: indexPath(0,0))
-        waitForExpectations(timeout: 1, handler: nil)
+    func testShouldDeselectItemAtIndexPath() throws {
+        try verifyEvent(.shouldDeselectItemAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.shouldDeselect(NibCell.self, fullfill(exp, andReturn: true))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.shouldDeselect(self.fullfill(exp, andReturn: true)) }
+        }, preparation: addIntItem(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, shouldDeselectItemAt: indexPath(0, 0)))
+        }, expectedResult: true)
     }
     
-    func testShouldHighlightItemAtIndexPath() {
-        let exp = expectation(description: "shouldHighlightItemAtIndexPath")
-        sut.manager.shouldHighlight(NibCell.self, { cell, model, indexPath -> Bool in
-            exp.fulfill()
-            return false
+    func testDidDeselectItemAtIndexPath() throws {
+        try verifyEvent(.didDeselectItemAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.didDeselect(NibCell.self, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.didDeselect(self.fullfill(exp, andReturn: ())) }
+        }, preparation: addIntItem(), action: {
+            $0.manager.collectionDelegate?.collectionView(sut.collectionView, didDeselectItemAt: indexPath(0, 0))
         })
-        sut.manager.memoryStorage.addItem(3)
-        
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, shouldHighlightItemAt: indexPath(0,0))
-        waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testDidHighlightItemAtIndexPath() {
-        let exp = expectation(description: "didHighlightItemAtIndexPath")
-        sut.manager.didHighlight(NibCell.self, { cell, model, indexPath  in
-            exp.fulfill()
-            return
-        })
-        sut.manager.memoryStorage.addItem(3)
-        
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didHighlightItemAt: indexPath(0,0))
-        waitForExpectations(timeout: 1, handler: nil)
+    func testShouldHighlightItemAtIndexPath() throws {
+        try verifyEvent(.shouldHighlightItemAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.shouldHighlight(NibCell.self, fullfill(exp, andReturn: true))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.shouldHighlight(self.fullfill(exp, andReturn: true))}
+        }, preparation: addIntItem(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, shouldHighlightItemAt: indexPath(0, 0)))
+        }, expectedResult: true)
     }
     
-    func testDidUnhighlightItemAtIndexPath() {
-        let exp = expectation(description: "didUnhighlightItemAtIndexPath")
-        sut.manager.didUnhighlight(NibCell.self, { cell, model, indexPath  in
-            exp.fulfill()
-            return
+    func testDidHighlightItemAtIndexPath() throws {
+        try verifyEvent(.didHighlightItemAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.didHighlight(NibCell.self, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.didHighlight(self.fullfill(exp, andReturn: ())) }
+        }, preparation: addIntItem(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, didHighlightItemAt: indexPath(0,0)))
         })
-        sut.manager.memoryStorage.addItem(3)
-        
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didUnhighlightItemAt: indexPath(0,0))
-        waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testWillDisplayItemAtIndexPath() {
-        let exp = expectation(description: "willDisplayItemAtIndexPath")
-        sut.manager.willDisplay(NibCell.self, { cell, model, indexPath  in
-            // Method is called twice due to complex storage updating logic, so we are waiting 0.1 second and cancel all previous requests
-            type(of: exp).cancelPreviousPerformRequests(withTarget: exp)
-            exp.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.1)
-            return
+    func testDidUnhighlightItemAtIndexPath() throws {
+        try verifyEvent(.didUnhighlightItemAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.didUnhighlight(NibCell.self, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.didUnhighlight(self.fullfill(exp, andReturn: ()))}
+        }, preparation: addIntItem(), action: {
+            $0.manager.collectionDelegate?.collectionView(sut.collectionView, didUnhighlightItemAt: indexPath(0, 0))
         })
-        sut.manager.memoryStorage.addItem(3)
-        waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testWillDisplaySupplementaryViewAtIndexPath() {
-        let exp = expectation(description: "willDisplaySupplementaryViewAtIndexPath")
-        sut.manager.willDisplaySupplementaryView(NibHeaderFooterView.self, forElementKind: UICollectionView.elementKindSectionHeader, { view, model, section  in
-            exp.fulfill()
-            return
-        })
-        sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionView.elementKindSectionHeader, at: indexPath(0, 0))
-        waitForExpectations(timeout: 1, handler: nil)
+    func testWillDisplayItemAtIndexPath() throws {
+        try verifyEvent(.willDisplayCellForItemAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.willDisplay(NibCell.self) { _, _, _ in
+                type(of: exp).cancelPreviousPerformRequests(withTarget: exp)
+                exp.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.1)
+                return
+            }
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.willDisplay { _, _, _ in
+                type(of: exp).cancelPreviousPerformRequests(withTarget: exp)
+                exp.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.1)
+                return
+            }}
+        }, preparation: addIntItem(), action: { _ in })
     }
     
-    func testWillDisplayHeaderViewAtIndexPath() {
-        let exp = expectation(description: "willDisplayHeaderViewAtIndexPath")
-        sut.manager.willDisplayHeaderView(NibHeaderFooterView.self, { view, model, section  in
-            exp.fulfill()
-            return
+    func testWillDisplaySupplementaryViewAtIndexPath() throws {
+        try verifyEvent(.willDisplaySupplementaryViewForElementKindAtIndexPath, registration: { (sut, exp) in
+            sut.manager.registerHeader(NibHeaderFooterView.self)
+            sut.manager.willDisplaySupplementaryView(NibHeaderFooterView.self, forElementKind: UICollectionView.elementKindSectionHeader, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.registerHeader(NibHeaderFooterView.self) { $0.willDisplaySupplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, self.fullfill(exp, andReturn: ())) }
+        }, preparation: setHeaderIntModels(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind: UICollectionView.elementKindSectionHeader, at: indexPath(0, 0)))
         })
-        sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionView.elementKindSectionHeader, at: indexPath(0, 0))
-        waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testWillDisplayFooterViewAtIndexPath() {
-        let exp = expectation(description: "willDisplayHeaderViewAtIndexPath")
-        sut.manager.willDisplayFooterView(NibHeaderFooterView.self, { view, model, section  in
-            exp.fulfill()
-            return
+    func testWillDisplayHeaderViewAtIndexPath() throws {
+        try verifyEvent(.willDisplaySupplementaryViewForElementKindAtIndexPath, registration: { (sut, exp) in
+            sut.manager.registerHeader(NibHeaderFooterView.self)
+            sut.manager.willDisplayHeaderView(NibHeaderFooterView.self, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.registerHeader(NibHeaderFooterView.self) { $0.willDisplayHeaderView(self.fullfill(exp, andReturn: ())) }
+        }, preparation: setHeaderIntModels(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind: UICollectionView.elementKindSectionHeader, at: indexPath(0, 0)))
         })
-        sut.manager.memoryStorage.setSectionFooterModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind:UICollectionView.elementKindSectionFooter, at: indexPath(0, 0))
-        waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testEndDisplayingItemAtIndexPath() {
-        let exp = expectation(description: "didEndDisplayingItemAtIndexPath")
-        sut.manager.didEndDisplaying(NibCell.self, { cell, model, indexPath  in
-            // Method is called twice due to complex storage updating logic, so we are waiting 0.1 second and cancel all previous requests
-            type(of: exp).cancelPreviousPerformRequests(withTarget: exp)
-            exp.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.1)
-            return
+    func testWillDisplayFooterViewAtIndexPath() throws {
+        try verifyEvent(.willDisplaySupplementaryViewForElementKindAtIndexPath, registration: { (sut, exp) in
+            sut.manager.registerFooter(NibHeaderFooterView.self)
+            sut.manager.willDisplayFooterView(NibHeaderFooterView.self, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.registerFooter(NibHeaderFooterView.self) { $0.willDisplayFooterView(self.fullfill(exp, andReturn: ())) }
+        }, preparation: setFooterIntModels(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind: UICollectionView.elementKindSectionFooter, at: indexPath(0, 0)))
         })
-        sut.manager.memoryStorage.addItem(3)
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplaying: NibCell(), forItemAt: indexPath(0, 0))
-        waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testDidEndDisplayingSupplementaryViewAtIndexPath() {
-        let exp = expectation(description: "didEndDisplayingSupplementaryViewAtIndexPath")
-        sut.manager.didEndDisplayingSupplementaryView(NibHeaderFooterView.self, forElementKind: UICollectionView.elementKindSectionHeader, { view, model, section  in
-            exp.fulfill()
-            return
+    func testEndDisplayingItemAtIndexPath() throws {
+        try verifyEvent(.didEndDisplayingCellForItemAtIndexPath, registration: { (sut, exp) in
+            exp.assertForOverFulfill = false
+            sut.manager.register(NibCell.self)
+            sut.manager.didEndDisplaying(NibCell.self, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            exp.assertForOverFulfill = false
+            sut.manager.register(NibCell.self) { $0.didEndDisplaying(self.fullfill(exp, andReturn: ()))}
+        }, preparation: addIntItem(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, didEndDisplaying: NibCell(), forItemAt: indexPath(0, 0)))
         })
-        sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionView.elementKindSectionHeader, at: indexPath(0, 0))
-        waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testDidEndDisplayingHeaderViewAtIndexPath() {
-        let exp = expectation(description: "didEndDisplayingHeaderViewAtIndexPath")
-        sut.manager.didEndDisplayingHeaderView(NibHeaderFooterView.self, { view, model, section  in
-            exp.fulfill()
-            return
+    func testDidEndDisplayingSupplementaryViewAtIndexPath() throws {
+        try verifyEvent(.didEndDisplayingSupplementaryViewForElementKindAtIndexPath, registration: { (sut, exp) in
+            sut.manager.registerHeader(NibHeaderFooterView.self)
+            sut.manager.didEndDisplayingSupplementaryView(NibHeaderFooterView.self, forElementKind: UICollectionView.elementKindSectionHeader, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.registerHeader(NibHeaderFooterView.self) { $0.didEndDisplayingSupplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, self.fullfill(exp, andReturn: ())) }
+        }, preparation: setHeaderIntModels(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath(0, 0)))
         })
-        sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionView.elementKindSectionHeader, at: indexPath(0, 0))
-        waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testEndDisplayingFooterViewAtIndexPath() {
-        let exp = expectation(description: "didEndDisplayingHeaderViewAtIndexPath")
-        sut.manager.didEndDisplayingFooterView(NibHeaderFooterView.self, { view, model, section  in
-            exp.fulfill()
-            return
+    func testDidEndDisplayingHeaderViewAtIndexPath() throws {
+        try verifyEvent(.didEndDisplayingSupplementaryViewForElementKindAtIndexPath, registration: { (sut, exp) in
+            sut.manager.registerHeader(NibHeaderFooterView.self)
+            sut.manager.didEndDisplayingHeaderView(NibHeaderFooterView.self, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.registerHeader(NibHeaderFooterView.self) { $0.didEndDisplayingHeaderView(self.fullfill(exp, andReturn: ())) }
+        }, preparation: setHeaderIntModels(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath(0, 0)))
         })
-        sut.manager.memoryStorage.setSectionFooterModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind:UICollectionView.elementKindSectionFooter, at: indexPath(0, 0))
-        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testEndDisplayingFooterViewAtIndexPath() throws {
+        try verifyEvent(.didEndDisplayingSupplementaryViewForElementKindAtIndexPath, registration: { (sut, exp) in
+            sut.manager.registerFooter(NibHeaderFooterView.self)
+            sut.manager.didEndDisplayingFooterView(NibHeaderFooterView.self, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.registerFooter(NibHeaderFooterView.self) { $0.didEndDisplayingFooterView(self.fullfill(exp, andReturn: ())) }
+        }, preparation: setFooterIntModels(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind: UICollectionView.elementKindSectionFooter, at: indexPath(0, 0)))
+        })
     }
     
     func testShouldShowMenuForItemAtIndexPath() {
@@ -495,7 +517,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         })
         sut.manager.memoryStorage.addItem(3)
         
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, shouldShowMenuForItemAt: indexPath(0,0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, shouldShowMenuForItemAt: indexPath(0,0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -506,7 +528,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return true
         })
         sut.manager.memoryStorage.addItem(3)
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, canPerformAction: #selector(testShouldShowMenuForItemAtIndexPath), forItemAt: indexPath(0, 0), withSender: exp)
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, canPerformAction: #selector(testShouldShowMenuForItemAtIndexPath), forItemAt: indexPath(0, 0), withSender: exp)
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -517,20 +539,20 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return
         })
         sut.manager.memoryStorage.addItem(3)
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, performAction: #selector(testShouldShowMenuForItemAtIndexPath), forItemAt: indexPath(0, 0), withSender: exp)
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, performAction: #selector(testShouldShowMenuForItemAtIndexPath), forItemAt: indexPath(0, 0), withSender: exp)
         waitForExpectations(timeout: 1, handler: nil)
     }
     
     @available(tvOS 9.0, *)
-    func testCanFocusItemAtIndexPath() {
-        let exp = expectation(description: "canFocusRowAtIndexPath")
-        sut.manager.canFocus(NibCell.self, { (cell, model, indexPath) -> Bool in
-            exp.fulfill()
-            return true
-        })
-        sut.manager.memoryStorage.addItem(3)
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, canFocusItemAt: indexPath(0, 0))
-        waitForExpectations(timeout: 1, handler: nil)
+    func testCanFocusItemAtIndexPath() throws {
+        try verifyEvent(.canFocusItemAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.canFocus(NibCell.self, self.fullfill(exp, andReturn: true))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.canFocus(self.fullfill(exp, andReturn: true))}
+        }, preparation: addIntItem(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, canFocusItemAt: indexPath(0, 0)))
+        }, expectedResult: true)
     }
     
     func testSizeForItemAtIndexPath() {
@@ -540,7 +562,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return .zero
         })
         sut.manager.memoryStorage.addItem(3)
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, layout: UICollectionViewFlowLayout(), sizeForItemAt: indexPath(0, 0))
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewFlowLayout(), sizeForItemAt: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -551,7 +573,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return .zero
         })
         sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, layout: UICollectionViewFlowLayout(), referenceSizeForHeaderInSection: 0)
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewFlowLayout(), referenceSizeForHeaderInSection: 0)
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -562,7 +584,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             return .zero
         })
         sut.manager.memoryStorage.setSectionFooterModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!, layout: UICollectionViewFlowLayout(), referenceSizeForFooterInSection: 0)
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewFlowLayout(), referenceSizeForFooterInSection: 0)
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -572,7 +594,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
         }
         sut.manager.memoryStorage.addItems([3,4])
-        _ = sut.manager.collectionDataSource?.collectionView(sut.collectionView!, moveItemAt: indexPath(0, 0), to: indexPath(1, 0))
+        _ = sut.manager.collectionDataSource?.collectionView(sut.collectionView, moveItemAt: indexPath(0, 0), to: indexPath(1, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -583,7 +605,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return []
         }
-        _ = sut.manager.collectionDataSource?.indexTitles(for: sut.collectionView!)
+        _ = sut.manager.collectionDataSource?.indexTitles(for: sut.collectionView)
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -594,7 +616,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return indexPath(0, 0)
         }
-        _ = sut.manager.collectionDataSource?.collectionView(sut.collectionView!,
+        _ = sut.manager.collectionDataSource?.collectionView(sut.collectionView,
                                                              indexPathForIndexTitle: "",
                                                              at: 4)
         waitForExpectations(timeout: 1, handler: nil)
@@ -606,7 +628,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return UICollectionViewTransitionLayout(currentLayout: old, nextLayout: new)
         }
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView,
                                                            transitionLayoutForOldLayout: UICollectionViewLayout(),
                                                            newLayout: UICollectionViewLayout())
         waitForExpectations(timeout: 1, handler: nil)
@@ -618,21 +640,19 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return nil
         }
-        _ = sut.manager.collectionDelegate?.indexPathForPreferredFocusedView(in: sut.collectionView!)
+        _ = sut.manager.collectionDelegate?.indexPathForPreferredFocusedView(in: sut.collectionView)
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testTargetIndexPathForMove() {
-        let exp = expectation(description: "TargetIndexPathForMove")
-        sut.manager.targetIndexPathForMovingItem(NibCell.self) { _, _, _, _ in
-            exp.fulfill()
-            return IndexPath(item: 0, section: 0)
-        }
-        sut.manager.memoryStorage.addItems([3,4])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
-                                                           targetIndexPathForMoveFromItemAt: indexPath(0, 0),
-                                                           toProposedIndexPath: indexPath(1, 0))
-        waitForExpectations(timeout: 1, handler: nil)
+    func testTargetIndexPathForMove() throws {
+        try verifyEvent(.targetIndexPathForMoveFromItemAtTo, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.targetIndexPathForMovingItem(NibCell.self, fullfill(exp, andReturn: indexPath(0, 0)))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.targetIndexPathForMovingItem(self.fullfill(exp, andReturn: indexPath(0, 0)))}
+        }, preparation: addIntItem(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, targetIndexPathForMoveFromItemAt: indexPath(0, 0), toProposedIndexPath: indexPath(1, 0)))
+        }, expectedResult: indexPath(0, 0))
     }
     
     func testTargetContentOffsetForProposedContentOffset() {
@@ -641,23 +661,23 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return .zero
         }
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView,
                                                            targetContentOffsetForProposedContentOffset: .zero)
         waitForExpectations(timeout: 1, handler: nil)
     }
     
     #if os(iOS)
-    func testShouldSpringLoadItem() {
-        let exp = expectation(description: "shouldSpringLoadItem")
-        sut.manager.shouldSpringLoad(NibCell.self) { _, _, _, _ in
-            exp.fulfill()
-            return true
-        }
-        sut.manager.memoryStorage.addItems([3,4])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
-                                                           shouldSpringLoadItemAt: indexPath(0, 0),
-                                                           with: SpringLoadedContextMock())
-        waitForExpectations(timeout: 1, handler: nil)
+    func testShouldSpringLoadItem() throws {
+        try verifyEvent(.shouldSpringLoadItem, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.shouldSpringLoad(NibCell.self, fullfill(exp, andReturn: true))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.shouldSpringLoad(self.fullfill(exp, andReturn: true))}
+        }, preparation: {
+            $0.manager.memoryStorage.addItems([3,4])
+        }, action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, shouldSpringLoadItemAt: indexPath(0, 0), with: SpringLoadedContextMock()))
+        }, expectedResult: true)
     }
     #endif
     
@@ -667,7 +687,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return UIEdgeInsets()
         }
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView,
                                                            layout: UICollectionViewLayout(),
                                                            insetForSectionAt: 0)
         waitForExpectations(timeout: 1, handler: nil)
@@ -679,7 +699,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return 0
         }
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView,
                                                            layout: UICollectionViewLayout(),
                                                            minimumLineSpacingForSectionAt: 0)
         waitForExpectations(timeout: 1, handler: nil)
@@ -691,7 +711,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return 0
         }
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView!,
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView,
                                                            layout: UICollectionViewLayout(),
                                                            minimumInteritemSpacingForSectionAt: 0)
         waitForExpectations(timeout: 1, handler: nil)
@@ -710,7 +730,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             }
         }, preparation: addIntItem(),
         action: {
-            try XCTUnwrap($0.manager.collectionDragDelegate?.collectionView(sut.collectionView!, itemsForBeginning: DragAndDropMock(), at: indexPath(0, 0)))
+            try XCTUnwrap($0.manager.collectionDragDelegate?.collectionView(sut.collectionView, itemsForBeginning: DragAndDropMock(), at: indexPath(0, 0)))
         }, expectedResult: [])
     }
     
@@ -724,7 +744,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             }
         }, preparation: addIntItem(),
         action: {
-            try XCTUnwrap($0.manager.collectionDragDelegate?.collectionView(sut.collectionView!, itemsForAddingTo: DragAndDropMock(), at: indexPath(0,0), point: .zero))
+            try XCTUnwrap($0.manager.collectionDragDelegate?.collectionView(sut.collectionView, itemsForAddingTo: DragAndDropMock(), at: indexPath(0,0), point: .zero))
         }, expectedResult: [])
     }
     
@@ -737,7 +757,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
                 mapping.dragPreviewParameters(self.fullfill(exp, andReturn: nil))
             }
         }, preparation: addIntItem(), action: {
-            $0.manager.collectionDragDelegate?.collectionView(sut.collectionView!, dragPreviewParametersForItemAt: indexPath(0, 0))
+            $0.manager.collectionDragDelegate?.collectionView(sut.collectionView, dragPreviewParametersForItemAt: indexPath(0, 0))
         })
     }
     
@@ -746,7 +766,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         sut.manager.dragSessionWillBegin { _ in
             exp.fulfill()
         }
-        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, dragSessionWillBegin: DragAndDropMock())
+        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView, dragSessionWillBegin: DragAndDropMock())
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -755,7 +775,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         sut.manager.dragSessionDidEnd { _ in
             exp.fulfill()
         }
-        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, dragSessionDidEnd: DragAndDropMock())
+        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView, dragSessionDidEnd: DragAndDropMock())
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -765,7 +785,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return true
         }
-        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, dragSessionAllowsMoveOperation: DragAndDropMock())
+        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView, dragSessionAllowsMoveOperation: DragAndDropMock())
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -775,7 +795,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return true
         }
-        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView!, dragSessionIsRestrictedToDraggingApplication: DragAndDropMock())
+        _ = sut.manager.collectionDragDelegate?.collectionView(sut.collectionView, dragSessionIsRestrictedToDraggingApplication: DragAndDropMock())
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -786,7 +806,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         sut.manager.performDropWithCoordinator { _ in
             exp.fulfill()
         }
-        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, performDropWith: DropCoordinatorMock())
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView, performDropWith: DropCoordinatorMock())
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -796,7 +816,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return true
         }
-        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, canHandle: DragAndDropMock())
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView, canHandle: DragAndDropMock())
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -805,7 +825,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         sut.manager.dropSessionDidEnter { _ in
             exp.fulfill()
         }
-        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, dropSessionDidEnter: DragAndDropMock())
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView, dropSessionDidEnter: DragAndDropMock())
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -815,7 +835,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return UICollectionViewDropProposal(operation: .cancel)
         }
-        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, dropSessionDidUpdate: DragAndDropMock(), withDestinationIndexPath: nil)
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView, dropSessionDidUpdate: DragAndDropMock(), withDestinationIndexPath: nil)
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -824,7 +844,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         sut.manager.dropSessionDidExit { _ in
             exp.fulfill()
         }
-        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, dropSessionDidExit: DragAndDropMock())
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView, dropSessionDidExit: DragAndDropMock())
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -833,7 +853,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         sut.manager.dropSessionDidEnd { _ in
             exp.fulfill()
         }
-        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, dropSessionDidEnd: DragAndDropMock())
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView, dropSessionDidEnd: DragAndDropMock())
         waitForExpectations(timeout: 1, handler: nil)
     }
     
@@ -843,35 +863,38 @@ class ReactingToEventsFastTestCase : XCTestCase {
             exp.fulfill()
             return nil
         }
-        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView!, dropPreviewParametersForItemAt: indexPath(0, 0))
+        _ = sut.manager.collectionDropDelegate?.collectionView(sut.collectionView, dropPreviewParametersForItemAt: indexPath(0, 0))
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testShouldBeginMultipleSelectionInteraction() {
-        guard #available(iOS 13, *) else { return }
-        let exp = expectation(description: "shouldBeginMultipleSelectionInteractionAT")
-        sut.manager.shouldBeginMultipleSelectionInteraction(for: NibCell.self) { _,_,_ in
-            exp.fulfill()
-            return false
+    func testShouldBeginMultipleSelectionInteraction() throws {
+        guard #available(iOS 13, *) else {
+            throw XCTSkip()
         }
-        sut.manager.memoryStorage.addItem(1)
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, shouldBeginMultipleSelectionInteractionAt: indexPath(0, 0))
-        waitForExpectations(timeout: 1, handler: nil)
+        try verifyEvent(.shouldBeginMultipleSelectionInteractionAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.shouldBeginMultipleSelectionInteraction(for: NibCell.self, fullfill(exp, andReturn: true))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.shouldBeginMultipleSelectionInteraction(self.fullfill(exp, andReturn: true))}
+        }, preparation: addIntItem(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, shouldBeginMultipleSelectionInteractionAt: indexPath(0, 0)))
+        }, expectedResult: true)
     }
     
-    func testDidBeginMultipleSelectionInteraction() {
-        guard #available(iOS 13, *) else { return }
-        let exp = expectation(description: "didBeginMultipleSelectionInteractionAT")
-        sut.manager.didBeginMultipleSelectionInteraction(for: NibCell.self) { _,_,_ in
-            exp.fulfill()
-        }
-        sut.manager.memoryStorage.addItem(1)
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, didBeginMultipleSelectionInteractionAt: indexPath(0, 0))
-        waitForExpectations(timeout: 1, handler: nil)
+    func testDidBeginMultipleSelectionInteraction() throws {
+        guard #available(iOS 13, *) else { throw XCTSkip() }
+        try verifyEvent(.didBeginMultipleSelectionInteractionAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.didBeginMultipleSelectionInteraction(for: NibCell.self, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.didBeginMultipleSelectionInteraction(self.fullfill(exp, andReturn: ())) }
+        }, preparation: addIntItem(), action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, didBeginMultipleSelectionInteractionAt: indexPath(0, 0)))
+        })
     }
     
-    func testDidEndMultipleSelectionInteraction() {
-        guard #available(iOS 13, *) else { return }
+    func testDidEndMultipleSelectionInteraction() throws {
+        guard #available(iOS 13, *) else { throw XCTSkip() }
         let exp = expectation(description: "didEndMultipleSelectionInteractionAT")
         sut.manager.didEndMultipleSelectionInteraction {
             exp.fulfill()
@@ -881,17 +904,16 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    func testContextMenuConfiguration() {
-        guard #available(iOS 13, *) else { return }
-        let exp = expectation(description: "contextMenuConfiguration")
-        sut.manager.contextMenuConfiguration(for: NibCell.self) { point, _, _, _ in
-            XCTAssertEqual(point, CGPoint(x: 1, y: 1))
-            exp.fulfill()
-            return nil
-        }
-        sut.manager.memoryStorage.addItem(1)
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, contextMenuConfigurationForItemAt: indexPath(0, 0), point: CGPoint(x: 1, y: 1))
-        waitForExpectations(timeout: 1, handler: nil)
+    func testContextMenuConfiguration() throws {
+        guard #available(iOS 13, *) else { throw XCTSkip() }
+        try verifyEvent(.contextMenuConfigurationForItemAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.contextMenuConfiguration(for: NibCell.self, fullfill(exp, andReturn: nil))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.contextMenuConfiguration(self.fullfill(exp, andReturn: nil)) }
+        }, preparation: addIntItem(), action: {
+            $0.manager.collectionDelegate?.collectionView(sut.collectionView, contextMenuConfigurationForItemAt: indexPath(0,0), point: .zero)
+        }, expectedResult: nil)
     }
     
     func testPreviewForHighlightingContextMenu() {
