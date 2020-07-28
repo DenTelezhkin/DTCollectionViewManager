@@ -27,6 +27,18 @@ import UIKit
 
 /// Deprecated methods
 public extension DTCollectionViewManager {
+    @available(*, deprecated, message: "All cell and view events are now available inside mapping closure in register(_:handler:mapping:) method, along with type already inferred, thus making this method obsolete")
+    /// Immediately runs closure to provide access to both T and T.ModelType for `klass`.
+    ///
+    /// - Discussion: This is particularly useful for registering events, because near 1/3 of events don't have cell or view before they are getting run, which prevents view type from being known, and required developer to remember, which model is mapped to which cell.
+    /// By using this container closure you will be able to provide compile-time safety for all events.
+    /// - Parameters:
+    ///   - klass: Class of reusable view to be used in configuration container
+    ///   - closure: closure to run with view types.
+    func configureEvents<T:ModelTransfer>(for klass: T.Type, _ closure: (T.Type, T.ModelType.Type) -> Void) {
+        closure(T.self, T.ModelType.self)
+    }
+    
     @available(*, deprecated, message: "Please use handler parameter in register(_:handler:mapping:) method instead.")
     /// Registers `closure` to be executed, when `UICollectionView` requests `cellClass` in `UICollectionViewDataSource.collectionView(_:cellForItemAt:)` method and cell is being configured.
     ///
