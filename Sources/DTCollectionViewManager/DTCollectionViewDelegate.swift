@@ -36,7 +36,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
-        if let size = performModelReaction(.sizeForItemAtIndexPath, location: indexPath) as? CGSize {
+        if let size = performCellReaction(.sizeForItemAtIndexPath, location: indexPath, provideCell: false) as? CGSize {
             return size
         }
         return (delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, sizeForItemAt: indexPath) ?? (collectionViewLayout as? UICollectionViewFlowLayout)?.itemSize ?? .zero
@@ -45,7 +45,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize
     {
-        if let size = performUnmappedSupplementaryReaction(of: UICollectionView.elementKindSectionHeader, signature: .referenceSizeForHeaderInSection, location: IndexPath(item: 0, section: section)) as? CGSize {
+        if let size = performSupplementaryReaction(ofKind: UICollectionView.elementKindSectionHeader, signature: .referenceSizeForHeaderInSection, location: IndexPath(item:0, section: section), view: nil) as? CGSize {
             return size
         }
         if let size = (self.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, referenceSizeForHeaderInSection: section) {
@@ -59,7 +59,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForFooterInSection section: Int) -> CGSize {
-        if let size = performUnmappedSupplementaryReaction(of: UICollectionView.elementKindSectionFooter, signature: .referenceSizeForFooterInSection, location: IndexPath(item:0, section:section)) as? CGSize {
+        if let size = performSupplementaryReaction(ofKind: UICollectionView.elementKindSectionFooter, signature: .referenceSizeForFooterInSection, location: IndexPath(item: 0, section: section), view: nil) as? CGSize {
             return size
         }
         if let size = (self.delegate as? UICollectionViewDelegateFlowLayout)?.collectionView?(collectionView, layout: collectionViewLayout, referenceSizeForFooterInSection: section) {

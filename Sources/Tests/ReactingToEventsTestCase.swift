@@ -243,6 +243,13 @@ class ReactingToEventsFastTestCase : XCTestCase {
         }
     }
     
+    func fulfill<Model, ReturnValue>(_ expectation: XCTestExpectation, andReturn returnValue: ReturnValue) -> (Model,IndexPath) -> ReturnValue {
+        { model, indexPath in
+            expectation.fulfill()
+            return returnValue
+        }
+    }
+    
     func addIntItem(_ item: Int = 3) -> (DTCellTestCollectionController) -> Void {
         {
             $0.manager.memoryStorage.addItem(item)
@@ -555,37 +562,44 @@ class ReactingToEventsFastTestCase : XCTestCase {
         }, expectedResult: true)
     }
     
-    func testSizeForItemAtIndexPath() {
-        let exp = expectation(description: "sizeForItemAtIndexPath")
-        sut.manager.sizeForCell(withItem: Int.self, { (model, indexPath) -> CGSize in
-            exp.fulfill()
-            return .zero
-        })
-        sut.manager.memoryStorage.addItem(3)
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewFlowLayout(), sizeForItemAt: indexPath(0, 0))
-        waitForExpectations(timeout: 1, handler: nil)
+    func testSizeForItemAtIndexPath() throws {
+        try verifyEvent(.sizeForItemAtIndexPath,
+        registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.sizeForCell(withItem: Int.self, fulfill(exp, andReturn: CGSize(width: 30, height: 30)))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) {
+                $0.sizeForCell(self.fulfill(exp, andReturn: CGSize(width: 30, height: 30)))
+            }
+        }, preparation: addIntItem(), action: { (sut) in
+            sut.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewFlowLayout(), sizeForItemAt: indexPath(0, 0))
+        }, expectedResult: CGSize(width: 30, height: 30))
     }
     
-    func testSizeForHeaderInSection() {
-        let exp = expectation(description: "sizeForHeaderInSection")
-        sut.manager.referenceSizeForHeaderView(withItem: Int.self, { (model, indexPath) -> CGSize in
-            exp.fulfill()
-            return .zero
-        })
-        sut.manager.memoryStorage.setSectionHeaderModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewFlowLayout(), referenceSizeForHeaderInSection: 0)
-        waitForExpectations(timeout: 1, handler: nil)
+    func testSizeForHeaderInSection() throws {
+        try verifyEvent(.referenceSizeForHeaderInSection, registration: { (sut, exp) in
+            sut.manager.registerHeader(NibHeaderFooterView.self)
+            sut.manager.referenceSizeForHeaderView(withItem: Int.self, fulfill(exp, andReturn: CGSize(width: 30, height: 30)))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.registerHeader(NibHeaderFooterView.self) {
+                $0.referenceSizeForHeaderView(self.fulfill(exp, andReturn: CGSize(width: 30, height: 30)))
+            }
+        }, preparation: setHeaderIntModels(), action: { sut in
+            sut.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewFlowLayout(), referenceSizeForHeaderInSection: 0)
+        }, expectedResult: CGSize(width: 30, height: 30))
     }
     
-    func testSizeForFooterInSection() {
-        let exp = expectation(description: "sizeForFooterInSection")
-        sut.manager.referenceSizeForFooterView(withItem: Int.self, { (model, indexPath) -> CGSize in
-            exp.fulfill()
-            return .zero
-        })
-        sut.manager.memoryStorage.setSectionFooterModels([5])
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewFlowLayout(), referenceSizeForFooterInSection: 0)
-        waitForExpectations(timeout: 1, handler: nil)
+    func testSizeForFooterInSection() throws {
+        try verifyEvent(.referenceSizeForFooterInSection, registration: { (sut, exp) in
+            sut.manager.registerFooter(NibHeaderFooterView.self)
+            sut.manager.referenceSizeForFooterView(withItem: Int.self, fulfill(exp, andReturn: CGSize(width: 30, height: 30)))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.registerFooter(NibHeaderFooterView.self) {
+                $0.referenceSizeForFooterView(self.fulfill(exp, andReturn: CGSize(width: 30, height: 30)))
+            }
+        }, preparation: setFooterIntModels(), action: { sut in
+            sut.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewFlowLayout(), referenceSizeForFooterInSection: 0)
+        }, expectedResult: CGSize(width: 30, height: 30))
     }
     
     func testMoveItemAtIndexPath() {

@@ -265,19 +265,19 @@ extension DTCollectionViewManager {
     /// Registers `closure` to be executed to determine cell size in `UICollectionViewDelegateFlowLayout.collectionView(_:sizeForItemAt:)` method, when it's called for cell which model is of `itemType`.
     open func sizeForCell<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
-        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.sizeForItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(viewType: .cell, for: T.self, signature: EventMethodSignature.sizeForItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed to determine header size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderViewInSection:)` method, when it's called for header which model is of `itemType`.
     open func referenceSizeForHeaderView<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
-        collectionDelegate?.appendReaction(forSupplementaryKind: UICollectionView.elementKindSectionHeader, modelClass: T.self, signature: EventMethodSignature.referenceSizeForHeaderInSection, closure: closure)
+        collectionDelegate?.appendReaction(viewType: .supplementaryView(kind: UICollectionView.elementKindSectionHeader), for: T.self, signature: EventMethodSignature.referenceSizeForHeaderInSection, closure: closure)
     }
     
     /// Registers `closure` to be executed to determine footer size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterViewInSection:)` method, when it's called for footer which model is of `itemType`.
     open func referenceSizeForFooterView<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
     {
-        collectionDelegate?.appendReaction(forSupplementaryKind: UICollectionView.elementKindSectionFooter, modelClass: T.self, signature: EventMethodSignature.referenceSizeForFooterInSection, closure: closure)
+        collectionDelegate?.appendReaction(viewType: .supplementaryView(kind: UICollectionView.elementKindSectionFooter), for: T.self, signature: EventMethodSignature.referenceSizeForFooterInSection, closure: closure)
     }
     
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:transitionLayoutForOldLayout:toNewLayout:`) method is called
@@ -368,6 +368,13 @@ extension ViewModelMapping where T: UICollectionViewCell {
         reactions.append(FourArgumentsEventReaction(T.self, modelType: U.self, argument: IndexPath.self, signature: EventMethodSignature.targetIndexPathForMoveFromItemAtTo.rawValue, closure))
     }
     
+    
+    /// Registers `closure` to be executed to determine cell size in `UICollectionViewDelegateFlowLayout.collectionView(_:sizeForItemAt:)` method, when it's called for cell which model is of `itemType`.
+    open func sizeForCell(_ closure: @escaping (U, IndexPath) -> CGSize)
+    {
+        reactions.append(EventReaction(modelType: U.self, signature: EventMethodSignature.sizeForItemAtIndexPath.rawValue, closure))
+    }
+    
 #if os(iOS)
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:)` method is called for `T` class with `U` model.
     open func shouldSpringLoad(_ closure: @escaping (UISpringLoadedInteractionContext, T, U, IndexPath) -> Bool)
@@ -446,5 +453,17 @@ extension ViewModelMapping where T: UICollectionReusableView {
     open func didEndDisplayingFooterView(_ closure: @escaping (T, U, IndexPath) -> Void)
     {
         didEndDisplayingSupplementaryView(forElementKind: UICollectionView.elementKindSectionFooter, closure)
+    }
+
+    /// Registers `closure` to be executed to determine header size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderViewInSection:)` method, when it's called for header which model is of `itemType`.
+    open func referenceSizeForHeaderView(_ closure: @escaping (U, IndexPath) -> CGSize)
+    {
+        reactions.append(EventReaction(modelType: U.self, signature: EventMethodSignature.referenceSizeForHeaderInSection.rawValue, supplementaryKind: self.viewType.supplementaryKind(), closure))
+    }
+    
+    /// Registers `closure` to be executed to determine footer size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterViewInSection:)` method, when it's called for footer which model is of `itemType`.
+    open func referenceSizeForFooterView(_ closure: @escaping (U, IndexPath) -> CGSize)
+    {
+        reactions.append(EventReaction(modelType: U.self, signature: EventMethodSignature.referenceSizeForFooterInSection.rawValue, supplementaryKind: self.viewType.supplementaryKind(), closure))
     }
 }

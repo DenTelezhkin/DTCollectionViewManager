@@ -5,6 +5,39 @@ All notable changes to this project will be documented in this file.
 
 ### New
 
+* Cell and supplementary view events are now available inside mapping closure directly, for example:
+
+```swift
+// Previous releases
+manager.register(PostCell.self)
+manager.didSelect(PostCell.self) { cell, model, indexPath in
+    // React to selection
+}
+
+// New
+manager.register(PostCell.self) { mapping in 
+    mapping.didSelect { cell, model, indexPath in
+    
+    }
+}
+```
+Those events are now tied to `ViewModelMapping` instance, which means, that events, registered this way, will only trigger, if mapping condition of current mapping applies. For example:
+
+```swift
+manager.register(PostCell.self) { mapping in 
+    mapping.condition = .section(0)
+    mapping.didSelect { cell, model, indexPath in  
+        // This closure will only get called, when user selects cell in the first section
+    }
+}
+manager.register(PostCell.self) { mapping in 
+    mapping.condition = .section(1)
+    mapping.didSelect { cell, model, indexPath in  
+        // This closure will only get called, when user selects cell in the second section
+    }
+}
+```
+
 * It's now possible to register collection view cells, that don't conform to `DTModelTransfer` protocol:
 
 ```swift
