@@ -96,6 +96,13 @@ open class DTCollectionViewManager {
         precondition(self.isManagingCollectionView, "Please call manager.startManagingWithDelegate(self) before calling any other DTCollectionViewManager methods")
         //swiftlint:disable:next force_unwrapping
         let factory = CollectionViewFactory(collectionView: self.collectionView!)
+        factory.resetDelegates = { [weak self] in
+            self?.collectionDataSource?.delegateWasReset()
+            self?.collectionDelegate?.delegateWasReset()
+            
+            self?.collectionDropDelegate?.delegateWasReset()
+            self?.collectionDragDelegate?.delegateWasReset()
+        }
         factory.anomalyHandler = anomalyHandler
         return factory
     }()

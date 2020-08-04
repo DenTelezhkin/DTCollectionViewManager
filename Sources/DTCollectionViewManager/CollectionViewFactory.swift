@@ -32,9 +32,14 @@ final class CollectionViewFactory
 {
     fileprivate let collectionView: UICollectionView
     
-    var mappings = [ViewModelMappingProtocol]()
+    var mappings = [ViewModelMappingProtocol]() {
+        didSet {
+            resetDelegates?()
+        }
+    }
     
     weak var anomalyHandler : DTCollectionViewManagerAnomalyHandler?
+    var resetDelegates : (() -> Void)?
     
     init(collectionView: UICollectionView)
     {
