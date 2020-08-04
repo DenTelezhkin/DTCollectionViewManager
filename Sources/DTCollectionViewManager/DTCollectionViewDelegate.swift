@@ -286,11 +286,11 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     @available(iOS 13.0, *)
     /// Implementation for `UICollectionViewDelegate` protocol
     open func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
-        if let configuration = perform4ArgumentCellReaction(.contextMenuConfigurationForItemAtIndexPath,
-                                                            argument: point,
-                                                            location: indexPath,
-                                                            provideCell: true) as? UIContextMenuConfiguration {
-            return configuration
+        if let _ = cellReaction(.contextMenuConfigurationForItemAtIndexPath, location: indexPath) as? FourArgumentsEventReaction {
+            return perform4ArgumentCellReaction(.contextMenuConfigurationForItemAtIndexPath,
+                                                argument: point,
+                                                location: indexPath,
+                                                provideCell: true) as? UIContextMenuConfiguration
         }
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView,
                                                               contextMenuConfigurationForItemAt: indexPath,
@@ -300,8 +300,8 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     @available(iOS 13.0, *)
     /// Implementation for `UICollectionViewDelegate` protocol
     open func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        if let preview = performNonCellReaction(.previewForHighlightingContextMenu, argument: configuration) as? UITargetedPreview {
-            return preview
+        if unmappedReactions.contains(where: { $0.methodSignature == EventMethodSignature.previewForHighlightingContextMenu.rawValue }) {
+            return performNonCellReaction(.previewForHighlightingContextMenu, argument: configuration) as? UITargetedPreview
         }
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForHighlightingContextMenuWithConfiguration: configuration)
     }
@@ -309,8 +309,8 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     @available(iOS 13.0, *)
     /// Implementation for `UICollectionViewDelegate` protocol
     open func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
-        if let preview = performNonCellReaction(.previewForDismissingContextMenu, argument: configuration) as? UITargetedPreview {
-            return preview
+        if unmappedReactions.contains(where: { $0.methodSignature == EventMethodSignature.previewForDismissingContextMenu.rawValue }) {
+            return performNonCellReaction(.previewForDismissingContextMenu, argument: configuration) as? UITargetedPreview
         }
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForDismissingContextMenuWithConfiguration: configuration)
     }

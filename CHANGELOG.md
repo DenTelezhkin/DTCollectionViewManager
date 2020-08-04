@@ -92,6 +92,8 @@ registerHeader(StoryboardHeader.self) { mapping in
 ### Fixed
 
 * Supplementary views now correctly use `ViewModelMapping.reuseIdentifier` instead of falling back to name of the view class.
+* Several event API's have been improved to allow returning nil for methods, that accept nil as a valid value: 
+`contextMenuConfiguration`, `previewForHighlightingContextMenu`, `previewForDismissingContextMenu`
 
 ## [7.2.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/7.2.0)
 

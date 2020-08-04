@@ -94,7 +94,6 @@ class MappingTestCase: XCTestCase {
         XCTAssertEqual(controller.manager.viewFactory.mappings.count, 1)
     }
     
-    
     func testTwoKindsOfCellRegistrationsAreCombinable() {
         controller.manager.register(NibCell.self)
         controller.manager.register(UICollectionViewCell.self, for: String.self, handler: { cell, model, _ in

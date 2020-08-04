@@ -382,23 +382,23 @@
 		3E33C71B22B81BB0006FBB21 /* DTCollectionViewManager */ = {
 			isa = PBXGroup;
 			children = (
-				3E33C71C22B81BB0006FBB21 /* DTCollectionViewManager+DataSource.swift */,
-				3E33C71D22B81BB0006FBB21 /* DTCollectionViewManagerAnomalyHandler.swift */,
 				3E33C71E22B81BB0006FBB21 /* CollectionViewFactory.swift */,
-				3E33C71F22B81BB0006FBB21 /* DTCollectionViewDelegate.swift */,
-				3E33C72022B81BB0006FBB21 /* DTCollectionViewDragDelegate.swift */,
-				3E33C72122B81BB0006FBB21 /* DTCollectionViewManager.swift */,
-				3E33C72222B81BB0006FBB21 /* DTCollectionViewManager+Drag.swift */,
-				3E33C72322B81BB0006FBB21 /* DTCollectionViewManager+Delegate.swift */,
-				3E33C72422B81BB0006FBB21 /* DTCollectionViewManager+Drop.swift */,
-				3E33C72522B81BB0006FBB21 /* DTCollectionViewDropDelegate.swift */,
-				3E33C72622B81BB0006FBB21 /* DTCollectionViewDataSource.swift */,
-				3E33C72722B81BB0006FBB21 /* DTCollectionViewDropPlaceholderContext.swift */,
 				3E33C72822B81BB0006FBB21 /* CollectionViewUpdater.swift */,
-				3E33C72A22B81BB0006FBB21 /* DTCollectionViewManager+Registration.swift */,
+				3E33C72622B81BB0006FBB21 /* DTCollectionViewDataSource.swift */,
+				3E33C71F22B81BB0006FBB21 /* DTCollectionViewDelegate.swift */,
 				3E33C72B22B81BB0006FBB21 /* DTCollectionViewDelegateWrapper.swift */,
-				9ABE13FA24599CE2008874D2 /* Exports.swift */,
+				3E33C72022B81BB0006FBB21 /* DTCollectionViewDragDelegate.swift */,
+				3E33C72522B81BB0006FBB21 /* DTCollectionViewDropDelegate.swift */,
+				3E33C72722B81BB0006FBB21 /* DTCollectionViewDropPlaceholderContext.swift */,
+				3E33C72122B81BB0006FBB21 /* DTCollectionViewManager.swift */,
+				3E33C71C22B81BB0006FBB21 /* DTCollectionViewManager+DataSource.swift */,
+				3E33C72322B81BB0006FBB21 /* DTCollectionViewManager+Delegate.swift */,
 				9AA52DBA24C7A241002FFC89 /* DTCollectionViewManager+Deprecated.swift */,
+				3E33C72222B81BB0006FBB21 /* DTCollectionViewManager+Drag.swift */,
+				3E33C72422B81BB0006FBB21 /* DTCollectionViewManager+Drop.swift */,
+				3E33C72A22B81BB0006FBB21 /* DTCollectionViewManager+Registration.swift */,
+				3E33C71D22B81BB0006FBB21 /* DTCollectionViewManagerAnomalyHandler.swift */,
+				9ABE13FA24599CE2008874D2 /* Exports.swift */,
 			);
 			path = DTCollectionViewManager;
 			sourceTree = "<group>";
