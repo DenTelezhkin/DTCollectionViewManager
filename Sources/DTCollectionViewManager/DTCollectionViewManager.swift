@@ -28,7 +28,7 @@ import UIKit
 import DTModelStorage
 
 /// Adopting this protocol will automatically inject manager property to your object, that lazily instantiates DTCollectionViewManager object.
-/// Target is not required to be UICollectionViewController, and can be a regular UIViewController with UICollectionView, or even different object like UICollectionViewCell.
+/// Target is not required to be UICollectionViewController, and can be a regular UIViewController with UICollectionView, or any other view, that contains UICollectionView.
 public protocol DTCollectionViewManageable : class
 {
     /// Collection view, that will be managed by DTCollectionViewManager. This property or `optionalCollectionView` property must be implemented in order for `DTCollectionViewManager` to work.
@@ -49,7 +49,7 @@ private var DTCollectionViewManagerAssociatedKey = "DTCollectionView Manager Ass
 /// Default implementation for `DTCollectionViewManageable` protocol, that will inject `manager` property to any object, that declares itself `DTCollectionViewManageable`.
 extension DTCollectionViewManageable
 {
-    /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call `startManaging(withDelegate:)` method and `DTCollectionViewManager` will take over UICollectionView datasource and delegate.
+    /// Lazily instantiated `DTCollectionViewManager` instance. When your collection view is loaded, call mapping registration methods and `DTCollectionViewManager` will take over UICollectionView datasource and delegate.
     /// Any method, that is not implemented by `DTCollectionViewManager`, will be forwarded to delegate.
     /// If this property is accessed when UICollectionView is loaded, and DTCollectionViewManager is not configured yet, startManaging(withDelegate:_) method will automatically be called once to initialize DTCollectionViewManager.
     /// - SeeAlso: `startManaging(withDelegate:)`
@@ -87,9 +87,7 @@ open class DTCollectionViewManager {
     fileprivate weak var delegate : AnyObject?
     
     /// Bool property, that will be true, after `startManagingWithDelegate` method is called on `DTCollectionViewManager`.
-    open var isManagingCollectionView : Bool {
-        return collectionView != nil
-    }
+    open var isManagingCollectionView : Bool { collectionView != nil }
     
     ///  Factory for creating cells and reusable views for UICollectionView
     final lazy var viewFactory: CollectionViewFactory = {
@@ -100,8 +98,10 @@ open class DTCollectionViewManager {
             self?.collectionDataSource?.delegateWasReset()
             self?.collectionDelegate?.delegateWasReset()
             
+            #if os(iOS)
             self?.collectionDropDelegate?.delegateWasReset()
             self?.collectionDragDelegate?.delegateWasReset()
+            #endif
         }
         factory.anomalyHandler = anomalyHandler
         return factory
@@ -201,7 +201,8 @@ open class DTCollectionViewManager {
         self.storage = storage
     }
     
-    /// Call this method before calling any of `DTCollectionViewManager` methods.
+    /// If you access `manager` property when managed `UICollectionView` is already created(for example: viewDidLoad method), calling this method is not necessary.
+    /// If for any reason, `UICollectionView` is created later, please call this method before modifying storage or registering cells/supplementary views.
     /// - Precondition: UICollectionView instance on `delegate` should not be nil.
     /// - Parameter delegate: Object, that has UICollectionView, that will be managed by `DTCollectionViewManager`.
     open func startManaging(withDelegate delegate : DTCollectionViewManageable)
@@ -312,12 +313,12 @@ open class DTCollectionViewManager {
                                      animateMoveAsDeleteAndInsert: true)
     }
     
-    func verifyItemEvent<T>(for itemType: T.Type, methodName: String) {
+    func verifyItemEvent<Model>(for itemType: Model.Type, methodName: String) {
         switch itemType {
         case is UICollectionReusableView.Type:
-            anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: methodName, subclassOf: "UICollectionReusableView"))
+            anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: Model.self), methodName: methodName, subclassOf: "UICollectionReusableView"))
         case is UICollectionViewCell.Type:
-            anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: T.self), methodName: methodName, subclassOf: "UICollectionViewCell"))
+            anomalyHandler.reportAnomaly(.modelEventCalledWithCellClass(modelType: String(describing: Model.self), methodName: methodName, subclassOf: "UICollectionViewCell"))
         default: ()
         }
     }

@@ -29,108 +29,108 @@ import UIKit
 
 extension DTCollectionViewManager {
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didSelectItemAt:)` method is called for `cellClass`.
-    open func didSelect<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T:UICollectionViewCell
+    open func didSelect<Cell:ModelTransfer>(_ cellClass:  Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Void) where Cell:UICollectionViewCell
     {
-        collectionDelegate?.appendReaction(for: T.self, signature: .didSelectItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: Cell.self, signature: .didSelectItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldSelectItemAt:)` method is called for `cellClass`.
-    open func shouldSelect<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
+    open func shouldSelect<Cell:ModelTransfer>(_ cellClass:Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Bool) where Cell: UICollectionViewCell
     {
-        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.shouldSelectItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: Cell.self, signature: EventMethodSignature.shouldSelectItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldDeselectItemAt:)` method is called for `cellClass`.
-    open func shouldDeselect<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
+    open func shouldDeselect<Cell:ModelTransfer>(_ cellClass:Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Bool) where Cell: UICollectionViewCell
     {
-        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.shouldDeselectItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: Cell.self, signature: EventMethodSignature.shouldDeselectItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didDeselectItemAt:)` method is called for `cellClass`.
-    open func didDeselect<T:ModelTransfer>(_ cellClass:  T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T:UICollectionViewCell
+    open func didDeselect<Cell:ModelTransfer>(_ cellClass: Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Void) where Cell:UICollectionViewCell
     {
-        collectionDelegate?.appendReaction(for: T.self, signature: .didDeselectItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: Cell.self, signature: .didDeselectItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldHighlightItemAt:)` method is called for `cellClass`.
-    open func shouldHighlight<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
+    open func shouldHighlight<Cell:ModelTransfer>(_ cellClass:Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Bool) where Cell: UICollectionViewCell
     {
-        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.shouldHighlightItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: Cell.self, signature: EventMethodSignature.shouldHighlightItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didHighlightItemAt:)` method is called for `cellClass`.
-    open func didHighlight<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
+    open func didHighlight<Cell:ModelTransfer>(_ cellClass:Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Void) where Cell: UICollectionViewCell
     {
-        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.didHighlightItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: Cell.self, signature: EventMethodSignature.didHighlightItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didUnhighlightItemAt:)` method is called for `cellClass`.
-    open func didUnhighlight<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
+    open func didUnhighlight<Cell:ModelTransfer>(_ cellClass:Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Void) where Cell: UICollectionViewCell
     {
-        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.didUnhighlightItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: Cell.self, signature: EventMethodSignature.didUnhighlightItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplayCell:forItemAt:)` method is called for `cellClass`.
-    open func willDisplay<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
+    open func willDisplay<Cell:ModelTransfer>(_ cellClass:Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Void) where Cell: UICollectionViewCell
     {
-        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.willDisplayCellForItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: Cell.self, signature: EventMethodSignature.willDisplayCellForItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `kind`.
-    open func willDisplaySupplementaryView<T:ModelTransfer>(_ supplementaryClass:T.Type, forElementKind kind: String, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    open func willDisplaySupplementaryView<View:ModelTransfer>(_ supplementaryClass:View.Type, forElementKind kind: String, _ closure: @escaping (View, View.ModelType, IndexPath) -> Void) where View: UICollectionReusableView
     {
-        collectionDelegate?.appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: EventMethodSignature.willDisplaySupplementaryViewForElementKindAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(forSupplementaryKind: kind, supplementaryClass: View.self, signature: EventMethodSignature.willDisplaySupplementaryViewForElementKindAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `UICollectionElementKindSectionHeader`.
-    open func willDisplayHeaderView<T:ModelTransfer>(_ headerClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    open func willDisplayHeaderView<View:ModelTransfer>(_ headerClass:View.Type, _ closure: @escaping (View, View.ModelType, IndexPath) -> Void) where View: UICollectionReusableView
     {
-        willDisplaySupplementaryView(T.self, forElementKind: UICollectionView.elementKindSectionHeader, closure)
+        willDisplaySupplementaryView(View.self, forElementKind: UICollectionView.elementKindSectionHeader, closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `UICollectionElementKindSectionFooter`.
-    open func willDisplayFooterView<T:ModelTransfer>(_ footerClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    open func willDisplayFooterView<View:ModelTransfer>(_ footerClass:View.Type, _ closure: @escaping (View, View.ModelType, IndexPath) -> Void) where View: UICollectionReusableView
     {
-        willDisplaySupplementaryView(T.self, forElementKind: UICollectionView.elementKindSectionFooter, closure)
+        willDisplaySupplementaryView(View.self, forElementKind: UICollectionView.elementKindSectionFooter, closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplaying:forItemAt:)` method is called for `cellClass`.
-    open func didEndDisplaying<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell
+    open func didEndDisplaying<Cell:ModelTransfer>(_ cellClass:Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Void) where Cell: UICollectionViewCell
     {
-        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.didEndDisplayingCellForItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: Cell.self, signature: EventMethodSignature.didEndDisplayingCellForItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `kind`.
-    open func didEndDisplayingSupplementaryView<T:ModelTransfer>(_ supplementaryClass:T.Type, forElementKind kind: String, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    open func didEndDisplayingSupplementaryView<View:ModelTransfer>(_ supplementaryClass:View.Type, forElementKind kind: String, _ closure: @escaping (View, View.ModelType, IndexPath) -> Void) where View: UICollectionReusableView
     {
-        collectionDelegate?.appendReaction(forSupplementaryKind: kind, supplementaryClass: T.self, signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(forSupplementaryKind: kind, supplementaryClass: View.self, signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `headerClass` of `UICollectionElementKindSectionHeader`.
-    open func didEndDisplayingHeaderView<T:ModelTransfer>(_ headerClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    open func didEndDisplayingHeaderView<View:ModelTransfer>(_ headerClass:View.Type, _ closure: @escaping (View, View.ModelType, IndexPath) -> Void) where View: UICollectionReusableView
     {
-        didEndDisplayingSupplementaryView(T.self, forElementKind: UICollectionView.elementKindSectionHeader, closure)
+        didEndDisplayingSupplementaryView(View.self, forElementKind: UICollectionView.elementKindSectionHeader, closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `footerClass` of `UICollectionElementKindSectionFooter`.
-    open func didEndDisplayingFooterView<T:ModelTransfer>(_ footerClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Void) where T: UICollectionReusableView
+    open func didEndDisplayingFooterView<View:ModelTransfer>(_ footerClass:View.Type, _ closure: @escaping (View, View.ModelType, IndexPath) -> Void) where View: UICollectionReusableView
     {
-        didEndDisplayingSupplementaryView(T.self, forElementKind: UICollectionView.elementKindSectionFooter, closure)
+        didEndDisplayingSupplementaryView(View.self, forElementKind: UICollectionView.elementKindSectionFooter, closure)
     }
     
     @available(iOS, deprecated: 13.0)
     @available(tvOS, deprecated: 13.0)
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldShowMenuForItemAt:)` method is called for `cellClass`.
-    open func shouldShowMenu<T:ModelTransfer>(for cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
+    open func shouldShowMenu<Cell:ModelTransfer>(for cellClass:Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Bool) where Cell: UICollectionViewCell
     {
-        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.shouldShowMenuForItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: Cell.self, signature: EventMethodSignature.shouldShowMenuForItemAtIndexPath, closure: closure)
     }
     
     @available(iOS, deprecated: 13.0)
     @available(tvOS, deprecated: 13.0)
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canPerformAction:forItemAt:withSender:)` method is called for `cellClass`.
-    open func canPerformAction<T:ModelTransfer>(for cellClass: T.Type, _ closure: @escaping (Selector, Any?, T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell {
-        collectionDelegate?.append5ArgumentReaction(for: T.self,
+    open func canPerformAction<Cell:ModelTransfer>(for cellClass: Cell.Type, _ closure: @escaping (Selector, Any?, Cell, Cell.ModelType, IndexPath) -> Bool) where Cell: UICollectionViewCell {
+        collectionDelegate?.append5ArgumentReaction(for: Cell.self,
                                                     signature: .canPerformActionForItemAtIndexPath,
                                                     closure: closure)
     }
@@ -138,16 +138,16 @@ extension DTCollectionViewManager {
     @available(iOS, deprecated: 13.0)
     @available(tvOS, deprecated: 13.0)
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:performAction:forItemAt:withSender:)` method is called for `cellClass`.
-    open func performAction<T:ModelTransfer>(for cellClass: T.Type, _ closure: @escaping (Selector, Any?, T, T.ModelType, IndexPath) -> Void) where T: UICollectionViewCell {
-        collectionDelegate?.append5ArgumentReaction(for: T.self,
+    open func performAction<Cell:ModelTransfer>(for cellClass: Cell.Type, _ closure: @escaping (Selector, Any?, Cell, Cell.ModelType, IndexPath) -> Void) where Cell: UICollectionViewCell {
+        collectionDelegate?.append5ArgumentReaction(for: Cell.self,
                                                     signature: .performActionForItemAtIndexPath,
                                                     closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canFocusItemAt:)` method is called for `cellClass`.
-    open func canFocus<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
+    open func canFocus<Cell:ModelTransfer>(_ cellClass:Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Bool) where Cell: UICollectionViewCell
     {
-        collectionDelegate?.appendReaction(for: T.self, signature: EventMethodSignature.canFocusItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(for: Cell.self, signature: EventMethodSignature.canFocusItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldUpdateFocusInContext:)` method is called.
@@ -166,8 +166,8 @@ extension DTCollectionViewManager {
     }
     
     /// Registers `closure` to be executed when `UICollectionViewDelegate.targetIndexPathForMoveFromItemAt(_:toProposed:)` method is called for `cellClass`
-    open func targetIndexPathForMovingItem<T:ModelTransfer>(_ cellClass: T.Type, _ closure: @escaping (IndexPath, T, T.ModelType, IndexPath) -> IndexPath) where T: UICollectionViewCell {
-        collectionDelegate?.append4ArgumentReaction(for: T.self,
+    open func targetIndexPathForMovingItem<Cell:ModelTransfer>(_ cellClass: Cell.Type, _ closure: @escaping (IndexPath, Cell, Cell.ModelType, IndexPath) -> IndexPath) where Cell: UICollectionViewCell {
+        collectionDelegate?.append4ArgumentReaction(for: Cell.self,
                                                     signature: .targetIndexPathForMoveFromItemAtTo,
                                                     closure: closure)
     }
@@ -180,10 +180,10 @@ extension DTCollectionViewManager {
     
 #if os(iOS)
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:)` method is called for `cellClass`.
-    open func shouldSpringLoad<T:ModelTransfer>(_ cellClass: T.Type, _ closure: @escaping (UISpringLoadedInteractionContext, T, T.ModelType, IndexPath) -> Bool)
-        where T: UICollectionViewCell
+    open func shouldSpringLoad<Cell:ModelTransfer>(_ cellClass: Cell.Type, _ closure: @escaping (UISpringLoadedInteractionContext, Cell, Cell.ModelType, IndexPath) -> Bool)
+        where Cell: UICollectionViewCell
     {
-        collectionDelegate?.append4ArgumentReaction(for: T.self,
+        collectionDelegate?.append4ArgumentReaction(for: Cell.self,
                                                     signature: .shouldSpringLoadItem,
                                                     closure: closure)
     }
@@ -193,11 +193,11 @@ extension DTCollectionViewManager {
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldBeginMultipleSelectionInteractionAt:)`method is called for `cellClass`.
     /// - Parameter Type: cell class to react for event
     /// - Parameter closure: closure to run.
-    open func shouldBeginMultipleSelectionInteraction<T:ModelTransfer>(for cellClass: T.Type,
-                                                                       _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool)
-        where T: UICollectionViewCell
+    open func shouldBeginMultipleSelectionInteraction<Cell:ModelTransfer>(for cellClass: Cell.Type,
+                                                                       _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Bool)
+        where Cell: UICollectionViewCell
     {
-        collectionDelegate?.appendReaction(for: T.self,
+        collectionDelegate?.appendReaction(for: Cell.self,
                                       signature: .shouldBeginMultipleSelectionInteractionAtIndexPath,
                                       closure: closure)
     }
@@ -206,11 +206,11 @@ extension DTCollectionViewManager {
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:didBeginMultipleSelectionInteractionAt:)`method is called for `cellClass`.
     /// - Parameter Type: cell class to react for event
     /// - Parameter closure: closure to run.
-    open func didBeginMultipleSelectionInteraction<T:ModelTransfer>(for cellClass: T.Type,
-                                                                    _ closure: @escaping (T, T.ModelType, IndexPath) -> Void)
-        where T: UICollectionViewCell
+    open func didBeginMultipleSelectionInteraction<Cell:ModelTransfer>(for cellClass: Cell.Type,
+                                                                    _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Void)
+        where Cell: UICollectionViewCell
     {
-        collectionDelegate?.appendReaction(for: T.self,
+        collectionDelegate?.appendReaction(for: Cell.self,
                                       signature: .didBeginMultipleSelectionInteractionAtIndexPath,
                                       closure: closure)
     }
@@ -225,11 +225,11 @@ extension DTCollectionViewManager {
     
     @available(iOS 13.0, *)
     /// Registers `closure` to be executed when `UICollectionViewDelegate.contextMenuConfigurationForItemAt(_:point:)` method is called
-    open func contextMenuConfiguration<T:ModelTransfer>(for cellClass: T.Type,
-                                                        _ closure: @escaping (CGPoint, T, T.ModelType, IndexPath) -> UIContextMenuConfiguration?)
-        where T: UICollectionViewCell
+    open func contextMenuConfiguration<Cell:ModelTransfer>(for cellClass: Cell.Type,
+                                                        _ closure: @escaping (CGPoint, Cell, Cell.ModelType, IndexPath) -> UIContextMenuConfiguration?)
+        where Cell: UICollectionViewCell
     {
-        collectionDelegate?.append4ArgumentReaction(for: T.self,
+        collectionDelegate?.append4ArgumentReaction(for: Cell.self,
                                                signature: .contextMenuConfigurationForItemAtIndexPath,
                                                closure: closure)
     }
@@ -263,21 +263,21 @@ extension DTCollectionViewManager {
     // MARK: - UICollectionViewDelegateFlowLayout
     
     /// Registers `closure` to be executed to determine cell size in `UICollectionViewDelegateFlowLayout.collectionView(_:sizeForItemAt:)` method, when it's called for cell which model is of `itemType`.
-    open func sizeForCell<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
+    open func sizeForCell<Model>(withItem: Model.Type, _ closure: @escaping (Model, IndexPath) -> CGSize)
     {
-        collectionDelegate?.appendReaction(viewType: .cell, for: T.self, signature: EventMethodSignature.sizeForItemAtIndexPath, closure: closure)
+        collectionDelegate?.appendReaction(viewType: .cell, for: Model.self, signature: EventMethodSignature.sizeForItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed to determine header size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderViewInSection:)` method, when it's called for header which model is of `itemType`.
-    open func referenceSizeForHeaderView<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
+    open func referenceSizeForHeaderView<Model>(withItem: Model.Type, _ closure: @escaping (Model, IndexPath) -> CGSize)
     {
-        collectionDelegate?.appendReaction(viewType: .supplementaryView(kind: UICollectionView.elementKindSectionHeader), for: T.self, signature: EventMethodSignature.referenceSizeForHeaderInSection, closure: closure)
+        collectionDelegate?.appendReaction(viewType: .supplementaryView(kind: UICollectionView.elementKindSectionHeader), for: Model.self, signature: EventMethodSignature.referenceSizeForHeaderInSection, closure: closure)
     }
     
     /// Registers `closure` to be executed to determine footer size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterViewInSection:)` method, when it's called for footer which model is of `itemType`.
-    open func referenceSizeForFooterView<T>(withItem: T.Type, _ closure: @escaping (T, IndexPath) -> CGSize)
+    open func referenceSizeForFooterView<Model>(withItem: Model.Type, _ closure: @escaping (Model, IndexPath) -> CGSize)
     {
-        collectionDelegate?.appendReaction(viewType: .supplementaryView(kind: UICollectionView.elementKindSectionFooter), for: T.self, signature: EventMethodSignature.referenceSizeForFooterInSection, closure: closure)
+        collectionDelegate?.appendReaction(viewType: .supplementaryView(kind: UICollectionView.elementKindSectionFooter), for: Model.self, signature: EventMethodSignature.referenceSizeForFooterInSection, closure: closure)
     }
     
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:transitionLayoutForOldLayout:toNewLayout:`) method is called
@@ -302,168 +302,144 @@ extension DTCollectionViewManager {
     }
 }
 
-extension ViewModelMapping where T: UICollectionViewCell {
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didSelectItemAt:)` method is called for `T` class with `U` model.
-    open func didSelect(_ closure: @escaping (T, U, IndexPath) -> Void)
+extension ViewModelMapping where View: UICollectionViewCell {
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didSelectItemAt:)` method is called.
+    open func didSelect(_ closure: @escaping (View, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self, signature: EventMethodSignature.didSelectItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didSelectItemAtIndexPath.rawValue, closure))
     }
     
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldSelectItemAt:)` method is called for `T` class with `U` model.
-    open func shouldSelect(_ closure: @escaping (T, U, IndexPath) -> Bool)
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldSelectItemAt:)` method is called.
+    open func shouldSelect(_ closure: @escaping (View, Model, IndexPath) -> Bool)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self, signature: EventMethodSignature.shouldSelectItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.shouldSelectItemAtIndexPath.rawValue, closure))
     }
     
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldDeselectItemAt:)` method is called for `T` class with `U` model.
-    open func shouldDeselect(_ closure: @escaping (T, U, IndexPath) -> Bool)
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldDeselectItemAt:)` method is called.
+    open func shouldDeselect(_ closure: @escaping (View, Model, IndexPath) -> Bool)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self, signature: EventMethodSignature.shouldDeselectItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.shouldDeselectItemAtIndexPath.rawValue, closure))
     }
     
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didDeselectItemAt:)` method is called for `T` class with `U` model.
-    open func didDeselect(_ closure: @escaping (T, U, IndexPath) -> Void)
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didDeselectItemAt:)` method is called.
+    open func didDeselect(_ closure: @escaping (View, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self, signature: EventMethodSignature.didDeselectItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didDeselectItemAtIndexPath.rawValue, closure))
     }
     
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldHighlightItemAt:)` method is called for `T` class with `U` model.
-    open func shouldHighlight(_ closure: @escaping (T, U, IndexPath) -> Bool)
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldHighlightItemAt:)` method is called.
+    open func shouldHighlight(_ closure: @escaping (View, Model, IndexPath) -> Bool)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self, signature: EventMethodSignature.shouldHighlightItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.shouldHighlightItemAtIndexPath.rawValue, closure))
     }
     
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didHighlightItemAt:)` method is called for `T` class with `U` model.
-    open func didHighlight(_ closure: @escaping (T, U, IndexPath) -> Void)
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didHighlightItemAt:)` method is called.
+    open func didHighlight(_ closure: @escaping (View, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self, signature: EventMethodSignature.didHighlightItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didHighlightItemAtIndexPath.rawValue, closure))
     }
     
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didUnhighlightItemAt:)` method is called for `T` class with `U` model.
-    open func didUnhighlight(_ closure: @escaping (T, U, IndexPath) -> Void)
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didUnhighlightItemAt:)` method is called.
+    open func didUnhighlight(_ closure: @escaping (View, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self, signature: EventMethodSignature.didUnhighlightItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didUnhighlightItemAtIndexPath.rawValue, closure))
     }
     
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplayCell:forItemAt:)` method is called for `T` class with `U` model.
-    open func willDisplay(_ closure: @escaping (T, U, IndexPath) -> Void)
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplayCell:forItemAt:)` method is called.
+    open func willDisplay(_ closure: @escaping (View, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self, signature: EventMethodSignature.willDisplayCellForItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.willDisplayCellForItemAtIndexPath.rawValue, closure))
     }
     
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplaying:forItemAt:)` method is called for `T` class with `U` model.
-    open func didEndDisplaying(_ closure: @escaping (T, U, IndexPath) -> Void)
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplaying:forItemAt:)` method is called.
+    open func didEndDisplaying(_ closure: @escaping (View, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self, signature: EventMethodSignature.didEndDisplayingCellForItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didEndDisplayingCellForItemAtIndexPath.rawValue, closure))
     }
     
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canFocusItemAt:)` method is called for `T` class with `U` model.
-    open func canFocus(_ closure: @escaping (T, U, IndexPath) -> Bool)
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canFocusItemAt:)` method is called.
+    open func canFocus(_ closure: @escaping (View, Model, IndexPath) -> Bool)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self, signature: EventMethodSignature.canFocusItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.canFocusItemAtIndexPath.rawValue, closure))
     }
     
-    /// Registers `closure` to be executed when `UICollectionViewDelegate.targetIndexPathForMoveFromItemAt(_:toProposed:)` method is called for `T` class with `U` model.
-    open func targetIndexPathForMovingItem(_ closure: @escaping (IndexPath, T, U, IndexPath) -> IndexPath)  {
-        reactions.append(FourArgumentsEventReaction(T.self, modelType: U.self, argument: IndexPath.self, signature: EventMethodSignature.targetIndexPathForMoveFromItemAtTo.rawValue, closure))
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.targetIndexPathForMoveFromItemAt(_:toProposed:)` method is called.
+    open func targetIndexPathForMovingItem(_ closure: @escaping (IndexPath, View, Model, IndexPath) -> IndexPath)  {
+        reactions.append(FourArgumentsEventReaction(View.self, modelType: Model.self, argument: IndexPath.self, signature: EventMethodSignature.targetIndexPathForMoveFromItemAtTo.rawValue, closure))
     }
     
     
-    /// Registers `closure` to be executed to determine cell size in `UICollectionViewDelegateFlowLayout.collectionView(_:sizeForItemAt:)` method, when it's called for cell which model is of `itemType`.
-    open func sizeForCell(_ closure: @escaping (U, IndexPath) -> CGSize)
+    /// Registers `closure` to be executed to determine cell size in `UICollectionViewDelegateFlowLayout.collectionView(_:sizeForItemAt:)` method.
+    open func sizeForCell(_ closure: @escaping (Model, IndexPath) -> CGSize)
     {
-        reactions.append(EventReaction(modelType: U.self, signature: EventMethodSignature.sizeForItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(modelType: Model.self, signature: EventMethodSignature.sizeForItemAtIndexPath.rawValue, closure))
     }
     
 #if os(iOS)
-    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:)` method is called for `T` class with `U` model.
-    open func shouldSpringLoad(_ closure: @escaping (UISpringLoadedInteractionContext, T, U, IndexPath) -> Bool)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:)` method is called.
+    open func shouldSpringLoad(_ closure: @escaping (UISpringLoadedInteractionContext, View, Model, IndexPath) -> Bool)
     {
-        reactions.append(FourArgumentsEventReaction(T.self, modelType: U.self, argument: UISpringLoadedInteractionContext.self,
+        reactions.append(FourArgumentsEventReaction(View.self, modelType: Model.self, argument: UISpringLoadedInteractionContext.self,
                                                     signature: EventMethodSignature.shouldSpringLoadItem.rawValue, closure))
     }
     
 #if compiler(>=5.1)
     @available(iOS 13, *)
-    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldBeginMultipleSelectionInteractionAt:)`method is called for `T` class with `U` model.
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldBeginMultipleSelectionInteractionAt:)`method is called.
     /// - Parameter Type: cell class to react for event
     /// - Parameter closure: closure to run.
-    open func shouldBeginMultipleSelectionInteraction(_ closure: @escaping (T, U, IndexPath) -> Bool)
+    open func shouldBeginMultipleSelectionInteraction(_ closure: @escaping (View, Model, IndexPath) -> Bool)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self,
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self,
                                        signature: EventMethodSignature.shouldBeginMultipleSelectionInteractionAtIndexPath.rawValue,
                                        closure))
     }
     
     @available(iOS 13, *)
-    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:didBeginMultipleSelectionInteractionAt:)`method is called for `T` class with `U` model.
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:didBeginMultipleSelectionInteractionAt:)`method is called.
     /// - Parameter Type: cell class to react for event
     /// - Parameter closure: closure to run.
-    open func didBeginMultipleSelectionInteraction(_ closure: @escaping (T, U, IndexPath) -> Void)
+    open func didBeginMultipleSelectionInteraction(_ closure: @escaping (View, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self, signature: EventMethodSignature.didBeginMultipleSelectionInteractionAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didBeginMultipleSelectionInteractionAtIndexPath.rawValue, closure))
     }
     
     @available(iOS 13.0, *)
-    /// Registers `closure` to be executed when `UICollectionViewDelegate.contextMenuConfigurationForItemAt(_:point:)` method is called for `T` class with `U` model.
-    open func contextMenuConfiguration(_ closure: @escaping (CGPoint, T, U, IndexPath) -> UIContextMenuConfiguration?)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.contextMenuConfigurationForItemAt(_:point:)` method is called.
+    open func contextMenuConfiguration(_ closure: @escaping (CGPoint, View, Model, IndexPath) -> UIContextMenuConfiguration?)
     {
-        reactions.append(FourArgumentsEventReaction(T.self, modelType: U.self, argument: CGPoint.self, signature: EventMethodSignature.contextMenuConfigurationForItemAtIndexPath.rawValue, closure))
+        reactions.append(FourArgumentsEventReaction(View.self, modelType: Model.self, argument: CGPoint.self, signature: EventMethodSignature.contextMenuConfigurationForItemAtIndexPath.rawValue, closure))
     }
     #endif
 #endif
 }
 
-extension ViewModelMapping where T: UICollectionReusableView {
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `kind`.
-    open func willDisplaySupplementaryView(forElementKind kind: String, _ closure: @escaping (T, U, IndexPath) -> Void)
+extension ViewModelMapping where View: UICollectionReusableView {
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called.
+    open func willDisplaySupplementaryView(_ closure: @escaping (View, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self,
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self,
                                        signature: EventMethodSignature.willDisplaySupplementaryViewForElementKindAtIndexPath.rawValue,
-                                       supplementaryKind: kind, closure))
+                                       closure))
     }
     
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `UICollectionElementKindSectionHeader`.
-    open func willDisplayHeaderView(_ closure: @escaping (T, U, IndexPath) -> Void)
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called.
+    open func didEndDisplayingSupplementaryView(_ closure: @escaping (View, Model, IndexPath) -> Void)
     {
-        willDisplaySupplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, closure)
-    }
-    
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `UICollectionElementKindSectionFooter`.
-    open func willDisplayFooterView(_ closure: @escaping (T, U, IndexPath) -> Void)
-    {
-        willDisplaySupplementaryView(forElementKind: UICollectionView.elementKindSectionFooter, closure)
-    }
-    
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `supplementaryClass` of `kind`.
-    open func didEndDisplayingSupplementaryView(forElementKind kind: String, _ closure: @escaping (T, U, IndexPath) -> Void)
-    {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self,
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self,
                                        signature: EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue,
-                                       supplementaryKind: kind, closure))
-    }
-    
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `headerClass` of `UICollectionElementKindSectionHeader`.
-    open func didEndDisplayingHeaderView(_ closure: @escaping (T, U, IndexPath) -> Void)
-    {
-        didEndDisplayingSupplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, closure)
-    }
-    
-    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)` method is called for `footerClass` of `UICollectionElementKindSectionFooter`.
-    open func didEndDisplayingFooterView(_ closure: @escaping (T, U, IndexPath) -> Void)
-    {
-        didEndDisplayingSupplementaryView(forElementKind: UICollectionView.elementKindSectionFooter, closure)
+                                       closure))
     }
 
-    /// Registers `closure` to be executed to determine header size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderViewInSection:)` method, when it's called for header which model is of `itemType`.
-    open func referenceSizeForHeaderView(_ closure: @escaping (U, IndexPath) -> CGSize)
+    /// Registers `closure` to be executed to determine header size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderViewInSection:)` method, when it's called.
+    open func referenceSizeForHeaderView(_ closure: @escaping (Model, IndexPath) -> CGSize)
     {
-        reactions.append(EventReaction(modelType: U.self, signature: EventMethodSignature.referenceSizeForHeaderInSection.rawValue, supplementaryKind: self.viewType.supplementaryKind(), closure))
+        reactions.append(EventReaction(modelType: Model.self, signature: EventMethodSignature.referenceSizeForHeaderInSection.rawValue, closure))
     }
     
-    /// Registers `closure` to be executed to determine footer size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterViewInSection:)` method, when it's called for footer which model is of `itemType`.
-    open func referenceSizeForFooterView(_ closure: @escaping (U, IndexPath) -> CGSize)
+    /// Registers `closure` to be executed to determine footer size in `UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterViewInSection:)` method, when it's called.
+    open func referenceSizeForFooterView(_ closure: @escaping (Model, IndexPath) -> CGSize)
     {
-        reactions.append(EventReaction(modelType: U.self, signature: EventMethodSignature.referenceSizeForFooterInSection.rawValue, supplementaryKind: self.viewType.supplementaryKind(), closure))
+        reactions.append(EventReaction(modelType: Model.self, signature: EventMethodSignature.referenceSizeForFooterInSection.rawValue, closure))
     }
 }

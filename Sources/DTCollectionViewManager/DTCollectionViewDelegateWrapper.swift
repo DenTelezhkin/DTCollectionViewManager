@@ -82,72 +82,71 @@ open class DTCollectionViewDelegateWrapper : NSObject {
         manager?.verifyViewEvent(for: T.self, methodName: methodName)
     }
     
-    final internal func append4ArgumentReaction<CellClass, Argument, Result>
-        (for cellClass: CellClass.Type,
+    final internal func append4ArgumentReaction<Cell, Argument, Result>
+        (for cellClass: Cell.Type,
          signature: EventMethodSignature,
          methodName: String = #function,
-         closure: @escaping (Argument, CellClass, CellClass.ModelType, IndexPath) -> Result)
-        where CellClass: ModelTransfer, CellClass: UICollectionViewCell
+         closure: @escaping (Argument, Cell, Cell.ModelType, IndexPath) -> Result)
+        where Cell: ModelTransfer, Cell: UICollectionViewCell
     {
-        let reaction = FourArgumentsEventReaction(CellClass.self,
-                                                  modelType: CellClass.ModelType.self,
+        let reaction = FourArgumentsEventReaction(Cell.self,
+                                                  modelType: Cell.ModelType.self,
                                                   argument: Argument.self,
                                                   signature: signature.rawValue,
                                                   closure)
-        appendMappedReaction(viewType: .cell, type: CellClass.self, reaction: reaction, signature: signature)
-        manager?.verifyViewEvent(for: CellClass.self, methodName: methodName)
+        appendMappedReaction(viewType: .cell, type: Cell.self, reaction: reaction, signature: signature)
+        manager?.verifyViewEvent(for: Cell.self, methodName: methodName)
     }
     
-    final internal func append5ArgumentReaction<CellClass, ArgumentOne, ArgumentTwo, Result>
-        (for cellClass: CellClass.Type,
+    final internal func append5ArgumentReaction<Cell, ArgumentOne, ArgumentTwo, Result>
+        (for cellClass: Cell.Type,
          signature: EventMethodSignature,
          methodName: String = #function,
-         closure: @escaping (ArgumentOne, ArgumentTwo, CellClass, CellClass.ModelType, IndexPath) -> Result)
-        where CellClass: ModelTransfer, CellClass: UICollectionViewCell
+         closure: @escaping (ArgumentOne, ArgumentTwo, Cell, Cell.ModelType, IndexPath) -> Result)
+        where Cell: ModelTransfer, Cell: UICollectionViewCell
     {
-        let reaction = FiveArgumentsEventReaction(CellClass.self,
-                                                  modelType: CellClass.ModelType.self,
+        let reaction = FiveArgumentsEventReaction(Cell.self,
+                                                  modelType: Cell.ModelType.self,
                                                   argumentOne: ArgumentOne.self,
                                                   argumentTwo: ArgumentTwo.self,
                                                   signature: signature.rawValue,
                                                   closure)
-        appendMappedReaction(viewType: .cell, type: CellClass.self, reaction: reaction, signature: signature)
-        manager?.verifyViewEvent(for: CellClass.self, methodName: methodName)
+        appendMappedReaction(viewType: .cell, type: Cell.self, reaction: reaction, signature: signature)
+        manager?.verifyViewEvent(for: Cell.self, methodName: methodName)
     }
     
-    final internal func appendReaction<T, U>(viewType: ViewType,
-                                             for modelClass: T.Type,
+    final internal func appendReaction<Model, ReturnType>(viewType: ViewType,
+                                             for modelClass: Model.Type,
                                              signature: EventMethodSignature,
                                              methodName: String = #function,
-                                             closure: @escaping (T, IndexPath) -> U)
+                                             closure: @escaping (Model, IndexPath) -> ReturnType)
     {
-        let reaction = EventReaction(modelType: T.self, signature: signature.rawValue, supplementaryKind: viewType.supplementaryKind(), closure)
-        appendMappedReaction(viewType: viewType, modelType: T.self, reaction: reaction, signature: signature)
-        manager?.verifyItemEvent(for: T.self, methodName: methodName)
+        let reaction = EventReaction(modelType: Model.self, signature: signature.rawValue, closure)
+        appendMappedReaction(viewType: viewType, modelType: Model.self, reaction: reaction, signature: signature)
+        manager?.verifyItemEvent(for: Model.self, methodName: methodName)
     }
     
-    final func appendReaction<T, U>(forSupplementaryKind kind: String,
-                                    supplementaryClass: T.Type,
+    final func appendReaction<View, ReturnType>(forSupplementaryKind kind: String,
+                                    supplementaryClass: View.Type,
                                     signature: EventMethodSignature,
                                     methodName: String = #function,
-                                    closure: @escaping (T, T.ModelType, IndexPath) -> U) where T: ModelTransfer, T: UICollectionReusableView
+                                    closure: @escaping (View, View.ModelType, IndexPath) -> ReturnType) where View: ModelTransfer, View: UICollectionReusableView
     {
-        let reaction = EventReaction(viewType: T.self, modelType: T.ModelType.self,
+        let reaction = EventReaction(viewType: View.self, modelType: View.ModelType.self,
                                      signature: signature.rawValue,
-                                     supplementaryKind: kind,
                                      closure)
-        appendMappedReaction(viewType: .supplementaryView(kind: kind), type: T.self, reaction: reaction, signature: signature)
-        manager?.verifyViewEvent(for: T.self, methodName: methodName)
+        appendMappedReaction(viewType: .supplementaryView(kind: kind), type: View.self, reaction: reaction, signature: signature)
+        manager?.verifyViewEvent(for: View.self, methodName: methodName)
     }
     
-    final private func appendMappedReaction<T:UIView>(viewType: ViewType, type: T.Type, reaction: EventReaction, signature: EventMethodSignature) {
+    final private func appendMappedReaction<View:UIView>(viewType: ViewType, type: View.Type, reaction: EventReaction, signature: EventMethodSignature) {
         let compatibleMappings = (viewFactory?.mappings ?? []).filter {
-            (($0.viewClass as? UIView.Type)?.isSubclass(of: T.self) ?? false) &&
+            (($0.viewClass as? UIView.Type)?.isSubclass(of: View.self) ?? false) &&
                 $0.viewType == viewType
         }
         
         if compatibleMappings.count == 0 {
-            manager?.anomalyHandler.reportAnomaly(.eventRegistrationForUnregisteredMapping(viewClass: String(describing: T.self), signature: signature.rawValue))
+            manager?.anomalyHandler.reportAnomaly(.eventRegistrationForUnregisteredMapping(viewClass: String(describing: View.self), signature: signature.rawValue))
         }
         
         compatibleMappings.forEach { mapping in
@@ -157,13 +156,13 @@ open class DTCollectionViewDelegateWrapper : NSObject {
         delegateWasReset()
     }
     
-    final private func appendMappedReaction<T>(viewType: ViewType, modelType: T.Type, reaction: EventReaction, signature: EventMethodSignature) {
+    final private func appendMappedReaction<Model>(viewType: ViewType, modelType: Model.Type, reaction: EventReaction, signature: EventMethodSignature) {
         let compatibleMappings = (viewFactory?.mappings ?? []).filter {
-            $0.viewType == viewType && $0.modelTypeTypeCheckingBlock(T.self)
+            $0.viewType == viewType && $0.modelTypeTypeCheckingBlock(Model.self)
         }
         
         if compatibleMappings.count == 0 {
-            manager?.anomalyHandler.reportAnomaly(.eventRegistrationForUnregisteredMapping(viewClass: String(describing: T.self), signature: signature.rawValue))
+            manager?.anomalyHandler.reportAnomaly(.eventRegistrationForUnregisteredMapping(viewClass: String(describing: Model.self), signature: signature.rawValue))
         }
         
         compatibleMappings.forEach { mapping in

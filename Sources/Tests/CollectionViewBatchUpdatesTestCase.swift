@@ -34,7 +34,6 @@ class CollectionViewCrashTest: XCTestCase, DTCollectionViewManageable {
     }
     
     func testSettingAndAddingItemsWithDeferredDatasourceUpdatesWorks() {
-        manager.memoryStorage.defersDatasourceUpdates = true
         manager.memoryStorage.setItems([Model(), Model()])
         manager.memoryStorage.addItems([Model(), Model(), Model()])
         

@@ -28,9 +28,9 @@ import DTModelStorage
 
 extension DTCollectionViewManager {
     /// Registers `closure` to be executed, when `UICollectionViewDataSource.collectionView(_:canMoveItemAt:)` method is called for `cellClass`.
-    open func canMove<T:ModelTransfer>(_ cellClass:T.Type, _ closure: @escaping (T, T.ModelType, IndexPath) -> Bool) where T: UICollectionViewCell
+    open func canMove<Cell:ModelTransfer>(_ cellClass:Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Bool) where Cell: UICollectionViewCell
     {
-        collectionDataSource?.appendReaction(for: T.self, signature: EventMethodSignature.canMoveItemAtIndexPath, closure: closure)
+        collectionDataSource?.appendReaction(for: Cell.self, signature: EventMethodSignature.canMoveItemAtIndexPath, closure: closure)
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDataSrouce.(_:moveItemAt:to:)` method is called for `cellClass`.
@@ -52,10 +52,10 @@ extension DTCollectionViewManager {
     }
 }
 
-extension ViewModelMapping where T : UICollectionViewCell {
-    /// Registers `closure` to be executed, when `UICollectionViewDataSource.collectionView(_:canMoveItemAt:)` method is called for `cellClass`.
-    open func canMove(_ closure: @escaping (T, U, IndexPath) -> Bool)
+extension ViewModelMapping where View : UICollectionViewCell {
+    /// Registers `closure` to be executed, when `UICollectionViewDataSource.collectionView(_:canMoveItemAt:)` method is called.
+    open func canMove(_ closure: @escaping (View, Model, IndexPath) -> Bool)
     {
-        reactions.append(EventReaction(viewType: T.self, modelType: U.self, signature: EventMethodSignature.canMoveItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.canMoveItemAtIndexPath.rawValue, closure))
     }
 }

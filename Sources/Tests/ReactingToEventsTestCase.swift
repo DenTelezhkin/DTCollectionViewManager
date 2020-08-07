@@ -442,7 +442,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             sut.manager.registerHeader(NibHeaderFooterView.self)
             sut.manager.willDisplaySupplementaryView(NibHeaderFooterView.self, forElementKind: UICollectionView.elementKindSectionHeader, fullfill(exp, andReturn: ()))
         }, alternativeRegistration: { (sut, exp) in
-            sut.manager.registerHeader(NibHeaderFooterView.self) { $0.willDisplaySupplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, self.fullfill(exp, andReturn: ())) }
+            sut.manager.registerHeader(NibHeaderFooterView.self) { $0.willDisplaySupplementaryView(self.fullfill(exp, andReturn: ())) }
         }, preparation: setHeaderIntModels(), action: {
             try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind: UICollectionView.elementKindSectionHeader, at: indexPath(0, 0)))
         })
@@ -453,7 +453,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             sut.manager.registerHeader(NibHeaderFooterView.self)
             sut.manager.willDisplayHeaderView(NibHeaderFooterView.self, fullfill(exp, andReturn: ()))
         }, alternativeRegistration: { (sut, exp) in
-            sut.manager.registerHeader(NibHeaderFooterView.self) { $0.willDisplayHeaderView(self.fullfill(exp, andReturn: ())) }
+            sut.manager.registerHeader(NibHeaderFooterView.self) { $0.willDisplaySupplementaryView(self.fullfill(exp, andReturn: ())) }
         }, preparation: setHeaderIntModels(), action: {
             try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind: UICollectionView.elementKindSectionHeader, at: indexPath(0, 0)))
         })
@@ -464,7 +464,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             sut.manager.registerFooter(NibHeaderFooterView.self)
             sut.manager.willDisplayFooterView(NibHeaderFooterView.self, fullfill(exp, andReturn: ()))
         }, alternativeRegistration: { (sut, exp) in
-            sut.manager.registerFooter(NibHeaderFooterView.self) { $0.willDisplayFooterView(self.fullfill(exp, andReturn: ())) }
+            sut.manager.registerFooter(NibHeaderFooterView.self) { $0.willDisplaySupplementaryView(self.fullfill(exp, andReturn: ())) }
         }, preparation: setFooterIntModels(), action: {
             try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, willDisplaySupplementaryView: NibHeaderFooterView(), forElementKind: UICollectionView.elementKindSectionFooter, at: indexPath(0, 0)))
         })
@@ -488,7 +488,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             sut.manager.registerHeader(NibHeaderFooterView.self)
             sut.manager.didEndDisplayingSupplementaryView(NibHeaderFooterView.self, forElementKind: UICollectionView.elementKindSectionHeader, fullfill(exp, andReturn: ()))
         }, alternativeRegistration: { (sut, exp) in
-            sut.manager.registerHeader(NibHeaderFooterView.self) { $0.didEndDisplayingSupplementaryView(forElementKind: UICollectionView.elementKindSectionHeader, self.fullfill(exp, andReturn: ())) }
+            sut.manager.registerHeader(NibHeaderFooterView.self) { $0.didEndDisplayingSupplementaryView(self.fullfill(exp, andReturn: ())) }
         }, preparation: setHeaderIntModels(), action: {
             try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath(0, 0)))
         })
@@ -499,7 +499,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             sut.manager.registerHeader(NibHeaderFooterView.self)
             sut.manager.didEndDisplayingHeaderView(NibHeaderFooterView.self, fullfill(exp, andReturn: ()))
         }, alternativeRegistration: { (sut, exp) in
-            sut.manager.registerHeader(NibHeaderFooterView.self) { $0.didEndDisplayingHeaderView(self.fullfill(exp, andReturn: ())) }
+            sut.manager.registerHeader(NibHeaderFooterView.self) { $0.didEndDisplayingSupplementaryView(self.fullfill(exp, andReturn: ())) }
         }, preparation: setHeaderIntModels(), action: {
             try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind: UICollectionView.elementKindSectionHeader, at: indexPath(0, 0)))
         })
@@ -510,7 +510,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             sut.manager.registerFooter(NibHeaderFooterView.self)
             sut.manager.didEndDisplayingFooterView(NibHeaderFooterView.self, fullfill(exp, andReturn: ()))
         }, alternativeRegistration: { (sut, exp) in
-            sut.manager.registerFooter(NibHeaderFooterView.self) { $0.didEndDisplayingFooterView(self.fullfill(exp, andReturn: ())) }
+            sut.manager.registerFooter(NibHeaderFooterView.self) { $0.didEndDisplayingSupplementaryView(self.fullfill(exp, andReturn: ())) }
         }, preparation: setFooterIntModels(), action: {
             try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, didEndDisplayingSupplementaryView: NibHeaderFooterView(), forElementOfKind: UICollectionView.elementKindSectionFooter, at: indexPath(0, 0)))
         })
