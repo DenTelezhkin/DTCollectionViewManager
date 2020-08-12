@@ -61,6 +61,7 @@ manager.register(UICollectionViewCell.self, String.self) { cell, indexPath, mode
 
 * On iOS/tvOS 14 and higher, cell and supplementary views now use `UICollectionView.dequeueConfiguredReusableCell` and `UICollectionView.dequeueConfiguredReusableSupplementary` to be dequeued.
 * `DTModelTransfer` `update(with:)` method for such cells and supplementary views is called immediately after `dequeueConfiguredReusableCell` \ `dequeueConfiguredReusableSupplementary` return.
+* Generic placeholders for cell/model/view methods have been improved for better readability.
 
 ### Breaking
 

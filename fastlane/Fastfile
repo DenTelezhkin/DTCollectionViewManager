@@ -1,45 +1,17 @@
 fastlane_version "1.98.0"
 
-# lane :test_ios13 do
-#   scan(device: "iPhone 11 Pro (13.5)", scheme: 'Tests-iOS')
-# end
-
 lane :test_ios14 do
   scan(devices: ["iPhone 11 Pro (14.0)"], scheme: 'Tests-iOS')
   sh "bash ../codecov.sh"
 end
 
-# lane :test_ios12 do
-#   scan(devices: ["iPhone X (12.1)"], scheme: 'Tests-iOS')
-# end
-
-# lane :test_tvos13 do
-#   scan(device: "Apple TV 4K (13.4)", scheme: 'Tests-tvOS')
-# end
-
 lane :test_tvos14 do
   scan(device: "Apple TV 4K (14.0)", scheme: 'Tests-tvOS')
 end
 
-# lane :test_tvos12 do
-#   scan(device: "Apple TV 4K (12.1)", scheme: 'Tests-tvOS')
-# end
-
 lane :pod_lint do
   sh "bundle exec pod repo update"
   pod_lib_lint(allow_warnings: true, verbose: true)
-end
-
-# lane :test_ios_swift4_2 do
-#   scan(devices: ["iPhone Xs (13.1)"], xcargs: "SWIFT_VERSION=4.2", scheme: 'Tests-iOS')
-# end
-#
-# lane :test_tvos_swift4_2 do
-#   scan(devices: ["Apple TV 4K (13.0)"], xcargs: "SWIFT_VERSION=4.2", scheme: 'Tests-tvOS')
-# end
-
-lane :carthage_build do
-  carthage(command: "build", platform: "iOS,tvOS", no_skip_current: true, verbose: false)
 end
 
 lane :release do |params|
@@ -82,10 +54,6 @@ lane :release do |params|
     puts "Pushing to CocoaPods trunk."
     sh "bundle exec pod trunk push DTCollectionViewManager.podspec --allow-warnings"
 
-    # puts "Preparing Carthage binary framework."
-    # sh "carthage build --no-skip-current --platform iOS,tvOS"
-    # sh "carthage archive DTCollectionViewManager"
-
     puts "Pushing as a GitHub Release."
     fastlane_require 'octokit'
     stripped_changelog = changelog.split(/^## /)[1].split("\n")[1..-1].join("\n").strip
@@ -94,10 +62,5 @@ lane :release do |params|
                      version,
                      name: version,
                      body: stripped_changelog)
-
-    # puts "Attaching Carthage prebuilt binary to release."
-    # releases = client.releases('DenTelezhkin/DTCollectionViewManager')
-    # client.upload_asset(releases[0].url, 'DTCollectionViewManager.framework.zip')
-    # sh "rm -rf DTCollectionViewManager.framework.zip"
   end
 end

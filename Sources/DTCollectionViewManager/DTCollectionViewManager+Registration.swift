@@ -61,6 +61,7 @@ extension DTCollectionViewManager {
     ///   - cellClass: UICollectionViewCell subclass type, conforming to `ModelTransfer` protocol.
     ///   - handler: configuration closure, that is run when cell is dequeued.
     ///   - mapping: mapping configuration closure, executed before any registration or dequeue is performed.
+    /// - Note: `handler` closure is called before `update(with:)` method.
     open func register<T:ModelTransfer>(_ cellClass:T.Type, handler: @escaping (T, T.ModelType, IndexPath) -> Void = { _, _, _ in }, mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)? = nil) where T: UICollectionViewCell
     {
         viewFactory.registerCellClass(T.self, handler: handler, mapping: mapping)
@@ -83,6 +84,7 @@ extension DTCollectionViewManager {
     ///   - modelType: Model type, which is mapped to `headerClass`.
     ///   - handler: configuration closure, that is run when supplementary view is dequeued.
     ///   - mapping: mapping configuration closure, executed before any registration or dequeue is performed.
+    /// - Note: `handler` closure is called before `update(with:)` method.
     open func registerHeader<View:ModelTransfer>(_ headerClass : View.Type,
                                               handler: @escaping (View, View.ModelType, IndexPath) -> Void = { _, _, _ in },
                                               mapping: ((ViewModelMapping<View, View.ModelType>) -> Void)? = nil) where View: UICollectionReusableView
@@ -111,6 +113,7 @@ extension DTCollectionViewManager {
     ///   - modelType: Model type, which is mapped to `footerClass`.
     ///   - handler: configuration closure, that is run when supplementary view is dequeued.
     ///   - mapping: mapping configuration closure, executed before any registration or dequeue is performed.
+    /// - Note: `handler` closure is called before `update(with:)` method.
     open func registerFooter<View:ModelTransfer>(_ footerClass: View.Type,
                                               handler: @escaping (View, View.ModelType, IndexPath) -> Void = { _, _, _ in },
                                               mapping: ((ViewModelMapping<View, View.ModelType>) -> Void)? = nil) where View:UICollectionReusableView
@@ -135,6 +138,7 @@ extension DTCollectionViewManager {
     /// Registers mapping from model class to suppplementary view of `supplementaryClass` type for supplementary `kind`.
     ///
     /// Method will automatically check for nib with the same name as `supplementaryClass`. If it exists - nib will be registered instead of class.
+    /// - Note: `handler` closure is called before `update(with:)` method.
     open func registerSupplementary<View:ModelTransfer>(_ supplementaryClass: View.Type,
                                                      ofKind kind: String,
                                                      handler: @escaping (View, View.ModelType, IndexPath) -> Void = { _, _, _ in },
