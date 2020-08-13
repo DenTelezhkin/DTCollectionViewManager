@@ -408,4 +408,9 @@ internal enum EventMethodSignature: String {
     case dropSessionDidExit = "collectionView:dropSessionDidExit:"
     case dropSessionDidEnd = "collectionView:dropSessionDidEnd:"
     case dropPreviewParametersForItemAtIndexPath = "collectionView:dropPreviewParametersForItemAtIndexPath:"
+    
+    // TVCollectionViewDelegateFullScreenLayout
+    
+    case willCenterCellAtIndexPath = "collectionView:layout:willCenterCellAtIndexPath:"
+    case didCenterCellAtIndexPath = "collectionView:layout:didCenterCellAtIndexPath:"
 }

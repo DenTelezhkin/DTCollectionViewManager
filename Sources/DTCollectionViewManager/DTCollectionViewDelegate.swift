@@ -373,3 +373,22 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
                                                                                   minimumInteritemSpacingForSectionAt: section) ?? defaultInterItemSpacing ?? 0
     }
 }
+
+#if canImport(TVUIKit)
+import TVUIKit
+
+@available(tvOS 13.0, *)
+extension DTCollectionViewDelegate : TVCollectionViewDelegateFullScreenLayout {
+    /// Implementation of `TVCollectionViewDelegateFullScreenLayout` protocol.
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, willCenterCellAt indexPath: IndexPath) {
+        _ = performCellReaction(.willCenterCellAtIndexPath, location: indexPath, provideCell: true)
+        (delegate as? TVCollectionViewDelegateFullScreenLayout)?.collectionView?(collectionView, layout: collectionViewLayout, willCenterCellAt: indexPath)
+    }
+    
+    /// Implementation of `TVCollectionViewDelegateFullScreenLayout` protocol.
+    public func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, didCenterCellAt indexPath: IndexPath) {
+        _ = performCellReaction(.didCenterCellAtIndexPath, location: indexPath, provideCell: true)
+        (delegate as? TVCollectionViewDelegateFullScreenLayout)?.collectionView?(collectionView, layout: collectionViewLayout, didCenterCellAt: indexPath)
+    }
+}
+#endif

@@ -58,6 +58,7 @@ manager.register(UICollectionViewCell.self, String.self) { cell, indexPath, mode
 ```
 
 * Added event reaction for `UICollectionViewDelegate.collectionView(_:canEditItemAt:)` delegate method.
+* Added event reactions for tvOS 13 `TVCollectionViewDelegateFullScreenLayout` protocol from `TVUIKit` framework.
 
 ### Changed
 

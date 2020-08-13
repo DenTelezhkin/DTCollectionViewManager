@@ -8,7 +8,9 @@
 
 import XCTest
 @testable import DTCollectionViewManager
-
+#if canImport(TVUIKit)
+import TVUIKit
+#endif
 #if os(iOS)
     
 class SpringLoadedContextMock : NSObject, UISpringLoadedInteractionContext {
@@ -979,6 +981,30 @@ class ReactingToEventsFastTestCase : XCTestCase {
         #endif
     #endif
     
+    func testWillCenterItemAtIndexPath() throws {
+        guard #available(tvOS 13, *) else { throw XCTSkip() }
+        try verifyEvent(.willCenterCellAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.willCenter(NibCell.self, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.willCenter(self.fullfill(exp, andReturn: ())) }
+        }, preparation: addIntItem(), action: {
+            $0.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewLayout(), willCenterCellAt: indexPath(0, 0))
+        })
+    }
+    
+    func testDidCenterItemAtIndexPath() throws {
+        guard #available(tvOS 13, *) else { throw XCTSkip() }
+        try verifyEvent(.didCenterCellAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.didCenter(NibCell.self, fullfill(exp, andReturn: ()))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.didCenter(self.fullfill(exp, andReturn: ())) }
+        }, preparation: addIntItem(), action: {
+            $0.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewLayout(), didCenterCellAt: indexPath(0, 0))
+        })
+    }
+    
     func testAllDelegateMethodSignatures() {
         if #available(tvOS 9, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDataSource.collectionView(_:canMoveItemAt:))), EventMethodSignature.canMoveItemAtIndexPath.rawValue)
@@ -1045,6 +1071,11 @@ class ReactingToEventsFastTestCase : XCTestCase {
         
         if #available(iOS 14, tvOS 14, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canEditItemAt:))), EventMethodSignature.canEditItemAtIndexPath.rawValue)
+        }
+        
+        if #available(tvOS 13, *) {
+            XCTAssertEqual(String(describing: #selector(TVCollectionViewDelegateFullScreenLayout.collectionView(_:layout:willCenterCellAt:))), EventMethodSignature.willCenterCellAtIndexPath.rawValue)
+            XCTAssertEqual(String(describing: #selector(TVCollectionViewDelegateFullScreenLayout.collectionView(_:layout:didCenterCellAt:))), EventMethodSignature.didCenterCellAtIndexPath.rawValue)
         }
         
         XCTAssertEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:sizeForItemAt:))), EventMethodSignature.sizeForItemAtIndexPath.rawValue)

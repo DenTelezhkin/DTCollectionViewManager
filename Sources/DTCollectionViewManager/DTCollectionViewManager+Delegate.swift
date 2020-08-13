@@ -27,6 +27,10 @@ import Foundation
 import DTModelStorage
 import UIKit
 
+#if canImport(TVUIKit)
+import TVUIKit
+#endif
+
 extension DTCollectionViewManager {
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didSelectItemAt:)` method is called for `cellClass`.
     open func didSelect<Cell:ModelTransfer>(_ cellClass:  Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Void) where Cell:UICollectionViewCell
@@ -307,6 +311,22 @@ extension DTCollectionViewManager {
     open func minimumInteritemSpacingForSectionAtIndex(_ closure: @escaping (UICollectionViewLayout, Int) -> CGFloat) {
         collectionDelegate?.appendNonCellReaction(.minimumInteritemSpacingForSectionAtIndex, closure: closure)
     }
+    
+    // MARK: - TVCollectionViewDelegateFullScreenLayout
+    
+    @available(tvOS 13, *)
+    /// Registers `closure` to be executed, when `TVCollectionViewDelegateFullScreenLayout.collectionView(_:layout:willCenterCellAt:)` method is called for `cellClass`.
+    open func willCenter<Cell:ModelTransfer>(_ cellClass:  Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Void) where Cell:UICollectionViewCell
+    {
+        collectionDelegate?.appendReaction(for: Cell.self, signature: .willCenterCellAtIndexPath, closure: closure)
+    }
+    
+    @available(tvOS 13, *)
+    /// Registers `closure` to be executed, when `TVCollectionViewDelegateFullScreenLayout.collectionView(_:layout:didCenterCellAt:)` method is called for `cellClass`.
+    open func didCenter<Cell:ModelTransfer>(_ cellClass:  Cell.Type, _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Void) where Cell:UICollectionViewCell
+    {
+        collectionDelegate?.appendReaction(for: Cell.self, signature: .didCenterCellAtIndexPath, closure: closure)
+    }
 }
 
 extension ViewModelMapping where View: UICollectionViewCell {
@@ -425,6 +445,22 @@ extension ViewModelMapping where View: UICollectionViewCell {
     open func canEdit(_ closure: @escaping (Model, IndexPath) -> Bool)
     {
         reactions.append(EventReaction(modelType: Model.self, signature: EventMethodSignature.canEditItemAtIndexPath.rawValue, closure))
+    }
+    
+    // MARK: - TVCollectionViewDelegateFullScreenLayout
+    
+    @available(tvOS 13, *)
+    /// Registers `closure` to be executed, when `TVCollectionViewDelegateFullScreenLayout.collectionView(_:layout:willCenterCellAt:)` method is called.
+    open func willCenter(_ closure: @escaping (View, Model, IndexPath) -> Void)
+    {
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.willCenterCellAtIndexPath.rawValue, closure))
+    }
+    
+    @available(tvOS 13, *)
+    /// Registers `closure` to be executed, when `TVCollectionViewDelegateFullScreenLayout.collectionView(_:layout:didCenterCellAt:)` method is called.
+    open func didCenter(_ closure: @escaping (View, Model, IndexPath) -> Void)
+    {
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didCenterCellAtIndexPath.rawValue, closure))
     }
 }
 
