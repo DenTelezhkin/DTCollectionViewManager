@@ -241,6 +241,7 @@ open class DTCollectionViewManager {
     }
     
     @available(iOS 13.0, tvOS 13.0, *)
+    @available(*, deprecated, message: "Please use configureDiffableDataSource method for models, that are Hashable. From Apple documentation: If you’re working in a Swift codebase, always use UICollectionViewDiffableDataSource instead.")
     /// Configures `UICollectionViewDiffableDataSourceReference` to be used with `DTCollectionViewManager`.
     ///  Because `UICollectionViewDiffableDataSourceReference` handles UICollectionView updates, `collectionViewUpdater` property on `DTCollectionViewManager` will be set to nil.
     /// - Parameter modelProvider: closure that provides `DTCollectionViewManager` models.
