@@ -244,6 +244,15 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
                                                                 targetContentOffsetForProposedContentOffset: proposedContentOffset) ?? .zero
     }
     
+    @available(iOS 14, tvOS 14, *)
+    /// Implementation of `UICollectionViewDelegate` protocol.
+    public func collectionView(_ collectionView: UICollectionView, canEditItemAt indexPath: IndexPath) -> Bool {
+        if let canEdit = performCellReaction(.canEditItemAtIndexPath, location: indexPath, provideCell: false) as? Bool {
+            return canEdit
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, canEditItemAt: indexPath) ?? false
+    }
+    
 #if os(iOS)
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, shouldSpringLoadItemAt indexPath: IndexPath, with context: UISpringLoadedInteractionContext) -> Bool {

@@ -243,7 +243,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         }
     }
     
-    func fulfill<Model, ReturnValue>(_ expectation: XCTestExpectation, andReturn returnValue: ReturnValue) -> (Model,IndexPath) -> ReturnValue {
+    func fullfill<Model, ReturnValue>(_ expectation: XCTestExpectation, andReturn returnValue: ReturnValue) -> (Model,IndexPath) -> ReturnValue {
         { model, indexPath in
             expectation.fulfill()
             return returnValue
@@ -566,10 +566,10 @@ class ReactingToEventsFastTestCase : XCTestCase {
         try verifyEvent(.sizeForItemAtIndexPath,
         registration: { (sut, exp) in
             sut.manager.register(NibCell.self)
-            sut.manager.sizeForCell(withItem: Int.self, fulfill(exp, andReturn: CGSize(width: 30, height: 30)))
+            sut.manager.sizeForCell(withItem: Int.self, fullfill(exp, andReturn: CGSize(width: 30, height: 30)))
         }, alternativeRegistration: { (sut, exp) in
             sut.manager.register(NibCell.self) {
-                $0.sizeForCell(self.fulfill(exp, andReturn: CGSize(width: 30, height: 30)))
+                $0.sizeForCell(self.fullfill(exp, andReturn: CGSize(width: 30, height: 30)))
             }
         }, preparation: addIntItem(), action: { (sut) in
             sut.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewFlowLayout(), sizeForItemAt: indexPath(0, 0))
@@ -579,10 +579,10 @@ class ReactingToEventsFastTestCase : XCTestCase {
     func testSizeForHeaderInSection() throws {
         try verifyEvent(.referenceSizeForHeaderInSection, registration: { (sut, exp) in
             sut.manager.registerHeader(NibHeaderFooterView.self)
-            sut.manager.referenceSizeForHeaderView(withItem: Int.self, fulfill(exp, andReturn: CGSize(width: 30, height: 30)))
+            sut.manager.referenceSizeForHeaderView(withItem: Int.self, fullfill(exp, andReturn: CGSize(width: 30, height: 30)))
         }, alternativeRegistration: { (sut, exp) in
             sut.manager.registerHeader(NibHeaderFooterView.self) {
-                $0.referenceSizeForHeaderView(self.fulfill(exp, andReturn: CGSize(width: 30, height: 30)))
+                $0.referenceSizeForHeaderView(self.fullfill(exp, andReturn: CGSize(width: 30, height: 30)))
             }
         }, preparation: setHeaderIntModels(), action: { sut in
             sut.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewFlowLayout(), referenceSizeForHeaderInSection: 0)
@@ -592,10 +592,10 @@ class ReactingToEventsFastTestCase : XCTestCase {
     func testSizeForFooterInSection() throws {
         try verifyEvent(.referenceSizeForFooterInSection, registration: { (sut, exp) in
             sut.manager.registerFooter(NibHeaderFooterView.self)
-            sut.manager.referenceSizeForFooterView(withItem: Int.self, fulfill(exp, andReturn: CGSize(width: 30, height: 30)))
+            sut.manager.referenceSizeForFooterView(withItem: Int.self, fullfill(exp, andReturn: CGSize(width: 30, height: 30)))
         }, alternativeRegistration: { (sut, exp) in
             sut.manager.registerFooter(NibHeaderFooterView.self) {
-                $0.referenceSizeForFooterView(self.fulfill(exp, andReturn: CGSize(width: 30, height: 30)))
+                $0.referenceSizeForFooterView(self.fullfill(exp, andReturn: CGSize(width: 30, height: 30)))
             }
         }, preparation: setFooterIntModels(), action: { sut in
             sut.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewFlowLayout(), referenceSizeForFooterInSection: 0)
@@ -694,6 +694,21 @@ class ReactingToEventsFastTestCase : XCTestCase {
         }, expectedResult: true)
     }
     #endif
+    
+    func testCanEditItem() throws {
+        guard #available(iOS 14, tvOS 14, *) else { throw XCTSkip() }
+        try verifyEvent(.canEditItemAtIndexPath, registration: { (sut, exp) in
+            exp.assertForOverFulfill = false
+            sut.manager.register(UICollectionViewListCell.self, for: Int.self, handler: { _,_,_ in }, mapping: { $0.canEdit(self.fullfill(exp, andReturn: true)) })
+        }, alternativeRegistration: { (sut, exp) in
+            exp.assertForOverFulfill = false
+            sut.manager.register(UICollectionViewListCell.self, for: Int.self, handler: { _,_,_ in}) { $0.canEdit(self.fullfill(exp, andReturn: true))}
+        }, preparation: {
+            $0.manager.memoryStorage.addItems([3,4])
+        }, action: {
+            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, canEditItemAt: indexPath(0, 0)))
+        }, expectedResult: true)
+    }
     
     func testInsetForSectionAtIndex() {
         let exp = expectation(description: "insetForSectionAtIndex")
@@ -1027,6 +1042,10 @@ class ReactingToEventsFastTestCase : XCTestCase {
             #endif
         }
         #endif
+        
+        if #available(iOS 14, tvOS 14, *) {
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canEditItemAt:))), EventMethodSignature.canEditItemAtIndexPath.rawValue)
+        }
         
         XCTAssertEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:sizeForItemAt:))), EventMethodSignature.sizeForItemAtIndexPath.rawValue)
         XCTAssertEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:insetForSectionAt:))), EventMethodSignature.insetForSectionAtIndex.rawValue)

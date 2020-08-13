@@ -57,6 +57,8 @@ manager.register(UICollectionViewCell.self, String.self) { cell, indexPath, mode
 }
 ```
 
+* Added event reaction for `UICollectionViewDelegate.collectionView(_:canEditItemAt:)` delegate method.
+
 ### Changed
 
 * On iOS/tvOS 14 and higher, cell and supplementary views now use `UICollectionView.dequeueConfiguredReusableCell` and `UICollectionView.dequeueConfiguredReusableSupplementary` to be dequeued.

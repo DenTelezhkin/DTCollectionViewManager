@@ -379,6 +379,7 @@ internal enum EventMethodSignature: String {
     case previewForHighlightingContextMenu = "collectionView:previewForHighlightingContextMenuWithConfiguration:"
     case previewForDismissingContextMenu = "collectionView:previewForDismissingContextMenuWithConfiguration:"
     case willCommitMenuWithAnimator = "collectionView:willCommitMenuWithAnimator:"
+    case canEditItemAtIndexPath = "collectionView:canEditItemAtIndexPath:"
     
     // UICollectionViewDelegateFlowLayout
     case sizeForItemAtIndexPath = "collectionView:layout:sizeForItemAtIndexPath:"

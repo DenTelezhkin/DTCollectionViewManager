@@ -260,6 +260,13 @@ extension DTCollectionViewManager {
     #endif
 #endif
     
+    @available(iOS 14, tvOS 14, *)
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canEditItemAt:)` method is called for `cellClass`.
+    open func canEdit<Model>(_ modelType:Model.Type, _ closure: @escaping (Model, IndexPath) -> Bool)
+    {
+        collectionDelegate?.appendReaction(viewType: .cell, for: Model.self, signature: EventMethodSignature.canEditItemAtIndexPath, closure: closure)
+    }
+    
     // MARK: - UICollectionViewDelegateFlowLayout
     
     /// Registers `closure` to be executed to determine cell size in `UICollectionViewDelegateFlowLayout.collectionView(_:sizeForItemAt:)` method, when it's called for cell which model is of `itemType`.
@@ -412,6 +419,13 @@ extension ViewModelMapping where View: UICollectionViewCell {
     }
     #endif
 #endif
+    
+    @available(iOS 14, tvOS 14, *)
+    /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canEditItemAt:)` method is called.
+    open func canEdit(_ closure: @escaping (Model, IndexPath) -> Bool)
+    {
+        reactions.append(EventReaction(modelType: Model.self, signature: EventMethodSignature.canEditItemAtIndexPath.rawValue, closure))
+    }
 }
 
 extension ViewModelMapping where View: UICollectionReusableView {
