@@ -9,38 +9,23 @@
 import UIKit
 import DTCollectionViewManager
 
-class MasterViewController: UIViewController, UITableViewDelegate, UITableViewDataSource {
-
-    @IBOutlet weak var tableView: UITableView!
-    let controllers : [(String, AnyClass)] = [("Move sections", SectionsViewController.self),
-                        ("Complex layout", ComplexLayoutViewController.self)]
+class MasterViewController: UICollectionViewController, DTCollectionViewManageable {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        
-        self.tableView.register(UITableViewCell.self, forCellReuseIdentifier: "UITableViewCell")
-    }
-    
-    func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
-    }
-    
-    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return controllers.count
-    }
-    
-    func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        let cell = tableView.dequeueReusableCell(withIdentifier: "UITableViewCell", for: indexPath)
-        cell.textLabel?.text = controllers[indexPath.row].0
-        return cell
-    }
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        let model = controllers[indexPath.row]
-        let controllerID = String(describing: model.1)
-        let controller = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: controllerID)
-        let navigation = UINavigationController(rootViewController: controller)
-        self.splitViewController?.viewControllers = [self, navigation]
+
+        manager.register(UICollectionViewListCell.self, for: Example.self, handler: { cell, model, _ in
+            var content = cell.defaultContentConfiguration()
+            content.text = model.title
+            cell.contentConfiguration = content
+        }) { [weak self] mapping in
+            mapping.didSelect { _, example, _ in
+                let controller = example.controller
+                controller.navigationItem.hidesBackButton = true
+                self?.splitViewController?.setViewController(controller, for: .secondary)
+            }
+        }
+        manager.memoryStorage.setItems(Example.allCases)
     }
 }
 
