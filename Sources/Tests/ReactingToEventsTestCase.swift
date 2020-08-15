@@ -981,6 +981,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         #endif
     #endif
     
+    #if os(tvOS)
     func testWillCenterItemAtIndexPath() throws {
         guard #available(tvOS 13, *) else { throw XCTSkip() }
         try verifyEvent(.willCenterCellAtIndexPath, registration: { (sut, exp) in
@@ -1004,6 +1005,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
             $0.manager.collectionDelegate?.collectionView(sut.collectionView, layout: UICollectionViewLayout(), didCenterCellAt: indexPath(0, 0))
         })
     }
+    #endif
     
     func testAllDelegateMethodSignatures() {
         if #available(tvOS 9, *) {
@@ -1073,10 +1075,12 @@ class ReactingToEventsFastTestCase : XCTestCase {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canEditItemAt:))), EventMethodSignature.canEditItemAtIndexPath.rawValue)
         }
         
+        #if os(tvOS)
         if #available(tvOS 13, *) {
             XCTAssertEqual(String(describing: #selector(TVCollectionViewDelegateFullScreenLayout.collectionView(_:layout:willCenterCellAt:))), EventMethodSignature.willCenterCellAtIndexPath.rawValue)
             XCTAssertEqual(String(describing: #selector(TVCollectionViewDelegateFullScreenLayout.collectionView(_:layout:didCenterCellAt:))), EventMethodSignature.didCenterCellAtIndexPath.rawValue)
         }
+        #endif
         
         XCTAssertEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:sizeForItemAt:))), EventMethodSignature.sizeForItemAtIndexPath.rawValue)
         XCTAssertEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:insetForSectionAt:))), EventMethodSignature.insetForSectionAtIndex.rawValue)

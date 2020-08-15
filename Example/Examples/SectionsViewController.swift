@@ -9,20 +9,16 @@
 import UIKit
 import DTCollectionViewManager
 
-func randomColor() -> UIColor {
-        let randomRed:CGFloat = CGFloat(drand48())
-        
-        let randomGreen:CGFloat = CGFloat(drand48())
-        
-        let randomBlue:CGFloat = CGFloat(drand48())
-        
-        return UIColor(red: randomRed, green: randomGreen, blue: randomBlue, alpha: 1.0)
-}
+class SectionsViewController: UICollectionViewController, DTCollectionViewManageable, UICollectionViewDelegateFlowLayout {
 
-class SectionsViewController: UIViewController, DTCollectionViewManageable, UICollectionViewDelegateFlowLayout {
-
-    @IBOutlet weak var collectionView: UICollectionView!
     var sectionNumber = 0
+    
+    private func barButton(title: String, action: @escaping (SectionsViewController) -> Void) -> UIBarButtonItem {
+        UIBarButtonItem(title: title, image: nil, primaryAction: UIAction(handler: { [weak self] _ in
+            guard let self = self else { return }
+            action(self)
+        }), menu: nil)
+    }
     
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -38,24 +34,31 @@ class SectionsViewController: UIViewController, DTCollectionViewManageable, UICo
         manager.supplementaryStorage?.footerModelProvider = { index in "Section \(index) footer"}
         addSection()
         addSection()
+        
+        collectionView.backgroundColor = .white
+        navigationItem.setRightBarButtonItems([
+            barButton(title: "Add", action: { $0.addSection() }),
+            barButton(title: "Remove", action: { $0.removeSection() }),
+            barButton(title: "Move", action: { $0.moveSection() })
+        ].reversed(), animated: false)
     }
     
-    @IBAction func addSection()
+    func addSection()
     {
         sectionNumber += 1
         let nextSection = manager.memoryStorage.sections.count > 0 ? manager.memoryStorage.sections.count : 0
         
         let section = SectionModel()
-        section.items = [randomColor(), randomColor(), randomColor()]
+        section.items = [UIColor.random, UIColor.random, UIColor.random]
         manager.memoryStorage.insertSection(section, atIndex: nextSection)
     }
 
-    @IBAction func removeSection(_ sender: AnyObject) {
+    func removeSection() {
         if manager.memoryStorage.sections.count > 0 {
             manager.memoryStorage.deleteSections(IndexSet(integer: manager.memoryStorage.sections.count - 1))
         }
     }
-    @IBAction func moveSection(_ sender: AnyObject) {
+    func moveSection() {
         if manager.memoryStorage.sections.count > 0 {
             manager.memoryStorage.moveSection(manager.memoryStorage.sections.count - 1, toSection:0)
         }

@@ -14,7 +14,7 @@ class CollectionContainingCell: UICollectionViewCell, DTCollectionViewManageable
     @IBOutlet weak var collectionView: UICollectionView!
     
     func update(with model: Int) {
-        let itemsArray = (1...model).map { _ in return randomColor() }
+        let itemsArray = (1...model).map { _ in return UIColor.random }
         self.manager.memoryStorage.setItems(itemsArray, forSection: 0)
     }
     

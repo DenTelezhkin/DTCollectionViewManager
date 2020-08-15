@@ -10,6 +10,10 @@ import UIKit
 import DTCollectionViewManager
 
 class ComplexLayoutViewController: UICollectionViewController, DTCollectionViewManageable {
+    
+    convenience init() {
+        self.init(collectionViewLayout: UICollectionViewFlowLayout())
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -21,9 +25,13 @@ class ComplexLayoutViewController: UICollectionViewController, DTCollectionViewM
             }
         }
         manager.memoryStorage.addItems([1,3,8,15])
+        
+        navigationItem.setRightBarButton(UIBarButtonItem(systemItem: .add, primaryAction: UIAction(handler: { [weak self] _ in
+            self?.plusTapped()
+        }), menu: nil), animated: false)
     }
     
-    @IBAction func plusTapped(_ sender: AnyObject)
+    func plusTapped()
     {
         let controller = UIAlertController(title: nil, message: "How much cells do you need in collection view?", preferredStyle: .alert)
         controller.addTextField(configurationHandler: nil)

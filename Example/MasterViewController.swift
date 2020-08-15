@@ -11,6 +11,9 @@ import DTCollectionViewManager
 
 class MasterViewController: UICollectionViewController, DTCollectionViewManageable {
     
+    convenience init() {
+        self.init(collectionViewLayout: UICollectionViewCompositionalLayout.list(using: .init(appearance: .sidebarPlain)))
+    }
     override func viewDidLoad() {
         super.viewDidLoad()
 
