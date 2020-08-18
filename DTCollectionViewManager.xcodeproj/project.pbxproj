@@ -98,8 +98,6 @@
 		3EBBB78A22F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */; };
 		3EBBB78B22F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */; };
 		9A08A9C91B8A249300877C62 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
-		9A2109E31B9C58E20036D151 /* ComplexLayoutViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */; };
-		9A2109E71B9C5A020036D151 /* CollectionContainingCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */; };
 		9A73E09E1F6586A000BF80F8 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
 		9A7576F31BB951A100180D46 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
 		9A7576F71BB951B500180D46 /* DTCollectionViewManager.framework in Embed Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; settings = {ATTRIBUTES = (CodeSignOnCopy, RemoveHeadersOnCopy, ); }; };
@@ -109,6 +107,7 @@
 		9A99AA8B1B8A219300428802 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 9A99AA891B8A219300428802 /* LaunchScreen.storyboard */; };
 		9A9B184424E67584008C9F6D /* Example.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9B184324E67584008C9F6D /* Example.swift */; };
 		9A9B184624E68CD9008C9F6D /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9B184524E68CD9008C9F6D /* SceneDelegate.swift */; };
+		9A9B184824EBFC98008C9F6D /* CompositionalLayoutsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A9B184724EBFC98008C9F6D /* CompositionalLayoutsViewController.swift */; };
 		9AA52DBB24C7A241002FFC89 /* DTCollectionViewManager+Deprecated.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9AA52DBA24C7A241002FFC89 /* DTCollectionViewManager+Deprecated.swift */; };
 		9AA83F1C22D4D77700C20E87 /* DTModelStorage in Frameworks */ = {isa = PBXBuildFile; productRef = 9AA83F1B22D4D77700C20E87 /* DTModelStorage */; };
 		9ABE13FB24599CE2008874D2 /* Exports.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9ABE13FA24599CE2008874D2 /* Exports.swift */; };
@@ -230,8 +229,6 @@
 		9A1B88371CE1E2E5005B6F07 /* Tests.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Tests.plist; path = "../Supporting files/Tests.plist"; sourceTree = "<group>"; };
 		9A1B88601CE1E4BC005B6F07 /* README.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = README.md; sourceTree = "<group>"; };
 		9A1B88611CE1E4C1005B6F07 /* CHANGELOG.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = CHANGELOG.md; sourceTree = "<group>"; };
-		9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; path = ComplexLayoutViewController.swift; sourceTree = "<group>"; };
-		9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = sourcecode.swift; name = CollectionContainingCell.swift; path = Cells/CollectionContainingCell.swift; sourceTree = "<group>"; };
 		9A5DE78F1FD35482000FE218 /* DTModelStorage.framework */ = {isa = PBXFileReference; lastKnownFileType = wrapper.framework; name = DTModelStorage.framework; path = Carthage/Build/iOS/DTModelStorage.framework; sourceTree = "<group>"; };
 		9A99AA7C1B8A219300428802 /* Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A99AA7E1B8A219300428802 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -241,6 +238,7 @@
 		9A99AA911B8A219300428802 /* Tests-iOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-iOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
 		9A9B184324E67584008C9F6D /* Example.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Example.swift; sourceTree = "<group>"; };
 		9A9B184524E68CD9008C9F6D /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
+		9A9B184724EBFC98008C9F6D /* CompositionalLayoutsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CompositionalLayoutsViewController.swift; sourceTree = "<group>"; };
 		9AA52DBA24C7A241002FFC89 /* DTCollectionViewManager+Deprecated.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTCollectionViewManager+Deprecated.swift"; sourceTree = "<group>"; };
 		9ABE13FA24599CE2008874D2 /* Exports.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Exports.swift; sourceTree = "<group>"; };
 		9AC532381BE5F77F006CB18A /* Tests-tvOS.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = "Tests-tvOS.xctest"; sourceTree = BUILT_PRODUCTS_DIR; };
@@ -473,7 +471,6 @@
 				3E37DBF924E7E898008181FC /* Extensions */,
 				9A9B184224E67569008C9F6D /* Examples */,
 				9A0E42302375886A0027C995 /* Example.entitlements */,
-				9ADFC8F11B8B766A00AB4CD9 /* Cells */,
 				9ADFC8F01B8B766300AB4CD9 /* Views */,
 				9A99AA7E1B8A219300428802 /* AppDelegate.swift */,
 				9A9B184524E68CD9008C9F6D /* SceneDelegate.swift */,
@@ -488,8 +485,8 @@
 			isa = PBXGroup;
 			children = (
 				9ADFC8EE1B8B73A300AB4CD9 /* SectionsViewController.swift */,
-				9A2109E21B9C58E20036D151 /* ComplexLayoutViewController.swift */,
 				9A9B184324E67584008C9F6D /* Example.swift */,
+				9A9B184724EBFC98008C9F6D /* CompositionalLayoutsViewController.swift */,
 			);
 			path = Examples;
 			sourceTree = "<group>";
@@ -510,14 +507,6 @@
 				9ADFC8F71B8B771800AB4CD9 /* SimpleTextCollectionReusableView.xib */,
 			);
 			name = Views;
-			sourceTree = "<group>";
-		};
-		9ADFC8F11B8B766A00AB4CD9 /* Cells */ = {
-			isa = PBXGroup;
-			children = (
-				9A2109E61B9C5A020036D151 /* CollectionContainingCell.swift */,
-			);
-			name = Cells;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -723,9 +712,8 @@
 				9A99AA811B8A219300428802 /* MasterViewController.swift in Sources */,
 				9A9B184424E67584008C9F6D /* Example.swift in Sources */,
 				9ADFC8F81B8B771800AB4CD9 /* SimpleTextCollectionReusableView.swift in Sources */,
-				9A2109E71B9C5A020036D151 /* CollectionContainingCell.swift in Sources */,
 				9ADFC8EF1B8B73A300AB4CD9 /* SectionsViewController.swift in Sources */,
-				9A2109E31B9C58E20036D151 /* ComplexLayoutViewController.swift in Sources */,
+				9A9B184824EBFC98008C9F6D /* CompositionalLayoutsViewController.swift in Sources */,
 				9A99AA7F1B8A219300428802 /* AppDelegate.swift in Sources */,
 				3E37DBFB24E7E8AB008181FC /* UIColor+Extensions.swift in Sources */,
 				9A9B184624E68CD9008C9F6D /* SceneDelegate.swift in Sources */,

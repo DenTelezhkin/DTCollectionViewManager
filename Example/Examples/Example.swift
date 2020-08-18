@@ -11,19 +11,19 @@ import UIKit
 
 enum Example: CaseIterable {
     case sections
-    case complexLayout
+    case compositionalLayouts
     
     var title: String {
         switch self {
             case .sections: return "Move sections"
-            case .complexLayout: return "Complex layout"
+            case .compositionalLayouts: return "Compositional layout"
         }
     }
     
     var controller : UIViewController {
         switch self {
             case .sections: return SectionsViewController(collectionViewLayout: UICollectionViewFlowLayout())
-            case .complexLayout: return ComplexLayoutViewController()
+            case .compositionalLayouts: return CompositionalLayoutsViewController()
         }
     }
 }
