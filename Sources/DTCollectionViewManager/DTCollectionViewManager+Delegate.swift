@@ -312,6 +312,7 @@ extension DTCollectionViewManager {
         collectionDelegate?.appendNonCellReaction(.minimumInteritemSpacingForSectionAtIndex, closure: closure)
     }
     
+    #if os(tvOS)
     // MARK: - TVCollectionViewDelegateFullScreenLayout
     
     @available(tvOS 13, *)
@@ -327,6 +328,8 @@ extension DTCollectionViewManager {
     {
         collectionDelegate?.appendReaction(for: Cell.self, signature: .didCenterCellAtIndexPath, closure: closure)
     }
+    
+    #endif
 }
 
 extension ViewModelMapping where View: UICollectionViewCell {
@@ -447,6 +450,7 @@ extension ViewModelMapping where View: UICollectionViewCell {
         reactions.append(EventReaction(modelType: Model.self, signature: EventMethodSignature.canEditItemAtIndexPath.rawValue, closure))
     }
     
+    #if os(tvOS)
     // MARK: - TVCollectionViewDelegateFullScreenLayout
     
     @available(tvOS 13, *)
@@ -462,6 +466,7 @@ extension ViewModelMapping where View: UICollectionViewCell {
     {
         reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didCenterCellAtIndexPath.rawValue, closure))
     }
+    #endif
 }
 
 extension ViewModelMapping where View: UICollectionReusableView {

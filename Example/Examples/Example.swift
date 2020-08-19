@@ -12,11 +12,13 @@ import UIKit
 enum Example: CaseIterable {
     case sections
     case compositionalLayouts
+    case pagination
     
     var title: String {
         switch self {
             case .sections: return "Move sections"
             case .compositionalLayouts: return "Compositional layout"
+            case .pagination: return "Feed with load more / pull to refresh"
         }
     }
     
@@ -24,6 +26,7 @@ enum Example: CaseIterable {
         switch self {
             case .sections: return SectionsViewController(collectionViewLayout: UICollectionViewFlowLayout())
             case .compositionalLayouts: return CompositionalLayoutsViewController()
+            case .pagination: return FeedViewController(nibName: "FeedViewController", bundle: nil)
         }
     }
 }

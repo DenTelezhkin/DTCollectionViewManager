@@ -32,7 +32,6 @@ public extension DTCollectionViewManager {
     /// This method is unavailable, please use `register(_:handler:mapping:)` as a replacement.
     func register<T:ModelTransfer>(_ cellClass:T.Type, mappingBlock: ((ViewModelMapping<T, T.ModelType>) -> Void)? = nil) where T: UICollectionViewCell
     {
-
     }
     
     @available(*, unavailable, renamed: "registerSupplementary(_:ofKind:handler:mapping:)")
