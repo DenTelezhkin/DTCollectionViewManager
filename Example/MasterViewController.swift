@@ -17,16 +17,16 @@ class MasterViewController: UICollectionViewController, DTCollectionViewManageab
     override func viewDidLoad() {
         super.viewDidLoad()
 
-        manager.register(UICollectionViewListCell.self, for: Example.self, handler: { cell, model, _ in
+        manager.register(UICollectionViewListCell.self, for: Example.self) { [weak self] mapping in
+            mapping.didSelect { _, example, _ in
+                let controller = example.controller
+                self?.splitViewController?.setViewController(controller, for: .secondary)
+                self?.splitViewController?.show(.secondary)
+            }
+        } handler: { cell, model, _ in
             var content = cell.defaultContentConfiguration()
             content.text = model.title
             cell.contentConfiguration = content
-        }) { [weak self] mapping in
-            mapping.didSelect { _, example, _ in
-                let controller = example.controller
-                controller.navigationItem.hidesBackButton = true
-                self?.splitViewController?.setViewController(controller, for: .secondary)
-            }
         }
         manager.memoryStorage.setItems(Example.allCases)
     }

@@ -701,10 +701,12 @@ class ReactingToEventsFastTestCase : XCTestCase {
         guard #available(iOS 14, tvOS 14, *) else { throw XCTSkip() }
         try verifyEvent(.canEditItemAtIndexPath, registration: { (sut, exp) in
             exp.assertForOverFulfill = false
-            sut.manager.register(UICollectionViewListCell.self, for: Int.self, handler: { _,_,_ in }, mapping: { $0.canEdit(self.fullfill(exp, andReturn: true)) })
+            sut.manager.register(UICollectionViewListCell.self, for: Int.self, mapping: { $0.canEdit(self.fullfill(exp, andReturn: true)) }, handler: { _,_,_ in })
         }, alternativeRegistration: { (sut, exp) in
             exp.assertForOverFulfill = false
-            sut.manager.register(UICollectionViewListCell.self, for: Int.self, handler: { _,_,_ in}) { $0.canEdit(self.fullfill(exp, andReturn: true))}
+            sut.manager.register(UICollectionViewListCell.self, for: Int.self) {
+                $0.canEdit(self.fullfill(exp, andReturn: true))
+            } handler: { _,_,_ in }
         }, preparation: {
             $0.manager.memoryStorage.addItems([3,4])
         }, action: {

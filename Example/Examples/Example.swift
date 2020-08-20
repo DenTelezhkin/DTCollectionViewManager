@@ -24,9 +24,9 @@ enum Example: CaseIterable {
     
     var controller : UIViewController {
         switch self {
-            case .sections: return SectionsViewController(collectionViewLayout: UICollectionViewFlowLayout())
-            case .compositionalLayouts: return CompositionalLayoutsViewController()
-            case .pagination: return FeedViewController(nibName: "FeedViewController", bundle: nil)
+            case .sections: return UINavigationController(rootViewController: SectionsViewController(collectionViewLayout: UICollectionViewFlowLayout()))
+            case .compositionalLayouts: return UINavigationController(rootViewController: CompositionalLayoutsViewController())
+            case .pagination: return UINavigationController(rootViewController: FeedViewController(nibName: "FeedViewController", bundle: nil))
         }
     }
 }

@@ -26,11 +26,11 @@ class FeedViewController: UIViewController, DTCollectionViewManageable {
                 }
             }
         }
-        manager.register(ActivityIndicatorCell.self, for: ActivityIndicatorCell.Model.self) { _, _, _ in } mapping: { [weak self] mapping in
+        manager.register(ActivityIndicatorCell.self, for: ActivityIndicatorCell.Model.self) { [weak self] mapping in
             mapping.sizeForCell { _, _ in
                 CGSize(width: self?.view.frame.size.width ?? 0, height: 50)
             }
-        }
+        } handler: { _, _, _ in }
         manager.targetContentOffsetForProposedContentOffset { [weak self] point in
             // Restoring content offset to value, which was before rotation started and we updated layout
             self?.expectedTargetContentOffset ?? point

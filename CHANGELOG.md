@@ -90,7 +90,7 @@ registerHeader(StoryboardHeader.self) { mapping in
 
 ### Deprecated
 
-* Several cell/header/footer/supplementary view registration methods have been deprecated to unify registration logic. Please use `register(_:handler:mapping:)`, `registerHeader(_:handler:mapping:)`, `registerFooter(_:handler:mapping:)` and `registerSupplementary(_:forKind:handler:mapping:)` as a replacements for all of those methods. For more information on those changes, please read [migration guide LINK MISSING](link to migration guide)
+* Several cell/header/footer/supplementary view registration methods have been deprecated to unify registration logic. Please use `register(_:mapping:handler:)`, `registerHeader(_:mapping:handler:)`, `registerFooter(_:mapping:handler:)` and `registerSupplementary(_:forKind:mapping:handler:)` as a replacements for all of those methods. For more information on those changes, please read [migration guide LINK MISSING](link to migration guide)
 * `DTCollectionViewManager.configureEvents(for:_:)`, it's functionality has become unnecessary since mapping closure of cell/supplementary registration now captures both cell and model type information for such events.
 * `DTCollectionViewManager.configureDiffableDataSource(modelProvider:)` for non-hashable data models. Please use configureDiffableDataSource method for models, that are Hashable. From Apple's documentation: `If you’re working in a Swift codebase, always use UICollectionViewDiffableDataSource instead`.
 

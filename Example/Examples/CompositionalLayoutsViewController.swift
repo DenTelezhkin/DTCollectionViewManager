@@ -16,12 +16,12 @@ class CompositionalLayoutsViewController: UIViewController, DTCollectionViewMana
     override func viewDidLoad() {
         super.viewDidLoad()
         configureHierarchy()
-        manager.register(UICollectionViewCell.self, for: UIColor.self, handler: { cell, model, _ in
+        manager.register(UICollectionViewCell.self, for: UIColor.self) { cell, model, _ in
             cell.backgroundColor = model
             cell.clipsToBounds = true
             cell.layer.cornerRadius = 10
             cell.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
-        })
+        }
         manager.memoryStorage.setItems((0...100).map { _ in UIColor.random })
     }
 
