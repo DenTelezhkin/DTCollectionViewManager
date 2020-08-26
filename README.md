@@ -7,7 +7,6 @@
 
 DTCollectionViewManager
 ================
-> This is a sister-project for [DTTableViewManager](https://github.com/DenTelezhkin/DTTableViewManager) - great tool for UITableView management, built on the same principles.
 
 Powerful generic-based UICollectionView management framework, written in Swift.
 
@@ -31,28 +30,28 @@ Powerful generic-based UICollectionView management framework, written in Swift.
 ## Features
 
 - [x] Powerful mapping system between data models and cells, headers and footers
-- [x] Support for all Swift types as data models
-- [x] Support for diffable datasources in iOS 13
-- [x] Powerful events system, that covers all of UICollectionView delegate and datasource methods
-- [x] Views created from code, XIB, or storyboard
-- [x] Flexible Memory/CoreData/Realm.io storage options
 - [x] Automatic datasource and interface synchronization.
-- [x] Automatic XIB registration and dequeue
-- [x] Support for Drag&Drop for iOS 11 and higher
-- [x] Can be used with UICollectionViewController, or UIViewController with UICollectionView, or any other class, that contains UICollectionView
+- [x] Flexible Memory/CoreData/Realm/diffable datasource storage options
+- [x] Powerful compile-time safe events system, that covers all of UICollectionView delegate and datasource methods
+- [x] Views created from code, XIB, or storyboard, automatic registration and dequeue
+- [x] Can be used with UICollectionViewController, or UIViewController with UICollectionView
+- [x] Built-in support for iOS 14 UICollectionView.CellRegistration and content configuration
+- [x] Unified syntax with [DTTableViewManager](https://github.com/DenTelezhkin/DTTableViewManager)
 - [x] [Complete documentation](https://dentelezhkin.github.io/DTCollectionViewManager/)
 
 ## Requirements
 
-* Xcode 9 and higher
-* iOS 8.0 and higher / tvOS 9.0 and higher
-* Swift 4.2 and higher
+* Xcode 12+
+* iOS 11.0+ / tvOS 11.0+ / macCatalyst 13.0+
+* Swift 5.3+
+
+> If you need Xcode 11 support or Swift 4...Swift 5.2, or iOS 8...iOS 10 support, you can use 7.x releases.
 
 ## Installation
 
-### Swift Package Manager(requires Xcode 11)
+### Swift Package Manager
 
-Add package into Project settings -> Swift Packages
+Add package into Xcode Project settings -> Swift Packages
 
 ### [CocoaPods](http://www.cocoapods.org):
 
@@ -62,7 +61,7 @@ Add package into Project settings -> Swift Packages
 
 Let's say you have an array of Posts you want to display in UICollectionView. To quickly show them using DTCollectionViewManager, here's what you need to do:
 
-* Create UICollectionViewCell subclass, let's say PostCell. Adopt ModelTransfer protocol
+1. Create UICollectionViewCell subclass, let's say PostCell. Adopt ModelTransfer protocol
 
 ```swift
 class PostCell : UICollectionViewCell, ModelTransfer {
@@ -72,31 +71,39 @@ class PostCell : UICollectionViewCell, ModelTransfer {
 }
 ```
 
-* Declare your class as `DTCollectionViewManageable`, and it will be automatically injected with `manager` property, that will hold an instance of `DTCollectionViewManager`.
-
-* Make sure your UICollectionView outlet is wired to your class and call registration methods (typically in viewDidLoad method):
+2. In your view controller: 
 
 ```swift
-class PostsViewController: UIViewController, DTCollectionViewManageable {
-
-    @IBOutlet weak var collectionView: UICollectionView!
+class PostsViewController: UICollectionViewController, DTCollectionViewManageable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        // Register PostCell to be used with this controller's collection view
         manager.register(PostCell.self)
+        
+        // Populate datasource 
+        manager.memoryStorage.setItems(posts) 
     }
 }    
 ```
 
-ModelType will be automatically gathered from your `PostCell`. If you have a PostCell.xib file, it will be automatically registered for PostCell. If you have a storyboard with PostCell, set it's reuseIdentifier to be identical to class - "PostCell".
+Make sure your UICollectionView outlet is wired to your class (or use UICollectionViewController subclass). If you have a PostCell.xib file, it will be automatically used for dequeueing PostCell.
 
-* Add your posts!
+3. That's it! It's that easy! Of course, cool stuff does not stop there, framework supports all datasource and delegate methods as closures, conditional mappings and much much more! Choose what interests you in the next section of readme.
 
-```swift
-	manager.memoryStorage.addItems(posts)
-```
+## FAQ
 
-That's it! It's that easy!
+* [Why do I need this library?](Guides/FAQ/Why.md)
+* [How data models are mapped to cells?](Guides/FAQ/Mapping.md)
+* [How can I register views to dequeue from code/xib/storyboard?](Guides/FAQ/Registration.md)
+* [Can I use unsubclassed UICollectionViewCell or UICollectionReusableView (for example UICollectionViewListCell)?](Guides/FAQ/Registration.md)
+* [How can I use the same cells differently in different places?](Guides/FAQ/Conditional%20mappings.md)
+* [What datasource options do I have?(e.g. memory/CoreData/Realm/diffable datasources)](Guides/FAQ/Datasources.md)
+* [How can I implement datasource/delegate methods from `UICollectionView`?](Guides/FAQ/Events.md)
+* [How can I react to and customize UICollectionView updates?](Guides/FAQ/CollectionViewUpdater.md)
+* [What if something goes wrong?](Guides/FAQ/Anomalies.md)
+* [Can I see some sample code?](Example)
 
 ## Usage
 
