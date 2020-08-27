@@ -61,29 +61,29 @@ Add package into Xcode Project settings -> Swift Packages
 
 Let's say you have an array of Posts you want to display in UICollectionView. To quickly show them using DTCollectionViewManager, here's what you need to do:
 
-1. Create UICollectionViewCell subclass, let's say PostCell. Adopt ModelTransfer protocol
+1. Create UICollectionViewCell subclass, let's say PostCell and adopt `ModelTransfer` protocol:
 
 ```swift
 class PostCell : UICollectionViewCell, ModelTransfer {
-	func update(with model: Post) {
-		// Fill your cell with actual data
-	}
+    func update(with model: Post) {
+		    // Fill your cell with actual data
+    }
 }
 ```
 
-2. In your view controller: 
+2. In your view controller:
 
 ```swift
 class PostsViewController: UICollectionViewController, DTCollectionViewManageable {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        
+
         // Register PostCell to be used with this controller's collection view
         manager.register(PostCell.self)
-        
-        // Populate datasource 
-        manager.memoryStorage.setItems(posts) 
+
+        // Populate datasource
+        manager.memoryStorage.setItems(posts)
     }
 }    
 ```
@@ -101,6 +101,7 @@ Make sure your UICollectionView outlet is wired to your class (or use UICollecti
 * [How can I use the same cells differently in different places?](Guides/FAQ/Conditional%20mappings.md)
 * [What datasource options do I have?(e.g. memory/CoreData/Realm/diffable datasources)](Guides/FAQ/Datasources.md)
 * [How can I implement datasource/delegate methods from `UICollectionView`?](Guides/FAQ/Events.md)
+* [Can I implement delegate methods instead of using DTCollectionViewManager event closures?](Guides/FAQ/Events.md)
 * [How can I react to and customize UICollectionView updates?](Guides/FAQ/CollectionViewUpdater.md)
 * [What if something goes wrong?](Guides/FAQ/Anomalies.md)
 * [Can I see some sample code?](Example)

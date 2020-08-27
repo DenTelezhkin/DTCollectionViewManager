@@ -1129,7 +1129,26 @@ class ReactingToEventsFastTestCase : XCTestCase {
         sut.manager.sizeForCell(withItem: NibCell.self) { _, _ in .zero }
         waitForExpectations(timeout: 0.1)
         
-        XCTAssertEqual(anomaly.debugDescription, "\n    ⚠️[DTCollectionViewManager] Event sizeForCell(withItem:_:) registered with model type, that happens to be a subclass of UICollectionReusableView: NibCell.\n\n    This is likely not what you want, because this event expects to receive model type used for current indexPath instead of cell/view.\n    Reasoning behind it is the fact that for some events views have not yet been created(for example: func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath)).\n    Because they are not created yet, this event cannot be called with cell/view object, and even it\'s type is unknown at this point, as the mapping resolution will happen later.\n\n    Most likely you need to use model type, that will be passed to this cell/view through ModelTransfer protocol.\n    For example, for size of cell that expects to receive model Int, event would look like so:\n\n    manager.sizeForCell(withItem: Int.self) { model, indexPath in\n        return CGSize(height: 44, width: 44)\n    }\n")
+        XCTAssertEqual(anomaly.debugDescription, """
+            ⚠️[DTCollectionViewManager] Event sizeForCell(withItem:_:) registered with model type, that happens to be a subclass of UICollectionReusableView: NibCell.
+
+            This is likely not what you want, because this event expects to receive model type used for current indexPath instead of cell/view.
+            Reasoning behind it is the fact that for some events views have not yet been created(for example: func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath)).
+            Because they are not created yet, this event cannot be called with cell/view object, and even it's type is unknown at this point, as the mapping resolution will happen later.
+
+            Most likely you need to use model type, that will be passed to this cell/view through ModelTransfer protocol.
+            For example, for size of cell that expects to receive model Int, event would look like so:
+
+            manager.sizeForCell(withItem: Int.self) { model, indexPath in
+                return CGSize(height: 44, width: 44)
+            }
+
+            Alternatively, you can specify this event closure directly inside mapping block:
+
+            manager.register(Cell.self) { mapping in
+                mapping.sizeForCell { model, indexPath in CGSize(height: 44, width: 44) }
+            }
+            """)
     }
     
     func testUnusedEventLeadsToAnomaly() {
