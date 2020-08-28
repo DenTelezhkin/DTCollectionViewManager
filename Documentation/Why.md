@@ -187,6 +187,6 @@ Read more about anomalies [here](Anomalies.md).
 
 If you are interested in bringing the same approach to UITableView, [DTTableViewManager](https://github.com/DenTelezhkin/DTTableViewManager) is a framework built with the same principles, and the same interfaces, but tailored specifically for `UITableView` usage.
 
-There is also much more stuff under the hood: perfomance optimizations for reloading instead of animating when UICollectionView is not visible, trampolining of delegate methods if you need them, enhanced support for Drag&Drop, and more, all of which is described in other documents in FAQ directory.
+There is also much more stuff under the hood: perfomance optimizations for reloading instead of animating when UICollectionView is not visible, trampolining of delegate methods if you need them, enhanced support for Drag&Drop, and more, all of which is described in other documents in Documentation directory.
 
 `DTCollectionViewManager` is stable and used in production by dozens of apps (that I know of). If you use UICollectionView, give it a try, and you will not be disappointed!

@@ -37,7 +37,8 @@ Powerful generic-based UICollectionView management framework, written in Swift.
 - [x] Can be used with UICollectionViewController, or UIViewController with UICollectionView
 - [x] Built-in support for iOS 14 UICollectionView.CellRegistration and content configuration
 - [x] Unified syntax with [DTTableViewManager](https://github.com/DenTelezhkin/DTTableViewManager)
-- [x] [Complete documentation](https://dentelezhkin.github.io/DTCollectionViewManager/)
+- [x] [Complete documentation](Documentation)
+- [x] [API Reference](https://dentelezhkin.github.io/DTCollectionViewManager/)
 
 ## Requirements
 
@@ -94,17 +95,18 @@ Make sure your UICollectionView outlet is wired to your class (or use UICollecti
 
 ## FAQ
 
-* [Why do I need this library?](Guides/FAQ/Why.md)
-* [How data models are mapped to cells?](Guides/FAQ/Mapping.md)
-* [How can I register views to dequeue from code/xib/storyboard?](Guides/FAQ/Registration.md)
-* [Can I use unsubclassed UICollectionViewCell or UICollectionReusableView (for example UICollectionViewListCell)?](Guides/FAQ/Registration.md)
-* [How can I use the same cells differently in different places?](Guides/FAQ/Conditional%20mappings.md)
-* [What datasource options do I have?(e.g. memory/CoreData/Realm/diffable datasources)](Guides/FAQ/Datasources.md)
-* [How can I implement datasource/delegate methods from `UICollectionView`?](Guides/FAQ/Events.md)
-* [Can I implement delegate methods instead of using DTCollectionViewManager event closures?](Guides/FAQ/Events.md)
-* [How can I react to and customize UICollectionView updates?](Guides/FAQ/CollectionViewUpdater.md)
-* [What if something goes wrong?](Guides/FAQ/Anomalies.md)
+* [Why do I need this library?](Documentation/Why.md)
+* [How data models are mapped to cells?](Documentation/Mapping.md)
+* [How can I register views to dequeue from code/xib/storyboard?](Documentation/Registration.md)
+* [Can I use unsubclassed UICollectionViewCell or UICollectionReusableView (for example UICollectionViewListCell)?](Documentation/Registration.md)
+* [How can I use the same cells differently in different places?](Documentation/Conditional%20mappings.md)
+* [What datasource options do I have?(e.g. memory/CoreData/Realm/diffable datasources)](Documentation/Datasources.md)
+* [How can I implement datasource/delegate methods from `UICollectionView`?](Documentation/Events.md)
+* [Can I implement delegate methods instead of using DTCollectionViewManager event closures?](Documentation/Events.md)
+* [How can I react to and customize UICollectionView updates?](Documentation/CollectionViewUpdater.md)
+* [What if something goes wrong?](Documentation/Anomalies.md)
 * [Can I see some sample code?](Example)
+* [Where can I find extensive documentation?](Documentation)
 
 ## Usage
 

@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+**This is a major release with some breaking changes, please read [DTCollectionViewManager 8.0 Migration Guide](Documentation/Migration%20Guides/8.0%20Migration%20Guide.md)**
+
 ### New
 
 * Cell and supplementary view events are now available inside mapping closure directly, for example:
@@ -15,22 +17,22 @@ manager.didSelect(PostCell.self) { cell, model, indexPath in
 }
 
 // New
-manager.register(PostCell.self) { mapping in 
+manager.register(PostCell.self) { mapping in
     mapping.didSelect { cell, model, indexPath in
-    
+
     }
 }
 ```
 Those events are now tied to `ViewModelMapping` instance, which means, that events, registered this way, will only trigger, if mapping condition of current mapping applies. For example:
 
 ```swift
-manager.register(PostCell.self) { mapping in 
+manager.register(PostCell.self) { mapping in
     mapping.condition = .section(0)
     mapping.didSelect { cell, model, indexPath in  
         // This closure will only get called, when user selects cell in the first section
     }
 }
-manager.register(PostCell.self) { mapping in 
+manager.register(PostCell.self) { mapping in
     mapping.condition = .section(1)
     mapping.didSelect { cell, model, indexPath in  
         // This closure will only get called, when user selects cell in the second section
@@ -79,25 +81,25 @@ register(StoryboardCell.self) { mapping in
     mapping.cellRegisteredByStoryboard = true
 }
 
-registerHeader(StoryboardHeader.self) { mapping in 
+registerHeader(StoryboardHeader.self) { mapping in
     mapping.supplementaryRegisteredByStoryboard = true
 }
 ```
 
-* All non-deprecated registration methods now have an additional `handler` closure, that allows to configure cells/headers/footers/supplementary views that are dequeued from UICollectionView. This is a direct replacement for `configure(_:_:`, `configureHeader(_:_:)`, `configureFooter(_:_:)` and `configureSupplementary(_:ofKind:_:`, that are all now deprecated. 
+* All non-deprecated registration methods now have an additional `handler` closure, that allows to configure cells/headers/footers/supplementary views that are dequeued from UICollectionView. This is a direct replacement for `configure(_:_:`, `configureHeader(_:_:)`, `configureFooter(_:_:)` and `configureSupplementary(_:ofKind:_:`, that are all now deprecated.
 * On iOS / tvOS 14 / Xcode 12 and higher handler closure, that is passed to registration methods, is used to call new `dequeueConfiguredReusableCell(using:for:item:)` and `dequeueConfiguredReusableSupplementary(using:for:)` methods on UICollectionView. Please note, that handler closure is called before `DTModelTransfer.update(with:)` method because of how new UICollectionView dequeue API works.
 * `ViewModelMapping` is now a generic class, that captures view and model information(ViewModelMapping<T,U>).
 
 ### Deprecated
 
-* Several cell/header/footer/supplementary view registration methods have been deprecated to unify registration logic. Please use `register(_:mapping:handler:)`, `registerHeader(_:mapping:handler:)`, `registerFooter(_:mapping:handler:)` and `registerSupplementary(_:forKind:mapping:handler:)` as a replacements for all of those methods. For more information on those changes, please read [migration guide LINK MISSING](link to migration guide)
+* Several cell/header/footer/supplementary view registration methods have been deprecated to unify registration logic. Please use `register(_:mapping:handler:)`, `registerHeader(_:mapping:handler:)`, `registerFooter(_:mapping:handler:)` and `registerSupplementary(_:forKind:mapping:handler:)` as a replacements for all of those methods. For more information on those changes, please read [migration guide](Documentation/Migration%20Guides/8.0%20Migration%20Guide.md)
 * `DTCollectionViewManager.configureEvents(for:_:)`, it's functionality has become unnecessary since mapping closure of cell/supplementary registration now captures both cell and model type information for such events.
 * `DTCollectionViewManager.configureDiffableDataSource(modelProvider:)` for non-hashable data models. Please use configureDiffableDataSource method for models, that are Hashable. From Apple's documentation: `If you’re working in a Swift codebase, always use UICollectionViewDiffableDataSource instead`.
 
 ### Fixed
 
 * Supplementary views now correctly use `ViewModelMapping.reuseIdentifier` instead of falling back to name of the view class.
-* Several event API's have been improved to allow returning nil for methods, that accept nil as a valid value: 
+* Several event API's have been improved to allow returning nil for methods, that accept nil as a valid value:
 `contextMenuConfiguration`, `previewForHighlightingContextMenu`, `previewForDismissingContextMenu`
 
 ## [7.2.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/7.2.0)
@@ -108,7 +110,7 @@ registerHeader(StoryboardHeader.self) { mapping in
 * Minimum Swift version required: 5.0
 * Added support for DTModelStorage/Realm with Realm 5
 
-Please note, that this framework version source is identical to previous version, which supports iOS 8 / tvOS 9 / Swift 4.2 and higher. 
+Please note, that this framework version source is identical to previous version, which supports iOS 8 / tvOS 9 / Swift 4.2 and higher.
 
 ## [7.1.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/7.1.0)
 
@@ -126,7 +128,7 @@ Please note, that this framework version source is identical to previous version
 
 ## [7.0.0-beta.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/7.0.0-beta.1)
 
-**This is a major release with some breaking changes, please read [DTCollectionViewManager 7.0 Migration Guide](https://github.com/DenTelezhkin/DTCollectionViewManager/blob/master/Guides/7.0%20Migration%20Guide.md)**
+**This is a major release with some breaking changes, please read [DTCollectionViewManager 7.0 Migration Guide](Documentation/Migration%20Guides/7.0%20Migration%20Guide.md)**
 
 ### Changed
 
@@ -302,7 +304,7 @@ No changes
 
 ## [5.0.0-beta.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/5.0.0-beta.1)
 
-This is a major release, written in Swift 3. Read [Migration guide](Documentation/DTCollectionViewManager 5 migration guide.md) with descriptions of all features and changes.
+This is a major release, written in Swift 3. Read [Migration guide](https://github.com/DenTelezhkin/DTCollectionViewManager/blob/e0be426c06e92d565e0ad94cc04d54dda0532871/Guides/DTCollectionViewManager%205%20migration%20guide.md) with descriptions of all features and changes.
 
 Dependency changelog -> [DTModelStorage 3.0.0 and higher](https://github.com/DenTelezhkin/DTModelStorage/releases)
 
@@ -478,10 +480,6 @@ extension PostsViewController: DTCollectionViewContentUpdatable {
 ## [4.0.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/4.0.0)
 
 4.0 is a next major release of `DTCollectionViewManager`. It was rewritten from scratch in Swift 2 and is not backwards-compatible with previous releases.
-
-Read  [4.0 Migration guide](https://github.com/DenTelezhkin/DTCollectionViewManager/wiki/4.0-Migration-Guide).
-
-[Blog post](http://digginginswift.com/2015/09/13/dttableviewmanager-4-protocol-oriented-uitableview-management-in-swift/)
 
 ### Features
 
