@@ -48,7 +48,7 @@ Let's say you have an array of Posts you want to display in UICollectionView. To
 ```swift
 class PostCell : UICollectionViewCell, ModelTransfer {
     func update(with model: Post) {
-		    // Fill your cell with actual data
+		// Fill your cell with actual data
     }
 }
 ```
@@ -72,7 +72,9 @@ class PostsViewController: UICollectionViewController, DTCollectionViewManageabl
 
 Make sure your UICollectionView outlet is wired to your class (or use UICollectionViewController subclass). If you have a PostCell.xib file, it will be automatically used for dequeueing PostCell.
 
-3. That's it! It's that easy! Of course, cool stuff does not stop there, framework supports all datasource and delegate methods as closures, conditional mappings and much much more! Choose what interests you in the next section of readme.
+3. That's it! It's that easy!
+
+Of course, cool stuff does not stop there, framework supports all datasource and delegate methods as closures, conditional mappings and much much more! Choose what interests you in the next section of readme.
 
 ## Burning questions
 
@@ -81,14 +83,14 @@ Make sure your UICollectionView outlet is wired to your class (or use UICollecti
 * **[Why do I need this library?](Documentation/Why.md)**
 * [How data models are mapped to cells?](Documentation/Mapping.md)
 * [How can I register views to dequeue from code/xib/storyboard?](Documentation/Registration.md)
-* [Can I use unsubclassed UICollectionViewCell or UICollectionReusableView (for example UICollectionViewListCell)?](Documentation/Registration.md)
+* [Can I use unsubclassed UICollectionViewCell or UICollectionReusableView (for example UICollectionViewListCell)?](Documentation/Registration.md#code)
 * [How can I use the same cells differently in different places?](Documentation/Conditional%20mappings.md)
 * [What datasource options do I have?(e.g. memory/CoreData/Realm/diffable datasources)](Documentation/Datasources.md)
+* [How can I implement datasource/delegate methods from `UICollectionView`?](Documentation/Events.md)
 
 ###### Advanced
 
-* [How can I implement datasource/delegate methods from `UICollectionView`?](Documentation/Events.md)
-* [Can I implement delegate methods instead of using DTCollectionViewManager event closures?](Documentation/Events.md)
+* [Can I implement delegate methods instead of using DTCollectionViewManager event closures?](Documentation/Events.md#can-i-still-use-delegate-methods)
 * [How can I react to and customize UICollectionView updates?](Documentation/CollectionViewUpdater.md)
 * [What if something goes wrong?](Documentation/Anomalies.md)
 

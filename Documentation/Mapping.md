@@ -28,7 +28,7 @@ class Carrot: Food {}
 Registering such mapping is easy:
 
 ```swift
-  manager.register(FoodCollectionViewCell.self)
+manager.register(FoodCollectionViewCell.self)
 ```
 
 By doing so, `DTCollectionViewManager` establishes mapping between Food type and FoodCollectionViewCell.

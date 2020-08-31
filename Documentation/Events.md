@@ -20,7 +20,7 @@ manager.register(PostCell.self) { mapping in
 }
 ```
 
-#### Naming
+### Naming
 
 With such huge amount of delegate methods it felt important to not invent new glossary of methods over existing delegate methods. Therefore, all event methods closely follow naming of delegate methods they replace, for example:
 
@@ -34,7 +34,7 @@ mapping.willDisplay { cell, model, indexPath in }
 mapping.shouldSelect { cell, model, indexPath in }
 ```
 
-#### Different kinds of event closures
+### Different kinds of event closures
 
 Whenever cell or reusable view delegate method is referring to can be provided, it will be, and closure accepts three arguments: `(View, Model, IndexPath) -> ReturnType`. However, for some delegate methods cell or view is not created yet. Such delegate methods are called with signature (Model, IndexPath) -> ReturnType. For example:
 
@@ -66,7 +66,7 @@ manager.minimumLineSpacingForSectionAtIndex { layout, sectionIndex in
 }
 ```
 
-#### What about performance?
+### What about performance?
 
 With `DTCollectionViewManager` implementing ALL delegate methods, you may wonder about perfomance of all of this. Also you might be concerned, that there are some methods that you don't want to be implemented because they have perfomance implications. Great example of this is `func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath)` method. When used for collections with large amounts of data, it may severely impact performance if implemented. It's much better to use estimated sizes instead.
 
@@ -76,7 +76,7 @@ Wait, how is that possible? It's actually pretty simple: `DTCollectionViewManage
 
 This means, that even though all delegate methods are implemented, for `UICollectionView` implemented methods - are methods you register closures with, which is exactly what you want.
 
-#### Can I still use delegate methods?
+### Can I still use delegate methods?
 
 Absolutely. Simply declare protocol conformance and implement method in your view controller:
 
@@ -100,7 +100,7 @@ If your controller implements delegate method, `DTCollectionViewManager` detects
 * Try to call delegate or datasource method on `DTCollectionViewManageable` instance
 * If two previous scenarios fail, fallback to whatever default `UICollectionView` has for this delegate or datasource method
 
-#### Limitations
+### Limitations
 
 While it's possible to register multiple closures for a single event, only first closure will be called once event is fired. This means that if the same event has two closures for the same view/model type, last one will be ignored. You can still register multiple event handlers for a single event and different view/model types.
 

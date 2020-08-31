@@ -1,6 +1,6 @@
 ## Datasources
 
-#### MemoryStorage
+### MemoryStorage
 
 By default, `DTCollectionViewManager` uses `MemoryStorage` - a storage wrapper, representing storage of data models in memory.
 
@@ -10,7 +10,7 @@ manager.memoryStorage.setItems([1,2,3])
 
 `MemoryStorage` has a lot of methods, allowing you to modify storage contents - adding, inserting, removing, replacing, moving, searching items in storage. For a complete list, head on to [MemoryStorage documentation](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Documentation/Memory%20storage.md).
 
-#### Diffable datasources (iOS/tvOS 13+)
+### Diffable datasources (iOS/tvOS 13+)
 
 Setting up diffable datasources is similar to how you would setup them without `DTCollectionViewManager`. The only difference is that instead of creating diffable datasource object using it's initializer, you instead use method provided by `DTCollectionViewManager`:
 
@@ -24,7 +24,7 @@ You can find working example of multi-section diffable datasources integration [
 
 More documentation on diffable datasources integration can be found [here](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Documentation/Diffable%20datasource%20storage.md).
 
-#### SingleSectionEquatableStorage
+### SingleSectionEquatableStorage
 
 `SingleSectionEquatableStorage` is a storage for a single section, that calculates UI updates using provided differ.
 
@@ -40,9 +40,9 @@ manager.storage = storage
 storage.addItems(newItems)
 ```
 
-For more specific documentation on this storage, head on to [this document](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Documentation/Single%20section%20diffable%20storage.md)
+For more specific documentation on this storage, head on to [this document](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Documentation/Single%20section%20diffable%20storage.md).
 
-#### CoreDataStorage
+### CoreDataStorage
 
 `CoreDataStorage` is designed to work with `NSFetchedResultsController`, and automatically animate all changes happening in the database.
 
@@ -50,9 +50,9 @@ For more specific documentation on this storage, head on to [this document](http
 manager.storage = CoreDataStorage(fetchedResultsController: controller)
 ```
 
-For more information, read documentation on [CoreDataStorage](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Documentation/CoreData%20storage.md)
+For more information, read documentation on [CoreDataStorage](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Documentation/CoreData%20storage.md).
 
-#### RealmStorage
+### RealmStorage
 
 `RealmStorage` is a single-section storage for data models from [Realm](https://realm.io)
 
@@ -64,9 +64,9 @@ let storage = RealmStorage()
 storage.addSection(with:results)
 ```
 
-For more details, please read [documentation on RealmStorage](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Documentation/Realm%20storage.md)
+For more details, please read [documentation on RealmStorage](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Documentation/Realm%20storage.md).
 
-#### Custom storage
+### Custom storage
 
 If you are not happy with provided options, you can build custom storage, that fits your needs. You can either subclass any of 5 storages described above, or implement your own. The only requirement is [Storage protocol](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Sources/DTModelStorage/StorageProtocols.swift#L30-L40). Additionally, you may implement [SupplementaryStorage protocol](https://github.com/DenTelezhkin/DTModelStorage/blob/master/Sources/DTModelStorage/StorageProtocols.swift#L43-L59), that allows storage to implement supplementary models / header-footer models.
 

@@ -9,31 +9,31 @@ DTCollectionViewManager framework aims to close those gaps by focusing on compil
 Two most popular ways of creating UICollectionViewCell's are creating cells from code or from xib file. Both of those API's use String API's in some form:
 
 ```swift
-    collectionView.register(PostCell.self, forCellWithReuseIdentifier: "PostCell")
+collectionView.register(PostCell.self, forCellWithReuseIdentifier: "PostCell")
 
-    let nib = UINib(nibName: "PostCell", bundle: nil)
-    collectionView.register(nib, forCellWithReuseIdentifier: "PostCell")
+let nib = UINib(nibName: "PostCell", bundle: nil)
+collectionView.register(nib, forCellWithReuseIdentifier: "PostCell")
 ```
 
 It's a common sense to use the same name for xib with cell design and reuseIdentifier, so why not use this as default? Both registration types above are equivalent to following code with DTCollectionViewManager:
 
 ```swift
-    manager.register(PostCell.self)
+manager.register(PostCell.self)
 ```
 
 Registration methods are also much more expanded, and allow powerful customizations:
 
 ```swift
-    manager.register(PostCell.self) { mapping in
-        // Different reuse identifier
-        mapping.reuseIdentifier = "FooBar"
+manager.register(PostCell.self) { mapping in
+    // Different reuse identifier
+    mapping.reuseIdentifier = "FooBar"
 
-        // Different xib name
-        mapping.xibName = "MyPostCell"
+    // Different xib name
+    mapping.xibName = "MyPostCell"
 
-        // Only use this mapping for Posts in second section
-        mapping.condition = .section(1)
-    }
+    // Only use this mapping for Posts in second section
+    mapping.condition = .section(1)
+}
 ```
 
 Registration API's work similarly for supplementary views, allow a configuration handler to be passed, and also serve as a base for delegate event handling.
@@ -72,24 +72,24 @@ This is just one delegate method, imagine you have several of those - cells migh
 DTCollectionViewManager solves this problem by implementing delegate methods as type-safe closures, and providing access to them directly where you register your cell:
 
 ```swift
-  manager.register(VideoPostCell.self) { mapping in
-    mapping.didSelect { cell, model, indexPath in
-        // cell is of type VideoPostCell, model is VideoPost
-    }
-    mapping.willDisplay { cell, model, indexPath in
-        // cell is of type VideoPostCell, model is VideoPost
-    }
-
-    // etc..
+manager.register(VideoPostCell.self) { mapping in
+  mapping.didSelect { cell, model, indexPath in
+      // cell is of type VideoPostCell, model is VideoPost
   }
+  mapping.willDisplay { cell, model, indexPath in
+      // cell is of type VideoPostCell, model is VideoPost
+  }
+
+  // etc..
+}
 ```
 
 All delegate methods are supported, including `UICollectionViewDelegate`, `UICollectionViewDelegateFlowLayout`, `UICollectionViewDragDelegate`, `UICollectionViewDropDelegate` and `TVCollectionViewDelegateFullScreenLayout`. Delegate methods, that are not related to cells or supplementary views, are available as closures on `DTCollectionViewManager` instance directly:
 
 ```swift
-  manager.didEndMultipleSelectionInteraction {
-    // is equivalent to func collectionViewDidEndMultipleSelectionInteraction(_ collectionView: UICollectionView) delegate method
-  }
+manager.didEndMultipleSelectionInteraction {
+  // is equivalent to func collectionViewDidEndMultipleSelectionInteraction(_ collectionView: UICollectionView) delegate method
+}
 ```
 
 You can read more about [events and how they are implemented here](Events.md)
