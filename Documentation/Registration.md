@@ -2,7 +2,7 @@
 
 `DTCollectionViewManager` supports registering reusable views designed in code, xib file, or storyboard. It also supports registering relationship between view and it's data model through `ModelTransfer` protocol and without it.
 
-While [Mapping document](Mapping.md) focuses on relationship between view and it's model, and [Events document][Events.md] follows on how to attach delegate methods to those mappings, this document instead focuses on registration aspect itself, and what is possible within `DTCollectionViewManager` architecture.
+While [Mapping document](Mapping.md) focuses on relationship between view and it's model, and [Events document](Events.md) follows on how to attach delegate methods to those mappings, this document instead focuses on registration aspect itself, and what is possible within `DTCollectionViewManager` architecture.
 
 ## Registration
 

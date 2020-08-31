@@ -48,7 +48,7 @@ Let's say you have an array of Posts you want to display in UICollectionView. To
 ```swift
 class PostCell : UICollectionViewCell, ModelTransfer {
     func update(with model: Post) {
-		// Fill your cell with actual data
+        // Fill your cell with actual data
     }
 }
 ```
@@ -82,8 +82,8 @@ Of course, cool stuff does not stop there, framework supports all datasource and
 
 * **[Why do I need this library?](Documentation/Why.md)**
 * [How data models are mapped to cells?](Documentation/Mapping.md)
+* [Can I use unsubclassed UICollectionViewCell or UICollectionReusableView (for example UICollectionViewListCell)?](Documentation/Mapping.md#without-modeltransfer)
 * [How can I register views to dequeue from code/xib/storyboard?](Documentation/Registration.md)
-* [Can I use unsubclassed UICollectionViewCell or UICollectionReusableView (for example UICollectionViewListCell)?](Documentation/Registration.md#code)
 * [How can I use the same cells differently in different places?](Documentation/Conditional%20mappings.md)
 * [What datasource options do I have?(e.g. memory/CoreData/Realm/diffable datasources)](Documentation/Datasources.md)
 * [How can I implement datasource/delegate methods from `UICollectionView`?](Documentation/Events.md)
@@ -94,11 +94,11 @@ Of course, cool stuff does not stop there, framework supports all datasource and
 * [How can I react to and customize UICollectionView updates?](Documentation/CollectionViewUpdater.md)
 * [What if something goes wrong?](Documentation/Anomalies.md)
 
-###### Example and documentation
+###### Useful links
 
-* [Can I see some sample code?](Example)
-* [Where can I find extensive documentation?](Documentation)
-* [How can I implement Drag&Drop?](https://github.com/DenTelezhkin/DTDragAndDropExample)
+* [DTCollectionViewManager sample code](Example)
+* [Documentation](Documentation)
+* [Sample code for Drag&Drop integration](https://github.com/DenTelezhkin/DTDragAndDropExample)
 
 ## Thanks
 
