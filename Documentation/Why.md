@@ -1,8 +1,8 @@
 # Why
 
-UICollectionView is great API. It provides access to amazing things like compositional layout, list layout, effective cell reuse, self-sizing and others. However, in some places using UICollectionView becomes boilerplatey and error-prone.
+UICollectionView has great API. It provides access to amazing things like compositional layouts, list layout, effective cell reuse, self-sizing and others. However, in some places using UICollectionView becomes boilerplatey and error-prone.
 
-DTCollectionViewManager framework aims to close those gaps by focusing on compile-time safety, elimination of String-based API's, replacing delegate syntax with closure and concrete-type closures, and much more. To find out more, read along!
+DTCollectionViewManager framework aims to close those gaps by focusing on compile-time safety, elimination of String-based API's, replacing delegate syntax with concrete-type closures, and much more. To find out more, read along!
 
 ## Cell registration
 

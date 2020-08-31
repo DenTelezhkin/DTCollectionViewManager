@@ -106,3 +106,16 @@ mapping.register(HeaderFooterView.self) { mapping in
 ## Conditional mappings
 
 It's possible to register views to work on specific conditions, such as concrete section, or model condition, which you can read more about in [Conditional mappings guide](Conditional%20mappings.md).
+
+## Can I unregister mappings?
+
+You can unregister cells, headers and footers from `DTCollectionViewManager` and `UICollectionView` by calling:
+
+```swift
+manager.unregister(FooCell.self)
+manager.unregisterHeader(HeaderView.self)
+manager.unregisterFooter(FooterView.self)
+manager.unregisterSupplementary(SupplementaryView.self, forKind: "foo")
+```
+
+This is equivalent to calling collection view register methods with nil class or nil nib. Please note, that all events tied to specified mapping are also removed.
