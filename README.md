@@ -94,7 +94,7 @@ Of course, cool stuff does not stop there, framework supports all datasource and
 * [How can I react to and customize UICollectionView updates?](Documentation/CollectionViewUpdater.md)
 * [What if something goes wrong?](Documentation/Anomalies.md)
 
-###### Useful links
+## Sample code and documentation
 
 * [DTCollectionViewManager sample code](Example)
 * [Documentation](Documentation)
