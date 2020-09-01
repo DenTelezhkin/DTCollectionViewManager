@@ -17,7 +17,7 @@ class SceneDelegate: UIResponder, UIWindowSceneDelegate {
     func scene(_ scene: UIScene, willConnectTo session: UISceneSession, options connectionOptions: UIScene.ConnectionOptions) {
         guard let windowScene = scene as? UIWindowScene else { return }
         let splitView = UISplitViewController(style: .doubleColumn)
-        splitView.setViewController(MasterViewController(), for: .primary)
+        splitView.setViewController(PrimaryViewController(), for: .primary)
         splitView.setViewController(pleaseSelectExampleViewController, for: .secondary)
         window = UIWindow(windowScene: windowScene)
         window?.rootViewController = splitView

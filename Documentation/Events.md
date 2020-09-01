@@ -53,7 +53,7 @@ You can also register event closures on `DTCollectionViewManager` instance direc
   manager.didSelect(PostCell.self) { cell, model, indexPath in }
 ```
 
-> Keep in mind, that in order for this to work, cell needs to be registered prior to registering event closures, because they attach to specific mapping instance(s).
+> Keep in mind, that in order for this to work, cell needs to be registered prior to registering event closures, because they attach to specific mapping instance(s). Also, this kind of event registration only works for `ModelTransfer` compatible views.
 
 This may be beneficial for example if you show same type of cell in different section with different appearances, but selection needs to work the same way. Registering event closure through `DTCollectionViewManager` attaches this event to all compatible mappings.
 
@@ -99,6 +99,45 @@ If your controller implements delegate method, `DTCollectionViewManager` detects
 * Try to execute event, if cell and model type satisfy requirements
 * Try to call delegate or datasource method on `DTCollectionViewManageable` instance
 * If two previous scenarios fail, fallback to whatever default `UICollectionView` has for this delegate or datasource method
+
+### Retain cycles
+
+Because event closures are stored on `DTCollectionViewManager` instance, referencing `self` in those closures will cause reference cycle, so make sure to capture self weakly in those closures:
+
+```swift
+manager.register(PostCell.self) { [weak self] mapping in
+  mapping.didSelect { cell, model, indexPath in
+    // self?.didSelect ...
+  }
+}
+```
+
+There is also one subtle case, that you need to watch for. When you capture self weakly, don't try to make it non-optional in `mapping` closure, because it will cause a retain cycle:
+
+```swift
+manager.register(PostCell.self) { [weak self] mapping in
+  // Here self is captured weakly
+  guard let self = self else { return }
+  // Now self is captured strongly for closures below
+  mapping.didSelect { cell, model, indexPath in
+    // Retain cycle:
+    // self.didSelect ...
+  }
+}
+```
+
+If you want to make self non-optional, you can check this in event closure itself:
+
+```swift
+manager.register(PostCell.self) { [weak self] mapping in
+  // Here self is captured weakly
+  mapping.didSelect { cell, model, indexPath in
+    guard let self = self else { return }
+    // For this closure self is captured weakly, no retain cycle.
+    // self.didSelect ...
+  }
+}
+```
 
 ### Limitations
 

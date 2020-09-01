@@ -58,7 +58,7 @@ mapping.register(PostCell.self) { mapping in
 
 This way cells would get registered under different reuse identifiers, and dequeue will work correctly.
 
-> On iOS 14 / tvOS 14 and higher, this issue will not be happening, because UICollectionView.CellRegistration API does not use reuse identifiers.
+> On iOS 14 / tvOS 14 and higher, this issue will not be happening, because UICollectionView.CellRegistration API uses auto-generated reuse identifiers.
 
 ##### Intersecting model conditions
 

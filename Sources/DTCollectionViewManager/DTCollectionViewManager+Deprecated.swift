@@ -159,3 +159,31 @@ public extension DTCollectionViewManager {
         })
     }
 }
+
+/// Upgrade shims for easier API upgrading
+public extension DTCollectionViewManager {
+    @available(*, unavailable, renamed: "register(_:mapping:handler:)")
+    /// This method is unavailable, please use `register(_:mapping:handler:)` as a replacement.
+    func register<T:ModelTransfer>(_ cellClass:T.Type, mappingBlock: ((ViewModelMapping<T, T.ModelType>) -> Void)? = nil) where T: UICollectionViewCell
+    {
+    }
+    
+    @available(*, unavailable, renamed: "registerSupplementary(_:ofKind:mapping:handler:)")
+    /// This method is unavailable, please use `registerSupplementary(_:mapping:handler:)` as a replacement.
+    func registerSupplementary<T:ModelTransfer>(_ supplementaryClass: T.Type, forKind kind: String, mappingBlock: ((ViewModelMapping<T, T.ModelType>) -> Void)? = nil) where T:UICollectionReusableView
+    {
+    }
+    
+    @available(*, unavailable, renamed: "registerHeader(_:mapping:handler:)")
+    /// This method is unavailable, please use `registerHeader(_:mapping:handler:)` as a replacement.
+    func registerHeader<T:ModelTransfer>(_ headerClass : T.Type, mappingBlock: ((ViewModelMapping<T, T.ModelType>) -> Void)? = nil) where T: UICollectionReusableView {
+        
+    }
+    
+    @available(*, unavailable, renamed: "registerFooter(_:mapping:handler:)")
+    /// This method is unavailable, please use `registerFooter(_:mapping:handler:)` as a replacement.
+    func registerFooter<T:ModelTransfer>(_ footerClass: T.Type,
+                                              mappingBlock: ((ViewModelMapping<T, T.ModelType>) -> Void)? = nil) where T:UICollectionReusableView {
+        
+    }
+}

@@ -52,15 +52,16 @@ This is particularly useful on iOS / tvOS 14 and higher, where you can configure
 Cells, registered in this way, can safely coexist with cells, that conform to `DTModelTransfer` protocol. Conditional mappings are also supported (multiple trailing closures syntax available in Swift 5.3):
 
 ```swift
-manager.register(UICollectionViewCell.self, String.self) { cell, indexPath, model in
-    // configure cell with model which is of type String when passed into configuration closure.
-} mapping {
+manager.register(UICollectionViewCell.self, for: String.self) {
     $0.condition = .section(0)
+} handler { cell, indexPath, model in
+  // configure cell with model which is of type String when passed into configuration closure.
 }
 ```
 
 * Added event reaction for `UICollectionViewDelegate.collectionView(_:canEditItemAt:)` delegate method.
 * Added event reactions for tvOS 13 `TVCollectionViewDelegateFullScreenLayout` protocol from `TVUIKit` framework.
+* New readme and [in-depth documentation](Documentation), split into several sections for developer convenience.
 
 ### Changed
 

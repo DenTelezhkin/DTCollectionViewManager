@@ -107,6 +107,14 @@ mapping.register(HeaderFooterView.self) { mapping in
 
 It's possible to register views to work on specific conditions, such as concrete section, or model condition, which you can read more about in [Conditional mappings guide](Conditional%20mappings.md).
 
+## Compatibility with `UICollectionView.CellRegistration.Handler`
+
+You may notice, that `UICollectionView.CellRegistration.Handler` signature is very similar to `handler` closure on registration methods. They are different however, because `handler` closure has signature `(View, Model, IndexPath) -> Void`, where `UICollectionView.CellRegistration.Handler` has a signature `(View, IndexPath, Model) -> Void`.
+
+Events in `DTCollectionViewManager` had `(View,Model,IndexPath) -> Void` signature for several years, and it would be a massive breaking change to switch arguments just to match `UICollectionView.CellRegistration.Handler`. This also does not make much sense, since `UICollectionView.SupplementaryRegistration` is completely different, and does not event contain a data model.
+
+You can build an adapter to convert `UICollectionView.CellRegistration.Handler` to `handler` signature, but I would not really recommend it, since functionally they are the same and you should not need `UICollectionView.CellRegistration` when using DTCollectionViewManager.
+
 ## Can I unregister mappings?
 
 You can unregister cells, headers and footers from `DTCollectionViewManager` and `UICollectionView` by calling:

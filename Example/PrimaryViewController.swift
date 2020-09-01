@@ -1,5 +1,5 @@
 //
-//  MasterViewController.swift
+//  PrimaryViewController.swift
 //  Example
 //
 //  Created by Denys Telezhkin on 23.08.15.
@@ -31,4 +31,3 @@ class PrimaryViewController: UICollectionViewController, DTCollectionViewManagea
         manager.memoryStorage.setItems(Example.allCases)
     }
 }
-
