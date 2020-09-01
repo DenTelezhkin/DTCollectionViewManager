@@ -11,7 +11,7 @@ In general, registering any reusable view with `DTCollectionViewManager` looks l
 ```swift
 manager.register(View.self) { mapping in
 
-} handler { view, model, indexPath in
+} handler: { view, model, indexPath in
 
 }
 ```
@@ -21,7 +21,7 @@ In case of `ModelTransfer`, both `mapping` and `handler` closures are optional. 
 ```swift
 manager.register(View.self, for: Model.self) { mapping in
 
-} handler { view, model, indexPath in
+} handler: { view, model, indexPath in
 
 }
 ```
