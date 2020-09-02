@@ -1,0 +1,874 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <title>ViewModelMapping Extension Reference</title>
+    <link rel="stylesheet" type="text/css" href="../css/jazzy.css" />
+    <link rel="stylesheet" type="text/css" href="../css/highlight.css" />
+    <meta charset="utf-8">
+    <script src="../js/jquery.min.js" defer></script>
+    <script src="../js/jazzy.js" defer></script>
+    
+    <script src="../js/lunr.min.js" defer></script>
+    <script src="../js/typeahead.jquery.js" defer></script>
+    <script src="../js/jazzy.search.js" defer></script>
+  </head>
+  <body>
+
+    <a name="//apple_ref/swift/Extension/ViewModelMapping" class="dashAnchor"></a>
+
+    <a title="ViewModelMapping Extension Reference"></a>
+
+    <header class="header">
+      <p class="header-col header-col--primary">
+        <a class="header-link" href="../index.html">
+          DTCollectionViewManager Docs
+        </a>
+         (75% documented)
+      </p>
+    
+      <p class="header-col--secondary">
+        <form role="search" action="../search.json">
+          <input type="text" placeholder="Search documentation" data-typeahead>
+        </form>
+      </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="https://github.com/DenTelezhkin/DTCollectionViewManager">
+            <img class="header-icon" src="../img/gh.png"/>
+            View on GitHub
+          </a>
+        </p>
+    
+        <p class="header-col header-col--secondary">
+          <a class="header-link" href="dash-feed://https%3A%2F%2Fdentelezhkin%2Egithub%2Eio%2FDTCollectionViewManager%2Fdocsets%2FDTCollectionViewManager%2Exml">
+            <img class="header-icon" src="../img/dash.png"/>
+            Install in Dash
+          </a>
+        </p>
+    </header>
+
+    <p class="breadcrumbs">
+      <a class="breadcrumb" href="../index.html">DTCollectionViewManager Reference</a>
+      <img class="carat" src="../img/carat.png" />
+      ViewModelMapping Extension Reference
+    </p>
+
+    <div class="content-wrapper">
+      <nav class="navigation">
+        <ul class="nav-groups">
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Classes.html">Classes</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/CollectionViewUpdater.html">CollectionViewUpdater</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewDataSource.html">DTCollectionViewDataSource</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewDelegate.html">DTCollectionViewDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewDelegateWrapper.html">DTCollectionViewDelegateWrapper</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewDragDelegate.html">DTCollectionViewDragDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewDropDelegate.html">DTCollectionViewDropDelegate</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewDropPlaceholderContext.html">DTCollectionViewDropPlaceholderContext</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewManager.html">DTCollectionViewManager</a>
+              </li>
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Classes/DTCollectionViewManagerAnomalyHandler.html">DTCollectionViewManagerAnomalyHandler</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Enums.html">Enumerations</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Enums/DTCollectionViewManagerAnomaly.html">DTCollectionViewManagerAnomaly</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/ViewModelMapping.html">ViewModelMapping</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Protocols/DTCollectionViewManageable.html">DTCollectionViewManageable</a>
+              </li>
+            </ul>
+          </li>
+        </ul>
+      </nav>
+      <article class="main-content">
+
+        <section class="section">
+          <div class="section-content top-matter">
+            <h1>ViewModelMapping</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ViewModelMapping</span> <span class="k">where</span> <span class="kt">View</span> <span class="p">:</span> <span class="kt">UICollectionViewCell</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ViewModelMapping</span> <span class="k">where</span> <span class="kt">View</span><span class="p">:</span> <span class="kt">UICollectionViewCell</span></code></pre>
+<pre class="highlight swift"><code><span class="kd">extension</span> <span class="kt">ViewModelMapping</span> <span class="k">where</span> <span class="kt">View</span><span class="p">:</span> <span class="kt">UICollectionReusableView</span></code></pre>
+
+                </div>
+              </div>
+            
+          </div>
+        </section>
+
+        <section class="section">
+          <div class="section-content">
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60View%60%20:%20%60UICollectionViewCell%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `View` : `UICollectionViewCell`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60View%60%20:%20%60UICollectionViewCell%60"></a>
+                  <h3 class="section-name"><p>Available where <code>View</code> : <code>UICollectionViewCell</code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE7canMoveyySbx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/canMove(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE7canMoveyySbx_q_10Foundation9IndexPathVtcF">canMove(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed, when <code>UICollectionViewDataSource.collectionView(_:canMoveItemAt:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">canMove</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60View%60:%20%60UICollectionViewCell%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `View`: `UICollectionViewCell`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60View%60:%20%60UICollectionViewCell%60"></a>
+                  <h3 class="section-name"><p>Available where <code>View</code>: <code>UICollectionViewCell</code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE9didSelectyyyx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/didSelect(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE9didSelectyyyx_q_10Foundation9IndexPathVtcF">didSelect(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed, when <code>UICollectionViewDelegate.collectionView(_:didSelectItemAt:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">didSelect</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE12shouldSelectyySbx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/shouldSelect(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE12shouldSelectyySbx_q_10Foundation9IndexPathVtcF">shouldSelect(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed, when <code>UICollectionViewDelegate.collectionView(_:shouldSelectItemAt:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">shouldSelect</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE14shouldDeselectyySbx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/shouldDeselect(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE14shouldDeselectyySbx_q_10Foundation9IndexPathVtcF">shouldDeselect(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed, when <code>UICollectionViewDelegate.collectionView(_:shouldDeselectItemAt:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">shouldDeselect</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE11didDeselectyyyx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/didDeselect(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE11didDeselectyyyx_q_10Foundation9IndexPathVtcF">didDeselect(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed, when <code>UICollectionViewDelegate.collectionView(_:didDeselectItemAt:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">didDeselect</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE15shouldHighlightyySbx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/shouldHighlight(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE15shouldHighlightyySbx_q_10Foundation9IndexPathVtcF">shouldHighlight(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed, when <code>UICollectionViewDelegate.collectionView(_:shouldHighlightItemAt:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">shouldHighlight</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE12didHighlightyyyx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/didHighlight(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE12didHighlightyyyx_q_10Foundation9IndexPathVtcF">didHighlight(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed, when <code>UICollectionViewDelegate.collectionView(_:didHighlightItemAt:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">didHighlight</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE14didUnhighlightyyyx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/didUnhighlight(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE14didUnhighlightyyyx_q_10Foundation9IndexPathVtcF">didUnhighlight(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed, when <code>UICollectionViewDelegate.collectionView(_:didUnhighlightItemAt:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">didUnhighlight</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE11willDisplayyyyx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/willDisplay(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE11willDisplayyyyx_q_10Foundation9IndexPathVtcF">willDisplay(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed, when <code>UICollectionViewDelegate.collectionView(_:willDisplayCell:forItemAt:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">willDisplay</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE16didEndDisplayingyyyx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/didEndDisplaying(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE16didEndDisplayingyyyx_q_10Foundation9IndexPathVtcF">didEndDisplaying(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed, when <code>UICollectionViewDelegate.collectionView(_:didEndDisplaying:forItemAt:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">didEndDisplaying</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE8canFocusyySbx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/canFocus(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE8canFocusyySbx_q_10Foundation9IndexPathVtcF">canFocus(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed, when <code>UICollectionViewDelegate.collectionView(_:canFocusItemAt:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">canFocus</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE28targetIndexPathForMovingItemyy10Foundation0kL0VAJ_xq_AJtcF"></a>
+                    <a name="//apple_ref/swift/Method/targetIndexPathForMovingItem(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE28targetIndexPathForMovingItemyy10Foundation0kL0VAJ_xq_AJtcF">targetIndexPathForMovingItem(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed when <code>UICollectionViewDelegate.targetIndexPathForMoveFromItemAt(_:toProposed:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">targetIndexPathForMovingItem</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">IndexPath</span><span class="p">,</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">IndexPath</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE07sizeForI0yySo6CGSizeVq__10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/sizeForCell(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE07sizeForI0yySo6CGSizeVq__10Foundation9IndexPathVtcF">sizeForCell(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed to determine cell size in <code>UICollectionViewDelegateFlowLayout.collectionView(_:sizeForItemAt:)</code> method.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">sizeForCell</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE16shouldSpringLoadyySbSo32UISpringLoadedInteractionContext_p_xq_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/shouldSpringLoad(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE16shouldSpringLoadyySbSo32UISpringLoadedInteractionContext_p_xq_10Foundation9IndexPathVtcF">shouldSpringLoad(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed when <code>UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">shouldSpringLoad</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">UISpringLoadedInteractionContext</span><span class="p">,</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE39shouldBeginMultipleSelectionInteractionyySbx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/shouldBeginMultipleSelectionInteraction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE39shouldBeginMultipleSelectionInteractionyySbx_q_10Foundation9IndexPathVtcF">shouldBeginMultipleSelectionInteraction(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">shouldBeginMultipleSelectionInteraction</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE36didBeginMultipleSelectionInteractionyyyx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/didBeginMultipleSelectionInteraction(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE36didBeginMultipleSelectionInteractionyyyx_q_10Foundation9IndexPathVtcF">didBeginMultipleSelectionInteraction(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">didBeginMultipleSelectionInteraction</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE24contextMenuConfigurationyySo09UIContextkL0CSgSo7CGPointV_xq_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/contextMenuConfiguration(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE24contextMenuConfigurationyySo09UIContextkL0CSgSo7CGPointV_xq_10Foundation9IndexPathVtcF">contextMenuConfiguration(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">contextMenuConfiguration</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">CGPoint</span><span class="p">,</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIContextMenuConfiguration</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE7canEdityySbq__10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/canEdit(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE7canEdityySbq__10Foundation9IndexPathVtcF">canEdit(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Undocumented</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">canEdit</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60View%60:%20%60UICollectionReusableView%60"></a>
+                <a name="//apple_ref/swift/Section/Available where `View`: `UICollectionReusableView`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60View%60:%20%60UICollectionReusableView%60"></a>
+                  <h3 class="section-name"><p>Available where <code>View</code>: <code>UICollectionReusableView</code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo020UICollectionReusableC0CRbzrlE024willDisplaySupplementaryC0yyyx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/willDisplaySupplementaryView(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo020UICollectionReusableC0CRbzrlE024willDisplaySupplementaryC0yyyx_q_10Foundation9IndexPathVtcF">willDisplaySupplementaryView(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed, when <code>UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">willDisplaySupplementaryView</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo020UICollectionReusableC0CRbzrlE029didEndDisplayingSupplementaryC0yyyx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/didEndDisplayingSupplementaryView(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo020UICollectionReusableC0CRbzrlE029didEndDisplayingSupplementaryC0yyyx_q_10Foundation9IndexPathVtcF">didEndDisplayingSupplementaryView(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed, when <code>UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementKind:at:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">didEndDisplayingSupplementaryView</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Void</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo020UICollectionReusableC0CRbzrlE022referenceSizeForHeaderC0yySo6CGSizeVq__10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/referenceSizeForHeaderView(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo020UICollectionReusableC0CRbzrlE022referenceSizeForHeaderC0yySo6CGSizeVq__10Foundation9IndexPathVtcF">referenceSizeForHeaderView(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed to determine header size in <code>UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderViewInSection:)</code> method, when it&rsquo;s called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">referenceSizeForHeaderView</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo020UICollectionReusableC0CRbzrlE022referenceSizeForFooterC0yySo6CGSizeVq__10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/referenceSizeForFooterView(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo020UICollectionReusableC0CRbzrlE022referenceSizeForFooterC0yySo6CGSizeVq__10Foundation9IndexPathVtcF">referenceSizeForFooterView(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed to determine footer size in <code>UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterViewInSection:)</code> method, when it&rsquo;s called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">referenceSizeForFooterView</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">CGSize</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+            <div class="task-group">
+              <div class="task-name-container">
+                <a name="/Available%20where%20%60View%60:%20%60UICollectionViewCell%602"></a>
+                <a name="//apple_ref/swift/Section/Available where `View`: `UICollectionViewCell`" class="dashAnchor"></a>
+                <div class="section-name-container">
+                  <a class="section-name-link" href="#/Available%20where%20%60View%60:%20%60UICollectionViewCell%602"></a>
+                  <h3 class="section-name"><p>Available where <code>View</code>: <code>UICollectionViewCell</code></p>
+</h3>
+                </div>
+              </div>
+              <ul class="item-container">
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE28itemsForBeginningDragSessionyySaySo10UIDragItemCGSo0oN0_p_xq_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/itemsForBeginningDragSession(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE28itemsForBeginningDragSessionyySaySo10UIDragItemCGSo0oN0_p_xq_10Foundation9IndexPathVtcF">itemsForBeginningDragSession(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed when <code>UICollectionViewDragDelegate.collectionView(_:itemsForBeginning:at:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">itemsForBeginningDragSession</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">UIDragSession</span><span class="p">,</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UIDragItem</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE27itemsForAddingToDragSessionyySaySo10UIDragItemCGSo0pO0_p_So7CGPointVxq_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/itemsForAddingToDragSession(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE27itemsForAddingToDragSessionyySaySo10UIDragItemCGSo0pO0_p_So7CGPointVxq_10Foundation9IndexPathVtcF">itemsForAddingToDragSession(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed when <code>UICollectionViewDragDelegate.collectionView(_:itemsForAddingTo:at:point:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">itemsForAddingToDragSession</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">UIDragSession</span><span class="p">,</span> <span class="kt">CGPoint</span><span class="p">,</span> <span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UIDragItem</span><span class="p">])</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+                <li class="item">
+                  <div>
+                    <code>
+                    <a name="/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE21dragPreviewParametersyySo06UIDragkL0CSgx_q_10Foundation9IndexPathVtcF"></a>
+                    <a name="//apple_ref/swift/Method/dragPreviewParameters(_:)" class="dashAnchor"></a>
+                    <a class="token" href="#/s:14DTModelStorage16ViewModelMappingC012DTCollectionC7ManagerSo012UICollectionC4CellCRbzrlE21dragPreviewParametersyySo06UIDragkL0CSgx_q_10Foundation9IndexPathVtcF">dragPreviewParameters(_:)</a>
+                    </code>
+                  </div>
+                  <div class="height-container">
+                    <div class="pointer-container"></div>
+                    <section class="section">
+                      <div class="pointer"></div>
+                      <div class="abstract">
+                        <p>Registers <code>closure</code> to be executed when <code>UICollectionViewDragDelegate.collectionView(_:dragPreviewParametersForRowAt:)</code> method is called.</p>
+
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">dragPreviewParameters</span><span class="p">(</span><span class="n">_</span> <span class="nv">closure</span><span class="p">:</span> <span class="kd">@escaping</span> <span class="p">(</span><span class="kt">View</span><span class="p">,</span> <span class="kt">Model</span><span class="p">,</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIDragPreviewParameters</span><span class="p">?)</span></code></pre>
+
+                        </div>
+                      </div>
+                    </section>
+                  </div>
+                </li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+      </article>
+    </div>
+    <section class="footer">
+      <p>&copy; 2020 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2020-09-02)</p>
+      <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
+    </section>
+  </body>
+</div>
+</html>

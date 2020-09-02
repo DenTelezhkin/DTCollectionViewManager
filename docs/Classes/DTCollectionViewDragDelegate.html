@@ -23,7 +23,7 @@
         <a class="header-link" href="../index.html">
           DTCollectionViewManager Docs
         </a>
-         (80% documented)
+         (75% documented)
       </p>
     
       <p class="header-col--secondary">
@@ -97,6 +97,14 @@
             </ul>
           </li>
           <li class="nav-group-name">
+            <a class="nav-group-name-link" href="../Extensions.html">Extensions</a>
+            <ul class="nav-group-tasks">
+              <li class="nav-group-task">
+                <a class="nav-group-task-link" href="../Extensions/ViewModelMapping.html">ViewModelMapping</a>
+              </li>
+            </ul>
+          </li>
+          <li class="nav-group-name">
             <a class="nav-group-name-link" href="../Protocols.html">Protocols</a>
             <ul class="nav-group-tasks">
               <li class="nav-group-task">
@@ -111,6 +119,12 @@
         <section class="section">
           <div class="section-content top-matter">
             <h1>DTCollectionViewDragDelegate</h1>
+              <div class="declaration">
+                <div class="language">
+                  <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">class</span> <span class="kt">DTCollectionViewDragDelegate</span> <span class="p">:</span> <span class="kt"><a href="../Classes/DTCollectionViewDelegateWrapper.html">DTCollectionViewDelegateWrapper</a></span><span class="p">,</span> <span class="kt">UICollectionViewDragDelegate</span></code></pre>
+
+                </div>
+              </div>
             <p>Object, that implements <code>UICollectionViewDragDelegate</code> methods for <code><a href="../Classes/DTCollectionViewManager.html">DTCollectionViewManager</a></code>.</p>
 
           </div>
@@ -123,9 +137,9 @@
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:itemsForBeginningDragSession:atIndexPath:"></a>
                     <a name="//apple_ref/swift/Method/collectionView(_:itemsForBeginning:at:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">collectionView(_:itemsForBeginning:at:)</a>
+                    <a class="token" href="#/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:itemsForBeginningDragSession:atIndexPath:">collectionView(_:itemsForBeginning:at:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -136,15 +150,23 @@
                         <p>Implementation of <code>UICollectionViewDragDelegate</code> protocol.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="n">itemsForBeginning</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">UIDragSession</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UIDragItem</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:itemsForAddingToDragSession:atIndexPath:point:"></a>
                     <a name="//apple_ref/swift/Method/collectionView(_:itemsForAddingTo:at:point:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">collectionView(_:itemsForAddingTo:at:point:)</a>
+                    <a class="token" href="#/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:itemsForAddingToDragSession:atIndexPath:point:">collectionView(_:itemsForAddingTo:at:point:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -155,15 +177,23 @@
                         <p>Implementation of <code>UICollectionViewDragDelegate</code> protocol.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="n">itemsForAddingTo</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">UIDragSession</span><span class="p">,</span> <span class="n">at</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">,</span> <span class="nv">point</span><span class="p">:</span> <span class="kt">CGPoint</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="p">[</span><span class="kt">UIDragItem</span><span class="p">]</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:dragPreviewParametersForItemAtIndexPath:"></a>
                     <a name="//apple_ref/swift/Method/collectionView(_:dragPreviewParametersForItemAt:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">collectionView(_:dragPreviewParametersForItemAt:)</a>
+                    <a class="token" href="#/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:dragPreviewParametersForItemAtIndexPath:">collectionView(_:dragPreviewParametersForItemAt:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -174,15 +204,23 @@
                         <p>Implementation of <code>UICollectionViewDragDelegate</code> protocol.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="n">dragPreviewParametersForItemAt</span> <span class="nv">indexPath</span><span class="p">:</span> <span class="kt">IndexPath</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">UIDragPreviewParameters</span><span class="p">?</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:dragSessionWillBegin:"></a>
                     <a name="//apple_ref/swift/Method/collectionView(_:dragSessionWillBegin:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">collectionView(_:dragSessionWillBegin:)</a>
+                    <a class="token" href="#/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:dragSessionWillBegin:">collectionView(_:dragSessionWillBegin:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -193,15 +231,23 @@
                         <p>Implementation of <code>UICollectionViewDragDelegate</code> protocol.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="n">dragSessionWillBegin</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">UIDragSession</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:dragSessionDidEnd:"></a>
                     <a name="//apple_ref/swift/Method/collectionView(_:dragSessionDidEnd:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">collectionView(_:dragSessionDidEnd:)</a>
+                    <a class="token" href="#/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:dragSessionDidEnd:">collectionView(_:dragSessionDidEnd:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -212,15 +258,23 @@
                         <p>Implementation of <code>UICollectionViewDragDelegate</code> protocol.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="n">dragSessionDidEnd</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">UIDragSession</span><span class="p">)</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:dragSessionAllowsMoveOperation:"></a>
                     <a name="//apple_ref/swift/Method/collectionView(_:dragSessionAllowsMoveOperation:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">collectionView(_:dragSessionAllowsMoveOperation:)</a>
+                    <a class="token" href="#/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:dragSessionAllowsMoveOperation:">collectionView(_:dragSessionAllowsMoveOperation:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -231,15 +285,23 @@
                         <p>Implementation of <code>UICollectionViewDragDelegate</code> protocol.</p>
 
                       </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="n">dragSessionAllowsMoveOperation</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">UIDragSession</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
+                      </div>
                     </section>
                   </div>
                 </li>
                 <li class="item">
                   <div>
                     <code>
-                    <a name="/"></a>
+                    <a name="/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:dragSessionIsRestrictedToDraggingApplication:"></a>
                     <a name="//apple_ref/swift/Method/collectionView(_:dragSessionIsRestrictedToDraggingApplication:)" class="dashAnchor"></a>
-                    <a class="token" href="#/">collectionView(_:dragSessionIsRestrictedToDraggingApplication:)</a>
+                    <a class="token" href="#/c:@M@DTCollectionViewManager@objc(cs)DTCollectionViewDragDelegate(im)collectionView:dragSessionIsRestrictedToDraggingApplication:">collectionView(_:dragSessionIsRestrictedToDraggingApplication:)</a>
                     </code>
                   </div>
                   <div class="height-container">
@@ -249,6 +311,14 @@
                       <div class="abstract">
                         <p>Implementation of <code>UICollectionViewDragDelegate</code> protocol.</p>
 
+                      </div>
+                      <div class="declaration">
+                        <h4>Declaration</h4>
+                        <div class="language">
+                          <p class="aside-title">Swift</p>
+                          <pre class="highlight swift"><code><span class="kd">open</span> <span class="kd">func</span> <span class="nf">collectionView</span><span class="p">(</span><span class="n">_</span> <span class="nv">collectionView</span><span class="p">:</span> <span class="kt">UICollectionView</span><span class="p">,</span> <span class="n">dragSessionIsRestrictedToDraggingApplication</span> <span class="nv">session</span><span class="p">:</span> <span class="kt">UIDragSession</span><span class="p">)</span> <span class="o">-&gt;</span> <span class="kt">Bool</span></code></pre>
+
+                        </div>
                       </div>
                     </section>
                   </div>
@@ -261,7 +331,7 @@
       </article>
     </div>
     <section class="footer">
-      <p>&copy; 2020 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2020-07-02)</p>
+      <p>&copy; 2020 <a class="link" href="https://github.com/DenTelezhkin" target="_blank" rel="external">Denys Telezhkin</a>. All rights reserved. (Last updated: 2020-09-02)</p>
       <p>Generated by <a class="link" href="https://github.com/realm/jazzy" target="_blank" rel="external">jazzy ♪♫ v0.13.1</a>, a <a class="link" href="https://realm.io" target="_blank" rel="external">Realm</a> project.</p>
     </section>
   </body>

@@ -226,9 +226,6 @@
 		3E33C72B22B81BB0006FBB21 /* DTCollectionViewDelegateWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCollectionViewDelegateWrapper.swift; sourceTree = "<group>"; };
 		3E37DBFA24E7E8AB008181FC /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableDatasourcesTestCase.swift; sourceTree = "<group>"; };
-		3EC8F8812309D81A00FF3C7A /* DTCollectionViewManager 4 migration guide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "DTCollectionViewManager 4 migration guide.md"; sourceTree = "<group>"; };
-		3EC8F8822309D81A00FF3C7A /* DTCollectionViewManager 5 migration guide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "DTCollectionViewManager 5 migration guide.md"; sourceTree = "<group>"; };
-		3EC8F8832309D83100FF3C7A /* 7.0 Migration Guide.md */ = {isa = PBXFileReference; lastKnownFileType = net.daringfireball.markdown; path = "7.0 Migration Guide.md"; sourceTree = "<group>"; };
 		9A0E42302375886A0027C995 /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
 		9A1B88351CE1E2E5005B6F07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		9A1B88361CE1E2E5005B6F07 /* Framework.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; name = Framework.plist; path = "../Supporting files/Framework.plist"; sourceTree = "<group>"; };
@@ -425,23 +422,12 @@
 			path = Extensions;
 			sourceTree = "<group>";
 		};
-		3EC8F8802309D81A00FF3C7A /* Guides */ = {
-			isa = PBXGroup;
-			children = (
-				3EC8F8812309D81A00FF3C7A /* DTCollectionViewManager 4 migration guide.md */,
-				3EC8F8822309D81A00FF3C7A /* DTCollectionViewManager 5 migration guide.md */,
-				3EC8F8832309D83100FF3C7A /* 7.0 Migration Guide.md */,
-			);
-			path = Guides;
-			sourceTree = "<group>";
-		};
 		955F8579179ACAF000A38EAD = {
 			isa = PBXGroup;
 			children = (
 				9ABF870B1BE3DF32000B9905 /* Documentation */,
 				9A99AA7D1B8A219300428802 /* Example */,
 				9A73E09D1F6586A000BF80F8 /* Frameworks */,
-				3EC8F8802309D81A00FF3C7A /* Guides */,
 				955F8583179ACAF000A38EAD /* Products */,
 				3E33C6E522B81BB0006FBB21 /* Sources */,
 				9A1B88341CE1E2BA005B6F07 /* Supporting files */,
@@ -1235,8 +1221,8 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/DenTelezhkin/DTModelStorage";
 			requirement = {
-				branch = "custom-view-mappings";
-				kind = branch;
+				kind = exactVersion;
+				version = "9.0.0-beta.1";
 			};
 		};
 /* End XCRemoteSwiftPackageReference section */
