@@ -42,6 +42,7 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomStringConvertible, 
     case modelEventCalledWithCellClass(modelType: String, methodName: String, subclassOf: String)
     case unusedEventDetected(viewType: String, methodName: String)
     case eventRegistrationForUnregisteredMapping(viewClass: String, signature: String)
+    case flowDelegateLayoutMethodWithDifferentLayout(methodSignature: String)
     
     /// Debug information for happened anomaly
     public var debugDescription: String {
@@ -91,6 +92,8 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomStringConvertible, 
             return "⚠️[DTCollectionViewManager] \(methodName) event registered for \(view), but there were no view mappings registered for \(view) type. This event will never be called."
         case .eventRegistrationForUnregisteredMapping(let viewClass, let signature):
                 return "⚠️[DTCollectionViewManager] While registering event reaction for \(signature), no view mapping was found for view: \(viewClass)"
+        case .flowDelegateLayoutMethodWithDifferentLayout(methodSignature: let signature):
+            return "⚠️[DTCollectionViewManager] Detected reaction for UICollectionViewDelegateFlowLayout protocol, but different layout class is used. This means, that method \(signature) will not be called, as well as registered reaction."
         }
     }
     
@@ -109,7 +112,9 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomStringConvertible, 
         case .unusedEventDetected(viewType: let view, methodName: let method): return "DTCollectionViewManagerAnomaly.unusedEventDetected(\(view), \(method))"
         case .differentSupplementaryReuseIdentifier(let mappingReuseIdentifier, let supplementaryReuseIdentifier): return "DTCollectionViewManagerAnomaly.differentSupplementaryReuseIdentifier(\(mappingReuseIdentifier), \(supplementaryReuseIdentifier))"
         case .eventRegistrationForUnregisteredMapping(let viewClass, let signature):
-                return "DTCollectionViewManagerAnomaly.eventRegistrationForUnregisteredMapping(\(viewClass), \(signature)"
+            return "DTCollectionViewManagerAnomaly.eventRegistrationForUnregisteredMapping(\(viewClass), \(signature)"
+        case .flowDelegateLayoutMethodWithDifferentLayout(methodSignature: let signature):
+            return "DTCollectionViewManagerAnomaly.flowDelegateLayoutMethodWithDifferentLayout(\(signature))"
         }
     }
 }

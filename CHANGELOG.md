@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Added
+
+* Registering events for `UICollectionViewDelegateFlowLayout` protocol now triggers an anomaly, if different layout class is used (for example `UICollectionViewCompositionalLayout`)
+
 ## [8.0.0-beta.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/8.0.0-beta.1)
 
 **This is a major release with some breaking changes, please read [DTCollectionViewManager 8.0 Migration Guide](Documentation/Migration%20Guides/8.0%20Migration%20Guide.md)**

@@ -213,6 +213,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     override func setUp() {
         super.setUp()
+        DTCollectionViewManager.eventVerificationDelay = 0.1
         sut = DTCellTestCollectionController()
         let _ = sut.view
         sut.manager.register(NibCell.self)
@@ -1156,8 +1157,32 @@ class ReactingToEventsFastTestCase : XCTestCase {
         let anomaly = DTCollectionViewManagerAnomaly.unusedEventDetected(viewType: "StringCell", methodName: "didSelect(_:_:)")
         sut.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
         sut.manager.didSelect(StringCell.self) { _, _, _ in }
-        waitForExpectations(timeout: 1.1)
+        waitForExpectations(timeout: 0.5)
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] didSelect(_:_:) event registered for StringCell, but there were no view mappings registered for StringCell type. This event will never be called.")
+    }
+    
+    func testMappedFlowLayoutMethodsLeadToAnomaly() {
+        let exp = expectation(description: "Unused event")
+        let anomaly = DTCollectionViewManagerAnomaly.flowDelegateLayoutMethodWithDifferentLayout(methodSignature: EventMethodSignature.sizeForItemAtIndexPath.rawValue)
+        sut.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        sut.manager.register(StringCell.self) { mapping in
+            mapping.sizeForCell { _, _ in .zero }
+        }
+        sut.collectionView.collectionViewLayout = UICollectionViewLayout()
+        waitForExpectations(timeout: 0.5)
+        
+        XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] Detected reaction for UICollectionViewDelegateFlowLayout protocol, but different layout class is used. This means, that method collectionView:layout:sizeForItemAtIndexPath: will not be called, as well as registered reaction.")
+    }
+    
+    func testUnmappedFlowLayoutMethodsLeadToAnomaly() {
+        let exp = expectation(description: "Unused event")
+        let anomaly = DTCollectionViewManagerAnomaly.flowDelegateLayoutMethodWithDifferentLayout(methodSignature: EventMethodSignature.insetForSectionAtIndex.rawValue)
+        sut.manager.anomalyHandler.anomalyAction = exp.expect(anomaly: anomaly)
+        sut.manager.insetForSectionAtIndex { _, _ in .zero }
+        sut.collectionView.collectionViewLayout = UICollectionViewLayout()
+        waitForExpectations(timeout: 0.5)
+        
+        XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] Detected reaction for UICollectionViewDelegateFlowLayout protocol, but different layout class is used. This means, that method collectionView:layout:insetForSectionAtIndex: will not be called, as well as registered reaction.")
     }
 }

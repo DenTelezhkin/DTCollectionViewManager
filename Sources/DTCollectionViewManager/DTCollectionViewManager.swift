@@ -278,6 +278,10 @@ open class DTCollectionViewManager {
         collectionDragDelegate = DTCollectionViewDragDelegate(delegate: delegate, collectionViewManager: self)
         collectionDropDelegate = DTCollectionViewDropDelegate(delegate: delegate, collectionViewManager: self)
         #endif
+        
+        DispatchQueue.main.asyncAfter(deadline: .now() + Self.eventVerificationDelay) { [weak self] in
+            self?.verifyEventsCompatibility()
+        }
     }
     
     /// Returns closure, that updates cell at provided indexPath.
@@ -314,6 +318,8 @@ open class DTCollectionViewManager {
                                      animateMoveAsDeleteAndInsert: true)
     }
     
+    static var eventVerificationDelay : TimeInterval = 1
+    
     func verifyItemEvent<Model>(for itemType: Model.Type, methodName: String) {
         switch itemType {
         case is UICollectionReusableView.Type:
@@ -325,10 +331,33 @@ open class DTCollectionViewManager {
     }
     
     func verifyViewEvent<T:ModelTransfer>(for viewType: T.Type, methodName: String) {
-        DispatchQueue.main.asyncAfter(deadline: .now() + 1) { [weak self] in
+        DispatchQueue.main.asyncAfter(deadline: .now() + Self.eventVerificationDelay) { [weak self] in
             if self?.viewFactory.mappings.filter({ $0.viewClass.isSubclass(of: viewType) }).count == 0 {
                 self?.anomalyHandler.reportAnomaly(DTCollectionViewManagerAnomaly.unusedEventDetected(viewType: String(describing: T.self), methodName: methodName))
             }
+        }
+    }
+    
+    func verifyEventsCompatibility() {
+        let flowLayoutMethodSignatures = [
+            EventMethodSignature.sizeForItemAtIndexPath,
+            .referenceSizeForHeaderInSection,
+            .referenceSizeForFooterInSection,
+            .insetForSectionAtIndex,
+            .minimumLineSpacingForSectionAtIndex,
+            .minimumInteritemSpacingForSectionAtIndex
+        ].map { $0.rawValue }
+        
+        let unmappedFlowDelegateEvents = collectionDelegate?.unmappedReactions.filter { flowLayoutMethodSignatures.contains($0.methodSignature) } ?? []
+        let mappedFlowDelegateEvents = viewFactory.mappings.reduce(into: []) { result, current in
+            result.append(contentsOf: current.reactions.filter { flowLayoutMethodSignatures.contains($0.methodSignature) })
+        }
+        
+        guard let _ = collectionView?.collectionViewLayout as? UICollectionViewDelegateFlowLayout else {
+            (unmappedFlowDelegateEvents + mappedFlowDelegateEvents).forEach { reaction in
+                anomalyHandler.reportAnomaly(.flowDelegateLayoutMethodWithDifferentLayout(methodSignature: reaction.methodSignature))
+            }
+            return
         }
     }
 }
