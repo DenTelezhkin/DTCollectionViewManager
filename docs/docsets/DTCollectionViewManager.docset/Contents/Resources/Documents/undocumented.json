@@ -447,6 +447,13 @@
       "symbol": "DTCollectionViewManagerAnomaly.eventRegistrationForUnregisteredMapping(viewClass:signature:)",
       "symbol_kind": "source.lang.swift.decl.enumelement",
       "warning": "undocumented"
+    },
+    {
+      "file": "/Users/Denys/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManagerAnomalyHandler.swift",
+      "line": 45,
+      "symbol": "DTCollectionViewManagerAnomaly.flowDelegateLayoutMethodWithDifferentLayout(methodSignature:)",
+      "symbol_kind": "source.lang.swift.decl.enumelement",
+      "warning": "undocumented"
     }
   ],
   "source_directory": "/Users/Denys/Projects/DTCollectionViewManager"
