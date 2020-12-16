@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Fixed
+
+* Typo, that caused anomalies to trigger when using events for UICollectionViewLayout(thanks, @RenGate).
+
 ## [8.0.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/8.0.0)
 
 ### Added

@@ -353,7 +353,7 @@ open class DTCollectionViewManager {
             result.append(contentsOf: current.reactions.filter { flowLayoutMethodSignatures.contains($0.methodSignature) })
         }
         
-        guard let _ = collectionView?.collectionViewLayout as? UICollectionViewDelegateFlowLayout else {
+        guard let _ = collectionView?.collectionViewLayout as? UICollectionViewFlowLayout else {
             (unmappedFlowDelegateEvents + mappedFlowDelegateEvents).forEach { reaction in
                 anomalyHandler.reportAnomaly(.flowDelegateLayoutMethodWithDifferentLayout(methodSignature: reaction.methodSignature))
             }
