@@ -25,6 +25,10 @@ class NiblessCell: BaseTestCell {}
 
 class NibCell: BaseTestCell {
     @IBOutlet weak var customLabel: UILabel?
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
 }
 
 class StringCell : UICollectionViewCell, ModelTransfer
@@ -32,15 +36,25 @@ class StringCell : UICollectionViewCell, ModelTransfer
     func update(with model: String) {
         
     }
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
 }
 
 class ReactingCollectionCell: UICollectionViewCell, ModelTransfer {
-    
     func update(with model: Int) {
-        
     }
-    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
 }
+
+class StoryboardCollectionViewCell: UICollectionViewCell, ModelTransfer {
+    @IBOutlet weak var storyboardLabel: UILabel!
+    func update(with model: Int) {
+    }
+}
+
 
 class SelectionReactingCollectionCell: ReactingCollectionCell
 {
@@ -48,8 +62,46 @@ class SelectionReactingCollectionCell: ReactingCollectionCell
     var indexPath: IndexPath?
     var cell: SelectionReactingCollectionCell?
     var model : Int?
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
 }
 
-class WrongReuseIdentifierCell : BaseTestCell {
-    override var reuseIdentifier: String? { return "Foo" }
+class IntCell : UICollectionViewCell, ModelTransfer {
+    func update(with model: Int) {
+        
+    }
+    
+    override func prepareForReuse() {
+        super.prepareForReuse()
+    }
+}
+
+class AnotherIntCell : UICollectionViewCell, ModelTransfer {
+    func update(with model: Int) {
+        
+    }
+}
+
+class ReusableCell: UICollectionViewCell, ModelTransfer {
+    var updateCalledTimes: Int = 0
+    
+    override init(frame: CGRect) {
+        super.init(frame: frame)
+    }
+    
+    required init?(coder: NSCoder) {
+        fatalError()
+    }
+    
+    func update(with model: Int) {
+        updateCalledTimes += 1
+    }
+    
+    var prepareForReuseCalledTimes: Int = 0
+    override func prepareForReuse() {
+        super.prepareForReuse()
+        prepareForReuseCalledTimes += 1
+    }
 }

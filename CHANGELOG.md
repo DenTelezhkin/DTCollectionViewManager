@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Deprecated
+
+* `DTCollectionViewManagerAnomaly.differentCellReuseIdentifier`. If you are using cells from code or from xib, please use empty reuseIdentifier, because on iOS 14 / tvOS 14 reuseIdentifiers are being set by `UICollectionView.CellRegistration` object. If you are using storyboards, set reuseIdentifier of the cell to cell subclass name.
+
 ## [8.0.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/8.0.1)
 
 ### Fixed

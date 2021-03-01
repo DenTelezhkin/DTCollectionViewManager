@@ -92,7 +92,7 @@ open class DTCollectionViewManager {
     ///  Factory for creating cells and reusable views for UICollectionView
     final lazy var viewFactory: CollectionViewFactory = {
         precondition(self.isManagingCollectionView, "Please call manager.startManagingWithDelegate(self) before calling any other DTCollectionViewManager methods")
-        //swiftlint:disable:next force_unwrapping
+        // swiftlint:disable:next force_unwrapping
         let factory = CollectionViewFactory(collectionView: self.collectionView!)
         factory.resetDelegates = { [weak self] in
             self?.collectionDataSource?.delegateWasReset()

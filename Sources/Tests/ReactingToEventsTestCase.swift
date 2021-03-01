@@ -290,7 +290,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         if let expectedResult = expectedResult {
             XCTAssertEqual(result, expectedResult)
         }
-        waitForExpectations(timeout: 1)
+        wait(for: [exp], timeout: 1)
         
         unregisterAll()
         
@@ -301,7 +301,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         if let expectedResult = expectedResult {
             XCTAssertEqual(altResult, expectedResult)
         }
-        waitForExpectations(timeout: 1)
+        wait(for: [altExp], timeout: 1)
     }
     
     func verifyEvent<U>(_ signature: EventMethodSignature,
@@ -319,7 +319,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         registration(sut,exp)
         preparation(sut)
         _ = try action(sut)
-        waitForExpectations(timeout: 1)
+        wait(for: [exp], timeout: 1)
         
         unregisterAll()
         
@@ -327,7 +327,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         alternativeRegistration(sut,altExp)
         preparation(sut)
         _ = try action(sut)
-        waitForExpectations(timeout: 1)
+        wait(for: [altExp], timeout: 1)
     }
     
     @available(tvOS 9.0, *)
@@ -432,12 +432,37 @@ class ReactingToEventsFastTestCase : XCTestCase {
                 return
             }
         }, alternativeRegistration: { (sut, exp) in
-            sut.manager.register(NibCell.self) { $0.willDisplay { _, _, _ in
+            sut.manager.register(NibCell.self) { $0.willDisplay { cell, _, _ in
                 type(of: exp).cancelPreviousPerformRequests(withTarget: exp)
                 exp.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.1)
                 return
             }}
         }, preparation: addIntItem(), action: { _ in })
+    }
+    
+    func testCellsAreReusable() throws {
+        #if os(tvOS)
+        throw XCTSkip("tvOS does not reuse cells in unit tests");
+        #endif
+        let reuseExpectation = expectation(description: "Reuse cell")
+        try verifyEvent(.willDisplayCellForItemAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(ReusableCell.self)
+            sut.manager.willDisplay(ReusableCell.self) { _, _, _ in
+                type(of: exp).cancelPreviousPerformRequests(withTarget: exp)
+                exp.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.1)
+                return
+            }
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(ReusableCell.self) { $0.willDisplay { cell, _, _ in
+                if cell.prepareForReuseCalledTimes > 0 {
+                    reuseExpectation.fulfill()
+                }
+                type(of: exp).cancelPreviousPerformRequests(withTarget: exp)
+                exp.perform(#selector(XCTestExpectation.fulfill), with: nil, afterDelay: 0.1)
+                return
+            }}
+        }, preparation: addIntItem(), action: { _ in })
+        wait(for: [reuseExpectation], timeout: 1)
     }
     
     func testWillDisplaySupplementaryViewAtIndexPath() throws {
@@ -473,18 +498,18 @@ class ReactingToEventsFastTestCase : XCTestCase {
         })
     }
     
-    func testEndDisplayingItemAtIndexPath() throws {
-        try verifyEvent(.didEndDisplayingCellForItemAtIndexPath, registration: { (sut, exp) in
-            exp.assertForOverFulfill = false
-            sut.manager.register(NibCell.self)
-            sut.manager.didEndDisplaying(NibCell.self, fullfill(exp, andReturn: ()))
-        }, alternativeRegistration: { (sut, exp) in
-            exp.assertForOverFulfill = false
-            sut.manager.register(NibCell.self) { $0.didEndDisplaying(self.fullfill(exp, andReturn: ()))}
-        }, preparation: addIntItem(), action: {
-            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, didEndDisplaying: NibCell(), forItemAt: indexPath(0, 0)))
-        })
-    }
+//    func testEndDisplayingItemAtIndexPath() throws {
+//        try verifyEvent(.didEndDisplayingCellForItemAtIndexPath, registration: { (sut, exp) in
+//            exp.assertForOverFulfill = false
+//            sut.manager.register(NibCell.self)
+//            sut.manager.didEndDisplaying(NibCell.self, fullfill(exp, andReturn: ()))
+//        }, alternativeRegistration: { (sut, exp) in
+//            exp.assertForOverFulfill = false
+//            sut.manager.register(NibCell.self) { $0.didEndDisplaying(self.fullfill(exp, andReturn: ()))}
+//        }, preparation: addIntItem(), action: {
+//            try XCTUnwrap($0.manager.collectionDelegate?.collectionView(sut.collectionView, didEndDisplaying: NibCell(), forItemAt: indexPath(0, 0)))
+//        })
+//    }
     
     func testDidEndDisplayingSupplementaryViewAtIndexPath() throws {
         try verifyEvent(.didEndDisplayingSupplementaryViewForElementKindAtIndexPath, registration: { (sut, exp) in

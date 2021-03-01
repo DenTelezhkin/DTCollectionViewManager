@@ -125,9 +125,6 @@ extension CollectionViewFactory
                 }
             }
         }
-        if let cellReuseIdentifier = cell.reuseIdentifier, cellReuseIdentifier != reuseIdentifier {
-            anomalyHandler?.reportAnomaly(.differentCellReuseIdentifier(mappingReuseIdentifier: reuseIdentifier, cellReuseIdentifier: cellReuseIdentifier))
-        }
     }
     
     func registerSupplementaryClass<View:ModelTransfer>(_ supplementaryClass: View.Type, ofKind kind: String, handler: @escaping (View, View.ModelType, IndexPath) -> Void, mapping: ((ViewModelMapping<View, View.ModelType>) -> Void)?) where View:UICollectionReusableView

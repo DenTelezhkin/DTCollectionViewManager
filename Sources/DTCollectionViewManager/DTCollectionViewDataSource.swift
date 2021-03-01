@@ -26,7 +26,7 @@
 import UIKit
 import DTModelStorage
 
-//swiftlint:disable:next type_name
+// swiftlint:disable:next type_name
 private class DummyCollectionViewCellThatPreventsAppFromCrashing: UICollectionViewCell {}
 
 /// Object, that implements `UICollectionViewDataSource` methods for `DTCollectionViewManager`.
