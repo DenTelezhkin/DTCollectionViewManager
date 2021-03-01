@@ -1190,7 +1190,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/DenTelezhkin/DTModelStorage";
 			requirement = {
-				branch = reuse_identifiers;
+				branch = main;
 				kind = branch;
 			};
 		};
