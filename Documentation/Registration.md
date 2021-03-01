@@ -28,7 +28,7 @@ manager.register(View.self, for: Model.self) { mapping in
 
 When any of registration methods is called, `DTCollectionViewManager` does several things:
 
-1. Create ViewModelMapping object, and immediately run `mapping` closure on it, to give you a chance to customize any values you need. Those may include custom xib name, custom reuse identifier and others.
+1. Create ViewModelMapping object, and immediately run `mapping` closure on it, to give you a chance to customize any values you need. Those may include custom xib name, custom bundle and others.
 2. Check whether xib-file with specified name(defaults to name of the View class) exists.
 3. Register view(cell/supplementary view) with UICollectionView either using nib registration or registration from code.
 

@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+This release fixes a critical issue with cell and supplementary reuse on iOS 14 / tvOS 14. If you are using 8.x release, it's highly recommended to upgrade to this release.
+
+### Changed
+
+* `UICollectionView.CellRegistration` and `UICollectionView.SupplementaryRegistration` on iOS 14 / tvOS 14 are now created once per mapping, thus properly allowing cell and supplementary reuse.
+
 ### Deprecated
 
 * `DTCollectionViewManagerAnomaly.differentCellReuseIdentifier`. If you are using cells from code or from xib, please use empty reuseIdentifier, because on iOS 14 / tvOS 14 reuseIdentifiers are being set by `UICollectionView.CellRegistration` object. If you are using storyboards, set reuseIdentifier of the cell to cell subclass name.

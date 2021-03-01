@@ -25,9 +25,6 @@ Registration methods are also much more expanded, and allow powerful customizati
 
 ```swift
 manager.register(PostCell.self) { mapping in
-    // Different reuse identifier
-    mapping.reuseIdentifier = "FooBar"
-
     // Different xib name
     mapping.xibName = "MyPostCell"
 

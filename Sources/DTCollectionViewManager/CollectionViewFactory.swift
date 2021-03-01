@@ -109,6 +109,7 @@ extension CollectionViewFactory
     
     func verifyCell<Cell:UICollectionViewCell>(_ cell: Cell.Type, nibName: String?,
                                             withReuseIdentifier reuseIdentifier: String, in bundle: Bundle) {
+        guard Cell.responds(to: #selector(Cell.init(frame:))) else { return }
         var cell = Cell(frame: .zero)
         if let nibName = nibName, UINib.nibExists(withNibName: nibName, inBundle: bundle) {
             let nib = UINib(nibName: nibName, bundle: bundle)

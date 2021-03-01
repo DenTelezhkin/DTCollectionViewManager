@@ -1,6 +1,6 @@
 ### Anomaly handler
 
-`DTCollectionViewManager` is built on some conventions. For example, your cell needs to have reuseIdentifier that matches the name of your class, XIB files need to be named also identical to the name of your class(to work with default mapping without customization). However when those conventions are not followed, or something unexpected happens, your app may crash or behave inconsistently. Most of the errors are reported by `UICollectionView` API, but there's space to improve.
+`DTCollectionViewManager` is built on some conventions. For example, your XIB files need to be named identical to the name of your class(to work with default mapping without customization). However when those conventions are not followed, or something unexpected happens, your app may crash or behave inconsistently. Most of the errors are reported by `UICollectionView` API, but there's space to improve.
 
  `DTTableViewManager` as well as `DTCollectionViewManager` and `DTModelStorage` have dedicated anomaly analyzers, that try to find inconsistencies and programmer errors when using those frameworks. They detect stuff like missing mappings, inconsistencies in xib files, and even unused events. By default, detected anomalies will be printed in console while you are debugging your app. For example, if you try to register an empty xib to use for your cell, here's what you'll see in console:
 
