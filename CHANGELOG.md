@@ -3,8 +3,6 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
-## [8.1.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/8.1.0)
-
 This release fixes a critical issue with cell and supplementary reuse on iOS 14 / tvOS 14. If you are using 8.x release, it's highly recommended to upgrade to this release.
 
 ### Changed
