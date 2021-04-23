@@ -104,6 +104,26 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
                                                                   moveItemAt: source,
                                                                   to: destination)
     }
+    
+    #if swift(<5.4)
+    /// Implementation of `UICollectionViewDataSource` protocol.
+    open func indexTitles(for collectionView: UICollectionView) -> [String]? {
+        if let reaction = unmappedReactions.first(where: { $0.methodSignature == EventMethodSignature.indexTitlesForCollectionView.rawValue }) {
+            return reaction.performWithArguments((0, 0, 0)) as? [String]
+        }
+        return (delegate as? UICollectionViewDataSource)?.indexTitles?(for: collectionView)
+    }
+    
+    /// Implementation of `UICollectionViewDataSource` protocol.
+    open func collectionView(_ collectionView: UICollectionView, indexPathForIndexTitle title: String, at index: Int) -> IndexPath {
+        if let indexPath = performNonCellReaction(.indexPathForIndexTitleAtIndex, argumentOne: title, argumentTwo: index) as? IndexPath {
+            return indexPath
+        }
+        return (delegate as? UICollectionViewDataSource)?.collectionView?(collectionView,
+                                                                          indexPathForIndexTitle: title,
+                                                                          at: index) ?? IndexPath(item: 0, section: 0)
+    }
+    #else
     @available(iOS 14.0, tvOS 10.2, *)
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func indexTitles(for collectionView: UICollectionView) -> [String]? {
@@ -123,4 +143,5 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
                                                                           indexPathForIndexTitle: title,
                                                                           at: index) ?? IndexPath(item: 0, section: 0)
     }
+    #endif
 }
