@@ -3,6 +3,15 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Changed
+
+* `UICollectionViewDatasource`.`indexTitles(for:)` and `UICollectionViewDatasource`.`collectionView(_: indexPathForIndexTitle:at:)` methods and events now require iOS 14 (and seem to be working only on iOS 14) as per SDK changes in Xcode 12.5.
+
+### Fixed
+
+* Xcode 12.5 / Swift 5.4 warnings
+* Cell and supplementary view anomaly verification now correctly checks if corresponding subclasses respond to `init(frame:)` initializer.
+
 ## [8.1.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/8.1.0)
 
 This release fixes a critical issue with cell and supplementary reuse on iOS 14 / tvOS 14. If you are using 8.x release, it's highly recommended to upgrade to this release.

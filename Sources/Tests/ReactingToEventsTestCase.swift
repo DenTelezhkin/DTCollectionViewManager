@@ -638,8 +638,8 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    @available (tvOS 10.2, *)
-    func testIndexTitlesForCollectionView() {
+    func testIndexTitlesForCollectionView() throws {
+        guard #available(iOS 14, tvOS 10.2, *) else { throw XCTSkip() }
         let exp = expectation(description: "indexTitles for collectionView")
         sut.manager.indexTitles {
             exp.fulfill()
@@ -649,8 +649,8 @@ class ReactingToEventsFastTestCase : XCTestCase {
         waitForExpectations(timeout: 1, handler: nil)
     }
     
-    @available (tvOS 10.2, *)
-    func testIndexPathForIndexTitle() {
+    func testIndexPathForIndexTitle() throws {
+        guard #available(iOS 14, tvOS 10.2, *) else { throw XCTSkip() }
         let exp = expectation(description: "indexPathForIndexTitle")
         sut.manager.indexPathForIndexTitle { _, _ in
             exp.fulfill()

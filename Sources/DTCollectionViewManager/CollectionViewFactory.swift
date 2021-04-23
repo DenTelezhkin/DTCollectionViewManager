@@ -109,7 +109,7 @@ extension CollectionViewFactory
     
     func verifyCell<Cell:UICollectionViewCell>(_ cell: Cell.Type, nibName: String?,
                                             withReuseIdentifier reuseIdentifier: String, in bundle: Bundle) {
-        guard Cell.responds(to: #selector(Cell.init(frame:))) else { return }
+        guard Cell.instancesRespond(to: #selector(Cell.init(frame:))) else { return }
         var cell = Cell(frame: .zero)
         if let nibName = nibName, UINib.nibExists(withNibName: nibName, inBundle: bundle) {
             let nib = UINib(nibName: nibName, bundle: bundle)
@@ -189,6 +189,7 @@ extension CollectionViewFactory
     
     func verifySupplementaryView<View:UICollectionReusableView>(_ view: View.Type, nibName: String?,
                                                              reuseIdentifier: String, in bundle: Bundle) {
+        guard View.instancesRespond(to: #selector(View.init(frame:))) else { return }
         var view = View(frame: .zero)
         if let nibName = nibName, UINib.nibExists(withNibName: nibName, inBundle: bundle) {
             let nib = UINib(nibName: nibName, bundle: bundle)

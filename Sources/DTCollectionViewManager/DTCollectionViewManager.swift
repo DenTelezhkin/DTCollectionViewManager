@@ -29,7 +29,7 @@ import DTModelStorage
 
 /// Adopting this protocol will automatically inject manager property to your object, that lazily instantiates DTCollectionViewManager object.
 /// Target is not required to be UICollectionViewController, and can be a regular UIViewController with UICollectionView, or any other view, that contains UICollectionView.
-public protocol DTCollectionViewManageable : class
+public protocol DTCollectionViewManageable : AnyObject
 {
     /// Collection view, that will be managed by DTCollectionViewManager. This property or `optionalCollectionView` property must be implemented in order for `DTCollectionViewManager` to work.
     var collectionView : UICollectionView! { get }
