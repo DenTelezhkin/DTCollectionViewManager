@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [8.2.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/8.2.0)
+
 ### Changed
 
 * `UICollectionViewDatasource`.`indexTitles(for:)` and `UICollectionViewDatasource`.`collectionView(_: indexPathForIndexTitle:at:)` methods and events now require iOS 14 (and seem to be working only on iOS 14) as per SDK changes in Xcode 12.5.
