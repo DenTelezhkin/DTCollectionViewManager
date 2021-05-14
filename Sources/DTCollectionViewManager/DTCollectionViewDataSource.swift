@@ -110,14 +110,14 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
     /// Implementation of `UICollectionViewDataSource` protocol.
     @available(tvOS 10.2, *)
     open func indexTitles(for collectionView: UICollectionView) -> [String]? {
-        if let reaction = unmappedReactions.first(where: { $0.methodSignature == EventMethodSignature.indexTitlesForCollectionView.rawValue }) {
+        if let reaction = collectionViewReactions.first(where: { $0.methodSignature == EventMethodSignature.indexTitlesForCollectionView.rawValue }) {
             return reaction.performWithArguments((0, 0, 0)) as? [String]
         }
         return (delegate as? UICollectionViewDataSource)?.indexTitles?(for: collectionView)
     }
     
-    /// Implementation of `UICollectionViewDataSource` protocol.
     @available(tvOS 10.2, *)
+    /// Implementation of `UICollectionViewDataSource` protocol.
     open func collectionView(_ collectionView: UICollectionView, indexPathForIndexTitle title: String, at index: Int) -> IndexPath {
         if let indexPath = performNonCellReaction(.indexPathForIndexTitleAtIndex, argumentOne: title, argumentTwo: index) as? IndexPath {
             return indexPath
