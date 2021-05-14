@@ -114,14 +114,14 @@
     },
     {
       "file": "/Users/denystelezhkin/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDataSource.swift",
-      "line": 111,
+      "line": 132,
       "symbol": "DTCollectionViewDataSource.indexTitles(for:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/denystelezhkin/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDataSource.swift",
-      "line": 120,
+      "line": 141,
       "symbol": "DTCollectionViewDataSource.collectionView(_:indexPathForIndexTitle:at:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

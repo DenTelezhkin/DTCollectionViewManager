@@ -3,6 +3,12 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [7.1.3](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/7.1.3)
+
+### Fixed
+
+* Build issues with Xcode 12.5 / Xcode 12.4 and lower.
+
 ## [7.1.2](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/7.1.2)
 
 ### Fixed
