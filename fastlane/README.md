@@ -30,16 +30,6 @@ fastlane test_tvos13
 fastlane pod_lint
 ```
 
-### test_ios_swift4_2
-```
-fastlane test_ios_swift4_2
-```
-
-### test_tvos_swift4_2
-```
-fastlane test_tvos_swift4_2
-```
-
 ### carthage_build
 ```
 fastlane carthage_build

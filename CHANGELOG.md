@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [7.1.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/7.1.1)
+
 Note: This is backwards-compatibility release, it only fixes build issue with Xcode 12.5. For future development please consider migrating to DTCollectionViewManager 8.
 
 ### Fixed
