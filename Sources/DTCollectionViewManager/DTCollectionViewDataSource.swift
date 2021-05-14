@@ -26,7 +26,7 @@
 import UIKit
 import DTModelStorage
 
-//swiftlint:disable:next type_name
+// swiftlint:disable:next type_name
 private class DummyCollectionViewCellThatPreventsAppFromCrashing: UICollectionViewCell {}
 
 /// Object, that implements `UICollectionViewDataSource` methods for `DTCollectionViewManager`.
@@ -106,7 +106,7 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
                                                                   to: destination)
     }
     
-    @available(tvOS 10.2, *)
+    @available(iOS 14.0, tvOS 10.2, *)
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func indexTitles(for collectionView: UICollectionView) -> [String]? {
         if let reaction = collectionViewReactions.first(where: { $0.methodSignature == EventMethodSignature.indexTitlesForCollectionView.rawValue }) {
@@ -115,7 +115,7 @@ open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollec
         return (delegate as? UICollectionViewDataSource)?.indexTitles?(for: collectionView)
     }
     
-    @available(tvOS 10.2, *)
+    @available(iOS 14.0, tvOS 10.2, *)
     /// Implementation of `UICollectionViewDataSource` protocol.
     open func collectionView(_ collectionView: UICollectionView, indexPathForIndexTitle title: String, at index: Int) -> IndexPath {
         if let indexPath = performNonCellReaction(.indexPathForIndexTitleAtIndex, argumentOne: title, argumentTwo: index) as? IndexPath {
