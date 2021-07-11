@@ -84,7 +84,7 @@ open class DTCollectionViewManager {
         return nil
     }
     
-    fileprivate weak var delegate : AnyObject?
+    weak var delegate : AnyObject?
     
     /// Bool property, that will be true, after `startManagingWithDelegate` method is called on `DTCollectionViewManager`.
     open var isManagingCollectionView : Bool { collectionView != nil }
@@ -231,11 +231,14 @@ open class DTCollectionViewManager {
         collectionViewUpdater = nil
         
         // Cell is provided by `DTCollectionViewDataSource` without actually calling closure that is passed to `UICollectionViewDiffableDataSource`.
-        let dataSource = UICollectionViewDiffableDataSource<SectionIdentifier, ItemIdentifier>(collectionView: collectionView) { _, _, _ in nil }
-        storage = ProxyDiffableDataSourceStorage(collectionView: collectionView,
-                                                                 dataSource: dataSource,
-                                                                 modelProvider: modelProvider)
-        collectionView.dataSource = collectionDataSource
+        let dataSource = DTCollectionViewDiffableDataSource<SectionIdentifier, ItemIdentifier>(
+            collectionView: collectionView,
+            viewFactory: viewFactory,
+            manager: self,
+            cellProvider: { _, _, _ in nil },
+            modelProvider: modelProvider)
+        storage = dataSource
+        collectionView.dataSource = dataSource
         
         return dataSource
     }

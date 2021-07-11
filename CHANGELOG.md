@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Fixed
+
+* Diffable datasources exceptions in Xcode 13 / iOS 15 with some internal restructuring.
+
 ## [8.2.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/8.2.0)
 
 ### Changed

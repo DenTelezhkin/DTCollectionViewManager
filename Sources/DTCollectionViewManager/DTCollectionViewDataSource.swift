@@ -27,13 +27,15 @@ import UIKit
 import DTModelStorage
 
 // swiftlint:disable:next type_name
-private class DummyCollectionViewCellThatPreventsAppFromCrashing: UICollectionViewCell {}
+class DummyCollectionViewCellThatPreventsAppFromCrashing: UICollectionViewCell {}
 
 /// Object, that implements `UICollectionViewDataSource` methods for `DTCollectionViewManager`.
 open class DTCollectionViewDataSource: DTCollectionViewDelegateWrapper, UICollectionViewDataSource {
     override func delegateWasReset() {
-        collectionView?.dataSource = nil
-        collectionView?.dataSource = self
+        if collectionView?.dataSource === self {
+            collectionView?.dataSource = nil
+            collectionView?.dataSource = self
+        }
     }
     
     private func dummyCell(for indexPath: IndexPath) -> UICollectionViewCell {

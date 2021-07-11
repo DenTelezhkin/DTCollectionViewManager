@@ -77,6 +77,7 @@
 		3E37DBFB24E7E8AB008181FC /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E37DBFA24E7E8AB008181FC /* UIColor+Extensions.swift */; };
 		3EBBB78A22F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */; };
 		3EBBB78B22F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */; };
+		41D02402269B411000D75BD9 /* DTCollectionViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D02401269B411000D75BD9 /* DTCollectionViewDiffableDataSource.swift */; };
 		9A08A9C91B8A249300877C62 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
 		9A0E66BF2500E9F9004FF8A3 /* DiffableMultiSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E66BE2500E9F9004FF8A3 /* DiffableMultiSectionController.swift */; };
 		9A73E09E1F6586A000BF80F8 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
@@ -202,6 +203,7 @@
 		3E33C72B22B81BB0006FBB21 /* DTCollectionViewDelegateWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCollectionViewDelegateWrapper.swift; sourceTree = "<group>"; };
 		3E37DBFA24E7E8AB008181FC /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableDatasourcesTestCase.swift; sourceTree = "<group>"; };
+		41D02401269B411000D75BD9 /* DTCollectionViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCollectionViewDiffableDataSource.swift; sourceTree = "<group>"; };
 		9A0E42302375886A0027C995 /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
 		9A0E66BE2500E9F9004FF8A3 /* DiffableMultiSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableMultiSectionController.swift; sourceTree = "<group>"; };
 		9A1B88351CE1E2E5005B6F07 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
@@ -374,6 +376,7 @@
 				3E33C71E22B81BB0006FBB21 /* CollectionViewFactory.swift */,
 				3E33C72822B81BB0006FBB21 /* CollectionViewUpdater.swift */,
 				3E33C72622B81BB0006FBB21 /* DTCollectionViewDataSource.swift */,
+				41D02401269B411000D75BD9 /* DTCollectionViewDiffableDataSource.swift */,
 				3E33C71F22B81BB0006FBB21 /* DTCollectionViewDelegate.swift */,
 				3E33C72B22B81BB0006FBB21 /* DTCollectionViewDelegateWrapper.swift */,
 				3E33C72022B81BB0006FBB21 /* DTCollectionViewDragDelegate.swift */,
@@ -790,6 +793,7 @@
 				3E33C73122B81BC4006FBB21 /* DTCollectionViewManager.swift in Sources */,
 				9ABE13FB24599CE2008874D2 /* Exports.swift in Sources */,
 				3E33C72F22B81BC4006FBB21 /* DTCollectionViewDelegate.swift in Sources */,
+				41D02402269B411000D75BD9 /* DTCollectionViewDiffableDataSource.swift in Sources */,
 				3E33C73722B81BC4006FBB21 /* DTCollectionViewDropPlaceholderContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
