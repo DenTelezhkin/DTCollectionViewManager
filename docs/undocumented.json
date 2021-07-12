@@ -86,14 +86,14 @@
     },
     {
       "file": "/Users/denystelezhkin/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDataSource.swift",
-      "line": 129,
+      "line": 131,
       "symbol": "DTCollectionViewDataSource.indexTitles(for:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
     },
     {
       "file": "/Users/denystelezhkin/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewDataSource.swift",
-      "line": 138,
+      "line": 140,
       "symbol": "DTCollectionViewDataSource.collectionView(_:indexPathForIndexTitle:at:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"
@@ -381,13 +381,6 @@
     {
       "file": "/Users/denystelezhkin/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager.swift",
       "line": 224,
-      "symbol": "DTCollectionViewManager.configureDiffableDataSource(modelProvider:)",
-      "symbol_kind": "source.lang.swift.decl.function.method.instance",
-      "warning": "undocumented"
-    },
-    {
-      "file": "/Users/denystelezhkin/Projects/DTCollectionViewManager/Sources/DTCollectionViewManager/DTCollectionViewManager.swift",
-      "line": 249,
       "symbol": "DTCollectionViewManager.configureDiffableDataSource(modelProvider:)",
       "symbol_kind": "source.lang.swift.decl.function.method.instance",
       "warning": "undocumented"

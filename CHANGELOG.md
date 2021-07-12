@@ -3,6 +3,10 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [9.0.0-beta.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/9.0.0-beta.1)
+
+## [9.0.0-beta.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/9.0.0-beta.1)
+
 ### Fixed
 
 * Diffable datasources exceptions in Xcode 13 / iOS 15 with some internal restructuring.
