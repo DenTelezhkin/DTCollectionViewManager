@@ -242,30 +242,6 @@ open class DTCollectionViewManager {
         
         return dataSource
     }
-    
-    @available(iOS 13.0, tvOS 13.0, *)
-    @available(*, deprecated, message: "Please use configureDiffableDataSource method for models, that are Hashable. From Apple documentation: If you’re working in a Swift codebase, always use UICollectionViewDiffableDataSource instead.")
-    /// Configures `UICollectionViewDiffableDataSourceReference` to be used with `DTCollectionViewManager`.
-    ///  Because `UICollectionViewDiffableDataSourceReference` handles UICollectionView updates, `collectionViewUpdater` property on `DTCollectionViewManager` will be set to nil.
-    /// - Parameter modelProvider: closure that provides `DTCollectionViewManager` models.
-    /// This closure mirrors `cellProvider` property on `UICollectionViewDiffableDataSourceReference`, but strips away collectionView, and asks for data model instead of a cell. Cell mapping is then executed in the same way as without diffable data sources.
-    open func configureDiffableDataSource(modelProvider: @escaping (IndexPath, Any) -> Any) -> UICollectionViewDiffableDataSourceReference
-    {
-        guard let collectionView = collectionView else {
-            fatalError("Attempt to configure diffable datasource before collectionView have been initialized")
-        }
-        // UICollectionViewDiffableDataSourceReference will update UICollectionView instead of `CollectionViewUpdater` object.
-        collectionViewUpdater = nil
-        
-        // Cell is provided by `DTCollectionViewDataSource` without actually calling closure that is passed to `UICollectionViewDiffableDataSourceReference`.
-        let dataSource = UICollectionViewDiffableDataSourceReference(collectionView: collectionView) { _, _, _ in nil }
-        storage = ProxyDiffableDataSourceStorage(collectionView: collectionView,
-                                                                 dataSource: dataSource,
-                                                                 modelProvider: modelProvider)
-        collectionView.dataSource = collectionDataSource
-        
-        return dataSource
-    }
 #endif
     
     fileprivate var isConfigured = false
