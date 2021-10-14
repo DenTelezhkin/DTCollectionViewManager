@@ -73,9 +73,12 @@ class DiffableDatasourcesTestCase: XCTestCase {
         XCTAssertEqual(controller.manager.storage.numberOfItems(inSection: 1), 2)
     }
     
-    func testCellSelectionClosure()
+    func testCellSelectionClosure() throws
     {
         guard #available(iOS 13, tvOS 13, *) else { return }
+        if #available(iOS 15, tvOS 15, *) {
+            throw XCTSkip("This test fails on iOS 15 / tvOS 15 due to diffable datasources, that refuse to update cells if collection view is not on screen")
+        }
         controller = ReactingTestCollectionViewController()
         let _ = controller.view
         let temp: UICollectionViewDiffableDataSource<Section, Int> = controller.manager.configureDiffableDataSource(modelProvider: { $1 })
