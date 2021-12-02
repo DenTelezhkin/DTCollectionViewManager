@@ -222,6 +222,8 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         return (delegate as? UICollectionViewDelegate)?.indexPathForPreferredFocusedView?(in: collectionView)
     }
     
+    @available(iOS, deprecated: 15.0, message: "Use targetIndexPathForMoveFromItem: instead")
+    @available(tvOS, deprecated: 15.0, message: "Use targetIndexPathForMoveFromItem: instead")
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveFromItemAt originalIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath {
         if let indexPath = perform4ArgumentCellReaction(.targetIndexPathForMoveFromItemAtTo,

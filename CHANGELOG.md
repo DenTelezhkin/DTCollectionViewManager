@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 * Wrappers for `collectionView:selectionFollowsFocusForItemAtIndexPath:` delegate method.
 * Wrappers for iOS 15 `UICollectionViewDelegate.collectionView(_:targetIndexPathForMoveOfItemFromOriginalIndexPath:atCurrentIndexPath:toProposedIndexPath:)` delegate method.
 
+### Deprecated
+
+* `targetIndexPathForMovingItem` deprecated on iOS / tvOS 15 and higher, because delegate method `collectionView:targetIndexPathForMoveFromItemAt:toProposedIndexPath:` was deprecated in favor of newer method.
+
 ## [9.0.0-beta.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/9.0.0-beta.1)
 
 ### Fixed

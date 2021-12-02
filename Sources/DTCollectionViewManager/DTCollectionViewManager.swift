@@ -377,6 +377,8 @@ internal enum EventMethodSignature: String {
     case shouldUpdateFocusInContext = "collectionView:shouldUpdateFocusInContext:"
     case didUpdateFocusInContext = "collectionView:didUpdateFocusInContext:withAnimationCoordinator:"
     case indexPathForPreferredFocusedView = "indexPathForPreferredFocusedViewInCollectionView:"
+    
+    @available(iOS, deprecated: 15.0)
     case targetIndexPathForMoveFromItemAtTo = "collectionView:targetIndexPathForMoveFromItemAtIndexPath:toProposedIndexPath:"
     case targetContentOffsetForProposedContentOffset = "collectionView:targetContentOffsetForProposedContentOffset:"
     case shouldSpringLoadItem = "collectionView:shouldSpringLoadItemAtIndexPath:withContext:"

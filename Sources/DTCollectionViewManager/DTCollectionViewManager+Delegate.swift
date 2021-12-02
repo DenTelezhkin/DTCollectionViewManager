@@ -169,6 +169,8 @@ extension DTCollectionViewManager {
         collectionDelegate?.appendNonCellReaction(.indexPathForPreferredFocusedView, closure: closure)
     }
     
+    @available(iOS, deprecated: 15.0, message: "Use targetIndexPathForMoveFromItem: instead")
+    @available(tvOS, deprecated: 15.0, message: "Use targetIndexPathForMoveFromItem: instead")
     /// Registers `closure` to be executed when `UICollectionViewDelegate.targetIndexPathForMoveFromItemAt(_:toProposed:)` method is called for `cellClass`
     open func targetIndexPathForMovingItem<Cell:ModelTransfer>(_ cellClass: Cell.Type, _ closure: @escaping (IndexPath, Cell, Cell.ModelType, IndexPath) -> IndexPath) where Cell: UICollectionViewCell {
         collectionDelegate?.append4ArgumentReaction(for: Cell.self,
@@ -426,6 +428,8 @@ extension ViewModelMapping where View: UICollectionViewCell {
         reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.canFocusItemAtIndexPath.rawValue, closure))
     }
     
+    @available(iOS, deprecated: 15.0, message: "Use targetIndexPathForMoveFromItem: instead")
+    @available(tvOS, deprecated: 15.0, message: "Use targetIndexPathForMoveFromItem: instead")
     /// Registers `closure` to be executed when `UICollectionViewDelegate.targetIndexPathForMoveFromItemAt(_:toProposed:)` method is called.
     open func targetIndexPathForMovingItem(_ closure: @escaping (IndexPath, View, Model, IndexPath) -> IndexPath)  {
         reactions.append(FourArgumentsEventReaction(View.self, modelType: Model.self, argument: IndexPath.self, signature: EventMethodSignature.targetIndexPathForMoveFromItemAtTo.rawValue, closure))
