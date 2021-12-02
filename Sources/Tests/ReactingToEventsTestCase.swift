@@ -994,17 +994,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, previewForDismissingContextMenuWithConfiguration: .init())
         waitForExpectations(timeout: 1, handler: nil)
     }
-        #if compiler(<5.1.2)
-    func testWillCommitMenuWithAnimator() {
-        guard #available(iOS 13, *) else { return }
-        let exp = expectation(description: "willCommitMenuWithAnimator")
-        sut.manager.willCommitMenuWithAnimator { animator in
-            exp.fulfill()
-        }
-        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, willCommitMenuWithAnimator: ContextMenuInteractionAnimatorMock())
-        waitForExpectations(timeout: 1, handler: nil)
-    }
-        #endif
+    
     #endif
     
     #if os(tvOS)
@@ -1119,9 +1109,6 @@ class ReactingToEventsFastTestCase : XCTestCase {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:contextMenuConfigurationForItemAt:point:))), EventMethodSignature.contextMenuConfigurationForItemAtIndexPath.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:previewForHighlightingContextMenuWithConfiguration:))), EventMethodSignature.previewForHighlightingContextMenu.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:previewForDismissingContextMenuWithConfiguration:))), EventMethodSignature.previewForDismissingContextMenu.rawValue)
-            #if compiler(<5.1.2)
-            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:willCommitMenuWithAnimator:))), EventMethodSignature.willCommitMenuWithAnimator.rawValue)
-            #endif
         }
         
             #if compiler(>=5.5)

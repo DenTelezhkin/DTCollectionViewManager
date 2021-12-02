@@ -8,6 +8,10 @@ All notable changes to this project will be documented in this file.
 * Wrappers for `collectionView:selectionFollowsFocusForItemAtIndexPath:` delegate method.
 * Wrappers for iOS 15 `UICollectionViewDelegate.collectionView(_:targetIndexPathForMoveOfItemFromOriginalIndexPath:atCurrentIndexPath:toProposedIndexPath:)` delegate method.
 
+### Removed
+
+* Wrappers for `collectionView:willCommitMenuWithAnimator` delegate method, that was only briefly available in Xcode 12, and was removed by Apple in one of Xcode 12 releases.
+
 ### Deprecated
 
 * `targetIndexPathForMovingItem` deprecated on iOS / tvOS 15 and higher, because delegate method `collectionView:targetIndexPathForMoveFromItemAt:toProposedIndexPath:` was deprecated in favor of newer method.

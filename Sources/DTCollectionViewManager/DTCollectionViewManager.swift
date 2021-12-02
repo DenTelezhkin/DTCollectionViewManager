@@ -389,7 +389,6 @@ internal enum EventMethodSignature: String {
     case contextMenuConfigurationForItemAtIndexPath = "collectionView:contextMenuConfigurationForItemAtIndexPath:point:"
     case previewForHighlightingContextMenu = "collectionView:previewForHighlightingContextMenuWithConfiguration:"
     case previewForDismissingContextMenu = "collectionView:previewForDismissingContextMenuWithConfiguration:"
-    case willCommitMenuWithAnimator = "collectionView:willCommitMenuWithAnimator:"
     case canEditItemAtIndexPath = "collectionView:canEditItemAtIndexPath:"
     case selectionFollowsFocusForItemAtIndexPath = "collectionView:selectionFollowsFocusForItemAtIndexPath:"
     case targetIndexPathForMoveOfItemFromOriginalIndexPath = "collectionView:targetIndexPathForMoveOfItemFromOriginalIndexPath:atCurrentIndexPath:toProposedIndexPath:"

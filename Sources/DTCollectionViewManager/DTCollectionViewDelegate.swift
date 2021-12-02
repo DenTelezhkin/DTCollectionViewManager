@@ -325,14 +325,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         }
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForDismissingContextMenuWithConfiguration: configuration)
     }
-        #if compiler(<5.1.2)
-    @available(iOS 13.0, *)
-    /// Implementation for `UICollectionViewDelegate` protocol
-    open func collectionView(_ collectionView: UICollectionView, willCommitMenuWithAnimator animator: UIContextMenuInteractionCommitAnimating) {
-        _ = performNonCellReaction(.willCommitMenuWithAnimator, argument: animator)
-        (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, willCommitMenuWithAnimator: animator)
-    }
-        #endif
+    
     #endif
     
     #if compiler(>=5.5) && os(iOS)
