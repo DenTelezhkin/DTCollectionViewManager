@@ -36,7 +36,7 @@ let package = Package(
         .library(name: "DTCollectionViewManager", targets: ["DTCollectionViewManager"])
     ],
     dependencies: [
-        .package(url: "https://github.com/DenTelezhkin/DTModelStorage", .upToNextMajor(from: "10.0.0-beta.1"))
+        .package(url: "https://github.com/DenTelezhkin/DTModelStorage", .upToNextMajor(from: "10.0.0"))
     ],
     targets: [
         .target(name: "DTCollectionViewManager", dependencies: ["DTModelStorage"]),

@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [10.0.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/10.0.0)
+
 ### Added
 
 * Wrappers for `collectionView:selectionFollowsFocusForItemAtIndexPath:` delegate method.
@@ -11,6 +13,10 @@ All notable changes to this project will be documented in this file.
 ### Removed
 
 * Wrappers for `collectionView:willCommitMenuWithAnimator` delegate method, that was only briefly available in Xcode 12, and was removed by Apple in one of Xcode 12 releases.
+
+### Changed
+
+* To align version numbers between `DTModelStorage`, `DTTableViewManager` and `DTCollectionViewManager`, `DTCollectionViewManager` will not have 9.x release, instead it's being released as 10.x.
 
 ### Deprecated
 
