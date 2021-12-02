@@ -1033,6 +1033,20 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     #endif
     
+#if compiler(>=5.5) && os(iOS)
+    func testSelectionFollowsFocus() throws {
+        guard #available(iOS 15, *) else { return }
+        try verifyEvent(.selectionFollowsFocusForItemAtIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.selectionFollowsFocus(for: NibCell.self, self.fullfill(exp, andReturn: true))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.selectionFollowsFocus(self.fullfill(exp, andReturn: true)) }
+        }, preparation: addIntItem(), action: {
+            $0.manager.collectionDelegate?.collectionView(sut.collectionView, selectionFollowsFocusForItemAt: indexPath(0, 0))
+        })
+    }
+#endif
+    
     func testAllDelegateMethodSignatures() {
         if #available(tvOS 9, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDataSource.collectionView(_:canMoveItemAt:))), EventMethodSignature.canMoveItemAtIndexPath.rawValue)
@@ -1095,6 +1109,13 @@ class ReactingToEventsFastTestCase : XCTestCase {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:willCommitMenuWithAnimator:))), EventMethodSignature.willCommitMenuWithAnimator.rawValue)
             #endif
         }
+        
+            #if compiler(>=5.5)
+            if #available(iOS 15, *) {
+                XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:selectionFollowsFocusForItemAt:))), EventMethodSignature.selectionFollowsFocusForItemAtIndexPath.rawValue)
+            }
+            #endif
+        
         #endif
         
         if #available(iOS 14, tvOS 14, *) {

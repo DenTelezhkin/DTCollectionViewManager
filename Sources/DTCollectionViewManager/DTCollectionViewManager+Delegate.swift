@@ -262,6 +262,21 @@ extension DTCollectionViewManager {
     #endif
 
     #endif
+    
+    #if compiler(>=5.5) && os(iOS)
+    @available(iOS 15, *)
+    /// Registers `closure` to be executed when `UITableViewDelegate.tableView(_:selectionFollowsFocusForRowAt:)`method is called for `cellClass`.
+    /// - Parameter Type: cell class to react for event
+    /// - Parameter closure: closure to run.
+    open func selectionFollowsFocus<Cell:ModelTransfer>(for cellClass: Cell.Type,
+                                                                    _ closure: @escaping (Cell, Cell.ModelType, IndexPath) -> Bool)
+        where Cell: UICollectionViewCell
+    {
+        collectionDelegate?.appendReaction(for: Cell.self,
+                                      signature: .selectionFollowsFocusForItemAtIndexPath,
+                                      closure: closure)
+    }
+    #endif
 #endif
     
     @available(iOS 14, tvOS 14, *)
@@ -442,6 +457,17 @@ extension ViewModelMapping where View: UICollectionViewCell {
     }
     #endif
 #endif
+    
+    #if compiler(>=5.5) && os(iOS)
+    @available(iOS 15, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:selectionFollowsFocusForRowAt:)`method is called for `cellClass`.
+    /// - Parameter Type: cell class to react for event
+    /// - Parameter closure: closure to run.
+    open func selectionFollowsFocus(_ closure: @escaping (View, Model, IndexPath) -> Bool)
+    {
+        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.selectionFollowsFocusForItemAtIndexPath.rawValue, closure))
+    }
+    #endif
     
     @available(iOS 14, tvOS 14, *)
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canEditItemAt:)` method is called.

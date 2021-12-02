@@ -332,6 +332,20 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     }
         #endif
     #endif
+    
+    #if compiler(>=5.5) && os(iOS)
+    @available(iOS 15, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    public func collectionView(_ collectionView: UICollectionView, selectionFollowsFocusForItemAt indexPath: IndexPath) -> Bool {
+        if let follows = performCellReaction(.selectionFollowsFocusForItemAtIndexPath, location: indexPath, provideCell: true) as? Bool {
+            return follows
+        }
+        if let followsFocus = (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, selectionFollowsFocusForItemAt: indexPath) {
+            return followsFocus
+        }
+        return collectionView.selectionFollowsFocus
+    }
+    #endif
 #endif
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
