@@ -345,6 +345,24 @@ extension DTCollectionViewManager {
     }
     
     #endif
+    
+    #if compiler(>=5.5)
+    @available(iOS 15, tvOS 15, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:selectionFollowsFocusForRowAt:)`method is called for `cellClass`.
+    /// - Parameter Type: cell class to react for event
+    /// - Parameter closure: closure to run.
+    /// Closure parameters:
+    /// 1. Current IndexPath
+    /// 2. Proposed IndexPath
+    /// 3. Cell at original indexPath
+    /// 4. Model at original indexPath
+    /// 5. Original indexPath
+    /// If closure / delegate method are not implemented, returns proposed indexPath.
+    open func targetIndexPathForMoveFromItem<Cell:ModelTransfer>(_ cellClass:  Cell.Type, _ closure: @escaping (IndexPath, IndexPath, Cell, Cell.ModelType, IndexPath) -> IndexPath) where Cell:UICollectionViewCell
+    {
+        collectionDelegate?.append5ArgumentReaction(for: Cell.self, signature: .targetIndexPathForMoveOfItemFromOriginalIndexPath, closure: closure)
+    }
+    #endif
 }
 
 extension ViewModelMapping where View: UICollectionViewCell {
@@ -466,6 +484,25 @@ extension ViewModelMapping where View: UICollectionViewCell {
     open func selectionFollowsFocus(_ closure: @escaping (View, Model, IndexPath) -> Bool)
     {
         reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.selectionFollowsFocusForItemAtIndexPath.rawValue, closure))
+    }
+    
+    #endif
+    
+    #if compiler(>=5.5)
+    @available(iOS 15, tvOS 15, *)
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:selectionFollowsFocusForRowAt:)`method is called for `cellClass`.
+    /// - Parameter Type: cell class to react for event
+    /// - Parameter closure: closure to run.
+    /// Closure parameters:
+    /// 1. Current IndexPath
+    /// 2. Proposed IndexPath
+    /// 3. Cell at original indexPath
+    /// 4. Model at original indexPath
+    /// 5. Original indexPath
+    /// If closure / delegate method are not implemented, returns proposed indexPath.
+    open func targetIndexPathForMoveFromItem(_ closure: @escaping (IndexPath, IndexPath, View, Model, IndexPath) -> IndexPath)
+    {
+        reactions.append(FiveArgumentsEventReaction(View.self, modelType: Model.self, argumentOne: IndexPath.self, argumentTwo: IndexPath.self, signature: EventMethodSignature.targetIndexPathForMoveOfItemFromOriginalIndexPath.rawValue, closure))
     }
     #endif
     

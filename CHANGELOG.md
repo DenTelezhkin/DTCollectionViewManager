@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 * Wrappers for `collectionView:selectionFollowsFocusForItemAtIndexPath:` delegate method.
+* Wrappers for iOS 15 `UICollectionViewDelegate.collectionView(_:targetIndexPathForMoveOfItemFromOriginalIndexPath:atCurrentIndexPath:toProposedIndexPath:)` delegate method.
 
 ## [9.0.0-beta.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/9.0.0-beta.1)
 

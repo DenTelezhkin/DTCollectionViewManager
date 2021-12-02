@@ -348,6 +348,18 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     #endif
 #endif
     
+#if compiler(>=5.5)
+    @available(iOS 15, tvOS 15, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    public func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveOfItemFromOriginalIndexPath originalIndexPath: IndexPath, atCurrentIndexPath currentIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath
+    {
+        if let indexPath = perform5ArgumentCellReaction(.targetIndexPathForMoveOfItemFromOriginalIndexPath, argumentOne: currentIndexPath, argumentTwo: proposedIndexPath, location: originalIndexPath, provideCell: true) as? IndexPath {
+            return indexPath
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, targetIndexPathForMoveOfItemFromOriginalIndexPath: originalIndexPath, atCurrentIndexPath: currentIndexPath, toProposedIndexPath: proposedIndexPath) ?? proposedIndexPath
+    }
+#endif
+    
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
         if let insets = performNonCellReaction(.insetForSectionAtIndex,

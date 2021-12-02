@@ -1047,6 +1047,20 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
 #endif
     
+#if compiler(>=5.5) && os(iOS)
+    func testTargetIndexPathForOriginalIndexPath() throws {
+        guard #available(iOS 15, tvOS 15, *) else { return }
+        try verifyEvent(.targetIndexPathForMoveOfItemFromOriginalIndexPath, registration: { (sut, exp) in
+            sut.manager.register(NibCell.self)
+            sut.manager.targetIndexPathForMoveFromItem(NibCell.self, self.fullfill(exp, andReturn: indexPath(0, 0)))
+        }, alternativeRegistration: { (sut, exp) in
+            sut.manager.register(NibCell.self) { $0.targetIndexPathForMoveFromItem(self.fullfill(exp, andReturn: indexPath(0, 0))) }
+        }, preparation: addIntItem(), action: {
+            $0.manager.collectionDelegate?.collectionView(sut.collectionView, targetIndexPathForMoveOfItemFromOriginalIndexPath: indexPath(0, 0), atCurrentIndexPath: indexPath(1, 0), toProposedIndexPath: indexPath(2, 0))
+        })
+    }
+#endif
+    
     func testAllDelegateMethodSignatures() {
         if #available(tvOS 9, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDataSource.collectionView(_:canMoveItemAt:))), EventMethodSignature.canMoveItemAtIndexPath.rawValue)
@@ -1121,6 +1135,12 @@ class ReactingToEventsFastTestCase : XCTestCase {
         if #available(iOS 14, tvOS 14, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canEditItemAt:))), EventMethodSignature.canEditItemAtIndexPath.rawValue)
         }
+        
+        #if compiler(>=5.5)
+        if #available(iOS 15, tvOS 15, *) {
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:targetIndexPathForMoveOfItemFromOriginalIndexPath:atCurrentIndexPath:toProposedIndexPath:))), EventMethodSignature.targetIndexPathForMoveOfItemFromOriginalIndexPath.rawValue)
+        }
+        #endif
         
         #if os(tvOS)
         if #available(tvOS 13, *) {

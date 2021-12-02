@@ -390,6 +390,7 @@ internal enum EventMethodSignature: String {
     case willCommitMenuWithAnimator = "collectionView:willCommitMenuWithAnimator:"
     case canEditItemAtIndexPath = "collectionView:canEditItemAtIndexPath:"
     case selectionFollowsFocusForItemAtIndexPath = "collectionView:selectionFollowsFocusForItemAtIndexPath:"
+    case targetIndexPathForMoveOfItemFromOriginalIndexPath = "collectionView:targetIndexPathForMoveOfItemFromOriginalIndexPath:atCurrentIndexPath:toProposedIndexPath:"
     
     // UICollectionViewDelegateFlowLayout
     case sizeForItemAtIndexPath = "collectionView:layout:sizeForItemAtIndexPath:"
