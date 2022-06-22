@@ -1,7 +1,7 @@
 fastlane_version "1.98.0"
 
 lane :test_ios15 do
-  scan(devices: ["iPad Pro (12.9-inch) (3rd generation) (15.0)"], scheme: 'Tests-iOS')
+  scan(devices: ["iPad Pro (12.9-inch) (5th generation) (15.5)"], scheme: 'Tests-iOS')
 end
 
 lane :test_ios14 do
@@ -9,7 +9,7 @@ lane :test_ios14 do
 end
 
 lane :test_tvos15 do
-  scan(device: "Apple TV 4K (15.0)", scheme: 'Tests-tvOS')
+  scan(device: "Apple TV(15.4)", scheme: 'Tests-tvOS')
 end
 
 lane :test_tvos14 do
@@ -19,6 +19,10 @@ end
 lane :pod_lint do
   sh "bundle exec pod repo update"
   pod_lib_lint(allow_warnings: true, verbose: true)
+end
+
+lane :build_macos_catalyst do
+  sh "xcodebuild -configuration Debug -destination 'platform=macOS,variant=Mac Catalyst' -project ../DTCollectionViewManager.xcodeproj -scheme DTCollectionViewManager"
 end
 
 lane :generate_code_coverage do

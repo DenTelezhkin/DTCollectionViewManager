@@ -590,7 +590,7 @@
 			isa = PBXProject;
 			attributes = {
 				LastSwiftUpdateCheck = 0700;
-				LastUpgradeCheck = 1310;
+				LastUpgradeCheck = 1400;
 				ORGANIZATIONNAME = "Denys Telezhkin";
 				TargetAttributes = {
 					9A99AA7B1B8A219300428802 = {
@@ -689,6 +689,7 @@
 /* Begin PBXShellScriptBuildPhase section */
 		9A5DE7921FD3576B000FE218 /* SwiftLint */ = {
 			isa = PBXShellScriptBuildPhase;
+			alwaysOutOfDate = 1;
 			buildActionMask = 2147483647;
 			files = (
 			);
@@ -699,7 +700,7 @@
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;
-			shellScript = "if [ \\\"${CONFIGURATION}\\\" = \\\"Debug\\\" ]; then\n  if which swiftlint > /dev/null; then\n    swiftlint autocorrect --config \"${SRCROOT}/.swiftlint.yml\"\n    swiftlint lint --config \"${SRCROOT}/.swiftlint.yml\"\n  else\n    echo \\\"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\\\"\n  fi\nfi";
+			shellScript = "if [ \\\"${CONFIGURATION}\\\" = \\\"Debug\\\" ]; then\n  if which swiftlint > /dev/null; then\n    swiftlint autocorrect --config \"${SRCROOT}/.swiftlint.yml\"\n    swiftlint lint --config \"${SRCROOT}/.swiftlint.yml\"\n  else\n    echo \\\"SwiftLint not installed, download it from https://github.com/realm/SwiftLint\\\"\n  fi\nfi\n";
 		};
 /* End PBXShellScriptBuildPhase section */
 
