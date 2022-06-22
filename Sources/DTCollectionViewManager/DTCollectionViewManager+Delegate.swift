@@ -355,72 +355,72 @@ public extension DTCollectionViewManager {
 }
 
 // Extension for UICollectionViewDelegate events
-public extension ViewModelMapping where View: UICollectionViewCell {
+public extension CellViewModelMappingProtocolGeneric where Cell: UICollectionViewCell {
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didSelectItemAt:)` method is called.
-    func didSelect(_ closure: @escaping (View, Model, IndexPath) -> Void)
+    func didSelect(_ closure: @escaping (Cell, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didSelectItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.didSelectItemAtIndexPath.rawValue, closure))
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldSelectItemAt:)` method is called.
-    func shouldSelect(_ closure: @escaping (View, Model, IndexPath) -> Bool)
+    func shouldSelect(_ closure: @escaping (Cell, Model, IndexPath) -> Bool)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.shouldSelectItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.shouldSelectItemAtIndexPath.rawValue, closure))
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldDeselectItemAt:)` method is called.
-    func shouldDeselect(_ closure: @escaping (View, Model, IndexPath) -> Bool)
+    func shouldDeselect(_ closure: @escaping (Cell, Model, IndexPath) -> Bool)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.shouldDeselectItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.shouldDeselectItemAtIndexPath.rawValue, closure))
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didDeselectItemAt:)` method is called.
-    func didDeselect(_ closure: @escaping (View, Model, IndexPath) -> Void)
+    func didDeselect(_ closure: @escaping (Cell, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didDeselectItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.didDeselectItemAtIndexPath.rawValue, closure))
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:shouldHighlightItemAt:)` method is called.
-    func shouldHighlight(_ closure: @escaping (View, Model, IndexPath) -> Bool)
+    func shouldHighlight(_ closure: @escaping (Cell, Model, IndexPath) -> Bool)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.shouldHighlightItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.shouldHighlightItemAtIndexPath.rawValue, closure))
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didHighlightItemAt:)` method is called.
-    func didHighlight(_ closure: @escaping (View, Model, IndexPath) -> Void)
+    func didHighlight(_ closure: @escaping (Cell, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didHighlightItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.didHighlightItemAtIndexPath.rawValue, closure))
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didUnhighlightItemAt:)` method is called.
-    func didUnhighlight(_ closure: @escaping (View, Model, IndexPath) -> Void)
+    func didUnhighlight(_ closure: @escaping (Cell, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didUnhighlightItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.didUnhighlightItemAtIndexPath.rawValue, closure))
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplayCell:forItemAt:)` method is called.
-    func willDisplay(_ closure: @escaping (View, Model, IndexPath) -> Void)
+    func willDisplay(_ closure: @escaping (Cell, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.willDisplayCellForItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.willDisplayCellForItemAtIndexPath.rawValue, closure))
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didEndDisplaying:forItemAt:)` method is called.
-    func didEndDisplaying(_ closure: @escaping (View, Model, IndexPath) -> Void)
+    func didEndDisplaying(_ closure: @escaping (Cell, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didEndDisplayingCellForItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.didEndDisplayingCellForItemAtIndexPath.rawValue, closure))
     }
     
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:canFocusItemAt:)` method is called.
-    func canFocus(_ closure: @escaping (View, Model, IndexPath) -> Bool)
+    func canFocus(_ closure: @escaping (Cell, Model, IndexPath) -> Bool)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.canFocusItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.canFocusItemAtIndexPath.rawValue, closure))
     }
     
     @available(iOS, deprecated: 15.0, message: "Use targetIndexPathForMoveFromItem: instead")
     @available(tvOS, deprecated: 15.0, message: "Use targetIndexPathForMoveFromItem: instead")
     /// Registers `closure` to be executed when `UICollectionViewDelegate.targetIndexPathForMoveFromItemAt(_:toProposed:)` method is called.
-    func targetIndexPathForMovingItem(_ closure: @escaping (IndexPath, View, Model, IndexPath) -> IndexPath)  {
-        reactions.append(FourArgumentsEventReaction(View.self, modelType: Model.self, argument: IndexPath.self, signature: EventMethodSignature.targetIndexPathForMoveFromItemAtTo.rawValue, closure))
+    func targetIndexPathForMovingItem(_ closure: @escaping (IndexPath, Cell, Model, IndexPath) -> IndexPath)  {
+        reactions.append(FourArgumentsEventReaction(Cell.self, modelType: Model.self, argument: IndexPath.self, signature: EventMethodSignature.targetIndexPathForMoveFromItemAtTo.rawValue, closure))
     }
     
     
@@ -432,9 +432,9 @@ public extension ViewModelMapping where View: UICollectionViewCell {
     
 #if os(iOS)
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldSpringLoadItemAt:)` method is called.
-    func shouldSpringLoad(_ closure: @escaping (UISpringLoadedInteractionContext, View, Model, IndexPath) -> Bool)
+    func shouldSpringLoad(_ closure: @escaping (UISpringLoadedInteractionContext, Cell, Model, IndexPath) -> Bool)
     {
-        reactions.append(FourArgumentsEventReaction(View.self, modelType: Model.self, argument: UISpringLoadedInteractionContext.self,
+        reactions.append(FourArgumentsEventReaction(Cell.self, modelType: Model.self, argument: UISpringLoadedInteractionContext.self,
                                                     signature: EventMethodSignature.shouldSpringLoadItem.rawValue, closure))
     }
     
@@ -442,9 +442,9 @@ public extension ViewModelMapping where View: UICollectionViewCell {
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:shouldBeginMultipleSelectionInteractionAt:)`method is called.
     /// - Parameter Type: cell class to react for event
     /// - Parameter closure: closure to run.
-    func shouldBeginMultipleSelectionInteraction(_ closure: @escaping (View, Model, IndexPath) -> Bool)
+    func shouldBeginMultipleSelectionInteraction(_ closure: @escaping (Cell, Model, IndexPath) -> Bool)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self,
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self,
                                        signature: EventMethodSignature.shouldBeginMultipleSelectionInteractionAtIndexPath.rawValue,
                                        closure))
     }
@@ -453,16 +453,16 @@ public extension ViewModelMapping where View: UICollectionViewCell {
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:didBeginMultipleSelectionInteractionAt:)`method is called.
     /// - Parameter Type: cell class to react for event
     /// - Parameter closure: closure to run.
-    func didBeginMultipleSelectionInteraction(_ closure: @escaping (View, Model, IndexPath) -> Void)
+    func didBeginMultipleSelectionInteraction(_ closure: @escaping (Cell, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didBeginMultipleSelectionInteractionAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.didBeginMultipleSelectionInteractionAtIndexPath.rawValue, closure))
     }
     
     @available(iOS 13.0, *)
     /// Registers `closure` to be executed when `UICollectionViewDelegate.contextMenuConfigurationForItemAt(_:point:)` method is called.
-    func contextMenuConfiguration(_ closure: @escaping (CGPoint, View, Model, IndexPath) -> UIContextMenuConfiguration?)
+    func contextMenuConfiguration(_ closure: @escaping (CGPoint, Cell, Model, IndexPath) -> UIContextMenuConfiguration?)
     {
-        reactions.append(FourArgumentsEventReaction(View.self, modelType: Model.self, argument: CGPoint.self, signature: EventMethodSignature.contextMenuConfigurationForItemAtIndexPath.rawValue, closure))
+        reactions.append(FourArgumentsEventReaction(Cell.self, modelType: Model.self, argument: CGPoint.self, signature: EventMethodSignature.contextMenuConfigurationForItemAtIndexPath.rawValue, closure))
     }
 #endif
     
@@ -471,9 +471,9 @@ public extension ViewModelMapping where View: UICollectionViewCell {
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:selectionFollowsFocusForRowAt:)`method is called for `cellClass`.
     /// - Parameter Type: cell class to react for event
     /// - Parameter closure: closure to run.
-    func selectionFollowsFocus(_ closure: @escaping (View, Model, IndexPath) -> Bool)
+    func selectionFollowsFocus(_ closure: @escaping (Cell, Model, IndexPath) -> Bool)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.selectionFollowsFocusForItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.selectionFollowsFocusForItemAtIndexPath.rawValue, closure))
     }
     
     #endif
@@ -489,9 +489,9 @@ public extension ViewModelMapping where View: UICollectionViewCell {
     /// 4. Model at original indexPath
     /// 5. Original indexPath
     /// If closure / delegate method are not implemented, returns proposed indexPath.
-    func targetIndexPathForMoveFromItem(_ closure: @escaping (IndexPath, IndexPath, View, Model, IndexPath) -> IndexPath)
+    func targetIndexPathForMoveFromItem(_ closure: @escaping (IndexPath, IndexPath, Cell, Model, IndexPath) -> IndexPath)
     {
-        reactions.append(FiveArgumentsEventReaction(View.self, modelType: Model.self, argumentOne: IndexPath.self, argumentTwo: IndexPath.self, signature: EventMethodSignature.targetIndexPathForMoveOfItemFromOriginalIndexPath.rawValue, closure))
+        reactions.append(FiveArgumentsEventReaction(Cell.self, modelType: Model.self, argumentOne: IndexPath.self, argumentTwo: IndexPath.self, signature: EventMethodSignature.targetIndexPathForMoveOfItemFromOriginalIndexPath.rawValue, closure))
     }
     
     @available(iOS 14, tvOS 14, *)
@@ -506,22 +506,22 @@ public extension ViewModelMapping where View: UICollectionViewCell {
     
     @available(tvOS 13, *)
     /// Registers `closure` to be executed, when `TVCollectionViewDelegateFullScreenLayout.collectionView(_:layout:willCenterCellAt:)` method is called.
-    func willCenter(_ closure: @escaping (View, Model, IndexPath) -> Void)
+    func willCenter(_ closure: @escaping (Cell, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.willCenterCellAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.willCenterCellAtIndexPath.rawValue, closure))
     }
     
     @available(tvOS 13, *)
     /// Registers `closure` to be executed, when `TVCollectionViewDelegateFullScreenLayout.collectionView(_:layout:didCenterCellAt:)` method is called.
-    func didCenter(_ closure: @escaping (View, Model, IndexPath) -> Void)
+    func didCenter(_ closure: @escaping (Cell, Model, IndexPath) -> Void)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.didCenterCellAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.didCenterCellAtIndexPath.rawValue, closure))
     }
     #endif
 }
 
 // Extension for UICollectionViewDelegate events
-public extension ViewModelMapping where View: UICollectionReusableView {
+public extension SupplementaryViewModelMappingProtocolGeneric where View: UICollectionReusableView {
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called.
     func willDisplaySupplementaryView(_ closure: @escaping (View, Model, IndexPath) -> Void)
     {

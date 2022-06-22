@@ -50,9 +50,9 @@ final class CollectionViewFactory
 // MARK: Registration
 extension CollectionViewFactory
 {
-    func registerCellClass<Cell:ModelTransfer>(_ cellClass: Cell.Type, handler: @escaping (Cell, Cell.ModelType, IndexPath) -> Void, mapping: ((ViewModelMapping<Cell, Cell.ModelType>) -> Void)?) where Cell: UICollectionViewCell
+    func registerCellClass<Cell:ModelTransfer>(_ cellClass: Cell.Type, handler: @escaping (Cell, Cell.ModelType, IndexPath) -> Void, mapping: ((CollectionViewCellModelMapping<Cell, Cell.ModelType>) -> Void)?)
     {
-        let mapping = ViewModelMapping<Cell, Cell.ModelType>(cellConfiguration: handler, mapping: mapping)
+        let mapping = CollectionViewCellModelMapping<Cell, Cell.ModelType>(cellConfiguration: handler, mapping: mapping)
         
         func registerCell() {
             if let xibName = mapping.xibName, UINib.nibExists(withNibName: xibName, inBundle: mapping.bundle) {
@@ -75,9 +75,9 @@ extension CollectionViewFactory
         mappings.append(mapping)
     }
     
-    func registerCellClass<Cell: UICollectionViewCell, Model>(_ cellType: Cell.Type, _ modelType: Model.Type, handler: @escaping (Cell, Model, IndexPath) -> Void, mapping: ((ViewModelMapping<Cell, Model>) -> Void)? = nil)
+    func registerCellClass<Cell: UICollectionViewCell, Model>(_ cellType: Cell.Type, _ modelType: Model.Type, handler: @escaping (Cell, Model, IndexPath) -> Void, mapping: ((CollectionViewCellModelMapping<Cell, Model>) -> Void)? = nil)
     {
-        let mapping = ViewModelMapping<Cell, Model>(cellConfiguration: handler, mapping: mapping)
+        let mapping = CollectionViewCellModelMapping<Cell, Model>(cellConfiguration: handler, mapping: mapping)
         func registerCell() {
             if let xibName = mapping.xibName, UINib.nibExists(withNibName: xibName, inBundle: mapping.bundle) {
                 collectionView.register(UINib(nibName: xibName, bundle: mapping.bundle),
@@ -120,9 +120,9 @@ extension CollectionViewFactory
         }
     }
     
-    func registerSupplementaryClass<View:ModelTransfer>(_ supplementaryClass: View.Type, ofKind kind: String, handler: @escaping (View, View.ModelType, IndexPath) -> Void, mapping: ((ViewModelMapping<View, View.ModelType>) -> Void)?) where View:UICollectionReusableView
+    func registerSupplementaryClass<View:ModelTransfer>(_ supplementaryClass: View.Type, ofKind kind: String, handler: @escaping (View, View.ModelType, IndexPath) -> Void, mapping: ((CollectionSupplementaryViewModelMapping<View, View.ModelType>) -> Void)?) where View:UICollectionReusableView
     {
-        let mapping = ViewModelMapping<View, View.ModelType>(kind: kind, supplementaryConfiguration: handler, mapping: mapping)
+        let mapping = CollectionSupplementaryViewModelMapping<View, View.ModelType>(kind: kind, supplementaryConfiguration: handler, mapping: mapping)
         
         func registerSupplementary() {
             if let nibName = mapping.xibName, UINib.nibExists(withNibName: nibName, inBundle: mapping.bundle) {
@@ -147,9 +147,9 @@ extension CollectionViewFactory
         mappings.append(mapping)
     }
     
-    func registerSupplementaryClass<View:UICollectionReusableView, Model>(_ supplementaryClass: View.Type, _ modelType: Model.Type, ofKind kind: String, handler: @escaping (View, Model, IndexPath) -> Void, mapping: ((ViewModelMapping<View, Model>) -> Void)?)
+    func registerSupplementaryClass<View:UICollectionReusableView, Model>(_ supplementaryClass: View.Type, _ modelType: Model.Type, ofKind kind: String, handler: @escaping (View, Model, IndexPath) -> Void, mapping: ((CollectionSupplementaryViewModelMapping<View, Model>) -> Void)?)
     {
-        let mapping = ViewModelMapping<View, Model>(kind: kind, supplementaryConfiguration: handler, mapping: mapping)
+        let mapping = CollectionSupplementaryViewModelMapping<View, Model>(kind: kind, supplementaryConfiguration: handler, mapping: mapping)
         
         func registerSupplementary() {
             if let nibName = mapping.xibName, UINib.nibExists(withNibName: nibName, inBundle: mapping.bundle) {
@@ -231,7 +231,7 @@ extension CollectionViewFactory
     
     func cellForModel(_ model: Any, atIndexPath indexPath:IndexPath) -> UICollectionViewCell?
     {
-        if let mapping = viewModelMapping(for: .cell, model: model, at: indexPath)
+        if let mapping = viewModelMapping(for: .cell, model: model, at: indexPath) as? CellViewModelMappingProtocol
         {
             return mapping.dequeueConfiguredReusableCell(for: collectionView, model: model, indexPath: indexPath)
         }
@@ -242,7 +242,7 @@ extension CollectionViewFactory
     func updateCellAt(_ indexPath : IndexPath, with model: Any) {
         guard let cell = collectionView.cellForItem(at: indexPath) else { return }
         guard let unwrappedModel = RuntimeHelper.recursivelyUnwrapAnyValue(model) else { return }
-        if let mapping = viewModelMapping(for: .cell, model: unwrappedModel, at: indexPath) {
+        if let mapping = viewModelMapping(for: .cell, model: unwrappedModel, at: indexPath) as? CellViewModelMappingProtocol {
             mapping.updateCell(cell: cell, at: indexPath, with: unwrappedModel)
         }
     }
@@ -250,7 +250,7 @@ extension CollectionViewFactory
     func supplementaryViewOfKind(_ kind: String, forModel model: Any, atIndexPath indexPath: IndexPath) -> UICollectionReusableView?
     {
         if let mapping = ViewType.supplementaryView(kind: kind).mappingCandidates(for: mappings, withModel: model, at: indexPath).first
-        {
+        as? SupplementaryViewModelMappingProtocol {
             return mapping.dequeueConfiguredReusableSupplementaryView(for: collectionView, kind: kind, model: model, indexPath: indexPath)
         }
         anomalyHandler?.reportAnomaly(.noSupplementaryMappingFound(modelDescription: String(describing: model), kind: kind, indexPath: indexPath))

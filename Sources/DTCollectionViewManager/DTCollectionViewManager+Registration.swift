@@ -34,7 +34,7 @@ public extension DTCollectionViewManager {
     ///   - mapping: mapping configuration closure, executed before any registration or dequeue is performed.
     ///   - handler: configuration closure, that is run when cell is dequeued.
     /// - Note: `handler` closure is called before `update(with:)` method.
-    func register<T:ModelTransfer>(_ cellClass:T.Type, mapping: ((ViewModelMapping<T, T.ModelType>) -> Void)? = nil,
+    func register<T:ModelTransfer>(_ cellClass:T.Type, mapping: ((CollectionViewCellModelMapping<T, T.ModelType>) -> Void)? = nil,
                                         handler: @escaping (T, T.ModelType, IndexPath) -> Void = { _, _, _ in }) where T: UICollectionViewCell
     {
         viewFactory.registerCellClass(T.self, handler: handler, mapping: mapping)
@@ -46,7 +46,7 @@ public extension DTCollectionViewManager {
     ///   - modelType: Model type, which is mapped to `cellClass`.
     ///   - mapping: mapping configuration closure, executed before any registration or dequeue is performed.
     ///   - handler: configuration closure, that is run when cell is dequeued.
-    func register<Cell: UICollectionViewCell, Model>(_ cellClass: Cell.Type, for modelType: Model.Type, mapping: ((ViewModelMapping<Cell, Model>) -> Void)? = nil, handler: @escaping (Cell, Model, IndexPath) -> Void) {
+    func register<Cell: UICollectionViewCell, Model>(_ cellClass: Cell.Type, for modelType: Model.Type, mapping: ((CollectionViewCellModelMapping<Cell, Model>) -> Void)? = nil, handler: @escaping (Cell, Model, IndexPath) -> Void) {
         viewFactory.registerCellClass(cellClass, modelType, handler: handler, mapping: mapping)
     }
 
@@ -59,7 +59,7 @@ public extension DTCollectionViewManager {
     ///   - handler: configuration closure, that is run when supplementary view is dequeued.
     /// - Note: `handler` closure is called before `update(with:)` method.
     func registerHeader<View:ModelTransfer>(_ headerClass : View.Type,
-                                              mapping: ((ViewModelMapping<View, View.ModelType>) -> Void)? = nil,
+                                              mapping: ((CollectionSupplementaryViewModelMapping<View, View.ModelType>) -> Void)? = nil,
                                               handler: @escaping (View, View.ModelType, IndexPath) -> Void = { _, _, _ in }) where View: UICollectionReusableView
     {
         viewFactory.registerSupplementaryClass(View.self,
@@ -77,7 +77,7 @@ public extension DTCollectionViewManager {
     ///   - handler: configuration closure, that is run when header is dequeued.
     func registerHeader<View:UICollectionReusableView, Model>(_ headerClass: View.Type,
                                                                    for modelType: Model.Type,
-                                                                   mapping: ((ViewModelMapping<View, Model>) -> Void)? = nil,
+                                                                   mapping: ((CollectionSupplementaryViewModelMapping<View, Model>) -> Void)? = nil,
                                                                    handler: @escaping (View, Model, IndexPath) -> Void = { _, _, _ in }) {
         registerSupplementary(View.self, for: Model.self, ofKind: UICollectionView.elementKindSectionHeader, mapping: mapping, handler: handler)
     }
@@ -91,7 +91,7 @@ public extension DTCollectionViewManager {
     ///   - handler: configuration closure, that is run when supplementary view is dequeued.
     /// - Note: `handler` closure is called before `update(with:)` method.
     func registerFooter<View:ModelTransfer>(_ footerClass: View.Type,
-                                              mapping: ((ViewModelMapping<View, View.ModelType>) -> Void)? = nil,
+                                              mapping: ((CollectionSupplementaryViewModelMapping<View, View.ModelType>) -> Void)? = nil,
                                               handler: @escaping (View, View.ModelType, IndexPath) -> Void = { _, _, _ in }) where View:UICollectionReusableView
     {
         viewFactory.registerSupplementaryClass(View.self,
@@ -109,7 +109,7 @@ public extension DTCollectionViewManager {
     ///   - handler: configuration closure, that is run when footer is dequeued.
     func registerFooter<View:UICollectionReusableView, Model>(_ footerClass: View.Type,
                                                                    for modelType: Model.Type,
-                                                                   mapping: ((ViewModelMapping<View, Model>) -> Void)? = nil,
+                                                                   mapping: ((CollectionSupplementaryViewModelMapping<View, Model>) -> Void)? = nil,
                                                                    handler: @escaping (View, Model, IndexPath) -> Void = { _, _, _ in })
     {
         registerSupplementary(View.self, for: Model.self, ofKind: UICollectionView.elementKindSectionFooter, mapping: mapping, handler: handler)
@@ -125,7 +125,7 @@ public extension DTCollectionViewManager {
     /// - Note: `handler` closure is called before `update(with:)` method.
     func registerSupplementary<View:ModelTransfer>(_ supplementaryClass: View.Type,
                                                      ofKind kind: String,
-                                                     mapping: ((ViewModelMapping<View, View.ModelType>) -> Void)? = nil,
+                                                     mapping: ((CollectionSupplementaryViewModelMapping<View, View.ModelType>) -> Void)? = nil,
                                                      handler: @escaping (View, View.ModelType, IndexPath) -> Void = { _, _, _ in }) where View:UICollectionReusableView
     {
         viewFactory.registerSupplementaryClass(View.self, ofKind: kind, handler: handler, mapping: mapping)
@@ -141,7 +141,7 @@ public extension DTCollectionViewManager {
     func registerSupplementary<View:UICollectionReusableView, Model>(_ supplementaryClass: View.Type,
                                                                           for modelType: Model.Type,
                                                                           ofKind kind: String,
-                                                                          mapping: ((ViewModelMapping<View, Model>) -> Void)? = nil,
+                                                                          mapping: ((CollectionSupplementaryViewModelMapping<View, Model>) -> Void)? = nil,
                                                                           handler: @escaping (View, Model, IndexPath) -> Void = { _, _, _ in })
     {
         viewFactory.registerSupplementaryClass(supplementaryClass, modelType, ofKind: kind, handler: handler, mapping: mapping)

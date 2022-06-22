@@ -78,28 +78,28 @@ public extension DTCollectionViewManager {
 }
 
 /// Extension for UICollectionViewDragDelegate events
-public extension ViewModelMapping where View: UICollectionViewCell {
+public extension CellViewModelMappingProtocolGeneric where Cell: UICollectionViewCell {
     #if os(iOS)
     /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:itemsForBeginning:at:)` method is called.
-    func itemsForBeginningDragSession(_ closure: @escaping (UIDragSession, View, Model, IndexPath) -> [UIDragItem])
+    func itemsForBeginningDragSession(_ closure: @escaping (UIDragSession, Cell, Model, IndexPath) -> [UIDragItem])
     {
-        reactions.append(FourArgumentsEventReaction(View.self, modelType: Model.self, argument: UIDragSession.self,
+        reactions.append(FourArgumentsEventReaction(Cell.self, modelType: Model.self, argument: UIDragSession.self,
                                                     signature: EventMethodSignature.itemsForBeginningDragSessionAtIndexPath.rawValue,
                                                     closure))
     }
     
     /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:itemsForAddingTo:at:point:)` method is called.
-    func itemsForAddingToDragSession(_ closure: @escaping (UIDragSession, CGPoint, View, Model, IndexPath) -> [UIDragItem])
+    func itemsForAddingToDragSession(_ closure: @escaping (UIDragSession, CGPoint, Cell, Model, IndexPath) -> [UIDragItem])
     {
-        reactions.append(FiveArgumentsEventReaction(View.self, modelType: Model.self, argumentOne: UIDragSession.self, argumentTwo: CGPoint.self,
+        reactions.append(FiveArgumentsEventReaction(Cell.self, modelType: Model.self, argumentOne: UIDragSession.self, argumentTwo: CGPoint.self,
                                                     signature: EventMethodSignature.itemsForAddingToDragSessionAtIndexPath.rawValue,
                                                     closure))
     }
     
     /// Registers `closure` to be executed when `UICollectionViewDragDelegate.collectionView(_:dragPreviewParametersForRowAt:)` method is called.
-    func dragPreviewParameters(_ closure: @escaping (View, Model, IndexPath) -> UIDragPreviewParameters?)
+    func dragPreviewParameters(_ closure: @escaping (Cell, Model, IndexPath) -> UIDragPreviewParameters?)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self,
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self,
                                        signature: EventMethodSignature.dragPreviewParametersForItemAtIndexPath.rawValue,
                                        closure))
     }

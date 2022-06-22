@@ -77,6 +77,8 @@
 		3E37DBFB24E7E8AB008181FC /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E37DBFA24E7E8AB008181FC /* UIColor+Extensions.swift */; };
 		3EBBB78A22F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */; };
 		3EBBB78B22F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */; };
+		4143A61A28636E3900388840 /* CollectionViewCellModelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4143A61928636E3900388840 /* CollectionViewCellModelMapping.swift */; };
+		4143A61C2863712900388840 /* CollectionSupplementaryViewModelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4143A61B2863712900388840 /* CollectionSupplementaryViewModelMapping.swift */; };
 		41D02402269B411000D75BD9 /* DTCollectionViewDiffableDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41D02401269B411000D75BD9 /* DTCollectionViewDiffableDataSource.swift */; };
 		9A08A9C91B8A249300877C62 /* DTCollectionViewManager.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 9AE671491AEE61F800B25A5F /* DTCollectionViewManager.framework */; };
 		9A0E66BF2500E9F9004FF8A3 /* DiffableMultiSectionController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9A0E66BE2500E9F9004FF8A3 /* DiffableMultiSectionController.swift */; };
@@ -203,6 +205,8 @@
 		3E33C72B22B81BB0006FBB21 /* DTCollectionViewDelegateWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCollectionViewDelegateWrapper.swift; sourceTree = "<group>"; };
 		3E37DBFA24E7E8AB008181FC /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableDatasourcesTestCase.swift; sourceTree = "<group>"; };
+		4143A61928636E3900388840 /* CollectionViewCellModelMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionViewCellModelMapping.swift; sourceTree = "<group>"; };
+		4143A61B2863712900388840 /* CollectionSupplementaryViewModelMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CollectionSupplementaryViewModelMapping.swift; sourceTree = "<group>"; };
 		41D02401269B411000D75BD9 /* DTCollectionViewDiffableDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCollectionViewDiffableDataSource.swift; sourceTree = "<group>"; };
 		9A0E42302375886A0027C995 /* Example.entitlements */ = {isa = PBXFileReference; lastKnownFileType = text.plist.entitlements; path = Example.entitlements; sourceTree = "<group>"; };
 		9A0E66BE2500E9F9004FF8A3 /* DiffableMultiSectionController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableMultiSectionController.swift; sourceTree = "<group>"; };
@@ -373,12 +377,14 @@
 		3E33C71B22B81BB0006FBB21 /* DTCollectionViewManager */ = {
 			isa = PBXGroup;
 			children = (
+				4143A61928636E3900388840 /* CollectionViewCellModelMapping.swift */,
+				4143A61B2863712900388840 /* CollectionSupplementaryViewModelMapping.swift */,
 				3E33C71E22B81BB0006FBB21 /* CollectionViewFactory.swift */,
 				3E33C72822B81BB0006FBB21 /* CollectionViewUpdater.swift */,
 				3E33C72622B81BB0006FBB21 /* DTCollectionViewDataSource.swift */,
-				41D02401269B411000D75BD9 /* DTCollectionViewDiffableDataSource.swift */,
 				3E33C71F22B81BB0006FBB21 /* DTCollectionViewDelegate.swift */,
 				3E33C72B22B81BB0006FBB21 /* DTCollectionViewDelegateWrapper.swift */,
+				41D02401269B411000D75BD9 /* DTCollectionViewDiffableDataSource.swift */,
 				3E33C72022B81BB0006FBB21 /* DTCollectionViewDragDelegate.swift */,
 				3E33C72522B81BB0006FBB21 /* DTCollectionViewDropDelegate.swift */,
 				3E33C72722B81BB0006FBB21 /* DTCollectionViewDropPlaceholderContext.swift */,
@@ -783,9 +789,11 @@
 				3E33C73322B81BC4006FBB21 /* DTCollectionViewManager+Delegate.swift in Sources */,
 				3E33C73022B81BC4006FBB21 /* DTCollectionViewDragDelegate.swift in Sources */,
 				3E33C72C22B81BC4006FBB21 /* DTCollectionViewManager+DataSource.swift in Sources */,
+				4143A61C2863712900388840 /* CollectionSupplementaryViewModelMapping.swift in Sources */,
 				3E33C73522B81BC4006FBB21 /* DTCollectionViewDropDelegate.swift in Sources */,
 				3E33C72E22B81BC4006FBB21 /* CollectionViewFactory.swift in Sources */,
 				3E33C73622B81BC4006FBB21 /* DTCollectionViewDataSource.swift in Sources */,
+				4143A61A28636E3900388840 /* CollectionViewCellModelMapping.swift in Sources */,
 				9AA52DBB24C7A241002FFC89 /* DTCollectionViewManager+Deprecated.swift in Sources */,
 				3E33C73A22B81BC4006FBB21 /* DTCollectionViewManager+Registration.swift in Sources */,
 				3E33C73422B81BC4006FBB21 /* DTCollectionViewManager+Drop.swift in Sources */,
@@ -1197,7 +1205,7 @@
 			isa = XCRemoteSwiftPackageReference;
 			repositoryURL = "https://github.com/DenTelezhkin/DTModelStorage";
 			requirement = {
-				branch = main;
+				branch = feature/swiftui;
 				kind = branch;
 			};
 		};

@@ -5,8 +5,8 @@
       "kind" : "remoteSourceControl",
       "location" : "https://github.com/DenTelezhkin/DTModelStorage",
       "state" : {
-        "branch" : "main",
-        "revision" : "bc1436fcabc3483851e1252aa71ce57853bd4044"
+        "branch" : "feature/swiftui",
+        "revision" : "84dfd032c7e589d2fdad1e7cc88e297f374ce128"
       }
     }
   ],

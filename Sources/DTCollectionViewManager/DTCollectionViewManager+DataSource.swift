@@ -56,10 +56,10 @@ public extension DTCollectionViewManager {
 }
 
 /// Extension for UICollectionViewDataSource events
-public extension ViewModelMapping where View : UICollectionViewCell {
+public extension CellViewModelMappingProtocolGeneric where Cell : UICollectionViewCell {
     /// Registers `closure` to be executed, when `UICollectionViewDataSource.collectionView(_:canMoveItemAt:)` method is called.
-    func canMove(_ closure: @escaping (View, Model, IndexPath) -> Bool)
+    func canMove(_ closure: @escaping (Cell, Model, IndexPath) -> Bool)
     {
-        reactions.append(EventReaction(viewType: View.self, modelType: Model.self, signature: EventMethodSignature.canMoveItemAtIndexPath.rawValue, closure))
+        reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.canMoveItemAtIndexPath.rawValue, closure))
     }
 }
