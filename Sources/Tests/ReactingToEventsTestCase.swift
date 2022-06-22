@@ -1023,7 +1023,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     #endif
     
-#if compiler(>=5.5) && os(iOS)
+#if os(iOS)
     func testSelectionFollowsFocus() throws {
         guard #available(iOS 15, *) else { return }
         try verifyEvent(.selectionFollowsFocusForItemAtIndexPath, registration: { (sut, exp) in
@@ -1037,7 +1037,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
 #endif
     
-#if compiler(>=5.5) && os(iOS)
+#if os(iOS)
     func testTargetIndexPathForOriginalIndexPath() throws {
         guard #available(iOS 15, tvOS 15, *) else { return }
         try verifyEvent(.targetIndexPathForMoveOfItemFromOriginalIndexPath, registration: { (sut, exp) in
@@ -1111,11 +1111,9 @@ class ReactingToEventsFastTestCase : XCTestCase {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:previewForDismissingContextMenuWithConfiguration:))), EventMethodSignature.previewForDismissingContextMenu.rawValue)
         }
         
-            #if compiler(>=5.5)
-            if #available(iOS 15, *) {
-                XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:selectionFollowsFocusForItemAt:))), EventMethodSignature.selectionFollowsFocusForItemAtIndexPath.rawValue)
-            }
-            #endif
+        if #available(iOS 15, *) {
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:selectionFollowsFocusForItemAt:))), EventMethodSignature.selectionFollowsFocusForItemAtIndexPath.rawValue)
+        }
         
         #endif
         
@@ -1123,11 +1121,9 @@ class ReactingToEventsFastTestCase : XCTestCase {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canEditItemAt:))), EventMethodSignature.canEditItemAtIndexPath.rawValue)
         }
         
-        #if compiler(>=5.5)
         if #available(iOS 15, tvOS 15, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:targetIndexPathForMoveOfItemFromOriginalIndexPath:atCurrentIndexPath:toProposedIndexPath:))), EventMethodSignature.targetIndexPathForMoveOfItemFromOriginalIndexPath.rawValue)
         }
-        #endif
         
         #if os(tvOS)
         if #available(tvOS 13, *) {

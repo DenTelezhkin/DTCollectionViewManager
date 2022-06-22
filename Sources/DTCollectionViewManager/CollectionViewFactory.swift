@@ -64,15 +64,11 @@ extension CollectionViewFactory
                 }
             }
         }
-        #if compiler(<5.3)
-        registerCell()
-        #else
         if #available(iOS 14, tvOS 14, *) {
             // Registration is not needed, dequeue provided by ViewModelMapping instance
         } else {
             registerCell()
         }
-        #endif
         if !mapping.cellRegisteredByStoryboard {
             verifyCell(Cell.self, nibName: mapping.xibName, withReuseIdentifier: mapping.reuseIdentifier, in: mapping.bundle)
         }
@@ -92,15 +88,11 @@ extension CollectionViewFactory
                 }
             }
         }
-        #if compiler(<5.3)
-        registerCell()
-        #else
         if #available(iOS 14, tvOS 14, *) {
             // Registration is not needed, dequeue provided by ViewModelMapping instance
         } else {
             registerCell()
         }
-        #endif
         if !mapping.cellRegisteredByStoryboard {
             verifyCell(Cell.self, nibName: mapping.xibName, withReuseIdentifier: mapping.reuseIdentifier, in: mapping.bundle)
         }
@@ -142,15 +134,11 @@ extension CollectionViewFactory
                 }
             }
         }
-        #if compiler(<5.3)
-        registerSupplementary()
-        #else
         if #available(iOS 14, tvOS 14, *) {
             // Registration is not needed, dequeue provided by ViewModelMapping instance
         } else {
             registerSupplementary()
         }
-        #endif
         
         if !mapping.supplementaryRegisteredByStoryboard {
             verifySupplementaryView(View.self, nibName: mapping.xibName, reuseIdentifier: mapping.reuseIdentifier, in: mapping.bundle)
@@ -174,15 +162,11 @@ extension CollectionViewFactory
                 verifySupplementaryView(View.self, nibName: nil, reuseIdentifier: mapping.reuseIdentifier, in: mapping.bundle)
             }
         }
-        #if compiler(<5.3)
-        registerSupplementary()
-        #else
         if #available(iOS 14, tvOS 14, *) {
             // Registration is not needed, dequeue provided by ViewModelMapping instance
         } else {
             registerSupplementary()
         }
-        #endif
         
         mappings.append(mapping)
     }

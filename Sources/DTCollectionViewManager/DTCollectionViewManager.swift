@@ -215,7 +215,6 @@ open class DTCollectionViewManager {
         startManaging(with: collectionView)
     }
     
-#if compiler(>=5.1)
     @available(iOS 13.0, tvOS 13.0, *)
     /// Configures `UICollectionViewDiffableDataSource` to be used with `DTCollectionViewManager`.
     ///  Because `UICollectionViewDiffableDataSource` handles UICollectionView updates, `collectionViewUpdater` property on `DTCollectionViewManager` will be set to nil.
@@ -242,7 +241,6 @@ open class DTCollectionViewManager {
         
         return dataSource
     }
-#endif
     
     fileprivate var isConfigured = false
     

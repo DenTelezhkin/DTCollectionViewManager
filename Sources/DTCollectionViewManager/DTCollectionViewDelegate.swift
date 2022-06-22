@@ -269,7 +269,6 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
                                                                 with: context) ?? true
     }
 
-    #if compiler(>=5.1)
     @available(iOS 13.0, *)
     /// Implementation for `UICollectionViewDelegate` protocol
     open func collectionView(_ collectionView: UICollectionView, shouldBeginMultipleSelectionInteractionAt indexPath: IndexPath) -> Bool {
@@ -326,9 +325,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForDismissingContextMenuWithConfiguration: configuration)
     }
     
-    #endif
-    
-    #if compiler(>=5.5) && os(iOS)
+    #if os(iOS)
     @available(iOS 15, *)
     /// Implementation for `UICollectionViewDelegate` protocol
     public func collectionView(_ collectionView: UICollectionView, selectionFollowsFocusForItemAt indexPath: IndexPath) -> Bool {
@@ -343,7 +340,6 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     #endif
 #endif
     
-#if compiler(>=5.5)
     @available(iOS 15, tvOS 15, *)
     /// Implementation for `UICollectionViewDelegate` protocol
     public func collectionView(_ collectionView: UICollectionView, targetIndexPathForMoveOfItemFromOriginalIndexPath originalIndexPath: IndexPath, atCurrentIndexPath currentIndexPath: IndexPath, toProposedIndexPath proposedIndexPath: IndexPath) -> IndexPath
@@ -353,7 +349,6 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         }
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, targetIndexPathForMoveOfItemFromOriginalIndexPath: originalIndexPath, atCurrentIndexPath: currentIndexPath, toProposedIndexPath: proposedIndexPath) ?? proposedIndexPath
     }
-#endif
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
