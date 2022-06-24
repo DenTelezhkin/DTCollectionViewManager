@@ -33,7 +33,7 @@ open class CollectionSupplementaryViewModelMapping<View: UICollectionReusableVie
     public typealias View = View
     public typealias Model = Model
     
-    /// Reuse identifier to be used for reusable cells.
+    /// Reuse identifier to be used for reusable views. Mappings for UICollectionReusableView on iOS 14 / tvOS 14 and higher ignore this parameter unless you are using storyboard prototyped cells or supplementary views.
     public var reuseIdentifier : String
     
     /// Xib name for mapping. This value will not be nil only if XIBs are used for this particular mapping.

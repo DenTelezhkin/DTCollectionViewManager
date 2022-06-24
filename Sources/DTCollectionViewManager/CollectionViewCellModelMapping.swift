@@ -32,7 +32,7 @@ import UIKit
 open class CollectionViewCellModelMapping<Cell: UICollectionViewCell, Model>: CellViewModelMapping<Cell, Model>, CellViewModelMappingProtocolGeneric {
     public typealias Cell = Cell
     public typealias Model = Model
-    /// Reuse identifier to be used for reusable cells.
+    /// Reuse identifier to be used for reusable cells. Mappings for UICollectionViewCell and UICollectionReusableView on iOS 14 / tvOS 14 and higher ignore this parameter unless you are using storyboard prototyped cells or supplementary views.
     public var reuseIdentifier : String
     
     /// Xib name for mapping. This value will not be nil only if XIBs are used for this particular mapping.

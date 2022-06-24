@@ -26,6 +26,7 @@
 import Foundation
 import UIKit
 import DTModelStorage
+import SwiftUI
 
 /// Internal class, that is used to create collection view cells and supplementary views.
 final class CollectionViewFactory
@@ -50,6 +51,24 @@ final class CollectionViewFactory
 // MARK: Registration
 extension CollectionViewFactory
 {
+    
+    @available(iOS 13, tvOS 13, *)
+    func registerHostingCell<Content: View, Model>(_ content: @escaping (Model, IndexPath) -> Content, parentViewController: UIViewController?,
+                                                   hostingControllerMaker: ((AnyView) -> UIHostingController<AnyView>)?,
+                                                   mapping: ((HostingCellViewModelMapping<Content, Model>) -> Void)?) {
+        let mapping = HostingCellViewModelMapping<Content, Model>(cellContent: content, parentViewController: parentViewController, hostingControllerMaker: hostingControllerMaker, mapping: mapping)
+        if mapping.configuration.parentController == nil {
+            assertionFailure("HostingTableViewCellConfiguration.parentController is nil. This will prevent HostingCell from sizing and appearing correctly. Please set parentController to controller, that contains managed table view.")
+        }
+        if #available(iOS 14, tvOS 14, *) {
+            // Registration is not needed, dequeue provided by ViewModelMapping instance
+        } else {
+            collectionView.register(mapping.hostingCellSubclass.self, forCellWithReuseIdentifier: mapping.reuseIdentifier)
+        }
+        
+        mappings.append(mapping)
+    }
+    
     func registerCellClass<Cell:ModelTransfer>(_ cellClass: Cell.Type, handler: @escaping (Cell, Cell.ModelType, IndexPath) -> Void, mapping: ((CollectionViewCellModelMapping<Cell, Cell.ModelType>) -> Void)?)
     {
         let mapping = CollectionViewCellModelMapping<Cell, Cell.ModelType>(cellConfiguration: handler, mapping: mapping)
