@@ -31,9 +31,9 @@ import DTModelStorage
 // swiftlint:disable missing_docs
 
 @available(iOS 13, tvOS 13, *)
-public struct HostingCollectionViewCellConfiguration {
+public struct HostingCollectionViewCellConfiguration<Content:View> {
     public weak var parentController: UIViewController?
-    public var hostingControllerMaker: (AnyView) -> UIHostingController<AnyView> = { UIHostingController(rootView: $0) }
+    public var hostingControllerMaker: (Content) -> UIHostingController<Content> = { UIHostingController(rootView: $0) }
     public var configureCell: (UICollectionViewCell) -> Void = { _ in }
     public var backgroundColor: UIColor? = .clear
     public var contentViewBackgroundColor: UIColor? = .clear
@@ -45,7 +45,7 @@ open class HostingCellViewModelMapping<Content: View, Model>: CellViewModelMappi
     public typealias Cell = HostingCollectionViewCell<Content, Model>
     public typealias Model = Model
     
-    public var configuration = HostingCollectionViewCellConfiguration()
+    public var configuration = HostingCollectionViewCellConfiguration<Content>()
     
     public var hostingCellSubclass: HostingCollectionViewCell<Content, Model>.Type = HostingCollectionViewCell.self {
         didSet {
@@ -62,14 +62,10 @@ open class HostingCellViewModelMapping<Content: View, Model>: CellViewModelMappi
     
     public init(cellContent: @escaping ((Model, IndexPath) -> Content),
                 parentViewController: UIViewController?,
-                hostingControllerMaker: ((AnyView) -> UIHostingController<AnyView>)?,
                 mapping: ((HostingCellViewModelMapping<Content, Model>) -> Void)?) {
         reuseIdentifier = "\(HostingCollectionViewCell<Content, Model>.self)"
         super.init(viewClass: HostingCollectionViewCell<Content, Model>.self)
         configuration.parentController = parentViewController
-        if let hostingControllerMaker = hostingControllerMaker {
-            configuration.hostingControllerMaker = hostingControllerMaker
-        }
         _cellDequeueClosure = { [weak self] collectionView, model, indexPath in
             guard let self = self else { return nil }
             if let model = model as? Model, #available(iOS 14, tvOS 14, *) {
