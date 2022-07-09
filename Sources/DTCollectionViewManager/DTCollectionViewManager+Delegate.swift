@@ -256,7 +256,7 @@ public extension DTCollectionViewManager {
     
     #if os(iOS)
     @available(iOS 15, *)
-    /// Registers `closure` to be executed when `UITableViewDelegate.tableView(_:selectionFollowsFocusForRowAt:)`method is called for `cellClass`.
+    /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:selectionFollowsFocusForRowAt:)`method is called for `cellClass`.
     /// - Parameter Type: cell class to react for event
     /// - Parameter closure: closure to run.
     func selectionFollowsFocus<Cell:ModelTransfer>(for cellClass: Cell.Type,
@@ -354,7 +354,7 @@ public extension DTCollectionViewManager {
     }
 }
 
-// Extension for UICollectionViewDelegate events
+/// Extension for UICollectionViewDelegate events
 public extension CellViewModelMappingProtocolGeneric where Cell: UICollectionViewCell {
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:didSelectItemAt:)` method is called.
     func didSelect(_ closure: @escaping (Cell, Model, IndexPath) -> Void)
@@ -520,7 +520,7 @@ public extension CellViewModelMappingProtocolGeneric where Cell: UICollectionVie
     #endif
 }
 
-// Extension for UICollectionViewDelegate events
+/// Extension for UICollectionViewDelegate events
 public extension SupplementaryViewModelMappingProtocolGeneric where View: UICollectionReusableView {
     /// Registers `closure` to be executed, when `UICollectionViewDelegate.collectionView(_:willDisplaySupplementaryView:forElementKind:at:)` method is called.
     func willDisplaySupplementaryView(_ closure: @escaping (View, Model, IndexPath) -> Void)

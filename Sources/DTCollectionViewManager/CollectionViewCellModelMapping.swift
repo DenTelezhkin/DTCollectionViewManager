@@ -27,10 +27,11 @@ import Foundation
 import DTModelStorage
 import UIKit
 
-// swiftlint:disable missing_docs
-
+/// UICollectionViewCell - Model mapping
 open class CollectionViewCellModelMapping<Cell: UICollectionViewCell, Model>: CellViewModelMapping<Cell, Model>, CellViewModelMappingProtocolGeneric {
+    /// Cell type
     public typealias Cell = Cell
+    /// Model type
     public typealias Model = Model
     /// Reuse identifier to be used for reusable cells. Mappings for UICollectionViewCell and UICollectionReusableView on iOS 14 / tvOS 14 and higher ignore this parameter unless you are using storyboard prototyped cells or supplementary views.
     public var reuseIdentifier : String
@@ -38,7 +39,7 @@ open class CollectionViewCellModelMapping<Cell: UICollectionViewCell, Model>: Ce
     /// Xib name for mapping. This value will not be nil only if XIBs are used for this particular mapping.
     public var xibName: String?
     
-    /// Bundle in which resources for this mapping will be searched for. For example, `DTTableViewManager` uses this property to get bundle, from which xib file for `UITableViewCell` will be retrieved. Defaults to `Bundle(for: Cell.self)`.
+    /// Bundle in which resources for this mapping will be searched for. For example, `DTCollectionViewManager` uses this property to get bundle, from which xib file for `UICollectionViewCell` will be retrieved. Defaults to `Bundle(for: Cell.self)`.
     /// When used for events that rely on modelClass(`.eventsModelMapping(viewType: modelClass:` method) defaults to `Bundle.main`.
     public var bundle: Bundle
     
@@ -53,7 +54,7 @@ open class CollectionViewCellModelMapping<Cell: UICollectionViewCell, Model>: Ce
     
     private var _cellRegistration: Any?
     
-    /// Creates `ViewModelMapping` for UITableViewCell registration.
+    /// Creates `ViewModelMapping` for UICollectionViewCell registration.
     /// - Parameters:
     ///   - cellConfiguration: Cell handler closure to be executed when cell is dequeued.
     ///   - mapping: mapping closure, that is executed at the end of initializer to allow mapping customization.
@@ -100,7 +101,7 @@ open class CollectionViewCellModelMapping<Cell: UICollectionViewCell, Model>: Ce
         }
     }
     
-    /// Creates `ViewModelMapping` for UITableViewCell registration. This initializer is used, when UITableViewCell conforms to `ModelTransfer` protocol.
+    /// Creates `ViewModelMapping` for UICollectionViewCell registration. This initializer is used, when UICollectionViewCell conforms to `ModelTransfer` protocol.
     /// - Parameters:
     ///   - cellConfiguration: Cell handler closure to be executed when cell is dequeued.
     ///   - mapping: mapping closure, that is executed at the end of initializer to allow mapping customization.
@@ -154,14 +155,25 @@ open class CollectionViewCellModelMapping<Cell: UICollectionViewCell, Model>: Ce
         }
     }
     
+    /// Updates cell with model
+    /// - Parameters:
+    ///   - cell: cell instance. Must be of `UICollectionViewCell`.Type.
+    ///   - indexPath: indexPath of a cell
+    ///   - model: model, mapped to a cell.
     open override func updateCell(cell: Any, at indexPath: IndexPath, with model: Any) {
         guard let cell = cell as? UICollectionViewCell else {
-            preconditionFailure("Cannot update a cell, which is not a UITableViewCell")
+            preconditionFailure("Cannot update a cell, which is not a UICollectionViewCell")
         }
         _cellConfigurationHandler?(cell, model, indexPath)
         updateBlock(cell, model)
     }
     
+    /// Dequeues reusable cell for `model`, `indexPath` from `collectionView`. Calls `cellConfiguration` closure, that was passed to initializer, then calls `ModelTransfer.update(with:)` if this cell conforms to `ModelTransfer` protocol.
+    /// - Parameters:
+    ///   - collectionView: UICollectionView instance to dequeue cell from
+    ///   - model: model object, that was mapped to cell type.
+    ///   - indexPath: IndexPath, at which cell is going to be displayed.
+    /// - Returns: dequeued configured UICollectionViewCell instance.
     open override func dequeueConfiguredReusableCell(for collectionView: UICollectionView, model: Any, indexPath: IndexPath) -> UICollectionViewCell? {
         guard let cell = _cellDequeueClosure?(collectionView, model, indexPath) else {
             return nil
@@ -170,12 +182,9 @@ open class CollectionViewCellModelMapping<Cell: UICollectionViewCell, Model>: Ce
         return cell
     }
     
-    /// Dequeues reusable cell for `model`, `indexPath` from `tableView`. Calls `cellConfiguration` closure, that was passed to initializer, then calls `ModelTransfer.update(with:)` if this cell conforms to `ModelTransfer` protocol.
-    /// - Parameters:
-    ///   - tableView: UITableView instance to dequeue cell from
-    ///   - model: model object, that was mapped to cell type.
-    ///   - indexPath: IndexPath, at which cell is going to be displayed.
-    /// - Returns: dequeued configured UITableViewCell instance.
+    
+    @available(*, unavailable, message: "Dequeuing UITableViewCell from collection view mapping is not supported")
+    /// Unavailable method
     open override func dequeueConfiguredReusableCell(for tableView: UITableView, model: Any, indexPath: IndexPath) -> UITableViewCell? {
         preconditionFailure("Cannot dequeue UITableViewCell from CollectionViewCell mapping")
     }

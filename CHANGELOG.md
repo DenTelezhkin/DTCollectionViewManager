@@ -3,6 +3,34 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## **Introducing support for SwiftUI!**
+
+Registering SwiftUI views as content for collection view cells:
+
+```swift
+manager.registerHostingCell(for: Post.self) { model, indexPath in
+    PostSwiftUIView(model: model)
+}
+```
+
+This method is supported on iOS 13+ / tvOS 13+ / macCatalyst 13+. 
+
+> Please note, that this integration is not supported by Apple, therefore it comes with several workarounds, please read more about those in [SwiftUI support document](Documentation/SwiftUI.md)
+
+### Added
+
+* `HostingCellViewModelMapping` - `CellViewModelMapping` subclass to register mappings fro SwiftUI views.
+* `HostingCollectionViewCell` - `UICollectionViewCell` subclass , implementing container for SwiftUI view embedded into it.
+* `HostingCollectionViewCellConfiguration` - configuration for SwiftUI views hosting inside `HostingCollectionViewCell`.
+
+### Changed
+
+* Event reactions are now defined in protocol extension instead of extending former `ViewModelMapping` protocol, thus allowing to call those methods not only for UIKit mappings, but SwiftUI-hosted cells as well.
+
+### Breaking
+
+* `ViewModelMapping` class and it's protocol have been split into multiple classes and protocols for better subclassability (for example `CellViewModelMapping` / `CollectionViewCellModelMapping`). Please note, that while technically this is breaking, it's very unlikely to break anything in code, since this type is only present in mapping closures, and public interfaces did not change at all.
+
 ## [10.0.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/10.0.0)
 
 ### Added

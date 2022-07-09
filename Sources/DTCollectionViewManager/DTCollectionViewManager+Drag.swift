@@ -27,7 +27,7 @@ import Foundation
 import UIKit
 import DTModelStorage
 
-// Extension for UICollectionViewDragDelegate events
+/// Extension for UICollectionViewDragDelegate events
 public extension DTCollectionViewManager {
     
     #if os(iOS)

@@ -28,25 +28,41 @@ import UIKit
 import SwiftUI
 import DTModelStorage
 
-// swiftlint:disable missing_docs
-
 @available(iOS 13, tvOS 13, *)
+/// Configuration to be applied to `HostingCollectionViewCell`.
 public struct HostingCollectionViewCellConfiguration<Content:View> {
+    
+    /// Parent view controller, that will have hosting controller added as a child, when cell is dequeued. Setting this property to nil causes assertionFailure.
     public weak var parentController: UIViewController?
+    
+    /// Closure, that allows customizing which UIHostingController is created for hosted cell.
     public var hostingControllerMaker: (Content) -> UIHostingController<Content> = { UIHostingController(rootView: $0) }
+    
+    /// Configuration handler for `HostingCollectionViewCell`, that is being run every time cell is updated.
     public var configureCell: (UICollectionViewCell) -> Void = { _ in }
+    
+    /// Background color set for `HostingCollectionViewCell`. Defaults to .clear.
     public var backgroundColor: UIColor? = .clear
+    
+    /// Background color set for `HostingCollectionViewCell`.`contentView`. Defaults to .clear.
     public var contentViewBackgroundColor: UIColor? = .clear
+    
+    /// Background color set for UIHostingViewController.view. Defaults to .clear.
     public var hostingViewBackgroundColor: UIColor? = .clear
 }
 
 @available(iOS 13, tvOS 13, *)
+/// Cell - Model mapping for SwiftUI hosted cell.
 open class HostingCellViewModelMapping<Content: View, Model>: CellViewModelMapping<Content, Model>, CellViewModelMappingProtocolGeneric {
+    /// Cell type
     public typealias Cell = HostingCollectionViewCell<Content, Model>
+    /// Model type
     public typealias Model = Model
     
+    /// Configuration to use when updating cell
     public var configuration = HostingCollectionViewCellConfiguration<Content>()
     
+    /// Custom subclass type of HostingCollectionViewCell. When set, resets reuseIdentifier to subclass type.
     public var hostingCellSubclass: HostingCollectionViewCell<Content, Model>.Type = HostingCollectionViewCell.self {
         didSet {
             reuseIdentifier = "\(hostingCellSubclass.self)"
@@ -60,6 +76,11 @@ open class HostingCellViewModelMapping<Content: View, Model>: CellViewModelMappi
     private var _cellDequeueClosure: ((_ containerView: UICollectionView, _ model: Any, _ indexPath: IndexPath) -> UICollectionViewCell?)?
     private var _cellRegistration: Any?
     
+    /// Creates hosting cell model mapping
+    /// - Parameters:
+    ///   - cellContent: closure, creating SwiftUI view
+    ///   - parentViewController: parent view controller, to which UIHostingController will be added as child.
+    ///   - mapping: mapping closure
     public init(cellContent: @escaping ((Model, IndexPath) -> Content),
                 parentViewController: UIViewController?,
                 mapping: ((HostingCellViewModelMapping<Content, Model>) -> Void)?) {
@@ -93,18 +114,31 @@ open class HostingCellViewModelMapping<Content: View, Model>: CellViewModelMappi
         }
     }
     
+    /// Updates cell with model
+    /// - Parameters:
+    ///   - cell: cell instance. Must be of `UICollectionViewCell`.Type.
+    ///   - indexPath: indexPath of a cell
+    ///   - model: model, mapped to a cell.
     open override func updateCell(cell: Any, at indexPath: IndexPath, with model: Any) {
         guard let cell = cell as? UICollectionViewCell else {
-            preconditionFailure("Cannot update a cell, which is not a UITableViewCell")
+            preconditionFailure("Cannot update a cell, which is not a UICollectionViewCell")
         }
         _cellConfigurationHandler?(cell, model, indexPath)
     }
     
+    @available(*, unavailable, message: "Dequeuing UITableViewCell from collection view mapping is not supported.")
+    /// Unavailable method
     open override func dequeueConfiguredReusableCell(for tableView: UITableView, model: Any, indexPath: IndexPath) -> UITableViewCell? {
         preconditionFailure("This method should not be used in UICollectionView cell view model mapping")
         
     }
     
+    /// Dequeues reusable cell for `model`, `indexPath` from `collectionView`.
+    /// - Parameters:
+    ///   - collectionView: UICollectionView instance to dequeue cell from
+    ///   - model: model object, that was mapped to cell type.
+    ///   - indexPath: IndexPath, at which cell is going to be displayed.
+    /// - Returns: dequeued configured UICollectionViewCell instance.
     open override func dequeueConfiguredReusableCell(for collectionView: UICollectionView, model: Any, indexPath: IndexPath) -> UICollectionViewCell? {
         guard let cell = _cellDequeueClosure?(collectionView, model, indexPath) else {
             return nil

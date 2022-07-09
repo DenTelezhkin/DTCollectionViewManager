@@ -57,7 +57,7 @@ extension CollectionViewFactory
                                                    mapping: ((HostingCellViewModelMapping<Content, Model>) -> Void)?) {
         let mapping = HostingCellViewModelMapping<Content, Model>(cellContent: content, parentViewController: parentViewController, mapping: mapping)
         if mapping.configuration.parentController == nil {
-            assertionFailure("HostingTableViewCellConfiguration.parentController is nil. This will prevent HostingCell from sizing and appearing correctly. Please set parentController to controller, that contains managed table view.")
+            assertionFailure("HostingCollectionViewCellConfiguration.parentController is nil. This will prevent HostingCell from sizing and appearing correctly. Please set parentController to controller, that contains managed collection view.")
         }
         if #available(iOS 14, tvOS 14, *) {
             // Registration is not needed, dequeue provided by ViewModelMapping instance

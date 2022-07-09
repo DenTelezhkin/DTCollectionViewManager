@@ -27,18 +27,21 @@ import Foundation
 import UIKit
 import SwiftUI
 
-
-// swiftlint:disable missing_docs
-
 @available(iOS 13, tvOS 13, *)
+/// Cell subclass, that allows hosting SwiftUI content inside UICollectionViewCell.
 open class HostingCollectionViewCell<Content: View, Model>: UICollectionViewCell {
 
     private var hostingController: UIHostingController<Content>?
     
+    /// Updates cell with new SwiftUI view. If the cell is being reused, it's hosting controller will also be reused.
+    /// - Parameters:
+    ///   - rootView: SwiftUI view
+    ///   - configuration: configuration to use while updating
     open func updateWith(rootView: Content, configuration: HostingCollectionViewCellConfiguration<Content>) {
         if let existingHosting = hostingController {
             existingHosting.rootView = rootView
             hostingController?.view.invalidateIntrinsicContentSize()
+            configuration.configureCell(self)
         } else {
             let hosting = configuration.hostingControllerMaker(rootView)
             hostingController = hosting

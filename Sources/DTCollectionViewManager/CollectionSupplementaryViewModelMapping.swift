@@ -27,10 +27,11 @@ import Foundation
 import DTModelStorage
 import UIKit
 
-// swiftlint:disable missing_docs
-
+/// Supplementary view - model mapping
 open class CollectionSupplementaryViewModelMapping<View: UICollectionReusableView, Model>: SupplementaryViewModelMapping<View, Model>, SupplementaryViewModelMappingProtocolGeneric {
+    /// View type
     public typealias View = View
+    /// Model type
     public typealias Model = Model
     
     /// Reuse identifier to be used for reusable views. Mappings for UICollectionReusableView on iOS 14 / tvOS 14 and higher ignore this parameter unless you are using storyboard prototyped cells or supplementary views.
@@ -154,11 +155,18 @@ open class CollectionSupplementaryViewModelMapping<View: UICollectionReusableVie
         }
     }
     
-    
+    @available(*, unavailable, message: "Dequeueing UITableView header footer view from collection view mapping is not supported.")
+    /// Unavailable method
     open override func dequeueConfiguredReusableSupplementaryView(for tableView: UITableView, kind: String, model: Any, indexPath: IndexPath) -> UIView? {
         preconditionFailure("\(#function) should not be called with UITableView headers/footers")
     }
     
+    /// Dequeues reusable supplementary view for `model`, `indexPath` from `collectionView`. Calls `cellConfiguration` closure, that was passed to initializer, then calls `ModelTransfer.update(with:)` if this supplementary view conforms to `ModelTransfer` protocol.
+    /// - Parameters:
+    ///   - collectionView: UICollectionView instance to dequeue supplementary view from
+    ///   - model: model object, that was mapped to supplementary view type.
+    ///   - indexPath: IndexPath, at which supplementary view is going to be displayed.
+    /// - Returns: dequeued configured UICollectionReusableView instance.
     open override func dequeueConfiguredReusableSupplementaryView(for collectionView: UICollectionView, kind: String, model: Any, indexPath: IndexPath) -> UICollectionReusableView? {
         guard viewType == .supplementaryView(kind: kind) else {
             return nil
