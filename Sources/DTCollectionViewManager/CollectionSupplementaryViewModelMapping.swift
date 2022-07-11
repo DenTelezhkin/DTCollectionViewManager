@@ -161,7 +161,7 @@ open class CollectionSupplementaryViewModelMapping<View: UICollectionReusableVie
         preconditionFailure("\(#function) should not be called with UITableView headers/footers")
     }
     
-    /// Dequeues reusable supplementary view for `model`, `indexPath` from `collectionView`. Calls `cellConfiguration` closure, that was passed to initializer, then calls `ModelTransfer.update(with:)` if this supplementary view conforms to `ModelTransfer` protocol.
+    /// Dequeues reusable supplementary view for `model`, `indexPath` from `collectionView`. Calls `supplementaryConfiguration` closure, that was passed to initializer, then calls `ModelTransfer.update(with:)` if this supplementary view conforms to `ModelTransfer` protocol.
     /// - Parameters:
     ///   - collectionView: UICollectionView instance to dequeue supplementary view from
     ///   - model: model object, that was mapped to supplementary view type.
