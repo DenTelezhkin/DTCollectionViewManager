@@ -26,7 +26,7 @@
 import Foundation
 import DTModelStorage
 
-/// `DTCollectionViewManagerAnomaly` represents various errors and unwanted behaviors that can happen when using `DTTableViewManager` class.
+/// `DTCollectionViewManagerAnomaly` represents various errors and unwanted behaviors that can happen when using `DTCollectionViewManager` class.
 /// - SeeAlso: `MemoryStorageAnomaly`, `DTTableViewManagerAnomaly`.
 public enum DTCollectionViewManagerAnomaly: Equatable, CustomStringConvertible, CustomDebugStringConvertible {
     
@@ -122,7 +122,7 @@ public enum DTCollectionViewManagerAnomaly: Equatable, CustomStringConvertible, 
     }
 }
 
-/// `DTCollectionViewManagerAnomalyHandler` handles anomalies from `DTTableViewManager`.
+/// `DTCollectionViewManagerAnomalyHandler` handles anomalies from `DTCollectionViewManager`.
 open class DTCollectionViewManagerAnomalyHandler : AnomalyHandler {
     
     /// Default action to perform when anomaly is detected. Prints debugDescription of anomaly by default.

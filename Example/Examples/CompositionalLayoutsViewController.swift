@@ -8,6 +8,7 @@
 
 import UIKit
 import DTCollectionViewManager
+import SwiftUI
 
 class CompositionalLayoutsViewController: UIViewController, DTCollectionViewManageable {
 
@@ -16,11 +17,9 @@ class CompositionalLayoutsViewController: UIViewController, DTCollectionViewMana
     override func viewDidLoad() {
         super.viewDidLoad()
         configureHierarchy()
-        manager.register(UICollectionViewCell.self, for: UIColor.self) { cell, model, _ in
-            cell.backgroundColor = model
-            cell.clipsToBounds = true
-            cell.layer.cornerRadius = 10
-            cell.layer.maskedCorners = [.layerMaxXMaxYCorner, .layerMaxXMinYCorner, .layerMinXMaxYCorner, .layerMinXMinYCorner]
+        manager.registerHostingCell(for: UIColor.self) { color, _ in
+            RoundedRectangle(cornerRadius: 10)
+                .foregroundColor(Color(color))
         }
         manager.memoryStorage.setItems((0...100).map { _ in UIColor.random })
     }

@@ -26,6 +26,7 @@
 import Foundation
 import UIKit
 import DTModelStorage
+import SwiftUI
 
 /// Adopting this protocol will automatically inject manager property to your object, that lazily instantiates DTCollectionViewManager object.
 /// Target is not required to be UICollectionViewController, and can be a regular UIViewController with UICollectionView, or any other view, that contains UICollectionView.
