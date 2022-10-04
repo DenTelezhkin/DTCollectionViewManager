@@ -1078,6 +1078,42 @@ class ReactingToEventsFastTestCase : XCTestCase {
             $0.manager.collectionDelegate?.collectionView(sut.collectionView, performPrimaryActionForItemAt: indexPath(0, 0))
         })
     }
+    
+    
+    #if os(iOS)
+    func testContextMenuConfigurationForMultipleItems() throws {
+        guard #available(iOS 16, *) else { return }
+        let exp = expectation(description: "previewForHighlightingContextMenuWith")
+        sut.manager.contextMenuConfigurationForItemsAtIndexPaths { indexPaths, point in
+            exp.fulfill()
+            return nil
+        }
+        _ = sut.manager.collectionDelegate?.collectionView(sut.collectionView, contextMenuConfigurationForItemsAt: [], point: .zero)
+        waitForExpectations(timeout: 1, handler: nil)
+    }
+    
+    func testHighlightPreview() throws {
+        guard #available(iOS 16, *) else { return }
+        try verifyEvent(.highlightPreviewForItemAtIndexPath, registration: { sut, exp in
+            sut.manager.register(NibCell.self) {
+                $0.highlightPreview(self.fullfill(exp, andReturn: nil))
+            }
+        }, preparation: addIntItem(), action: {
+            $0.manager.collectionDelegate?.collectionView(sut.collectionView, contextMenuConfiguration: .init(), highlightPreviewForItemAt: indexPath(0, 0))
+        })
+    }
+    
+    func testDismissalPreview() throws {
+        guard #available(iOS 16, *) else { return }
+        try verifyEvent(.dismissalPreviewForItemAtIndexPath, registration: { sut, exp in
+            sut.manager.register(NibCell.self) {
+                $0.dismissalPreview(self.fullfill(exp, andReturn: nil))
+            }
+        }, preparation: addIntItem(), action: {
+            $0.manager.collectionDelegate?.collectionView(sut.collectionView, contextMenuConfiguration: .init(), dismissalPreviewForItemAt: indexPath(0, 0))
+        })
+    }
+    #endif
 #endif
     
     func testAllDelegateMethodSignatures() {
@@ -1168,6 +1204,12 @@ class ReactingToEventsFastTestCase : XCTestCase {
         if #available(iOS 16, tvOS 16, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canPerformPrimaryActionForItemAt:))), EventMethodSignature.canPerformPrimaryActionForItemAtIndexPath.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:performPrimaryActionForItemAt:))), EventMethodSignature.performPrimaryActionForItemAtIndexPath.rawValue)
+            
+            #if os(iOS)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:contextMenuConfigurationForItemsAt:point:))), EventMethodSignature.contextMenuConfigurationForItemsAtIndexPaths.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:contextMenuConfiguration:highlightPreviewForItemAt:))), EventMethodSignature.highlightPreviewForItemAtIndexPath.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:contextMenuConfiguration:dismissalPreviewForItemAt:))), EventMethodSignature.dismissalPreviewForItemAtIndexPath.rawValue)
+            #endif
         }
 #endif
         

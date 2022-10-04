@@ -294,6 +294,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     }
     
     @available(iOS 13.0, *)
+    @available(iOS, deprecated: 16.0)
     /// Implementation for `UICollectionViewDelegate` protocol
     open func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemAt indexPath: IndexPath, point: CGPoint) -> UIContextMenuConfiguration? {
         if let _ = cellReaction(.contextMenuConfigurationForItemAtIndexPath, location: indexPath) as? FourArgumentsEventReaction {
@@ -308,6 +309,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     }
     
     @available(iOS 13.0, *)
+    @available(iOS, deprecated: 16.0)
     /// Implementation for `UICollectionViewDelegate` protocol
     open func collectionView(_ collectionView: UICollectionView, previewForHighlightingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         if unmappedReactions.contains(where: { $0.methodSignature == EventMethodSignature.previewForHighlightingContextMenu.rawValue }) {
@@ -317,6 +319,7 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
     }
     
     @available(iOS 13.0, *)
+    @available(iOS, deprecated: 16.0)
     /// Implementation for `UICollectionViewDelegate` protocol
     open func collectionView(_ collectionView: UICollectionView, previewForDismissingContextMenuWithConfiguration configuration: UIContextMenuConfiguration) -> UITargetedPreview? {
         if unmappedReactions.contains(where: { $0.methodSignature == EventMethodSignature.previewForDismissingContextMenu.rawValue }) {
@@ -364,6 +367,35 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         _ = performCellReaction(.performPrimaryActionForItemAtIndexPath, location: indexPath, provideCell: true)
         (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, performPrimaryActionForItemAt: indexPath)
     }
+    
+    #if os(iOS)
+    @available(iOS 16, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    public func collectionView(_ collectionView: UICollectionView, contextMenuConfigurationForItemsAt indexPaths: [IndexPath], point: CGPoint) -> UIContextMenuConfiguration? {
+        if unmappedReactions.contains(where: { $0.methodSignature == EventMethodSignature.contextMenuConfigurationForItemsAtIndexPaths.rawValue }) {
+            return performNonCellReaction(.contextMenuConfigurationForItemsAtIndexPaths, argumentOne: indexPaths, argumentTwo: point) as? UIContextMenuConfiguration
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, contextMenuConfigurationForItemsAt: indexPaths, point: point)
+    }
+    
+    @available(iOS 16, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    public func collectionView(_ collectionView: UICollectionView, contextMenuConfiguration configuration: UIContextMenuConfiguration, highlightPreviewForItemAt indexPath: IndexPath) -> UITargetedPreview? {
+        if let _ = cellReaction(.highlightPreviewForItemAtIndexPath, location: indexPath) as? FourArgumentsEventReaction {
+            return perform4ArgumentCellReaction(.highlightPreviewForItemAtIndexPath, argument: configuration, location: indexPath, provideCell: true) as? UITargetedPreview
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, contextMenuConfiguration: configuration, highlightPreviewForItemAt: indexPath)
+    }
+    
+    @available(iOS 16, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    public func collectionView(_ collectionView: UICollectionView, contextMenuConfiguration configuration: UIContextMenuConfiguration, dismissalPreviewForItemAt indexPath: IndexPath) -> UITargetedPreview? {
+        if let _ = cellReaction(.dismissalPreviewForItemAtIndexPath, location: indexPath) as? FourArgumentsEventReaction {
+            return perform4ArgumentCellReaction(.dismissalPreviewForItemAtIndexPath, argument: configuration, location: indexPath, provideCell: true) as? UITargetedPreview
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, contextMenuConfiguration: configuration, dismissalPreviewForItemAt: indexPath)
+    }
+    #endif
 #endif
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.

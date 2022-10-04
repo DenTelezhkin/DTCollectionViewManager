@@ -394,6 +394,11 @@ internal enum EventMethodSignature: String {
     case canPerformPrimaryActionForItemAtIndexPath = "collectionView:canPerformPrimaryActionForItemAtIndexPath:"
     case performPrimaryActionForItemAtIndexPath = "collectionView:performPrimaryActionForItemAtIndexPath:"
     
+    // iOS 16 SDK
+    case contextMenuConfigurationForItemsAtIndexPaths = "collectionView:contextMenuConfigurationForItemsAtIndexPaths:point:"
+    case highlightPreviewForItemAtIndexPath = "collectionView:contextMenuConfiguration:highlightPreviewForItemAtIndexPath:"
+    case dismissalPreviewForItemAtIndexPath = "collectionView:contextMenuConfiguration:dismissalPreviewForItemAtIndexPath:"
+    
     // UICollectionViewDelegateFlowLayout
     case sizeForItemAtIndexPath = "collectionView:layout:sizeForItemAtIndexPath:"
     case referenceSizeForHeaderInSection = "collectionView:layout:referenceSizeForHeaderInSection:_imaginarySelector"

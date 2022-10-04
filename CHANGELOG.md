@@ -6,6 +6,7 @@ All notable changes to this project will be documented in this file.
 ### Added
 
 * Support for `UICollectionViewDelegate.collectionView(_:canPerformPrimaryActionForItemAt:)` and `UICollectionViewDelegate.collectionView(_:performPrimaryActionForItemAt:)` delegate methods on iOS 16 and tvOS 16.
+* Support for `UICollectionViewDelegate.collectionView(_:contextMenuConfigurationForItemsAt:point:)`, `UICollectionViewDelegate.collectionView(_:contextMenuConfiguration:highlightPreviewForItemAt:`) and `UICollectionViewDelegate.collectionView(_:contextMenuConfiguration:dismissalPreviewForItemAt:` methods on iOS 16.
 
 ### Deprecated
 

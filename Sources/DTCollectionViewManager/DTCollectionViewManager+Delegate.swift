@@ -244,6 +244,7 @@ public extension DTCollectionViewManager {
     }
     
     @available(iOS 13.0, *)
+    @available(iOS, deprecated: 16.0, message: "Please use contextMenuConuConfigurationForItemsAtIndexPaths: method instead")
     /// Registers `closure` to be executed when `UICollectionViewDelegate.contextMenuConfigurationForItemAt(_:point:)` method is called
     func contextMenuConfiguration<Cell:ModelTransfer>(for cellClass: Cell.Type,
                                                         _ closure: @escaping (CGPoint, Cell, Cell.ModelType, IndexPath) -> UIContextMenuConfiguration?)
@@ -254,7 +255,13 @@ public extension DTCollectionViewManager {
                                                closure: closure)
     }
     
+    @available(iOS 16, *)
+    func contextMenuConfigurationForItemsAtIndexPaths(_ closure: @escaping ([IndexPath], CGPoint) -> UIContextMenuConfiguration?) {
+        collectionDelegate?.appendNonCellReaction(.contextMenuConfigurationForItemsAtIndexPaths, closure: closure)
+    }
+    
     @available(iOS 13.0, *)
+    @available(iOS, deprecated: 16.0, message: "Please use highlightPreview: method instead")
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:previewForHighlightingContextMenuWithConfiguration:)` method is called
     func previewForHighlightingContextMenu(_ closure: @escaping (UIContextMenuConfiguration) -> UITargetedPreview?)
     {
@@ -262,6 +269,7 @@ public extension DTCollectionViewManager {
     }
     
     @available(iOS 13.0, *)
+    @available(iOS, deprecated: 16.0, message: "Please use dismissalPreview: method instead")
     /// Registers `closure` to be executed when `UICollectionViewDelegate.collectionView(_:previewForDismissingContextMenuWithConfiguration:)` method is called
     func previewForDismissingContextMenu(_ closure: @escaping (UIContextMenuConfiguration) -> UITargetedPreview?)
     {
@@ -477,6 +485,16 @@ public extension CellViewModelMappingProtocolGeneric where Cell: UICollectionVie
     func contextMenuConfiguration(_ closure: @escaping (CGPoint, Cell, Model, IndexPath) -> UIContextMenuConfiguration?)
     {
         reactions.append(FourArgumentsEventReaction(Cell.self, modelType: Model.self, argument: CGPoint.self, signature: EventMethodSignature.contextMenuConfigurationForItemAtIndexPath.rawValue, closure))
+    }
+    
+    @available(iOS 16, *)
+    func highlightPreview(_ closure: @escaping (UIContextMenuConfiguration, Cell, Model, IndexPath) -> UITargetedPreview?) {
+        reactions.append(FourArgumentsEventReaction(Cell.self, modelType: Model.self, argument: UIContextMenuConfiguration.self, signature: EventMethodSignature.highlightPreviewForItemAtIndexPath.rawValue, closure))
+    }
+    
+    @available(iOS 16, *)
+    func dismissalPreview(_ closure: @escaping (UIContextMenuConfiguration, Cell, Model, IndexPath) -> UITargetedPreview?) {
+        reactions.append(FourArgumentsEventReaction(Cell.self, modelType: Model.self, argument: UIContextMenuConfiguration.self, signature: EventMethodSignature.dismissalPreviewForItemAtIndexPath.rawValue, closure))
     }
 #endif
     
