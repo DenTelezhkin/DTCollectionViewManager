@@ -306,7 +306,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     
     func verifyEvent<U>(_ signature: EventMethodSignature,
                                                    registration: (DTCellTestCollectionController, XCTestExpectation) -> Void,
-                                                   alternativeRegistration: (DTCellTestCollectionController, XCTestExpectation) -> Void,
+                                                   alternativeRegistration: ((DTCellTestCollectionController, XCTestExpectation) -> Void)? = nil,
                                                    preparation: (DTCellTestCollectionController) -> Void,
                                                    action: (DTCellTestCollectionController) throws -> U) throws {
         guard let sut = sut else {
@@ -323,11 +323,13 @@ class ReactingToEventsFastTestCase : XCTestCase {
         
         unregisterAll()
         
-        let altExp = expectation(description: signature.rawValue)
-        alternativeRegistration(sut,altExp)
-        preparation(sut)
-        _ = try action(sut)
-        wait(for: [altExp], timeout: 1)
+        if let alternativeRegistration = alternativeRegistration {
+            let altExp = expectation(description: signature.rawValue)
+            alternativeRegistration(sut,altExp)
+            preparation(sut)
+            _ = try action(sut)
+            wait(for: [altExp], timeout: 1)
+        }
     }
     
     @available(tvOS 9.0, *)
@@ -1054,6 +1056,30 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
 #endif
     
+#if swift(>=5.7)
+    func testCanPerformPrimaryAction() throws {
+        guard #available(iOS 16, tvOS 16, *) else { return }
+        try verifyEvent(.canPerformPrimaryActionForItemAtIndexPath, registration: { sut, exp in
+            sut.manager.register(NibCell.self) {
+                $0.canPerformPrimaryAction(self.fullfill(exp, andReturn: true))
+            }
+        }, preparation: addIntItem(), action: {
+            $0.manager.collectionDelegate?.collectionView(sut.collectionView, canPerformPrimaryActionForRowAt: indexPath(0, 0))
+        })
+    }
+    
+    func testPerformPrimaryAction() throws {
+        guard #available(iOS 16, tvOS 16, *) else { return }
+        try verifyEvent(.performPrimaryActionForItemAtIndexPath, registration: { sut, exp in
+            sut.manager.register(NibCell.self) {
+                $0.performPrimaryAction(self.fullfill(exp, andReturn: ()))
+            }
+        }, preparation: addIntItem(), action: {
+            $0.manager.collectionDelegate?.collectionView(sut.collectionView, performPrimaryActionForItemAt: indexPath(0, 0))
+        })
+    }
+#endif
+    
     func testAllDelegateMethodSignatures() {
         if #available(tvOS 9, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDataSource.collectionView(_:canMoveItemAt:))), EventMethodSignature.canMoveItemAtIndexPath.rawValue)
@@ -1137,6 +1163,13 @@ class ReactingToEventsFastTestCase : XCTestCase {
             XCTAssertEqual(String(describing: #selector(TVCollectionViewDelegateFullScreenLayout.collectionView(_:layout:didCenterCellAt:))), EventMethodSignature.didCenterCellAtIndexPath.rawValue)
         }
         #endif
+        
+#if swift(>=5.7)
+        if #available(iOS 16, tvOS 16, *) {
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canPerformPrimaryActionForItemAt:))), EventMethodSignature.canPerformPrimaryActionForItemAtIndexPath.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:performPrimaryActionForItemAt:))), EventMethodSignature.performPrimaryActionForItemAtIndexPath.rawValue)
+        }
+#endif
         
         XCTAssertEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:sizeForItemAt:))), EventMethodSignature.sizeForItemAtIndexPath.rawValue)
         XCTAssertEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:insetForSectionAt:))), EventMethodSignature.insetForSectionAtIndex.rawValue)

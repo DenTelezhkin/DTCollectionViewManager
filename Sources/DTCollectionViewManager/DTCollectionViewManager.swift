@@ -391,6 +391,8 @@ internal enum EventMethodSignature: String {
     case canEditItemAtIndexPath = "collectionView:canEditItemAtIndexPath:"
     case selectionFollowsFocusForItemAtIndexPath = "collectionView:selectionFollowsFocusForItemAtIndexPath:"
     case targetIndexPathForMoveOfItemFromOriginalIndexPath = "collectionView:targetIndexPathForMoveOfItemFromOriginalIndexPath:atCurrentIndexPath:toProposedIndexPath:"
+    case canPerformPrimaryActionForItemAtIndexPath = "collectionView:canPerformPrimaryActionForItemAtIndexPath:"
+    case performPrimaryActionForItemAtIndexPath = "collectionView:performPrimaryActionForItemAtIndexPath:"
     
     // UICollectionViewDelegateFlowLayout
     case sizeForItemAtIndexPath = "collectionView:layout:sizeForItemAtIndexPath:"

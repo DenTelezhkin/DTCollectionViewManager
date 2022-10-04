@@ -3,6 +3,28 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+### Added
+
+* Support for `UICollectionViewDelegate.collectionView(_:canPerformPrimaryActionForItemAt:)` and `UICollectionViewDelegate.collectionView(_:performPrimaryActionForItemAt:)` delegate methods on iOS 16 and tvOS 16.
+
+### Deprecated
+
+* Cell / View events, registered with `DTCollectionViewManager` are soft-deprecated. Please use events in mapping instead:
+
+Deprecated:
+```swift
+    manager.register(PostCell.self)
+    manager.didSelect(PostCell.self) { postCell, post, indexPath in }
+```
+Recommended:
+```swift
+    manager.register(PostCell.self) { mapping in
+        mapping.didSelect { postCell, post, indexPath in }
+    }
+```
+> While previously main benefits for second syntax were mostly syntactic, now with support for SwiftUI it will be hard to actually specialize hosting cells (and might be impossible when iOS 16 hosting configuration is supported), so only second syntax will work for all kinds of cells, and first syntax can only work for non-SwiftUI cells.
+> New delegate methods for UICollectionView (starting with iOS 16 / tvO 16 SDK) will be added only as extension to mapping protocols, not DTCollectionViewManager itself.
+
 ## [11.0.0-beta.1](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/11.0.0-beta.1)
 
 ### **Introducing support for SwiftUI!**

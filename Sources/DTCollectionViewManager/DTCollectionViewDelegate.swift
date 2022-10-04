@@ -325,7 +325,6 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, previewForDismissingContextMenuWithConfiguration: configuration)
     }
     
-    #if os(iOS)
     @available(iOS 15, *)
     /// Implementation for `UICollectionViewDelegate` protocol
     public func collectionView(_ collectionView: UICollectionView, selectionFollowsFocusForItemAt indexPath: IndexPath) -> Bool {
@@ -337,7 +336,6 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         }
         return collectionView.selectionFollowsFocus
     }
-    #endif
 #endif
     
     @available(iOS 15, tvOS 15, *)
@@ -349,6 +347,24 @@ open class DTCollectionViewDelegate: DTCollectionViewDelegateWrapper, UICollecti
         }
         return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, targetIndexPathForMoveOfItemFromOriginalIndexPath: originalIndexPath, atCurrentIndexPath: currentIndexPath, toProposedIndexPath: proposedIndexPath) ?? proposedIndexPath
     }
+    
+#if swift(>=5.7) || (os(macOS) && swift(>=5.7.1)) // Xcode 14.0 AND macCatalyst on Xcode 14.1 (which will have swift> 5.7.1)
+    @available(iOS 16, tvOS 16, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    public func collectionView(_ collectionView: UICollectionView, canPerformPrimaryActionForRowAt indexPath: IndexPath) -> Bool {
+        if let canPerform = performCellReaction(.canPerformActionForItemAtIndexPath, location: indexPath, provideCell: true) as? Bool {
+            return canPerform
+        }
+        return (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, canPerformPrimaryActionForItemAt: indexPath) ?? false
+    }
+    
+    @available(iOS 16, tvOS 16, *)
+    /// Implementation for `UICollectionViewDelegate` protocol
+    public func collectionView(_ collectionView: UICollectionView, performPrimaryActionForItemAt indexPath: IndexPath) {
+        _ = performCellReaction(.performPrimaryActionForItemAtIndexPath, location: indexPath, provideCell: true)
+        (delegate as? UICollectionViewDelegate)?.collectionView?(collectionView, performPrimaryActionForItemAt: indexPath)
+    }
+#endif
     
     /// Implementation of `UICollectionViewDelegateFlowLayout` and `UICollectionViewDelegate` protocol.
     open func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, insetForSectionAt section: Int) -> UIEdgeInsets {
