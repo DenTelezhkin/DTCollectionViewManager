@@ -59,9 +59,7 @@ extension CollectionViewFactory
         if mapping.configuration.parentController == nil {
             assertionFailure("HostingCollectionViewCellConfiguration.parentController is nil. This will prevent HostingCell from sizing and appearing correctly. Please set parentController to controller, that contains managed collection view.")
         }
-        if #available(iOS 14, tvOS 14, *) {
-            // Registration is not needed, dequeue provided by ViewModelMapping instance
-        } else {
+        if #unavailable(iOS 14, tvOS 14) {
             collectionView.register(mapping.hostingCellSubclass.self, forCellWithReuseIdentifier: mapping.reuseIdentifier)
         }
         
@@ -82,9 +80,7 @@ extension CollectionViewFactory
                 }
             }
         }
-        if #available(iOS 14, tvOS 14, *) {
-            // Registration is not needed, dequeue provided by ViewModelMapping instance
-        } else {
+        if #unavailable(iOS 14, tvOS 14) {
             registerCell()
         }
         if !mapping.cellRegisteredByStoryboard {
@@ -106,9 +102,7 @@ extension CollectionViewFactory
                 }
             }
         }
-        if #available(iOS 14, tvOS 14, *) {
-            // Registration is not needed, dequeue provided by ViewModelMapping instance
-        } else {
+        if #unavailable(iOS 14, tvOS 14) {
             registerCell()
         }
         if !mapping.cellRegisteredByStoryboard {
@@ -152,9 +146,7 @@ extension CollectionViewFactory
                 }
             }
         }
-        if #available(iOS 14, tvOS 14, *) {
-            // Registration is not needed, dequeue provided by ViewModelMapping instance
-        } else {
+        if #unavailable(iOS 14, tvOS 14) {
             registerSupplementary()
         }
         
@@ -180,9 +172,7 @@ extension CollectionViewFactory
                 verifySupplementaryView(View.self, nibName: nil, reuseIdentifier: mapping.reuseIdentifier, in: mapping.bundle)
             }
         }
-        if #available(iOS 14, tvOS 14, *) {
-            // Registration is not needed, dequeue provided by ViewModelMapping instance
-        } else {
+        if #unavailable(iOS 14, tvOS 14) {
             registerSupplementary()
         }
         

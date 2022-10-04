@@ -543,6 +543,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testShouldShowMenuForItemAtIndexPath() {
+        guard #unavailable(macCatalyst 13.0) else { return }
         let exp = expectation(description: "shouldshowMenuForItemAtIndexPath")
         sut.manager.shouldShowMenu(for: NibCell.self, { cell, model, indexPath -> Bool in
             exp.fulfill()
@@ -555,6 +556,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testCanPerformActionForRowAtIndexPath() {
+        guard #unavailable(macCatalyst 13.0) else { return }
         let exp = expectation(description: "canPerformActionForRowAtIndexPath")
         sut.manager.canPerformAction(for: NibCell.self, { (selector, sender, cell, model, indexPath) -> Bool in
             exp.fulfill()
@@ -566,6 +568,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
     
     func testPerformActionForRowAtIndexPath() {
+        guard #unavailable(macCatalyst 13.0) else { return }
         let exp = expectation(description: "performActionForItemAtIndexPath")
         sut.manager.performAction(for: NibCell.self, { (selector, sender, cell, model, indexPath) in
             exp.fulfill()
@@ -1069,9 +1072,12 @@ class ReactingToEventsFastTestCase : XCTestCase {
         XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didEndDisplaying:forItemAt:))), EventMethodSignature.didEndDisplayingCellForItemAtIndexPath.rawValue)
         XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:didEndDisplayingSupplementaryView:forElementOfKind:at:))), EventMethodSignature.didEndDisplayingSupplementaryViewForElementKindAtIndexPath.rawValue)
         
-        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldShowMenuForItemAt:))), EventMethodSignature.shouldShowMenuForItemAtIndexPath.rawValue)
-        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canPerformAction:forItemAt:withSender:))), EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue)
-        XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:performAction:forItemAt:withSender:))), EventMethodSignature.performActionForItemAtIndexPath.rawValue)
+        if #unavailable(macCatalyst 13.1) {
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:shouldShowMenuForItemAt:))), EventMethodSignature.shouldShowMenuForItemAtIndexPath.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canPerformAction:forItemAt:withSender:))), EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue)
+            XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:performAction:forItemAt:withSender:))), EventMethodSignature.performActionForItemAtIndexPath.rawValue)
+        }
+        
         XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:transitionLayoutForOldLayout:newLayout:))), EventMethodSignature.transitionLayoutForOldLayoutNewLayout.rawValue)
         
         if #available(tvOS 9, *) {
@@ -1161,9 +1167,11 @@ class ReactingToEventsFastTestCase : XCTestCase {
             manager.didEndDisplayingHeaderView(NibHeaderFooterView.self, { _,_,_ in })
             manager.didEndDisplayingFooterView(NibHeaderFooterView.self, { _,_,_ in })
             manager.didEndDisplayingSupplementaryView(NibHeaderFooterView.self, forElementKind: "foo", { _,_,_ in })
-            manager.shouldShowMenu(for: NibCell.self, { _,_,_ in return true })
-            manager.canPerformAction(for: NibCell.self, { _,_,_,_,_ in return true })
-            manager.performAction(for: NibCell.self, { _,_,_,_,_ in })
+            if #unavailable(macCatalyst 13.0) {
+                manager.shouldShowMenu(for: NibCell.self, { _,_,_ in return true })
+                manager.canPerformAction(for: NibCell.self, { _,_,_,_,_ in return true })
+                manager.performAction(for: NibCell.self, { _,_,_,_,_ in })
+            }
             manager.sizeForCell(withItem: Int.self, { _,_ in return .zero })
             manager.referenceSizeForHeaderView(withItem: Int.self, { _,_ in return .zero })
             manager.referenceSizeForFooterView(withItem: Int.self, { _,_ in return .zero })
