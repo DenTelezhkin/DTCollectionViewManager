@@ -98,6 +98,7 @@ open class DTCollectionViewManager {
         factory.resetDelegates = { [weak self] in
             self?.collectionDataSource?.delegateWasReset()
             self?.collectionDelegate?.delegateWasReset()
+            self?.collectionPrefetchDataSource?.delegateWasReset()
             
             #if os(iOS)
             self?.collectionDropDelegate?.delegateWasReset()
@@ -161,32 +162,26 @@ open class DTCollectionViewManager {
         }
     }
     
-    #if os(iOS)
-    // Yeah, @availability macros does not work on stored properties ¯\_(ツ)_/¯
-    private var _collectionDragDelegatePrivate : AnyObject?
-
-    /// Object, that is responsible for implementing `UICollectionViewDragDelegate` protocol
-    open var collectionDragDelegate : DTCollectionViewDragDelegate? {
-        get {
-            return _collectionDragDelegatePrivate as? DTCollectionViewDragDelegate
-        }
-        set {
-            _collectionDragDelegatePrivate = newValue
-            collectionView?.dragDelegate = newValue
+    /// Object, responsible for implementing `UICollectionViewDataSourcePrefetching` protocol
+    open var collectionPrefetchDataSource: DTCollectionViewPrefetchDataSource? {
+        didSet {
+            collectionView?.prefetchDataSource = collectionPrefetchDataSource
         }
     }
     
-    // Yeah, @availability macros does not work on stored properties ¯\_(ツ)_/¯
-    private var _collectionDropDelegatePrivate : AnyObject?
+    #if os(iOS)
+
+    /// Object, that is responsible for implementing `UICollectionViewDragDelegate` protocol
+    open var collectionDragDelegate : DTCollectionViewDragDelegate? {
+        didSet {
+            collectionView?.dragDelegate = collectionDragDelegate
+        }
+    }
 
     /// Object, that is responsible for implementing `UICOllectionViewDropDelegate` protocol
     open var collectionDropDelegate : DTCollectionViewDropDelegate? {
-        get {
-            return _collectionDropDelegatePrivate as? DTCollectionViewDropDelegate
-        }
-        set {
-            _collectionDropDelegatePrivate = newValue
-            collectionView?.dropDelegate = newValue
+        didSet {
+            collectionView?.dropDelegate = collectionDropDelegate
         }
     }
     #endif
@@ -251,6 +246,7 @@ open class DTCollectionViewManager {
         collectionViewUpdater = CollectionViewUpdater(collectionView: collectionView)
         collectionDataSource = DTCollectionViewDataSource(delegate: delegate, collectionViewManager: self)
         collectionDelegate = DTCollectionViewDelegate(delegate: delegate, collectionViewManager: self)
+        collectionPrefetchDataSource = DTCollectionViewPrefetchDataSource(delegate: delegate, collectionViewManager: self)
         
         #if os(iOS)
         collectionDragDelegate = DTCollectionViewDragDelegate(delegate: delegate, collectionViewManager: self)
@@ -426,6 +422,10 @@ internal enum EventMethodSignature: String {
     case dropSessionDidExit = "collectionView:dropSessionDidExit:"
     case dropSessionDidEnd = "collectionView:dropSessionDidEnd:"
     case dropPreviewParametersForItemAtIndexPath = "collectionView:dropPreviewParametersForItemAtIndexPath:"
+    
+    /// UICollectionViewDataSourcePrefetching
+    case prefetchItemsAtIndexPaths = "collectionView:prefetchItemsAtIndexPaths:"
+    case cancelPrefetchingForItemsAtIndexPaths = "collectionView:cancelPrefetchingForItemsAtIndexPaths:"
     
     // TVCollectionViewDelegateFullScreenLayout
     

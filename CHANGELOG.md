@@ -7,6 +7,16 @@ All notable changes to this project will be documented in this file.
 
 * Support for `UICollectionViewDelegate.collectionView(_:canPerformPrimaryActionForItemAt:)` and `UICollectionViewDelegate.collectionView(_:performPrimaryActionForItemAt:)` delegate methods on iOS 16 and tvOS 16.
 * Support for `UICollectionViewDelegate.collectionView(_:contextMenuConfigurationForItemsAt:point:)`, `UICollectionViewDelegate.collectionView(_:contextMenuConfiguration:highlightPreviewForItemAt:`) and `UICollectionViewDelegate.collectionView(_:contextMenuConfiguration:dismissalPreviewForItemAt:` methods on iOS 16.
+* Support for events, wrapping `UICollectionViewDataSourcePrefetching` protocol. 
+
+```swift
+manager.register(PostCell.self) { mapping in
+    mapping.prefetch { model, indexPath in }
+    mapping.cancelPrefetch { model, indexPath in }
+}
+```
+
+> Please note, that while datasource methods are called once per array of indexPaths, events for models will be called individually, so single model (and indexPath) is passed to each event. Theoretically, this should make prefetching and cancellation easier, since you no longer need to walk through array and find all data models, you can operate on a single data model at a time.
 
 ### Deprecated
 

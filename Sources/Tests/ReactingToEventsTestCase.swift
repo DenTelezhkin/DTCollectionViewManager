@@ -1116,6 +1116,40 @@ class ReactingToEventsFastTestCase : XCTestCase {
     #endif
 #endif
     
+    func testPrefetchItemAtIndexPath() throws {
+        let firstPrefetch = expectation(description: "first prefetch")
+        let secondPrefetch = expectation(description: "second prefetch")
+        sut.manager.register(NibCell.self) { mapping in
+            mapping.prefetch { item, _ in
+                if item == 1 {
+                    firstPrefetch.fulfill()
+                } else if item == 2 {
+                    secondPrefetch.fulfill()
+                }
+            }
+        }
+        sut.manager.memoryStorage.addItems([1,2])
+        sut.manager.collectionPrefetchDataSource?.collectionView(sut.collectionView, prefetchItemsAt: [indexPath(0, 0), indexPath(1, 0)])
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testCancelPrefetchItemAtIndexPath() throws {
+        let firstPrefetch = expectation(description: "first prefetch")
+        let secondPrefetch = expectation(description: "second prefetch")
+        sut.manager.register(NibCell.self) { mapping in
+            mapping.cancelPrefetch { item, _ in
+                if item == 1 {
+                    firstPrefetch.fulfill()
+                } else if item == 2 {
+                    secondPrefetch.fulfill()
+                }
+            }
+        }
+        sut.manager.memoryStorage.addItems([1,2])
+        sut.manager.collectionPrefetchDataSource?.collectionView(sut.collectionView, cancelPrefetchingForItemsAt: [indexPath(0, 0), indexPath(1, 0)])
+        waitForExpectations(timeout: 1)
+    }
+    
     func testAllDelegateMethodSignatures() {
         if #available(tvOS 9, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDataSource.collectionView(_:canMoveItemAt:))), EventMethodSignature.canMoveItemAtIndexPath.rawValue)
@@ -1221,6 +1255,9 @@ class ReactingToEventsFastTestCase : XCTestCase {
         // These methods are not equal on purpose - DTCollectionViewManager implements custom logic in them, and they are always implemented, even though they can act as events
         XCTAssertNotEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForHeaderInSection:))), EventMethodSignature.referenceSizeForHeaderInSection.rawValue)
         XCTAssertNotEqual(String(describing: #selector(UICollectionViewDelegateFlowLayout.collectionView(_:layout:referenceSizeForFooterInSection:))), EventMethodSignature.referenceSizeForFooterInSection.rawValue)
+        
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDataSourcePrefetching.collectionView(_:prefetchItemsAt:))), EventMethodSignature.prefetchItemsAtIndexPaths.rawValue)
+        XCTAssertEqual(String(describing: #selector(UICollectionViewDataSourcePrefetching.collectionView(_:cancelPrefetchingForItemsAt:))), EventMethodSignature.cancelPrefetchingForItemsAtIndexPaths.rawValue)
     }
     
     func testEventRegistrationPerfomance() {

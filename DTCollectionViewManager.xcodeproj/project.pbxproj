@@ -77,6 +77,8 @@
 		3E37DBFB24E7E8AB008181FC /* UIColor+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3E37DBFA24E7E8AB008181FC /* UIColor+Extensions.swift */; };
 		3EBBB78A22F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */; };
 		3EBBB78B22F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */; };
+		41160B7228EC5D430094F930 /* DTCollectionViewPrefetchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41160B7128EC5D430094F930 /* DTCollectionViewPrefetchDataSource.swift */; };
+		41160B7428EC5F0D0094F930 /* DTCollectionViewManager+Prefetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41160B7328EC5F0D0094F930 /* DTCollectionViewManager+Prefetch.swift */; };
 		413839A02866040100F4EF74 /* HostingCollectionViewCellModelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138399F2866040100F4EF74 /* HostingCollectionViewCellModelMapping.swift */; };
 		413839A22866064500F4EF74 /* HostingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413839A12866064500F4EF74 /* HostingCollectionViewCell.swift */; };
 		413839A4286614E000F4EF74 /* DTCollectionViewManager+SwiftUIRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413839A3286614E000F4EF74 /* DTCollectionViewManager+SwiftUIRegistration.swift */; };
@@ -208,6 +210,8 @@
 		3E33C72B22B81BB0006FBB21 /* DTCollectionViewDelegateWrapper.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCollectionViewDelegateWrapper.swift; sourceTree = "<group>"; };
 		3E37DBFA24E7E8AB008181FC /* UIColor+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "UIColor+Extensions.swift"; sourceTree = "<group>"; };
 		3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableDatasourcesTestCase.swift; sourceTree = "<group>"; };
+		41160B7128EC5D430094F930 /* DTCollectionViewPrefetchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCollectionViewPrefetchDataSource.swift; sourceTree = "<group>"; };
+		41160B7328EC5F0D0094F930 /* DTCollectionViewManager+Prefetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTCollectionViewManager+Prefetch.swift"; sourceTree = "<group>"; };
 		4138399F2866040100F4EF74 /* HostingCollectionViewCellModelMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingCollectionViewCellModelMapping.swift; sourceTree = "<group>"; };
 		413839A12866064500F4EF74 /* HostingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingCollectionViewCell.swift; sourceTree = "<group>"; };
 		413839A3286614E000F4EF74 /* DTCollectionViewManager+SwiftUIRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTCollectionViewManager+SwiftUIRegistration.swift"; sourceTree = "<group>"; };
@@ -383,8 +387,8 @@
 		3E33C71B22B81BB0006FBB21 /* DTCollectionViewManager */ = {
 			isa = PBXGroup;
 			children = (
-				4143A61928636E3900388840 /* CollectionViewCellModelMapping.swift */,
 				4143A61B2863712900388840 /* CollectionSupplementaryViewModelMapping.swift */,
+				4143A61928636E3900388840 /* CollectionViewCellModelMapping.swift */,
 				3E33C71E22B81BB0006FBB21 /* CollectionViewFactory.swift */,
 				3E33C72822B81BB0006FBB21 /* CollectionViewUpdater.swift */,
 				3E33C72622B81BB0006FBB21 /* DTCollectionViewDataSource.swift */,
@@ -400,12 +404,14 @@
 				9AA52DBA24C7A241002FFC89 /* DTCollectionViewManager+Deprecated.swift */,
 				3E33C72222B81BB0006FBB21 /* DTCollectionViewManager+Drag.swift */,
 				3E33C72422B81BB0006FBB21 /* DTCollectionViewManager+Drop.swift */,
+				41160B7328EC5F0D0094F930 /* DTCollectionViewManager+Prefetch.swift */,
 				3E33C72A22B81BB0006FBB21 /* DTCollectionViewManager+Registration.swift */,
 				413839A3286614E000F4EF74 /* DTCollectionViewManager+SwiftUIRegistration.swift */,
 				3E33C71D22B81BB0006FBB21 /* DTCollectionViewManagerAnomalyHandler.swift */,
+				41160B7128EC5D430094F930 /* DTCollectionViewPrefetchDataSource.swift */,
 				9ABE13FA24599CE2008874D2 /* Exports.swift */,
-				4138399F2866040100F4EF74 /* HostingCollectionViewCellModelMapping.swift */,
 				413839A12866064500F4EF74 /* HostingCollectionViewCell.swift */,
+				4138399F2866040100F4EF74 /* HostingCollectionViewCellModelMapping.swift */,
 			);
 			path = DTCollectionViewManager;
 			sourceTree = "<group>";
@@ -815,6 +821,8 @@
 				9ABE13FB24599CE2008874D2 /* Exports.swift in Sources */,
 				3E33C72F22B81BC4006FBB21 /* DTCollectionViewDelegate.swift in Sources */,
 				41D02402269B411000D75BD9 /* DTCollectionViewDiffableDataSource.swift in Sources */,
+				41160B7428EC5F0D0094F930 /* DTCollectionViewManager+Prefetch.swift in Sources */,
+				41160B7228EC5D430094F930 /* DTCollectionViewPrefetchDataSource.swift in Sources */,
 				3E33C73722B81BC4006FBB21 /* DTCollectionViewDropPlaceholderContext.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
