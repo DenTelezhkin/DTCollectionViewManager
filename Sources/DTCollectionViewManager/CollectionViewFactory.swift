@@ -52,6 +52,24 @@ final class CollectionViewFactory
 extension CollectionViewFactory
 {
     
+#if swift(>=5.7) || (os(macOS) && swift(>=5.7.1)) // Xcode 14.0 AND macCatalyst on Xcode 14.1 (which will have swift> 5.7.1)
+    @available(iOS 16, tvOS 16, *)
+    func registerHostingConfiguration<Content: View, Background: View, Model, Cell: UICollectionViewCell>(
+        configuration: @escaping (Cell, Model, IndexPath) -> UIHostingConfiguration<Content, Background>,
+        mapping: ((HostingConfigurationViewModelMapping<Content, Background, Model, Cell>) -> Void)?
+    ) {
+        mappings.append(HostingConfigurationViewModelMapping(cellConfiguration: configuration, mapping: mapping))
+    }
+    
+    @available(iOS 16, tvOS 16, *)
+    func registerHostingConfiguration<Content: View, Background: View, Model, Cell: UICollectionViewCell>(
+        configuration: @escaping (UICellConfigurationState, Cell, Model, IndexPath) -> UIHostingConfiguration<Content, Background>,
+        mapping: ((HostingConfigurationViewModelMapping<Content, Background, Model, Cell>) -> Void)?
+    ) {
+        mappings.append(HostingConfigurationViewModelMapping(cellConfiguration: configuration, mapping: mapping))
+    }
+#endif
+    
     @available(iOS 13, tvOS 13, *)
     func registerHostingCell<Content: View, Model>(_ content: @escaping (Model, IndexPath) -> Content, parentViewController: UIViewController?,
                                                    mapping: ((HostingCellViewModelMapping<Content, Model>) -> Void)?) {

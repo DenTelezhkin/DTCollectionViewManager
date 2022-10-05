@@ -79,6 +79,7 @@
 		3EBBB78B22F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */; };
 		41160B7228EC5D430094F930 /* DTCollectionViewPrefetchDataSource.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41160B7128EC5D430094F930 /* DTCollectionViewPrefetchDataSource.swift */; };
 		41160B7428EC5F0D0094F930 /* DTCollectionViewManager+Prefetch.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41160B7328EC5F0D0094F930 /* DTCollectionViewManager+Prefetch.swift */; };
+		41160B7828ED9ED70094F930 /* HostingConfigurationViewModelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 41160B7728ED9ED60094F930 /* HostingConfigurationViewModelMapping.swift */; };
 		413839A02866040100F4EF74 /* HostingCollectionViewCellModelMapping.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4138399F2866040100F4EF74 /* HostingCollectionViewCellModelMapping.swift */; };
 		413839A22866064500F4EF74 /* HostingCollectionViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413839A12866064500F4EF74 /* HostingCollectionViewCell.swift */; };
 		413839A4286614E000F4EF74 /* DTCollectionViewManager+SwiftUIRegistration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 413839A3286614E000F4EF74 /* DTCollectionViewManager+SwiftUIRegistration.swift */; };
@@ -212,6 +213,7 @@
 		3EBBB78922F09DDF00DA34BD /* DiffableDatasourcesTestCase.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DiffableDatasourcesTestCase.swift; sourceTree = "<group>"; };
 		41160B7128EC5D430094F930 /* DTCollectionViewPrefetchDataSource.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DTCollectionViewPrefetchDataSource.swift; sourceTree = "<group>"; };
 		41160B7328EC5F0D0094F930 /* DTCollectionViewManager+Prefetch.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTCollectionViewManager+Prefetch.swift"; sourceTree = "<group>"; };
+		41160B7728ED9ED60094F930 /* HostingConfigurationViewModelMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingConfigurationViewModelMapping.swift; sourceTree = "<group>"; };
 		4138399F2866040100F4EF74 /* HostingCollectionViewCellModelMapping.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingCollectionViewCellModelMapping.swift; sourceTree = "<group>"; };
 		413839A12866064500F4EF74 /* HostingCollectionViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HostingCollectionViewCell.swift; sourceTree = "<group>"; };
 		413839A3286614E000F4EF74 /* DTCollectionViewManager+SwiftUIRegistration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "DTCollectionViewManager+SwiftUIRegistration.swift"; sourceTree = "<group>"; };
@@ -412,6 +414,7 @@
 				9ABE13FA24599CE2008874D2 /* Exports.swift */,
 				413839A12866064500F4EF74 /* HostingCollectionViewCell.swift */,
 				4138399F2866040100F4EF74 /* HostingCollectionViewCellModelMapping.swift */,
+				41160B7728ED9ED60094F930 /* HostingConfigurationViewModelMapping.swift */,
 			);
 			path = DTCollectionViewManager;
 			sourceTree = "<group>";
@@ -810,6 +813,7 @@
 				3E33C72E22B81BC4006FBB21 /* CollectionViewFactory.swift in Sources */,
 				413839A4286614E000F4EF74 /* DTCollectionViewManager+SwiftUIRegistration.swift in Sources */,
 				3E33C73622B81BC4006FBB21 /* DTCollectionViewDataSource.swift in Sources */,
+				41160B7828ED9ED70094F930 /* HostingConfigurationViewModelMapping.swift in Sources */,
 				4143A61A28636E3900388840 /* CollectionViewCellModelMapping.swift in Sources */,
 				413839A22866064500F4EF74 /* HostingCollectionViewCell.swift in Sources */,
 				9AA52DBB24C7A241002FFC89 /* DTCollectionViewManager+Deprecated.swift in Sources */,
@@ -979,7 +983,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting files/Info.plist";
 				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -1006,7 +1010,7 @@
 				GCC_WARN_UNINITIALIZED_AUTOS = YES_AGGRESSIVE;
 				INFOPLIST_FILE = "$(SRCROOT)/Supporting files/Info.plist";
 				INFOPLIST_PREPROCESS = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 14.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

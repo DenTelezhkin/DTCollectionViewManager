@@ -8,6 +8,7 @@
 
 import UIKit
 import DTCollectionViewManager
+import SwiftUI
 
 class PrimaryViewController: UICollectionViewController, DTCollectionViewManageable {
     
@@ -16,17 +17,20 @@ class PrimaryViewController: UICollectionViewController, DTCollectionViewManagea
     }
     override func viewDidLoad() {
         super.viewDidLoad()
-
-        manager.register(UICollectionViewListCell.self, for: Example.self) { [weak self] mapping in
-            mapping.didSelect { _, example, _ in
+        
+        manager.registerHostingConfiguration(for: Example.self, cell: UICollectionViewListCell.self) { cell, model, indexPath in
+            UIHostingConfiguration {
+                HStack {
+                    Text(model.title)
+                    Spacer()
+                }
+            }
+        } mapping: { [weak self] in
+            $0.didSelect { _, example, _ in
                 let controller = example.controller
                 self?.splitViewController?.setViewController(controller, for: .secondary)
                 self?.splitViewController?.show(.secondary)
             }
-        } handler: { cell, model, _ in
-            var content = cell.defaultContentConfiguration()
-            content.text = model.title
-            cell.contentConfiguration = content
         }
         manager.memoryStorage.setItems(Example.allCases)
     }

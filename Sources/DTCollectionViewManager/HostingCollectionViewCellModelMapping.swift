@@ -73,7 +73,7 @@ open class HostingCellViewModelMapping<Content: View, Model>: CellViewModelMappi
     public var reuseIdentifier : String
     
     private var _cellConfigurationHandler: ((UICollectionViewCell, Any, IndexPath) -> Void)?
-    private var _cellDequeueClosure: ((_ containerView: UICollectionView, _ model: Any, _ indexPath: IndexPath) -> UICollectionViewCell?)?
+    private var _cellDequeueClosure: ((_ containerView: UICollectionView, _ model: Model, _ indexPath: IndexPath) -> UICollectionViewCell?)?
     private var _cellRegistration: Any?
     
     /// Creates hosting cell model mapping
@@ -89,14 +89,16 @@ open class HostingCellViewModelMapping<Content: View, Model>: CellViewModelMappi
         configuration.parentController = parentViewController
         _cellDequeueClosure = { [weak self] collectionView, model, indexPath in
             guard let self = self else { return nil }
-            if let model = model as? Model, #available(iOS 14, tvOS 14, *) {
+            if #available(iOS 14, tvOS 14, *) {
                 if let registration = self._cellRegistration as? UICollectionView.CellRegistration<HostingCollectionViewCell<Content, Model>, Model> {
                     return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
                 }
             }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-            if let cell = cell as? Cell, let model = model as? Model {
-                cell.updateWith(rootView: cellContent(model, indexPath), configuration: self.configuration)            }
+            if #unavailable(iOS 14, tvOS 14), let cell = cell as? Cell {
+                // We only need to update cell, if cell registrations are unavailable, because when they are, update is already called.
+                self._cellConfigurationHandler?(cell, model, indexPath)
+            }
             return cell
         }
         _cellConfigurationHandler = { [weak self] cell, model, indexPath in
@@ -130,7 +132,6 @@ open class HostingCellViewModelMapping<Content: View, Model>: CellViewModelMappi
     /// Unavailable method
     open override func dequeueConfiguredReusableCell(for tableView: UITableView, model: Any, indexPath: IndexPath) -> UITableViewCell? {
         preconditionFailure("This method should not be used in UICollectionView cell view model mapping")
-        
     }
     
     /// Dequeues reusable cell for `model`, `indexPath` from `collectionView`.
@@ -140,10 +141,7 @@ open class HostingCellViewModelMapping<Content: View, Model>: CellViewModelMappi
     ///   - indexPath: IndexPath, at which cell is going to be displayed.
     /// - Returns: dequeued configured UICollectionViewCell instance.
     open override func dequeueConfiguredReusableCell(for collectionView: UICollectionView, model: Any, indexPath: IndexPath) -> UICollectionViewCell? {
-        guard let cell = _cellDequeueClosure?(collectionView, model, indexPath) else {
-            return nil
-        }
-        _cellConfigurationHandler?(cell, model, indexPath)
-        return cell
+        guard let model = model as? Model else { return nil }
+        return _cellDequeueClosure?(collectionView, model, indexPath)
     }
 }

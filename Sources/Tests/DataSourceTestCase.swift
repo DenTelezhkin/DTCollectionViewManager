@@ -7,7 +7,8 @@
 //
 
 import XCTest
-import DTCollectionViewManager
+@testable import DTCollectionViewManager
+import SwiftUI
 
 class DataSourceTestCase: XCTestCase {
     
@@ -274,4 +275,34 @@ class DataSourceTestCase: XCTestCase {
         
         XCTAssertEqual(anomaly.debugDescription, "⚠️[DTCollectionViewManager] Attempted to register xib NibView, but view found in a xib was of type NibHeaderFooterView, while expected type is ReactingHeaderFooterView. This can prevent supplementary views from being updated with models and react to events.")
     }
+    
+#if swift(>=5.7) || (os(macOS) && swift(>=5.7.1)) // Xcode 14.0 AND macCatalyst on Xcode 14.1 (which will have swift> 5.7.1)
+    
+    func testHostingCellUpdateIsCalledOnlyOnce() {
+        guard #available(iOS 13, tvOS 13, *) else { return }
+        let exp = expectation(description: "Cell update block")
+        controller.manager.registerHostingCell(for: String.self) { model, indexPath in
+            exp.fulfill()
+            return Text(model)
+        }
+        controller.manager.memoryStorage.setItems(["One"])
+        _ = controller.manager.collectionDataSource?.collectionView(controller.collectionView, cellForItemAt: indexPath(0, 0))
+        waitForExpectations(timeout: 1)
+    }
+    
+    func testHostingConfigurationUpdateIsCalledOnlyOnce() {
+        guard #available(iOS 16, tvOS 16, *) else { return }
+        let exp = expectation(description: "Cell update block")
+        controller.manager.registerHostingConfiguration(for: String.self) { cell, model, indexPath in
+            exp.fulfill()
+            return UIHostingConfiguration {
+                Text(model)
+            }
+        }
+        controller.manager.memoryStorage.setItems(["One"])
+        _ = controller.manager.collectionDataSource?.collectionView(controller.collectionView, cellForItemAt: indexPath(0, 0))
+        waitForExpectations(timeout: 1)
+    }
+    
+#endif
 }
