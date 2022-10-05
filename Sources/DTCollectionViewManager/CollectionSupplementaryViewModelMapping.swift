@@ -48,9 +48,9 @@ open class CollectionSupplementaryViewModelMapping<View: UICollectionReusableVie
     public var supplementaryRegisteredByStoryboard : Bool = false
     
     /// Type-erased update block, that will be called when `ModelTransfer` `update(with:)` method needs to be executed.
-    public let updateBlock : (Any, Any) -> Void
+    public let updateBlock : (View, Model) -> Void
     
-    private var _supplementaryDequeueClosure: ((_ containerView: UICollectionView, _ model: Any, _ indexPath: IndexPath) -> UICollectionReusableView?)?
+    private var _supplementaryDequeueClosure: ((_ containerView: UICollectionView, _ model: Model, _ indexPath: IndexPath) -> View?)?
     private var _supplementaryRegistration: Any?
     
     /// Creates `ViewModelMapping` for UICollectionReusableView registration.
@@ -68,7 +68,7 @@ open class CollectionSupplementaryViewModelMapping<View: UICollectionReusableVie
         bundle = Bundle(for: View.self)
         super.init(viewClass: View.self, viewType: .supplementaryView(kind: kind))
         _supplementaryDequeueClosure = { [weak self] collectionView, model, indexPath in
-            guard let self = self, let model = model as? Model else { return nil }
+            guard let self = self else { return nil }
             if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
                 if let registration = self._supplementaryRegistration as? UICollectionView.SupplementaryRegistration<View> {
                     let supplementaryView = collectionView.dequeueConfiguredReusableSupplementary(using: registration, for: indexPath)
@@ -80,7 +80,7 @@ open class CollectionSupplementaryViewModelMapping<View: UICollectionReusableVie
             if let supplementary = supplementary as? View {
                 supplementaryConfiguration(supplementary, model, indexPath)
             }
-            return supplementary
+            return supplementary as? View
         }
         mapping?(self)
 
@@ -114,13 +114,12 @@ open class CollectionSupplementaryViewModelMapping<View: UICollectionReusableVie
         xibName = String(describing: View.self)
         reuseIdentifier = String(describing: View.self)
         updateBlock = { view, model in
-            guard let view = view as? View, let model = model as? View.ModelType else { return }
             view.update(with: model)
         }
         bundle = Bundle(for: View.self)
         super.init(viewClass: View.self, viewType: .supplementaryView(kind: kind))
         _supplementaryDequeueClosure = { [weak self] collectionView, model, indexPath in
-            guard let self = self, let model = model as? View.ModelType else {
+            guard let self = self else {
                 return nil
             }
             if !self.supplementaryRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
@@ -134,7 +133,7 @@ open class CollectionSupplementaryViewModelMapping<View: UICollectionReusableVie
             if let supplementary = supplementary as? View {
                 supplementaryConfiguration(supplementary, model, indexPath)
             }
-            return supplementary
+            return supplementary as? View
         }
         mapping?(self)
 
@@ -168,7 +167,7 @@ open class CollectionSupplementaryViewModelMapping<View: UICollectionReusableVie
     ///   - indexPath: IndexPath, at which supplementary view is going to be displayed.
     /// - Returns: dequeued configured UICollectionReusableView instance.
     open override func dequeueConfiguredReusableSupplementaryView(for collectionView: UICollectionView, kind: String, model: Any, indexPath: IndexPath) -> UICollectionReusableView? {
-        guard viewType == .supplementaryView(kind: kind) else {
+        guard viewType == .supplementaryView(kind: kind), let model = model as? Model else {
             return nil
         }
         guard let view = _supplementaryDequeueClosure?(collectionView, model, indexPath) else {

@@ -72,8 +72,8 @@ open class HostingCellViewModelMapping<Content: View, Model>: CellViewModelMappi
     /// Reuse identifier to be used for reusable cells. Mappings for UICollectionViewCell on iOS 14 / tvOS 14 and higher ignore this parameter.
     public var reuseIdentifier : String
     
-    private var _cellConfigurationHandler: ((UICollectionViewCell, Any, IndexPath) -> Void)?
-    private var _cellDequeueClosure: ((_ containerView: UICollectionView, _ model: Model, _ indexPath: IndexPath) -> UICollectionViewCell?)?
+    private var _cellConfigurationHandler: ((Cell, Model, IndexPath) -> Void)?
+    private var _cellDequeueClosure: ((_ containerView: UICollectionView, _ model: Model, _ indexPath: IndexPath) -> Cell?)?
     private var _cellRegistration: Any?
     
     /// Creates hosting cell model mapping
@@ -99,11 +99,10 @@ open class HostingCellViewModelMapping<Content: View, Model>: CellViewModelMappi
                 // We only need to update cell, if cell registrations are unavailable, because when they are, update is already called.
                 self._cellConfigurationHandler?(cell, model, indexPath)
             }
-            return cell
+            return cell as? Cell
         }
         _cellConfigurationHandler = { [weak self] cell, model, indexPath in
-            guard let cell = cell as? HostingCollectionViewCell<Content, Model>, let model = model as? Model,
-            let configuration = self?.configuration else { return }
+            guard let configuration = self?.configuration else { return }
             cell.updateWith(rootView: cellContent(model, indexPath), configuration: configuration)
         }
         mapping?(self)
@@ -122,8 +121,8 @@ open class HostingCellViewModelMapping<Content: View, Model>: CellViewModelMappi
     ///   - indexPath: indexPath of a cell
     ///   - model: model, mapped to a cell.
     open override func updateCell(cell: Any, at indexPath: IndexPath, with model: Any) {
-        guard let cell = cell as? UICollectionViewCell else {
-            preconditionFailure("Cannot update a cell, which is not a UICollectionViewCell")
+        guard let cell = cell as? Cell, let model = model as? Model else {
+            preconditionFailure("Cannot update a cell, which is not a \(Cell.self) with model that is not \(Model.self)")
         }
         _cellConfigurationHandler?(cell, model, indexPath)
     }

@@ -47,10 +47,10 @@ open class CollectionViewCellModelMapping<Cell: UICollectionViewCell, Model>: Ce
     public var cellRegisteredByStoryboard: Bool = false
     
     /// Type-erased update block, that will be called when `ModelTransfer` `update(with:)` method needs to be executed.
-    public let updateBlock : (Any, Any) -> Void
+    public let updateBlock : (Cell, Model) -> Void
     
-    private var _cellConfigurationHandler: ((UICollectionViewCell, Any, IndexPath) -> Void)?
-    private var _cellDequeueClosure: ((_ containerView: UICollectionView, _ model: Any, _ indexPath: IndexPath) -> UICollectionViewCell?)?
+    private var _cellConfigurationHandler: ((Cell, Model, IndexPath) -> Void)?
+    private var _cellDequeueClosure: ((_ containerView: UICollectionView, _ model: Model, _ indexPath: IndexPath) -> Cell?)?
     
     private var _cellRegistration: Any?
     
@@ -68,21 +68,20 @@ open class CollectionViewCellModelMapping<Cell: UICollectionViewCell, Model>: Ce
         updateBlock = { _, _ in }
         super.init(viewClass: Cell.self)
         _cellConfigurationHandler = { cell, model, indexPath in
-            guard let view = cell as? Cell, let model = model as? Model else { return }
-            cellConfiguration(view, model, indexPath)
+            cellConfiguration(cell, model, indexPath)
         }
         _cellDequeueClosure = { [weak self] collectionView, model, indexPath in
             guard let self = self else { return nil }
-            if let model = model as? Model, !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
+            if !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
                 if let registration = self._cellRegistration as? UICollectionView.CellRegistration<Cell, Model> {
                     return collectionView.dequeueConfiguredReusableCell(using: registration, for: indexPath, item: model)
                 }
             }
             let cell = collectionView.dequeueReusableCell(withReuseIdentifier: self.reuseIdentifier, for: indexPath)
-            if let cell = cell as? Cell, let model = model as? Model {
+            if let cell = cell as? Cell {
                 cellConfiguration(cell, model, indexPath)
             }
-            return cell
+            return cell as? Cell
         }
         mapping?(self)
         if !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
@@ -113,17 +112,15 @@ open class CollectionViewCellModelMapping<Cell: UICollectionViewCell, Model>: Ce
         reuseIdentifier = String(describing: Cell.self)
         bundle = Bundle(for: Cell.self)
         updateBlock = { view, model in
-            guard let view = view as? Cell, let model = model as? Cell.ModelType else { return }
             view.update(with: model)
         }
         super.init(viewClass: Cell.self)
         
         _cellConfigurationHandler = { cell, model, indexPath in
-            guard let view = cell as? Cell, let model = model as? Model else { return }
-            cellConfiguration(view, model, indexPath)
+            cellConfiguration(cell, model, indexPath)
         }
         _cellDequeueClosure = { [weak self] collectionView, model, indexPath in
-            guard let self = self, let model = model as? Cell.ModelType else {
+            guard let self = self else {
                 return nil
             }
             if !self.cellRegisteredByStoryboard, #available(iOS 14, tvOS 14, *) {
@@ -135,7 +132,7 @@ open class CollectionViewCellModelMapping<Cell: UICollectionViewCell, Model>: Ce
             if let cell = cell as? Cell {
                 cellConfiguration(cell, model, indexPath)
             }
-            return cell
+            return cell as? Cell
         }
         mapping?(self)
 
@@ -161,8 +158,8 @@ open class CollectionViewCellModelMapping<Cell: UICollectionViewCell, Model>: Ce
     ///   - indexPath: indexPath of a cell
     ///   - model: model, mapped to a cell.
     open override func updateCell(cell: Any, at indexPath: IndexPath, with model: Any) {
-        guard let cell = cell as? UICollectionViewCell else {
-            preconditionFailure("Cannot update a cell, which is not a UICollectionViewCell")
+        guard let cell = cell as? Cell, let model = model as? Model else {
+            preconditionFailure("Cannot update a cell, which is not a \(Cell.self) with model that is not a \(Model.self)")
         }
         _cellConfigurationHandler?(cell, model, indexPath)
         updateBlock(cell, model)
@@ -175,7 +172,7 @@ open class CollectionViewCellModelMapping<Cell: UICollectionViewCell, Model>: Ce
     ///   - indexPath: IndexPath, at which cell is going to be displayed.
     /// - Returns: dequeued configured UICollectionViewCell instance.
     open override func dequeueConfiguredReusableCell(for collectionView: UICollectionView, model: Any, indexPath: IndexPath) -> UICollectionViewCell? {
-        guard let cell = _cellDequeueClosure?(collectionView, model, indexPath) else {
+        guard let model = model as? Model, let cell = _cellDequeueClosure?(collectionView, model, indexPath) else {
             return nil
         }
         updateBlock(cell, model)
