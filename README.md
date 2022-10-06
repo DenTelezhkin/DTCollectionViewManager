@@ -21,6 +21,9 @@ DTCollectionViewManager
 - [x] [Complete documentation](Documentation)
 - [x] [API Reference](https://dentelezhkin.github.io/DTCollectionViewManager/)
 
+
+[Read more](https://dev.to/dentelezhkin/whats-new-in-dttableviewcollectionviewmanager-11-44co) about latest 11.0 release and integration with SwiftUI!
+
 ## Requirements
 
 * Xcode 12+

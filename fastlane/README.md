@@ -21,10 +21,10 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
-### test_ios14
+### test_ios16
 
 ```sh
-[bundle exec] fastlane test_ios14
+[bundle exec] fastlane test_ios16
 ```
 
 
@@ -37,10 +37,10 @@ For _fastlane_ installation instructions, see [Installing _fastlane_](https://do
 
 
 
-### test_tvos14
+### test_tvos16
 
 ```sh
-[bundle exec] fastlane test_tvos14
+[bundle exec] fastlane test_tvos16
 ```
 
 
