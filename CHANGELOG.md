@@ -3,6 +3,8 @@ All notable changes to this project will be documented in this file.
 
 # Next
 
+## [11.0.0](https://github.com/DenTelezhkin/DTCollectionViewManager/releases/tag/11.0.0)
+
 ### Added
 
 * Support for `UICollectionViewDelegate.collectionView(_:canPerformPrimaryActionForItemAt:)` and `UICollectionViewDelegate.collectionView(_:performPrimaryActionForItemAt:)` delegate methods on iOS 16 and tvOS 16.
