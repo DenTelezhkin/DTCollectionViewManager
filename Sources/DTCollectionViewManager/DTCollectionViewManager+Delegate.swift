@@ -526,7 +526,7 @@ public extension CellViewModelMappingProtocolGeneric where Cell: UICollectionVie
         reactions.append(FiveArgumentsEventReaction(Cell.self, modelType: Model.self, argumentOne: IndexPath.self, argumentTwo: IndexPath.self, signature: EventMethodSignature.targetIndexPathForMoveOfItemFromOriginalIndexPath.rawValue, closure))
     }
     
-#if swift(>=5.7) || (os(macOS) && swift(>=5.7.1))  // Xcode 14.0 AND macCatalyst on Xcode 14.1
+#if swift(>=5.7) && !canImport(AppKit) || (canImport(AppKit) && swift(>=5.7.1)) // Xcode 14.0 AND macCatalyst on Xcode 14.1 (which will have swift> 5.7.1)
     @available(iOS 16, tvOS 16, *)
     func canPerformPrimaryAction(_ closure: @escaping (Cell, Model, IndexPath) -> Bool) {
         reactions.append(EventReaction(viewType: Cell.self, modelType: Model.self, signature: EventMethodSignature.canPerformActionForItemAtIndexPath.rawValue, closure))

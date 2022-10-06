@@ -1056,7 +1056,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
     }
 #endif
     
-#if swift(>=5.7)
+#if swift(>=5.7) && !canImport(AppKit) || (canImport(AppKit) && swift(>=5.7.1)) // Xcode 14.0 AND macCatalyst on Xcode 14.1 (which will have swift> 5.7.1)
     func testCanPerformPrimaryAction() throws {
         guard #available(iOS 16, tvOS 16, *) else { return }
         try verifyEvent(.canPerformPrimaryActionForItemAtIndexPath, registration: { sut, exp in
@@ -1234,7 +1234,7 @@ class ReactingToEventsFastTestCase : XCTestCase {
         }
         #endif
         
-#if swift(>=5.7)
+#if swift(>=5.7) && !canImport(AppKit) || (canImport(AppKit) && swift(>=5.7.1)) // Xcode 14.0 AND macCatalyst on Xcode 14.1 (which will have swift> 5.7.1)
         if #available(iOS 16, tvOS 16, *) {
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:canPerformPrimaryActionForItemAt:))), EventMethodSignature.canPerformPrimaryActionForItemAtIndexPath.rawValue)
             XCTAssertEqual(String(describing: #selector(UICollectionViewDelegate.collectionView(_:performPrimaryActionForItemAt:))), EventMethodSignature.performPrimaryActionForItemAtIndexPath.rawValue)
